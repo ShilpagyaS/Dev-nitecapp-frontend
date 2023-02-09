@@ -8,7 +8,13 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Prata: ["Prata", "serif"],
+        Inter: ["Inter", "sans-serif"],
+      },
+
+    },
   },
   plugins: [],
 }
