@@ -25,7 +25,7 @@ This is a starter project for a Next.js and Tailwind project. Next.js is a frame
 The application will be running at http://localhost:3000
 ## Navigate to /signin for signin page 
     _For now the valid email is **sr@gmail.com** and valid password is **1234567**_
-For Two Factor authentication the page will appear after signin button is clicked and the button will enable on when atleast 6 characters are there 
+For Two Factor authentication the page will appear after signin button is clicked and the button will enable on when atleast 6 characters are there it will show in-valid sing api is not connected as of now 
 
 ##Navigate to /change-password page for change password 
 
