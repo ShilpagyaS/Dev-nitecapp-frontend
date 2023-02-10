@@ -1,4 +1,4 @@
-# Nightcapp-front-end
+# Nitecapp-front-end
 # Next.js and Tailwind Project
 This is a starter project for a Next.js and Tailwind project. Next.js is a framework for building server-rendered React applications, and Tailwind is a utility-first CSS framework.
 
