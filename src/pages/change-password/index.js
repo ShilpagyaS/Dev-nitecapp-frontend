@@ -1,3 +1,4 @@
+import LayoutWithHeader from '@/components/Layouts/LayoutWithHeader';
 import Bullets from '@/utils/Bullets';
 import { ConditionalButtons } from '@/utils/Buttons';
 import { _ERROR, _INITIAL, _PASS } from '@/utils/Constants';
@@ -33,7 +34,7 @@ function ChangePassword() {
 
         if (password.newPassword != "" || password.confirmPassword != "")
             updateConditionStatus()
-      
+
     }, [errors])
     useEffect(() => {
 
@@ -123,16 +124,19 @@ function ChangePassword() {
     }
     return (
         <>
-            <h1 className='h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight '>
-                Change Password
-            </h1>
+            <LayoutWithHeader>
 
-            <div className='mt-[50px] w-screen flex flex-col items-center' >
-                <InputField placeholder="Enter Password" label="New Passeord" onChangeHandler={handleChange} value={password.newPassword} name={"newPassword"} type={"password"} errorResponnse={newpassResponse} />
-                <InputField placeholder="Re-enter Password" label="Confirm Password" onChangeHandler={handleChange} value={password.confirmPassword} name={"confirmPassword"} type={"password"} errorResponnse={confpassResponse} />
-                <Bullets messageArray={conditions} />
-                <ConditionalButtons condition={true} label={"Continue"} />
-            </div>
+                <h1 className='h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight '>
+                    Change Password
+                </h1>
+
+                <div className='mt-[40px] sm:mt-[50px] w-screen flex flex-col items-center' >
+                    <InputField placeholder="Enter Password" label="New Passeord" onChangeHandler={handleChange} value={password.newPassword} name={"newPassword"} type={"password"} errorResponnse={newpassResponse} />
+                    <InputField placeholder="Re-enter Password" label="Confirm Password" onChangeHandler={handleChange} value={password.confirmPassword} name={"confirmPassword"} type={"password"} errorResponnse={confpassResponse} />
+                    <Bullets messageArray={conditions} />
+                    <ConditionalButtons condition={true} label={"Continue"} />
+                </div>
+            </LayoutWithHeader>
         </>
     )
 }
