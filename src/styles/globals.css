@@ -11,3 +11,18 @@
   box-sizing: border-box;
   background-color: black;
 }
+
+.swiper-pagination {
+  line-height: 0 !important;
+  bottom: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ffffff !important;
+  opacity: 100% !important;
+  bottom: 0 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #f19b6c !important;
+}
