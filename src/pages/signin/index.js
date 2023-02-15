@@ -5,6 +5,7 @@ import InputField from "@/utils/InputField";
 import React, { useEffect, useState } from "react";
 import { _INITIAL, _ERROR, _PASS } from "@/utils/Constants";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
+import OnboardingForm from "@/components/Onboarding/OnboardingForm";
 
 function Signin() {
   const [userinput, setUserInput] = useState({
