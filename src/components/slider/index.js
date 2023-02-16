@@ -50,7 +50,7 @@ function Slider() {
                   className="mx-auto mt-8 mb-10 lg:w-[464px] md:w-[397px] w-full"
                   src={slide.img}
                   alt="slider-image"
-                  width={397}
+                  width={isMobile ? 360 : 397}
                   height={isMobile ? 351 : 221}
                 />
               </SwiperSlide>
