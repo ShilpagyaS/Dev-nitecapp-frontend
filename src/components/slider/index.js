@@ -55,7 +55,7 @@ function Slider() {
         >
           {sliderData.map((slide, i) => {
             return (
-              <SwiperSlide key={i}>
+              <SwiperSlide key={i} className="w-full px-4">
                 <h1 className=" not-italic font-normal text-white text-[32px] text-center font-Prata leading-[48px] ">
                   {slide.title}
                 </h1>
