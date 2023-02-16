@@ -5,10 +5,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
 import { NextButton, SkipButton } from "./ControlBtn";
+import { useEffect, useState } from "react";
 
 function Slider() {
   const sliderData = [
-    {
+    { 
       title: "Get Certified for Training",
       img: "/asset/sliderImg-1.png",
     },
@@ -21,7 +22,15 @@ function Slider() {
       img: "/asset/sliderImg-3.png",
     },
   ];
-
+  const [swipperInstance, setswipperInstance] = useState("")
+  useEffect(() => {
+    console.log("swipper instance->",swipperInstance);
+  }, [swipperInstance])
+  function next() {
+    console.log(swipperInstance);
+    swipperInstance.slideNext()   
+  }
+  
   return (
     <>
       <LayoutWithHeader>
@@ -31,10 +40,11 @@ function Slider() {
           spaceBetween={0}
           modules={[Pagination]}
           pagination={true}
+          onSwiper={(e)=>{console.log(e);setswipperInstance(e)}}
         >
-          {sliderData.map((slide) => {
+          {sliderData.map((slide,i) => {
             return (
-              <SwiperSlide className="w-full">
+              <SwiperSlide key={i} className="w-full">
                 <h1 className=" not-italic font-normal text-white text-[32px] text-center font-Prata leading-[48px] ">
                   {slide.title}
                 </h1>
@@ -51,7 +61,7 @@ function Slider() {
         </Swiper>
         <div className="btn-container flex items-center justify-around max-w-[464px] mx-auto">
           <SkipButton label="Skip" />
-          <NextButton label="Next" />
+          <NextButton label="Next" onClickHandler={next} condition={true}/>
         </div>
       </LayoutWithHeader>
     </>
