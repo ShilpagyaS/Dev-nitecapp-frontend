@@ -6,6 +6,7 @@ import "swiper/css/pagination";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
 import { NextButton, SkipButton } from "./ControlBtn";
+import { useEffect, useState } from "react";
 
 function Slider() {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -29,28 +30,40 @@ function Slider() {
       }`,
     },
   ];
+  const [swipperInstance, setswipperInstance] = useState("");
+  useEffect(() => {
+    console.log("swipper instance->", swipperInstance);
+  }, [swipperInstance]);
+  function next() {
+    console.log(swipperInstance);
+    swipperInstance.slideNext();
+  }
 
   return (
     <>
       <LayoutWithHeader>
         <Swiper
           slidesPerView={1}
-          className="lg:max-w-[1024px] md:max-w-[768px] max-w-[414px] mt-4 h-auto"
+          className=" md:max-w-md max-w-sm mt-4 "
           spaceBetween={0}
           modules={[Pagination]}
           pagination={true}
+          onSwiper={(e) => {
+            console.log(e);
+            setswipperInstance(e);
+          }}
         >
           {sliderData.map((slide, i) => {
             return (
-              <SwiperSlide key={i} className="w-full px-4">
+              <SwiperSlide key={i}>
                 <h1 className=" not-italic font-normal text-white text-[32px] text-center font-Prata leading-[48px] ">
                   {slide.title}
                 </h1>
                 <Image
-                  className="mx-auto mt-8 mb-10 lg:w-[464px] md:w-[397px] w-full"
+                  className="mt-8 mb-10 mx-auto"
                   src={slide.img}
                   alt="slider-image"
-                  width={isMobile ? 360 : 397}
+                  width={isMobile ? 350 : 397}
                   height={isMobile ? 351 : 221}
                 />
               </SwiperSlide>
@@ -59,7 +72,7 @@ function Slider() {
         </Swiper>
         <div className="btn-container flex items-center justify-around max-w-[464px] mx-auto">
           <SkipButton label="Skip" />
-          <NextButton label="Next" />
+          <NextButton label="Next" onClickHandler={next} condition={true} />
         </div>
       </LayoutWithHeader>
     </>
