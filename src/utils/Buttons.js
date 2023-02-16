@@ -23,3 +23,13 @@ export function ConditionalButtons({ onClickHandler, condition, label }) {
         </div>
     )
 }
+export function OrangeButtons({ onClickHandler, label }) {
+    return (
+        <div className='pt-[26px]'>
+            <button className='border border-[#F19B6C] text-[#F19B6C]  py-[6px] px-[12px] w-[111px] rounded-full hover:bg-[#ee854d] hover:text-black not-italic font-medium text-base leading-6 font-Inter' onClick={onClickHandler}>
+                {label}
+            </button>
+
+        </div>
+    )
+}
