@@ -6,18 +6,25 @@ import React, { useEffect, useState } from "react";
 import { _INITIAL, _ERROR, _PASS } from "@/utils/Constants";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
 import OnboardingForm from "@/components/Onboarding/OnboardingForm";
+import ChangePasswordComponent from "@/components/Change Password/ChangePasswordComponent";
+import Slider from "@/components/slider";
 
 function Signin() {
   const [userinput, setUserInput] = useState({
     email: "",
     password: "",
   });
+  const [isFirstTimeSignin, seFirstTimeSignin] = useState(true)
+  const [istfacompleted, settfaCompleted] = useState(false)
+  const [ischangePasswordcompleted, sechangePasswordCompleted] = useState(false)
+  const [issliderActive, setSliderActive] = useState(true)
+
 
   const [usernameError, setUserNameError] = useState(_INITIAL);
   const [passwordError, setPasswordError] = useState(_INITIAL);
   const [errorMessage, setErrorMessage] = useState([]);
   const [isSubmitted, setisSubmitted] = useState(false);
-  useEffect(() => {}, [errorMessage]);
+  useEffect(() => { }, [errorMessage]);
   function handleChange(e) {
     const { name, value } = e.target;
     console.log(e);
@@ -70,39 +77,64 @@ function Signin() {
   return (
     <>
       <LayoutWithHeader>
-        <h1 className=" h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight  w-full sm:mt-[20px]">
-          Sign in
-        </h1>
-        {isSubmitted == false ? (
+        {!istfacompleted ? <>
+          <h1 className=" h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight  w-full sm:mt-[20px]">
+            Sign in
+          </h1>
+          {isSubmitted == false ? (
+            <>
+              <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
+                <InputField
+                  placeholder="Enter Email"
+                  label="Email"
+                  onChangeHandler={handleChange}
+                  value={userinput.email}
+                  name={"email"}
+                  type={"text"}
+                  errorResponnse={usernameError}
+                />
+                <InputField
+                  placeholder="Enter Password"
+                  label="Password"
+                  onChangeHandler={handleChange}
+                  value={userinput.password}
+                  name={"password"}
+                  type={"password"}
+                  errorResponnse={passwordError}
+                />
+                {errorMessage.length > 0 && (
+                  <Bullets messageArray={errorMessage} />
+                )}
+                <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
+              </div>
+            </>
+          ) : (
+            <TwofactorAuth authHandler={() => { settfaCompleted(true) }} />
+          )}
+        </>
+          :
           <>
-            <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
-              <InputField
-                placeholder="Enter Email"
-                label="Email"
-                onChangeHandler={handleChange}
-                value={userinput.email}
-                name={"email"}
-                type={"text"}
-                errorResponnse={usernameError}
-              />
-              <InputField
-                placeholder="Enter Password"
-                label="Password"
-                onChangeHandler={handleChange}
-                value={userinput.password}
-                name={"password"}
-                type={"password"}
-                errorResponnse={passwordError}
-              />
-              {errorMessage.length > 0 && (
-                <Bullets messageArray={errorMessage} />
-              )}
-              <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
-            </div>
+            {isFirstTimeSignin ?
+              <>
+                {!ischangePasswordcompleted ?
+                  <ChangePasswordComponent confirmationfunction={() => { sechangePasswordCompleted(true) }} />
+                  :
+                  <>
+                    {issliderActive ?
+                      <Slider skipTo={()=>{setSliderActive(false)}}/>
+                      :
+                      <OnboardingForm employeeName={'Zaylan'} />
+                    }
+                  </>
+                }
+              </>
+              :
+              <>
+                {/* route */}
+              </>
+            }
           </>
-        ) : (
-          <TwofactorAuth />
-        )}
+        }
       </LayoutWithHeader>
     </>
   );
