@@ -13,7 +13,7 @@ export default function Bullets(props) {
                             <li key={i} className={`text-[12px] font-Inter font-normal leading-tight tracking-[0.42px] 
                             ${msg.response == _ERROR ? 'text-[#EB4949]' : msg.response == _PASS ? 'text-[#3FD79C]' : 'text-[#959595]'}
                             `}>
-                                <div className='h-[19px] flex items-center mt-[1px]'>
+                                <div className='min-h-[19px] flex items-center mt-[1px]'>
                                     {msg.message}
                                 </div>
                             </li>

@@ -50,7 +50,7 @@ function TwofactorAuth({authHandler}) {
 
     return (
         <>
-            <div className='mt-[50px] w-screen flex flex-col items-center' >
+            <div className='mt-[50px] w-full flex flex-col items-center' >
                 <InputField placeholder="" label="2-Factor Authentication Code" onChangeHandler={(e) => { setTfa(e.target.value) }} value={tfaCode} name={"tfa"} type={"text"} errorResponnse={message.length > 1 ? _ERROR : _INITIAL} />
                 <Bullets messageArray={message} />
                 <ConditionalButtons condition={tfaCondition} label={"Sign in"} onClickHandler={handleButton} />
