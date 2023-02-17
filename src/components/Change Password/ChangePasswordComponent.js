@@ -1,11 +1,10 @@
-import LayoutWithHeader from '@/components/Layouts/LayoutWithHeader';
 import Bullets from '@/utils/Bullets';
 import { ConditionalButtons } from '@/utils/Buttons';
 import { _ERROR, _INITIAL, _PASS } from '@/utils/Constants';
 import InputField from '@/utils/InputField';
 import React, { useEffect, useState } from 'react'
 
-function ChangePassword() {
+function ChangePasswordComponent({ confirmationfunction }) {
     const [password, setUserInput] = useState({
         newPassword: '',
         confirmPassword: ''
@@ -21,6 +20,8 @@ function ChangePassword() {
         special: false,
         match: false
     });
+
+    const [condition, setcondition] = useState(false)
     const [conditions, setconditions] = useState(
         [
             { id: "1", message: "At least 12 characters.", response: _INITIAL },
@@ -34,6 +35,17 @@ function ChangePassword() {
 
         if (password.newPassword != "" || password.confirmPassword != "")
             updateConditionStatus()
+        if (
+            errors.passwordLength == true &&
+            errors.uppercase == true &&
+            errors.lowercase == true &&
+            errors.number == true &&
+            errors.special == true &&
+            errors.match == true
+        ) {
+            setcondition(true)
+        }
+        else setcondition(false)
 
     }, [errors])
     useEffect(() => {
@@ -122,23 +134,24 @@ function ChangePassword() {
 
 
     }
+    function onClick() {
+        if (condition == true) { confirmationfunction() }
+    }
     return (
         <>
-            <LayoutWithHeader>
 
-                <h1 className='h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight '>
-                    Change Password
-                </h1>
+            <h1 className='h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight '>
+                Change Password
+            </h1>
 
-                <div className='mt-[40px] sm:mt-[50px] w-screen flex flex-col items-center' >
-                    <InputField placeholder="Enter Password" label="New Passeord" onChangeHandler={handleChange} value={password.newPassword} name={"newPassword"} type={"password"} errorResponnse={newpassResponse} />
-                    <InputField placeholder="Re-enter Password" label="Confirm Password" onChangeHandler={handleChange} value={password.confirmPassword} name={"confirmPassword"} type={"password"} errorResponnse={confpassResponse} />
-                    <Bullets messageArray={conditions} />
-                    <ConditionalButtons condition={true} label={"Continue"} />
-                </div>
-            </LayoutWithHeader>
+            <div className='mt-[40px] sm:mt-[50px] w-screen flex flex-col items-center' >
+                <InputField placeholder="Enter Password" label="New Passeord" onChangeHandler={handleChange} value={password.newPassword} name={"newPassword"} type={"password"} errorResponnse={newpassResponse} />
+                <InputField placeholder="Re-enter Password" label="Confirm Password" onChangeHandler={handleChange} value={password.confirmPassword} name={"confirmPassword"} type={"password"} errorResponnse={confpassResponse} />
+                <Bullets messageArray={conditions} />
+                <ConditionalButtons condition={condition} onClickHandler={onClick} label={"Continue"} />
+            </div>
         </>
     )
 }
 
-export default ChangePassword
+export default ChangePasswordComponent

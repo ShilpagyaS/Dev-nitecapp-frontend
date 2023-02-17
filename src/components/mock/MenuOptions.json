@@ -1,0 +1,38 @@
+{
+  "menuOptions": [
+    {
+      "name": "Dashboard",
+      "subOptions": []
+    },
+    {
+      "name": "Learn",
+      "subOptions": []
+    },
+    {
+      "name": "Specs",
+      "subOptions": [
+        "Coctails",
+        "Spirits",
+        "Wine",
+        "Beer/Seltzer",
+        "Non/Low ABV"
+      ]
+    },
+    {
+      "name": "Brand",
+      "subOptions": []
+    },
+    {
+      "name": "Sales",
+      "subOptions": []
+    },
+    {
+      "name": "Schedule",
+      "subOptions": []
+    },
+    {
+      "name": "Saved",
+      "subOptions": []
+    }
+  ]
+}

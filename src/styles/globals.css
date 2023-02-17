@@ -2,11 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: black;
+}
+
+.swiper-pagination {
+  line-height: 0 !important;
+  bottom: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ffffff !important;
+  opacity: 100% !important;
+  bottom: 0 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #f19b6c !important;
 }

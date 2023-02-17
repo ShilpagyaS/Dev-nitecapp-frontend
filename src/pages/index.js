@@ -1,9 +1,11 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
+import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
+import SelectWithSearch from "@/utils/SelectwithFilter";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -14,11 +16,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='h-screen w-screen'>
-        <div className='font-bold m-auto p-7'>
-          Hello World
-        </div>
-      </main>
+      <LayoutWithHeader>
+        <main>
+          <div className="font-bold m-auto p-7">Hello World</div>
+        </main>
+       
+      </LayoutWithHeader>
     </>
-  )
+  );
 }

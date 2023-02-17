@@ -4,7 +4,7 @@ import { _ERROR, _INITIAL } from '@/utils/Constants'
 import InputField from '@/utils/InputField'
 import React, { useEffect, useState } from 'react'
 
-function TwofactorAuth() {
+function TwofactorAuth({authHandler}) {
     const [tfaCondition, setTfaCondtion] = useState(false)
 
     const [tfaCode, setTfa] = useState("")
@@ -34,12 +34,14 @@ function TwofactorAuth() {
                 dummyArray.pop()
                 console.log(dummyArray);
                 setMessage(() => [...dummyArray])
+                authHandler()
             }
             if (tfaCode == '123QWE') {
                 let dummyArray;
                 [...dummyArray] = [...message]
                 console.log(dummyArray);
                 setMessage(() => [...dummyArray])
+                authHandler()
             }
         }
 

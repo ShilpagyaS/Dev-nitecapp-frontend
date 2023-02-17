@@ -1,0 +1,42 @@
+import LayoutWithSidebar from "../Layouts/LayoutWithSidebar";
+import { CiSearch } from "react-icons/ci";
+import CoctailSlider from "./CoctailSlider";
+import Slider from "../slider";
+import CoreBeverage from "./CoreBeverage";
+
+function SpecComp() {
+  return (
+    <LayoutWithSidebar>
+      <div className="Header-container flex justify-between items-center mb-6">
+        <div className="heading-text w-[358px]">
+          <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+            Specs
+          </h1>
+        </div>
+        <div className="search-container flex items-center bg-[#1D1D1D] w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
+          <CiSearch
+            color="#929292"
+            size="15px"
+            className="bg-[#1D1D1D] mr-[26px]"
+          />
+          <input
+            className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
+            type="text"
+            placeholder="Search"
+          />
+        </div>
+      </div>
+      <div className="sub-heading-container flex justify-start items-center">
+        <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
+          Coctail
+        </h3>
+        <p className="text-[#F19B6C]">See All</p>
+      </div>
+      <CoctailSlider />
+      <CoreBeverage/>
+      {/* <Slider /> */}
+    </LayoutWithSidebar>
+  );
+}
+
+export default SpecComp;
