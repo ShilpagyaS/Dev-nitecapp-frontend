@@ -1,0 +1,34 @@
+{
+  "coctailData": [
+    {
+      "title": "Dashboard",
+      "img": "/asset/coctail1.png",
+      "new": false
+    },
+    {
+      "title": "Learn",
+      "img": "/asset/coctail1.png",
+      "new": false
+    },
+    {
+      "title": "Brand",
+      "img": "/asset/coctail1.png",
+      "new": false
+    },
+    {
+      "title": "Sales",
+      "img": "/asset/coctail1.png",
+      "new": false
+    },
+    {
+      "title": "Schedule",
+      "img": "/asset/coctail1.png",
+      "new": false
+    },
+    {
+      "title": "Saved",
+      "img": "/asset/coctail1.png",
+      "new": false
+    }
+  ]
+}

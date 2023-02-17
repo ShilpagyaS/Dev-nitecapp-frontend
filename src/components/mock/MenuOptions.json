@@ -10,7 +10,13 @@
     },
     {
       "name": "Specs",
-      "subOptions": ["Coctails","Spirits", "Wine", "Beer/Seltzer", "Non/Low ABV"]
+      "subOptions": [
+        "Coctails",
+        "Spirits",
+        "Wine",
+        "Beer/Seltzer",
+        "Non/Low ABV"
+      ]
     },
     {
       "name": "Brand",
