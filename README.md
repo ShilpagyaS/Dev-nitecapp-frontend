@@ -29,9 +29,10 @@ Navigate to /signin for signin page
 
 
 _For now the valid email is **sr@gmail.com** and valid password is **1234567**_
-For Two Factor authentication the page will appear after signin button is clicked and the button will enable on when atleast 6 characters are there it will show in-valid sing api is not connected as of now 
+For Two Factor authentication the page will appear after signin button is clicked and the button will enable on when atleast 6 characters are there it will show in-valid sing api is not connected as of now **valid auth is : 123QWE**
+_After this change password page will appear where when all validation is done then only user will able to click on continue_
+_After this slider page will come and  welcom onboard page will come , in welcome on board validation is not there but its responsive on clicking next button it wil direct to /specs page_
 
-Navigate to /change-password page for change password 
 
 
 
