@@ -1,33 +1,35 @@
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { CoctailCard } from "@/utils/SpecCards";
-import coctailMock from "../mock/CoctailMock.json";
+import "swiper/css";
+import { TrendingCard } from "@/utils/SpecCards";
+import TrendingMock from "../mock/TrendingMock.json";
 
-function CoctailSlider() {
-  const coctailData = coctailMock.coctailData;
+function Trending() {
+  const TrendingData = TrendingMock.trendingCardsMock;
 
   return (
     <div className=" mt-5 w-full">
+      <h3 className="text-white text-[20px] leading-8 mb-4">Trending</h3>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={3}
         spaceBetween={20}
         modules={[Pagination]}
         pagination={true}
       >
-        {coctailData.map((slide, i) => {
+        {TrendingData.map((slide, i) => {
           return (
             <SwiperSlide
-              key={i}
               style={{
                 width: "fit-content",
                 padding: "15px 0px",
                 display: "flex",
               }}
-              className="mb-8 w-[15px]"
+              key={i}
+              className="mb-8 w-[15px] "
             >
-              <CoctailCard
+              <TrendingCard
                 title={slide.title}
-                image={"/asset/coctail1.png"}
+                image={"/asset/trendingImg1.png"}
                 isNew={false}
               />
             </SwiperSlide>
@@ -38,4 +40,4 @@ function CoctailSlider() {
   );
 }
 
-export default CoctailSlider;
+export default Trending;

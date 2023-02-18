@@ -15,9 +15,9 @@ function SideBar() {
                 </p>
               </div>
               <div className="ml-4">
-                {option.subOptions.map((subOption) => {
+                {option.subOptions.map((subOption, i) => {
                   return (
-                    <div className="w-[139px] py-[8px]">
+                    <div className="w-[139px] py-[8px]" key={i}>
                       <p className="text-[#959595] text-[16px] leading-6 font-semibold">
                         {subOption}
                       </p>

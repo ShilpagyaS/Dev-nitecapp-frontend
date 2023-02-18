@@ -1,8 +1,8 @@
 import LayoutWithSidebar from "../Layouts/LayoutWithSidebar";
 import { CiSearch } from "react-icons/ci";
 import CoctailSlider from "./CoctailSlider";
-import Slider from "../slider";
 import CoreBeverage from "./CoreBeverage";
+import Trending from "./Trending";
 
 function SpecComp() {
   return (
@@ -33,8 +33,8 @@ function SpecComp() {
         <p className="text-[#F19B6C]">See All</p>
       </div>
       <CoctailSlider />
-      <CoreBeverage/>
-      {/* <Slider /> */}
+      <CoreBeverage />
+      <Trending />
     </LayoutWithSidebar>
   );
 }

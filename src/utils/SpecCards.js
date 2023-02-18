@@ -39,3 +39,22 @@ export function BeverageCard({ image, title }) {
     </div>
   );
 }
+
+export function TrendingCard({ image, title }) {
+  return (
+    <div className="image-container w-[390px] h-auto">
+      <Image
+        className="mb-5 object-cover"
+        src={image}
+        alt="slider-image"
+        width={390}
+        height={103}
+      />
+      <div className="bg-transparent ">
+        <h2 className=" text-white text-[18px] leading-[27px] font-semibold bg-transparent">
+          {title}
+        </h2>
+      </div>
+    </div>
+  );
+}

@@ -26,7 +26,7 @@ function CoreBeverage() {
       <div className="grid grid-cols-2 gap-3">
         {CoreBeverage.map((card, i) => {
           return (
-            <div className="my-2 mx-1">
+            <div className="my-2 mx-1" key={i}>
               <BeverageCard image={card.img} title={card.title} />
             </div>
           );
