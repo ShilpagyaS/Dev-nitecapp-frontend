@@ -4,9 +4,9 @@ import CoctailSlider from "./CoctailSlider";
 import CoreBeverage from "./CoreBeverage";
 import Trending from "./Trending";
 
-function SpecComp() {
+function SpecComp({ children }) {
   return (
-    <LayoutWithSidebar>
+    <>
       <div className="Header-container flex justify-between items-center mb-6">
         <div className="heading-text w-[358px]">
           <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
@@ -35,7 +35,7 @@ function SpecComp() {
       <CoctailSlider />
       <CoreBeverage />
       <Trending />
-    </LayoutWithSidebar>
+    </>
   );
 }
 

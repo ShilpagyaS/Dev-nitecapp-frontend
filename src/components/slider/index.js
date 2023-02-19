@@ -35,11 +35,11 @@ function Slider({ skipTo }) {
   useEffect(() => {
     console.log("swipper instance->", swipperInstance);
   }, [swipperInstance]);
+
   function next() {
     console.log(swipperInstance);
     swipperInstance.slideNext();
     swipperInstance.on("reachEnd", function () {
-      console.log("antt");
       setSliderEnd(true);
     });
     if (sliderAtend == true) {
