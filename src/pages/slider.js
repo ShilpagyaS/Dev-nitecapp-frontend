@@ -4,17 +4,13 @@ import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
 import SelectWithSearch from "@/utils/SelectwithFilter";
-import { useRouter } from "next/router";
-import LayoutWithSidebar from "@/components/Layouts/LayoutWithSidebar";
-import SpecComp from "@/components/spec-comp";
+import { useState } from "react";
+import Slider from "@/components/slider";
+
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Category() {
-  const router = useRouter();
-  const { nav } = router.query;
-  const category = nav ? nav?.[0] : "";
-  const subcategory = nav ? nav?.[1] : "";
-  console.log(category, subcategory);
+export default function Home() {
+  const [slide, setSliderActive] = useState(false);
   return (
     <>
       <Head>
@@ -23,9 +19,13 @@ export default function Category() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <LayoutWithSidebar category={category} subcategory={subcategory}>
-        {category === "specs" && <SpecComp />}
-      </LayoutWithSidebar>
+      <LayoutWithHeader>
+        <Slider
+          skipTo={() => {
+            setSliderActive(false);
+          }}
+        />
+      </LayoutWithHeader>
     </>
   );
 }
