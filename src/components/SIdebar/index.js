@@ -16,7 +16,9 @@ function SideBar({ category, subcategory }) {
                 <Link
                   href={`/${option.name.toLowerCase()}/`}
                   className={`${
+
                     option.name.toLowerCase() == category?.toLowerCase()
+
                       ? "text-white"
                       : "text-[#959595]"
                   } text-[16px] leading-6 font-semibold`}
@@ -34,7 +36,9 @@ function SideBar({ category, subcategory }) {
                           .replace("/", "-")}`}
                         className={`${
                           subOption.toLowerCase().replace("/", "-") ==
+
                           subcategory?.toLowerCase().replace("/", "-")
+
                             ? "text-white"
                             : "text-[#959595]"
                         } text-[16px] leading-6 font-semibold`}
