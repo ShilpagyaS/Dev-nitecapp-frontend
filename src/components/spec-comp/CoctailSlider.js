@@ -1,15 +1,19 @@
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CoctailCard } from "@/utils/SpecCards";
 import coctailMock from "../mock/CoctailMock.json";
 
 function CoctailSlider() {
+  const isTablet = useMediaQuery("(max-width: 786px)");
+  const isPhone = useMediaQuery("(max-width: 414px)");
   const coctailData = coctailMock.coctailData;
 
   return (
     <div className=" mt-5 w-full">
       <Swiper
-        slidesPerView={4}
+        slidesPerView={isPhone ? 2 : isTablet ? 3 : 4}
         spaceBetween={20}
         modules={[Pagination]}
         pagination={true}

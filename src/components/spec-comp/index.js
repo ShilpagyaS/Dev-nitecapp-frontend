@@ -4,11 +4,11 @@ import CoctailSlider from "./CoctailSlider";
 import CoreBeverage from "./CoreBeverage";
 import Trending from "./Trending";
 
-function SpecComp({ children }) {
+function SpecComp() {
   return (
     <>
-      <div className="Header-container flex justify-between items-center mb-6">
-        <div className="heading-text w-[358px]">
+      <div className="Header-container md:flex-row lg:flex-row flex-col flex justify-between lg:items-center md:items-center mb-6">
+        <div className="heading-text w-[358px] lg:mb-0 md:mb-0 mb-[20px]">
           <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
             Specs
           </h1>
@@ -26,7 +26,7 @@ function SpecComp({ children }) {
           />
         </div>
       </div>
-      <div className="sub-heading-container flex justify-start items-center">
+      <div className="sub-heading-container flex lg:justify-start md:justify-start justify-between items-center">
         <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
           Coctail
         </h3>

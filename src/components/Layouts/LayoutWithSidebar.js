@@ -3,15 +3,15 @@ import Header from "../Header/Header";
 import SideBar from "../SIdebar";
 import Layout from "./Layout";
 
-function LayoutWithSidebar({ children, category, subcategory }) {
+function LayoutWithSidebar({ children }) {
   return (
-    <div className="lg:max-w-[1024px]  flex flex-col items-center mx-auto px-2 w-full ">
+    <div className="lg:max-w-[1024px]  flex flex-col items-center mx-auto">
       <Header />
-      <div className="grid grid-cols-5 gap-4 lg:max-w-[1024px] mt-[26px] w-full ">
-        <div className="col-span-1">
-          <SideBar category={category} subcategory={subcategory} />
+      <div className="grid grid-cols-5 lg:gap-4 lg:max-w-[1024px] mt-[26px] ">
+        <div className="lg:col-span-1 lg:block hidden">
+          <SideBar />
         </div>
-        <div className="col-span-4">
+        <div className="lg:col-span-4 col-span-5 md:px-8 px-4">
           <Layout>{children}</Layout>
         </div>
       </div>

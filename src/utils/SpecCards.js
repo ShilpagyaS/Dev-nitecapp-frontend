@@ -1,4 +1,5 @@
 import Image from "next/image";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 
 export function CoctailCard({ image, title, isNew }) {
   return (
@@ -22,15 +23,25 @@ export function CoctailCard({ image, title, isNew }) {
 }
 
 export function BeverageCard({ image, title }) {
+  const isTablet = useMediaQuery("(max-width: 786px)");
   return (
-    <div className="image-container w-[390px] h-[103px] relative">
-      <Image
-        className="mb-10 object-cover"
-        src={image}
-        alt="slider-image"
-        width={390}
-        height={103}
-      />
+    <div className="image-container lg:w-[390px] w-full h-[103px] relative">
+      {!isTablet ? (
+        <Image
+          className="mb-10 object-cover"
+          src={image}
+          alt="slider-image"
+          width={390}
+          height={103}
+        />
+      ) : (
+        <Image
+          className="mb-10 object-cover"
+          src={image}
+          alt="slider-image"
+          fill
+        />
+      )}
       <div className="mt-2 absolute top-[24px] left-[30px] bg-transparent ">
         <h2 className=" text-white text-[18px] leading-[27px] font-semibold text-center bg-transparent ">
           {title}
