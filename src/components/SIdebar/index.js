@@ -17,7 +17,7 @@ function SideBar({ category, subcategory }) {
                   href={`/${option.name.toLowerCase()}/`}
                   className={`${
                     option.name.toLowerCase() == category
-                      ? "text-orange-500"
+                      ? "text-white"
                       : "text-[#959595]"
                   } text-[16px] leading-6 font-semibold`}
                 >
@@ -35,7 +35,7 @@ function SideBar({ category, subcategory }) {
                         className={`${
                           subOption.toLowerCase().replace("/", "-") ==
                           subcategory
-                            ? "text-orange-500"
+                            ? "text-white"
                             : "text-[#959595]"
                         } text-[16px] leading-6 font-semibold`}
                       >
