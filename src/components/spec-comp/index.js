@@ -13,7 +13,7 @@ function SpecComp() {
             Specs
           </h1>
         </div>
-        <div className="search-container flex items-center bg-[#1D1D1D] w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
+        <div className="search-container flex items-center bg-[#1D1D1D] w-full md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
           <CiSearch
             color="#929292"
             size="15px"
