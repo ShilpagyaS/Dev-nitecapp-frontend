@@ -14,7 +14,7 @@ export default function Category() {
   const { nav } = router.query;
   const category = nav ? nav?.[0] : "";
   const subcategory = nav ? nav?.[1] : "";
-
+  console.log(category, subcategory);
   return (
     <>
       <Head>
