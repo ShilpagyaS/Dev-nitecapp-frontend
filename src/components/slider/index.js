@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 
 function Slider({ skipTo }) {
   const isMobile = useMediaQuery("(max-width: 414px)");
-  const [sliderAtend, setSliderEnd] = useState(false);
   const sliderData = [
     {
       title: "Get Certified for Training",
@@ -35,23 +34,19 @@ function Slider({ skipTo }) {
   useEffect(() => {
     console.log("swipper instance->", swipperInstance);
   }, [swipperInstance]);
+
   function next() {
-    console.log(swipperInstance);
-    swipperInstance.slideNext();
-    swipperInstance.on("reachEnd", function () {
-      console.log("antt");
-      setSliderEnd(true);
-    });
-    if (sliderAtend == true) {
-      skipTo();
+    if (swipperInstance.activeIndex === sliderData.length - 1) {
+      return skipTo();
     }
+    return swipperInstance.slideNext();
   }
 
   return (
     <>
       <Swiper
         slidesPerView={1}
-        className=" md:max-w-md max-w-sm mt-4 "
+        className=" md:max-w-lg max-w-sm mt-4 w-full"
         spaceBetween={0}
         modules={[Pagination]}
         pagination={true}

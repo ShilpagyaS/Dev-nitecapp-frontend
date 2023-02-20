@@ -84,9 +84,9 @@ const SelectWithSearch = ({
         {enableOption && (
           <div className="relative">
             <div className="absolute z-10 w-full bg-black border border-white rounded-lg shadow-md mt-1">
-              {filteredOptions.map((option) => (
+              {filteredOptions.map((option, i) => (
                 <button
-                  key={option}
+                  key={i}
                   className="block w-full text-left px-[15px] py-2 text-[#A8A8A8] hover:bg-white focus:outline-none"
                   onClick={() => handleOptionSelect(option)}
                 >

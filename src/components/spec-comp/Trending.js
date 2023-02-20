@@ -2,36 +2,38 @@ import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { CoctailCard } from "@/utils/SpecCards";
-import coctailMock from "../mock/CoctailMock.json";
+import { TrendingCard } from "@/utils/SpecCards";
 
-function CoctailSlider() {
+import TrendingMock from "../mock/TrendingMock.json";
+
+function Trending() {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const isPhone = useMediaQuery("(max-width: 414px)");
-  const coctailData = coctailMock.coctailData;
+  const TrendingData = TrendingMock.trendingCardsMock;
 
   return (
     <div className=" mt-5 w-full">
+      <h3 className="text-white text-[20px] leading-8 mb-4">Trending</h3>
       <Swiper
         slidesPerView={isPhone ? 2 : isTablet ? 3 : 4}
         spaceBetween={20}
         modules={[Pagination]}
         pagination={true}
       >
-        {coctailData.map((slide, i) => {
+        {TrendingData.map((slide, i) => {
           return (
             <SwiperSlide
-              key={i}
               style={{
                 width: "fit-content",
                 padding: "15px 0px",
                 display: "flex",
               }}
+              key={i}
               className="mb-8 w-[15px]"
             >
-              <CoctailCard
+              <TrendingCard
                 title={slide.title}
-                image={"/asset/coctail1.png"}
+                image={"/asset/trendingImg1.png"}
                 isNew={false}
               />
             </SwiperSlide>
@@ -42,4 +44,4 @@ function CoctailSlider() {
   );
 }
 
-export default CoctailSlider;
+export default Trending;
