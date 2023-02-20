@@ -5,7 +5,7 @@ import Layout from "./Layout";
 
 function LayoutWithSidebar({ children }) {
   return (
-    <div className="lg:max-w-[1024px]  flex flex-col items-center mx-auto">
+    <div className="lg:max-w-[1400px]  flex flex-col items-center mx-auto">
       <Header />
       <div className="grid grid-cols-5 lg:gap-4 lg:max-w-[1024px] mt-[26px] ">
         <div className="lg:col-span-1 lg:block hidden">
