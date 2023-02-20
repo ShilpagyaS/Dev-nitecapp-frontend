@@ -3,20 +3,22 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 function SideBar({ category, subcategory }) {
   const router = useRouter();
-
   const menuOptions = mockData.menuOptions;
   console.log("mockData", mockData);
   return (
     <>
       <div className="sidebar-container w-auto h-full">
         {menuOptions.map((option) => {
+          // debugger;
           return (
             <>
               <div className="w-[139px] py-[8px]">
                 <Link
                   href={`/${option.name.toLowerCase()}/`}
                   className={`${
-                    option.name.toLowerCase() == category
+
+                    option.name.toLowerCase() == category?.toLowerCase()
+
                       ? "text-white"
                       : "text-[#959595]"
                   } text-[16px] leading-6 font-semibold`}
@@ -34,7 +36,9 @@ function SideBar({ category, subcategory }) {
                           .replace("/", "-")}`}
                         className={`${
                           subOption.toLowerCase().replace("/", "-") ==
-                          subcategory
+
+                          subcategory?.toLowerCase().replace("/", "-")
+
                             ? "text-white"
                             : "text-[#959595]"
                         } text-[16px] leading-6 font-semibold`}

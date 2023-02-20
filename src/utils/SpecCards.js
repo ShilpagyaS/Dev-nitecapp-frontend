@@ -6,7 +6,7 @@ export function CoctailCard({ image, title, isNew }) {
     <div className="w-[161px] h-[195px] md:w-[197px] md:h-[242px] px-[13px] py-[10px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]">
       <div className="image-container mx-[13px]  my-[15px] md:my-[20px]">
         <Image
-          className=" mb-5 lg:mb-10"
+          className=""
           src={image}
           alt="slider-image"
           width={171}
