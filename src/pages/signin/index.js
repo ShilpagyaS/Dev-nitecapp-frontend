@@ -5,10 +5,15 @@ import InputField from "@/utils/InputField";
 import React, { useEffect, useState } from "react";
 import { _INITIAL, _ERROR, _PASS } from "@/utils/Constants";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
-import OnboardingForm from "@/components/Onboarding/OnboardingForm";
-import ChangePasswordComponent from "@/components/Change Password/ChangePasswordComponent";
+import OnboardingForm from "@/components/Auth/OnboardingForm";
+import ChangePasswordComponent from "@/components/Auth/ChangePasswordComponent";
 import Slider from "@/components/slider";
-import { login, setLoggedInUser, verifyOTP } from "@/store/slices/Auth";
+import {
+  changePassword,
+  login,
+  setLoggedInUser,
+  verifyOTP,
+} from "@/store/slices/Auth";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
@@ -31,6 +36,7 @@ function Signin() {
   const [errorMessage, setErrorMessage] = useState([]);
   const [isSubmitted, setisSubmitted] = useState(false);
 
+  const [step, setstep] = useState(1);
   useEffect(() => {}, [errorMessage]);
 
   function handleChange(e) {
@@ -90,7 +96,7 @@ function Signin() {
       ).then((res) => {
         debugger;
         if (res?.data?.resCode === 200) {
-          setisSubmitted(true);
+          setstep(2);
         }
       });
 
@@ -101,95 +107,83 @@ function Signin() {
   return (
     <>
       <LayoutWithHeader>
-        {!istfacompleted ? (
+        {step === 1 && (
           <>
             <h1 className=" h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight  w-full sm:mt-[20px]">
               Sign in
             </h1>
-            {isSubmitted == false ? (
-              <>
-                <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
-                  <InputField
-                    placeholder="Enter Email"
-                    label="Email"
-                    onChangeHandler={handleChange}
-                    value={userinput.email}
-                    name={"email"}
-                    type={"text"}
-                    errorResponnse={usernameError}
-                  />
-                  <InputField
-                    placeholder="Enter Password"
-                    label="Password"
-                    onChangeHandler={handleChange}
-                    value={userinput.password}
-                    name={"password"}
-                    type={"password"}
-                    errorResponnse={passwordError}
-                  />
-                  {errorMessage.length > 0 && (
-                    <Bullets messageArray={errorMessage} />
-                  )}
-                  <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
-                </div>
-              </>
-            ) : (
-              <TwofactorAuth
-                authHandler={async (code) => {
-                  await dispatch(verifyOTP(code)).then((res) => {
-                    if (res?.data?.resCode === 200) {
-                      dispatch(setLoggedInUser(res?.data));
-                      if (res?.data?.data?.first_time_login) {
-                        seFirstTimeSignin(true);
-                        setSliderActive(false);
-                      } else {
-                        router.push("/specs");
-                      }
-                      settfaCompleted(true);
-                    }
-                  });
-                }}
+
+            <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
+              <InputField
+                placeholder="Enter Email"
+                label="Email"
+                onChangeHandler={handleChange}
+                value={userinput.email}
+                name={"email"}
+                type={"text"}
+                errorResponnse={usernameError}
               />
-            )}
-          </>
-        ) : (
-          <>
-            {isFirstTimeSignin ? (
-              <>
-                {!ischangePasswordcompleted ? (
-                  <ChangePasswordComponent
-                    confirmationfunction={async (
-                      new_password,
-                      confirm_password
-                    ) => {
-                      await dispatch(
-                        changePassword({ new_password, confirm_password })
-                      ).then((res) => {
-                        if (res?.data?.resCode === 200) {
-                          sechangePasswordCompleted(true);
-                        }
-                      });
-                    }}
-                  />
-                ) : (
-                  <>
-                    {issliderActive ? (
-                      <Slider
-                        skipTo={() => {
-                          setSliderActive(false);
-                        }}
-                      />
-                    ) : (
-                      <OnboardingForm employeeName={"Zaylan"} />
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <>{/* route */}</>
-            )}
+              <InputField
+                placeholder="Enter Password"
+                label="Password"
+                onChangeHandler={handleChange}
+                value={userinput.password}
+                name={"password"}
+                type={"password"}
+                errorResponnse={passwordError}
+              />
+              <p className="text-sm max-w-[300px] text-[#959598] text-right cursor-pointer w-full">
+                Forgot Password ?
+              </p>
+              {errorMessage.length > 0 && (
+                <Bullets messageArray={errorMessage} />
+              )}
+              <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
+            </div>
           </>
         )}
+
+        {step === 2 && (
+          <TwofactorAuth
+            authHandler={async (code) => {
+              await dispatch(verifyOTP(code)).then((res) => {
+                if (res?.data?.resCode === 200) {
+                  dispatch(setLoggedInUser(res?.data));
+                  if (res?.data?.data?.first_time_login) {
+                    setstep(3);
+                  } else {
+                    router.push("/specs");
+                  }
+                }
+              });
+            }}
+          />
+        )}
+
+        {step === 3 && (
+          <ChangePasswordComponent
+            confirmationfunction={async (new_password, confirm_password) => {
+              await dispatch(
+                changePassword({ new_password, confirm_password })
+              ).then((res) => {
+                if (true) {
+                  setstep(4);
+                }
+              });
+            }}
+          />
+        )}
+
+        {step === 4 && (
+          <Slider
+            skipTo={() => {
+              setSliderActive(false);
+              setstep(5);
+            }}
+          />
+        )}
+
+        {step === 5 && <OnboardingForm employeeName={"Zaylan"} />}
       </LayoutWithHeader>
     </>
   );

@@ -26,6 +26,7 @@ function Header(props) {
         src="/asset/nitecapp_logo.png"
         width="100"
         height="51"
+        alt="logo"
       />
       {props?.user &&
         (!isTablet ? (

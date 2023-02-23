@@ -8,17 +8,15 @@ function SideBar({ category, subcategory }) {
   return (
     <>
       <div className="sidebar-container w-auto h-full">
-        {menuOptions.map((option) => {
+        {menuOptions.map((option, i) => {
           // debugger;
           return (
             <>
-              <div className="w-[139px] py-[8px]">
+              <div className="w-[139px] py-[8px]" key={i}>
                 <Link
                   href={`/${option.name.toLowerCase()}/`}
                   className={`${
-
                     option.name.toLowerCase() == category?.toLowerCase()
-
                       ? "text-white"
                       : "text-[#959595]"
                   } text-[16px] leading-6 font-semibold`}
@@ -36,9 +34,7 @@ function SideBar({ category, subcategory }) {
                           .replace("/", "-")}`}
                         className={`${
                           subOption.toLowerCase().replace("/", "-") ==
-
                           subcategory?.toLowerCase().replace("/", "-")
-
                             ? "text-white"
                             : "text-[#959595]"
                         } text-[16px] leading-6 font-semibold`}

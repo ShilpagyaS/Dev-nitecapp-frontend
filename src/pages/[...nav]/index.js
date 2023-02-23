@@ -7,6 +7,8 @@ import SelectWithSearch from "@/utils/SelectwithFilter";
 import { useRouter } from "next/router";
 import LayoutWithSidebar from "@/components/Layouts/LayoutWithSidebar";
 import SpecComp from "@/components/spec-comp";
+import AuthWrapper from "@/components/Auth/AuthWarpper";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
@@ -24,7 +26,7 @@ export default function Category() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
-        {category === "specs" && <SpecComp />}
+        <AuthWrapper>{category === "specs" && <SpecComp />}</AuthWrapper>
       </LayoutWithSidebar>
     </>
   );

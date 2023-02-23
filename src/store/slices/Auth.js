@@ -20,8 +20,9 @@ export const authSlice = createSlice({
       state.value -= 1;
     },
     updateUser: (state, action) => {
+      localStorage.setItem("nightcpp-token", action.payload?.token);
       state.user = action.payload?.data;
-      state.accessToken = action.payload?.access;
+      state.accessToken = action.payload?.token;
       state.firstTimeLogin = action.payload?.data?.first_time_login;
     },
     updateTempUser: (state, action) => {
@@ -58,6 +59,17 @@ export const verifyOTP = (code) => {
 export const setLoggedInUser = (data) => {
   return (dispatch) => {
     dispatch(authSlice.actions.updateUser(data));
+  };
+};
+
+export const changePassword = (data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: "/api/user-auth/change-password",
+      method: "POST",
+      data,
+    });
   };
 };
 export default authSlice.reducer;

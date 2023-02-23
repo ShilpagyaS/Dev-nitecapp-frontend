@@ -3,7 +3,7 @@ export const baseurl =
   "http://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
 
 //routes declairation
-const unprotectedRoutes = ["/user-auth/login"];
+const unprotectedRoutes = ["/user-auth/login", "/api/user-auth/verify-otp"];
 
 //axios instence creation
 
@@ -15,8 +15,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async (config) => {
   let token = localStorage.getItem("nightcpp-token");
-
-  if (token && unprotectedRoutes.includes(config.url)) {
+  debugger;
+  if (token && !unprotectedRoutes.includes(config.url)) {
     config.headers.authorization = `Bearer ${token}`;
   }
   return config;
