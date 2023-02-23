@@ -19,7 +19,7 @@ function Header(props) {
         props.user
           ? "flex-row justify-between items-center"
           : "flex-col justify-center items-start"
-      } flex left-0 h-20 w-full sm:py-[12px] sm:px-[36px] py-[10px] px-[20px] bg-black `}
+      } flex left-0 h-20 w-full sm:py-[12px]  py-[10px]  bg-black `}
     >
       <Image
         className="sm:w-[115px] sm:h-[60px] lg:w-[120px] lg:h-[57px] object-cover"
@@ -31,7 +31,7 @@ function Header(props) {
       {props?.user &&
         (!isTablet ? (
           <div className="avtar-container flex justify-between items-center w-[145px]">
-            <IoNotifications color="#fff" size="29px" />
+            <IoNotifications color="#fff" size="50px" />
             <div className="avtar-container flex items-center justify-center">
               <Image
                 src="/asset/avatar.png"
