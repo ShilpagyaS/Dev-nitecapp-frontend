@@ -15,15 +15,15 @@ function TwofactorAuth({ authHandler }) {
     },
   ]);
   useEffect(() => {
-    if (tfaCode.length > 5) {
+    if (tfaCode.length > 4) {
       setTfaCondtion(true);
     }
-    if (tfaCondition == true && tfaCode.length <= 5) {
+    if (tfaCondition == true && tfaCode.length <= 4) {
       setTfaCondtion(false);
     }
   }, [tfaCode]);
   function handleButton(params) {
-    if (tfaCode.length > 5) {
+    if (tfaCode.length > 4) {
       authHandler(tfaCode);
       // if (  message.length < 2) {
       //     let dummyArray;

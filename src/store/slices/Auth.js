@@ -45,7 +45,7 @@ export const verifyOTP = (code) => {
   return async (dispatch, getState) => {
     const state = getState();
     return axiosInstance({
-      url: "/api/user-auth/login",
+      url: "/api/user-auth/verify-otp",
       method: "POST",
       data: {
         otp: code,
@@ -56,6 +56,8 @@ export const verifyOTP = (code) => {
 };
 
 export const setLoggedInUser = (data) => {
-  dispatch(authSlice.actions.updateUser(data));
+  return (dispatch) => {
+    dispatch(authSlice.actions.updateUser(data));
+  };
 };
 export default authSlice.reducer;
