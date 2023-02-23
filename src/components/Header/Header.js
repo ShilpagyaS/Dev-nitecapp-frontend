@@ -31,7 +31,10 @@ function Header(props) {
       {props?.user &&
         (!isTablet ? (
           <div className="avtar-container flex justify-between items-center w-[145px]">
-            <IoNotifications color="#fff" size="50px" />
+            <IoNotifications
+              color="#fff"
+              className="lg:text-[50px] text-[29px]"
+            />
             <div className="avtar-container flex items-center justify-center">
               <Image
                 src="/asset/avatar.png"
