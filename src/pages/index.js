@@ -1,9 +1,6 @@
 import Head from "next/head";
-
 import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
-import SelectWithSearch from "@/utils/SelectwithFilter";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +17,6 @@ export default function Home() {
         <main>
           <div className="font-bold m-auto p-7">Hello World</div>
         </main>
-       
       </LayoutWithHeader>
     </>
   );
