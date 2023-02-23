@@ -166,7 +166,7 @@ function Signin() {
               await dispatch(
                 changePassword({ new_password, confirm_password })
               ).then((res) => {
-                if (true) {
+                if (res?.data?.resCode === 200) {
                   setstep(4);
                 }
               });
