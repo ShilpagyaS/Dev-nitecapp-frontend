@@ -25,17 +25,9 @@ function Signin() {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const [isFirstTimeSignin, seFirstTimeSignin] = useState(false);
-  const [istfacompleted, settfaCompleted] = useState(false);
-  const [ischangePasswordcompleted, sechangePasswordCompleted] =
-    useState(false);
-  const [issliderActive, setSliderActive] = useState(false);
-
   const [usernameError, setUserNameError] = useState(_INITIAL);
   const [passwordError, setPasswordError] = useState(_INITIAL);
   const [errorMessage, setErrorMessage] = useState([]);
-  const [isSubmitted, setisSubmitted] = useState(false);
-
   const [step, setstep] = useState(1);
   useEffect(() => {}, [errorMessage]);
 
@@ -176,7 +168,6 @@ function Signin() {
         {step === 4 && (
           <Slider
             skipTo={() => {
-              setSliderActive(false);
               setstep(5);
             }}
           />
