@@ -15,7 +15,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async (config) => {
   let token = localStorage.getItem("nightcpp-token");
-  debugger;
   if (token && !unprotectedRoutes.includes(config.url)) {
     config.headers.authorization = `Bearer ${token}`;
   }

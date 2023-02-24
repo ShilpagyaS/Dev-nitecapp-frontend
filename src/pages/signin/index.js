@@ -36,7 +36,7 @@ function Signin() {
   const [errorMessage, setErrorMessage] = useState([]);
   const [isSubmitted, setisSubmitted] = useState(false);
 
-  const [step, setstep] = useState(1);
+  const [step, setstep] = useState(5);
   useEffect(() => {}, [errorMessage]);
 
   function handleChange(e) {
@@ -94,7 +94,6 @@ function Signin() {
           password: userinput.password,
         })
       ).then((res) => {
-        debugger;
         if (res?.data?.resCode === 200) {
           setstep(2);
         }
@@ -147,7 +146,7 @@ function Signin() {
           <TwofactorAuth
             authHandler={async (code) => {
               await dispatch(verifyOTP(code)).then((res) => {
-                if (res?.data?.resCode === 200) {
+                if (res?.status === 200) {
                   dispatch(setLoggedInUser(res?.data));
                   if (res?.data?.data?.first_time_login) {
                     setstep(3);
@@ -166,7 +165,7 @@ function Signin() {
               await dispatch(
                 changePassword({ new_password, confirm_password })
               ).then((res) => {
-                if (res?.data?.resCode === 200) {
+                if (res?.data?.status === 200) {
                   setstep(4);
                 }
               });

@@ -72,4 +72,34 @@ export const changePassword = (data) => {
     });
   };
 };
+
+export const updateUser = (data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: "/api/user-auth/update-user",
+      method: "PUT",
+      data,
+    });
+  };
+};
+
+export const getConcept = (data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: "/api/concept/get-all-concept",
+      method: "GET",
+    }).then((res) => {
+      if (res.data.resCode === 200) {
+        const concept = res.data.data.rows.map((i) => {
+          return { label: i.name, value: i.id };
+        });
+        return concept;
+      }
+      return [];
+    });
+  };
+};
+
 export default authSlice.reducer;

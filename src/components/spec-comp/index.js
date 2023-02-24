@@ -28,7 +28,7 @@ function SpecComp() {
       </div>
       <div className="sub-heading-container flex lg:justify-start md:justify-start justify-between items-center">
         <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
-          Coctail
+          Cocktails
         </h3>
         <p className="text-[#F19B6C]">See All</p>
       </div>

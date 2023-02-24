@@ -26,7 +26,7 @@ export default function Category() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
-        <AuthWrapper>{category === "specs" && <SpecComp />}</AuthWrapper>
+        {category === "specs" && <SpecComp />}
       </LayoutWithSidebar>
     </>
   );
