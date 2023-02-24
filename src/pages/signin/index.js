@@ -36,7 +36,7 @@ function Signin() {
   const [errorMessage, setErrorMessage] = useState([]);
   const [isSubmitted, setisSubmitted] = useState(false);
 
-  const [step, setstep] = useState(5);
+  const [step, setstep] = useState(1);
   useEffect(() => {}, [errorMessage]);
 
   function handleChange(e) {
