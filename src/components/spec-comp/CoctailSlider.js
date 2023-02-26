@@ -13,7 +13,7 @@ function CoctailSlider() {
   return (
     <div className=" mt-5 w-full">
       <Swiper
-        slidesPerView={isPhone ? 2 : isTablet ? 3 : 4}
+        slidesPerView={"auto"}
         spaceBetween={20}
         modules={[Pagination]}
         pagination={true}
@@ -32,7 +32,7 @@ function CoctailSlider() {
               <CoctailCard
                 title={slide.title}
                 image={"/asset/coctail1.png"}
-                isNew={false}
+                isNew={slide.isNew}
               />
             </SwiperSlide>
           );

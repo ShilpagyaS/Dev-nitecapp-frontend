@@ -28,12 +28,12 @@ function Header(props) {
         height="51"
         alt="logo"
       />
-      {props?.user &&
+      {props.user &&
         (!isTablet ? (
           <div className="avtar-container flex justify-between items-center w-[145px]">
             <IoNotifications
               color="#fff"
-              className="lg:text-[50px] text-[29px]"
+              className="lg:text-[25px] text-[29px]"
             />
             <div className="avtar-container flex items-center justify-center">
               <Image
@@ -48,10 +48,18 @@ function Header(props) {
           </div>
         ) : (
           <div className="avtar-container flex justify-around items-center">
-            <AiFillAppstore color="#fff" size="20px" className="mr-[25px]" />
-            <ImGlass2 color="#fff" size="20px" className="mx-[25px]" />
-            <HiOutlineBars3 color="#fff" size="20px" className="mx-[25px]" />
-            <HiOutlineBars3 color="#fff" size="20px" className="mx-[25px]" />
+            <div className="p-[20px]">
+              <AiFillAppstore color="#fff" size="20px" />
+            </div>
+            <div className="p-[20px]">
+              <ImGlass2 color="#fff" size="20px" />
+            </div>
+            <div className="p-[20px]">
+              <HiOutlineBars3 color="#fff" size="20px" />
+            </div>
+            <div className="p-[20px]">
+              <HiOutlineBars3 color="#fff" size="20px" />
+            </div>
           </div>
         ))}
     </div>

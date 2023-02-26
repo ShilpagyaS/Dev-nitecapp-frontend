@@ -2,16 +2,14 @@
   "menuOptions": [
     {
       "name": "Dashboard",
-      "subOptions": []
-    },
-    {
-      "name": "Learn",
+      "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Specs",
+      "menuIcon": "AiFillAppstore",
       "subOptions": [
-        "Coctails",
+        "Cocktails",
         "Spirits",
         "Wine",
         "Beer/Seltzer",
@@ -19,19 +17,28 @@
       ]
     },
     {
+      "name": "Learn",
+      "menuIcon": "ImGlass2",
+      "subOptions": []
+    },
+    {
       "name": "Brand",
+      "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Sales",
+      "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Schedule",
+      "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Saved",
+      "menuIcon": "AiFillAppstore",
       "subOptions": []
     }
   ]
