@@ -10,24 +10,62 @@ import { BsFillCalendarRangeFill } from "react-icons/bs";
 
 function menuIcon(menuOption) {
   const menuObj = {
-    Dashboard: <AiFillAppstore color="#959595" size="15px" className="mr-1" />,
-    Learn: (
+    Dashboard: (
       <Image
-        src="/asset/learn-icon.png"
+        src="/asset/dashboard-icon.svg"
         width={15}
         height={15}
         className="mr-1"
       />
     ),
-    Specs: <ImGlass2 color="#959595" size="15px" className="mr-1" />,
+    Learn: (
+      <Image
+        src="/asset/learn-icon.svg"
+        width={15}
+        height={15}
+        className="mr-1"
+      />
+    ),
+    Specs: (
+      <Image
+        src="/asset/specs-icon.svg"
+        width={15}
+        height={15}
+        className="mr-1"
+      />
+    ),
     Brand: (
-      <Image src="/asset/mlogo.png" width={15} height={15} className="mr-1" />
+      <Image
+        src="/asset/brand-icon.svg"
+        width={15}
+        height={15}
+        className="mr-1"
+      />
     ),
-    Sales: <AiFillDollarCircle color="#959595" size="15px" className="mr-1" />,
+    Sales: (
+      <Image
+        src="/asset/sales-icon.svg"
+        width={15}
+        height={15}
+        className="mr-1"
+      />
+    ),
     Schedule: (
-      <BsFillCalendarRangeFill color="#959595" size="15px" className="mr-1" />
+      <Image
+        src="/asset/calander-icon.svg"
+        width={15}
+        height={15}
+        className="mr-1"
+      />
     ),
-    Saved: <AiFillHeart color="#959595" size="15px" className="mr-1" />,
+    Saved: (
+      <Image
+        src="/asset/heart-icon.svg"
+        width={15}
+        height={15}
+        className="mr-1"
+      />
+    ),
   };
 
   return <>{menuObj[menuOption]}</>;
@@ -41,10 +79,10 @@ function SideBar({ category, subcategory }) {
     <>
       <div className="sidebar-container w-auto h-full">
         {menuOptions.map((option, ik) => {
-          // ;
           return (
             <>
-              <div className=" py-[8px]" key={ik}>
+              <div className="flex items-center py-[8px]" key={ik}>
+                {menuIcon(option.name)}
                 <Link
                   href={`/${option.name.toLowerCase()}/`}
                   className={`${
