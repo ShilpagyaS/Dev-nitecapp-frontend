@@ -48,16 +48,16 @@ function Header(props) {
           </div>
         ) : (
           <div className="avtar-container flex justify-around items-center">
-            <div className="p-[20px]">
+            <div className="p-[15px] md:p-[20px] ">
               <AiFillAppstore color="#fff" size="20px" />
             </div>
-            <div className="p-[20px]">
+            <div className="p-[15px]  md:p-[20px]">
               <ImGlass2 color="#fff" size="20px" />
             </div>
-            <div className="p-[20px]">
+            <div className="p-[15px]  md:p-[20px]">
               <HiOutlineBars3 color="#fff" size="20px" />
             </div>
-            <div className="p-[20px]">
+            <div className="p-[15px]  md:p-[20px]">
               <HiOutlineBars3 color="#fff" size="20px" />
             </div>
           </div>
