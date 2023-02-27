@@ -15,7 +15,7 @@ function menuIcon(menuOption) {
         src="/asset/dashboard-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
       />
     ),
     Learn: (
@@ -23,7 +23,7 @@ function menuIcon(menuOption) {
         src="/asset/learn-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
       />
     ),
     Specs: (
@@ -31,7 +31,8 @@ function menuIcon(menuOption) {
         src="/asset/specs-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
+        priority
       />
     ),
     Brand: (
@@ -39,7 +40,7 @@ function menuIcon(menuOption) {
         src="/asset/brand-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
       />
     ),
     Sales: (
@@ -47,7 +48,7 @@ function menuIcon(menuOption) {
         src="/asset/sales-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
       />
     ),
     Schedule: (
@@ -55,7 +56,7 @@ function menuIcon(menuOption) {
         src="/asset/calander-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
       />
     ),
     Saved: (
@@ -63,7 +64,7 @@ function menuIcon(menuOption) {
         src="/asset/heart-icon.svg"
         width={15}
         height={15}
-        className="mr-1"
+        className="mr-3"
       />
     ),
   };
@@ -89,21 +90,32 @@ function SideBar({ category, subcategory }) {
                     option.name.toLowerCase() == category?.toLowerCase()
                       ? "text-[#F19B6C]"
                       : "text-[#959595]"
-                  } text-[16px] leading-6 font-semibold `}
+                  } text-[18px] leading-6 font-semibold `}
                 >
                   {option.name}
                 </Link>
               </div>
-              <div className="ml-1">
+              <div className="ml-[6px]">
                 {option.subOptions.map((subOption, i) => {
                   return (
-                    <div className="w-[139px] flex items-baseline" key={i}>
-                      <Image
-                        src="/asset/sub-option-icon.png"
-                        width={16}
-                        height={31}
-                        className="mr-1"
-                      />
+                    <div
+                      className="w-[139px] -mt-[6px] flex items-baseline"
+                      key={i}
+                    >
+                      <svg
+                        width="18"
+                        height="33"
+                        viewBox="0 3 16 33"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1 0.999996L1 26.3529C1 29.4717 3.52827 32 6.64706 32V32L17 32"
+                          stroke="#3C3C3C"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+
                       <Link
                         href={`/${option.name.toLowerCase()}/${subOption
                           .toLowerCase()
@@ -113,7 +125,7 @@ function SideBar({ category, subcategory }) {
                           subcategory?.toLowerCase().replace("/", "-")
                             ? "text-[#F19B6C]"
                             : "text-[#959595]"
-                        } text-[16px] font-semibold leading-none `}
+                        } text-[16px] font-medium leading-none `}
                       >
                         {subOption}
                       </Link>
