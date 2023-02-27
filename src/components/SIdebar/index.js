@@ -115,11 +115,11 @@ function SideBar({ category, subcategory }) {
                           stroke-linecap="round"
                         />
                       </svg>
-
                       <Link
                         href={`/${option.name.toLowerCase()}/${subOption
                           .toLowerCase()
-                          .replace("/", "-")}`}
+                          .replace("/", "-")
+                          .replace(" ", "-")}`}
                         className={`${
                           subOption.toLowerCase().replace("/", "-") ==
                           subcategory?.toLowerCase().replace("/", "-")

@@ -98,3 +98,35 @@ export function CoctailCard2({ image, title, isNew }) {
     </div>
   );
 }
+
+export function RectangularCard({ image, title, status, circularImg }) {
+  const isTablet = useMediaQuery("(max-width: 786px)");
+  return (
+    <div
+      className={`flex items-center w-full rounded-[10px] border-[1px] border-[#3C3C3C]${
+        circularImg ? " px-4 py-3 " : " px-4 py-1 "
+      }`}
+    >
+      <div
+        className={`relative image-container mr-[16px] ${
+          circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px]"
+        }`}
+      >
+        <Image
+          src={image}
+          alt="slider-image"
+          className={`${circularImg && " rounded-full "}`}
+          fill
+        />
+      </div>
+      <div className="text-container">
+        <h2 className="text-white text-[18px] leading-[24px] mb-2 font-semibold">
+          {title}
+        </h2>
+        {status && (
+          <p className="text-white text-[16px] leading-[24px]">{status}</p>
+        )}
+      </div>
+    </div>
+  );
+}
