@@ -9,7 +9,11 @@ import LayoutWithSidebar from "@/components/Layouts/LayoutWithSidebar";
 import SpecComp from "@/components/spec-comp";
 import Coctails from "@/components/spec-comp/coctails";
 import BestSellingCoctails from "@/components/spec-comp/best-selling-coctails";
+import LowABV from "@/components/spec-comp/low-abv";
 import AuthWrapper from "@/components/Auth/AuthWarpper";
+import Spirits from "@/components/spec-comp/spirits";
+import Wine from "@/components/spec-comp/wine";
+import BeerSeltzer from "@/components/spec-comp/beer-seltzer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,8 +33,12 @@ export default function Category() {
       </Head>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
         {category === "specs" && !subcategory && <SpecComp />}
-        {subcategory === "cocktails" && <BestSellingCoctails />}
-        {subcategory === "coctails" && <Coctails />}
+        {subcategory === "bestselling" && <BestSellingCoctails />}
+        {subcategory === "cocktails" && <Coctails />}
+        {subcategory === "non-low-abv" && <LowABV />}
+        {subcategory === "spirits" && <Spirits />}
+        {subcategory === "wine" && <Wine />}
+        {subcategory === "beer-seltzer" && <BeerSeltzer />}
       </LayoutWithSidebar>
     </>
   );

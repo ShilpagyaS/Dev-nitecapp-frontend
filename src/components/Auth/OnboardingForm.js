@@ -11,14 +11,16 @@ import { getConcept, updateUser } from "@/store/slices/Auth";
 function OnboardingForm({ employeeName }) {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [concept, setconcept] = useState([]);
-  const user = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [onboardingForm, setonBoardingForm] = useState({
     fullName: "Zaylan",
     dislplayName: "",
     pronouns: "",
     role: "Bar Tender",
     concept: "",
+    user_id: user?.user_id,
   });
+  debugger;
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -100,7 +102,7 @@ function OnboardingForm({ employeeName }) {
             onClickHandler={(e) => {
               e.preventDefault();
               dispatch(updateUser(onboardingForm)).then((res) => {
-                router.push("/specs");
+                if (res?.data?.resCode === 200) router.push("/specs");
               });
             }}
           />
@@ -129,7 +131,7 @@ function OnboardingForm({ employeeName }) {
             onClickHandler={(e) => {
               e.preventDefault();
               dispatch(updateUser(onboardingForm)).then((res) => {
-                router.push("/specs");
+                if (res?.data?.resCode === 200) router.push("/specs");
               });
             }}
           />

@@ -4,6 +4,7 @@ import { CoctailCard2 } from "@/utils/SpecCards";
 
 function BestSellingCoctails() {
   const coctailData = coctailMock.coctailData;
+
   return (
     <>
       <div className="best-selling-coctail-container">
@@ -19,12 +20,12 @@ function BestSellingCoctails() {
             </p>
           </div>
           <div className="coctail-cards grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4  lg:gap-7 md:gap-4 gap-2">
-            {coctailData.map((slide, i) => {
+            {coctailData.map((card, i) => {
               return (
                 <CoctailCard2
-                  title={slide.title}
+                  title={card.title}
                   image={"/asset/coctail1.png"}
-                  isNew={slide.isNew}
+                  isNew={card.isNew}
                 />
               );
             })}

@@ -4,7 +4,7 @@ import { RectangularCard } from "@/utils/SpecCards";
 import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 
-function Coctails() {
+function LowABV() {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
 
@@ -13,7 +13,7 @@ function Coctails() {
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
           <p className="text-white text-[14px]">
-            <span className="text-[#CCCCCC]">Specs</span> / Cocktail
+            <span className="text-[#CCCCCC]">Specs</span> / Low/No ABV
           </p>
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
@@ -32,9 +32,9 @@ function Coctails() {
         </div>
         <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
-            Cocktail
+            Low / No ABV
           </h2>
-          <OrangeButtons label="Ingridients" noPadding={true} />
+          <OrangeButtons label="Brands" noPadding={true} />
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
@@ -56,8 +56,8 @@ function Coctails() {
               <div className=" col-span-1 ">
                 <RectangularCard
                   title={card.title}
-                  image={"/asset/coctail1.png"}
-                  status="Medium(12%)"
+                  image={"/asset/redbull.svg"}
+                  status="Low(0%)"
                 />
               </div>
             );
@@ -68,4 +68,4 @@ function Coctails() {
   );
 }
 
-export default Coctails;
+export default LowABV;
