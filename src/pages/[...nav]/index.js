@@ -33,8 +33,8 @@ export default function Category() {
       </Head>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
         {category === "specs" && !subcategory && <SpecComp />}
-        {subcategory === "cocktails" && <BestSellingCoctails />}
-        {subcategory === "coctails" && <Coctails />}
+        {subcategory === "bestselling" && <BestSellingCoctails />}
+        {subcategory === "cocktails" && <Coctails />}
         {subcategory === "non-low-abv" && <LowABV />}
         {subcategory === "spirits" && <Spirits />}
         {subcategory === "wine" && <Wine />}
