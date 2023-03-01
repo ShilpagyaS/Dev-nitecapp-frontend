@@ -3,30 +3,24 @@ import React, { useEffect, useState } from "react";
 const SelectWithSearch = ({
   placeholder,
   label,
-  name,
-  onSubmitHandler,
+  value,
+  onChangeHandler,
   options,
 }) => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [enableOption, setEnableOption] = useState(false);
-  const [isfocused, setisFocused] = useState(false);
-  const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
-  const handleOptionSelect = (option) => {
-    console.log("options ", option);
-    setSelectedOption(option);
-    setSearchTerm(option);
-    setEnableOption(false);
-  };
+  const filteredOptions =
+    value !== ""
+      ? [...options].filter((option) =>
+          option?.label?.toLowerCase().includes(value.toLowerCase())
+        )
+      : options;
 
   return (
     <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
       <h5
         className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
-                ${isfocused == false ? "text-[#959595]" : "text-white"}`}
+                ${enableOption == false ? "text-[#959595]" : "text-white"}`}
       >
         {label}
       </h5>
@@ -37,25 +31,21 @@ const SelectWithSearch = ({
               focus:border-white  focus:ring-offset-white focus:ring-1 
                 block w-full  appearance-none pr-[35px]`}
           type="text"
+          name="concept"
           placeholder={placeholder}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={value}
+          onChange={(e) =>
+            onChangeHandler({
+              target: { name: "concept", value: e.target.value },
+            })
+          }
           onFocus={() => {
             setEnableOption(true);
-            setisFocused(true);
-          }}
-          onBlur={() => {
-            setTimeout(() => {
-              if (enableOption == true) {
-                setEnableOption(false);
-              }
-            }, 150);
-            setisFocused(false);
           }}
         />
         <div
           className={`cursor-pointer absolute top-2 right-2 flex items-center h-[40px]
-                 ${isfocused == false ? "text-[#959595]" : "text-white"}`}
+                 ${enableOption == false ? "text-[#959595]" : "text-white"}`}
         >
           <svg
             width="20"
@@ -81,17 +71,26 @@ const SelectWithSearch = ({
             />
           </svg>
         </div>
-        {enableOption && (
+        {enableOption && filteredOptions.length > 0 && (
           <div className="relative">
-            <div className="absolute z-10 w-full bg-black border border-white rounded-lg shadow-md mt-1">
+            <div className="absolute z-10  max-h-[200px] scrollbar overflow-y-scroll  w-full px-1 bg-black border border-white rounded-lg shadow-md mt-1">
               {filteredOptions.map((option, i) => (
-                <button
+                <div
                   key={i}
-                  className="block w-full text-left px-[15px] py-2 text-[#A8A8A8] hover:bg-white focus:outline-none"
-                  onClick={() => handleOptionSelect(option)}
+                  className="block cursor-pointer w-full text-left px-[15px] py-2 text-[#A8A8A8] hover:bg-white focus:outline-none"
+                  onClick={() => {
+                    onChangeHandler(
+                      {
+                        target: { name: "concept", value: option.label },
+                      },
+                      option.value
+                    );
+                    debugger;
+                    setEnableOption(false);
+                  }}
                 >
-                  {option}
-                </button>
+                  {option.label}
+                </div>
               ))}
             </div>
           </div>

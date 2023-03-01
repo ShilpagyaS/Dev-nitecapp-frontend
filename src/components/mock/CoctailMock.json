@@ -3,32 +3,32 @@
     {
       "title": "Dashboard",
       "img": "/asset/coctail1.png",
-      "new": false
+      "isNew": true
     },
     {
       "title": "Learn",
       "img": "/asset/coctail1.png",
-      "new": false
+      "isNew": false
     },
     {
       "title": "Brand",
       "img": "/asset/coctail1.png",
-      "new": false
+      "isNew": true
     },
     {
       "title": "Sales",
       "img": "/asset/coctail1.png",
-      "new": false
+      "isNew": false
     },
     {
       "title": "Schedule",
       "img": "/asset/coctail1.png",
-      "new": false
+      "isNew": false
     },
     {
       "title": "Saved",
       "img": "/asset/coctail1.png",
-      "new": false
+      "isNew": false
     }
   ]
 }

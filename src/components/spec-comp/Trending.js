@@ -1,4 +1,3 @@
-import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import useMediaQuery from "@/Hooks/useMediaQuery";
@@ -14,12 +13,7 @@ function Trending() {
   return (
     <div className=" mt-5 w-full">
       <h3 className="text-white text-[20px] leading-8 mb-4">Trending</h3>
-      <Swiper
-        slidesPerView={isPhone ? 2 : isTablet ? 3 : 4}
-        spaceBetween={20}
-        modules={[Pagination]}
-        pagination={true}
-      >
+      <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true}>
         {TrendingData.map((slide, i) => {
           return (
             <SwiperSlide
@@ -29,7 +23,7 @@ function Trending() {
                 display: "flex",
               }}
               key={i}
-              className="mb-8 w-[15px]"
+              className="mb-8 "
             >
               <TrendingCard
                 title={slide.title}
