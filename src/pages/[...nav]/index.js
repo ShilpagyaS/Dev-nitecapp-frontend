@@ -14,6 +14,7 @@ import AuthWrapper from "@/components/Auth/AuthWarpper";
 import Spirits from "@/components/spec-comp/spirits";
 import Wine from "@/components/spec-comp/wine";
 import BeerSeltzer from "@/components/spec-comp/beer-seltzer";
+import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function Category() {
         {subcategory === "spirits" && <Spirits />}
         {subcategory === "wine" && <Wine />}
         {subcategory === "beer-seltzer" && <BeerSeltzer />}
+        {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
     </>
   );
