@@ -1,34 +1,40 @@
 {
   "coctailData": [
     {
-      "title": "Dashboard",
+      "title": "Old Faishoined",
       "img": "/asset/coctail1.png",
-      "isNew": true
+      "isNew": true,
+      "productId": "1"
     },
     {
-      "title": "Learn",
+      "title": "Darusi",
       "img": "/asset/coctail1.png",
-      "isNew": false
+      "isNew": false,
+      "productId": "2"
     },
     {
       "title": "Brand",
       "img": "/asset/coctail1.png",
-      "isNew": true
+      "isNew": true,
+      "productId": "3"
     },
     {
       "title": "Sales",
       "img": "/asset/coctail1.png",
-      "isNew": false
+      "isNew": false,
+      "productId": "4"
     },
     {
       "title": "Schedule",
       "img": "/asset/coctail1.png",
-      "isNew": false
+      "isNew": false,
+      "productId": "5"
     },
     {
-      "title": "Saved",
+      "title": "South",
       "img": "/asset/coctail1.png",
-      "isNew": false
+      "isNew": false,
+      "productId": "6"
     }
   ]
 }

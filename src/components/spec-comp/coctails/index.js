@@ -57,7 +57,7 @@ function Coctails() {
                 <RectangularCard
                   title={card.title}
                   image={"/asset/coctail1.png"}
-                  status="Medium(12%)"
+                  subtitle="Medium(12%)"
                 />
               </div>
             );

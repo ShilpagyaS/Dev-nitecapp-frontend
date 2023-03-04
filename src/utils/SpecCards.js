@@ -99,7 +99,7 @@ export function CoctailCard2({ image, title, isNew }) {
   );
 }
 
-export function RectangularCard({ image, title, status, circularImg }) {
+export function RectangularCard({ image, title, subtitle, circularImg }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div
@@ -123,15 +123,15 @@ export function RectangularCard({ image, title, status, circularImg }) {
         <h2 className="text-white text-[18px] leading-[24px] mb-2 font-semibold">
           {title}
         </h2>
-        {status && (
-          <p className="text-white text-[16px] leading-[24px]">{status}</p>
+        {subtitle && (
+          <p className="text-white text-[16px] leading-[24px]">{subtitle}</p>
         )}
       </div>
     </div>
   );
 }
 
-export function RectangularCard2({ image, title, status, circularImg }) {
+export function RectangularCard2({ image, title, subtitle, circularImg }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div
@@ -155,8 +155,8 @@ export function RectangularCard2({ image, title, status, circularImg }) {
         <h2 className="text-white text-[18px] leading-[24px] mb-2 font-semibold">
           {title}
         </h2>
-        {status && (
-          <p className="text-white text-[16px] leading-[24px]">{status}</p>
+        {subtitle && (
+          <p className="text-white text-[16px] leading-[24px]">{subtitle}</p>
         )}
       </div>
     </div>

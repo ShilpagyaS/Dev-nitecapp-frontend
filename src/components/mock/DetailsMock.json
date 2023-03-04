@@ -1,0 +1,68 @@
+{
+  "ingridients": [
+    {
+      "name": "Spirit of choice",
+      "quantity": "2 oz"
+    },
+    {
+      "name": "Fresh lemon juice",
+      "quantity": "1 oz"
+    },
+    {
+      "name": "Simple Sytup",
+      "quantity": "1 oz"
+    },
+    {
+      "name": "Simple Sytup",
+      "quantity": "1"
+    }
+  ],
+  "presentation": [
+    {
+      "name": "Glassware",
+      "presentation": "couple"
+    },
+    {
+      "name": "Ice",
+      "presentation": "Cubed(is no rocks)"
+    },
+    {
+      "name": "Garnish",
+      "presentation": "Lemon twist"
+    }
+  ],
+  "method": [
+    {
+      "method": "Combine all ingredients into small shaker tin"
+    },
+    {
+      "method": "Dry shake 20 times if using egg white"
+    },
+    {
+      "method": "Add ice and shake 20 times"
+    },
+    {
+      "method": "Strain into coupe glass (if egg white) or rocks glass (if no egg white) using Hawthorne strainer"
+    },
+    {
+      "method": "Garnish with Lemon twist"
+    }
+  ],
+  "lesson": [
+    {
+      "title": "How to shake",
+      "subtitle": "12 mins",
+      "img": "/asset/how-to-shake.svg"
+    },
+    {
+      "title": "How to drain",
+      "subtitle": "12 mins",
+      "img": "/asset/how-to-drain.svg"
+    }
+  ],
+  "notes": [
+    {
+      "note": "This is my Note: I like this pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "ingridientsMock": [
+    {
+      "category": "Spirits",
+      "cards": [
+        {
+          "title": "London Dry Gin",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        },
+        {
+          "title": "Fresh lemon juice",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        },
+        {
+          "title": "Simple Sytup",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        },
+        {
+          "title": "Simple Sytup",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        }
+      ]
+    },
+    {
+      "category": "Basics",
+      "cards": [
+        {
+          "title": "London Dry Gin",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        },
+        {
+          "title": "Fresh lemon juice",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        }
+      ]
+    },
+    {
+      "category": "Fruits",
+      "cards": [
+        {
+          "title": "London Dry Gin",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        },
+        {
+          "title": "Fresh lemon juice",
+          "subtitle": "Slightly sweeter gin catagory",
+          "img": "/asset/london-dry.svg"
+        }
+      ]
+    }
+  ]
+}
