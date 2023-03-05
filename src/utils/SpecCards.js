@@ -29,14 +29,13 @@ export function CoctailCard({ image, title, isNew }) {
 export function BeverageCard({ image, title }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
-    <div className="image-container lg:w-[390px] w-full h-[103px] relative">
+    <div className="image-container w-full h-[103px] relative">
       {!isTablet ? (
         <Image
           className="mb-10 object-cover"
           src={image}
           alt="slider-image"
-          width={390}
-          height={103}
+          fill
         />
       ) : (
         <Image
