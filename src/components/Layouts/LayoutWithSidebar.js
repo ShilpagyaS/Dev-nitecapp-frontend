@@ -9,7 +9,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
   return (
     <div className="lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto ">
       <Header user={true} />
-      <div className="grid grid-cols-1 lg:grid-cols-[175px_87%] max-w-full mt-[26px] w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-[175px_82%] max-w-full mt-[26px] w-full">
         <div className="lg:block hidden">
           <SideBar category={category} subcategory={subcategory} />
         </div>
