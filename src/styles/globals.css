@@ -48,3 +48,17 @@
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #c0a0b9;
 }
+
+.swiper-button-next {
+  background: transparent !important;
+  border-radius: 0px !important;
+  color: #ffffff !important;
+  height: 10px !important;
+
+}
+.swiper-button-prev {
+  background: transparent !important;
+  border-radius: 0px !important;
+  color: #ffffff !important;
+
+}

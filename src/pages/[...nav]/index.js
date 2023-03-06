@@ -17,6 +17,7 @@ import BeerSeltzer from "@/components/spec-comp/beer-seltzer";
 import DetailPage from "@/components/spec-comp/detail-page";
 import Ingridients from "@/components/spec-comp/ingridients";
 import IngridientDetail from "@/components/spec-comp/ingridients/IngridientDetail";
+import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function Category() {
         {subcategory === "southside" && <DetailPage />}
         {subcategory === "ingridients" && <Ingridients />}
         {subcategory === "ingridient-detail" && <IngridientDetail />}
+        {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
     </>
   );
