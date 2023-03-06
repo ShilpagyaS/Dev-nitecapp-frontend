@@ -1,6 +1,6 @@
 import TwofactorAuth from "@/components/Auth/TwofactorAuth";
 import Bullets from "@/utils/Bullets";
-import Buttons from "@/utils/Buttons";
+import { Buttons } from "@/utils/Buttons";
 import InputField from "@/utils/InputField";
 import React, { useEffect, useState } from "react";
 import { _INITIAL, _ERROR, _PASS } from "@/utils/Constants";

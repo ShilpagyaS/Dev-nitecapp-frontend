@@ -1,6 +1,6 @@
 import React from "react";
 
-function Buttons({ onClickHandler, label }) {
+export function Buttons({ onClickHandler, label }) {
   return (
     <div className="pt-[26px]">
       <button
@@ -13,7 +13,21 @@ function Buttons({ onClickHandler, label }) {
   );
 }
 
-export default Buttons;
+export function CustomButton({ onClickHandler, label, color, background }) {
+  return (
+    <button
+      className={`bg-[${background || "#transparent"}] 
+     ${background && "py-[8px]"}
+     ${background && "px-[32px]"}
+      h-[54px] rounded-full hover:bg-[#ee854d] 
+      text-[${color || "black"}] 
+      gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]`}
+      onClick={onClickHandler}
+    >
+      {label}
+    </button>
+  );
+}
 
 export function ConditionalButtons({ onClickHandler, condition, label }) {
   return (

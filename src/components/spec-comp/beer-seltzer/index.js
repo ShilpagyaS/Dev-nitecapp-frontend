@@ -59,7 +59,7 @@ function BeerSeltzer() {
                   <RectangularCard
                     title={card.title}
                     image={"/asset/blue-moon.svg"}
-                    status="Medium(12%)"
+                    subtitle="Medium(12%)"
                   />
                 </div>
               );
@@ -75,7 +75,7 @@ function BeerSeltzer() {
                   <RectangularCard
                     title={card.title}
                     image={"/asset/coors-light.svg"}
-                    status="Medium(12%)"
+                    subtitle="Medium(12%)"
                   />
                 </div>
               );
