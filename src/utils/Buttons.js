@@ -19,8 +19,9 @@ export function CustomButton({ onClickHandler, label, color, background }) {
       className={`bg-[${background || "#transparent"}] 
      ${background && "py-[8px]"}
      ${background && "px-[32px]"}
-      h-[54px] rounded-full hover:bg-[#ee854d] 
-      text-[${color || "black"}] 
+      h-[54px] rounded-full hover:bg-[#ee854d] ${
+        color ? `text-[${color}]` : "text-black"
+      } 
       gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]`}
       onClick={onClickHandler}
     >
