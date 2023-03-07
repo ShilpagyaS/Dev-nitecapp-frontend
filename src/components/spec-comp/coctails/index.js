@@ -38,7 +38,7 @@ function Coctails(props) {
             Cocktail
           </h2>
           {!props.headerHidden && (
-            <OrangeButtons label="Ingridients" noPadding={true} />
+            <OrangeButtons label="Ingredients" noPadding={true} />
           )}
         </div>
         {isTablet && !props?.headerHidden && (

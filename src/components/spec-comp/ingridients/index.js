@@ -14,7 +14,7 @@ function Ingridients() {
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
           <p className="text-white text-[14px]">
             <span className="text-[#CCCCCC]">Specs / Cocktail / </span>{" "}
-            Ingridients
+            Ingredients
           </p>
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
