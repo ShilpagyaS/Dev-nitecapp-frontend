@@ -20,6 +20,7 @@ import IngridientDetail from "@/components/spec-comp/ingridients/IngridientDetai
 import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
 import Brands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
+import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,6 +52,7 @@ export default function Category() {
         {subcategory === "specs-detail-page" && <SpecsDetailPage />}
         {subcategory === "brands" && <Brands />}
         {subcategory === "brand-detail" && <BrandDetail />}
+        {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
     </>
   );

@@ -29,14 +29,13 @@ export function CoctailCard({ image, title, isNew }) {
 export function BeverageCard({ image, title }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
-    <div className="image-container lg:w-[390px] w-full h-[103px] relative">
+    <div className="image-container w-full h-[103px] relative">
       {!isTablet ? (
         <Image
           className="mb-10 object-cover"
           src={image}
           alt="slider-image"
-          width={390}
-          height={103}
+          fill
         />
       ) : (
         <Image
@@ -75,7 +74,7 @@ export function TrendingCard({ image, title }) {
   );
 }
 
-export function CoctailCard2({ image, title, isNew }) {
+export function CoctailCard2({ image, title, isNew, sequence }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div
@@ -84,9 +83,9 @@ export function CoctailCard2({ image, title, isNew }) {
     >
       <div className={`relative image-container ${"w-[137px] h-[137px]"} `}>
         <Image src={image} alt="slider-image" fill />
-        {isNew && (
+        {(isNew || sequence) && (
           <p className="text-[#F19B6C] text-[14px] absolute top-0 left-3 ">
-            New
+            {isNew ? "New" : `No. ${sequence}`}
           </p>
         )}
       </div>

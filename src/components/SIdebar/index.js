@@ -82,7 +82,7 @@ function SideBar({ category, subcategory }) {
         {menuOptions.map((option, ik) => {
           return (
             <>
-              <div className="flex items-center py-[8px]" key={ik}>
+              <div className="flex items-center py-[12px]" key={ik}>
                 {menuIcon(option.name)}
                 <Link
                   href={`/${option.name.toLowerCase()}/`}
@@ -99,13 +99,14 @@ function SideBar({ category, subcategory }) {
                 {option.subOptions.map((subOption, i) => {
                   return (
                     <div
-                      className="w-[139px] -mt-[6px] flex items-baseline"
+                      className="w-[139px] mt- flex items-baseline py-[6px]"
                       key={i}
                     >
                       <svg
                         width="18"
                         height="33"
-                        viewBox="0 3 16 33"
+                        className="-mt-[14px]"
+                        viewBox="0 0 18 33"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
@@ -115,6 +116,7 @@ function SideBar({ category, subcategory }) {
                           stroke-linecap="round"
                         />
                       </svg>
+
                       <Link
                         href={`/${option.name.toLowerCase()}/${subOption
                           .toLowerCase()
@@ -125,7 +127,7 @@ function SideBar({ category, subcategory }) {
                           subcategory?.toLowerCase().replace("/", "-")
                             ? "text-[#F19B6C]"
                             : "text-[#959595]"
-                        } text-[16px] font-medium leading-none `}
+                        } text-[16px] leading-none ml-2`}
                       >
                         {subOption}
                       </Link>

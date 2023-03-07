@@ -1,6 +1,7 @@
 import { CiSearch } from "react-icons/ci";
 import coctailMock from "../../mock/CoctailMock.json";
 import { CoctailCard2 } from "@/utils/SpecCards";
+import Image from "next/image";
 
 function BestSellingCoctails() {
   const coctailData = coctailMock.coctailData;
@@ -8,7 +9,7 @@ function BestSellingCoctails() {
   return (
     <>
       <div className="best-selling-coctail-container">
-        <div className="coctail-banner w-full h-[240px] mb-[32px]"></div>
+        <div className="coctail-banner bg-[url('/asset/banner.png')] w-full md:h-[240px] lg:h-[300px] mb-[32px] bg-no-repeat bg-cover"></div>
         <div className="coctails-container">
           <div className="heading-container mb-[32px]">
             <h2 className="text-white text-[24px] font-bold ">
@@ -19,10 +20,11 @@ function BestSellingCoctails() {
               - 24th)
             </p>
           </div>
-          <div className="coctail-cards grid grid-cols-2 lg:grid-cols-4 md:grid-cols-4  lg:gap-7 md:gap-4 gap-2">
+          <div className="coctail-cards grid place-items-center grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5   lg:gap-7 md:gap-4 gap-2">
             {coctailData.map((card, i) => {
               return (
                 <CoctailCard2
+                  sequence={i + 1}
                   title={card.title}
                   image={"/asset/coctail1.png"}
                   isNew={card.isNew}
