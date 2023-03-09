@@ -31,7 +31,7 @@ function LearnSection() {
 
                         <CircularProgress percentage={52} innerText={52} />
                     </div>
-                    <div className='flex flex-col justify-center text-white col-span-2'>
+                    <div className='flex flex-col justify-center text-white'>
 
                         <h5 className='not-italic font-semibold text-[16px] font-Inter leading-tight  '>
                             Your Streak
