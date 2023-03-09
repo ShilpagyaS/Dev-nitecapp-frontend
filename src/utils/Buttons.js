@@ -16,10 +16,10 @@ export function Buttons({ onClickHandler, label }) {
 export function CustomButton({ onClickHandler, label, color, background }) {
   return (
     <button
-      className={`bg-[${background || "#transparent"}] 
+      className={`bg-[${background || "#transparent"}] h-fit px-[5px] 
      ${background && "py-[8px]"}
      ${background && "px-[32px]"}
-      h-[54px] rounded-full hover:bg-[#ee854d] ${
+      h-[54px] rounded-sm hover:bg-[#ee854d] hover:text-white ${
         color ? `text-[${color}]` : "text-black"
       } 
       gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]`}
