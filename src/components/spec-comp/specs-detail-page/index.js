@@ -5,9 +5,9 @@ import { RectangularCard } from "@/utils/SpecCards";
 import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
-import NotesModal from "./Modal";
+import NotesModal from "../../modal/Modal";
 
-const DetailPage = () => {
+const SpecsDetailPage = () => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -60,7 +60,7 @@ const DetailPage = () => {
             isMobile ? "block m-auto" : "mr-[31px]"
           }`}
         >
-          <Image src="/asset/coctail1.png" fill />
+          <Image src="/asset/london-dry-green.svg" fill />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
@@ -91,86 +91,20 @@ const DetailPage = () => {
           </p>
         </div>
       </div>
-      <div className="ingridients-container lg:flex lg:justify-between mb-[16px]">
-        <div className="sub-heading-container">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
-            Ingredients
-          </h4>
+      <div className="properties-container text-white mb-8">
+        <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
+          <p className="mr-6">Strength</p>
+          <p className="font-medium">45%</p>
         </div>
-        <div className="ingridient-details-container">
-          {ingridients.map((ingridient, i) => {
-            return (
-              <>
-                <div className="choice-container bg-[#2C2C2C] w-full lg:w-[486px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
-                  <p className=" bg-transparent ">{ingridient.name}</p>
-                  <p className=" bg-transparent ">{ingridient.quantity}</p>
-                </div>
-              </>
-            );
-          })}
+        <div className="origin-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
+          <p className="mr-6">Origin</p>
+          <p className="font-medium">Italy</p>
         </div>
-      </div>
-      <div className="presentation-container lg:flex lg:justify-between mb-[16px]">
-        <div className="sub-heading-container">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
-            Presentation
-          </h4>
-        </div>
-        <div className="presentation-details-container">
-          {presentation.map((presentation, i) => {
-            return (
-              <>
-                <div className="choice-container bg-[#2C2C2C] w-full lg:w-[486px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
-                  <p className=" bg-transparent ">{presentation.name}</p>
-                  <p className=" bg-transparent ">
-                    {presentation.presentation}
-                  </p>
-                </div>
-              </>
-            );
-          })}
-        </div>
-      </div>
-      <div className="method-container mb-[32px]">
-        <div className="sub-heading-container flex justify-between items-center mb-[21px]">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold">
-            Method
-          </h4>
-          <OrangeButtons label="Video" noPadding={true} />
-        </div>
-        <div className="method-details-container">
-          {method.map((method, i) => {
-            return (
-              <>
-                <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-                  <p className=" bg-transparent ">
-                    <span className="mr-6 bg-transparent">{i + 1}</span>
-                    {method.method}
-                  </p>
-                </div>
-              </>
-            );
-          })}
-        </div>
-      </div>
-      <div className="lessons-container mb-[32px]">
-        <div className="sub-heading-container mb-[21px]">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold">
-            Lessons
-          </h4>
-        </div>
-        <div className="grid grid-cols-2 gap-x-[73px] gap-y-[16px] lessons-details-container">
-          {lesson.map((lesson, i) => {
-            return (
-              <div className={`${!isTablet ? "col-span-1" : "col-span-2"}`}>
-                <RectangularCard
-                  image={lesson.img}
-                  title={lesson.title}
-                  subtitle={lesson.subtitle}
-                />
-              </div>
-            );
-          })}
+        <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
+          <p className="mr-6">Tastes</p>
+          <p className="font-medium">
+            Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh
+          </p>
         </div>
       </div>
       <div className="notes-container ">
@@ -200,4 +134,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default SpecsDetailPage;

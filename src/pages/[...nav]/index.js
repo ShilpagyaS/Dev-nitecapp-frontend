@@ -14,9 +14,12 @@ import AuthWrapper from "@/components/Auth/AuthWarpper";
 import Spirits from "@/components/spec-comp/spirits";
 import Wine from "@/components/spec-comp/wine";
 import BeerSeltzer from "@/components/spec-comp/beer-seltzer";
-import DetailPage from "@/components/spec-comp/detail-page";
+import CocktailDetailPage from "@/components/spec-comp/cocktails-detail-page";
 import Ingridients from "@/components/spec-comp/ingridients";
 import IngridientDetail from "@/components/spec-comp/ingridients/IngridientDetail";
+import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
+import Brands from "@/components/spec-comp/brands";
+import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -43,9 +46,12 @@ export default function Category() {
         {subcategory === "spirits" && <Spirits />}
         {subcategory === "wine" && <Wine />}
         {subcategory === "beer-seltzer" && <BeerSeltzer />}
-        {subcategory === "southside" && <DetailPage />}
+        {subcategory === "cocktail-detail-page" && <CocktailDetailPage />}
         {subcategory === "ingridients" && <Ingridients />}
         {subcategory === "ingridient-detail" && <IngridientDetail />}
+        {subcategory === "specs-detail-page" && <SpecsDetailPage />}
+        {subcategory === "brands" && <Brands />}
+        {subcategory === "brand-detail" && <BrandDetail />}
         {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
     </>
