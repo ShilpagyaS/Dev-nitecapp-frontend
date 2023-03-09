@@ -83,15 +83,12 @@ function Header(props) {
               </Link>
             </div>
             <div className="p-[15px]  md:p-[20px]">
-              <Link href={"/specs"} legacyBehavior>
-                <a>
-                  <HiOutlineBars3
-                    color="#fff"
-                    size="20px"
-                    className="cursor-pointer"
-                  />
-                </a>
-              </Link>
+              
+              <HiOutlineBars3
+                onClick={props.handleDrawer}
+                color="#fff"
+                size="20px"
+              />
             </div>
           </div>
         ))}
