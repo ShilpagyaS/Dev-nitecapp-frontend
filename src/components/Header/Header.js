@@ -58,7 +58,11 @@ function Header(props) {
               <HiOutlineBars3 color="#fff" size="20px" />
             </div>
             <div className="p-[15px]  md:p-[20px]">
-              <HiOutlineBars3 color="#fff" size="20px" />
+              <HiOutlineBars3
+                onClick={props.handleDrawer}
+                color="#fff"
+                size="20px"
+              />
             </div>
           </div>
         ))}
