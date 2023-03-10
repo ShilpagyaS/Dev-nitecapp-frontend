@@ -9,7 +9,7 @@ const IngridientDetail = () => {
     <div className="ingridient-detail-container">
       <div className="text-container ">
         <p className="text-white text-[14px] mb-6">
-          <span className="text-[#CCCCCC]">Specs / Coctail/ Ingridients /</span>{" "}
+          <span className="text-[#CCCCCC]">Specs / Coctail/ Ingredients /</span>{" "}
           London Dry Green
         </p>
       </div>

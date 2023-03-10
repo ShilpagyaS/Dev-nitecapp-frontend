@@ -5,9 +5,9 @@ import { RectangularCard } from "@/utils/SpecCards";
 import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
-import NotesModal from "./Modal";
+import NotesModal from "../../modal/Modal";
 
-const DetailPage = () => {
+const CocktailDetailPage = () => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -91,8 +91,8 @@ const DetailPage = () => {
           </p>
         </div>
       </div>
-      <div className="ingridients-container lg:flex lg:justify-between mb-[16px]">
-        <div className="sub-heading-container">
+      <div className="ingridients-container mb-[16px] ">
+        <div className="sub-heading-container  mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
             Ingredients
           </h4>
@@ -101,7 +101,7 @@ const DetailPage = () => {
           {ingridients.map((ingridient, i) => {
             return (
               <>
-                <div className="choice-container bg-[#2C2C2C] w-full lg:w-[486px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
+                <div className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
                   <p className=" bg-transparent ">{ingridient.name}</p>
                   <p className=" bg-transparent ">{ingridient.quantity}</p>
                 </div>
@@ -110,8 +110,8 @@ const DetailPage = () => {
           })}
         </div>
       </div>
-      <div className="presentation-container lg:flex lg:justify-between mb-[16px]">
-        <div className="sub-heading-container">
+      <div className="presentation-container  mb-[16px]">
+        <div className="sub-heading-container mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
             Presentation
           </h4>
@@ -120,7 +120,7 @@ const DetailPage = () => {
           {presentation.map((presentation, i) => {
             return (
               <>
-                <div className="choice-container bg-[#2C2C2C] w-full lg:w-[486px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
+                <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
                   <p className=" bg-transparent ">{presentation.name}</p>
                   <p className=" bg-transparent ">
                     {presentation.presentation}
@@ -200,4 +200,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default CocktailDetailPage;

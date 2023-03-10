@@ -6,6 +6,7 @@ import { AiFillAppstore } from "react-icons/ai";
 import { ImGlass2 } from "react-icons/im";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import Link from "next/link";
 
 function Header(props) {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -48,17 +49,46 @@ function Header(props) {
           </div>
         ) : (
           <div className="avtar-container flex justify-around items-center">
-            <div className="p-[15px] md:p-[20px] ">
-              <AiFillAppstore color="#fff" size="20px" />
+            <div className="p-[15px] md:p-[20px]  ">
+              <Link href={"/specs"} legacyBehavior>
+                <a>
+                  <AiFillAppstore
+                    color="#fff"
+                    size="20px"
+                    className="cursor-pointer"
+                  />
+                </a>
+              </Link>
             </div>
             <div className="p-[15px]  md:p-[20px]">
-              <ImGlass2 color="#fff" size="20px" />
+              <Link href={"/specs"} legacyBehavior>
+                <a>
+                  <ImGlass2
+                    color="#fff"
+                    size="20px"
+                    className="cursor-pointer"
+                  />
+                </a>
+              </Link>
             </div>
             <div className="p-[15px]  md:p-[20px]">
-              <HiOutlineBars3 color="#fff" size="20px" />
+              <Link href={"/specs"} legacyBehavior>
+                <a>
+                  <HiOutlineBars3
+                    color="#fff"
+                    size="20px"
+                    className="cursor-pointer"
+                  />
+                </a>
+              </Link>
             </div>
             <div className="p-[15px]  md:p-[20px]">
-              <HiOutlineBars3 color="#fff" size="20px" />
+              
+              <HiOutlineBars3
+                onClick={props.handleDrawer}
+                color="#fff"
+                size="20px"
+              />
             </div>
           </div>
         ))}
