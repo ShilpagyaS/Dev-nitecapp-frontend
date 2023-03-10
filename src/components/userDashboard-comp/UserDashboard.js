@@ -1,6 +1,6 @@
-import LeaderShipTableCards from '@/utils/Cards/Text card/LeaderShipTableCards'
 import React from 'react'
 import IndicatorSlider from './IndicatorSlider'
+import LeaderShipComponent from './LeaderShipComponent'
 import LearnSection from './LearnSection'
 import ResumeCourseSection from './ResumeCourseSection'
 import SalesSection from './SalesSection'
@@ -20,9 +20,10 @@ function UserDashboard() {
             </div>
             <LearnSection />
             <ResumeCourseSection />
-            <SalesSection/>
-            <IndicatorSlider/>
-            <LeaderShipTableCards/>
+            <SalesSection />
+            <IndicatorSlider />
+            <LeaderShipComponent />
+
 
 
         </>
