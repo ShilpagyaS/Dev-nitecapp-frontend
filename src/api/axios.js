@@ -27,7 +27,9 @@ axiosInstance.interceptors.response.use(
   async (config) => {
     return config;
   },
-  (error) => {}
+  (error) => {
+    
+  }
 );
 
 export default axiosInstance;

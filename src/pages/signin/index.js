@@ -14,7 +14,7 @@ import {
   setLoggedInUser,
   verifyOTP,
 } from "@/store/slices/Auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 function Signin() {

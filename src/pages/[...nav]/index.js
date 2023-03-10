@@ -38,6 +38,7 @@ export default function Category() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <AuthWrapper>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
         {category === "specs" && !subcategory && <SpecComp />}
         {subcategory === "bestselling" && <BestSellingCoctails />}
@@ -54,6 +55,7 @@ export default function Category() {
         {subcategory === "brand-detail" && <BrandDetail />}
         {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
+      </AuthWrapper>
     </>
   );
 }
