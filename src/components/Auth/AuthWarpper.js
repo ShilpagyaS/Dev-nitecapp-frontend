@@ -9,7 +9,6 @@ export default function AuthWrapper({ children }) {
   const dispatch=useDispatch();
   useEffect(() => {
     if (!Boolean(user)){
-      debugger
       const token=localStorage.getItem("nightcpp-token") 
       if(token){
         dispatch(setUserRelogin())

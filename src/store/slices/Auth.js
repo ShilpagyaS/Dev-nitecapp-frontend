@@ -75,8 +75,7 @@ export const setUserRelogin = (data) => {
                 dispatch(authSlice.actions.reloadUpdateUser(res.data.user));
             }
         }).catch((err)=>{
-          debugger
-         // localStorage.deleteItem('nightcpp-token')
+  localStorage.deleteItem('nightcpp-token')
         })
    
   };

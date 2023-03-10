@@ -1,43 +1,50 @@
 {
   "menuOptions": [
-    {
+    { "id":"dashboard",
       "name": "Dashboard",
       "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Specs",
+      "id":"specs",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        "Cocktails",
-        "Spirits",
-        "Wine",
-        "Beer/Seltzer",
-        "Non/Low ABV"
+        {"name":"Cocktails","id":"cocktails"},
+        {"name":"Spirits","id":"spirit"},
+        {"name":"Wine","id":"wine"},
+        {"name":"Beer/Seltzer","id":"beer"},  
+        {"name":"Low / No ABV","id":"low-noabv"}  
+         
       ]
     },
     {
       "name": "Learn",
+      "id":"learn",
       "menuIcon": "ImGlass2",
       "subOptions": []
     },
     {
       "name": "Brand",
+      "id":"brand",
       "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Sales",
+      "id":"sales",
       "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Schedule",
+      "id":"schedule",
       "menuIcon": "AiFillAppstore",
       "subOptions": []
     },
     {
       "name": "Saved",
+      "id":"saved",
       "menuIcon": "AiFillAppstore",
       "subOptions": []
     }

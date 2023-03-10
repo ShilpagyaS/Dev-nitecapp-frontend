@@ -85,7 +85,7 @@ const SelectWithSearch = ({
                       },
                       option.value
                     );
-                    debugger;
+                   
                     setEnableOption(false);
                   }}
                 >

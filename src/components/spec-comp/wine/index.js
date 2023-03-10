@@ -2,18 +2,27 @@ import { CiSearch } from "react-icons/ci";
 import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import useFilteredData from "@/Hooks/useFilteredData";
+import { useEffect } from "react";
+import { emptyProductList } from "@/store/slices/product";
+import { useDispatch } from "react-redux";
+import Breadcrumb from "@/components/Breadcrumb";
 
-function Wine() {
+function Wine({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
-
+  const filtereddataList=useFilteredData(productList,false,"Wine")
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    return ()=>{
+         dispatch(emptyProductList())
+       }
+ },[])
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <p className="text-white text-[14px]">
-            <span className="text-[#CCCCCC]">Specs</span> / Wine
-          </p>
+        <Breadcrumb/>
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
               <CiSearch
@@ -46,19 +55,21 @@ function Wine() {
             />
           </div>
         )}
-        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {coctailData.map((card, i) => {
+        {filtereddataList.map((d,inx)=>
+        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] " key={inx}>
+          {d.data.map((card, i) => {
             return (
               <div className=" col-span-1 ">
                 <RectangularCard
-                  title={card.title}
+                  title={card.wine_name}
                   image={"/asset/red-chillie.svg"}
                   circularImg={true}
                 />
               </div>
             );
           })}
-        </div>
+        </div>)
+        }
       </div>
     </>
   );

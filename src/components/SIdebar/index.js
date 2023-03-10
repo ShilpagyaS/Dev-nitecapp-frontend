@@ -87,7 +87,7 @@ function SideBar({ category, subcategory }) {
                 <Link
                   href={`/${option.name.toLowerCase()}/`}
                   className={`${
-                    option.name.toLowerCase() == category?.toLowerCase()
+                    option.id == category
                       ? "text-[#F19B6C]"
                       : "text-[#959595]"
                   } text-[18px] leading-6 font-semibold `}
@@ -118,18 +118,14 @@ function SideBar({ category, subcategory }) {
                       </svg>
 
                       <Link
-                        href={`/${option.name.toLowerCase()}/${subOption
-                          .toLowerCase()
-                          .replace("/", "-")
-                          .replace(" ", "-")}`}
+                        href={`/${option.id}/${subOption.id}`}
                         className={`${
-                          subOption.toLowerCase().replace("/", "-") ==
-                          subcategory?.toLowerCase().replace("/", "-")
+                          subOption.id ==subcategory
                             ? "text-[#F19B6C]"
                             : "text-[#959595]"
                         } text-[16px] leading-none ml-2`}
                       >
-                        {subOption}
+                        {subOption.name}
                       </Link>
                     </div>
                   );

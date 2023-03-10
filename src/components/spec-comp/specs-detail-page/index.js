@@ -6,8 +6,9 @@ import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
 import NotesModal from "../../modal/Modal";
+import Breadcrumb from "@/components/Breadcrumb";
 
-const SpecsDetailPage = () => {
+const SpecsDetailPage = ({productDetails}) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -49,11 +50,7 @@ const SpecsDetailPage = () => {
         isModalOpen={isEditModalOpen}
         onClickCancel={handleCloseModal}
       />
-      <div className="text-container ">
-        <p className="text-white text-[14px]">
-          <span className="text-[#CCCCCC]">Specs / Coctail/</span> Southside
-        </p>
-      </div>
+      <Breadcrumb/>
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
           className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${
