@@ -3,17 +3,28 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { useEffect, useState } from "react";
+import useFilteredData from "@/Hooks/useFilteredData";
+import { emptyProductList } from "@/store/slices/product";
+import { useDispatch } from "react-redux";
 
-function BeerSeltzer() {
+function BeerSeltzer({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
-  const coctailData = coctailMock.coctailData;
+  const dispatch=useDispatch()
+  const filtereddataList=useFilteredData(productList,true,"beer")
+  
+  useEffect(()=>{
+   return ()=>{
+        dispatch(emptyProductList())
+      }
+},[])
 
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
           <p className="text-white text-[14px]">
-            <span className="text-[#CCCCCC]">Specs</span> / Beer / Seltzer
+            <span className="text-[#CCCCCC]">Specs</span> / Beer-Seltzer
           </p>
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
@@ -50,14 +61,15 @@ function BeerSeltzer() {
             />
           </div>
         )}
-        <div className="bottle-cards-container mb-8">
-          <p className="text-white text-[20px] font-semibold mb-5">Bottle</p>
+        {filtereddataList.map((d,inx)=>{
+          return <div className="bottle-cards-container mb-8" key={inx}>
+          <p className="text-white text-[20px] font-semibold mb-5">{d.type}</p>
           <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-            {coctailData.map((card, i) => {
+            {d.data.map((card, i) => {
               return (
                 <div className=" col-span-1 ">
                   <RectangularCard
-                    title={card.title}
+                    title={card?.beer_name}
                     image={"/asset/blue-moon.svg"}
                     subtitle="Medium(12%)"
                   />
@@ -66,7 +78,12 @@ function BeerSeltzer() {
             })}
           </div>
         </div>
-        <div className="can-cards-container">
+        })
+        
+        }
+
+        
+        {/* <div className="can-cards-container">
           <p className="text-white text-[20px] font-semibold mb-5">Can</p>
           <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
             {coctailData.map((card, i) => {
@@ -81,7 +98,7 @@ function BeerSeltzer() {
               );
             })}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -20,7 +20,6 @@ function OnboardingForm({ employeeName }) {
     concept: "",
     user_id: user?.user_id,
   });
-  debugger;
   function handleChange(e) {
     const { name, value } = e.target;
 

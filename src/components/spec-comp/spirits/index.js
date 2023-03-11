@@ -2,18 +2,31 @@ import { CiSearch } from "react-icons/ci";
 import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { useEffect, useState } from "react";
+import useFilteredData from "@/Hooks/useFilteredData";
+import { useDispatch } from "react-redux";
+import { emptyProductList } from "@/store/slices/product";
+import Breadcrumb from "@/components/Breadcrumb";
+import useNavDetails from "@/Hooks/useNavDetails";
+import Link from "next/link";
 
-function Spirits() {
+function Spirits({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
+  const dispatch=useDispatch()
+  const filtereddataList=useFilteredData(productList,false,"spirit")
+  useEffect(()=>{
+    return ()=>{
+         dispatch(emptyProductList())
+       }
+ },[])
 
+ const {category,subcategory,productId}=useNavDetails()
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <p className="text-white text-[14px]">
-            <span className="text-[#CCCCCC]">Specs</span> / Spirits
-          </p>
+         <Breadcrumb/>
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
               <CiSearch
@@ -48,19 +61,25 @@ function Spirits() {
             />
           </div>
         )}
-        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {coctailData.map((card, i) => {
+        {filtereddataList.map((d,inx)=>{
+          
+          return <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+          {d?.data?.map((card, i) => {
             return (
               <div className=" col-span-1 ">
+                <Link href={`${category}/${subcategory}/${card.spirit_id}`}>
                 <RectangularCard
-                  title={card.title}
+                  title={card.spirit_name}
                   image={"/asset/vodka.svg"}
                   circularImg={true}
                 />
+                </Link>
               </div>
             );
           })}
         </div>
+        })
+      }
       </div>
     </>
   );
