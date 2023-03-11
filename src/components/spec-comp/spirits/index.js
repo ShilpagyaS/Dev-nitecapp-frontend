@@ -14,7 +14,7 @@ function Spirits({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
   const dispatch=useDispatch()
-  const filtereddataList=useFilteredData(productList,false,"Wine")
+  const filtereddataList=useFilteredData(productList,false,"spirit")
   useEffect(()=>{
     return ()=>{
          dispatch(emptyProductList())

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-const useNavDetails = (query) => {
+const useNavDetails = () => {
     const router = useRouter();
     const { nav } = router.query;
     const category = nav ? nav?.[0] : "";

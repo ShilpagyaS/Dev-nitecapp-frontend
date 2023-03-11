@@ -1,19 +1,20 @@
-import { emptyProductList } from "@/store/slices/product";
+
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 
 const useFilteredData = (productList,typechecking,defauttype) => {
     const [filtereddataList,setfiltereddata]=useState([])
-    const dispatch=useDispatch()
     const filtereddata=()=>{
       let temp=[];
+    
       if(typechecking){
         const Alltypetemp=productList.map((i)=>{
-            const isTypePresentIndex=temp.findIndex((t)=>t.type===i.type)
+          const findname="category"  
+          const isTypePresentIndex=temp.findIndex((t)=>t.type===i?.[`${findname}`])
             if(isTypePresentIndex>-1){
-              temp[isTypePresentIndex]={type:i.type,data:[...(temp[isTypePresentIndex]?.data|| []),i]}
+              temp[isTypePresentIndex]={type:i?.[`${findname}`],data:[...(temp[isTypePresentIndex]?.data|| []),i]}
             } else {
-              temp.push({type:i.type,data:[i]})
+              temp.push({type:i.category,data:[i]})
             }
             
             })
@@ -23,9 +24,9 @@ const useFilteredData = (productList,typechecking,defauttype) => {
       
       setfiltereddata(temp)
     }
+    
     useEffect(()=>{
       filtereddata()
-   
     },[productList])
 
     return filtereddataList

@@ -7,6 +7,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
 import NotesModal from "../../modal/Modal";
 import Breadcrumb from "@/components/Breadcrumb";
+import useNavDetails from "@/Hooks/useNavDetails";
 
 const SpecsDetailPage = ({productDetails}) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -19,6 +20,7 @@ const SpecsDetailPage = ({productDetails}) => {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const {category,subcategory,productId}=useNavDetails()
 
   const handleEditModalOpen = () => {
     setIsAddModalOpen(false);
@@ -71,7 +73,7 @@ const SpecsDetailPage = ({productDetails}) => {
               }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
-                Southside
+                {productDetails[`${subcategory}_name`]}
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>

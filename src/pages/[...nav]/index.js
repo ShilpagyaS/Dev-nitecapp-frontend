@@ -27,8 +27,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
   const {category,subcategory,productId}=useNavDetails()
+
   const {productList,productDetails} =useSelector((state)=>state.product)
+
+
   const dispatch=useDispatch()
+
+
   useEffect(()=>{
     if(subcategory && !productId ){
       dispatch(getProduct(subcategory))
@@ -36,7 +41,10 @@ export default function Category() {
     if(subcategory && productId ){
       dispatch(getProductById(subcategory,productId))
     }
+    
   },[subcategory,productId])
+
+
   return (
     <>
       <Head>

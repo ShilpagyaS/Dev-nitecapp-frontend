@@ -85,7 +85,7 @@ function SideBar({ category, subcategory }) {
               <div className="flex items-center py-[12px]" key={ik}>
                 {menuIcon(option.name)}
                 <Link
-                  href={`/${option.name.toLowerCase()}/`}
+                  href={`/${option.id}/`}
                   className={`${
                     option.id == category
                       ? "text-[#F19B6C]"

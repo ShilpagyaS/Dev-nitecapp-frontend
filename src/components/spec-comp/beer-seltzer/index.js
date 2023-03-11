@@ -12,11 +12,13 @@ function BeerSeltzer({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const dispatch=useDispatch()
   const filtereddataList=useFilteredData(productList,true,"beer")
-useEffect(()=>{
+  
+  useEffect(()=>{
    return ()=>{
         dispatch(emptyProductList())
       }
 },[])
+
   return (
     <>
       <div className="coctail-container">
