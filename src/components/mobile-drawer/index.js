@@ -7,7 +7,7 @@ import MobileSidebar from "../SIdebar/MobileSidebar";
 
 const MobileDrawer = ({ category, subcategory, handleDrawer }) => {
   return (
-    <div className="absolute w-full h-screen bg:black z-10 top-0 left-0 text-white px-4 pb-[18px] flex flex-col justify-between">
+    <div className="absolute overflow-hidden w-full h-screen bg:black z-10 top-0 left-0 text-white px-4 pb-[18px] flex flex-col justify-between">
       <div>
         <div className="button-container flex justify-between w-full">
           <div className="p-[10px] h-fit">

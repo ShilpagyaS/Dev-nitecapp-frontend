@@ -74,16 +74,13 @@ function Header(props) {
             <div className="p-[15px]  md:p-[20px]">
               <Link href={"/specs"} legacyBehavior>
                 <a>
-                  <HiOutlineBars3
-                    color="#fff"
-                    size="20px"
-                    className="cursor-pointer"
-                  />
+                  <div className="relative w-[20px] h-[20px]">
+                    <Image src="/asset/learn-icon.svg" fill />
+                  </div>
                 </a>
               </Link>
             </div>
             <div className="p-[15px]  md:p-[20px]">
-              
               <HiOutlineBars3
                 onClick={props.handleDrawer}
                 color="#fff"
