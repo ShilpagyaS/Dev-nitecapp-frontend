@@ -53,7 +53,7 @@ function menuIcon(menuOption) {
     ),
     Schedule: (
       <Image
-        src="/asset/calander-icon.svg"
+        src="/asset/schedule-icon.svg"
         width={15}
         height={15}
         className="mr-3"

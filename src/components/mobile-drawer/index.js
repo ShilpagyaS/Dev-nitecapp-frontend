@@ -2,8 +2,8 @@ import { RxCross1 } from "react-icons/rx";
 import { AiFillSetting } from "react-icons/ai";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { CustomButton } from "@/utils/Buttons";
-import SideBar from "../SIdebar";
 import Image from "next/image";
+import MobileSidebar from "../SIdebar/MobileSidebar";
 
 const MobileDrawer = ({ category, subcategory, handleDrawer }) => {
   return (
@@ -32,7 +32,7 @@ const MobileDrawer = ({ category, subcategory, handleDrawer }) => {
           </div>
           <h4 className="username ">Hi User!</h4>
         </div>
-        <SideBar category={category} subcategory={subcategory} />
+        <MobileSidebar category={category} subcategory={subcategory} />
       </div>
       <div className="button-container flex justify-between w-full">
         <CustomButton label="Sign out" color="#fff" />
