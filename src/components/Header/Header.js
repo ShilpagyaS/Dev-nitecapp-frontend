@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { IoNotifications } from "react-icons/io5";
-import { SlArrowDown } from "react-icons/sl";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { AiFillAppstore } from "react-icons/ai";
 import { ImGlass2 } from "react-icons/im";
 import { HiOutlineBars3 } from "react-icons/hi2";
@@ -44,7 +44,7 @@ function Header(props) {
                 height={50}
                 className="rounded-[50%] mr-2"
               />
-              <SlArrowDown color="#fff" size="15px" />
+              <MdOutlineKeyboardArrowDown color="#fff" size="25px" />
             </div>
           </div>
         ) : (

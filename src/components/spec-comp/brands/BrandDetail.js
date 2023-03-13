@@ -1,5 +1,6 @@
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton } from "@/utils/Buttons";
+import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 
 const BrandDetail = () => {
@@ -11,8 +12,18 @@ const BrandDetail = () => {
           <span className="text-[#CCCCCC]">Specs / Brands /</span> BrandName
         </p>
       </div>
-      <div className="banner-container w-full h-[269px] bg-[url('/asset/brand1.svg')] bg-no-repeat bg-cover bg-center mb-8">
-        <p>Brand Name</p>
+      <div className="banner-container w-full h-[269px] bg-[url('/asset/brand-bg.svg')] bg-no-repeat bg-cover bg-center mb-8 p-[44px]">
+        <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
+          <Image
+            className="bg-[transparent]"
+            src="/asset/brand-logo.svg"
+            fill
+          />
+        </div>
+        <p className="text-black bg-[transparent] text-center text-[16px] font-[400]">
+          HENDRICK’S GIN OFFERS ALTERNATIVE PRIVATE DIRIGIBLE AIRLINE TRANSPORT
+          TO THE BIG GAME.
+        </p>
       </div>
       <div className="properties-container text-white mb-8">
         <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
