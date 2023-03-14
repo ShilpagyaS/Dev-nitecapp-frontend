@@ -6,8 +6,9 @@ import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
 import NotesModal from "../../modal/Modal";
+import useNavDetails from "@/Hooks/useNavDetails";
 
-const CocktailDetailPage = () => {
+const CocktailDetailPage = ({productDetails}) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -33,7 +34,7 @@ const CocktailDetailPage = () => {
     setIsEditModalOpen(false);
     setIsAddModalOpen(false);
   };
-
+  const {category,subcategory,productId}=useNavDetails()
   return (
     <div className="detail-page-container">
       <NotesModal
@@ -74,7 +75,7 @@ const CocktailDetailPage = () => {
               }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
-                Southside
+                {productDetails?.[`${subcategory}_name`]}
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
@@ -85,9 +86,7 @@ const CocktailDetailPage = () => {
               isMobile && "text-center"
             }`}
           >
-            A pre-Prohibition classic cocktail made popular at the “21 Club” in
-            New York. A refreshing combination of Tanqueray gin, citrus + a kiss
-            of mint.
+            {productDetails?.description}
           </p>
         </div>
       </div>

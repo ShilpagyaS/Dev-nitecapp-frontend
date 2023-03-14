@@ -11,5 +11,5 @@ const nextConfig = {
     ];
   },
 };
-
+//['admin','user','superadmin']
 module.exports = nextConfig;

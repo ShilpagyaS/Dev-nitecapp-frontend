@@ -13,12 +13,6 @@ export const authSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    login: (state) => {
-      state.user = 1;
-    },
-    logout: (state) => {
-      state.value -= 1;
-    },
     updateUser: (state, action) => {
       localStorage.setItem("nightcpp-token", action.payload?.token);
       state.user = action.payload?.data;
@@ -27,6 +21,18 @@ export const authSlice = createSlice({
     },
     updateTempUser: (state, action) => {
       state.tempUserEmail = action.payload;
+    },
+
+    reloadUpdateUser: (state, action) => {
+      const token = localStorage.getItem("nightcpp-token");
+      state.user = action.payload;
+      state.accessToken = token;
+      state.firstTimeLogin = action.payload?.first_time_login;
+    },
+
+    logoutUser: (state, action) => {
+      localStorage.removeItem("nightcpp-token");
+      state.user = initialState.user;
     },
   },
 });
@@ -39,6 +45,12 @@ export const login = (data) => {
       method: "POST",
       data,
     });
+  };
+};
+
+export const logout = (data) => {
+  return async (dispatch) => {
+    dispatch(authSlice.actions.logoutUser());
   };
 };
 
@@ -59,6 +71,23 @@ export const verifyOTP = (code) => {
 export const setLoggedInUser = (data) => {
   return (dispatch) => {
     dispatch(authSlice.actions.updateUser(data));
+  };
+};
+
+export const setUserRelogin = (data) => {
+  return async (dispatch) => {
+    await axiosInstance({
+      url: "/api/user-auth/verify-token",
+      method: "GET",
+    })
+      .then((res) => {
+        if (res?.data?.resCode === 200) {
+          dispatch(authSlice.actions.reloadUpdateUser(res.data.user));
+        }
+      })
+      .catch((err) => {
+        localStorage.deleteItem("nightcpp-token");
+      });
   };
 };
 
@@ -101,5 +130,7 @@ export const getConcept = (data) => {
     });
   };
 };
+
+
 
 export default authSlice.reducer;

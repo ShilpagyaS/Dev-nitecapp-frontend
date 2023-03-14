@@ -53,7 +53,7 @@ function menuIcon(menuOption) {
     ),
     Schedule: (
       <Image
-        src="/asset/calander-icon.svg"
+        src="/asset/schedule-icon.svg"
         width={15}
         height={15}
         className="mr-3"
@@ -85,9 +85,9 @@ function SideBar({ category, subcategory }) {
               <div className="flex items-center py-[12px]" key={ik}>
                 {menuIcon(option.name)}
                 <Link
-                  href={`/${option.name.toLowerCase()}/`}
+                  href={`/${option.id}/`}
                   className={`${
-                    option.name.toLowerCase() == category?.toLowerCase()
+                    option.id == category
                       ? "text-[#F19B6C]"
                       : "text-[#959595]"
                   } text-[18px] leading-6 font-semibold `}
@@ -118,18 +118,14 @@ function SideBar({ category, subcategory }) {
                       </svg>
 
                       <Link
-                        href={`/${option.name.toLowerCase()}/${subOption
-                          .toLowerCase()
-                          .replace("/", "-")
-                          .replace(" ", "-")}`}
+                        href={`/${option.id}/${subOption.id}`}
                         className={`${
-                          subOption.toLowerCase().replace("/", "-") ==
-                          subcategory?.toLowerCase().replace("/", "-")
+                          subOption.id ==subcategory
                             ? "text-[#F19B6C]"
                             : "text-[#959595]"
                         } text-[16px] leading-none ml-2`}
                       >
-                        {subOption}
+                        {subOption.name}
                       </Link>
                     </div>
                   );

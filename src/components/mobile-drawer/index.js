@@ -2,12 +2,14 @@ import { RxCross1 } from "react-icons/rx";
 import { AiFillSetting } from "react-icons/ai";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { CustomButton } from "@/utils/Buttons";
-import SideBar from "../SIdebar";
 import Image from "next/image";
+import MobileSidebar from "../SIdebar/MobileSidebar";
 
-const MobileDrawer = ({ category, subcategory, handleDrawer }) => {
+const MobileDrawer = ({ category, subcategory, handleDrawer,isSidebarVisible }) => {
+   
   return (
-    <div className="absolute w-full h-screen bg:black z-10 top-0 left-0 text-white px-4 pb-[18px] flex flex-col justify-between">
+    <div className={`absolute overflow-hidden w-[80%] h-screen bg:red-500 z-10 top-0 
+    left-0 text-white px-6 py-4 pb-[18px] flex flex-col justify-between transition duration-500 ${isSidebarVisible?'translate-x-0':`-translate-x-[1000px]`}`}>
       <div>
         <div className="button-container flex justify-between w-full">
           <div className="p-[10px] h-fit">
@@ -32,7 +34,7 @@ const MobileDrawer = ({ category, subcategory, handleDrawer }) => {
           </div>
           <h4 className="username ">Hi User!</h4>
         </div>
-        <SideBar category={category} subcategory={subcategory} />
+        <MobileSidebar category={category} subcategory={subcategory} />
       </div>
       <div className="button-container flex justify-between w-full">
         <CustomButton label="Sign out" color="#fff" />

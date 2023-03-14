@@ -1,10 +1,7 @@
 import Head from "next/head";
 
 import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
-import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
-import SelectWithSearch from "@/utils/SelectwithFilter";
-import { useRouter } from "next/router";
+
 import LayoutWithSidebar from "@/components/Layouts/LayoutWithSidebar";
 import SpecComp from "@/components/spec-comp";
 import Coctails from "@/components/spec-comp/coctails";
@@ -21,15 +18,33 @@ import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
 import Brands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct,getProductById } from "@/store/slices/product";
+import useNavDetails from "@/Hooks/useNavDetails";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-  const router = useRouter();
-  const { nav } = router.query;
-  const category = nav ? nav?.[0] : "";
-  const subcategory = nav ? nav?.[1] : "";
-  console.log(category, subcategory);
+  const {category,subcategory,productId}=useNavDetails()
+
+  const {productList,productDetails} =useSelector((state)=>state.product)
+
+
+  const dispatch=useDispatch()
+
+
+  useEffect(()=>{
+    if(subcategory && !productId ){
+      dispatch(getProduct(subcategory))
+    }
+    if(subcategory && productId ){
+      dispatch(getProductById(subcategory,productId))
+    }
+    
+  },[subcategory,productId])
+
+
   return (
     <>
       <Head>
@@ -38,22 +53,27 @@ export default function Category() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <AuthWrapper>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
         {category === "specs" && !subcategory && <SpecComp />}
+        {category === "specs" && subcategory === "cocktail" && !productId && <Coctails productList={productList} />}
+        {category === "specs" && subcategory === "spirit" && !productId && <Spirits productList={productList}/>}
+        {category === "specs" && subcategory === "wine" && !productId && <Wine productList={productList} />}
+        {category === "specs" && subcategory === "beer" && !productId && <BeerSeltzer  productList={productList}/>}
+        {category === "specs" && subcategory === "low_no_abv" && !productId&& <LowABV productList={productList}/>}
+        {category === "specs" && subcategory!=="cocktail"  && productId && <SpecsDetailPage productDetails={productDetails} />}
         {subcategory === "bestselling" && <BestSellingCoctails />}
-        {subcategory === "cocktails" && <Coctails />}
-        {subcategory === "non-low-abv" && <LowABV />}
-        {subcategory === "spirits" && <Spirits />}
-        {subcategory === "wine" && <Wine />}
-        {subcategory === "beer-seltzer" && <BeerSeltzer />}
-        {subcategory === "cocktail-detail-page" && <CocktailDetailPage />}
+       
+        
+        {category === "specs" && subcategory==="cocktail"  && productId && <CocktailDetailPage  productDetails={productDetails}  />}
         {subcategory === "ingridients" && <Ingridients />}
         {subcategory === "ingridient-detail" && <IngridientDetail />}
-        {subcategory === "specs-detail-page" && <SpecsDetailPage />}
-        {subcategory === "brands" && <Brands />}
-        {subcategory === "brand-detail" && <BrandDetail />}
+        
+        {category === "brands" && subcategory==="beer"  && !productId && <Brands />}
+        {category === "brands" && subcategory==="beer" && productId  && <BrandDetail />}
         {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
+      </AuthWrapper>
     </>
   );
 }
