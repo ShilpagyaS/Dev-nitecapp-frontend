@@ -22,6 +22,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct,getProductById } from "@/store/slices/product";
 import useNavDetails from "@/Hooks/useNavDetails";
+import AdminSpecs from "@/components/spec-comp/AdminSpecsComp/AdminSpecs";
+import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page";
+import EmptyUSerLayout from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/EmptyUSerLayout";
+import BestSellingAdminCoctails from "@/components/spec-comp/AdminSpecsComp/admin-best-selling-coctails";
+import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,7 +49,7 @@ export default function Category() {
     
   },[subcategory,productId])
 
-
+console.log("aadasd",process.env.NEXT_PUBLIC_APP_TYPE)
   return (
     <>
       <Head>
@@ -54,6 +59,7 @@ export default function Category() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AuthWrapper>
+        {process.env.NEXT_PUBLIC_APP_TYPE==="user" &&
       <LayoutWithSidebar category={category} subcategory={subcategory}>
         {category === "specs" && !subcategory && <SpecComp />}
         {category === "specs" && subcategory === "cocktail" && !productId && <Coctails productList={productList} />}
@@ -73,6 +79,16 @@ export default function Category() {
         {category === "brands" && subcategory==="beer" && productId  && <BrandDetail />}
         {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
+}
+{process.env.NEXT_PUBLIC_APP_TYPE==="admin" &&
+      <LayoutWithSidebar category={category} subcategory={subcategory}>
+        {category === "specs" && !subcategory && <AdminSpecs />}
+        {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
+        {subcategory === "new-cocktail" && <EmptyUSerLayout />}
+        {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+        {category === "dashboard" && <AdminDashboard />}
+      </LayoutWithSidebar>
+}
       </AuthWrapper>
     </>
   );
