@@ -70,8 +70,8 @@ export default function Category() {
         {subcategory === "ingridients" && <Ingridients />}
         {subcategory === "ingridient-detail" && <IngridientDetail />}
         
-        {subcategory === "brands" && <Brands />}
-        {subcategory === "brand-detail" && <BrandDetail />}
+        {category === "brands" && subcategory==="beer"  && !productId && <Brands />}
+        {category === "brands" && subcategory==="beer" && productId  && <BrandDetail />}
         {category === "dashboard" && <UserDashboard />}
       </LayoutWithSidebar>
       </AuthWrapper>

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import useFilteredData from "@/Hooks/useFilteredData";
 import { emptyProductList } from "@/store/slices/product";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 function BeerSeltzer({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -45,7 +46,9 @@ function BeerSeltzer({productList}) {
           <h2 className="text-white text-[24px] leading-9 font-bold ">
             Beer / Seltzer
           </h2>
-          <OrangeButtons label="Brands" noPadding={true} />
+          <Link href={`/brands/beer`} >
+          <OrangeButtons label="Brands" noPadding={true}  />
+          </Link>
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">

@@ -7,10 +7,13 @@ import { useEffect } from "react";
 import { emptyProductList } from "@/store/slices/product";
 import { useDispatch } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
+import Link from "next/link";
+import useNavDetails from "@/Hooks/useNavDetails";
 
 function Wine({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
+  const {category,subcategory,productId}=useNavDetails()
   const filtereddataList=useFilteredData(productList,false,"Wine")
   const dispatch=useDispatch()
   useEffect(()=>{
@@ -60,11 +63,13 @@ function Wine({productList}) {
           {d.data.map((card, i) => {
             return (
               <div className=" col-span-1 ">
+                <Link href={`${category}/${subcategory}/${card.wine_id}`}>
                 <RectangularCard
                   title={card.wine_name}
                   image={"/asset/red-chillie.svg"}
                   circularImg={true}
                 />
+                </Link>
               </div>
             );
           })}
