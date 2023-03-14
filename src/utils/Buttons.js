@@ -16,7 +16,7 @@ export function Buttons({ onClickHandler, label }) {
 export function CustomButton({ onClickHandler, label, color, background }) {
   return (
     <button
-      className={`bg-[${background || "#transparent"}] h-fit px-[5px] 
+      className={`bg-[${background || "#transparent"}] h-fit
      ${background && "py-[8px]"}
      ${background && "px-[32px]"}
       h-[54px] rounded-sm hover:bg-[#ee854d] hover:text-white ${

@@ -9,7 +9,6 @@ const initialState = {
   firstTimeLogin: false,
 };
 
-
 export const authSlice = createSlice({
   name: "counter",
   initialState,
@@ -25,10 +24,15 @@ export const authSlice = createSlice({
     },
 
     reloadUpdateUser: (state, action) => {
-    const token=localStorage.getItem("nightcpp-token");
+      const token = localStorage.getItem("nightcpp-token");
       state.user = action.payload;
       state.accessToken = token;
       state.firstTimeLogin = action.payload?.first_time_login;
+    },
+
+    logoutUser: (state, action) => {
+      localStorage.removeItem("nightcpp-token");
+      state.user = initialState.user;
     },
   },
 });
@@ -40,10 +44,15 @@ export const login = (data) => {
       url: "/api/user-auth/login",
       method: "POST",
       data,
-    })
+    });
   };
 };
 
+export const logout = (data) => {
+  return async (dispatch) => {
+    dispatch(authSlice.actions.logoutUser());
+  };
+};
 
 export const verifyOTP = (code) => {
   return async (dispatch, getState) => {
@@ -67,17 +76,18 @@ export const setLoggedInUser = (data) => {
 
 export const setUserRelogin = (data) => {
   return async (dispatch) => {
-   await  axiosInstance({
-        url: "/api/user-auth/verify-token",
-        method: "GET",
-        }).then((res)=>{
-            if(res?.data?.resCode===200){
-                dispatch(authSlice.actions.reloadUpdateUser(res.data.user));
-            }
-        }).catch((err)=>{
-  localStorage.deleteItem('nightcpp-token')
-        })
-   
+    await axiosInstance({
+      url: "/api/user-auth/verify-token",
+      method: "GET",
+    })
+      .then((res) => {
+        if (res?.data?.resCode === 200) {
+          dispatch(authSlice.actions.reloadUpdateUser(res.data.user));
+        }
+      })
+      .catch((err) => {
+        localStorage.deleteItem("nightcpp-token");
+      });
   };
 };
 
