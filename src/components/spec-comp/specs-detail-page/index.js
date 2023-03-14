@@ -73,7 +73,7 @@ const SpecsDetailPage = ({productDetails}) => {
               }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
-                {productDetails[`${subcategory}_name`]}
+                {productDetails?.[`${subcategory}_name`]}
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
@@ -84,9 +84,7 @@ const SpecsDetailPage = ({productDetails}) => {
               isMobile && "text-center"
             }`}
           >
-            A pre-Prohibition classic cocktail made popular at the “21 Club” in
-            New York. A refreshing combination of Tanqueray gin, citrus + a kiss
-            of mint.
+          {productDetails?.description}
           </p>
         </div>
       </div>

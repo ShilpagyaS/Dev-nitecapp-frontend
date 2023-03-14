@@ -10,11 +10,11 @@
       "id":"specs",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        {"name":"Cocktails","id":"cocktails"},
+        {"name":"Cocktails","id":"cocktail"},
         {"name":"Spirits","id":"spirit"},
         {"name":"Wine","id":"wine"},
         {"name":"Beer/Seltzer","id":"beer"},  
-        {"name":"Low / No ABV","id":"low-noabv"}  
+        {"name":"Low / No ABV","id":"low_no_abv"}  
          
       ]
     },

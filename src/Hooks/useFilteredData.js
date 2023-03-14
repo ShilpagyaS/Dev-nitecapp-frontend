@@ -21,7 +21,7 @@ const useFilteredData = (productList,typechecking,defauttype) => {
       } else {
         temp=[{type:defauttype,data:productList}]
       }
-      
+      debugger
       setfiltereddata(temp)
     }
     

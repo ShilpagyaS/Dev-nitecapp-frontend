@@ -41,7 +41,6 @@ export const getProductById = (productType,productId) => {
       url: `/api/${productType}/${productId}`,
       method: "GET",
     }).then((res)=>{
-        if(res.data?.resCode===200)
         dispatch(productSlice.actions.getProductInfo(res.data.data))    
     })
   };
@@ -54,9 +53,8 @@ export const getProduct = (productType) => {
         url: `/api/${productType}/get_all_${productType}`,
         method: "GET",
       }).then((res)=>{
-          if(res?.data?.resCode===200)
           dispatch(productSlice.actions.getProductList({
-            data:res.data?.data?.rows,
+            data:res?.data?.data?.rows,
             type:productType}))    
       })
     };

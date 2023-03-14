@@ -3,11 +3,22 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { useEffect } from "react";
+import { emptyProductList } from "@/store/slices/product";
+import Link from "next/link";
+import useNavDetails from "@/Hooks/useNavDetails";
+import { useDispatch } from "react-redux";
 
-function LowABV() {
+function LowABV({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
-
+  const {category,subcategory,productId}=useNavDetails()
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    return ()=>{
+         dispatch(emptyProductList())
+       }
+ },[])
   return (
     <>
       <div className="coctail-container">
@@ -51,14 +62,16 @@ function LowABV() {
           </div>
         )}
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {coctailData.map((card, i) => {
+          {productList.map((card, i) => {
             return (
               <div className=" col-span-1 ">
+                <Link href={`${category}/${subcategory}/${card.low_no_abv_id}`}>
                 <RectangularCard
                   title={card.title}
                   image={"/asset/redbull.svg"}
                   subtitle="Low(0%)"
                 />
+                </Link>
               </div>
             );
           })}

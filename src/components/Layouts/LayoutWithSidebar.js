@@ -16,13 +16,13 @@ function LayoutWithSidebar({ children, category, subcategory }) {
   return (
     <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full ">
       <Header handleDrawer={handleDrawer} user={true} />
-      {isSidebarVisible && (
-        <MobileDrawer
+      <MobileDrawer
           category={category}
           subcategory={subcategory}
           handleDrawer={handleDrawer}
+          isSidebarVisible={isSidebarVisible}
         />
-      )}
+      
       <div className="grid grid-cols-1 lg:grid-cols-[auto_repeat(5,minmax(175px,1fr))] w-full mt-[26px] ">
         <div className="lg:block hidden col-span-1 w-[175px]">
           <SideBar category={category} subcategory={subcategory} />

@@ -8,6 +8,7 @@ import useFilteredData from "@/Hooks/useFilteredData";
 import { emptyProductList } from "@/store/slices/product";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
+import useNavDetails from "@/Hooks/useNavDetails";
 
 function BeerSeltzer({productList}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -19,6 +20,7 @@ function BeerSeltzer({productList}) {
         dispatch(emptyProductList())
       }
 },[])
+const {category,subcategory,productId}=useNavDetails()
 
   return (
     <>
@@ -71,11 +73,13 @@ function BeerSeltzer({productList}) {
             {d.data.map((card, i) => {
               return (
                 <div className=" col-span-1 ">
+                  <Link href={`${category}/${subcategory}/${card.beer_id}`}>
                   <RectangularCard
                     title={card?.beer_name}
                     image={"/asset/blue-moon.svg"}
                     subtitle="Medium(12%)"
                   />
+                  </Link>
                 </div>
               );
             })}

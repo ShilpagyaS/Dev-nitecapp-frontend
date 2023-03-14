@@ -56,17 +56,16 @@ export default function Category() {
       <AuthWrapper>
       <LayoutWithSidebar category={category} subcategory={subcategory}>
         {category === "specs" && !subcategory && <SpecComp />}
-        
-        {category === "specs" && subcategory === "cocktails" && !productId && <Coctails />}
+        {category === "specs" && subcategory === "cocktail" && !productId && <Coctails productList={productList} />}
         {category === "specs" && subcategory === "spirit" && !productId && <Spirits productList={productList}/>}
         {category === "specs" && subcategory === "wine" && !productId && <Wine productList={productList} />}
         {category === "specs" && subcategory === "beer" && !productId && <BeerSeltzer  productList={productList}/>}
-        {category === "specs" && subcategory === "low-noabv" && <LowABV />}
-        {category === "specs" && subcategory  && productId && <SpecsDetailPage productDetails={productDetails} />}
+        {category === "specs" && subcategory === "low_no_abv" && !productId&& <LowABV productList={productList}/>}
+        {category === "specs" && subcategory!=="cocktail"  && productId && <SpecsDetailPage productDetails={productDetails} />}
         {subcategory === "bestselling" && <BestSellingCoctails />}
        
         
-        {subcategory === "cocktail-detail-page" && <CocktailDetailPage />}
+        {category === "specs" && subcategory==="cocktail"  && productId && <CocktailDetailPage  productDetails={productDetails}  />}
         {subcategory === "ingridients" && <Ingridients />}
         {subcategory === "ingridient-detail" && <IngridientDetail />}
         

@@ -10,7 +10,7 @@ function menuIcon(menuOption) {
         src="/asset/dashboard-icon.svg"
         width={15}
         height={15}
-        className="mr-3"
+        className="mr-3 "
       />
     ),
     Learn: (
@@ -93,16 +93,16 @@ export default function Accordian() {
                       ) : null}
                     </Disclosure.Button>
                     {option.subOptions.length ? (
-                      <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white">
+                      <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white  transition duration-500">
                         {option.subOptions.map((subOption, i) => {
                           return (
                             <>
-                              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                                <span className="flex items-center">
+                              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-[7px] text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 ">
+                                <span className="flex items-center relative ">
                                   <svg
                                     width="18"
-                                    height="33"
-                                    className="-mt-[14px]"
+                                    height="35"
+                                    className=" absolute -top-6 -left-2"
                                     viewBox="0 0 18 33"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,10 @@ export default function Accordian() {
                                       stroke-linecap="round"
                                     />
                                   </svg>
+                                  <span className="ml-3 font-normal">
                                   {subOption.name}
+                                  </span>
+                                  
                                 </span>
                               </Disclosure.Button>
                             </>
