@@ -5,11 +5,11 @@ import { CustomButton } from "@/utils/Buttons";
 import Image from "next/image";
 import MobileSidebar from "../SIdebar/MobileSidebar";
 
-const MobileDrawer = ({ category, subcategory, handleDrawer,isSidebarVisible }) => {
-   
+const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
+
   return (
     <div className={`absolute overflow-hidden w-[80%] h-screen bg:red-500 z-10 top-0 
-    left-0 text-white px-6 py-4 pb-[18px] flex flex-col justify-between transition duration-500 ${isSidebarVisible?'translate-x-0':`-translate-x-[1000px]`}`}>
+    left-0 text-white px-6 py-4 pb-[18px] flex flex-col justify-between transition duration-500 ${isSidebarVisible ? 'translate-x-0' : `-translate-x-[5000px]`}`}>
       <div>
         <div className="button-container flex justify-between w-full">
           <div className="p-[10px] h-fit">

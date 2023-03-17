@@ -4,6 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   productList: [],
   productDetails: {},
+  categoryList: [],
+  productsByCategory: []
 };
 
 export const productSlice = createSlice({
@@ -16,6 +18,19 @@ export const productSlice = createSlice({
     getProductInfo: (state, action) => {
       state.productDetails = action.payload;
     },
+    getCategoryList: (state, action) => {
+      state.categoryList = action.payload.data;
+    },
+    getProductCategoryList: (state, action) => {
+      state.productsByCategory = action.payload.data;
+    },
+    emptyAll: (state) => {
+      state.productList = [],
+        state.productDetails = {},
+        state.categoryList = [],
+        state.productsByCategory = []
+
+    }
   },
 });
 
@@ -47,6 +62,25 @@ export const getProduct = (productType) => {
       console.log("response in product,js 47", res);
       dispatch(
         productSlice.actions.getProductList({
+          data: res?.data?.data?.rows,
+          type: productType,
+        })
+      );
+    });
+  };
+};
+
+
+export const getCategoryList = (productType) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    await axiosInstance({
+      url: `/api/get_all_${productType}_category`,
+      method: "GET",
+    }).then((res) => {
+      console.log("response in category,js 47", res);
+      dispatch(
+        productSlice.actions.getCategoryList({
           data: res?.data?.data,
           type: productType,
         })
@@ -55,13 +89,31 @@ export const getProduct = (productType) => {
   };
 };
 
+export const getProductByCategoryId = (productType, id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    await axiosInstance({
+      url: `/api/${productType}/get_${productType}_by_id_category/${id}`,
+      method: "GET",
+    }).then((res) => {
+      console.log("response in product,js 47", res);
+
+      dispatch(
+        productSlice.actions.getProductCategoryList({
+          data: res?.data?.data?.rows,
+          type: productType,
+        })
+      );
+
+    });
+  };
+};
+
 export const emptyProductList = (productType) => {
+
   return async (dispatch, getState) => {
     dispatch(
-      productSlice.actions.getProductList({
-        data: [],
-        type: productType,
-      })
+      productSlice.actions.emptyAll()
     );
   };
 };

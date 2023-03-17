@@ -4,19 +4,19 @@ import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import useFilteredData from "@/Hooks/useFilteredData";
 import { useEffect } from "react";
-import { emptyProductList, getProduct } from "@/store/slices/Wine";
+import { emptyProductList, getProduct, getProductByCategoryId } from "@/store/slices/product";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 
-function Wine() {
+function Wine({ id, categoryName }) {
   const dispatch = useDispatch();
   const isTablet = useMediaQuery("(max-width: 786px)");
-  const { productList } = useSelector((state) => state.wine);
+  const { productsByCategory } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getProduct("wine"));
+    dispatch(getProductByCategoryId("wine", id));
     return () => {
       dispatch(emptyProductList());
     };
@@ -26,7 +26,7 @@ function Wine() {
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <Breadcrumb />
+          <Breadcrumb last={categoryName} />
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
               <CiSearch
@@ -43,7 +43,7 @@ function Wine() {
           )}
         </div>
         <div className="heading-container lg:mb-8 mb-3">
-          <h2 className="text-white text-[24px] leading-9 font-bold ">Wine</h2>
+          <h2 className="text-white text-[24px] leading-9 font-bold capitalize">{categoryName}</h2>
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
@@ -60,10 +60,10 @@ function Wine() {
           </div>
         )}
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {productList?.map((card, inx) => {
+          {productsByCategory?.map((card, inx) => {
             return (
               <div className=" col-span-1 " key={inx}>
-                <Link href={`specs/wine?id=${card.wine_id}`}>
+                <Link href={`specs/wine/${categoryName.replace('/', ' ')}/${card.wine_name.replace('/', " ")}/?id=${card.wine_id}`}>
                   <RectangularCard
                     title={card.wine_name}
                     image={"/asset/red-chillie.svg"}

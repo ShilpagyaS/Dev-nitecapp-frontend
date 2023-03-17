@@ -5,23 +5,24 @@ import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import useFilteredData from "@/Hooks/useFilteredData";
-import { emptyProductList } from "@/store/slices/product";
-import { useDispatch } from "react-redux";
+import { emptyProductList, getProduct } from "@/store/slices/product";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 
-function BeerSeltzer({productList}) {
+function BeerSeltzer() {
   const isTablet = useMediaQuery("(max-width: 786px)");
-  const dispatch=useDispatch()
-  const filtereddataList=useFilteredData(productList,true,"beer")
-  
-  useEffect(()=>{
-   return ()=>{
-        dispatch(emptyProductList())
-      }
-},[])
-const {category,subcategory,productId}=useNavDetails()
+  const dispatch = useDispatch()
 
+
+  useEffect(() => {
+    dispatch(getProduct('beer'))
+    return () => {
+      dispatch(emptyProductList())
+    }
+  }, [])
+  const { productList } = useSelector((state) => state.product)
+  const filtereddataList = useFilteredData(productList, true, "beer")
   return (
     <>
       <div className="coctail-container">
@@ -49,7 +50,7 @@ const {category,subcategory,productId}=useNavDetails()
             Beer / Seltzer
           </h2>
           <Link href={`/brands/beer`} >
-          <OrangeButtons label="Brands" noPadding={true}  />
+            <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>
         {isTablet && (
@@ -66,30 +67,30 @@ const {category,subcategory,productId}=useNavDetails()
             />
           </div>
         )}
-        {filtereddataList.map((d,inx)=>{
+        {filtereddataList.map((d, inx) => {
           return <div className="bottle-cards-container mb-8" key={inx}>
-          <p className="text-white text-[20px] font-semibold mb-5">{d.type}</p>
-          <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-            {d.data.map((card, i) => {
-              return (
-                <div className=" col-span-1 ">
-                  <Link href={`${category}/${subcategory}/${card.beer_id}`}>
-                  <RectangularCard
-                    title={card?.beer_name}
-                    image={"/asset/blue-moon.svg"}
-                    subtitle="Medium(12%)"
-                  />
-                  </Link>
-                </div>
-              );
-            })}
+            <p className="text-white text-[20px] font-semibold mb-5">{d.type}</p>
+            <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+              {d.data.map((card, i) => {
+                return (
+                  <div className=" col-span-1 ">
+                    <Link href={`specs/beer?id=${card.beer_id}`}>
+                      <RectangularCard
+                        title={card?.beer_name}
+                        image={"/asset/blue-moon.svg"}
+                        subtitle="Medium(12%)"
+                      />
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
         })
-        
+
         }
 
-        
+
         {/* <div className="can-cards-container">
           <p className="text-white text-[20px] font-semibold mb-5">Can</p>
           <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">

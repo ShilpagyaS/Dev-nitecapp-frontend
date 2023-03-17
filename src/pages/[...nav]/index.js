@@ -27,34 +27,14 @@ import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin
 import EmptyUSerLayout from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/EmptyUSerLayout";
 import BestSellingAdminCoctails from "@/components/spec-comp/AdminSpecsComp/admin-best-selling-coctails";
 import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
+import WineCategory from "@/components/spec-comp/wine/wineCategory";
+import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-  const { category, subcategory, subcategory2, productId, path } =
+  const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
-
-  console.log("===========================path========================", path);
-
-  // const { productList, productDetails } = useSelector((state) => state.product);
-
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (subcategory && !subcategory2 && !productId) {
-  //     dispatch(getProduct(subcategory));
-  //   }
-  //   if (subcategory2 && !productId) {
-  //     dispatch(getProduct(subcategory2));
-  //   }
-  //   if (subcategory2 && productId) {
-  //     dispatch(getProductById(subcategory2, productId));
-  //   }
-  //   if (subcategory && productId && !subcategory2) {
-  //     dispatch(getProductById(subcategory, productId));
-  //   }
-  // }, [subcategory, productId, subcategory2]);
-
   return (
     <>
       <Head>
@@ -68,22 +48,32 @@ export default function Category() {
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "/specs" && <SpecComp />}
             {path === "/specs/cocktail" && <Coctails />}
-            {path === "/specs/spirit" && <Spirits />}
-            {path === "/specs/wine" && <Wine />}
+            {path === `/specs/cocktail?id=${productId}` && <CocktailDetailPage id={productId} />}
+
+            {path === "/specs/spirit" && <SpiritsCategory />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'spirit'} />}
+
+            {path === "/specs/wine" && <WineCategory />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
+
+
             {path === "/specs/beer" && <BeerSeltzer />}
+            {path === `/specs/beer?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'beer'} />}
+
+
             {path === "/specs/low_no_abv" && <LowABV />}
-            {path === `/specs/${subcategory}?id=${productId}` &&
-              subcategory !== "cocktail" && <SpecsDetailPage />}
+            {path === `/specs/low_no_abv?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'low_no_abv'} />}
+
             {path === "/specs/bestselling" && <BestSellingCoctails />}
 
-            {path === `/specs/cocktail?id=${productId}` && (
-              <CocktailDetailPage />
-            )}
+
             {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients />}
             {path ===
               `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
-              <IngridientDetail />
-            )}
+                <IngridientDetail />
+              )}
 
             {path === "/brands/beer" && <Brands />}
             {path === `/brands/beer?id=${productId}` && <BrandDetail />}
