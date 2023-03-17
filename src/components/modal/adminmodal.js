@@ -102,7 +102,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
         setinput2("");
 
     };
-    console.log(inputone, '-->', input1);
+    // console.log(inputone, '-->', input1);
     useEffect(() => {
         setinput1(inputone)
         setinput2(inputtwo)
@@ -374,7 +374,7 @@ export function AddGeneric({ isModalOpen, onClickCancel, onSave, data, title }) 
     const [type, setType] = useState(0)
     const [index, setIndex] = useState("")
     useEffect(() => {
-        console.log(data);
+        // console.log(data);
         let a = Object.keys(data)
         let d = a.map((e) => {
             return {
@@ -580,7 +580,7 @@ export function AddNewDataModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
     };
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
-    console.log(type);
+    // console.log(type);
     const handleCancel = () => {
         onClickCancel();
         setinput1("");
@@ -589,7 +589,7 @@ export function AddNewDataModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
     };
 
     const handleSave = () => {
-        console.log(type);
+        // console.log(type);
         onSave(input1, input2)
         onClickCancel();
         setinput1("");
@@ -666,7 +666,7 @@ export function EditNewModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
         setinput2("");
 
     };
-    console.log(inputone, '-->', input1);
+    // console.log(inputone, '-->', input1);
     useEffect(() => {
         setinput1(inputone)
         setinput2(inputtwo)
@@ -767,7 +767,7 @@ export function Delete({ isModalOpen, onClickCancel, onSave, deleteBtn, title, t
         setinput2("");
 
     };
-    console.log(inputone, '-->', input1);
+    // console.log(inputone, '-->', input1);
     useEffect(() => {
         setinput1(inputone)
         setinput2(inputtwo)
@@ -837,7 +837,7 @@ export function DeleteSection({ isModalOpen, onClickCancel, onSave, deleteBtn, t
         setinput2("");
 
     };
-    console.log(inputone, '-->', input1);
+    // console.log(inputone, '-->', input1);
     useEffect(() => {
         setinput1(inputone)
         setinput2(inputtwo)

@@ -6,14 +6,15 @@ import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useState } from 'react'
 import ButtonCombo from './ButtonCombo';
 
-function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection }) {
-    console.log(title, type, arr);
+function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive }) {
+    console.log(title, type, arr, isActive);
     const [FirstModal, setFirstTimemodal] = useState(false)
     const [addModal, setAddmodal] = useState(false)
     const [EditModal, setEditmodal] = useState(false)
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [localIsActive, setLocalIsActive] = useState(isActive)
 
 
 
@@ -55,6 +56,10 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
 
         setAsfocus(null)
 
+    }
+    function setActiveData(e) {
+        setLocalIsActive(e);
+        setActive(title, e)
     }
     return (
         <>
@@ -109,7 +114,13 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
 
 
                         }}
-                            onDeleteClick={() => { setIsDeleteModalOpen(true) }} />}
+                            onDeleteClick={() => { setIsDeleteModalOpen(true) }}
+                            customize={{ add: true, switch: true }}
+                            isActive={localIsActive}
+                            setActive={setActiveData}
+
+
+                        />}
 
                     </div>
                     <div className="method-details-container">

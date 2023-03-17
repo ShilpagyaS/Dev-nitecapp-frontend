@@ -2,18 +2,26 @@ import { AddCircularButton, DeleteCircularButton, EditCircularButton } from '@/u
 import SwitchComp from '@/utils/SwitchComp'
 import React from 'react'
 
-function ButtonCombo({ onAddClick, onDeleteClick }) {
+function ButtonCombo({ onAddClick, onDeleteClick, customize, isActive, setActive }) {
     return (
         <div className='flex items-center justify-center'>
-            <AddCircularButton onClickHandler={onAddClick} />
-            <div className='ml-[15px]'>
+            {customize.add &&
+                <AddCircularButton onClickHandler={onAddClick} />
+            }
+            {customize.delete &&
 
-                <DeleteCircularButton onClickHandler={onDeleteClick} />
-            </div>
-            <div className='ml-[15px]'>
+                <div className='ml-[15px]'>
 
-                <SwitchComp />
-            </div>
+                    <DeleteCircularButton onClickHandler={onDeleteClick} />
+                </div>
+            }
+            {customize.switch &&
+
+                <div className='ml-[15px]'>
+
+                    <SwitchComp showHideStatus={isActive} onChangeHandler={setActive} />
+                </div>
+            }
         </div>
     )
 }

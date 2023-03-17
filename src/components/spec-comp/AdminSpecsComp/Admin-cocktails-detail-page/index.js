@@ -22,9 +22,36 @@ const CocktailAdminDetailPage = () => {
   const method = DetailsMock.method;
   const lesson = DetailsMock.lesson;
   const notes = DetailsMock.notes;
+  let superData = {
+    cocktail_name: 'SouthSide',
+    description: " A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.",
+    ingredients: {},
+    methods: {},
+    presentation: {},
+    image: {},
 
+  }
 
-  const [newMockData, setNewMockData] = useState({});
+  console.log(superData);
+  const [newMockData, setNewMockData] = useState({
+    ingredients: {
+      values: [],
+      type: 1,
+      isActive: true
+    },
+    methods: {
+      values: [],
+      type: 0,
+      isActive: false
+
+    },
+    presentation: {
+      values: [],
+      type: 1,
+      isActive: true
+
+    }
+  });
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isEdit, setEdit] = useState(false)
@@ -75,6 +102,20 @@ const CocktailAdminDetailPage = () => {
         }
       }
     }))
+
+  }
+  function setActive(title, data) {
+    setNewMockData(((prev) => {
+      return {
+        ...prev,
+        [title]: {
+          ...prev[title],
+          isActive: data,
+        }
+      }
+    }))
+    superData = { ...superData, ...newMockData }
+    console.log('superData', superData);
 
   }
   function addValues(title, data) {
@@ -198,7 +239,7 @@ const CocktailAdminDetailPage = () => {
               >
                 <h3 className="title text-[24px] font-bold mr-[16px]" >
 
-                  <EditCard editContent={"Southside"} isEdit={isEdit} />
+                  <EditCard editContent={superData.cocktail_name} isEdit={isEdit} />
                 </h3>
                 <div className="status-text text-[18px]">
                   <EditCard editContent={"Medium(12%)"} isEdit={isEdit} />
@@ -210,20 +251,20 @@ const CocktailAdminDetailPage = () => {
               className={`description text-[16px] leading-6 ${isMobile && "text-center"
                 }`}
             >
-              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={` A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.`} />
+              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={`${superData.description}`} />
             </p>
           </div>
         </div>
         <div className="titleContainer">
-          <div className="flex items-center justify-between p-[10px]">
+          {/* <div className="flex items-center justify-between p-[10px]">
             <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
-          </div>
-      
+          </div> */}
+
           {Object.keys(newMockData).map((e) =>
             <GenericCard title={e} type={newMockData[e].type} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
-              addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} />
+              addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
           )}
-         
+
         </div>
         {/* <div className="border border-[#3C3C3C] p-[15px] m-[8px]">
 

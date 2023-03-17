@@ -54,24 +54,20 @@ export default function FileUpdate() {
             </>
             ) : (
                 <label htmlFor="upload-button">
-                    <div className="bg-[#1D1D1D] rounded-[8px] border border-[#787878] flex items-center justify-center h-[191px] w-[132px] mr-[31px]">
+                    <div className="bg-[#1D1D1D] rounded-[8px] border border-[#787878] flex items-center cursor-pointer justify-center h-[191px] w-[132px] mr-[31px]">
                         <div className="flex flex-col bg-transparent justify-center items-center">
 
-                            <button className='h-[44px] w-[44px] rounded-full bg-[#171717] flex items-center justify-center'>
-                                <Image
-                                    src={'/asset/AddButtonVector.svg'}
-                                    // src={'/asset/DeleteVector.svg'}
-                                    width={20}
-                                    height={20}
-                                    className="bg-[#171717]"
-                                />
-                            </button>
+                            <Image
+                                src={'/asset/AddButtonVector.svg'}
+                                // src={'/asset/DeleteVector.svg'}
+                                width={20}
+                                height={20}
+                                className="bg-[#171717]"
+                            />
 
                             <h5 className="not-italic font-normal text-base leading-6 text-gray-600 font-Inter bg-transparent mt-[20px]">Upload Image</h5>
                         </div>
                     </div>
-
-
                 </label>
             )}
             <input
