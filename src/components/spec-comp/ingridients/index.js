@@ -1,12 +1,26 @@
+import { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import IngridientsMock from "../../mock/ingridientsMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "@/store/slices/product";
+import Link from "next/link";
 
 function Ingridients() {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const IngridientsData = IngridientsMock.ingridientsMock;
+
+  const { productList } = useSelector((state) => state.product);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProduct("cocktail_ingredients"));
+  }, []);
+
+  console.log("productList==================================", productList);
 
   return (
     <>
@@ -61,11 +75,15 @@ function Ingridients() {
                   {section.cards.map((card, i) => {
                     return (
                       <div className=" col-span-1 ">
-                        <RectangularCard
-                          title={card.title}
-                          image={card.img}
-                          subtitle={card.subtitle}
-                        />
+                        <Link
+                          href={`/specs/cocktail/cocktail_ingredients?id=${card.title}`}
+                        >
+                          <RectangularCard
+                            title={card.title}
+                            image={card.img}
+                            subtitle={card.subtitle}
+                          />
+                        </Link>
                       </div>
                     );
                   })}

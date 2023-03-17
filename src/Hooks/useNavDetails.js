@@ -2,12 +2,24 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 const useNavDetails = () => {
-    const router = useRouter();
-    const { nav } = router.query;
-    const category = nav ? nav?.[0] : "";
-    const subcategory = nav ? nav?.[1] : null;
-    const productId= nav ? nav?.[2] :null; 
-    return {category,subcategory,productId};
-}
+  let navDetails = {};
+  const router = useRouter();
+  const { nav } = router.query;
+  const path = router.asPath;
+  const productId = router?.query?.id;
+  navDetails = { ...navDetails, productId, path };
+
+  nav?.forEach((category, i) => {
+    if (!navDetails.category) {
+      navDetails = { ...navDetails, [`category`]: category };
+    } else if (!navDetails.subcategory) {
+      navDetails = { ...navDetails, [`subcategory`]: category };
+    } else {
+      navDetails = { ...navDetails, [`subcategory`.concat(`${i}`)]: category };
+    }
+  });
+
+  return navDetails;
+};
 
 export default useNavDetails;

@@ -20,7 +20,7 @@ import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct,getProductById } from "@/store/slices/product";
+import { getProduct, getProductById } from "@/store/slices/product";
 import useNavDetails from "@/Hooks/useNavDetails";
 import AdminSpecs from "@/components/spec-comp/AdminSpecsComp/AdminSpecs";
 import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page";
@@ -31,25 +31,28 @@ import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-  const {category,subcategory,productId}=useNavDetails()
+  const { category, subcategory, subcategory2, productId, path } =
+    useNavDetails();
 
-  const {productList,productDetails} =useSelector((state)=>state.product)
+  const { productList, productDetails } = useSelector((state) => state.product);
 
+  const dispatch = useDispatch();
 
-  const dispatch=useDispatch()
-
-
-  useEffect(()=>{
-    if(subcategory && !productId ){
-      dispatch(getProduct(subcategory))
+  useEffect(() => {
+    if (subcategory && !subcategory2 && !productId) {
+      dispatch(getProduct(subcategory));
     }
-    if(subcategory && productId ){
-      dispatch(getProductById(subcategory,productId))
+    if (subcategory2 && !productId) {
+      dispatch(getProduct(subcategory2));
     }
-    
-  },[subcategory,productId])
+    if (subcategory2 && productId) {
+      dispatch(getProductById(subcategory2, productId));
+    }
+    if (subcategory && productId && !subcategory2) {
+      dispatch(getProductById(subcategory, productId));
+    }
+  }, [subcategory, productId, subcategory2]);
 
-console.log("aadasd",process.env.NEXT_PUBLIC_APP_TYPE)
   return (
     <>
       <Head>
@@ -59,36 +62,53 @@ console.log("aadasd",process.env.NEXT_PUBLIC_APP_TYPE)
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AuthWrapper>
-        {process.env.NEXT_PUBLIC_APP_TYPE==="user" &&
-      <LayoutWithSidebar category={category} subcategory={subcategory}>
-        {category === "specs" && !subcategory && <SpecComp />}
-        {category === "specs" && subcategory === "cocktail" && !productId && <Coctails productList={productList} />}
-        {category === "specs" && subcategory === "spirit" && !productId && <Spirits productList={productList}/>}
-        {category === "specs" && subcategory === "wine" && !productId && <Wine productList={productList} />}
-        {category === "specs" && subcategory === "beer" && !productId && <BeerSeltzer  productList={productList}/>}
-        {category === "specs" && subcategory === "low_no_abv" && !productId&& <LowABV productList={productList}/>}
-        {category === "specs" && subcategory!=="cocktail"  && productId && <SpecsDetailPage productDetails={productDetails} />}
-        {subcategory === "bestselling" && <BestSellingCoctails />}
-       
-        
-        {category === "specs" && subcategory==="cocktail"  && productId && <CocktailDetailPage  productDetails={productDetails}  />}
-        {subcategory === "ingridients" && <Ingridients />}
-        {subcategory === "ingridient-detail" && <IngridientDetail />}
-        
-        {category === "brands" && subcategory==="beer"  && !productId && <Brands />}
-        {category === "brands" && subcategory==="beer" && productId  && <BrandDetail />}
-        {category === "dashboard" && <UserDashboard />}
-      </LayoutWithSidebar>
-}
-{process.env.NEXT_PUBLIC_APP_TYPE==="admin" &&
-      <LayoutWithSidebar category={category} subcategory={subcategory}>
-        {category === "specs" && !subcategory && <AdminSpecs />}
-        {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
-        {subcategory === "new-cocktail" && <EmptyUSerLayout />}
-        {subcategory === "bestselling" && <BestSellingAdminCoctails />}
-        {category === "dashboard" && <AdminDashboard />}
-      </LayoutWithSidebar>
-}
+        {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
+            {path === "specs" && <SpecComp />}
+            {path === "specs/cocktails" && (
+              <Coctails productList={productList} />
+            )}
+            {path === "specs/spirits" && <Spirits productList={productList} />}
+            {path === "specs/wine" && <Wine productList={productList} />}
+            {path === "specs/beer" && <BeerSeltzer productList={productList} />}
+            {path === "specs/low_no_abv" && (
+              <LowABV productList={productList} />
+            )}
+            {category === "specs" &&
+              subcategory !== "cocktail" &&
+              productId && <SpecsDetailPage productDetails={productDetails} />}
+            {subcategory === "bestselling" && <BestSellingCoctails />}
+
+            {path === `/specs/cocktail/${productId}` && (
+              <CocktailDetailPage productDetails={productDetails} />
+            )}
+            {path === "/specs/cocktail/cocktail_ingredients" && (
+              <Ingridients productList={productList} />
+            )}
+            {path ===
+              `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
+              <IngridientDetail />
+            )}
+
+            {category === "brands" && subcategory === "beer" && !productId && (
+              <Brands />
+            )}
+            {category === "brands" && subcategory === "beer" && productId && (
+              <BrandDetail />
+            )}
+            {category === "dashboard" && <UserDashboard />}
+          </LayoutWithSidebar>
+        )}
+
+        {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
+            {category === "specs" && !subcategory && <AdminSpecs />}
+            {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
+            {subcategory === "new-cocktail" && <EmptyUSerLayout />}
+            {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+            {category === "dashboard" && <AdminDashboard />}
+          </LayoutWithSidebar>
+        )}
       </AuthWrapper>
     </>
   );

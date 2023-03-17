@@ -2,9 +2,26 @@ import useMediaQuery from "@/Hooks/useMediaQuery";
 import { AiOutlineHeart } from "react-icons/ai";
 import Image from "next/image";
 import Coctails from "../coctails";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductById } from "@/store/slices/product";
+import useNavDetails from "@/Hooks/useNavDetails";
 
 const IngridientDetail = () => {
   const isMobile = useMediaQuery("(max-width: 414px)");
+  const { productDetails } = useSelector((state) => state.product);
+
+  console.log("=================product details in ingridient===========", productDetails)
+
+  const { productId } = useNavDetails();
+
+  console.log("productId================", productId)
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductById("cocktail_ingredients", productId));
+  }, []);
+
   return (
     <div className="ingridient-detail-container">
       <div className="text-container ">
