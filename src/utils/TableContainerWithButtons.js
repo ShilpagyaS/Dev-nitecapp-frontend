@@ -12,10 +12,9 @@ const items = [
     { label: 'Latest to Old', value: 'option2' },
     { label: 'Old to New', value: 'option3' },
 ];
-function TableContainerWithButtons({ OuterRows, HeaderArray, mockData }) {
+function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize, label, buttonFunction }) {
     const router = useRouter();
     console.log(mockData);
-    const pageSize = 1
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(mockData.length / pageSize); //5 is page size
     const handleClick = (pageNum) => {
@@ -27,7 +26,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData }) {
         return mockData.slice(start, end).map((element, index) => (
             <tr key={index} className='h-[111px]'>
                 <td className='p-[25px]'>{index + 1}</td>
-                
+
                 <OuterRows element={element} />
 
             </tr>
@@ -75,7 +74,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData }) {
                 <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between '>
                     {/* grid for search and button  */}
 
-                    <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { router.push("/specs/new-cocktail") }} />
+                    <ChipWithLeftButton condition={true} label={label} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { buttonFunction() }} />
                     <div className='flex pr-[38px] '>
                         <div className='mr-[20px]'>
 

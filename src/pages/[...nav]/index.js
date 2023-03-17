@@ -30,6 +30,7 @@ import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
 import AdminCocktail from "@/Admin/AdminCoctail.js/Index";
 import AdminBeer from "@/Admin/AdminBeer";
 import BeerDisplayById from "@/Admin/AdminBeer/BeerDisplayById";
+import SuperAdminBrand from "@/SuperAdmin/Brands";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -83,7 +84,8 @@ export default function Category() {
           {category === "dashboard" && <UserDashboard />}
         </LayoutWithSidebar>
       }
-      {true &&
+      {/* admin  */}
+      {false &&
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
           {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
@@ -94,6 +96,15 @@ export default function Category() {
           {subcategory === "new-cocktail" && <EmptyUSerLayout />}
           {subcategory === "bestselling" && <BestSellingAdminCoctails />}
           {category === "dashboard" && <AdminDashboard />}
+
+        </LayoutWithSidebar>
+      }
+      {/* superAdmin */}
+      {true &&
+        <LayoutWithSidebar category={category} subcategory={subcategory}>
+       
+          {category === "dashboard" && <AdminDashboard />}
+          {category === "brand" && <SuperAdminBrand />}
 
         </LayoutWithSidebar>
       }

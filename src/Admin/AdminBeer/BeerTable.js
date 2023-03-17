@@ -86,7 +86,7 @@ function BeerTable() {
 
         return (
             <>
-            <td className='flex flex-row items-center justify-center p-[12px]'>
+                <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
                         <Image src={'/asset/blue-moon.svg'}
@@ -132,7 +132,7 @@ function BeerTable() {
         )
     }
     return (
-        <TableContainerWithButtons OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} />
+        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
     )
 }
 

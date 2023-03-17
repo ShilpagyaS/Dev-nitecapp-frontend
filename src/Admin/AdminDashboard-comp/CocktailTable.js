@@ -22,7 +22,7 @@ function CocktailTable() {
     }, [])
     console.log(productList);
     useEffect(() => {
-        let dummy = productList.map(
+        let dummy = productList?.map(
             (element) => {
                 return {
                     id: element.cocktail_id,
@@ -33,7 +33,7 @@ function CocktailTable() {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setList([...dummy])
 
@@ -132,7 +132,7 @@ function CocktailTable() {
         )
     }
     return (
-        <TableContainerWithButtons OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} />
+        <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={()=>{router.push("/specs/new-cocktail")}} mockData={newList} HeaderArray={HeaderArray} pageSize={3}/>
     )
 }
 
