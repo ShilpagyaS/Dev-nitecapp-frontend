@@ -68,7 +68,7 @@ export default function Category() {
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "/specs" && <SpecComp />}
             {path === "/specs/cocktail" && <Coctails />}
-            {path === "/specs/spirits" && <Spirits />}
+            {path === "/specs/spirit" && <Spirits />}
             {path === "/specs/wine" && <Wine />}
             {path === "/specs/beer" && <BeerSeltzer />}
             {path === "/specs/low_no_abv" && <LowABV />}

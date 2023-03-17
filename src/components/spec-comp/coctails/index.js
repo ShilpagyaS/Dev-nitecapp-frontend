@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import useFilteredData from "@/Hooks/useFilteredData";
 import useNavDetails from "@/Hooks/useNavDetails";
-import { emptyProductList } from "@/store/slices/product";
+import { getProduct, emptyProductList } from "@/store/slices/Cocktail";
 import { useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 
@@ -16,14 +16,15 @@ function Coctails({ headerHidden }) {
   const coctailData = coctailMock.coctailData;
   const dispatch = useDispatch();
 
-  const { productList } = useSelector((state) => state.product);
-  
+  const { productList } = useSelector((state) => state.cocktail);
+
   useEffect(() => {
     dispatch(getProduct("cocktail"));
     return () => {
       dispatch(emptyProductList());
     };
   }, []);
+
   return (
     <>
       <div className="coctail-container">
@@ -73,7 +74,7 @@ function Coctails({ headerHidden }) {
           {productList?.map((card, i) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`/specs/cocktail?id=${card.coctail_id}`}>
+                <Link href={`/specs/cocktail?id=${card.cocktail_id}`}>
                   <RectangularCard
                     title={card.title}
                     image={"/asset/coctail1.png"}

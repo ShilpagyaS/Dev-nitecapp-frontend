@@ -6,7 +6,7 @@ const initialState = {
   productDetails: {},
 };
 
-export const productSlice = createSlice({
+export const cocktailSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
@@ -32,7 +32,7 @@ export const getProductById = (productType, productId) => {
       url: `/api/${productType}/${productId}`,
       method: "GET",
     }).then((res) => {
-      dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(cocktailSlice.actions.getProductInfo(res?.data?.data));
     });
   };
 };
@@ -46,8 +46,8 @@ export const getProduct = (productType) => {
     }).then((res) => {
       console.log("response in product,js 47", res);
       dispatch(
-        productSlice.actions.getProductList({
-          data: res?.data?.data,
+        cocktailSlice.actions.getProductList({
+          data: res?.data?.data?.rows,
           type: productType,
         })
       );
@@ -58,7 +58,7 @@ export const getProduct = (productType) => {
 export const emptyProductList = (productType) => {
   return async (dispatch, getState) => {
     dispatch(
-      productSlice.actions.getProductList({
+      cocktailSlice.actions.getProductList({
         data: [],
         type: productType,
       })
@@ -66,4 +66,4 @@ export const emptyProductList = (productType) => {
   };
 };
 
-export default productSlice.reducer;
+export default cocktailSlice.reducer;

@@ -9,7 +9,7 @@ import NotesModal from "../../modal/Modal";
 import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 
-const SpecsDetailPage = ({productDetails}) => {
+const SpecsDetailPage = ({ productDetails }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -20,7 +20,7 @@ const SpecsDetailPage = ({productDetails}) => {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const {category,subcategory,productId}=useNavDetails()
+  const { category, subcategory, productId } = useNavDetails();
 
   const handleEditModalOpen = () => {
     setIsAddModalOpen(false);
@@ -52,7 +52,7 @@ const SpecsDetailPage = ({productDetails}) => {
         isModalOpen={isEditModalOpen}
         onClickCancel={handleCloseModal}
       />
-      <Breadcrumb/>
+      <Breadcrumb />
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
           className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${
@@ -84,7 +84,7 @@ const SpecsDetailPage = ({productDetails}) => {
               isMobile && "text-center"
             }`}
           >
-          {productDetails?.description}
+            {productDetails?.description}
           </p>
         </div>
       </div>
