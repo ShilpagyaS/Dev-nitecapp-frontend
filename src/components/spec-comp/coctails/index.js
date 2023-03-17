@@ -69,7 +69,7 @@ function Coctails({ productList, headerHidden }) {
           </div>
         )}
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {productList.map((card, i) => {
+          {productList?.map((card, i) => {
             return (
               <div className=" col-span-1 ">
                 <Link href={`${category}/${subcategory}/${card.cocktail_id}`}>

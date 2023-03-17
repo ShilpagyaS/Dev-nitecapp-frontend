@@ -19,6 +19,8 @@ const useNavDetails = () => {
     }
   });
 
+
+  console.log("navDetaisl===================>", )
   return navDetails;
 };
 

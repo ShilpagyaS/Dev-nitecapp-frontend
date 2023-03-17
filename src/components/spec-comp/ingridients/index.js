@@ -76,7 +76,7 @@ function Ingridients() {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients?id=${card.title}`}
+                          href={`/specs/cocktail/cocktail_ingredients?id=${i}`}
                         >
                           <RectangularCard
                             title={card.title}

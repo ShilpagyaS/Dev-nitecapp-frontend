@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { AiOutlineHeart } from "react-icons/ai";
 import Image from "next/image";

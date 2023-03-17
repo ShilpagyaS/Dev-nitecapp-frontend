@@ -65,38 +65,26 @@ export default function Category() {
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "specs" && <SpecComp />}
-            {path === "specs/cocktails" && (
-              <Coctails productList={productList} />
-            )}
-            {path === "specs/spirits" && <Spirits productList={productList} />}
-            {path === "specs/wine" && <Wine productList={productList} />}
-            {path === "specs/beer" && <BeerSeltzer productList={productList} />}
-            {path === "specs/low_no_abv" && (
-              <LowABV productList={productList} />
-            )}
-            {category === "specs" &&
-              subcategory !== "cocktail" &&
-              productId && <SpecsDetailPage productDetails={productDetails} />}
+            {path === "specs/cocktails" && <Coctails />}
+            {path === "specs/spirits" && <Spirits />}
+            {path === "specs/wine" && <Wine />}
+            {path === "specs/beer" && <BeerSeltzer />}
+            {path === "specs/low_no_abv" && <LowABV />}
+            {path === `specs/cocktail?id=${productId}` && <SpecsDetailPage />}
             {subcategory === "bestselling" && <BestSellingCoctails />}
 
-            {path === `/specs/cocktail/${productId}` && (
-              <CocktailDetailPage productDetails={productDetails} />
+            {path === `/specs/cocktail?id=${productId}` && (
+              <CocktailDetailPage />
             )}
-            {path === "/specs/cocktail/cocktail_ingredients" && (
-              <Ingridients productList={productList} />
-            )}
+            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients />}
             {path ===
               `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
               <IngridientDetail />
             )}
 
-            {category === "brands" && subcategory === "beer" && !productId && (
-              <Brands />
-            )}
-            {category === "brands" && subcategory === "beer" && productId && (
-              <BrandDetail />
-            )}
-            {category === "dashboard" && <UserDashboard />}
+            {path === "brands/beer" && <Brands />}
+            {path === `brands/beer?id=${productId}` && <BrandDetail />}
+            {path === "dashboard" && <UserDashboard />}
           </LayoutWithSidebar>
         )}
 
