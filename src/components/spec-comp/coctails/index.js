@@ -3,7 +3,7 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import useFilteredData from "@/Hooks/useFilteredData";
 import useNavDetails from "@/Hooks/useNavDetails";
@@ -11,14 +11,15 @@ import { emptyProductList } from "@/store/slices/product";
 import { useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 
-function Coctails({ productList, headerHidden }) {
+function Coctails({ headerHidden }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
   const dispatch = useDispatch();
 
-  const { category, subcategory, productId } = useNavDetails();
-
+  const { productList } = useSelector((state) => state.product);
+  
   useEffect(() => {
+    dispatch(getProduct("cocktail"));
     return () => {
       dispatch(emptyProductList());
     };
@@ -72,7 +73,7 @@ function Coctails({ productList, headerHidden }) {
           {productList?.map((card, i) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`${category}/${subcategory}/${card.cocktail_id}`}>
+                <Link href={`/specs/cocktail?id=${card.coctail_id}`}>
                   <RectangularCard
                     title={card.title}
                     image={"/asset/coctail1.png"}
