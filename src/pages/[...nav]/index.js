@@ -29,6 +29,7 @@ import BestSellingAdminCoctails from "@/components/spec-comp/AdminSpecsComp/admi
 import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
 import AdminCocktail from "@/Admin/AdminCoctail.js/Index";
 import AdminBeer from "@/Admin/AdminBeer";
+import BeerDisplayById from "@/Admin/AdminBeer/BeerDisplayById";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,7 +87,8 @@ export default function Category() {
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
           {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
-          {category === "specs" && subcategory === "beer" && !productId && <SpecsDetailPage productDetails={productDetails} />}
+          {category === "specs" && subcategory === "beer" && !productId && <AdminBeer productDetails={productDetails} />}
+          {category === "specs" && subcategory === "beerDis" && <BeerDisplayById productDetails={productDetails} />}
 
           {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
           {subcategory === "new-cocktail" && <EmptyUSerLayout />}
