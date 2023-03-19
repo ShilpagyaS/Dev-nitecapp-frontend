@@ -48,6 +48,8 @@ export const getProductById = (productType, productId) => {
       method: "GET",
     }).then((res) => {
       dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };
@@ -66,6 +68,8 @@ export const getProduct = (productType) => {
           type: productType,
         })
       );
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };
@@ -85,6 +89,8 @@ export const getCategoryList = (productType) => {
           type: productType,
         })
       );
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };
@@ -105,6 +111,8 @@ export const getProductByCategoryId = (productType, id) => {
         })
       );
 
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };

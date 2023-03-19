@@ -49,6 +49,8 @@ export default function Category() {
             {path === "/specs" && <SpecComp />}
             {path === "/specs/cocktail" && <Coctails />}
             {path === `/specs/cocktail?id=${productId}` && <CocktailDetailPage id={productId} />}
+            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients productType={'cocktail'} />}
+            {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (<IngridientDetail productId={productId} productType={'cocktail'} />)}
 
             {path === "/specs/spirit" && <SpiritsCategory />}
             {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
@@ -69,11 +71,6 @@ export default function Category() {
             {path === "/specs/bestselling" && <BestSellingCoctails />}
 
 
-            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients productType={'cocktail'} />}
-            {path ===
-              `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
-                <IngridientDetail />
-              )}
 
             {path === "/brands/beer" && <Brands />}
             {path === `/brands/beer?id=${productId}` && <BrandDetail />}

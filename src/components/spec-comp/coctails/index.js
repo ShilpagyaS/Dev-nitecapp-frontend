@@ -27,7 +27,7 @@ function Coctails({ headerHidden }) {
   return (
     <>
       <div className="coctail-container">
-        {headerHidden && (
+        {(
           <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
             <Breadcrumb />
             {!isTablet && (

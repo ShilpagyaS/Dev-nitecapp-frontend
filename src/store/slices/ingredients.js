@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     ingredients: [],
+    getIngredientDetails: {}
 };
 
 export const ingredientsSlice = createSlice({
@@ -11,6 +12,9 @@ export const ingredientsSlice = createSlice({
     reducers: {
         getIngredients: (state, action) => {
             state.ingredients = action.payload.data
+        },
+        getIngredientDetails: (state, action) => {
+            state.ingredients = action.payload
         },
         emptyAlling: (state) => {
             state.ingredients = []
@@ -34,12 +38,29 @@ export const getIngredientsList = (productType) => {
                     type: productType,
                 })
             );
+        }).catch((err) => {
+            console.log(err)
         });
     };
 };
 
 
-
+export const getIngredientsDetails = (productType, id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            url: `/api/${productType}_ingredient_type/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                ingredientsSlice.actions.getIngredientDetails(res.data)
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 
 
 export const emptyIngredientsList = (productType) => {
