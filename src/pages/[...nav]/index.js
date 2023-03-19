@@ -27,33 +27,24 @@ import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin
 import EmptyUSerLayout from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/EmptyUSerLayout";
 import BestSellingAdminCoctails from "@/components/spec-comp/AdminSpecsComp/admin-best-selling-coctails";
 import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
+
 import AdminCocktail from "@/Admin/AdminCoctail.js/Index";
 import AdminBeer from "@/Admin/AdminBeer";
 import BeerDisplayById from "@/Admin/AdminBeer/BeerDisplayById";
 import SuperAdminBrand from "@/SuperAdmin/Brands";
 
+import WineCategory from "@/components/spec-comp/wine/wineCategory";
+import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-  const { category, subcategory, productId } = useNavDetails()
-
-  const { productList, productDetails } = useSelector((state) => state.product)
 
 
   const dispatch = useDispatch()
-
-
-  useEffect(() => {
-    if (subcategory && !productId) {
-      dispatch(getProduct(subcategory))
-    }
-    if (subcategory && productId) {
-      dispatch(getProductById(subcategory, productId))
-    }
-
-  }, [subcategory, productId])
-
-  // console.log("aadasd",process.env.NEXT_PUBLIC_APP_TYPE)
+  const { category, subcategory, subcategory2, subcategory3, productId, path } =
+    useNavDetails();
   return (
     <>
       <Head>
@@ -62,29 +53,53 @@ export default function Category() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <AuthWrapper> */}
-      {false &&
-        <LayoutWithSidebar category={category} subcategory={subcategory}>
-          {category === "specs" && !subcategory && <SpecComp />}
-          {category === "specs" && subcategory === "cocktail" && !productId && <Coctails productList={productList} />}
-          {category === "specs" && subcategory === "spirit" && !productId && <Spirits productList={productList} />}
-          {category === "specs" && subcategory === "wine" && !productId && <Wine productList={productList} />}
-          {category === "specs" && subcategory === "beer" && !productId && <BeerSeltzer productList={productList} />}
-          {category === "specs" && subcategory === "low_no_abv" && !productId && <LowABV productList={productList} />}
-          {category === "specs" && subcategory !== "cocktail" && productId && <SpecsDetailPage productDetails={productDetails} />}
-          {subcategory === "bestselling" && <BestSellingCoctails />}
+
+      <AuthWrapper>
+        {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
+            {path === "/specs" && <SpecComp />}
+            {path === "/specs/cocktail" && <Coctails />}
+            {path === `/specs/cocktail?id=${productId}` && <CocktailDetailPage id={productId} />}
+            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients productType={'cocktail'} />}
+            {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (<IngridientDetail productId={productId} productType={'cocktail'} />)}
+
+            {path === "/specs/spirit" && <SpiritsCategory />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'spirit'} />}
+
+            {path === "/specs/wine" && <WineCategory />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
 
-          {category === "specs" && subcategory === "cocktail" && productId && <CocktailDetailPage productDetails={productDetails} />}
-          {subcategory === "ingridients" && <Ingridients />}
-          {subcategory === "ingridient-detail" && <IngridientDetail />}
+            {path === "/specs/beer" && <BeerSeltzer />}
+            {path === `/specs/beer?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'beer'} />}
 
-          {category === "brands" && subcategory === "beer" && !productId && <Brands />}
-          {category === "brands" && subcategory === "beer" && productId && <BrandDetail />}
-          {category === "dashboard" && <UserDashboard />}
-        </LayoutWithSidebar>
-      }
-      {/* admin  */}
+
+            {path === "/specs/low_no_abv" && <LowABV />}
+            {path === `/specs/low_no_abv?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'low_no_abv'} />}
+
+            {path === "/specs/bestselling" && <BestSellingCoctails />}
+
+
+
+            {path === "/brands/beer" && <Brands />}
+            {path === `/brands/beer?id=${productId}` && <BrandDetail />}
+            {path === "/dashboard" && <UserDashboard />}
+          </LayoutWithSidebar>
+        )}
+
+        {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
+            {category === "specs" && !subcategory && <AdminSpecs />}
+            {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
+            {subcategory === "new-cocktail" && <EmptyUSerLayout />}
+            {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+            {category === "dashboard" && <AdminDashboard />}
+          </LayoutWithSidebar>
+        )}
+        
+         {/* admin  */}
       {false &&
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
@@ -108,7 +123,8 @@ export default function Category() {
 
         </LayoutWithSidebar>
       }
-      {/* </AuthWrapper> */}
+      </AuthWrapper>
+
     </>
   );
 }
