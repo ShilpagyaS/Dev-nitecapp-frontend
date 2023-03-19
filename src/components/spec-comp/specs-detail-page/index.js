@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton, OrangeButtons } from "@/utils/Buttons";
 import { RectangularCard } from "@/utils/SpecCards";
@@ -8,8 +8,10 @@ import DetailsMock from "../../mock/DetailsMock.json";
 import NotesModal from "../../modal/Modal";
 import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProductList, getProductById } from "@/store/slices/product";
 
-const SpecsDetailPage = ({productDetails}) => {
+const SpecsDetailPage = ({ id, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -18,9 +20,18 @@ const SpecsDetailPage = ({productDetails}) => {
   const lesson = DetailsMock.lesson;
   const notes = DetailsMock.notes;
 
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProductById(subcategory, id))
+    return () => {
+      dispatch(emptyProductList())
+    }
+  }, [])
+  const { productDetails } = useSelector((state) => state.product)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const {category,subcategory,productId}=useNavDetails()
+
 
   const handleEditModalOpen = () => {
     setIsAddModalOpen(false);
@@ -52,25 +63,22 @@ const SpecsDetailPage = ({productDetails}) => {
         isModalOpen={isEditModalOpen}
         onClickCancel={handleCloseModal}
       />
-      <Breadcrumb/>
+      <Breadcrumb last={productDetails?.[`${subcategory}_name`]} />
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
-          className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${
-            isMobile ? "block m-auto" : "mr-[31px]"
-          }`}
+          className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px]"
+            }`}
         >
-          <Image src="/asset/london-dry-green.svg" fill />
+          <Image src="/asset/london-dry-green.svg" fill alt={productDetails?.[`${subcategory}_name`]} />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
-            className={`heading-container mb-8 flex justify-between items-center ${
-              isMobile && "text-center"
-            }`}
+            className={`heading-container mb-8 flex justify-between items-center ${isMobile && "text-center"
+              }`}
           >
             <div
-              className={`w-full flex items-center ${
-                isMobile && "justify-around"
-              }`}
+              className={`w-full flex items-center ${isMobile && "justify-around"
+                }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.[`${subcategory}_name`]}
@@ -80,11 +88,10 @@ const SpecsDetailPage = ({productDetails}) => {
             {!isMobile && <AiOutlineHeart size="25px" color="#fff" />}
           </div>
           <p
-            className={`description text-[16px] leading-6 ${
-              isMobile && "text-center"
-            }`}
+            className={`description text-[16px] leading-6 ${isMobile && "text-center"
+              }`}
           >
-          {productDetails?.description}
+            {productDetails?.description}
           </p>
         </div>
       </div>

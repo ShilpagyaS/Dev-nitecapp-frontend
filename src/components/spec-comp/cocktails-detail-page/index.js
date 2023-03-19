@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton, OrangeButtons } from "@/utils/Buttons";
 import { RectangularCard } from "@/utils/SpecCards";
@@ -7,8 +7,10 @@ import { AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
 import NotesModal from "../../modal/Modal";
 import useNavDetails from "@/Hooks/useNavDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProductList, getProductById } from "@/store/slices/product";
 
-const CocktailDetailPage = ({productDetails}) => {
+const CocktailDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -19,6 +21,14 @@ const CocktailDetailPage = ({productDetails}) => {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProductById('cocktail', id))
+    return () => {
+      dispatch(emptyProductList())
+    }
+  }, [])
+  const { productDetails } = useSelector((state) => state.product)
 
   const handleEditModalOpen = () => {
     setIsAddModalOpen(false);
@@ -34,7 +44,7 @@ const CocktailDetailPage = ({productDetails}) => {
     setIsEditModalOpen(false);
     setIsAddModalOpen(false);
   };
-  const {category,subcategory,productId}=useNavDetails()
+  const { category, subcategory, productId } = useNavDetails()
   return (
     <div className="detail-page-container">
       <NotesModal
@@ -57,34 +67,30 @@ const CocktailDetailPage = ({productDetails}) => {
       </div>
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
-          className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${
-            isMobile ? "block m-auto" : "mr-[31px]"
-          }`}
+          className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px]"
+            }`}
         >
           <Image src="/asset/coctail1.png" fill />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
-            className={`heading-container mb-8 flex justify-between items-center ${
-              isMobile && "text-center"
-            }`}
+            className={`heading-container mb-8 flex justify-between items-center ${isMobile && "text-center"
+              }`}
           >
             <div
-              className={`w-full flex items-center ${
-                isMobile && "justify-around"
-              }`}
+              className={`w-full flex items-center ${isMobile && "justify-around"
+                }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
-                {productDetails?.[`${subcategory}_name`]}
+                {productDetails.cocktail_name}
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
             {!isMobile && <AiOutlineHeart size="25px" color="#fff" />}
           </div>
           <p
-            className={`description text-[16px] leading-6 ${
-              isMobile && "text-center"
-            }`}
+            className={`description text-[16px] leading-6 ${isMobile && "text-center"
+              }`}
           >
             {productDetails?.description}
           </p>
