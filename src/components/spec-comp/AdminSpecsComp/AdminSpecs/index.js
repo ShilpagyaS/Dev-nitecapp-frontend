@@ -1,3 +1,4 @@
+import CocktailTable from '@/Admin/AdminDashboard-comp/CocktailTable'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
 import React from 'react'
 const mockData = ['Coctail', 'Beverage Categories']
@@ -18,7 +19,8 @@ function AdminSpecs() {
                             {element}
                         </p>
                     </div>
-                    <TableContainerWithButtons />
+                    {/* <TableContainerWithButtons /> */}
+                    <CocktailTable />
                 </div>
             )}
         </>

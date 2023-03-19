@@ -5,118 +5,47 @@ import ChipWithLeftButton from './ChipWithLeftButton'
 import { DeleteCircularButton, EditCircularButton } from './CircularButton'
 import CustomSelect from './CustomSelect'
 import Search from './Search'
-import SwitchComp from './SwitchComp'
 import TableComponent from './TableComponent'
-const mockData = [
-    {
-        id: 1,
-        itemImage: '',
-        itemName: 'Old Fashioned',
-        showHideStatus: true,
-        popularity: 'New',
 
-    },
-    {
-        id: 2,
-        itemImage: '',
-        itemName: 'Darusi',
-        showHideStatus: true,
-        popularity: 'New',
-
-    },
-    {
-        id: 3,
-        itemImage: '',
-        itemName: 'SouthSide',
-        showHideStatus: false,
-        popularity: 'None',
-
-    },
-    {
-        id: 4,
-        itemImage: '',
-        itemName: 'Old Monk',
-        showHideStatus: false,
-        popularity: 'None',
-
-    },
-    {
-        id: 5,
-        itemImage: '',
-        itemName: 'Old Fashioned2',
-        showHideStatus: true,
-        popularity: 'None',
-
-    },
-]
 const items = [
     { label: 'All', value: 'option1' },
     { label: 'Latest to Old', value: 'option2' },
     { label: 'Old to New', value: 'option3' },
 ];
-function TableContainerWithButtons() {
+function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize, label, buttonFunction }) {
     const router = useRouter();
-
-    const pageSize = 3
-    const [data, setData] = useState(mockData)
+    console.log(mockData);
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(data.length / pageSize); //5 is page size
+    const totalPages = Math.ceil(mockData.length / pageSize); //5 is page size
     const handleClick = (pageNum) => {
         setCurrentPage(pageNum);
     };
     const renderRows = () => {
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
-        return data.slice(start, end).map((element, index) => (
+        return mockData.slice(start, end).map((element, index) => (
             <tr key={index} className='h-[111px]'>
                 <td className='p-[25px]'>{index + 1}</td>
-                <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
-                    >
-                        <Image src={'/asset/coctail1.png'}
-                            alt="image"
-                            width={106}
-                            height={106} />
-                    </div>
-                </td>
-                <td >
-                    <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
-                            {element.itemName}
-                        </p>
-                    </div>
-                </td>
-                <td >
-                    <div className='flex flex-row items-center justify-center p-1'>
+                <OuterRows element={element} />
 
-                        <SwitchComp showHideStatus={element.showHideStatus} />
-                    </div>
-                </td>
-                <td >
-                    <div className='flex flex-row items-center justify-center p-1'>
-
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
-                            {element.popularity}
-                        </p>
-                    </div>
-                </td>
-                <td >
-                    <div className='flex flex-row items-center justify-center p-1'>
-
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
-                        />
-                        <div className='ml-[15px]'>
-
-                            <DeleteCircularButton />
-                        </div>
-                    </div>
-                </td>
             </tr>
         ));
     };
+    const renderHeader = () => {
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+        return <>
+            <th className='bg-[#171717] w-[54px] not-italic font-normal text-base leading-6 text-gray-600 font-Inter'>#</th>
+            {HeaderArray?.map((element, index) => (
+                <th className='bg-[#171717] not-italic font-normal text-base leading-6 text-gray-600 font-Inter'>{element}</th>
+            )
+            )
+            }
+        </>
+    };
     const renderPagination = () => {
-        console.log(totalPages);
+        // console.log(totalPages);
         const pageLinks = [];
         for (let i = 1; i <= totalPages; i++) {
             pageLinks.push(
@@ -145,7 +74,7 @@ function TableContainerWithButtons() {
                 <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between '>
                     {/* grid for search and button  */}
 
-                    <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={()=>{router.push("/specs/new-cocktail")}} />
+                    <ChipWithLeftButton condition={true} label={label} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { buttonFunction() }} />
                     <div className='flex pr-[38px] '>
                         <div className='mr-[20px]'>
 
@@ -156,7 +85,7 @@ function TableContainerWithButtons() {
                     </div>
                 </div>
                 <div className='Table'>
-                    <TableComponent renderRows={renderRows} />
+                    <TableComponent renderRows={renderRows} renderHeader={renderHeader} />
 
                 </div>
 

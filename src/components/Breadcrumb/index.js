@@ -1,5 +1,6 @@
 import useNavDetails from "@/Hooks/useNavDetails";
 
+
 export default function Breadcrumb({ last }) {
   const { category, subcategory, productId } = useNavDetails()
   let crun = ""

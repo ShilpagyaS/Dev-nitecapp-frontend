@@ -31,4 +31,9 @@ export function DeleteCircularButton({ onClickHandler }) {
         <CircularButton svgUrl={'/asset/DeleteVector.svg' } onClickHandler={onClickHandler} />
     )
 }
+export function EyeCircularButton({ onClickHandler }) {
+    return (
+        <CircularButton svgUrl={'/asset/eyeView.svg' } onClickHandler={onClickHandler} />
+    )
+}
 

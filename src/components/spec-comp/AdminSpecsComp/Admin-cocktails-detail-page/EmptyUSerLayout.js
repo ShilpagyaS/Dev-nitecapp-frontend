@@ -12,7 +12,25 @@ function EmptyUSerLayout() {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
 
-    const [newMockData, setNewMockData] = useState({});
+    const [newMockData, setNewMockData] = useState({
+        ingredients: {
+          values: [],
+          type: 1,
+          isActive: true
+        },
+        methods: {
+          values: [],
+          type: 0,
+          isActive: false
+    
+        },
+        presentation: {
+          values: [],
+          type: 1,
+          isActive: true
+    
+        }
+      });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const textAreaRef = useRef(null);
@@ -64,6 +82,18 @@ function EmptyUSerLayout() {
         }))
 
     }
+    function setActive(title, data) {
+        setNewMockData(((prev) => {
+          return {
+            ...prev,
+            [title]: {
+              ...prev[title],
+              isActive: data,
+            }
+          }
+        }))
+    
+      }
     function addValues(title, data) {
 
         setNewMockData(((prev) => {
@@ -196,7 +226,7 @@ function EmptyUSerLayout() {
 
                     {Object.keys(newMockData).map((e) =>
                         <GenericCard title={e} type={newMockData[e].type} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
-                            addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} />
+                            addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
                     )}
 
                 </div>

@@ -27,12 +27,22 @@ import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin
 import EmptyUSerLayout from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/EmptyUSerLayout";
 import BestSellingAdminCoctails from "@/components/spec-comp/AdminSpecsComp/admin-best-selling-coctails";
 import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
+
+import AdminCocktail from "@/Admin/AdminCoctail.js/Index";
+import AdminBeer from "@/Admin/AdminBeer";
+import BeerDisplayById from "@/Admin/AdminBeer/BeerDisplayById";
+import SuperAdminBrand from "@/SuperAdmin/Brands";
+
 import WineCategory from "@/components/spec-comp/wine/wineCategory";
 import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
+
+
+  const dispatch = useDispatch()
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
   return (
@@ -43,6 +53,7 @@ export default function Category() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <AuthWrapper>
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <LayoutWithSidebar category={category} subcategory={subcategory}>
@@ -87,7 +98,33 @@ export default function Category() {
             {category === "dashboard" && <AdminDashboard />}
           </LayoutWithSidebar>
         )}
+        
+         {/* admin  */}
+      {false &&
+        <LayoutWithSidebar category={category} subcategory={subcategory}>
+          {category === "specs" && !subcategory && <AdminSpecs />}
+          {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
+          {category === "specs" && subcategory === "beer" && !productId && <AdminBeer productDetails={productDetails} />}
+          {category === "specs" && subcategory === "beerDis" && <BeerDisplayById productDetails={productDetails} />}
+
+          {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
+          {subcategory === "new-cocktail" && <EmptyUSerLayout />}
+          {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+          {category === "dashboard" && <AdminDashboard />}
+
+        </LayoutWithSidebar>
+      }
+      {/* superAdmin */}
+      {true &&
+        <LayoutWithSidebar category={category} subcategory={subcategory}>
+       
+          {category === "dashboard" && <AdminDashboard />}
+          {category === "brand" && <SuperAdminBrand />}
+
+        </LayoutWithSidebar>
+      }
       </AuthWrapper>
+
     </>
   );
 }
