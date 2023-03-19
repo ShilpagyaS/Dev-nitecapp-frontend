@@ -74,17 +74,17 @@ export default function Category() {
 
             {path === "/specs/beer" && <BeerSeltzer />}
             {path === `/specs/beer?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'beer'} />}
-
+            {path === "/specs/beer/brands" && <Brands productType={"beer"} />}
+            {path === `/specs/beer/brands?id=${productId}` && <BrandDetail productType={"beer"} productId={productId} />}
 
             {path === "/specs/low_no_abv" && <LowABV />}
             {path === `/specs/low_no_abv?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'low_no_abv'} />}
+            {path === "/specs/low_no_abv/brands" && <Brands productType={"low_no_abv"} />}
+            {path === `/specs/low_no_abv/brands?id=${productId}` && <BrandDetail productType={"low_no_abv"} productId={productId} />}
+
 
             {path === "/specs/bestselling" && <BestSellingCoctails />}
 
-
-
-            {path === "/brands/beer" && <Brands />}
-            {path === `/brands/beer?id=${productId}` && <BrandDetail />}
             {path === "/dashboard" && <UserDashboard />}
           </LayoutWithSidebar>
         )}

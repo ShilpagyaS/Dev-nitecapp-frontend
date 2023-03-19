@@ -49,7 +49,7 @@ function BeerSeltzer() {
           <h2 className="text-white text-[24px] leading-9 font-bold ">
             Beer / Seltzer
           </h2>
-          <Link href={`/brands/beer`} >
+          <Link href={`/specs/beer/brands`} >
             <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>

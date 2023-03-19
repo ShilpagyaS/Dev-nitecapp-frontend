@@ -9,7 +9,7 @@ import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 import { RectangularCard } from "@/utils/SpecCards";
 import Breadcrumb from "@/components/Breadcrumb";
-import { getIngredientsDetails } from "@/store/slices/ingredients";
+import { emptyIngredientsList, getIngredientsDetails } from "@/store/slices/ingredients";
 
 const IngridientDetail = ({ productType, productId }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -22,6 +22,7 @@ const IngridientDetail = ({ productType, productId }) => {
 
   useEffect(() => {
     dispatch(getIngredientsDetails(productType, productId));
+    return () => dispatch(emptyIngredientsList())
   }, []);
 
   return (

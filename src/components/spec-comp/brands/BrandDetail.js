@@ -1,30 +1,41 @@
+import Breadcrumb from "@/components/Breadcrumb";
 import useMediaQuery from "@/Hooks/useMediaQuery";
+import { emptyBrandsList, getBrandsDetails } from "@/store/slices/brands";
 import { CustomButton } from "@/utils/Buttons";
 import Image from "next/image";
+import { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
 
-const BrandDetail = () => {
+const BrandDetail = ({ productType, productId }) => {
+
+  const { brandsDetails } = useSelector((state) => state.brands)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getBrandsDetails('beer', productId))
+    return () => dispatch(emptyBrandsList())
+  }, [])
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div className="brand-detail-container">
-      <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-        <p className="text-white text-[14px]">
-          <span className="text-[#CCCCCC]">Specs / Brands /</span> BrandName
-        </p>
-      </div>
-      <div className="banner-container w-full h-[269px] bg-[url('/asset/brand-bg.svg')] bg-no-repeat bg-cover bg-center mb-8 p-[44px]">
-        <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
-          <Image
-            className="bg-[transparent]"
-            src="/asset/brand-logo.svg"
-            fill
-          />
+      <Breadcrumb />
+      <div className=" w-full relative mb-8 h-[298px]" >
+
+        <Image
+          className=" w-full "
+          src={brandsDetails.image}
+          fill
+          style={{ objectFit: 'cover' }}
+
+        />
+        <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%]  bg-[transparent]">
+          <p className="text-black text-center text-[16px] font-[400] bg-[transparent]">
+            HENDRICK’S GIN OFFERS ALTERNATIVE PRIVATE DIRIGIBLE AIRLINE TRANSPORT
+            TO THE BIG GAME.
+          </p>
         </div>
-        <p className="text-black bg-[transparent] text-center text-[16px] font-[400]">
-          HENDRICK’S GIN OFFERS ALTERNATIVE PRIVATE DIRIGIBLE AIRLINE TRANSPORT
-          TO THE BIG GAME.
-        </p>
       </div>
+
       <div className="properties-container text-white mb-8">
         <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
           <p className="mr-6">Strength</p>
