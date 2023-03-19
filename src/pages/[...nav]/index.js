@@ -89,40 +89,32 @@ export default function Category() {
           </LayoutWithSidebar>
         )}
 
-        {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
+
+
+        {/* admin  */}
+        {false &&
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {category === "specs" && !subcategory && <AdminSpecs />}
+            {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
+            {category === "specs" && subcategory === "beer" && !productId && <AdminBeer productDetails={productDetails} />}
+            {category === "specs" && subcategory === "beerDis" && <BeerDisplayById productDetails={productDetails} />}
+
             {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
             {subcategory === "new-cocktail" && <EmptyUSerLayout />}
             {subcategory === "bestselling" && <BestSellingAdminCoctails />}
             {category === "dashboard" && <AdminDashboard />}
+
           </LayoutWithSidebar>
-        )}
-        
-         {/* admin  */}
-      {false &&
-        <LayoutWithSidebar category={category} subcategory={subcategory}>
-          {category === "specs" && !subcategory && <AdminSpecs />}
-          {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
-          {category === "specs" && subcategory === "beer" && !productId && <AdminBeer productDetails={productDetails} />}
-          {category === "specs" && subcategory === "beerDis" && <BeerDisplayById productDetails={productDetails} />}
+        }
+        {/* superAdmin */}
+        {false &&
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
 
-          {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
-          {subcategory === "new-cocktail" && <EmptyUSerLayout />}
-          {subcategory === "bestselling" && <BestSellingAdminCoctails />}
-          {category === "dashboard" && <AdminDashboard />}
+            {category === "dashboard" && <AdminDashboard />}
+            {category === "brand" && <SuperAdminBrand />}
 
-        </LayoutWithSidebar>
-      }
-      {/* superAdmin */}
-      {true &&
-        <LayoutWithSidebar category={category} subcategory={subcategory}>
-       
-          {category === "dashboard" && <AdminDashboard />}
-          {category === "brand" && <SuperAdminBrand />}
-
-        </LayoutWithSidebar>
-      }
+          </LayoutWithSidebar>
+        }
       </AuthWrapper>
 
     </>
