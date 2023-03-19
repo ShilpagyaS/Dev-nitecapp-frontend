@@ -1,76 +1,7 @@
-import Image from "next/image";
 import mockData from "../mock/MenuOptions.json";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { AiFillAppstore } from "react-icons/ai";
-import { ImGlass2 } from "react-icons/im";
-import { AiFillDollarCircle } from "react-icons/ai";
-import { AiFillHeart } from "react-icons/ai";
-import { BsFillCalendarRangeFill } from "react-icons/bs";
-
-function menuIcon(menuOption) {
-  const menuObj = {
-    Dashboard: (
-      <Image
-        src="/asset/dashboard-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Learn: (
-      <Image
-        src="/asset/learn-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Specs: (
-      <Image
-        src="/asset/specs-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-        priority
-      />
-    ),
-    Brand: (
-      <Image
-        src="/asset/brand-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Sales: (
-      <Image
-        src="/asset/sales-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Schedule: (
-      <Image
-        src="/asset/schedule-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Saved: (
-      <Image
-        src="/asset/heart-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-  };
-
-  return <>{menuObj[menuOption]}</>;
-}
+import { MenuIcon } from "./MenuIcons";
 
 function SideBar({ category, subcategory }) {
   const router = useRouter();
@@ -83,13 +14,11 @@ function SideBar({ category, subcategory }) {
           return (
             <>
               <div className="flex items-center py-[12px]" key={ik}>
-                {menuIcon(option.name)}
+                {MenuIcon(option.name, option.id === category)}
                 <Link
                   href={`/${option.id}/`}
                   className={`${
-                    option.id == category
-                      ? "text-[#F19B6C]"
-                      : "text-[#959595]"
+                    option.id == category ? "text-[#F19B6C]" : "text-[#959595]"
                   } text-[18px] leading-6 font-semibold `}
                 >
                   {option.name}
@@ -120,7 +49,7 @@ function SideBar({ category, subcategory }) {
                       <Link
                         href={`/${option.id}/${subOption.id}`}
                         className={`${
-                          subOption.id ==subcategory
+                          subOption.id == subcategory
                             ? "text-[#F19B6C]"
                             : "text-[#959595]"
                         } text-[16px] leading-none ml-2`}
