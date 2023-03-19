@@ -9,13 +9,17 @@ import { AiFillHeart } from "react-icons/ai";
 import { BsFillCalendarRangeFill } from "react-icons/bs";
 import Accordian from "../accordian";
 
-function MobileSidebar({ category, subcategory }) {
+function MobileSidebar({ category, subcategory, handleClose }) {
   const router = useRouter();
   const menuOptions = mockData.menuOptions;
 
   return (
     <>
-      <Accordian category={category} subcategory={subcategory} />
+      <Accordian
+        category={category}
+        subcategory={subcategory}
+        handleClose={handleClose}
+      />
     </>
   );
 }

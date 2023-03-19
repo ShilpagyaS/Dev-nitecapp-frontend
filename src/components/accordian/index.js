@@ -6,15 +6,8 @@ import Image from "next/image";
 import { MenuIcon } from "../SIdebar/MenuIcons";
 import Link from "next/link";
 
-export default function Accordian({ category, subcategory }) {
+export default function Accordian({ category, subcategory, handleClose }) {
   const options = menuOptions.menuOptions;
-  const [isActiveAccordian, setIsActiveAccordian] = useState(false);
-
-  const handleSelectAccordian = (id , subOptions) => {
-    if(id === category && subOptions ){
-      setIsActiveAccordian(id);
-    }
-  };
 
   return (
     <div className="w-full">
@@ -25,12 +18,10 @@ export default function Accordian({ category, subcategory }) {
               <Disclosure key={option.id}>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button
-                      onClick={() => handleSelectAccordian(option.id , option.subOptions)}
-                      className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-[18px] font-semibold focus:outline-none focus:text-[#F19B6C]"
-                    >
+                    <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-[18px] font-semibold focus:outline-none focus:text-[#F19B6C]">
                       <Link
                         href={`/${option.id}/`}
+                        onClick={handleClose}
                         className={`${
                           option.id == category
                             ? "text-[#F19B6C]"
@@ -39,7 +30,7 @@ export default function Accordian({ category, subcategory }) {
                       >
                         <span className="flex items-baseline">
                           {" "}
-                          {MenuIcon(option.name, isActiveAccordian)}
+                          {MenuIcon(option.name, category === option.id)}
                           {option.name}
                         </span>
                       </Link>
@@ -60,6 +51,7 @@ export default function Accordian({ category, subcategory }) {
                                 <span className="flex items-center relative ">
                                   <Link
                                     href={`/${option.id}/${subOption.id}`}
+                                    onClick={handleClose}
                                     className={`${
                                       subOption.id == subcategory
                                         ? "text-[#F19B6C]"
