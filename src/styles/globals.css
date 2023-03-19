@@ -56,9 +56,22 @@
   height: 10px !important;
 
 }
+
 .swiper-button-prev {
   background: transparent !important;
   border-radius: 0px !important;
   color: #ffffff !important;
 
+}
+
+.brandModal {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.brandModal::-webkit-scrollbar {
+  display: none;
 }
