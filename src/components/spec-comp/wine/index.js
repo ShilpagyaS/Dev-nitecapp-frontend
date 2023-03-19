@@ -2,7 +2,7 @@ import { CiSearch } from "react-icons/ci";
 import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import useFilteredData from "@/Hooks/useFilteredData";
+
 import { useEffect } from "react";
 import { emptyProductList, getProduct, getProductByCategoryId } from "@/store/slices/product";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,7 +66,7 @@ function Wine({ id, categoryName }) {
                 <Link href={`specs/wine/${categoryName.replace('/', ' ')}/${card.wine_name.replace('/', " ")}/?id=${card.wine_id}`}>
                   <RectangularCard
                     title={card.wine_name}
-                    image={"/asset/red-chillie.svg"}
+                    image={card.image}
                     circularImg={true}
                   />
                 </Link>

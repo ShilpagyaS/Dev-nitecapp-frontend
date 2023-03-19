@@ -22,7 +22,7 @@ function BeerSeltzer() {
     }
   }, [])
   const { productList } = useSelector((state) => state.product)
-  const filtereddataList = useFilteredData(productList, true, "beer")
+  const filtereddataList = useFilteredData(productList, true, "beer", "category")
   return (
     <>
       <div className="coctail-container">

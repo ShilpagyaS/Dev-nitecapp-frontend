@@ -5,14 +5,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "st4.depositphotos.com",
-        hostname: "www.hyderabaddutyfree.com",
+        hostname: "**",
       },
       {
-        protocol: "https",
-        hostname: "www.hyderabaddutyfree.com",
+        protocol: "http",
+        hostname: "**",
       },
     ],
+    minimumCacheTTL: 60,
   },
   async redirects() {
     return [

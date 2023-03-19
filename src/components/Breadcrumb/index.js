@@ -7,7 +7,7 @@ export default function Breadcrumb({ last }) {
   if (subcategory) crun = crun + ` ${subcategory} / `
   if (productId && !last) crun = crun + `${productId}`
   if (last) crun = crun + `${last}`
-  return <div className="text-container ">
+  return <div className="text-container my-2 ">
     <p className="text-white text-[14px]">
       <span className="text-[#CCCCCC] capitalize">{crun}</span>
     </p>

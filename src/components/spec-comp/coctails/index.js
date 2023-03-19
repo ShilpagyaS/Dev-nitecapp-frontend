@@ -5,7 +5,6 @@ import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import useFilteredData from "@/Hooks/useFilteredData";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { getProduct, emptyProductList } from "@/store/slices/product";
 import { useEffect } from "react";

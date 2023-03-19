@@ -3,7 +3,7 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useEffect, useState } from "react";
-import useFilteredData from "@/Hooks/useFilteredData";
+
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProduct, getProductByCategoryId } from "@/store/slices/product";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -69,7 +69,7 @@ function Spirits({ id, categoryName }) {
                 <Link href={`specs/spirit/${categoryName.replace('/', ' ')}/${card.spirit_name.replace('/', " ")}/?id=${card.spirit_id}`}>
                   <RectangularCard
                     title={card.spirit_name}
-                    image={`/asset/london-dry.svg`}
+                    image={card.image}
                     circularImg={true}
                   />
                 </Link>

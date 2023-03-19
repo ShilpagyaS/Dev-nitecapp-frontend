@@ -69,7 +69,7 @@ export default function Category() {
             {path === "/specs/bestselling" && <BestSellingCoctails />}
 
 
-            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients />}
+            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients productType={'cocktail'} />}
             {path ===
               `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
                 <IngridientDetail />
