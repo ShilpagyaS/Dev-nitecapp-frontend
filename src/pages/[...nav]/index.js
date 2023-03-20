@@ -119,10 +119,8 @@ export default function Category() {
           {category === "specs" && subcategory === "beer" && !productId && <AdminBeer productDetails={productDetails} />}
           {category === "specs" && subcategory === "beerDis" && <BeerDisplayById productDetails={productDetails} />}
 
-          {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
-          {subcategory === "new-cocktail" && <EmptyUSerLayout />}
-          {subcategory === "bestselling" && <BestSellingAdminCoctails />}
-          {category === "dashboard" && <AdminDashboard />}
+            {category === "dashboard" && <AdminDashboard />}
+            {category === "brand" && <SuperAdminBrand />}
 
         </LayoutWithSidebar>
       } */}
