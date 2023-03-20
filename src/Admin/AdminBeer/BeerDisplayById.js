@@ -43,6 +43,8 @@ const BeerDisplayById = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isEdit, setEdit] = useState(false)
     const textAreaRef = useRef(null);
+    const nameref = useRef(null);
+    const percentageref = useRef(null);
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [EditModal, setEditmodal] = useState(false)
@@ -220,7 +222,7 @@ const BeerDisplayById = () => {
                             >
                                 <h3 className="title text-[24px] font-bold mr-[16px]" >
 
-                                    <EditCard editContent={superData.cocktail_name} isEdit={isEdit} />
+                                    <EditCard editContent={superData.cocktail_name} isEdit={isEdit} divref={nameref} />
                                 </h3>
                                 <div className="status-text text-[18px]">
                                     <EditCard editContent={"Medium(12%)"} isEdit={isEdit} />
@@ -261,8 +263,8 @@ const BeerDisplayById = () => {
                                 }}
                                     // onDeleteClick={() => { setIsDeleteModalOpen(true) }}
                                     customize={{ add: false, switch: true }}
-                                // isActive={localIsActive}
-                                setActive={()=>{}}
+                                    // isActive={localIsActive}
+                                    setActive={() => { }}
 
 
                                 />}

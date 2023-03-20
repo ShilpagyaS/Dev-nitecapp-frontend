@@ -120,7 +120,7 @@ function BeerTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EditCircularButton onClickHandler={() => { router.push("/specs/beerDis"); }}
                         />
                         <div className='ml-[15px]'>
 
@@ -132,7 +132,7 @@ function BeerTable() {
         )
     }
     return (
-        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => {router.push("/specs/new-beer") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
     )
 }
 

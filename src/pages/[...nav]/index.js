@@ -35,6 +35,8 @@ import SuperAdminBrand from "@/SuperAdmin/Brands";
 
 import WineCategory from "@/components/spec-comp/wine/wineCategory";
 import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
+import EmptyUserLayoutBeer from "@/Admin/AdminBeer/EmptyUserLayoutBeer";
+import AdminBrandsBeer from "@/Admin/AdminBeer/Brands";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -54,53 +56,63 @@ export default function Category() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AuthWrapper>
-        {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
-          <LayoutWithSidebar category={category} subcategory={subcategory}>
-            {path === "/specs" && <SpecComp />}
-            {path === "/specs/cocktail" && <Coctails />}
-            {path === `/specs/cocktail?id=${productId}` && <CocktailDetailPage id={productId} />}
-            {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients productType={'cocktail'} />}
-            {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (<IngridientDetail productId={productId} productType={'cocktail'} />)}
+      {/* <AuthWrapper> */}
+      {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
+        <LayoutWithSidebar category={category} subcategory={subcategory}>
+          {path === "/specs" && <SpecComp />}
+          {path === "/specs/cocktail" && <Coctails />}
+          {path === `/specs/cocktail?id=${productId}` && <CocktailDetailPage id={productId} />}
+          {path === "/specs/cocktail/cocktail_ingredients" && <Ingridients productType={'cocktail'} />}
+          {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (<IngridientDetail productId={productId} productType={'cocktail'} />)}
 
-            {path === "/specs/spirit" && <SpiritsCategory />}
-            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
-            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'spirit'} />}
+          {path === "/specs/spirit" && <SpiritsCategory />}
+          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
+          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'spirit'} />}
 
-            {path === "/specs/wine" && <WineCategory />}
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
-
-
-            {path === "/specs/beer" && <BeerSeltzer />}
-            {path === `/specs/beer?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'beer'} />}
+          {path === "/specs/wine" && <WineCategory />}
+          {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
+          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
 
-            {path === "/specs/low_no_abv" && <LowABV />}
-            {path === `/specs/low_no_abv?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'low_no_abv'} />}
-
-            {path === "/specs/bestselling" && <BestSellingCoctails />}
+          {path === "/specs/beer" && <BeerSeltzer />}
+          {path === `/specs/beer?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'beer'} />}
 
 
+          {path === "/specs/low_no_abv" && <LowABV />}
+          {path === `/specs/low_no_abv?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'low_no_abv'} />}
 
-            {path === "/brands/beer" && <Brands />}
-            {path === `/brands/beer?id=${productId}` && <BrandDetail />}
-            {path === "/dashboard" && <UserDashboard />}
-          </LayoutWithSidebar>
-        )}
+          {path === "/specs/bestselling" && <BestSellingCoctails />}
 
-        {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
-          <LayoutWithSidebar category={category} subcategory={subcategory}>
-            {category === "specs" && !subcategory && <AdminSpecs />}
-            {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
-            {subcategory === "new-cocktail" && <EmptyUSerLayout />}
-            {subcategory === "bestselling" && <BestSellingAdminCoctails />}
-            {category === "dashboard" && <AdminDashboard />}
-          </LayoutWithSidebar>
-        )}
-        
-         {/* admin  */}
-      {false &&
+
+
+          {path === "/brands/beer" && <Brands />}
+          {path === `/brands/beer?id=${productId}` && <BrandDetail />}
+          {path === "/dashboard" && <UserDashboard />}
+        </LayoutWithSidebar>
+      )}
+
+      {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
+        <LayoutWithSidebar category={category} subcategory={subcategory}>
+          {category === "specs" && !subcategory && <AdminSpecs />}
+          {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail />}
+          {path === `/specs/beer` && <AdminBeer />}
+          {path === `/specs/beer/brands` && <AdminBrandsBeer />}
+          {path === `/specs/beer/brands?id=${productId}` && <BrandDetail />}
+          {category === "specs" && subcategory === "beerDis" && <BeerDisplayById />}
+          {category === "brands" && subcategory === "beer" && <AdminBrandsBeer />}
+
+          {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
+          {subcategory === "new-cocktail" && <EmptyUSerLayout />}
+          {subcategory === "new-beer" && <EmptyUserLayoutBeer />}
+          {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+          {category === "dashboard" && <AdminDashboard />}
+
+
+        </LayoutWithSidebar>
+      )}
+
+      {/* admin  */}
+      {/* {false &&
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
           {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
@@ -113,17 +125,17 @@ export default function Category() {
           {category === "dashboard" && <AdminDashboard />}
 
         </LayoutWithSidebar>
-      }
+      } */}
       {/* superAdmin */}
-      {true &&
+      {process.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" && (
         <LayoutWithSidebar category={category} subcategory={subcategory}>
-       
+
           {category === "dashboard" && <AdminDashboard />}
           {category === "brand" && <SuperAdminBrand />}
 
         </LayoutWithSidebar>
-      }
-      </AuthWrapper>
+      )}
+      {/* </AuthWrapper> */}
 
     </>
   );

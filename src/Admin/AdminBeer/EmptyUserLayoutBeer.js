@@ -1,39 +1,29 @@
+import { EditDualValue } from '@/components/modal/adminmodal';
+import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
+import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
+import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import useMediaQuery from '@/Hooks/useMediaQuery';
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
+import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
-import ConditionalButton from './ConditionalButton'
-import CocktailFileUpdate from './CocktailFileUpdate';
-import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
-import ChipWithLeftButton from '@/utils/ChipWithLeftButton';
-import GenericCard from './GenericCard';
 
-function EmptyUSerLayout() {
+function EmptyUserLayoutBeer() {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
 
     const [newMockData, setNewMockData] = useState({
-        ingredients: {
-          values: [],
-          type: 1,
-          isActive: true
-        },
-        methods: {
-          values: [],
-          type: 0,
-          isActive: false
-    
-        },
-        presentation: {
-          values: [],
-          type: 1,
-          isActive: true
-    
-        }
-      });
+
+        strength: 'Enter Value',
+        tastes: 'Enter Value',
+        origin: 'Enter Value',
+    });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const textAreaRef = useRef(null);
+    const [editItem, setEditItem] = useState({})
+    const [foucsed, setAsfocus] = useState(null)
+    const [EditModal, setEditmodal] = useState(false)
 
 
     const toggleEdit = () => {
@@ -84,16 +74,16 @@ function EmptyUSerLayout() {
     }
     function setActive(title, data) {
         setNewMockData(((prev) => {
-          return {
-            ...prev,
-            [title]: {
-              ...prev[title],
-              isActive: data,
+            return {
+                ...prev,
+                [title]: {
+                    ...prev[title],
+                    isActive: data,
+                }
             }
-          }
         }))
-    
-      }
+
+    }
     function addValues(title, data) {
 
         setNewMockData(((prev) => {
@@ -112,16 +102,7 @@ function EmptyUSerLayout() {
         setNewMockData(((prev) => {
             return {
                 ...prev,
-                [title]: {
-                    ...prev[title],
-                    values: prev[title].values.map((e, i) => {
-                        if (i == index)
-                            return { ...data }
-                        return { ...e }
-
-                    }
-                    ),
-                }
+                [title]: data
             }
         }))
 
@@ -153,28 +134,21 @@ function EmptyUSerLayout() {
 
     return (
         <>
-            {isAddModalOpen && <AddNewTitle
-                isModalOpen={isAddModalOpen}
-                onClickCancel={() => { setIsAddModalOpen(false) }}
-                onSave={addNewTitle}
-                title={'Title'}
-
-            />
-            }
-            {isEditModalOpen && <AddGeneric
-                isModalOpen={isEditModalOpen}
-                onClickCancel={() => { setIsEditModalOpen(false) }}
-                onSave={addDesc}
-                title={'Title'}
-
-            />
+            {EditModal &&
+                <EditDualValue
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    inputone={editItem.desc}
+                    inputtwo={editItem.quantity}
+                    onSave={editValues}
+                />
             }
             <div className='outer-container'>
                 <div className="flex flex-row items-center justify-between">
 
                     <div className="text-container ">
                         <p className="text-white text-[14px]">
-                            <span className="text-[#CCCCCC]">Specs / Coctail /</span> Southside
+                            <span className="text-[#CCCCCC]">Specs / Beer </span> 
                         </p>
                     </div>
                     <div className="flex items-center justify-center">
@@ -219,20 +193,53 @@ function EmptyUSerLayout() {
                     </div>
 
                 </div>
-                <div className="titleContainer">
-                    {/* <div className="flex items-center justify-between p-[10px]">
-                        <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
-                    </div> */}
+                <div className="border border-[#3C3C3C] p-[15px] m-[8px]">
+                    <div className="method-container mb-[32px]">
+                        <div className="sub-heading-container flex justify-between items-center mb-[21px]">
+                            <h4 className="text-white text-[20px] leading-[32px] font-semibold capitalize">
 
-                    {Object.keys(newMockData).map((e) =>
-                        <GenericCard title={e} type={newMockData[e].type} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
-                            addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
-                    )}
+                            </h4>
+                            {isEdit && <ButtonCombo onAddClick={() => {
+                                // type == null ? setFirstTimemodal(true) :
+                                //     setAddmodal(true)
+                                // console.log('not null --.', type);
 
+
+                            }}
+                                // onDeleteClick={() => { setIsDeleteModalOpen(true) }}
+                                customize={{ add: false, switch: true }}
+                                // isActive={localIsActive}
+                                setActive={() => { }}
+
+
+                            />}
+
+                        </div>
+                        <div className="method-details-container">
+
+                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.strength }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                                onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
+
+                                <SplitCard desc={"Strength"} quantity={newMockData.strength} />
+
+                            </div>
+                            <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                                onClick={() => { setAsfocus(1); if (foucsed == 1) setAsfocus(null) }} className={`${foucsed == 1 ? 'outline-none ring ring-violet-300' : ''}`}>
+
+                                <SplitCard desc={"Origin"} quantity={newMockData.origin} />
+                            </div>
+                            <div onDoubleClick={() => { setEditItem({ index: 2, desc: 'tastes', quantity: newMockData.tastes }); if (foucsed == 2) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                                onClick={() => { setAsfocus(2); if (foucsed == 2) setAsfocus(null) }} className={`${foucsed == 2 ? 'outline-none ring ring-violet-300' : ''}`}>
+
+                                <SplitCard desc={"Taste"} quantity={newMockData.tastes} />
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
     )
 }
 
-export default EmptyUSerLayout
+export default EmptyUserLayoutBeer

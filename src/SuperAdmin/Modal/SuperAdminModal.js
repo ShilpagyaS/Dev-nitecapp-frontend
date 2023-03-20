@@ -30,6 +30,18 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
     };
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
+    const [brandForm, setBrandForm] = useState(
+        {
+            email: "",
+            brandname: "",
+            displayname: "",
+            address: "",
+            city: "",
+            state: "",
+            country: "",
+            password: "",
+        }
+    )
     const handleCancel = () => {
         onClickCancel();
         setinput1("");
@@ -50,12 +62,12 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
     function handleChange(e) {
         const { name, value } = e.target;
 
-        // setonBoardingForm((prev) => {
-        //   return {
-        //     ...prev,
-        //     [name]: value,
-        //   };
-        // });
+        setBrandForm((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
     }
     return (
         <Modal
@@ -73,14 +85,14 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     label="Brand Logo"
                     onChangeHandler={handleChange}
                     value={input1}
-                    name={"email"}
+                    name={"logo"}
                     type={"text"}
                     errorResponnse={_INITIAL} />
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Email"
                     onChangeHandler={handleChange}
-                    value={input1}
+                    value={brandForm.email}
                     name={"email"}
                     type={"text"}
                     errorResponnse={_INITIAL}
@@ -90,7 +102,7 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder=""
                     label="Brand Name"
                     onChangeHandler={handleChange}
-                    value={input1}
+                    value={brandForm.brandname}
                     name={"brandname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
@@ -99,8 +111,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder=""
                     label="Display Name"
                     onChangeHandler={handleChange}
-                    value={input1}
-                    name={""}
+                    value={brandForm.displayname}
+                    name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
@@ -108,8 +120,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder=""
                     label="Address"
                     onChangeHandler={handleChange}
-                    value={input1}
-                    name={""}
+                    value={brandForm.address}
+                    name={"address"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
@@ -117,8 +129,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder=""
                     label="City"
                     onChangeHandler={handleChange}
-                    value={input1}
-                    name={""}
+                    value={brandForm.city}
+                    name={"city"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
@@ -126,8 +138,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder=""
                     label="State"
                     onChangeHandler={handleChange}
-                    value={input1}
-                    name={""}
+                    value={brandForm.state}
+                    name={"state"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
@@ -135,8 +147,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder=""
                     label="Country"
                     onChangeHandler={handleChange}
-                    value={input1}
-                    name={""}
+                    value={brandForm.country}
+                    name={"country"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
@@ -144,8 +156,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                     placeholder="Enter Password"
                     label="Password"
                     onChangeHandler={handleChange}
-                    value={input1}
-                    name={""}
+                    value={brandForm.password}
+                    name={"password"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
