@@ -116,6 +116,21 @@ export const getProductByCategoryId = (productType, id) => {
     });
   };
 };
+export const putProductById = (productType, productId ,data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProductById(productType, productId))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 
 export const emptyProductList = (productType) => {
 
@@ -125,5 +140,6 @@ export const emptyProductList = (productType) => {
     );
   };
 };
+
 
 export default productSlice.reducer;

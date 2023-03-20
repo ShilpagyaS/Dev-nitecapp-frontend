@@ -13,6 +13,8 @@ import GenericCard from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-d
 import Breadcrumb from "@/components/Breadcrumb";
 import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
 import SplitCard from "@/utils/Cards/Text card/SplitCard";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
 
 const BeerDisplayById = () => {
     const isMobile = useMediaQuery("(max-width: 414px)");
@@ -29,6 +31,7 @@ const BeerDisplayById = () => {
         methods: {},
         presentation: {},
         image: {},
+        strength: 0,
 
     }
 
@@ -48,7 +51,15 @@ const BeerDisplayById = () => {
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [EditModal, setEditmodal] = useState(false)
-
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getProductById('beer', 4))
+        return () => {
+            dispatch(emptyProductList())
+        }
+    }, [])
+    const { productDetails } = useSelector((state) => state.product)
+    console.log(productDetails);
     const toggleEdit = () => {
         setEdit(prev => !prev)
         console.log(textAreaRef.current.innerText);
@@ -155,6 +166,17 @@ const BeerDisplayById = () => {
         }))
 
     }
+    function onSave() {
+        console.log(isEdit);
+        if (isEdit == true) {
+
+            superData = { ...superData, ...newMockData }
+            dispatch(putProductById('beer', 4, { ...productDetails, beer_name: nameref.current.innerText }))
+            console.log(nameref.current.innerText);
+        }
+        console.log(superData);
+        toggleEdit()
+    }
     return (
         <>
             {/* {isAddModalOpen && <AddNewTitle
@@ -185,7 +207,7 @@ const BeerDisplayById = () => {
                     </div>
                     <div className="flex items-center justify-center">
 
-                        <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={toggleEdit} />
+                        <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={onSave} />
                         <div className="ml-[15px]">
                             <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
                         </div>
@@ -222,7 +244,7 @@ const BeerDisplayById = () => {
                             >
                                 <h3 className="title text-[24px] font-bold mr-[16px]" >
 
-                                    <EditCard editContent={superData.cocktail_name} isEdit={isEdit} divref={nameref} />
+                                    <EditCard editContent={productDetails.beer_name} isEdit={isEdit} divref={nameref} />
                                 </h3>
                                 <div className="status-text text-[18px]">
                                     <EditCard editContent={"Medium(12%)"} isEdit={isEdit} />
