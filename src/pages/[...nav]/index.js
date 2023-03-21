@@ -37,6 +37,8 @@ import WineCategory from "@/components/spec-comp/wine/wineCategory";
 import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
 import EmptyUserLayoutBeer from "@/Admin/AdminBeer/EmptyUserLayoutBeer";
 import AdminBrandsBeer from "@/Admin/AdminBeer/Brands";
+import AdminLowAbv from "@/Admin/AdminLowABV";
+import EditById from "@/Admin/EditById";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -96,6 +98,7 @@ export default function Category() {
           {category === "specs" && !subcategory && <AdminSpecs />}
           {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail />}
           {path === `/specs/beer` && <AdminBeer />}
+          {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
           {path === `/specs/beer/brands` && <AdminBrandsBeer />}
           {path === `/specs/beer/brands?id=${productId}` && <BrandDetail />}
           {category === "specs" && subcategory === "beerDis" && <BeerDisplayById />}
@@ -105,6 +108,9 @@ export default function Category() {
           {subcategory === "new-cocktail" && <EmptyUSerLayout />}
           {subcategory === "new-beer" && <EmptyUserLayoutBeer />}
           {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+          {path === `/specs/low_no_abv` && <AdminLowAbv />}
+          {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />}
+
           {category === "dashboard" && <AdminDashboard />}
 
 

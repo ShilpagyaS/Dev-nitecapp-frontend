@@ -1,29 +1,20 @@
-import { useEffect, useRef, useState } from "react";
-import useMediaQuery from "@/Hooks/useMediaQuery";
-import Image from "next/image";
-import DetailsMock from "@/components/mock/DetailsMock.json";
-import EditCard from "@/utils/Cards/Text card/EditCard";
-import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
-// import ConditionalButton from "./ConditionalButton";
-import ChipWithLeftButton, { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
-import { AddGeneric, AddNewTitle, AddTitle, DeleteSection, EditDualValue } from "@/components/modal/adminmodal";
-// import GenericCard from "./GenericCard";
-import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
-import GenericCard from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard";
-import Breadcrumb from "@/components/Breadcrumb";
-import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
-import SplitCard from "@/utils/Cards/Text card/SplitCard";
-import { useDispatch, useSelector } from "react-redux";
-import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
+import Breadcrumb from '@/components/Breadcrumb';
+import { EditDualValue } from '@/components/modal/adminmodal';
+import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
+import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
+import useMediaQuery from '@/Hooks/useMediaQuery';
+import { emptyProductList, getProductById, putProductById } from '@/store/slices/product';
+import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
+import EditCard from '@/utils/Cards/Text card/EditCard';
+import SplitCard from '@/utils/Cards/Text card/SplitCard';
+import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
-const BeerDisplayById = ({ productId, subcategory }) => {
+function EditById({ productId, subcategory }) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
-    const ingridients = DetailsMock.ingridients;
-    const presentation = DetailsMock.presentation;
-    const method = DetailsMock.method;
-    const lesson = DetailsMock.lesson;
-    const notes = DetailsMock.notes;
     let superData = {
         cocktail_name: 'Blue Moon Belgian White',
         description: " A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.",
@@ -42,8 +33,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         tastes: 'Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh',
         origin: 'Itly',
     });
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
     const [isEdit, setEdit] = useState(false)
     const textAreaRef = useRef(null);
     const nameref = useRef(null);
@@ -171,11 +161,17 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         if (isEdit == true) {
 
             superData = { ...superData, ...newMockData }
-            dispatch(putProductById(subcategory, productId, { ...productDetails, [`${subcategory}_name`]: nameref.current.innerText }))
+            dispatch(putProductById(subcategory, productId,
+                {
+                    ...productDetails,
+                    [`${subcategory}_name`]: nameref.current.innerText,
+                    description: textAreaRef.current.value,
+                }
+            ))
             console.log(nameref.current.innerText);
+            toggleEdit()
         }
-        console.log(superData);
-        toggleEdit()
+        console.log(textAreaRef);
     }
     return (
         <>
@@ -220,18 +216,20 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                             <Image src="/asset/london-dry-green.svg" className="w-full" fill />
 
                         </div>
-                        <div className="editbutton flex text-[#929292] ">
-                            <Image
-                                src={'/asset/EditVector.svg'}
-                                // src={'/asset/DeleteVector.svg'}
-                                width={20}
-                                height={20}
-                                className=""
-                            />
-                            <div className="ml-[12px]">
-                                Edit Image
+                        {isEdit &&
+                            <div className="editbutton flex text-[#929292] ">
+                                <Image
+                                    src={'/asset/EditVector.svg'}
+                                    // src={'/asset/DeleteVector.svg'}
+                                    width={20}
+                                    height={20}
+                                    className=""
+                                />
+                                <div className="ml-[12px]">
+                                    Edit Image
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">
@@ -256,7 +254,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}
                         >
-                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={`${superData.description}`} />
+                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={productDetails.description || ''} />
                         </p>
                     </div>
                 </div>
@@ -319,5 +317,4 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         </>
     );
 };
-
-export default BeerDisplayById;
+export default EditById
