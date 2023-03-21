@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 
-const Brands = () => {
+const SpecsBrands = () => {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const {category,subcategory,productId}=useNavDetails()
   return (
@@ -46,4 +46,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default SpecsBrands;
