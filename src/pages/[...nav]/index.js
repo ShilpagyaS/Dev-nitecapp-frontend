@@ -39,6 +39,10 @@ import EmptyUserLayoutBeer from "@/Admin/AdminBeer/EmptyUserLayoutBeer";
 import AdminBrandsBeer from "@/Admin/AdminBeer/Brands";
 import AdminLowAbv from "@/Admin/AdminLowABV";
 import EditById from "@/Admin/EditById";
+import AdminSpirit from "@/Admin/AdminSpirit";
+import AdminWine from "@/Admin/AdminWine";
+import AdminSpiritCategory from "@/Admin/AdminSpirit/AdminSpiritCategory";
+import AdminWineCategory from "@/Admin/AdminWine/AdminWineCategory";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -108,6 +112,17 @@ export default function Category() {
           {subcategory === "new-cocktail" && <EmptyUSerLayout />}
           {subcategory === "new-beer" && <EmptyUserLayoutBeer />}
           {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+
+          {path === `/specs/spirit` && <AdminSpirit />}
+          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
+          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
+      
+          {path === `/specs/wine` && <AdminWine />}
+          {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
+          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
+      
+
+
           {path === `/specs/low_no_abv` && <AdminLowAbv />}
           {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />}
 
