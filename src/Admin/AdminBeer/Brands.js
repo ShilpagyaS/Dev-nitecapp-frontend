@@ -53,12 +53,12 @@ function AdminBrandsBeer() {
                         {/* <Image src="/asset/brand1.svg" fill /> */}
                     </div>{" "}
                 </Link>
-                <Link href={`${category}/${subcategory}/2`}>
+                <Link href={`${category}/${subcategory}/brands?id=1`}>
                     <div className="bg-[url('/asset/brand2.svg')] bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] max:w-[397px] lg:min-w[325px] md:min-w-[397px] sm:min-w-[289px]  h-[137.44px]">
                         {/* <Image src="/asset/brand2.svg" fill /> */}
                     </div>{" "}
                 </Link>
-                <Link href={`${category}/${subcategory}/3`}>
+                <Link href={`${category}/${subcategory}/brands?id=1`}>
                     <div className="bg-[url('/asset/brand3.svg')] bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] max-w-[397px] lg:min-w[325px] md:min-w-[397px] sm:min-w-[289px]  h-[137.44px]">
                         {/* <Image src="/asset/brand3.svg" fill /> */}
                     </div>

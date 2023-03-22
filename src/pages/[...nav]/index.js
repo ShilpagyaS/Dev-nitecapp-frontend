@@ -43,6 +43,7 @@ import AdminSpirit from "@/Admin/AdminSpirit";
 import AdminWine from "@/Admin/AdminWine";
 import AdminSpiritCategory from "@/Admin/AdminSpirit/AdminSpiritCategory";
 import AdminWineCategory from "@/Admin/AdminWine/AdminWineCategory";
+import BrandDetailPage from "@/Admin/Drink Brand Section/BrandDetailPage";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -104,9 +105,8 @@ export default function Category() {
           {path === `/specs/beer` && <AdminBeer />}
           {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
           {path === `/specs/beer/brands` && <AdminBrandsBeer />}
-          {path === `/specs/beer/brands?id=${productId}` && <BrandDetail />}
+          {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
           {category === "specs" && subcategory === "beerDis" && <BeerDisplayById />}
-          {category === "brands" && subcategory === "beer" && <AdminBrandsBeer />}
 
           {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
           {subcategory === "new-cocktail" && <EmptyUSerLayout />}
