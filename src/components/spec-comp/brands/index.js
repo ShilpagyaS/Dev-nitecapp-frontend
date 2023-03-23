@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { emptyBrandsList, getBrandsList } from "@/store/slices/brands";
 import { useDispatch, useSelector } from "react-redux";
 
-const Brands = ({ productType, productId }) => {
+const SpecBrands = ({ productType, productId }) => {
 
   const isTablet = useMediaQuery("(max-width: 786px)");
   const { brandsList } = useSelector((state) => state.brands)
@@ -54,4 +54,4 @@ const Brands = ({ productType, productId }) => {
   );
 };
 
-export default Brands;
+export default SpecBrands;
