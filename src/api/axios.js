@@ -1,5 +1,5 @@
 import axios from "axios";
-export const baseurl = " https://server.nitcapp.io"
+export const baseurl = " https://server.nitecapp.io"
 //"https://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
 
 //routes declairation
