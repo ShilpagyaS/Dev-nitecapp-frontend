@@ -36,7 +36,7 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
           </div>
           <h4 className="username ">Hi User!</h4>
         </div>
-        <MobileSidebar category={category} subcategory={subcategory} />
+        <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer}  />
       </div>
       <div className="button-container flex justify-between w-full">
         <CustomButton label="Sign out" color="#fff" />

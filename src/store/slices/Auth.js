@@ -86,7 +86,7 @@ export const setUserRelogin = (data) => {
         }
       })
       .catch((err) => {
-        localStorage.deleteItem("nightcpp-token");
+        localStorage.removeItem("nightcpp-token");
       });
   };
 };
@@ -99,7 +99,7 @@ export const changePassword = (data) => {
       method: "POST",
       data,
     }).catch((err) => {
-      console.log(err)
+      console.log(err);
     });
   };
 };
@@ -112,7 +112,7 @@ export const updateUser = (data) => {
       method: "PUT",
       data,
     }).catch((err) => {
-      console.log(err)
+      console.log(err);
     });
   };
 };
@@ -123,20 +123,20 @@ export const getConcept = (data) => {
     return axiosInstance({
       url: "/api/concept/get-all-concept",
       method: "GET",
-    }).then((res) => {
-      if (res.data.resCode === 200) {
-        const concept = res.data.data.rows.map((i) => {
-          return { label: i.name, value: i.id };
-        });
-        return concept;
-      }
-      return [];
-    }).catch((err) => {
-      console.log(err)
-    });
+    })
+      .then((res) => {
+        if (res.data.resCode === 200) {
+          const concept = res.data.data.rows.map((i) => {
+            return { label: i.name, value: i.id };
+          });
+          return concept;
+        }
+        return [];
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
-
-
 
 export default authSlice.reducer;
