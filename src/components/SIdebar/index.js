@@ -17,9 +17,8 @@ function SideBar({ category, subcategory }) {
                 {MenuIcon(option.name, option.id === category)}
                 <Link
                   href={`/${option.id}/`}
-                  className={`${
-                    option.id == category ? "text-[#F19B6C]" : "text-[#959595]"
-                  } text-[18px] leading-6 font-semibold `}
+                  className={`${option.id == category ? "text-[#F19B6C]" : "text-[#959595]"
+                    } text-[18px] leading-6 font-semibold `}
                 >
                   {option.name}
                 </Link>
@@ -28,13 +27,13 @@ function SideBar({ category, subcategory }) {
                 {option.subOptions.map((subOption, i) => {
                   return (
                     <div
-                      className="w-[139px] mt- flex items-baseline py-[6px]"
+                      className="w-[139px] mt- flex items-baseline py-[6px] relative"
                       key={i}
                     >
                       <svg
                         width="18"
-                        height="33"
-                        className="-mt-[14px]"
+                        height="30"
+                        className=" absolute -top-3 -left-1"
                         viewBox="0 0 18 33"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,11 +47,10 @@ function SideBar({ category, subcategory }) {
 
                       <Link
                         href={`/${option.id}/${subOption.id}`}
-                        className={`${
-                          subOption.id == subcategory
-                            ? "text-[#F19B6C]"
-                            : "text-[#959595]"
-                        } text-[16px] leading-none ml-2`}
+                        className={`${subOption.id == subcategory
+                          ? "text-[#F19B6C]"
+                          : "text-[#959595]"
+                          } text-[16px] leading-none ml-5 py-[1px]  `}
                       >
                         {subOption.name}
                       </Link>
