@@ -29,13 +29,13 @@ export const getBrandsList = (productType) => {
     return async (dispatch, getState) => {
         const state = getState();
         await axiosInstance({
-            url: `/api/drink_brand/get_all_drink_brand`,
+            url: `/api/${productType}/get_all_data/drink_brand`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
                 brandSlice.actions.getBrands({
-                    data: res?.data?.data?.rows,
+                    data: res?.data?.data,
                     type: productType,
                 })
             );
@@ -56,6 +56,26 @@ export const getBrandsDetails = (productType, id) => {
             console.log("response in product,js 47", res);
             dispatch(
                 brandSlice.actions.getBrandsDetails(res?.data?.data)
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+
+
+export const getBrandsByCategory = (productType, id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            url: `/api/get_brand_by_id_category/${id}`,
+            method: "GET",
+        }).then((res) => {
+            dispatch(
+                brandSlice.actions.getBrands({
+                    data: res?.data?.data?.rows,
+                    type: productType,
+                })
             );
         }).catch((err) => {
             console.log(err)
