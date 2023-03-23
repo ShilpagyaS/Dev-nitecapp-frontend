@@ -15,7 +15,7 @@ import CocktailDetailPage from "@/components/spec-comp/cocktails-detail-page";
 import Ingridients from "@/components/spec-comp/ingridients";
 import IngridientDetail from "@/components/spec-comp/ingridients/IngridientDetail";
 import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
-import Brands from "@/components/spec-comp/brands";
+import SpecBrands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 import { useEffect } from "react";
@@ -35,14 +35,14 @@ import SuperAdminBrand from "@/SuperAdmin/Brands";
 
 import WineCategory from "@/components/spec-comp/wine/wineCategory";
 import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
-
+import Brands from "@/components/brands";
+import ExploreBrands from "@/components/brands/explore-brands";
+import BrandsBrandDetail from "@/components/brands/explore-brands/BrandDetail";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
   return (
@@ -86,6 +86,11 @@ export default function Category() {
           {path === "/specs/bestselling" && <BestSellingCoctails />}
 
           {path === "/dashboard" && <UserDashboard />}
+                    {path === "/brand" && <Brands />}
+          {path === "/brand/explore-brands" && <ExploreBrands />}
+          {path === `/brand/explore-brands?id=${productId}` && (
+            <BrandsBrandDetail />
+          )}
         </LayoutWithSidebar>
       )}
 
@@ -98,6 +103,7 @@ export default function Category() {
           {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
           {category === "specs" && subcategory === "beer" && !productId && <AdminBeer productDetails={productDetails} />}
           {category === "specs" && subcategory === "beerDis" && <BeerDisplayById productDetails={productDetails} />}
+
 
           {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
           {subcategory === "new-cocktail" && <EmptyUSerLayout />}
@@ -116,7 +122,6 @@ export default function Category() {
         </LayoutWithSidebar>
       }
       {/* </AuthWrapper> */}
-
     </>
   );
 }

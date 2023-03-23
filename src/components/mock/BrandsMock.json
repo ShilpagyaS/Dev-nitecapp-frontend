@@ -1,0 +1,77 @@
+{
+    "Brandsdata": [{
+        "categoryName": "Luxury",
+        "categoryDesc": "Bespoke and superb amenities and services. Discover popular luxury hotels in destinations around the globe that offer unparalleled service and amenities.",
+        "categoryCards": [
+            {
+                "subcategory": "Classic Luxury",
+                "subcategoryCards": [
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    }
+                ]
+            },
+            {
+                "subcategory": "Distinctive Luxury",
+                "subcategoryCards": [
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "categoryName": "Premium",
+        "categoryDesc": "Sophisticated and thoughtful amenities and services.",
+        "categoryCards": [
+            {
+                "subcategory": "Classic Luxury",
+                "subcategoryCards": [
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    }
+                ]
+            },
+            {
+                "subcategory": "Distinctive Luxury",
+                "subcategoryCards": [
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    },
+                    {
+                        "img" :"/asset/brand-icon-1.svg"
+                    }
+                ]
+            }
+        ]
+    }
+]
+}
