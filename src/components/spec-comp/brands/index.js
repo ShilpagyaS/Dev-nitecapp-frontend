@@ -54,4 +54,4 @@ const Brands = ({ productType, productId }) => {
   );
 };
 
-export default SpecsBrands;
+export default Brands;
