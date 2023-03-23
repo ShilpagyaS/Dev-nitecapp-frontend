@@ -25,7 +25,7 @@ function Brands() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 order-last grid-cols-1 gap-x-[58px] mb-[48px]">
+      <div className="grid lg:grid-cols-3 order-last space-y-reverse grid-cols-1 gap-x-[58px] mb-[48px]">
         <div className=" col-span-1 ">
           <Paragraph
             title="Discover Jobs"
