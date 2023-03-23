@@ -20,7 +20,7 @@ const ExploreBrands = () => {
         return (
           <>
             <div key={i} className="category-container">
-              <div className="category-heading-container flex items-start mb-8">
+              <div className="category-heading-container lg:flex lg:items-start lg:mb-8 mb-3">
                 <h5 className="category-heading text-[20px] font-semibold leading-8 w-[138px] mr-6 ">
                   {brand.categoryName}
                 </h5>
@@ -34,7 +34,7 @@ const ExploreBrands = () => {
                     <h4 className="category-heading mb-6  text-[20px] font-semibold leading-8">
                       {subcategory.subcategory}
                     </h4>
-                    <div className="cards-container mb-6 grid grid-cols-3 gap-x-[39px] gap-y-[33px]">
+                    <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
                       {subcategory.subcategoryCards.map((card, i) => {
                         return (
                           <Link href={`/brand/explore-brands?id=${i}`}>
