@@ -44,7 +44,7 @@ function Spirits({ id, categoryName }) {
           )}
         </div>
         <div className="heading-container lg:mb-8 mb-3">
-          <h2 className="text-white text-[24px] leading-9 font-bold ">
+          <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {categoryName}
           </h2>
         </div>

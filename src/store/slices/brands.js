@@ -2,39 +2,39 @@ import axiosInstance from "@/api/axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    ingredients: [],
-    ingredientDetails: {}
+    brandsList: [],
+    brandsDetails: {}
 };
 
-export const ingredientsSlice = createSlice({
-    name: "ingredients",
+export const brandSlice = createSlice({
+    name: "brands",
     initialState,
     reducers: {
-        getIngredients: (state, action) => {
-            state.ingredients = action.payload.data
+        getBrands: (state, action) => {
+            state.brandsList = action.payload.data
         },
-        getIngredientDetails: (state, action) => {
-            state.ingredientDetails = action.payload
+        getBrandsDetails: (state, action) => {
+            state.brandsDetails = action.payload
         },
-        emptyAlling: (state) => {
-            state.ingredients = []
-            state.ingredientDetails = {}
+        emptyAllBrands: (state) => {
+            state.brandsList = []
+            state.brandsDetails = {}
         }
     },
 });
 
 
 
-export const getIngredientsList = (productType) => {
+export const getBrandsList = (productType) => {
     return async (dispatch, getState) => {
         const state = getState();
         await axiosInstance({
-            url: `/api/${productType}_ingredient_type/get_all_${productType}_ingredient_type`,
+            url: `/api/drink_brand/get_all_drink_brand`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
-                ingredientsSlice.actions.getIngredients({
+                brandSlice.actions.getBrands({
                     data: res?.data?.data?.rows,
                     type: productType,
                 })
@@ -46,16 +46,16 @@ export const getIngredientsList = (productType) => {
 };
 
 
-export const getIngredientsDetails = (productType, id) => {
+export const getBrandsDetails = (productType, id) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/${productType}_ingredient_type/${id}`,
+            url: `/api/drink_brand/${id}`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
-                ingredientsSlice.actions.getIngredientDetails(res.data)
+                brandSlice.actions.getBrandsDetails(res?.data?.data)
             );
         }).catch((err) => {
             console.log(err)
@@ -64,13 +64,13 @@ export const getIngredientsDetails = (productType, id) => {
 };
 
 
-export const emptyIngredientsList = (productType) => {
+export const emptyBrandsList = (productType) => {
 
     return async (dispatch, getState) => {
         dispatch(
-            ingredientsSlice.actions.emptyAlling()
+            brandSlice.actions.emptyAllBrands()
         );
     };
 };
 
-export default ingredientsSlice.reducer;
+export default brandSlice.reducer;
