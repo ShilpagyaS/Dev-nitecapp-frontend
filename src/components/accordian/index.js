@@ -22,11 +22,10 @@ export default function Accordian({ category, subcategory, handleClose }) {
                       <Link
                         href={`/${option.id}/`}
                         onClick={handleClose}
-                        className={`${
-                          option.id == category
-                            ? "text-[#F19B6C]"
-                            : "text-[#959595]"
-                        } text-[18px] leading-6 font-semibold `}
+                        className={`${option.id == category
+                          ? "text-[#F19B6C]"
+                          : "text-[#959595]"
+                          } text-[18px] leading-6 font-semibold `}
                       >
                         <span className="flex items-baseline">
                           {" "}
@@ -36,14 +35,13 @@ export default function Accordian({ category, subcategory, handleClose }) {
                       </Link>
                       {option.subOptions.length ? (
                         <ChevronUpIcon
-                          className={`${
-                            open ? "rotate-180 transform" : ""
-                          } h-5 w-5`}
+                          className={`${open ? "rotate-180 transform" : ""
+                            } h-5 w-5`}
                         />
                       ) : null}
                     </Disclosure.Button>
                     {option.subOptions.length ? (
-                      <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white  transition duration-500">
+                      <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-white  transition duration-500">
                         {option.subOptions.map((subOption, i) => {
                           return (
                             <>
@@ -52,16 +50,15 @@ export default function Accordian({ category, subcategory, handleClose }) {
                                   <Link
                                     href={`/${option.id}/${subOption.id}`}
                                     onClick={handleClose}
-                                    className={`${
-                                      subOption.id == subcategory
-                                        ? "text-[#F19B6C]"
-                                        : "text-[#959595]"
-                                    } text-[16px] leading-none ml-2`}
+                                    className={`${subOption.id == subcategory
+                                      ? "text-[#F19B6C]"
+                                      : "text-[#959595]"
+                                      } text-[16px] leading-none ml-2`}
                                   >
                                     <svg
                                       width="18"
-                                      height="35"
-                                      className=" absolute -top-6 -left-2"
+                                      height="30"
+                                      className=" absolute -top-5 -left-3"
                                       viewBox="0 0 18 33"
                                       fill="none"
                                       xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +69,7 @@ export default function Accordian({ category, subcategory, handleClose }) {
                                         stroke-linecap="round"
                                       />
                                     </svg>
-                                    <span className="ml-3 font-normal">
+                                    <span className="ml-2 font-normal">
                                       {subOption.name}
                                     </span>
                                   </Link>
