@@ -38,9 +38,9 @@ const ExploreBrands = () => {
                       {subcategory.subcategoryCards.map((card, i) => {
                         return (
                           <Link href={`/brand/explore-brands?id=${i}`}>
-                          <div className="col-span-1 relative w-[237px] h-[127px] ronded-[6px]">
-                            <Image src="/asset/brand-con-1.svg" fill />
-                          </div>
+                            <div className="col-span-1 relative w-[237px] h-[127px] ronded-[6px]">
+                              <Image src="/asset/brand-con-1.svg" fill />
+                            </div>
                           </Link>
                         );
                       })}
