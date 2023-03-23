@@ -9,6 +9,7 @@ import useNavDetails from "@/Hooks/useNavDetails";
 import { getProduct, emptyProductList } from "@/store/slices/product";
 import { useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import { whatsthestrength } from "@/utils/abvfinder";
 
 function Coctails({ headerHidden }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -77,7 +78,7 @@ function Coctails({ headerHidden }) {
                   <RectangularCard
                     title={card.cocktail_name}
                     image={"/asset/coctail1.png"}
-                    subtitle="Medium(12%)"
+                    subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
                   />
                 </Link>
               </div>

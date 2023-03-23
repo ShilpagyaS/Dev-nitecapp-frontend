@@ -69,7 +69,7 @@ function Ingridients({ productType }) {
         )}
         <div className="bottle-cards-container mb-8">
           {filteredData.map((section, i) => {
-            debugger
+
             return (
               <div className="mb-8">
                 <p className="text-white text-[20px] font-semibold mb-5">
@@ -80,7 +80,7 @@ function Ingridients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients?id=${i}`}
+                          href={`/specs/cocktail/cocktail_ingredients?id=${card.ingredient_type_id}`}
                         >
                           <RectangularCard
                             title={card.ingredient_type_name}
