@@ -6,9 +6,8 @@ export function CoctailCard({ image, title, isNew }) {
   return (
     <div className=" w-[161px] h-[195px] md:w-[197px] md:h-[242px] px-[11px] py-[15px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]">
       <div
-        className={`relative image-container ${
-          isTablet ? "w-[137px] h-[137px]" : "w-[171px] h-[171px]"
-        } `}
+        className={`relative image-container ${isTablet ? "w-[137px] h-[137px]" : "w-[171px] h-[171px]"
+          } `}
       >
         <Image src={image} alt="slider-image" fill />
         {isNew && (
@@ -102,20 +101,20 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div
-      className={`flex items-center w-full rounded-[10px] border-[1px] border-[#3C3C3C]${
-        circularImg ? " px-4 py-3 " : " px-4 py-4 "
-      }`}
+      className={`flex items-center w-full rounded-[10px] border-[1px] border-[#3C3C3C]${circularImg ? " px-4 py-3 " : " px-4 py-4 "
+        }`}
     >
       <div
-        className={`relative image-container mr-[16px] ${
-          circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px]"
-        }`}
+        className={`relative image-container mr-[16px] ${circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px]"
+          }`}
       >
         <Image
           src={image}
-          alt="slider-image"
           className={`${circularImg && " rounded-full "}`}
           fill
+          alt={title}
+          priority
+          style={{ objectFit: "cover" }}
         />
       </div>
       <div className="text-container">
@@ -134,14 +133,12 @@ export function RectangularCard2({ image, title, subtitle, circularImg }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div
-      className={`flex items-center w-full rounded-[10px] border-[1px] border-[#3C3C3C]${
-        circularImg ? " px-4 py-3 " : " px-4 py-1 "
-      }`}
+      className={`flex items-center w-full rounded-[10px] border-[1px] border-[#3C3C3C]${circularImg ? " px-4 py-3 " : " px-4 py-1 "
+        }`}
     >
       <div
-        className={`relative image-container mr-[16px] ${
-          circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px]"
-        }`}
+        className={`relative image-container mr-[16px] ${circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px]"
+          }`}
       >
         <Image
           src={image}

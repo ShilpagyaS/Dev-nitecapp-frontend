@@ -5,6 +5,9 @@ import CoreBeverage from "./CoreBeverage";
 import Trending from "./Trending";
 
 function SpecComp() {
+  console.log(
+    "==================specs===================================================================================="
+  );
   return (
     <>
       <div className="Header-container md:flex-row lg:flex-row flex-col flex justify-between lg:items-center md:items-center mb-6  ">

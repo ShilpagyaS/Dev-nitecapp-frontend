@@ -98,6 +98,8 @@ export const changePassword = (data) => {
       url: "/api/user-auth/change-password",
       method: "POST",
       data,
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };
@@ -109,6 +111,8 @@ export const updateUser = (data) => {
       url: "/api/user-auth/update-user",
       method: "PUT",
       data,
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };
@@ -127,6 +131,8 @@ export const getConcept = (data) => {
         return concept;
       }
       return [];
+    }).catch((err) => {
+      console.log(err)
     });
   };
 };

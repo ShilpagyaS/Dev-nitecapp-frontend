@@ -3,30 +3,31 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useEffect, useState } from "react";
-import useFilteredData from "@/Hooks/useFilteredData";
-import { useDispatch } from "react-redux";
-import { emptyProductList } from "@/store/slices/product";
+
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProductList, getProduct, getProductByCategoryId } from "@/store/slices/product";
 import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 
-function Spirits({productList}) {
+function Spirits({ id, categoryName }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
-  const coctailData = coctailMock.coctailData;
-  const dispatch=useDispatch()
-  const filtereddataList=useFilteredData(productList,false,"spirit")
-  useEffect(()=>{
-    return ()=>{
-         dispatch(emptyProductList())
-       }
- },[])
+  const dispatch = useDispatch();
+  const { productsByCategory } = useSelector((state) => state.product);
 
- const {category,subcategory,productId}=useNavDetails()
+  useEffect(() => {
+    dispatch(getProductByCategoryId("spirit", id));
+    return () => {
+      dispatch(emptyProductList());
+    };
+  }, []);
+
+
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-         <Breadcrumb/>
+          <Breadcrumb last={categoryName} />
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
               <CiSearch
@@ -43,8 +44,8 @@ function Spirits({productList}) {
           )}
         </div>
         <div className="heading-container lg:mb-8 mb-3">
-          <h2 className="text-white text-[24px] leading-9 font-bold ">
-            Spirits
+          <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
+            {categoryName}
           </h2>
         </div>
         {isTablet && (
@@ -61,25 +62,21 @@ function Spirits({productList}) {
             />
           </div>
         )}
-        {filtereddataList.map((d,inx)=>{
-          
-          return <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {d?.data?.map((card, i) => {
+        <div className="cards-container grid lg:grid-cols-2 grid-cols-1  gap-x-[73px] gap-y-[12px] ">
+          {productsByCategory?.map((card, inx) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`${category}/${subcategory}/${card.spirit_id}`}>
-                <RectangularCard
-                  title={card.spirit_name}
-                  image={"/asset/vodka.svg"}
-                  circularImg={true}
-                />
+                <Link href={`specs/spirit/${categoryName.replace('/', ' ')}/${card.spirit_name.replace('/', " ")}/?id=${card.spirit_id}`}>
+                  <RectangularCard
+                    title={card.spirit_name}
+                    image={card.image}
+                    circularImg={true}
+                  />
                 </Link>
               </div>
             );
           })}
         </div>
-        })
-      }
       </div>
     </>
   );
