@@ -55,7 +55,7 @@ export default function Category() {
       </Head>
 
       {/* <AuthWrapper> */}
-      {true && (
+      {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {path === "/specs" && <SpecComp />}
           {path === "/specs/cocktail" && <Coctails />}
@@ -86,7 +86,7 @@ export default function Category() {
           {path === "/specs/bestselling" && <BestSellingCoctails />}
 
           {path === "/dashboard" && <UserDashboard />}
-                    {path === "/brand" && <Brands />}
+          {path === "/brand" && <Brands />}
           {path === "/brand/explore-brands" && <ExploreBrands />}
           {path === `/brand/explore-brands?id=${productId}` && (
             <BrandsBrandDetail />
@@ -97,7 +97,7 @@ export default function Category() {
 
 
       {/* admin  */}
-      {false &&
+      {process.env.NEXT_PUBLIC_APP_TYPE === "admin" &&
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
           {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail productList={productList} />}
@@ -113,7 +113,7 @@ export default function Category() {
         </LayoutWithSidebar>
       }
       {/* superAdmin */}
-      {false &&
+      {process.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" &&
         <LayoutWithSidebar category={category} subcategory={subcategory}>
 
           {category === "dashboard" && <AdminDashboard />}
