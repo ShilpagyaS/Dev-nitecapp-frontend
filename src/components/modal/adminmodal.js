@@ -1,4 +1,7 @@
+import { _INITIAL } from '@/utils/Constants';
 import CustomSelect from '@/utils/CustomSelect';
+import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
+import UploadBrandLogoInput from '@/utils/uploadBrandInput';
 import React, { useEffect, useState } from 'react'
 import Modal from "react-modal";
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
@@ -973,5 +976,373 @@ export function EditDualValue({ isModalOpen, onClickCancel, onSave, deleteBtn, t
 
             </Modal>
         </>
+    )
+}
+export function EditKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            width: "480px",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [EditModal, setEditmodal] = useState(false)
+
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave(input1, input2)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <>
+            {EditModal &&
+                <Delete
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    inputone={input1}
+                    inputtwo={input2}
+                    onSave={() => { setEditmodal(false) }}
+                    title={title}
+                    index={0}
+                    type={type}
+                    deleteBtn={deleteBtn}
+                />
+            }
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none">
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${input1}`}</h4>
+                </div>
+                <div className='flex flex-col w-full'>
+                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} Value`}</h3>
+                    <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+                </div>
+
+                <div className='btncontainers flex items-center justify-between mt-[18px] '>
+                    <div className="flex items-center">
+                        {/* <button
+                            className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                           
+                        
+                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                            onClick={() => { setEditmodal(true) }}
+                        >
+                            Delete
+                        </button> */}
+                    </div >
+                    <div className='flex items-center'>
+
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <div className='ml-[24px]'>
+                            <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+                        </div>
+                    </div>
+
+                </div>
+
+            </Modal>
+        </>
+    )
+}
+export function AddKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            width: "480px",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [EditModal, setEditmodal] = useState(false)
+
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave(input1, input2)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <>
+            {EditModal &&
+                <Delete
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    inputone={input1}
+                    inputtwo={input2}
+                    onSave={() => { setEditmodal(false) }}
+                    title={title}
+                    index={0}
+                    type={type}
+                    deleteBtn={deleteBtn}
+                />
+            }
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none">
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${input1}`}</h4>
+                </div>
+                <div className='flex flex-col w-full'>
+                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} Value`}</h3>
+                    <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none'
+                        placeholder='Enter Value' />
+                </div>
+
+                <div className='btncontainers flex items-center justify-between mt-[18px] '>
+                    <div className="flex items-center">
+                        {/* <button
+                            className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                           
+                        
+                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                            onClick={() => { setEditmodal(true) }}
+                        >
+                            Delete
+                        </button> */}
+                    </div >
+                    <div className='flex items-center'>
+
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <div className='ml-[24px]'>
+                            <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+                        </div>
+                    </div>
+
+                </div>
+
+            </Modal>
+        </>
+    )
+}
+export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            width: "480px",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [brandForm, setBrandForm] = useState(
+        {
+            email: "",
+            brandname: "",
+            displayname: "",
+            address: "",
+            city: "",
+            state: "",
+            country: "",
+            password: "",
+        }
+    )
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        let dummytype = null
+        if (input2 == "") dummytype = 0
+        else dummytype = 1
+        onSave(input1, input2, dummytype)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setBrandForm((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Brand`}</h4>
+            </div>
+            <div className='max-h-[456px]' >
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Name"
+                    onChangeHandler={handleChange}
+                    value={brandForm.email}
+                    name={"email"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <UploadBrandLogoInput
+                    placeholder=""
+                    label="Brand Logo"
+                    onChangeHandler={handleChange}
+                    value={input1}
+                    name={"logo"}
+                    type={"text"}
+                    errorResponnse={_INITIAL} />
+
+
+                <div className='btncontainers flex items-center justify-between mt-[20px] '>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
+                    </div>
+
+                </div>
+            </div>
+        </Modal>
+    )
+}
+export function DeleteProduct({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            width: "480px",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave()
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
+            </div>
+            <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>
+                    {`Deleting this will permanantly remove all the data of the Item .Do You Want To Delete ${title} ?"`}
+                </h3>
+
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
     )
 }

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-function DescriptionTextArea({ content, textAreaRef, isEdit }) {
-  // const textAreaRef = useRef(null);
-  // console.log(textAreaRef.current);
-
+function DescriptionTextArea({ content, textAreaRef, isEdit, maxheight, isSAve }) {
   const [val, setVal] = useState(content);
   // const textAreaRef = useRef(null);
 
@@ -10,6 +7,19 @@ function DescriptionTextArea({ content, textAreaRef, isEdit }) {
     textAreaRef.current.style.height = "auto";
     textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px";
   };
+  useEffect(
+    () => {
+      setVal(content)
+      // textAreaRef.current.value = content || '' 
+    }
+    , [content])
+  useEffect(
+    () => {
+      isSAve == true ?
+        setVal('') :
+        ''
+    }
+    , [isSAve])
 
   useEffect(resizeTextArea, [val]);
 
@@ -22,7 +32,9 @@ function DescriptionTextArea({ content, textAreaRef, isEdit }) {
     //   {content}
     // </div>
     <div>
-      <textarea ref={textAreaRef} className={`choice-container ${isEdit ? 'bg-[#2C2C2C]':''} w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`} value={val} onChange={onChange} rows={1} style={{ resize: 'none', overflowY: 'hidden' }} disabled={!isEdit ? true : false} />
+      <textarea ref={textAreaRef} className={`choice-container ${isEdit ? 'bg-[#2C2C2C]' : ''} w-full ${maxheight ? `max-h-[${maxheight}px]` : `max-h-[90px]`} py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`}
+        value={val}
+        onChange={onChange} rows={1} style={{ resize: 'none', overflowY: 'hidden' }} disabled={!isEdit ? true : false} />
     </div>
 
 

@@ -1,26 +1,26 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList } from '@/store/slices/product'
-import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
-import SwitchComp from '@/utils/SwitchComp'
-import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { DeleteProduct } from '@/components/modal/adminmodal';
+import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList } from '@/store/slices/product';
+import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
+import SwitchComp from '@/utils/SwitchComp';
+import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
-function BeerTable() {
+function LowAbvtable() {
     const router = useRouter();
     const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
+    const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
     })
-    const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getProduct('beer'))
+        dispatch(getProduct('low_no_abv'))
 
         return () => {
             dispatch(emptyProductList())
@@ -31,9 +31,9 @@ function BeerTable() {
         let dummy = productList.map(
             (element) => {
                 return {
-                    id: element.beer_id,
+                    id: element.low_no_abv_id,
                     itemImage: '',
-                    itemName: element.beer_name,
+                    itemName: element.low_no_abv_name,
                     showHideStatus: element.isActive,
                     popularity: 'New',
                     data: element,
@@ -44,12 +44,13 @@ function BeerTable() {
         )
         console.log(dummy);
         setList([...dummy])
-    }, [productList])
 
+    }, [productList])
     function toggleSwitch(e, element) {
         let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList('beer', element.id, data))
+        dispatch(putProductByIdThenUpdateList('low_no_abv', element.id, data))
     }
+
     const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
     function OuterRows({ element }) {
 
@@ -58,7 +59,7 @@ function BeerTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/blue-moon.svg'}
+                        <Image src={'/asset/redbull.svg'}
                             alt="image"
                             width={106}
                             height={106} />
@@ -92,7 +93,7 @@ function BeerTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/beer?id=${element.id}`); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/low_no_abv?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
@@ -112,20 +113,21 @@ function BeerTable() {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductById('beer', elementItem.id))
+        dispatch(deleteProductById('low_no_abv', elementItem.id))
     }
     return (
-        <>   {DeleteModal &&
-            <DeleteProduct
-                isModalOpen={DeleteModal}
-                onClickCancel={() => { setDeleteModal(false) }}
-                title={elementItem.title}
-                onSave={deleteProduct}
-            />
-        }
-            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/beer/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+        <>
+            {DeleteModal &&
+                <DeleteProduct
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={elementItem.title}
+                    onSave={deleteProduct}
+                />
+            }
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/low_no_abv/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
         </>
     )
 }
 
-export default BeerTable
+export default LowAbvtable

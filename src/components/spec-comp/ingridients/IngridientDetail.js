@@ -13,10 +13,10 @@ import { emptyIngredientsList, getIngredientsDetails } from "@/store/slices/ingr
 
 const IngridientDetail = ({ productType, productId }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
-  const { productDetails } = useSelector((state) => state.product);
+  const { ingredientDetails } = useSelector((state) => state.ingredients);
 
 
-
+  console.log(ingredientDetails)
 
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const IngridientDetail = ({ productType, productId }) => {
       </div>
       <div className="img-title-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div className="title-container text-white w-[294px] mr-8">
-          <h3 className="title text-[24px] font-bold mb-6">London Dry Gin</h3>
+          <h3 className="title text-[24px] font-bold mb-6">{ingredientDetails.ingredient_type_name}</h3>
           <p
             className={`sub-title text-[16px] leading-6 ${isMobile && "text-center"
               }`}

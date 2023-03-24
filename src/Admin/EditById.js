@@ -1,29 +1,20 @@
-import { useEffect, useRef, useState } from "react";
-import useMediaQuery from "@/Hooks/useMediaQuery";
-import Image from "next/image";
-import DetailsMock from "@/components/mock/DetailsMock.json";
-import EditCard from "@/utils/Cards/Text card/EditCard";
-import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
-// import ConditionalButton from "./ConditionalButton";
-import ChipWithLeftButton, { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
-import { AddGeneric, AddNewTitle, AddTitle, DeleteSection, EditDualValue } from "@/components/modal/adminmodal";
-// import GenericCard from "./GenericCard";
-import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
-import GenericCard from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard";
-import Breadcrumb from "@/components/Breadcrumb";
-import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
-import SplitCard from "@/utils/Cards/Text card/SplitCard";
-import { useDispatch, useSelector } from "react-redux";
-import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
+import Breadcrumb from '@/components/Breadcrumb';
+import { EditDualValue, EditKeyValue } from '@/components/modal/adminmodal';
+import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
+import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
+import useMediaQuery from '@/Hooks/useMediaQuery';
+import { emptyProductList, getProductById, putProductById } from '@/store/slices/product';
+import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
+import EditCard from '@/utils/Cards/Text card/EditCard';
+import SplitCard from '@/utils/Cards/Text card/SplitCard';
+import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
-const BeerDisplayById = ({ productId, subcategory }) => {
+function EditById({ productId, subcategory }) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
-    const ingridients = DetailsMock.ingridients;
-    const presentation = DetailsMock.presentation;
-    const method = DetailsMock.method;
-    const lesson = DetailsMock.lesson;
-    const notes = DetailsMock.notes;
     let superData = {
         cocktail_name: 'Blue Moon Belgian White',
         description: " A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.",
@@ -31,19 +22,12 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         methods: {},
         presentation: {},
         image: {},
-        strength: 0,
 
     }
 
     console.log(superData);
-    const [newMockData, setNewMockData] = useState({
 
-        strength: '2oz',
-        tastes: 'Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh',
-        origin: 'Itly',
-    });
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
     const [isEdit, setEdit] = useState(false)
     const textAreaRef = useRef(null);
     const nameref = useRef(null);
@@ -64,12 +48,28 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         setEdit(prev => !prev)
         console.log(textAreaRef.current.innerText);
     }
+    const [newMockData, setNewMockData] = useState({
+
+        abv: productDetails.abv || '',
+        tastes: productDetails.tastes || '',
+        origin: productDetails.origin || '',
+    });
 
     // new generic approach
     useEffect(() => {
         console.log(newMockData);
 
     }, [newMockData])
+    useEffect(() => {
+        setNewMockData({
+
+            abv: productDetails.abv || '',
+            tastes: productDetails.tastes || '',
+            origin: productDetails.origin || '',
+        })
+
+    }, [productDetails])
+
 
     function addNewTitle(name) {
         setNewMockData(((prev) => {
@@ -171,11 +171,29 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         if (isEdit == true) {
 
             superData = { ...superData, ...newMockData }
-            dispatch(putProductById(subcategory, productId, { ...productDetails, [`${subcategory}_name`]: nameref.current.innerText }))
+            dispatch(putProductById(subcategory, productId,
+                {
+                    ...productDetails,
+                    [`${subcategory}_name`]: nameref.current.innerText,
+                    description: textAreaRef.current.value,
+                    abv: newMockData.abv,
+                    origin: newMockData.origin,
+                    tastes: newMockData.tastes
+                }
+            ))
             console.log(nameref.current.innerText);
+            toggleEdit()
         }
-        console.log(superData);
-        toggleEdit()
+        console.log(textAreaRef);
+    }
+    function whatsthestrength(Nabv) {
+        let abv = parseFloat(Nabv)
+        console.log(abv);
+        if (abv > 15) return 'High'
+        if (abv > 8 && abv < 15) return 'Medium'
+        if (abv > 0 && abv < 8) return 'Low'
+        if (abv == 0) return 'No alcohol'
+        return '  '
     }
     return (
         <>
@@ -187,8 +205,17 @@ const BeerDisplayById = ({ productId, subcategory }) => {
 
       />
       } */}
-            {EditModal &&
+            {/* {EditModal &&
                 <EditDualValue
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    inputone={editItem.desc}
+                    inputtwo={editItem.quantity}
+                    onSave={editValues}
+                />
+            } */}
+            {EditModal &&
+                <EditKeyValue
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
                     inputone={editItem.desc}
@@ -217,23 +244,23 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                     <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
                         <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px] "
                             }`}>
-                            <Image src="/asset/london-dry-green.svg"
-                                style={{ objectFit: "cover" }}
-                                className="w-full" fill />
+                            <Image src="/asset/london-dry-green.svg" className="w-full" fill />
 
                         </div>
-                        <div className="editbutton flex text-[#929292] ">
-                            <Image
-                                src={'/asset/EditVector.svg'}
-                                // src={'/asset/DeleteVector.svg'}
-                                width={20}
-                                height={20}
-                                className=""
-                            />
-                            <div className="ml-[12px]">
-                                Edit Image
+                        {isEdit &&
+                            <div className="editbutton flex text-[#929292] ">
+                                <Image
+                                    src={'/asset/EditVector.svg'}
+                                    // src={'/asset/DeleteVector.svg'}
+                                    width={20}
+                                    height={20}
+                                    className=""
+                                />
+                                <div className="ml-[12px]">
+                                    Edit Image
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">
@@ -249,7 +276,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                                     <EditCard editContent={productDetails?.[`${subcategory}_name`]} isEdit={isEdit} divref={nameref} />
                                 </h3>
                                 <div className="status-text text-[18px]">
-                                    <EditCard editContent={"Medium(12%)"} isEdit={isEdit} />
+                                    <EditCard editContent={`${whatsthestrength(newMockData.abv)} (${newMockData.abv})%`} isEdit={false} />
                                 </div>
                             </div>
                         </div>
@@ -258,7 +285,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}
                         >
-                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={`${superData.description}`} />
+                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={productDetails.description || ''} />
                         </p>
                     </div>
                 </div>
@@ -296,10 +323,10 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                             </div>
                             <div className="method-details-container">
 
-                                <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.strength }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                                <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                     onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                    <SplitCard desc={"Strength"} quantity={newMockData.strength} />
+                                    <SplitCard desc={"Strength"} quantity={`${newMockData.abv}%`} />
 
                                 </div>
                                 <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
@@ -321,5 +348,4 @@ const BeerDisplayById = ({ productId, subcategory }) => {
         </>
     );
 };
-
-export default BeerDisplayById;
+export default EditById

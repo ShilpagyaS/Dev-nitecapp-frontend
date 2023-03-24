@@ -220,9 +220,9 @@ function EmptyUSerLayout() {
 
                 </div>
                 <div className="titleContainer">
-                    <div className="flex items-center justify-between p-[10px]">
+                    {/* <div className="flex items-center justify-between p-[10px]">
                         <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
-                    </div>
+                    </div> */}
 
                     {Object.keys(newMockData).map((e) =>
                         <GenericCard title={e} type={newMockData[e].type} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
