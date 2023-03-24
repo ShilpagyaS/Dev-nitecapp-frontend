@@ -55,7 +55,7 @@ export const getIngredientsDetails = (productType, id) => {
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
-                ingredientsSlice.actions.getIngredientDetails(res.data)
+                ingredientsSlice.actions.getIngredientDetails(res.data?.data)
             );
         }).catch((err) => {
             console.log(err)

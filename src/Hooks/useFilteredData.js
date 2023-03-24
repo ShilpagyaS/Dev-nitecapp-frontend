@@ -11,7 +11,7 @@ const useFilteredData = (productList, typechecking, defauttype, findname) => {
         const isTypePresentIndex = temp.findIndex(
           (t) => t.type === i?.[`${findname}`]
         );
-        debugger
+
         if (isTypePresentIndex > -1) {
           temp[isTypePresentIndex] = {
             type: i?.[`${findname}`],

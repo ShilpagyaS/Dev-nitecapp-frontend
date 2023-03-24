@@ -10,6 +10,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById } from "@/store/slices/product";
+import { whatsthestrength } from "@/utils/abvfinder";
 
 const SpecsDetailPage = ({ id, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -48,6 +49,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
     setIsAddModalOpen(false);
   };
 
+
   return (
     <div className="detail-page-container">
       <NotesModal
@@ -58,7 +60,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
       />
       <NotesModal
         title="Edit Notes"
-        desc="This is my Note: I like this pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint."
+        desc={productDetails.user_notes}
         deleteBtn={true}
         isModalOpen={isEditModalOpen}
         onClickCancel={handleCloseModal}
@@ -83,7 +85,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.[`${subcategory}_name`]}
               </h3>
-              <p className="status-text text-[18px]">Medium(12%)</p>
+              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails.abv)}(${productDetails.abv}%)`}</p>
             </div>
             {!isMobile && <AiOutlineHeart size="25px" color="#fff" />}
           </div>
@@ -98,16 +100,16 @@ const SpecsDetailPage = ({ id, subcategory }) => {
       <div className="properties-container text-white mb-8">
         <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
           <p className="mr-6">Strength</p>
-          <p className="font-medium">45%</p>
+          <p className="font-medium">{productDetails.abv}%</p>
         </div>
         <div className="origin-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
           <p className="mr-6">Origin</p>
-          <p className="font-medium">Italy</p>
+          <p className="font-medium">{productDetails.origin}</p>
         </div>
         <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
           <p className="mr-6">Tastes</p>
           <p className="font-medium">
-            Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh
+            {productDetails.tastes}
           </p>
         </div>
       </div>
@@ -116,23 +118,25 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           <h4 className="text-white text-[20px] leading-[32px] font-semibold">
             Notes
           </h4>
-          <OrangeButtons
+          {!productDetails.user_notes || productDetails.user_notes === "" && <OrangeButtons
             onClickHandler={handleAddModalOpen}
             label="Add Notes"
             noPadding={true}
-          />
+          />}
         </div>
-        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-          {notes.map((note, i) => {
-            return <p className=" bg-transparent mr-24px">{note.note}</p>;
-          })}
-          <CustomButton
-            onClickHandler={handleEditModalOpen}
-            label="Edit"
-            color="#F19B6C"
-            noPadding={true}
-          />
-        </div>
+        {productDetails.user_notes && productDetails.user_notes !== "" &&
+          <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+            <p className=" bg-transparent mr-24px">{productDetails.user_notes
+            }</p>
+
+            <CustomButton
+              onClickHandler={handleEditModalOpen}
+              label="Edit"
+              color="#F19B6C"
+              noPadding={true}
+            />
+          </div>
+        }
       </div>
     </div>
   );

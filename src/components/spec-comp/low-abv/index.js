@@ -8,6 +8,7 @@ import { emptyProductList, getProduct } from "@/store/slices/product";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
+import { whatsthestrength } from "@/utils/abvfinder";
 
 function LowABV() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -74,7 +75,7 @@ function LowABV() {
                   <RectangularCard
                     title={card.low_no_abv_name}
                     image={"/asset/redbull.svg"}
-                    subtitle="Low(0%)"
+                    subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
                   />
                 </Link>
               </div>
