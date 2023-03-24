@@ -38,6 +38,34 @@ export function CustomButton({
   );
 }
 
+export function TextButton({ onClickHandler, label, color, icon }) {
+  return (
+    <button
+      className={` h-fit bg-transparent rounded-[27px] hover:text-white 
+      ${color && `text-[${color}]`}
+      gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[14px] flex items-center justify-center`}
+      onClick={onClickHandler}
+    >
+      {icon} {label}
+    </button>
+  );
+}
+
+export function GrayButton({ onClickHandler, label, color, icon }) {
+  return (
+    <button
+      className={` h-fit py-[8px] px-[32px] bg-[#414141]
+     hover:text-white text-black
+     rounded-[27px] 
+      ${color && `text-[${color}]`}
+      gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px] flex items-center justify-center`}
+      onClick={onClickHandler}
+    >
+      {icon} {label}
+    </button>
+  );
+}
+
 export function LongButton({ onClickHandler, label }) {
   return (
     <button
@@ -60,7 +88,7 @@ export function ConditionalButtons({ onClickHandler, condition, label }) {
           condition == true ? "bg-[#F19B6C]" : "bg-[#3E3E3E]"
         } py-[12px] px-[24px] h-[54px] w-[288px] max-w-[288px] sm:w-[302px] sm:max-w-[302px] rounded-full ${
           condition == true
-            ? "hover:bg-[#ee854d] "
+            ? "hover:bg-[#ee854d]"
             : "disabled:hover:bg-[#ee854d] cursor-no-drop "
         } text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]`}
         onClick={onClickHandler}
@@ -70,6 +98,7 @@ export function ConditionalButtons({ onClickHandler, condition, label }) {
     </div>
   );
 }
+
 export function OrangeButtons({ onClickHandler, label, noPadding }) {
   return (
     <div className={`${!noPadding && "pt-[26px]"}`}>

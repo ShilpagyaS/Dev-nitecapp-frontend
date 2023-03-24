@@ -1,12 +1,12 @@
 import Breadcrumb from "@/components/Breadcrumb";
-import BannerSlider from "./BannerSlider";
+import AdminBannerSlider from "./BannerSlider";
 import Image from "next/image";
-import BrandsMock from "../../mock/BrandsMock.json";
+import BrandsMock from "../../components/mock/BrandsMock.json";
 import Link from "next/link";
 import { CustomButton, GrayButton, TextButton } from "@/utils/Buttons";
 import SwitchComp from "@/utils/SwitchComp";
 
-const ExploreBrands = ({ admin }) => {
+const AdminExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
 
   const addIcon = (
@@ -77,26 +77,24 @@ const ExploreBrands = ({ admin }) => {
     <div className="explore-brands-container text-white">
       <div className="breadcrumb-container flex justify-between items-center">
         <Breadcrumb />
-        {admin && (
-          <div className="btns-container flex ">
-            <div className="mr-4">
-              <GrayButton icon={editIcon("black")} label="Edit" />
-            </div>
-            <CustomButton background="#F19B6C" label="Save" />
+
+        <div className="btns-container flex ">
+          <div className="mr-4">
+            <GrayButton icon={editIcon("black")} label="Edit" />
           </div>
-        )}
+          <CustomButton background="#F19B6C" label="Save" />
+        </div>
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
-        <BannerSlider pagination={false} height="187px" />
-        {admin && (
-          <div className="edit-image-container flex justify-end ">
-            <TextButton
-              color="#929292"
-              icon={editIcon("#929292")}
-              label="Edit Image"
-            />
-          </div>
-        )}
+        <AdminBannerSlider pagination={false} height="187px" />
+
+        <div className="edit-image-container flex justify-end ">
+          <TextButton
+            color="#929292"
+            icon={editIcon("#929292")}
+            label="Edit Image"
+          />
+        </div>
       </div>
       <div className="brands-container">
         <h1 className="mb-[48px] text-[24px] font-bold">All Brands</h1>
@@ -109,7 +107,7 @@ const ExploreBrands = ({ admin }) => {
                 <h5 className="category-heading text-[20px] font-semibold leading-8 w-[138px] mr-6 ">
                   {brand.categoryName}
                 </h5>
-                <div className={`${admin && "bg-[#2C2C2C]"} p-4 rounded-[5px]`}>
+                <div className="bg-[#2C2C2C] p-4 rounded-[5px]">
                   <p className="category-description bg-transparent text-[16px] text-[#A8A8A8] leading-6">
                     {brand.categoryDesc}
                   </p>
@@ -122,24 +120,23 @@ const ExploreBrands = ({ admin }) => {
                       <h4 className="category-heading  text-[20px] font-semibold leading-8">
                         {subcategory.subcategory}
                       </h4>
-                      {admin && (
-                        <div className="btns-container flex items-center">
-                          <div className="mr-4">
-                            <TextButton icon={deleteIcon()} />
-                          </div>
-                          <div className="mr-4">
-                            <SwitchComp
-                              showHideStatus={true}
-                              onChangeHandler={() => {}}
-                            />
-                          </div>
-                          <CustomButton
-                            background="#F19B6C"
-                            icon={addIcon}
-                            label="Add New"
+
+                      <div className="btns-container flex items-center">
+                        <div className="mr-4">
+                          <TextButton icon={deleteIcon()} />
+                        </div>
+                        <div className="mr-4">
+                          <SwitchComp
+                            showHideStatus={true}
+                            onChangeHandler={() => {}}
                           />
                         </div>
-                      )}
+                        <CustomButton
+                          background="#F19B6C"
+                          icon={addIcon}
+                          label="Add New"
+                        />
+                      </div>
                     </div>
                     <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
                       {subcategory.subcategoryCards.map((card, i) => {
@@ -163,4 +160,4 @@ const ExploreBrands = ({ admin }) => {
   );
 };
 
-export default ExploreBrands;
+export default AdminExploreBrands;
