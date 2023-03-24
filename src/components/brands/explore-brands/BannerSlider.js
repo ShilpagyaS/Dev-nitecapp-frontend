@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { CustomButton } from "@/utils/Buttons";
 
 const BannerSlider = (props) => {
-  const {pagination, height} = props;
+  const { pagination, height } = props;
   const isMobile = useMediaQuery("(max-width: 414px)");
   const sliderData = [
     {
@@ -58,7 +58,7 @@ const BannerSlider = (props) => {
     <>
       <Swiper
         slidesPerView={1}
-        className={`mt-4 w-full h-[${height}]`}
+        className={`mt-4 w-full ${height ? `h-[${height}]` : "h-[187px]"}`}
         spaceBetween={0}
         modules={[Pagination]}
         pagination={pagination}
