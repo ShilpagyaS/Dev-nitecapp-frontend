@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChipWithLeftButton from './ChipWithLeftButton'
 import { DeleteCircularButton, EditCircularButton } from './CircularButton'
 import CustomSelect from './CustomSelect'
@@ -15,15 +15,27 @@ const items = [
 function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize, label, buttonFunction }) {
     const router = useRouter();
     console.log(mockData);
+    const [ListData, setListData] = useState([])
+    const [MainListData, setMainListData] = useState([])
+    const [searchTerm, setSearch] = useState("")
+    useEffect(() => {
+        setListData([...mockData])
+        setMainListData([...mockData])
+    }, [mockData])
+    useEffect(() => {
+        console.log(searchTerm);
+    }, [searchTerm])
+
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(mockData.length / pageSize); //5 is page size
+    const totalPages = Math.ceil(ListData.length / pageSize); //5 is page size
     const handleClick = (pageNum) => {
         setCurrentPage(pageNum);
     };
+
     const renderRows = () => {
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
-        return mockData.slice(start, end).map((element, index) => (
+        return ListData.slice(start, end).map((element, index) => (
             <tr key={index} className='h-[111px]'>
                 <td className='p-[25px]'>{index + 1}</td>
 
@@ -68,6 +80,37 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
 
         );
     };
+    function sortByDate(value) {
+        let sortedItems;
+        console.log(value);
+        if (value == 'option2') {
+
+            sortedItems = [...ListData].sort((b, a) => {
+                return new Date(a.createdDate) - new Date(b.createdDate)
+            });
+            setListData(sortedItems)
+        }
+        if (value == 'option3') {
+
+            sortedItems = [...ListData].sort((a, b) => {
+                return new Date(a.createdDate) - new Date(b.createdDate)
+            });
+            setListData(sortedItems)
+        }
+        if (value == 'option1') {
+            setListData(mockData)
+        }
+        console.log(sortedItems);
+    }
+    function filterData(value) {
+        let filterDummy = []
+        filterDummy = MainListData.filter((item) =>
+
+            item.itemName.toLowerCase().includes(value.toLowerCase())
+        );
+        console.log(filterDummy);
+        setListData(filterDummy)
+    }
     return (
         <>
             <div className='border border-[#3C3C3C] '>
@@ -78,10 +121,10 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                     <div className='flex pr-[38px] '>
                         <div className='mr-[20px]'>
 
-                            <CustomSelect items={items} optionalFunction={() => { }} />
+                            <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value) }} />
                         </div>
 
-                        <Search />
+                        <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />
                     </div>
                 </div>
                 <div className='Table'>

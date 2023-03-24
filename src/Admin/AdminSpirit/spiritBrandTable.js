@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
-import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId } from '@/store/slices/product';
+import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -17,7 +17,7 @@ function SpiritBrandTable({ productId, subcategory }) {
         title: '',
         id: ''
     })
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() 
     useEffect(() => {
 
         dispatch(getProductByCategoryId('spirit', productId))
@@ -36,6 +36,8 @@ function SpiritBrandTable({ productId, subcategory }) {
                     itemName: element.spirit_name,
                     showHideStatus: element.isActive,
                     popularity: 'New',
+                    data: element,
+                    createdDate: element.createdAt,
                 }
 
             }
@@ -44,49 +46,11 @@ function SpiritBrandTable({ productId, subcategory }) {
         setList([...dummy])
 
     }, [productsByCategory])
+    function toggleSwitch(e, element) {
+        let data = { ...element.data, isActive: e }
+        dispatch(putProductByIdThenUpdateList('spirit', element.id, data))
+    }
 
-    const mockData = [
-        {
-            id: 1,
-            itemImage: '',
-            itemName: 'Old Fashioned',
-            showHideStatus: true,
-            popularity: 'New',
-
-        },
-        {
-            id: 2,
-            itemImage: '',
-            itemName: 'Darusi',
-            showHideStatus: true,
-            popularity: 'New',
-
-        },
-        {
-            id: 3,
-            itemImage: '',
-            itemName: 'SouthSide',
-            showHideStatus: false,
-            popularity: 'None',
-
-        },
-        {
-            id: 4,
-            itemImage: '',
-            itemName: 'Old Monk',
-            showHideStatus: false,
-            popularity: 'None',
-
-        },
-        {
-            id: 5,
-            itemImage: '',
-            itemName: 'Old Fashioned2',
-            showHideStatus: true,
-            popularity: 'None',
-
-        },
-    ]
     const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "popularity", "Action"]
     function OuterRows({ element }) {
 
@@ -112,7 +76,10 @@ function SpiritBrandTable({ productId, subcategory }) {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={() => { }} />
+                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                            console.log(e);
+                            toggleSwitch(e, element)
+                        }} />
                     </div>
                 </td>
                 <td >
