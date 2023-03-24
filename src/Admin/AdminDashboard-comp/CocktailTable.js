@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product'
+import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
@@ -36,6 +36,8 @@ function CocktailTable() {
                     itemName: element.cocktail_name,
                     showHideStatus: element.isActive,
                     popularity: 'New',
+                    data: element,
+                    createdDate: element.createdAt,
                 }
 
             }
@@ -45,48 +47,10 @@ function CocktailTable() {
 
     }, [productList])
 
-    const mockData = [
-        {
-            id: 1,
-            itemImage: '',
-            itemName: 'Old Fashioned',
-            showHideStatus: true,
-            popularity: 'New',
-
-        },
-        {
-            id: 2,
-            itemImage: '',
-            itemName: 'Darusi',
-            showHideStatus: true,
-            popularity: 'New',
-
-        },
-        {
-            id: 3,
-            itemImage: '',
-            itemName: 'SouthSide',
-            showHideStatus: false,
-            popularity: 'None',
-
-        },
-        {
-            id: 4,
-            itemImage: '',
-            itemName: 'Old Monk',
-            showHideStatus: false,
-            popularity: 'None',
-
-        },
-        {
-            id: 5,
-            itemImage: '',
-            itemName: 'Old Fashioned2',
-            showHideStatus: true,
-            popularity: 'None',
-
-        },
-    ]
+    function toggleSwitch(e, element) {
+        let data = { ...element.data, isActive: e }
+        dispatch(putProductByIdThenUpdateList('cocktail', element.id, data))
+    }
     const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
     function OuterRows({ element }) {
 
@@ -112,7 +76,10 @@ function CocktailTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={() => { }} />
+                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                            console.log(e);
+                            toggleSwitch(e, element)
+                        }} />
                     </div>
                 </td>
                 <td >
@@ -135,7 +102,7 @@ function CocktailTable() {
                                     title: element.itemName,
                                     id: element.id
                                 }); setDeleteModal(true)
-                            }}/>
+                            }} />
                         </div>
                     </div>
                 </td>

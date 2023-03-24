@@ -131,6 +131,21 @@ export const putProductById = (productType, productId, data) => {
     });
   };
 };
+export const putProductByIdThenUpdateList = (productType, productId, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProduct(productType))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const createProduct = (productType, data) => {
   return async (dispatch) => {
 

@@ -8,7 +8,7 @@ export default function SwitchComp({ showHideStatus, onChangeHandler }) {
         <div className="">
             <Switch
                 checked={enabled}
-                onChange={(e) => { console.log(e); onChangeHandler(e); setEnabled(e) }}
+                onChange={(e) => { onChangeHandler(e); setEnabled(e) }}
                 className={`${enabled ? 'bg-[#3EAF3F]' : 'bg-[#C8C8C8]'}
           relative inline-flex h-[32px] w-[59px] shrink-0 cursor-pointer rounded-full border-2 items-center border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
