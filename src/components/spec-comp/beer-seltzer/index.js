@@ -9,6 +9,7 @@ import { emptyProductList, getProduct } from "@/store/slices/product";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
+import { whatsthestrength } from "@/utils/abvfinder";
 
 function BeerSeltzer() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -49,7 +50,7 @@ function BeerSeltzer() {
           <h2 className="text-white text-[24px] leading-9 font-bold ">
             Beer / Seltzer
           </h2>
-          <Link href={`/brands/beer`} >
+          <Link href={`/specs/beer/brands`} >
             <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>
@@ -78,7 +79,7 @@ function BeerSeltzer() {
                       <RectangularCard
                         title={card?.beer_name}
                         image={"/asset/blue-moon.svg"}
-                        subtitle="Medium(12%)"
+                        subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
                       />
                     </Link>
                   </div>

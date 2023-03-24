@@ -114,6 +114,7 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
           fill
           alt={title}
           priority
+          style={{ objectFit: "cover" }}
         />
       </div>
       <div className="text-container">

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     ingredients: [],
-    getIngredientDetails: {}
+    ingredientDetails: {}
 };
 
 export const ingredientsSlice = createSlice({
@@ -14,10 +14,11 @@ export const ingredientsSlice = createSlice({
             state.ingredients = action.payload.data
         },
         getIngredientDetails: (state, action) => {
-            state.ingredients = action.payload
+            state.ingredientDetails = action.payload
         },
         emptyAlling: (state) => {
             state.ingredients = []
+            state.ingredientDetails = {}
         }
     },
 });
@@ -54,7 +55,7 @@ export const getIngredientsDetails = (productType, id) => {
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
-                ingredientsSlice.actions.getIngredientDetails(res.data)
+                ingredientsSlice.actions.getIngredientDetails(res.data?.data)
             );
         }).catch((err) => {
             console.log(err)

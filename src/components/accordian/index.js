@@ -1,74 +1,14 @@
+import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import menuOptions from "../mock/MenuOptions.json";
 import Image from "next/image";
+import { MenuIcon } from "../SIdebar/MenuIcons";
+import Link from "next/link";
 
-function menuIcon(menuOption) {
-  const menuObj = {
-    Dashboard: (
-      <Image
-        src="/asset/dashboard-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3 "
-      />
-    ),
-    Learn: (
-      <Image
-        src="/asset/learn-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Specs: (
-      <Image
-        src="/asset/specs-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-        priority
-      />
-    ),
-    Brand: (
-      <Image
-        src="/asset/brand-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Sales: (
-      <Image
-        src="/asset/sales-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Schedule: (
-      <Image
-        src="/asset/schedule-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-    Saved: (
-      <Image
-        src="/asset/heart-icon.svg"
-        width={15}
-        height={15}
-        className="mr-3"
-      />
-    ),
-  };
-
-  return <>{menuObj[menuOption]}</>;
-}
-
-export default function Accordian() {
+export default function Accordian({ category, subcategory, handleClose }) {
   const options = menuOptions.menuOptions;
+
   return (
     <div className="w-full">
       <div className="mx-auto w-full max-w-md text-white p-2">
@@ -79,44 +19,60 @@ export default function Accordian() {
                 {({ open }) => (
                   <>
                     <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-[18px] font-semibold focus:outline-none focus:text-[#F19B6C]">
-                      <span className="flex">
-                        {" "}
-                        {menuIcon(option.name)}
-                        {option.name}
-                      </span>
+                      <Link
+                        href={`/${option.id}/`}
+                        onClick={handleClose}
+                        className={`${option.id == category
+                          ? "text-[#F19B6C]"
+                          : "text-[#959595]"
+                          } text-[18px] leading-6 font-semibold `}
+                      >
+                        <span className="flex items-baseline">
+                          {" "}
+                          {MenuIcon(option.name, category === option.id)}
+                          {option.name}
+                        </span>
+                      </Link>
                       {option.subOptions.length ? (
                         <ChevronUpIcon
-                          className={`${
-                            open ? "rotate-180 transform" : ""
-                          } h-5 w-5`}
+                          className={`${open ? "rotate-180 transform" : ""
+                            } h-5 w-5`}
                         />
                       ) : null}
                     </Disclosure.Button>
                     {option.subOptions.length ? (
-                      <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white  transition duration-500">
+                      <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-white  transition duration-500">
                         {option.subOptions.map((subOption, i) => {
                           return (
                             <>
                               <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-[7px] text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 ">
                                 <span className="flex items-center relative ">
-                                  <svg
-                                    width="18"
-                                    height="35"
-                                    className=" absolute -top-6 -left-2"
-                                    viewBox="0 0 18 33"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                  <Link
+                                    href={`/${option.id}/${subOption.id}`}
+                                    onClick={handleClose}
+                                    className={`${subOption.id == subcategory
+                                      ? "text-[#F19B6C]"
+                                      : "text-[#959595]"
+                                      } text-[16px] leading-none ml-2`}
                                   >
-                                    <path
-                                      d="M1 0.999996L1 26.3529C1 29.4717 3.52827 32 6.64706 32V32L17 32"
-                                      stroke="#3C3C3C"
-                                      stroke-linecap="round"
-                                    />
-                                  </svg>
-                                  <span className="ml-3 font-normal">
-                                  {subOption.name}
-                                  </span>
-                                  
+                                    <svg
+                                      width="18"
+                                      height="30"
+                                      className=" absolute -top-5 -left-3"
+                                      viewBox="0 0 18 33"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M1 0.999996L1 26.3529C1 29.4717 3.52827 32 6.64706 32V32L17 32"
+                                        stroke="#3C3C3C"
+                                        stroke-linecap="round"
+                                      />
+                                    </svg>
+                                    <span className="ml-2 font-normal">
+                                      {subOption.name}
+                                    </span>
+                                  </Link>
                                 </span>
                               </Disclosure.Button>
                             </>
