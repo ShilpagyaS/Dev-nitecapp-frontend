@@ -38,6 +38,8 @@ import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
 import Brands from "@/components/brands";
 import ExploreBrands from "@/components/brands/explore-brands";
 import BrandsBrandDetail from "@/components/brands/explore-brands/BrandDetail";
+import AdminBrandDetail from "@/Admin/AdminBrands/BrandDetail";
+import AdminExploreBrands from "@/Admin/AdminBrands";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -121,10 +123,8 @@ export default function Category() {
 
           {path === "/dashboard" && <UserDashboard />}
           {path === "/brand" && <Brands />}
-          {path === "/brand/explore-brands" && <ExploreBrands admin={true} />}
-          {path === `/brand/explore-brands?id=${productId}` && (
-            <BrandsBrandDetail admin={false} />
-          )}
+          {path === "/brand/explore-brands" && <ExploreBrands />}
+          {path === `/brand/explore-brands?id=${productId}` && <BrandDetail />}
         </LayoutWithSidebar>
       )}
 
