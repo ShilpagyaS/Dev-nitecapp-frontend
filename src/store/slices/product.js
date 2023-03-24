@@ -116,6 +116,81 @@ export const getProductByCategoryId = (productType, id) => {
     });
   };
 };
+export const putProductById = (productType, productId, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProductById(productType, productId))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const putProductByIdThenUpdateList = (productType, productId, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProduct(productType))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const createProduct = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/${productType}/new_create_${productType}`,
+      method: "POST",
+      data
+    }).then((res) => {
+      // toastify
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const deleteProductById = (productType, productId) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "DELETE"
+    }).then((res) => {
+      // toastify
+      dispatch(getProduct(productType))
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const deleteProductbyIdWithCategory = (productType, productId, categoryId) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "DELETE"
+    }).then((res) => {
+      // toastify
+      dispatch(getProductByCategoryId(productType, categoryId))
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 
 export const emptyProductList = (productType) => {
 
@@ -125,5 +200,6 @@ export const emptyProductList = (productType) => {
     );
   };
 };
+
 
 export default productSlice.reducer;

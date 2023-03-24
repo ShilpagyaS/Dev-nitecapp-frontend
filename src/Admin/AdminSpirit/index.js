@@ -1,10 +1,8 @@
 import useNavDetails from '@/Hooks/useNavDetails'
-import { OrangeButtons } from '@/utils/Buttons'
-import Link from 'next/link'
 import React from 'react'
-import BeerTable from './BeerTable'
+import SpiritTable from './SpiritTable'
 
-function AdminBeer({ productList, headerHidden = true }) {
+function AdminSpirit() {
     const { category, subcategory, productId } = useNavDetails()
     let crun = ""
     if (category) crun = crun + `${category} /`
@@ -21,18 +19,13 @@ function AdminBeer({ productList, headerHidden = true }) {
 
             <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
                 <h2 className="text-white text-[24px] leading-9 font-bold ">
-                    Beer / Seltzer
+                    Spirits
                 </h2>
-
-                <Link href={`/specs/beer/brands`} >
-
-                    <OrangeButtons label="Brands" noPadding={true} />
-                </Link>
             </div>
 
-            <BeerTable />
+            <SpiritTable />
         </div>
     )
 }
 
-export default AdminBeer
+export default AdminSpirit

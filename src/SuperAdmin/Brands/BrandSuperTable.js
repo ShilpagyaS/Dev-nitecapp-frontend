@@ -4,7 +4,7 @@ import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
-import { AddSuperBrands } from '../Modal/SuperAdminModal';
+import { AddSuperBrands, SuperBrandDelete } from '../Modal/SuperAdminModal';
 
 function BrandSuperTable() {
     const router = useRouter();
@@ -76,6 +76,7 @@ function BrandSuperTable() {
         },
     ]
     const [EditModal, setEditmodal] = useState(false)
+    const [DeleteModal, setDeleteModal] = useState(false)
 
     const HeaderArray = ["Brands", "Item Name", "Activate / Deactivate", "Actions"]
     function OuterRows({ element }) {
@@ -90,10 +91,18 @@ function BrandSuperTable() {
 
                     />
                 }
+                {DeleteModal &&
+                    <SuperBrandDelete
+                        isModalOpen={DeleteModal}
+                        onClickCancel={() => { setDeleteModal(false) }}
+
+
+                    />
+                }
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/coctail1.png'}
+                        <Image src={'/asset/Sayaji.jpg'}
                             alt="image"
                             width={106}
                             height={106} />
@@ -124,7 +133,7 @@ function BrandSuperTable() {
                         </div>
                         <div className='ml-[15px]'>
 
-                            <DeleteCircularButton />
+                            <DeleteCircularButton onClickHandler={() => {setDeleteModal(true) }} />
                         </div>
                     </div>
                 </td>

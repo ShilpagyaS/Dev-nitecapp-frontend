@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
+import { OrangeButtons } from "@/utils/Buttons";
 
 function Wine({ id, categoryName }) {
   const dispatch = useDispatch();
@@ -42,8 +43,13 @@ function Wine({ id, categoryName }) {
             </div>
           )}
         </div>
-        <div className="heading-container lg:mb-8 mb-3">
-          <h2 className="text-white text-[24px] leading-9 font-bold capitalize">{categoryName}</h2>
+        <div className="heading-container lg:mb-8 mb-3 flex w-full justify-between">
+          <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
+            {categoryName}
+          </h2>
+          <Link href={`/specs/spirit/${categoryName}/brands/list?id=${id}`} >
+            <OrangeButtons label="Brands" noPadding={true} />
+          </Link>
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
