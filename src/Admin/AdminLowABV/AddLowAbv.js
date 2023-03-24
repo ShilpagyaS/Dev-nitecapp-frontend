@@ -1,4 +1,4 @@
-import { AddKeyValue, EditDualValue } from '@/components/modal/adminmodal';
+import { EditDualValue, EditKeyValue } from '@/components/modal/adminmodal';
 import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
 import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
@@ -7,30 +7,27 @@ import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
 import axiosInstance from "@/api/axios";
-import { createProduct } from '@/store/slices/product';
-import { useDispatch } from 'react-redux';
 
 
-function EmptyUserLayoutBeer() {
+function AddLowAbv() {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
 
     const [newMockData, setNewMockData] = useState({
 
-        abv: '',
-        tastes: '',
-        origin: '',
+        strength: 'Enter Value',
+        tastes: 'Enter Value',
+        origin: 'Enter Value',
     });
-
-    const textAreaRef = useRef(null);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editItem, setEditItem] = useState({})
+    const [drinkname, setdrinkName] = useState("")
+    const [abvVal, setabvval] = useState("")
     const [foucsed, setAsfocus] = useState(null)
     const [EditModal, setEditmodal] = useState(false)
-    const [drinkName, setName] = useState('')
-    const [isSAve, setSaved] = useState(false)
-
-    const dispatch = useDispatch()
+    const textAreaRef = useRef(null);
 
 
     const toggleEdit = () => {
@@ -43,21 +40,6 @@ function EmptyUserLayoutBeer() {
         console.log(newMockData);
 
     }, [newMockData])
-
-
-    function setActive(title, data) {
-        setNewMockData(((prev) => {
-            return {
-                ...prev,
-                [title]: {
-                    ...prev[title],
-                    isActive: data,
-                }
-            }
-        }))
-
-    }
-
     function editValues(title, data, index) {
 
         setNewMockData(((prev) => {
@@ -68,50 +50,24 @@ function EmptyUserLayoutBeer() {
         }))
 
     }
-
     function createdrink() {
         console.log('calling');
         let data = {
-            beer_name: drinkName,
-            description: textAreaRef.current.value || '',
-            abv: newMockData.abv,
-            origin: newMockData.origin,
-            tastes: newMockData.tastes,
-
+            low_no_abv_name: drinkname,
+            abv: abvVal,
+            description: textAreaRef.current.value || " "
         }
-        dispatch(createProduct('beer', data)).then((res) => {
-            console.log(res);
-            clearForm();
+        axiosInstance({
+            url: `/api/low_no_abv/add_new_low_no_abv`,
+            method: "POST",
+            data
         })
-
     }
-    function clearForm() {
 
-        setName(""); setNewMockData({
-            abv: '',
-            tastes: '',
-            origin: '',
-
-        });
-        setSaved(true)
-        setTimeout(() => {
-
-            setSaved(false)
-        }, 1000); 
-    }
     return (
         <>
-            {/* {EditModal &&
-                <EditDualValue
-                    isModalOpen={EditModal}
-                    onClickCancel={() => { setEditmodal(false) }}
-                    inputone={editItem.desc}
-                    inputtwo={editItem.quantity}
-                    onSave={editValues}
-                />
-            } */}
             {EditModal &&
-                <AddKeyValue
+                <EditKeyValue
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
                     inputone={editItem.desc}
@@ -124,7 +80,7 @@ function EmptyUserLayoutBeer() {
 
                     <div className="text-container ">
                         <p className="text-white text-[14px]">
-                            <span className="text-[#CCCCCC]">Specs / Beer </span>
+                            <span className="text-[#CCCCCC]">Specs / Low No ABV </span>
                         </p>
                     </div>
                     <div className="flex items-center justify-center">
@@ -149,14 +105,13 @@ function EmptyUserLayoutBeer() {
                             >
                                 <div className='input-desc flex flex-col'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Item Name</h3>
-                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
-                                        value={drinkName || ''} onChange={(e) => { setName(e.target.value) }} />
+                                    <input value={drinkname} onChange={(e) => { setdrinkName(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' />
                                 </div>
-                                {/* <div className='input-val flex flex-col ml-[25px]'>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
-                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
+                                <div className='input-val flex flex-col ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter ABV in numbers</h3>
+                                    <input value={abvVal} onChange={(e) => { setabvval(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
 
-                                </div> */}
+                                </div>
                             </div>
                         </div>
 
@@ -165,7 +120,7 @@ function EmptyUserLayoutBeer() {
                                 }`}
                         >
                             <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Desc</h3>
-                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} isSAve={isSAve} />
+                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} />
                         </p>
                     </div>
 
@@ -194,10 +149,10 @@ function EmptyUserLayoutBeer() {
                         </div>
                         <div className="method-details-container">
 
-                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.strength }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Strength"} quantity={newMockData.abv} />
+                                <SplitCard desc={"Strength"} quantity={newMockData.strength} />
 
                             </div>
                             <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
@@ -219,4 +174,4 @@ function EmptyUserLayoutBeer() {
     )
 }
 
-export default EmptyUserLayoutBeer
+export default AddLowAbv

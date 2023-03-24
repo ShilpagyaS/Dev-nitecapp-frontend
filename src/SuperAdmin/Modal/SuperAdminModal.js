@@ -21,6 +21,7 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
             border: "none",
             background: "black",
             padding: "24px",
+            paddingRight: "2px",
             width: "480px",
         },
         overlay: {
@@ -79,7 +80,7 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
                 <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Brand`}</h4>
             </div>
-            <div className='brandModal max-h-[456px]' >
+            <div className='brandModal max-h-[456px] pr-[15px]' >
                 <UploadBrandLogoInput
                     placeholder=""
                     label="Brand Logo"

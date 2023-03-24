@@ -68,10 +68,18 @@
   overflow-y: scroll;
   -ms-overflow-style: none;
   /* IE and Edge */
-  scrollbar-width: none;
   /* Firefox */
 }
 
 .brandModal::-webkit-scrollbar {
-  display: none;
+  width: 10px;
+}
+
+.brandModal::-webkit-scrollbar-thumb {
+  background: #F19B6C;
+  border-radius: 10px;
+}
+.brandModal::-webkit-scrollbar-track {
+  background: #2B2828; 
+  border-radius: 10px;
 }

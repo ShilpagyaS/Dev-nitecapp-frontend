@@ -1,4 +1,5 @@
-import { emptyProductList, getCategoryList, getProduct, getProductByCategoryId } from '@/store/slices/product';
+import { DeleteProduct } from '@/components/modal/adminmodal';
+import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -11,6 +12,11 @@ function SpiritBrandTable({ productId, subcategory }) {
     const router = useRouter();
     const { productsByCategory } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [elementItem, setElementItem] = useState({
+        title: '',
+        id: ''
+    })
     const dispatch = useDispatch()
     useEffect(() => {
 
@@ -124,15 +130,36 @@ function SpiritBrandTable({ productId, subcategory }) {
                         />
                         <div className='ml-[15px]'>
 
-                            <DeleteCircularButton />
+                            <DeleteCircularButton onClickHandler={() => {
+                                setElementItem({
+                                    title: element.itemName,
+                                    id: element.id
+                                }); setDeleteModal(true)
+                            }} />
                         </div>
                     </div>
                 </td>
             </>
         )
     }
+    function deleteProduct() {
+        console.log('deleteing');
+        console.log(elementItem);
+
+        dispatch(deleteProductbyIdWithCategory('spirit', elementItem.id,productId))
+    }
     return (
-        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/new-beer") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+        <>
+            {DeleteModal &&
+                <DeleteProduct
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={elementItem.title}
+                    onSave={deleteProduct}
+                />
+            }
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push(`/specs/spirit/${subcategory}/new/newspirit?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+        </>
     )
 }
 

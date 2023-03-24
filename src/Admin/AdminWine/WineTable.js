@@ -38,48 +38,6 @@ function WineTable() {
 
     }, [categoryList])
 
-    const mockData = [
-        {
-            id: 1,
-            itemImage: '',
-            itemName: 'Old Fashioned',
-            showHideStatus: true,
-            popularity: 'New',
-
-        },
-        {
-            id: 2,
-            itemImage: '',
-            itemName: 'Darusi',
-            showHideStatus: true,
-            popularity: 'New',
-
-        },
-        {
-            id: 3,
-            itemImage: '',
-            itemName: 'SouthSide',
-            showHideStatus: false,
-            popularity: 'None',
-
-        },
-        {
-            id: 4,
-            itemImage: '',
-            itemName: 'Old Monk',
-            showHideStatus: false,
-            popularity: 'None',
-
-        },
-        {
-            id: 5,
-            itemImage: '',
-            itemName: 'Old Fashioned2',
-            showHideStatus: true,
-            popularity: 'None',
-
-        },
-    ]
     const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Action"]
     function OuterRows({ element }) {
 

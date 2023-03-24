@@ -10,6 +10,7 @@ import React, { useRef, useState } from 'react'
 
 function BrandDetailPage() {
     const [isEdit, setEdit] = useState(false)
+    const [tagline, setTagline] = useState("the tag line info")
     const textAreaRef = useRef()
     const aboutreaRef = useRef()
     const toggleEdit = () => {
@@ -28,14 +29,15 @@ function BrandDetailPage() {
     const [EditModal, setEditmodal] = useState(false)
     function onSave() {
         console.log(isEdit);
-        // if (isEdit == true) {
+        if (isEdit == true) {
 
         //     superData = { ...superData, ...newMockData }
         //     dispatch(putProductById(subcategory, productId, { ...productDetails, [`${subcategory}_name`]: nameref.current.innerText }))
         //     console.log(nameref.current.innerText);
-        // }
-        // console.log(superData);
+        setTagline(textAreaRef.current.value)
         toggleEdit()
+        }
+        // console.log(superData);
     }
     return (
         <>
@@ -63,19 +65,21 @@ function BrandDetailPage() {
                             fill
                         />
                     </div>
-                    <p className="text-black bg-[transparent] text-center text-[16px] font-[400]">
-                        HENDRICK’S GIN OFFERS ALTERNATIVE PRIVATE DIRIGIBLE AIRLINE TRANSPORT
-                        TO THE BIG GAME.
-                    </p>
+                    {!isEdit &&
+                        <p className="text-black bg-[transparent] text-center text-[16px] font-[400]">
+                            {textAreaRef?.current?.value || tagline}
+                        </p>
+                    }
                 </div>
-                <div className=''>
-                    <h2 className='not-italic font-semibold text-sm leading-6 text-[#929292] font-Inter mb-[12px]'>
-                        Tagline
-                    </h2>
-                    <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={` HENDRICK’S GIN OFFERS ALTERNATIVE PRIVATE DIRIGIBLE AIRLINE TRANSPORT
-                    TO THE BIG GAME.`} />
+                {isEdit &&
+                    <div className=''>
+                        <h2 className='not-italic font-semibold text-sm leading-6 text-[#929292] font-Inter mb-[12px]'>
+                            Tagline
+                        </h2>
+                        <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={tagline} />
 
-                </div>
+                    </div>
+                }
                 {!isEdit &&
                     <div className="properties-container text-white mb-8">
                         <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
@@ -153,7 +157,7 @@ function BrandDetailPage() {
                         and in homes.`} />
 
                 </div>
-               
+
             </div>
         </>
     )

@@ -1,5 +1,5 @@
 import Breadcrumb from '@/components/Breadcrumb';
-import { EditDualValue } from '@/components/modal/adminmodal';
+import { EditDualValue, EditKeyValue } from '@/components/modal/adminmodal';
 import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import useMediaQuery from '@/Hooks/useMediaQuery';
@@ -22,17 +22,11 @@ function EditById({ productId, subcategory }) {
         methods: {},
         presentation: {},
         image: {},
-        strength: 0,
 
     }
 
     console.log(superData);
-    const [newMockData, setNewMockData] = useState({
 
-        strength: '2oz',
-        tastes: 'Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh',
-        origin: 'Itly',
-    });
 
     const [isEdit, setEdit] = useState(false)
     const textAreaRef = useRef(null);
@@ -54,12 +48,28 @@ function EditById({ productId, subcategory }) {
         setEdit(prev => !prev)
         console.log(textAreaRef.current.innerText);
     }
+    const [newMockData, setNewMockData] = useState({
+
+        abv: productDetails.abv || '',
+        tastes: productDetails.tastes || '',
+        origin: productDetails.origin || '',
+    });
 
     // new generic approach
     useEffect(() => {
         console.log(newMockData);
 
     }, [newMockData])
+    useEffect(() => {
+        setNewMockData({
+
+            abv: productDetails.abv || '',
+            tastes: productDetails.tastes || '',
+            origin: productDetails.origin || '',
+        })
+
+    }, [productDetails])
+
 
     function addNewTitle(name) {
         setNewMockData(((prev) => {
@@ -166,12 +176,24 @@ function EditById({ productId, subcategory }) {
                     ...productDetails,
                     [`${subcategory}_name`]: nameref.current.innerText,
                     description: textAreaRef.current.value,
+                    abv: newMockData.abv,
+                    origin: newMockData.origin,
+                    tastes: newMockData.tastes
                 }
             ))
             console.log(nameref.current.innerText);
             toggleEdit()
         }
         console.log(textAreaRef);
+    }
+    function whatsthestrength(Nabv) {
+        let abv = parseFloat(Nabv)
+        console.log(abv);
+        if (abv > 15) return 'High'
+        if (abv > 8 && abv < 15) return 'Medium'
+        if (abv > 0 && abv < 8) return 'Low'
+        if (abv == 0) return 'No alcohol'
+        return '  '
     }
     return (
         <>
@@ -183,8 +205,17 @@ function EditById({ productId, subcategory }) {
 
       />
       } */}
-            {EditModal &&
+            {/* {EditModal &&
                 <EditDualValue
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    inputone={editItem.desc}
+                    inputtwo={editItem.quantity}
+                    onSave={editValues}
+                />
+            } */}
+            {EditModal &&
+                <EditKeyValue
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
                     inputone={editItem.desc}
@@ -245,7 +276,7 @@ function EditById({ productId, subcategory }) {
                                     <EditCard editContent={productDetails?.[`${subcategory}_name`]} isEdit={isEdit} divref={nameref} />
                                 </h3>
                                 <div className="status-text text-[18px]">
-                                    <EditCard editContent={"Medium(12%)"} isEdit={isEdit} />
+                                    <EditCard editContent={`${whatsthestrength(newMockData.abv)} (${newMockData.abv})%`} isEdit={false} />
                                 </div>
                             </div>
                         </div>
@@ -292,10 +323,10 @@ function EditById({ productId, subcategory }) {
                             </div>
                             <div className="method-details-container">
 
-                                <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.strength }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                                <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                     onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                    <SplitCard desc={"Strength"} quantity={newMockData.strength} />
+                                    <SplitCard desc={"Strength"} quantity={`${newMockData.abv}%`} />
 
                                 </div>
                                 <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}

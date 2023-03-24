@@ -11,7 +11,7 @@ import { createProduct } from '@/store/slices/product';
 import { useDispatch } from 'react-redux';
 
 
-function EmptyUserLayoutBeer() {
+function CreateBeerAndLABV({ subcategory }) {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -72,14 +72,14 @@ function EmptyUserLayoutBeer() {
     function createdrink() {
         console.log('calling');
         let data = {
-            beer_name: drinkName,
+            [`${subcategory}_name`]: drinkName,
             description: textAreaRef.current.value || '',
             abv: newMockData.abv,
             origin: newMockData.origin,
             tastes: newMockData.tastes,
 
         }
-        dispatch(createProduct('beer', data)).then((res) => {
+        dispatch(createProduct(subcategory, data)).then((res) => {
             console.log(res);
             clearForm();
         })
@@ -97,7 +97,7 @@ function EmptyUserLayoutBeer() {
         setTimeout(() => {
 
             setSaved(false)
-        }, 1000); 
+        }, 1000);
     }
     return (
         <>
@@ -194,10 +194,10 @@ function EmptyUserLayoutBeer() {
                         </div>
                         <div className="method-details-container">
 
-                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Strength"} quantity={newMockData.abv} />
+                                <SplitCard desc={"Strength"} quantity={`${newMockData.abv}%`} />
 
                             </div>
                             <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
@@ -219,4 +219,4 @@ function EmptyUserLayoutBeer() {
     )
 }
 
-export default EmptyUserLayoutBeer
+export default CreateBeerAndLABV

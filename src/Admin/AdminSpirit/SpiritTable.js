@@ -1,3 +1,4 @@
+import { AddCategory } from '@/components/modal/adminmodal';
 import { emptyProductList, getCategoryList, getProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
@@ -11,6 +12,7 @@ function SpiritTable() {
     const router = useRouter();
     const { categoryList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
+    const [AddModal, setAdd] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
 
@@ -124,7 +126,15 @@ function SpiritTable() {
         )
     }
     return (
-        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/new-beer") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+        <> {AddModal &&
+            <AddCategory
+                isModalOpen={AddModal}
+                onClickCancel={() => { setAdd(false) }}
+                onSave={() => { }}
+            />
+        }
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { setAdd(true); console.log('ri'); }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+        </>
     )
 }
 

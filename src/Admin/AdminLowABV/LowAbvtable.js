@@ -1,4 +1,5 @@
-import { emptyProductList, getProduct } from '@/store/slices/product';
+import { DeleteProduct } from '@/components/modal/adminmodal';
+import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -12,6 +13,11 @@ function LowAbvtable() {
     const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [elementItem, setElementItem] = useState({
+        title: '',
+        id: ''
+    })
     useEffect(() => {
 
         dispatch(getProduct('low_no_abv'))
@@ -124,15 +130,36 @@ function LowAbvtable() {
                         />
                         <div className='ml-[15px]'>
 
-                            <DeleteCircularButton />
+                            <DeleteCircularButton onClickHandler={() => {
+                                setElementItem({
+                                    title: element.itemName,
+                                    id: element.id
+                                }); setDeleteModal(true)
+                            }} />
                         </div>
                     </div>
                 </td>
             </>
         )
     }
+    function deleteProduct() {
+        console.log('deleteing');
+        console.log(elementItem);
+
+        dispatch(deleteProductById('low_no_abv', elementItem.id))
+    }
     return (
-        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/new-beer") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+        <>
+            {DeleteModal &&
+                <DeleteProduct
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={elementItem.title}
+                    onSave={deleteProduct}
+                />
+            }
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/low_no_abv/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+        </>
     )
 }
 

@@ -1,4 +1,4 @@
-import { AddKeyValue, EditDualValue } from '@/components/modal/adminmodal';
+import { EditDualValue, EditKeyValue } from '@/components/modal/adminmodal';
 import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
 import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
@@ -7,11 +7,11 @@ import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
 import axiosInstance from "@/api/axios";
-import { createProduct } from '@/store/slices/product';
 import { useDispatch } from 'react-redux';
+import { createProduct } from '@/store/slices/product';
 
 
-function EmptyUserLayoutBeer() {
+function AddSpirit({ subcategory, productId }) {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -72,14 +72,15 @@ function EmptyUserLayoutBeer() {
     function createdrink() {
         console.log('calling');
         let data = {
-            beer_name: drinkName,
+            [`${subcategory}_name`]: drinkName,
             description: textAreaRef.current.value || '',
             abv: newMockData.abv,
             origin: newMockData.origin,
             tastes: newMockData.tastes,
+            category: productId,
 
         }
-        dispatch(createProduct('beer', data)).then((res) => {
+        dispatch(createProduct(subcategory, data)).then((res) => {
             console.log(res);
             clearForm();
         })
@@ -97,7 +98,7 @@ function EmptyUserLayoutBeer() {
         setTimeout(() => {
 
             setSaved(false)
-        }, 1000); 
+        }, 1000);
     }
     return (
         <>
@@ -219,4 +220,4 @@ function EmptyUserLayoutBeer() {
     )
 }
 
-export default EmptyUserLayoutBeer
+export default AddSpirit

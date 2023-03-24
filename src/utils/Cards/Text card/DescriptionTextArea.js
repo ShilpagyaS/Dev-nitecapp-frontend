@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-function DescriptionTextArea({ content, textAreaRef, isEdit, maxheight }) {
+function DescriptionTextArea({ content, textAreaRef, isEdit, maxheight, isSAve }) {
   const [val, setVal] = useState(content);
   // const textAreaRef = useRef(null);
 
@@ -10,8 +10,17 @@ function DescriptionTextArea({ content, textAreaRef, isEdit, maxheight }) {
   useEffect(
     () => {
       setVal(content)
+      // textAreaRef.current.value = content || '' 
     }
     , [content])
+  useEffect(
+    () => {
+      isSAve == true ?
+        setVal('') :
+        ''
+    }
+    , [isSAve])
+
   useEffect(resizeTextArea, [val]);
 
   const onChange = e => {
