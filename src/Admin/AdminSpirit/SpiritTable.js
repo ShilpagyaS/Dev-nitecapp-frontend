@@ -1,49 +1,45 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product'
-import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
-import SwitchComp from '@/utils/SwitchComp'
-import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { AddCategory } from '@/components/modal/adminmodal';
+import { emptyProductList, getCategoryList, getProduct } from '@/store/slices/product';
+import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
+import SwitchComp from '@/utils/SwitchComp';
+import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
-function CocktailTable() {
+function SpiritTable() {
     const router = useRouter();
-    const { productList } = useSelector((state) => state.product)
+    const { categoryList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
+    const [AddModal, setAdd] = useState(false)
     const dispatch = useDispatch()
-    const [DeleteModal, setDeleteModal] = useState(false)
-    const [elementItem, setElementItem] = useState({
-        title: '',
-        id: ''
-    })
     useEffect(() => {
 
-        dispatch(getProduct('cocktail'))
+        dispatch(getCategoryList('spirit'))
 
         return () => {
             dispatch(emptyProductList())
         }
     }, [])
-    console.log(productList);
+    console.log(categoryList);
     useEffect(() => {
-        let dummy = productList?.map(
+        let dummy = categoryList.map(
             (element) => {
                 return {
-                    id: element.cocktail_id,
+                    id: element.drink_category_id,
                     itemImage: '',
-                    itemName: element.cocktail_name,
+                    itemName: element.drink_category_name,
                     showHideStatus: element.isActive,
                     popularity: 'New',
                 }
 
             }
-        ) || []
+        )
         console.log(dummy);
         setList([...dummy])
 
-    }, [productList])
+    }, [categoryList])
 
     const mockData = [
         {
@@ -87,7 +83,7 @@ function CocktailTable() {
 
         },
     ]
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
+    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Action"]
     function OuterRows({ element }) {
 
         return (
@@ -95,7 +91,7 @@ function CocktailTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/coctail1.png'}
+                        <Image src={'/asset/blue-moon.svg'}
                             alt="image"
                             width={106}
                             height={106} />
@@ -118,49 +114,28 @@ function CocktailTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
-                            {element.popularity}
-                        </p>
-                    </div>
-                </td>
-                <td >
-                    <div className='flex flex-row items-center justify-center p-1'>
-
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/spirit/${element.itemName}?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
-                            <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
-                            }}/>
+                            <DeleteCircularButton />
                         </div>
                     </div>
                 </td>
             </>
         )
     }
-    function deleteProduct() {
-        console.log('deleteing');
-        console.log(elementItem);
-
-        dispatch(deleteProductById('cocktail', elementItem.id))
-    }
     return (
-        <>
-            {DeleteModal &&
-                <DeleteProduct
-                    isModalOpen={DeleteModal}
-                    onClickCancel={() => { setDeleteModal(false) }}
-                    title={elementItem.title}
-                    onSave={deleteProduct}
-                />
-            }
-            <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/new-cocktail") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+        <> {AddModal &&
+            <AddCategory
+                isModalOpen={AddModal}
+                onClickCancel={() => { setAdd(false) }}
+                onSave={() => { }}
+            />
+        }
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { setAdd(true); console.log('ri'); }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }
 
-export default CocktailTable
+export default SpiritTable

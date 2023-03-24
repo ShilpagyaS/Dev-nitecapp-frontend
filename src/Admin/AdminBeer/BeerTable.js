@@ -1,4 +1,5 @@
-import { emptyProductList, getProduct } from '@/store/slices/product'
+import { DeleteProduct } from '@/components/modal/adminmodal'
+import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
@@ -11,6 +12,11 @@ function BeerTable() {
     const router = useRouter();
     const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [elementItem, setElementItem] = useState({
+        title: '',
+        id: ''
+    })
     const dispatch = useDispatch()
     useEffect(() => {
 
@@ -120,19 +126,39 @@ function BeerTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/beer?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
-                            <DeleteCircularButton />
+                            <DeleteCircularButton onClickHandler={() => {
+                                setElementItem({
+                                    title: element.itemName,
+                                    id: element.id
+                                }); setDeleteModal(true)
+                            }} />
                         </div>
                     </div>
                 </td>
             </>
         )
     }
+    function deleteProduct() {
+        console.log('deleteing');
+        console.log(elementItem);
+
+        dispatch(deleteProductById('beer', elementItem.id))
+    }
     return (
-        <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+        <>   {DeleteModal &&
+            <DeleteProduct
+                isModalOpen={DeleteModal}
+                onClickCancel={() => { setDeleteModal(false) }}
+                title={elementItem.title}
+                onSave={deleteProduct}
+            />
+        }
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/beer/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+        </>
     )
 }
 

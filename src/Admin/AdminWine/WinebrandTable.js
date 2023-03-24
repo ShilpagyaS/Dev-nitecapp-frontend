@@ -1,16 +1,16 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product'
-import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
-import SwitchComp from '@/utils/SwitchComp'
-import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { DeleteProduct } from '@/components/modal/adminmodal';
+import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId } from '@/store/slices/product';
+import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
+import SwitchComp from '@/utils/SwitchComp';
+import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
-function CocktailTable() {
+function WinebrandTable({ productId, subcategory }) {
     const router = useRouter();
-    const { productList } = useSelector((state) => state.product)
+    const { productsByCategory } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
@@ -20,30 +20,30 @@ function CocktailTable() {
     })
     useEffect(() => {
 
-        dispatch(getProduct('cocktail'))
+        dispatch(getProductByCategoryId('wine', productId))
 
         return () => {
             dispatch(emptyProductList())
         }
     }, [])
-    console.log(productList);
+    console.log(productsByCategory);
     useEffect(() => {
-        let dummy = productList?.map(
+        let dummy = productsByCategory.map(
             (element) => {
                 return {
-                    id: element.cocktail_id,
+                    id: element.wine_id,
                     itemImage: '',
-                    itemName: element.cocktail_name,
+                    itemName: element.wine_name,
                     showHideStatus: element.isActive,
                     popularity: 'New',
                 }
 
             }
-        ) || []
+        )
         console.log(dummy);
         setList([...dummy])
 
-    }, [productList])
+    }, [productsByCategory])
 
     const mockData = [
         {
@@ -87,7 +87,7 @@ function CocktailTable() {
 
         },
     ]
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
+    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "popularity", "Action"]
     function OuterRows({ element }) {
 
         return (
@@ -95,7 +95,7 @@ function CocktailTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/coctail1.png'}
+                        <Image src={'/asset/blue-moon.svg'}
                             alt="image"
                             width={106}
                             height={106} />
@@ -126,7 +126,7 @@ function CocktailTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/wine/${subcategory}/${element.itemName}?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
@@ -141,12 +141,12 @@ function CocktailTable() {
                 </td>
             </>
         )
-    }
+    } 
     function deleteProduct() {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductById('cocktail', elementItem.id))
+        dispatch(deleteProductbyIdWithCategory('wine', elementItem.id,productId))
     }
     return (
         <>
@@ -158,9 +158,9 @@ function CocktailTable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/new-cocktail") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }
 
-export default CocktailTable
+export default WinebrandTable

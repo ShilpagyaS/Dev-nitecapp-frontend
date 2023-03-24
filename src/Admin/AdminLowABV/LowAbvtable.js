@@ -1,14 +1,14 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product'
-import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
-import SwitchComp from '@/utils/SwitchComp'
-import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { DeleteProduct } from '@/components/modal/adminmodal';
+import { deleteProductById, emptyProductList, getProduct } from '@/store/slices/product';
+import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
+import SwitchComp from '@/utils/SwitchComp';
+import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 
-function CocktailTable() {
+function LowAbvtable() {
     const router = useRouter();
     const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
@@ -20,7 +20,7 @@ function CocktailTable() {
     })
     useEffect(() => {
 
-        dispatch(getProduct('cocktail'))
+        dispatch(getProduct('low_no_abv'))
 
         return () => {
             dispatch(emptyProductList())
@@ -28,18 +28,18 @@ function CocktailTable() {
     }, [])
     console.log(productList);
     useEffect(() => {
-        let dummy = productList?.map(
+        let dummy = productList.map(
             (element) => {
                 return {
-                    id: element.cocktail_id,
+                    id: element.low_no_abv_id,
                     itemImage: '',
-                    itemName: element.cocktail_name,
+                    itemName: element.low_no_abv_name,
                     showHideStatus: element.isActive,
                     popularity: 'New',
                 }
 
             }
-        ) || []
+        )
         console.log(dummy);
         setList([...dummy])
 
@@ -95,7 +95,7 @@ function CocktailTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/coctail1.png'}
+                        <Image src={'/asset/redbull.svg'}
                             alt="image"
                             width={106}
                             height={106} />
@@ -126,7 +126,7 @@ function CocktailTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/low_no_abv?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
@@ -135,7 +135,7 @@ function CocktailTable() {
                                     title: element.itemName,
                                     id: element.id
                                 }); setDeleteModal(true)
-                            }}/>
+                            }} />
                         </div>
                     </div>
                 </td>
@@ -146,7 +146,7 @@ function CocktailTable() {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductById('cocktail', elementItem.id))
+        dispatch(deleteProductById('low_no_abv', elementItem.id))
     }
     return (
         <>
@@ -158,9 +158,9 @@ function CocktailTable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/new-cocktail") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/low_no_abv/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
         </>
     )
 }
 
-export default CocktailTable
+export default LowAbvtable
