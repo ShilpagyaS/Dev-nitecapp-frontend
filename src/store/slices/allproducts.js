@@ -32,7 +32,7 @@ export const allProductSlice = createSlice({
                 state.spiritList = [],
                 state.wineList = [],
                 state.beerList = [],
-                state.low_no_abvList = []
+                state.low_no_abvList = [] 
 
         }
     },
@@ -66,7 +66,7 @@ export const getAllProduct = (productType) => {
 
 
 
-export const emptyProductList = (productType) => {
+export const emptyAllProduct = (productType) => {
 
     return async (dispatch, getState) => {
         dispatch(

@@ -1,7 +1,7 @@
 import CocktailTable from '@/Admin/AdminDashboard-comp/CocktailTable'
+import SpecsTable from '@/Admin/specsTable'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
 import React from 'react'
-const mockData = ['Coctail', 'Beverage Categories']
 function AdminSpecs() {
     return (
         <>
@@ -12,17 +12,9 @@ function AdminSpecs() {
                     </h1>
                 </div>
             </div>
-            {mockData.map((element) =>
-                <div className='admincomponents mt-[23px]'>
-                    <div className='not-italic font-semibold text-[20px] font-Inter text-white mb-[20px]'>
-                        <p>
-                            {element}
-                        </p>
-                    </div>
-                    {/* <TableContainerWithButtons /> */}
-                    <CocktailTable />
-                </div>
-            )}
+
+            <SpecsTable />
+
         </>
     )
 }
