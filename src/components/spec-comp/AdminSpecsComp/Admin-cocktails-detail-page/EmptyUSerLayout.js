@@ -6,34 +6,37 @@ import CocktailFileUpdate from './CocktailFileUpdate';
 import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton';
 import GenericCard from './GenericCard';
+import { useDispatch } from 'react-redux';
+import { createProduct } from '@/store/slices/product';
 
 function EmptyUSerLayout() {
     const isEdit = true;
+    const subcategory = 'cocktail'
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
-
     const [newMockData, setNewMockData] = useState({
         ingredients: {
-          values: [],
-          type: 1,
-          isActive: true
+            values: [],
+            isActive: false
         },
         methods: {
-          values: [],
-          type: 0,
-          isActive: false
-    
+            values: [],
+            isActive: false
+
         },
         presentation: {
-          values: [],
-          type: 1,
-          isActive: true
-    
+            values: [],
+            isActive: false
+
         }
-      });
+    });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const textAreaRef = useRef(null);
+    const [drinkName, setName] = useState('')
+    const [abv, setabv] = useState('')
+    const [isSAve, setSaved] = useState(false)
+    const dispatch = useDispatch()
 
 
     const toggleEdit = () => {
@@ -63,11 +66,11 @@ function EmptyUSerLayout() {
         let firstval = {}
         if (type == 0)
             firstval = {
-                desc: desc
+                name: desc
             }
         if (type == 1)
             firstval = {
-                desc: desc,
+                name: desc,
                 quantity: quantity
             }
 
@@ -84,16 +87,16 @@ function EmptyUSerLayout() {
     }
     function setActive(title, data) {
         setNewMockData(((prev) => {
-          return {
-            ...prev,
-            [title]: {
-              ...prev[title],
-              isActive: data,
+            return {
+                ...prev,
+                [title]: {
+                    ...prev[title],
+                    isActive: data,
+                }
             }
-          }
         }))
-    
-      }
+
+    }
     function addValues(title, data) {
 
         setNewMockData(((prev) => {
@@ -149,7 +152,49 @@ function EmptyUSerLayout() {
         }))
 
     }
+    function createdrink() {
+        console.log('calling');
+        let data = {
+            [`${subcategory}_name`]: drinkName,
+            description: textAreaRef.current.value || '',
+            abv: abv,
+            ingredients: newMockData.ingredients,
+            methods: newMockData.methods,
+            presentation: newMockData.presentation,
 
+        }
+        dispatch(createProduct(subcategory, data)).then((res) => {
+            console.log(res);
+            clearForm();
+        })
+
+    }
+    function clearForm() {
+
+        setName("");
+        setabv("");
+        setNewMockData({
+            ingredients: {
+                values: [],
+                isActive: false
+            },
+            methods: {
+                values: [],
+                isActive: false
+
+            },
+            presentation: {
+                values: [],
+                isActive: false
+
+            }
+        });
+        setSaved(true)
+        setTimeout(() => {
+
+            setSaved(false)
+        }, 1000);
+    }
 
     return (
         <>
@@ -179,7 +224,7 @@ function EmptyUSerLayout() {
                     </div>
                     <div className="flex items-center justify-center">
 
-                        <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { }} />
+                        <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { createdrink() }} />
                     </div>
                 </div>
                 {/* image and desc */}
@@ -199,11 +244,13 @@ function EmptyUSerLayout() {
                             >
                                 <div className='input-desc flex flex-col'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Item Name</h3>
-                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' />
+                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
+                                        value={drinkName || ''} onChange={(e) => { setName(e.target.value) }} />
                                 </div>
                                 <div className='input-val flex flex-col ml-[25px]'>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
-                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Alcohol percentage</h3>
+                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]'
+                                        value={abv || ''} onChange={(e) => { setabv(e.target.value) }} />
 
                                 </div>
                             </div>
@@ -214,7 +261,7 @@ function EmptyUSerLayout() {
                                 }`}
                         >
                             <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Desc</h3>
-                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} />
+                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} isSAve={isSAve} />
                         </p>
                     </div>
 
@@ -225,7 +272,7 @@ function EmptyUSerLayout() {
                     </div> */}
 
                     {Object.keys(newMockData).map((e) =>
-                        <GenericCard title={e} type={newMockData[e].type} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+                        <GenericCard title={e} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
                             addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
                     )}
 

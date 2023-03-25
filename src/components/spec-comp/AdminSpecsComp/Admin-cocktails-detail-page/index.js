@@ -11,10 +11,13 @@ import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
 import ConditionalButton from "./ConditionalButton";
 import ChipWithLeftButton, { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
 import Simplecard from "@/utils/Cards/Text card/Simplecard";
-import { AddGeneric, AddNewTitle, AddTitle, DeleteSection } from "@/components/modal/adminmodal";
+import { AddGeneric, AddNewTitle, AddTitle, DeleteSection, EditKeyValue } from "@/components/modal/adminmodal";
 import GenericCard from "./GenericCard";
+import SplitCard from "@/utils/Cards/Text card/SplitCard";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
 
-const CocktailAdminDetailPage = () => {
+const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
   const ingridients = DetailsMock.ingridients;
@@ -22,40 +25,55 @@ const CocktailAdminDetailPage = () => {
   const method = DetailsMock.method;
   const lesson = DetailsMock.lesson;
   const notes = DetailsMock.notes;
-  let superData = {
-    cocktail_name: 'SouthSide',
-    description: " A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.",
-    ingredients: {},
-    methods: {},
-    presentation: {},
-    image: {},
+  // let superData = {
+  //   cocktail_name: 'SouthSide',
+  //   description: " A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.",
+  //   ingredients: {},
+  //   methods: {},
+  //   presentation: {},
+  //   image: {},
 
-  }
+  // }
 
-  console.log(superData);
+  // console.log(superData);
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getProductById(subcategory, productId))
+    return () => {
+      dispatch(emptyProductList())
+    }
+  }, [])
+  const { productDetails } = useSelector((state) => state.product)
   const [newMockData, setNewMockData] = useState({
     ingredients: {
       values: [],
-      type: 1,
       isActive: true
     },
     methods: {
       values: [],
-      type: 0,
       isActive: false
 
     },
     presentation: {
       values: [],
-      type: 1,
       isActive: true
 
     }
   });
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [EditModal, setEditmodal] = useState(false)
   const [isEdit, setEdit] = useState(false)
+  const [abv, setabv] = useState(0)
+  const [foucsed, setAsfocus] = useState(null)
+  const [editItem, setEditItem] = useState({})
+
+
   const textAreaRef = useRef(null);
+  const nameref = useRef(null);
+
 
 
   const toggleEdit = () => {
@@ -68,6 +86,25 @@ const CocktailAdminDetailPage = () => {
     console.log(newMockData);
 
   }, [newMockData])
+
+  useEffect(() => {
+    setabv(productDetails.abv)
+    setNewMockData({
+      ingredients: productDetails.ingredients || {
+        values: [],
+        isActive: true
+      },
+      methods: productDetails.methods || {
+        values: [],
+        isActive: true
+      },
+      presentation: productDetails.presentation || {
+        values: [],
+        isActive: true
+      },
+    })
+
+  }, [productDetails])
 
   function addNewTitle(name) {
     setNewMockData(((prev) => {
@@ -114,8 +151,8 @@ const CocktailAdminDetailPage = () => {
         }
       }
     }))
-    superData = { ...superData, ...newMockData }
-    console.log('superData', superData);
+    // superData = { ...superData, ...newMockData }
+    // console.log('superData', superData);
 
   }
   function addValues(title, data) {
@@ -173,6 +210,39 @@ const CocktailAdminDetailPage = () => {
     }))
 
   }
+  function whatsthestrength(Nabv) {
+    let abv = parseFloat(Nabv)
+    console.log(abv);
+    if (abv > 15) return 'High'
+    if (abv > 8 && abv < 15) return 'Medium'
+    if (abv > 0 && abv < 8) return 'Low'
+    if (abv == 0) return 'No alcohol'
+    return '  '
+  }
+  function editKeyValues(name, value) {
+    console.log(name);
+    setabv(value)
+  }
+  function onSave() {
+    console.log(isEdit);
+    if (isEdit == true) {
+
+      dispatch(putProductById(subcategory, productId,
+        {
+          ...productDetails,
+          [`${subcategory}_name`]: nameref.current.innerText,
+          description: textAreaRef.current.value,
+          abv: abv,
+          ingridients: newMockData.ingredients,
+          presentation: newMockData.presentation,
+          methods: newMockData.methods,
+        }
+      ))
+      console.log(nameref.current.innerText);
+      toggleEdit()
+    }
+    console.log(textAreaRef);
+  }
   return (
     <>
       {isAddModalOpen && <AddNewTitle
@@ -191,6 +261,15 @@ const CocktailAdminDetailPage = () => {
 
       />
       }
+      {EditModal &&
+        <EditKeyValue
+          isModalOpen={EditModal}
+          onClickCancel={() => { setEditmodal(false) }}
+          inputone={editItem.desc}
+          inputtwo={editItem.quantity}
+          onSave={editKeyValues}
+        />
+      }
 
       <div className="detail-page-container">
         <div className="flex flex-row items-center justify-between">
@@ -202,7 +281,7 @@ const CocktailAdminDetailPage = () => {
           </div>
           <div className="flex items-center justify-center">
 
-            <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={toggleEdit} />
+            <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { onSave() }} />
             <div className="ml-[15px]">
               <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
             </div>
@@ -239,10 +318,10 @@ const CocktailAdminDetailPage = () => {
               >
                 <h3 className="title text-[24px] font-bold mr-[16px]" >
 
-                  <EditCard editContent={superData.cocktail_name} isEdit={isEdit} />
+                  <EditCard editContent={productDetails?.[`${subcategory}_name`]} isEdit={isEdit} divref={nameref} />
                 </h3>
                 <div className="status-text text-[18px]">
-                  <EditCard editContent={"Medium(12%)"} isEdit={isEdit} />
+                  <EditCard editContent={`${whatsthestrength(abv)} (${abv})%`} isEdit={false} />
                 </div>
               </div>
             </div>
@@ -251,7 +330,7 @@ const CocktailAdminDetailPage = () => {
               className={`description text-[16px] leading-6 ${isMobile && "text-center"
                 }`}
             >
-              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={`${superData.description}`} />
+              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={productDetails.description || ''} />
             </p>
           </div>
         </div>
@@ -259,9 +338,17 @@ const CocktailAdminDetailPage = () => {
           {/* <div className="flex items-center justify-between p-[10px]">
             <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
           </div> */}
+          {isEdit &&
+            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+              onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''} m-[8px]`}>
+
+              <SplitCard desc={"Strength"} quantity={`${abv}%`} />
+
+            </div>
+          }
 
           {Object.keys(newMockData).map((e) =>
-            <GenericCard title={e} type={newMockData[e].type} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+            <GenericCard title={e} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
               addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
           )}
 
