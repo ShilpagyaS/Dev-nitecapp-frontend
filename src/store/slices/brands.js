@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios";
+import axiosInstance from "@/components/Auth/axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -73,7 +73,7 @@ export const getBrandsByCategory = (productType, id) => {
         }).then((res) => {
             dispatch(
                 brandSlice.actions.getBrands({
-                    data: res?.data?.data?.rows,
+                    data: res?.data?.data,
                     type: productType,
                 })
             );

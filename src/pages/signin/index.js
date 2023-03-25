@@ -16,6 +16,7 @@ import {
 } from "@/store/slices/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import AuthWrapper from "@/components/Auth/AuthWarpper";
 
 function Signin() {
   const [userinput, setUserInput] = useState({
@@ -29,7 +30,7 @@ function Signin() {
   const [passwordError, setPasswordError] = useState(_INITIAL);
   const [errorMessage, setErrorMessage] = useState([]);
   const [step, setstep] = useState(1);
-  useEffect(() => {}, [errorMessage]);
+  useEffect(() => { }, [errorMessage]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -97,84 +98,86 @@ function Signin() {
 
   return (
     <>
-      <LayoutWithHeader>
-        {step === 1 && (
-          <>
-            <h1 className=" h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight  w-full sm:mt-[20px]">
-              Sign in
-            </h1>
+      <AuthWrapper>
+        <LayoutWithHeader>
+          {step === 1 && (
+            <>
+              <h1 className=" h-[48px] not-italic font-normal text-white text-[32px] text-center font-Prata leading-tight  w-full sm:mt-[20px]">
+                Sign in
+              </h1>
 
-            <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
-              <InputField
-                placeholder="Enter Email"
-                label="Email"
-                onChangeHandler={handleChange}
-                value={userinput.email}
-                name={"email"}
-                type={"text"}
-                errorResponnse={usernameError}
-              />
-              <InputField
-                placeholder="Enter Password"
-                label="Password"
-                onChangeHandler={handleChange}
-                value={userinput.password}
-                name={"password"}
-                type={"password"}
-                errorResponnse={passwordError}
-              />
-              <p className="text-sm max-w-[300px] text-[#959598] text-right cursor-pointer w-full">
-                Forgot Password ?
-              </p>
-              {errorMessage.length > 0 && (
-                <Bullets messageArray={errorMessage} />
-              )}
-              <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
-            </div>
-          </>
-        )}
+              <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
+                <InputField
+                  placeholder="Enter Email"
+                  label="Email"
+                  onChangeHandler={handleChange}
+                  value={userinput.email}
+                  name={"email"}
+                  type={"text"}
+                  errorResponnse={usernameError}
+                />
+                <InputField
+                  placeholder="Enter Password"
+                  label="Password"
+                  onChangeHandler={handleChange}
+                  value={userinput.password}
+                  name={"password"}
+                  type={"password"}
+                  errorResponnse={passwordError}
+                />
+                <p className="text-sm max-w-[300px] text-[#959598] text-right cursor-pointer w-full">
+                  Forgot Password ?
+                </p>
+                {errorMessage.length > 0 && (
+                  <Bullets messageArray={errorMessage} />
+                )}
+                <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
+              </div>
+            </>
+          )}
 
-        {step === 2 && (
-          <TwofactorAuth
-            authHandler={async (code) => {
-              await dispatch(verifyOTP(code)).then((res) => {
-                if (res?.status === 200) {
-                  dispatch(setLoggedInUser(res?.data));
-                  if (res?.data?.data?.first_time_login) {
-                    setstep(3);
-                  } else {
-                    router.push("/specs");
+          {step === 2 && (
+            <TwofactorAuth
+              authHandler={async (code) => {
+                await dispatch(verifyOTP(code)).then((res) => {
+                  if (res?.status === 200) {
+                    dispatch(setLoggedInUser(res?.data));
+                    if (res?.data?.data?.first_time_login) {
+                      setstep(3);
+                    } else {
+                      router.push("/specs");
+                    }
                   }
-                }
-              });
-            }}
-          />
-        )}
+                });
+              }}
+            />
+          )}
 
-        {step === 3 && (
-          <ChangePasswordComponent
-            confirmationfunction={async (new_password, confirm_password) => {
-              await dispatch(
-                changePassword({ new_password, confirm_password })
-              ).then((res) => {
-                if (res?.data?.status === 200) {
-                  setstep(4);
-                }
-              });
-            }}
-          />
-        )}
+          {step === 3 && (
+            <ChangePasswordComponent
+              confirmationfunction={async (new_password, confirm_password) => {
+                await dispatch(
+                  changePassword({ new_password, confirm_password })
+                ).then((res) => {
+                  if (res?.data?.status === 200) {
+                    setstep(4);
+                  }
+                });
+              }}
+            />
+          )}
 
-        {step === 4 && (
-          <Slider
-            skipTo={() => {
-              setstep(5);
-            }}
-          />
-        )}
+          {step === 4 && (
+            <Slider
+              skipTo={() => {
+                setstep(5);
+              }}
+            />
+          )}
 
-        {step === 5 && <OnboardingForm employeeName={"Zaylan"} />}
-      </LayoutWithHeader>
+          {step === 5 && <OnboardingForm employeeName={"Zaylan"} />}
+        </LayoutWithHeader>
+      </AuthWrapper>
     </>
   );
 }

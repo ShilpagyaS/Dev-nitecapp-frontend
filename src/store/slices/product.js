@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios";
+import axiosInstance from "@/components/Auth/axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -64,7 +64,7 @@ export const getProduct = (productType) => {
       console.log("response in product,js 47", res);
       dispatch(
         productSlice.actions.getProductList({
-          data: res?.data?.data?.rows,
+          data: res?.data?.data,
           type: productType,
         })
       );
@@ -106,7 +106,7 @@ export const getProductByCategoryId = (productType, id) => {
 
       dispatch(
         productSlice.actions.getProductCategoryList({
-          data: res?.data?.data?.rows,
+          data: res?.data?.data,
           type: productType,
         })
       );
