@@ -99,7 +99,7 @@ export const getProductByCategoryId = (productType, id) => {
   return async (dispatch, getState) => {
     const state = getState();
     await axiosInstance({
-      url: `/api/${productType}/get_${productType}_by_id_category/${id}`,
+      url: `/api/${productType}/get_${productType}_by_id_category_id/${id}`,
       method: "GET",
     }).then((res) => {
       console.log("response in product,js 47", res);

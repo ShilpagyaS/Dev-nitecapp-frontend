@@ -8,9 +8,9 @@ import ButtonCombo from './ButtonCombo';
 
 function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive }) {
     console.log(title, type, arr, isActive);
-    if(title == 'ingredients') type = 1
-    if(title == 'presentation') type = 1
-    if(title == 'methods') type = 0
+    if (title == 'ingredients') type = 1
+    if (title == 'presentation') type = 1
+    if (title == 'methods') type = 0
     console.log(title, type, arr, isActive);
     const [FirstModal, setFirstTimemodal] = useState(false)
     const [addModal, setAddmodal] = useState(false)
@@ -133,7 +133,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                                 {
                                     arr.map((e, i) =>
                                         <div onDoubleClick={() => { setEditItem({ ...e, index: i }); if (foucsed == i) setAsfocus(null); if (isEdit) setEditmodal(true) }} onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
-                                            <Simplecard content={e.name} i={i + 1} />
+                                            <Simplecard content={e[`${title}_name`]} i={i + 1} />
                                         </div>
                                     )
                                 }
@@ -145,7 +145,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                                     arr.map((e, i) =>
                                         <div onDoubleClick={() => { setEditItem({ ...e, index: i }); if (foucsed == i) setAsfocus(null); if (isEdit) setEditmodal(true) }} onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                            <SplitCard desc={e.name} quantity={e.quantity} />
+                                            <SplitCard desc={e[`${title}_name`]} quantity={e[`${title}_quantity`]} />
                                         </div>
                                     )
                                 }

@@ -77,7 +77,7 @@ function AddSpirit({ subcategory, productId }) {
             abv: newMockData.abv,
             origin: newMockData.origin,
             tastes: newMockData.tastes,
-            category: productId,
+            category_id: productId,
 
         }
         dispatch(createProduct(subcategory, data)).then((res) => {

@@ -90,15 +90,15 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   useEffect(() => {
     setabv(productDetails.abv)
     setNewMockData({
-      ingredients: productDetails.ingredients || {
+      ingredients: (productDetails.ingredients?.length && productDetails.ingredients) || {
         values: [],
         isActive: true
       },
-      methods: productDetails.methods || {
+      method: (productDetails.method?.length && productDetails.method) || {
         values: [],
         isActive: true
       },
-      presentation: productDetails.presentation || {
+      presentations: (productDetails.presentations?.length && productDetails.presentations) || {
         values: [],
         isActive: true
       },
@@ -233,9 +233,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           [`${subcategory}_name`]: nameref.current.innerText,
           description: textAreaRef.current.value,
           abv: abv,
-          ingridients: newMockData.ingredients,
-          presentation: newMockData.presentation,
-          methods: newMockData.methods,
+          ingredients: newMockData.ingredients,
+          presentations: newMockData.presentations,
+          method: newMockData.method,
         }
       ))
       console.log(nameref.current.innerText);

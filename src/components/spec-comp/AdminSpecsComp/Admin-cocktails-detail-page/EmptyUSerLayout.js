@@ -19,12 +19,12 @@ function EmptyUSerLayout() {
             values: [],
             isActive: false
         },
-        methods: {
+        method: {
             values: [],
             isActive: false
 
         },
-        presentation: {
+        presentations: {
             values: [],
             isActive: false
 
@@ -159,8 +159,8 @@ function EmptyUSerLayout() {
             description: textAreaRef.current.value || '',
             abv: abv,
             ingredients: newMockData.ingredients,
-            methods: newMockData.methods,
-            presentation: newMockData.presentation,
+            method: newMockData.method,
+            presentations: newMockData.presentations,
 
         }
         dispatch(createProduct(subcategory, data)).then((res) => {
