@@ -93,7 +93,7 @@ function CocktailTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/cocktail?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
@@ -125,7 +125,7 @@ function CocktailTable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/new-cocktail") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/cocktail/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
         </>
     )
 }

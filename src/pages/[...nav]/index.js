@@ -73,7 +73,7 @@ export default function Category() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-    
+
       {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {path === "/specs" && <SpecComp />}
@@ -93,14 +93,14 @@ export default function Category() {
             `/specs/spirit/${encodeURIComponent(
               subcategory2
             )}?id=${productId}` && (
-            <Spirits id={productId} categoryName={subcategory2} />
-          )}
+              <Spirits id={productId} categoryName={subcategory2} />
+            )}
           {path ===
             `/specs/spirit/${encodeURIComponent(
               subcategory2
             )}/${encodeURIComponent(subcategory3)}?id=${productId}` && (
-            <SpecsDetailPage id={productId} subcategory={"spirit"} />
-          )}
+              <SpecsDetailPage id={productId} subcategory={"spirit"} />
+            )}
 
           {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
 
@@ -145,26 +145,26 @@ export default function Category() {
       {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
-          {category === "specs" && subcategory === "cocktail" && !productId && <AdminCocktail />}
+          {path === `/specs/cocktail` && <AdminCocktail />}
+          {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
+          {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
+
           {path === `/specs/beer` && <AdminBeer />}
           {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
 
           {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
           {path === `/specs/beer/brands` && <AdminBrandsBeer />}
           {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
-          {category === "specs" && subcategory === "beerDis" && <BeerDisplayById />}
 
-          {subcategory === "cocktails-details" && <CocktailAdminDetailPage />}
-          {subcategory === "new-cocktail" && <EmptyUSerLayout />}
           {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
           {path === `/specs/spirit` && <AdminSpirit />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'}/>}
+          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
           {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
           {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
 
           {path === `/specs/wine` && <AdminWine />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'}/>}
+          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
           {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
           {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
 
@@ -180,12 +180,12 @@ export default function Category() {
         </LayoutWithSidebar>
       )}
 
-         
+
 
 
       {/* superAdmin */}
       {process.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" && (
-s.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" &&
+        s.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" &&
 
 
         <LayoutWithSidebar category={category} subcategory={subcategory}>
@@ -194,7 +194,7 @@ s.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" &&
         </LayoutWithSidebar>
 
       )}
-     
+
     </>
   );
 }
