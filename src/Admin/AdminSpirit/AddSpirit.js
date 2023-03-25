@@ -6,7 +6,7 @@ import useMediaQuery from '@/Hooks/useMediaQuery';
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
-import axiosInstance from "@/api/axios";
+import axiosInstance from "@/components/Auth/axios";
 import { useDispatch } from 'react-redux';
 import { createProduct } from '@/store/slices/product';
 
