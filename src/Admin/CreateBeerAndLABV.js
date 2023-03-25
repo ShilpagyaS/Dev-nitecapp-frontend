@@ -194,10 +194,10 @@ function CreateBeerAndLABV({ subcategory }) {
                         </div>
                         <div className="method-details-container">
 
-                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                            <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Strength"} quantity={`${newMockData.abv}%`} />
+                                <SplitCard desc={"Strength"} quantity={newMockData.abv == "" ? "" : `${newMockData.abv}%`} />
 
                             </div>
                             <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
