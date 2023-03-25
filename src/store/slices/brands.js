@@ -1,4 +1,4 @@
-import axiosInstance from "@/api/axios";
+import axiosInstance from "@/components/Auth/axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
