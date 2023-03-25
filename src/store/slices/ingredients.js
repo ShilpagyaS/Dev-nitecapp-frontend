@@ -35,7 +35,7 @@ export const getIngredientsList = (productType) => {
             console.log("response in product,js 47", res);
             dispatch(
                 ingredientsSlice.actions.getIngredients({
-                    data: res?.data?.data?.rows,
+                    data: res?.data?.data,
                     type: productType,
                 })
             );

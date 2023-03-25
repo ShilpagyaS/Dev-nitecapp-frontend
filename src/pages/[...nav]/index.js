@@ -55,6 +55,7 @@ import BrandsBrandDetail from "@/components/brands/explore-brands/BrandDetail";
 import AdminBrandDetail from "@/Admin/AdminBrands/BrandDetail";
 import AdminExploreBrands from "@/Admin/AdminBrands";
 import BrandsByCategory from "@/components/spec-comp/brands/BrandByCategory";
+import { getAllProduct } from "@/store/slices/allproducts";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -63,7 +64,9 @@ export default function Category() {
   const dispatch = useDispatch();
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
-
+  useEffect(() => {
+    dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine']))
+  }, [])
   return (
     <>
       <Head>

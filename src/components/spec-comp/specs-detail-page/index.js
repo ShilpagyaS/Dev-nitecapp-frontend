@@ -85,7 +85,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.[`${subcategory}_name`]}
               </h3>
-              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails.abv)}(${productDetails.abv}%)`}</p>
+              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails.abv)}(${productDetails.abv || ""}%)`}</p>
             </div>
             {!isMobile && <AiOutlineHeart size="25px" color="#fff" />}
           </div>
@@ -118,13 +118,13 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           <h4 className="text-white text-[20px] leading-[32px] font-semibold">
             Notes
           </h4>
-          {!productDetails.user_notes || productDetails.user_notes === "" && <OrangeButtons
+          {(!productDetails.user_notes || productDetails.user_notes === "") && <OrangeButtons
             onClickHandler={handleAddModalOpen}
             label="Add Notes"
             noPadding={true}
           />}
         </div>
-        {productDetails.user_notes && productDetails.user_notes !== "" &&
+        {(productDetails.user_notes && productDetails.user_notes !== "") &&
           <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
             <p className=" bg-transparent mr-24px">{productDetails.user_notes
             }</p>
