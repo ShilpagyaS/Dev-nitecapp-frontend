@@ -94,11 +94,11 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
         values: [],
         isActive: true
       },
-      method: (productDetails.method?.length && productDetails.method) || {
+      methods: (productDetails.methods?.length && productDetails.methods) || {
         values: [],
         isActive: true
       },
-      presentations: (productDetails.presentations?.length && productDetails.presentations) || {
+      presentation: (productDetails.presentation?.length && productDetails.presentation) || {
         values: [],
         isActive: true
       },
@@ -234,8 +234,8 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           description: textAreaRef.current.value,
           abv: abv,
           ingredients: newMockData.ingredients,
-          presentations: newMockData.presentations,
-          method: newMockData.method,
+          presentation: newMockData.presentation,
+          methods: newMockData.methods,
         }
       ))
       console.log(nameref.current.innerText);

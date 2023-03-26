@@ -17,16 +17,16 @@ function EmptyUSerLayout() {
     const [newMockData, setNewMockData] = useState({
         ingredients: {
             values: [],
-            isActive: false
+            // isActive: false
         },
-        method: {
+        methods: {
             values: [],
-            isActive: false
+            // isActive: false
 
         },
-        presentations: {
+        presentation: {
             values: [],
-            isActive: false
+            // isActive: false
 
         }
     });
@@ -159,8 +159,8 @@ function EmptyUSerLayout() {
             description: textAreaRef.current.value || '',
             abv: abv,
             ingredients: newMockData.ingredients,
-            method: newMockData.method,
-            presentations: newMockData.presentations,
+            methods: newMockData.methods,
+            presentation: newMockData.presentation,
 
         }
         dispatch(createProduct(subcategory, data)).then((res) => {
@@ -176,16 +176,16 @@ function EmptyUSerLayout() {
         setNewMockData({
             ingredients: {
                 values: [],
-                isActive: false
+                // isActive: false
             },
             methods: {
                 values: [],
-                isActive: false
+                // isActive: false
 
             },
             presentation: {
                 values: [],
-                isActive: false
+                // isActive: false
 
             }
         });

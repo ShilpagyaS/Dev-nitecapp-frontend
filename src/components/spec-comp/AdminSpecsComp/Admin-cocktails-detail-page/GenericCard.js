@@ -30,7 +30,10 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
     function addValues(input1, input2) {
         let dummy = {}
         if (type == 0) dummy = { name: input1 }
-        if (type == 1) dummy = { name: input1, quantity: input2 }
+        if (type == 1) {
+            if (title == 'ingredients') dummy = { name: input1, quantity: input2 }
+            if (title == 'presentation') dummy = { step: input1, detail: input2 }
+        }
         console.log(type, dummy);
         addValuesOnData(title, dummy)
         setAddmodal(false)
@@ -39,7 +42,10 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
     function editValues(input1, input2) {
         let dummy = {}
         if (type == 0) dummy = { name: input1 }
-        if (type == 1) dummy = { name: input1, quantity: input2 }
+        if (type == 1) {
+            if (title == 'ingredients') dummy = { name: input1, quantity: input2 }
+            if (title == 'presentation') dummy = { step: input1, detail: input2 }
+        }
         console.log(dummy);
         editValuesat(title, dummy, editItem.index)
         setEditmodal(false)
@@ -81,14 +87,15 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                 onSave={addValues}
                 title={'Values'}
                 type={type}
+                header={title}
 
             />}
             {EditModal &&
                 <EditNewModal
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
-                    inputone={editItem.desc}
-                    inputtwo={editItem.quantity}
+                    inputone={title == 'ingredients' ? editItem.name : editItem.step}
+                    inputtwo={title == 'ingredients' ? editItem.quantity : editItem.detail}
                     onSave={editValues}
                     title={title}
                     index={editItem.index}
@@ -133,7 +140,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                                 {
                                     arr.map((e, i) =>
                                         <div onDoubleClick={() => { setEditItem({ ...e, index: i }); if (foucsed == i) setAsfocus(null); if (isEdit) setEditmodal(true) }} onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
-                                            <Simplecard content={e[`${title}_name`]} i={i + 1} />
+                                            <Simplecard content={e.name} i={i + 1} />
                                         </div>
                                     )
                                 }
@@ -145,7 +152,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                                     arr.map((e, i) =>
                                         <div onDoubleClick={() => { setEditItem({ ...e, index: i }); if (foucsed == i) setAsfocus(null); if (isEdit) setEditmodal(true) }} onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                            <SplitCard desc={e[`${title}_name`]} quantity={e[`${title}_quantity`]} />
+                                            <SplitCard desc={title == 'ingredients' ? e.name : e.step} quantity={title == 'ingredients' ? e.quantity : e.detail} />
                                         </div>
                                     )
                                 }
