@@ -1,5 +1,5 @@
 import { AddCategory } from '@/components/modal/adminmodal';
-import { emptyProductList, getCategoryList, getCategoryListByType, getProduct } from '@/store/slices/product';
+import { createCategory, emptyProductList, getCategoryList, getCategoryListByType, getProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -125,12 +125,22 @@ function SpiritTable() {
             </>
         )
     }
+    function onSave(name, logo) {
+        console.log(name);
+        let data = {
+            drink_category_name: name,
+            type: 'spirit'
+        }
+        dispatch(createCategory('spirit', data))
+
+    }
     return (
         <> {AddModal &&
             <AddCategory
                 isModalOpen={AddModal}
                 onClickCancel={() => { setAdd(false) }}
-                onSave={() => { }}
+                type={'spirit'}
+                onSave={(name, logo) => { onSave(name, logo) }}
             />
         }
             <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { setAdd(true); console.log('ri'); }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />

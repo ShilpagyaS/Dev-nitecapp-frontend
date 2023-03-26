@@ -1196,18 +1196,6 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
     };
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
-    const [brandForm, setBrandForm] = useState(
-        {
-            email: "",
-            brandname: "",
-            displayname: "",
-            address: "",
-            city: "",
-            state: "",
-            country: "",
-            password: "",
-        }
-    )
     const handleCancel = () => {
         onClickCancel();
         setinput1("");
@@ -1216,10 +1204,8 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
     };
 
     const handleSave = () => {
-        let dummytype = null
-        if (input2 == "") dummytype = 0
-        else dummytype = 1
-        onSave(input1, input2, dummytype)
+
+        onSave(input1, input2)
         onClickCancel();
         setinput1("");
         setinput2("");
@@ -1249,8 +1235,8 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Name"
-                    onChangeHandler={handleChange}
-                    value={brandForm.email}
+                    onChangeHandler={(e) => { setinput1(e.target.value) }}
+                    value={input1}
                     name={"email"}
                     type={"text"}
                     errorResponnse={_INITIAL}
@@ -1258,8 +1244,8 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                 <UploadBrandLogoInput
                     placeholder=""
                     label="Brand Logo"
-                    onChangeHandler={handleChange}
-                    value={input1}
+                    onChangeHandler={(e) => { setinput2(e.target.value) }}
+                    value={input2}
                     name={"logo"}
                     type={"text"}
                     errorResponnse={_INITIAL} />

@@ -180,6 +180,20 @@ export const createProduct = (productType, data) => {
     });
   };
 };
+export const createCategory = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/drink_category/add_new_drink_category`,
+      method: "POST",
+      data
+    }).then((res) => {
+      dispatch(getCategoryListByType(productType))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const deleteProductById = (productType, productId) => {
   return async (dispatch) => {
 
