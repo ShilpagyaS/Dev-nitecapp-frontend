@@ -1,9 +1,10 @@
-import { AddCategory } from '@/components/modal/adminmodal';
-import { createCategory, emptyProductList, getCategoryList, getCategoryListByType, getProduct } from '@/store/slices/product';
+import { AddCategory, EditCategory } from '@/components/modal/adminmodal';
+import { createCategory, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +14,8 @@ function SpiritTable() {
     const { categoryList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const [AddModal, setAdd] = useState(false)
+    const [EditModal, setEdit] = useState(false)
+    const [globalData, setGlobal] = useState({})
     const dispatch = useDispatch()
     useEffect(() => {
 
@@ -31,7 +34,7 @@ function SpiritTable() {
                     itemImage: '',
                     itemName: element.drink_category_name,
                     showHideStatus: element.isActive,
-                    popularity: 'New',
+                    data: element
                 }
 
             }
@@ -99,10 +102,11 @@ function SpiritTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
-
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
-                            {element.itemName}
-                        </p>
+                        <Link href={`/specs/spirit/${element.itemName}?id=${element.id}`} >
+                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
+                                {element.itemName}
+                            </p>
+                        </Link>
                     </div>
                 </td>
                 <td >
@@ -114,7 +118,11 @@ function SpiritTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/spirit/${element.itemName}?id=${element.id}`); }}
+                        <EditCircularButton onClickHandler={() => {
+                            // router.push(`/specs/spirit/${element.itemName}?id=${element.id}`);
+                            setGlobal({ ...element.data })
+                            setEdit(true)
+                        }}
                         />
                         <div className='ml-[15px]'>
 
@@ -134,15 +142,41 @@ function SpiritTable() {
         dispatch(createCategory('spirit', data))
 
     }
-    return (
-        <> {AddModal &&
-            <AddCategory
-                isModalOpen={AddModal}
-                onClickCancel={() => { setAdd(false) }}
-                type={'spirit'}
-                onSave={(name, logo) => { onSave(name, logo) }}
-            />
+    function onEdit(name, logo, id) {
+        console.log(name, logo, id);
+        let data = { ...globalData }
+        data =
+        {
+            ...data,
+            drink_category_name: name,
+            image: logo,
         }
+        console.log(data);
+
+        dispatch(putCategory('spirit', id, data))
+
+    }
+    return (
+        <>
+            {AddModal &&
+                <AddCategory
+                    isModalOpen={AddModal}
+                    onClickCancel={() => { setAdd(false) }}
+                    type={'spirit'}
+                    onSave={(name, logo) => { onSave(name, logo) }}
+                />
+            }
+            {EditModal &&
+                <EditCategory
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEdit(false) }}
+                    type={'spirit'}
+                    inputone={globalData.drink_category_name}
+                    inputtwo={globalData.image}
+                    id={globalData.drink_category_id}
+                    onSave={(name, logo, id) => { onEdit(name, logo, id) }}
+                />
+            }
             <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { setAdd(true); console.log('ri'); }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )

@@ -194,6 +194,21 @@ export const createCategory = (productType, data) => {
     });
   };
 };
+export const putCategory = (productType, productId, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/drink_category/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getCategoryListByType(productType))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const deleteProductById = (productType, productId) => {
   return async (dispatch) => {
 
