@@ -51,10 +51,8 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
     };
 
     const handleSave = () => {
-        let dummytype = null
-        if (input2 == "") dummytype = 0
-        else dummytype = 1
-        onSave(input1, input2, dummytype)
+        let dummytype = brandForm
+        onSave(input1, dummytype)
         onClickCancel();
         setinput1("");
         setinput2("");
@@ -165,7 +163,7 @@ export function AddSuperBrands({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
                     </div>
 
                 </div>

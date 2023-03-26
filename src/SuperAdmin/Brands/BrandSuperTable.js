@@ -1,42 +1,47 @@
+import { emptyBrandList, getBrandList } from '@/store/slices/superAdmin';
 import { DeleteCircularButton, EditCircularButton, EyeCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { AddSuperBrands, SuperBrandDelete } from '../Modal/SuperAdminModal';
 
 function BrandSuperTable() {
     const router = useRouter();
-    // const { productList } = useSelector((state) => state.product)
-    // const [newList, setList] = useState([])
-    // const dispatch = useDispatch()
-    // useEffect(() => {
+    const dispatch = useDispatch()
+    const { brandList } = useSelector((state) => state.superAdmin)
+    const [newList, setList] = useState([])
 
-    //     dispatch(getProduct('cocktail'))
+    useEffect(() => {
 
-    //     return () => {
-    //         dispatch(emptyProductList())
-    //     }
-    // }, [])
-    // console.log(productList);
-    // useEffect(() => {
-    //     let dummy = productList?.map(
-    //         (element) => {
-    //             return {
-    //                 id: element.cocktail_id,
-    //                 itemImage: '',
-    //                 itemName: element.cocktail_name,
-    //                 showHideStatus: element.isActive,
-    //                 popularity: 'New',
-    //             }
+        dispatch(getBrandList())
 
-    //         }
-    //     ) || []
-    //     console.log(dummy);
-    //     setList([...dummy])
+        return () => {
+            dispatch(emptyBrandList())
+        }
+    }, [])
+    console.log(brandList);
+    useEffect(() => {
+        let dummy = brandList?.map(
+            (element) => {
+                return {
+                    id: element.hotel_brand_id,
+                    itemImage: '',
+                    itemName: element.name,
+                    showHideStatus: element.isActive,
+                    createdDate: element.createdAt,
+                    data: element
 
-    // }, [productList])
+                }
+
+            }
+        ) || []
+        console.log(dummy);
+        setList([...dummy])
+
+    }, [brandList])
 
     const mockData = [
         {
@@ -75,18 +80,23 @@ function BrandSuperTable() {
 
         },
     ]
-    const [EditModal, setEditmodal] = useState(false)
+    const [AddModal, setAddmodal] = useState(false)
     const [DeleteModal, setDeleteModal] = useState(false)
 
     const HeaderArray = ["Brands", "Item Name", "Activate / Deactivate", "Actions"]
+    function onCreate(logo, data) {
+        let dummydata = {}
+    }
+
     function OuterRows({ element }) {
 
         return (
             <>
-                {EditModal &&
+                {AddModal &&
                     <AddSuperBrands
-                        isModalOpen={EditModal}
-                        onClickCancel={() => { setEditmodal(false) }}
+                        isModalOpen={AddModal}
+                        onClickCancel={() => { setAddmodal(false) }}
+                        onSave={(logo, data) => { console.log(logo, data); }}
 
 
                     />
@@ -95,6 +105,7 @@ function BrandSuperTable() {
                     <SuperBrandDelete
                         isModalOpen={DeleteModal}
                         onClickCancel={() => { setDeleteModal(false) }}
+                        onSave={() => { }}
 
 
                     />
@@ -125,15 +136,19 @@ function BrandSuperTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EyeCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                        <EyeCircularButton onClickHandler={() => {
+                            // router.push("/specs/cocktails-details");
+                        }}
                         />
                         <div className='ml-[15px]'>
-                            <EditCircularButton onClickHandler={() => { router.push("/specs/cocktails-details"); }}
+                            <EditCircularButton onClickHandler={() => {
+                                // router.push("/specs/cocktails-details");
+                            }}
                             />
                         </div>
                         <div className='ml-[15px]'>
 
-                            <DeleteCircularButton onClickHandler={() => {setDeleteModal(true) }} />
+                            <DeleteCircularButton onClickHandler={() => { setDeleteModal(true) }} />
                         </div>
                     </div>
                 </td>
@@ -142,7 +157,7 @@ function BrandSuperTable() {
     }
     return (
         <>
-            <TableContainerWithButtons OuterRows={OuterRows} mockData={mockData} HeaderArray={HeaderArray} pageSize={5} label={'Create Brand'} buttonFunction={() => { setEditmodal(true) }} />
+            <TableContainerWithButtons OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} label={'Create Brand'} buttonFunction={() => { setAddmodal(true) }} />
         </>
     )
 }
