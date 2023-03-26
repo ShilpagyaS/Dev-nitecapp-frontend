@@ -5,9 +5,19 @@ import BrandsMock from "../../components/mock/BrandsMock.json";
 import Link from "next/link";
 import { CustomButton, GrayButton, TextButton } from "@/utils/Buttons";
 import SwitchComp from "@/utils/SwitchComp";
+import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
+import { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
+import { useState } from "react";
 
-const AdminExploreBrands = ({ admin }) => {
+const AdminExploreBrands = () => {
   const brandsData = BrandsMock.Brandsdata;
+  const [isEdit, setIsEdit] = useState()
+  function onSave() {
+
+  }
+  function toggleEdit() {
+
+  }
 
   const addIcon = (
     <svg
@@ -75,14 +85,23 @@ const AdminExploreBrands = ({ admin }) => {
 
   return (
     <div className="explore-brands-container text-white">
-      <div className="breadcrumb-container flex justify-between items-center">
-        <Breadcrumb />
+      <div className="flex flex-row items-center justify-between">
 
-        <div className="btns-container flex ">
-          <div className="mr-4">
-            <GrayButton icon={editIcon("black")} label="Edit" />
+        <div className="text-container ">
+          <p className="text-white text-[14px]">
+            <div className="text-container my-2 ">
+              <p className="text-white text-[14px]">
+                <span className="text-[#CCCCCC] capitalize">Brand</span>
+              </p>
+            </div>
+          </p>
+        </div>
+        <div className="flex items-center justify-center">
+
+          <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={onSave} />
+          <div className="ml-[15px]">
+            <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
           </div>
-          <CustomButton background="#F19B6C" label="Save" />
         </div>
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
@@ -128,7 +147,7 @@ const AdminExploreBrands = ({ admin }) => {
                         <div className="mr-4">
                           <SwitchComp
                             showHideStatus={true}
-                            onChangeHandler={() => {}}
+                            onChangeHandler={() => { }}
                           />
                         </div>
                         <CustomButton
