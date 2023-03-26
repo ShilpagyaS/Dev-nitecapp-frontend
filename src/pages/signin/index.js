@@ -20,11 +20,6 @@ import AuthWrapper from "@/components/Auth/AuthWarpper";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 function Signin() {
-  const [userinput, setUserInput] = useState({
-    email: "",
-    password: "",
-  });
-
   const dispatch = useDispatch();
   const router = useRouter();
   const { user } = useSelector((state) => state.auth)

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { unprotectedRoutes } from "./guestRoutes";
 
-export const baseurl = " https://server.nitecapp.io"
+export const baseurl = "https://server.nitecapp.io"
 //"https://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
 
 //routes declairation
-
+const unprotectedRoutes = ["/user-auth/login", "/api/user-auth/verify-otp"];
 
 //axios instence creation
 

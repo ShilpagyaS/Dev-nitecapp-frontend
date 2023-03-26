@@ -78,7 +78,7 @@ export const setLoggedInUser = (data) => {
   };
 };
 
-export const setUserRelogin = (data) => {
+export const setUserRelogin = () => {
   return async (dispatch) => {
     await axiosInstance({
       url: "/api/user-auth/verify-token",
@@ -115,9 +115,13 @@ export const updateUser = (data) => {
       url: "/api/user-auth/update-user",
       method: "PUT",
       data,
-    }).catch((err) => {
-      console.log(err);
-    });
+    }).then(async (res) => {
+      if (res.status == 200)
+        await dispatch(setUserRelogin())
+    })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 

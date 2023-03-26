@@ -80,7 +80,7 @@ export default function Category() {
       </Head>
 
 
-      <AuthWrapper> 
+      <AuthWrapper>
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "/specs" && <SpecComp />}
@@ -202,14 +202,14 @@ export default function Category() {
         )}
 
 
-        <SelectWithDebounce
+        {/* <SelectWithDebounce
           label={"search"}
           placeholder={"search here"}
           functiondata={() => dispatch(getIngredientSearch(testvalue))}
           value={testvalue}
           searchoptions={searchoptions}
           onChangeHandler={settestvalue}
-        />
+        /> */}
       </AuthWrapper>
 
 

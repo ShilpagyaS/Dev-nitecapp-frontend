@@ -21,7 +21,6 @@ function OnboardingForm() {
 
   useEffect(() => {
     dispatch(getConcept()).then((res) => {
-      debugger
       setconcept(res);
     });
 
@@ -29,7 +28,8 @@ function OnboardingForm() {
 
 
 
-  const handlesubmit = (values) => {
+  const handlesubmitdata = (values) => {
+    debugger
     dispatch(updateUser(values)).then((res) => {
       if (res?.data?.resCode === 200) router.push("/specs");
     });
@@ -41,12 +41,13 @@ function OnboardingForm() {
       pronouns: "",
       role: "",
       concept: "",
-      user_id: user?.user_id,
+      user_id: user?.id,
     },
-    onSubmit: handlesubmit,
+    enableReinitialize: true,
+    onSubmit: handlesubmitdata,
     validationSchema: Yup.object().shape({
-      full_name: Yup.string().email("Please Enter Valid Email Address").required('Email is required'),
-      display_name: Yup.string().test('len', 'Must be more 5 characters', val => val.length > 5).required('Password is required'),
+      full_name: Yup.string().required('Full name is required'),
+      display_name: Yup.string().required('Display is required'),
       pronouns: Yup.string().required(),
       role: Yup.string().required(),
       concept: Yup.string().required(),
@@ -61,14 +62,15 @@ function OnboardingForm() {
       formik.setFieldValue('pronouns', user.pronouns)
       formik.setFieldValue('role', user.full_name)
       formik.setFieldValue('concept', user.full_name)
-      formik.setFieldValue('user_id', user.user_id)
+      formik.setFieldValue('user_id', user.id)
     }
 
   }, [user]);
+
   return (
     <>
       <h1 className="h-full not-italic font-normal break-words text-white text-[32px] text-center font-Prata leading-tight ">
-        Welcome to the team !
+        Welcome to the team {user?.full_name || ""} !
       </h1>
 
       <div className="mt-[24px]">
@@ -130,9 +132,9 @@ function OnboardingForm() {
             options={conceptdata}
             value={formik.values.concept}
             onChangeHandler={formik.handleChange}
-            error={formik.errors.role}
-            touched={formik.touched.role}
-
+            error={formik.errors.concept}
+            touched={formik.touched.concept}
+            showerror
           />
           <ConditionalButtons
             condition={true}

@@ -22,8 +22,9 @@ function InputField({
             ? "text-[#959595]" :
             touched && !error ?
               "text-white" :
-              error && touched &&
-              "text-[#EB4949]"
+              error && touched ?
+                "text-[#EB4949]" :
+                "text-[#959595]"
           }`}
       >
         {label}
@@ -51,7 +52,7 @@ function InputField({
         }}
       />
 
-      {showerror && error && <ul className='list-disc max-w-[302px]  pl-4 '>
+      {showerror && error && touched && <ul className='list-disc max-w-[302px]  pl-4 '>
 
         <li className={`text-[12px] font-Inter font-normal leading-tight tracking-[0.42px] 
                             ${'text-[#EB4949]'}
