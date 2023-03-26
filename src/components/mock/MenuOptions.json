@@ -29,8 +29,8 @@
       "id": "brand",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        { "name": "Brands", "id": "explore-brands" },
-        { "name": "Find Jobs", "id": "jobs" }
+        { "name": "Brands", "id": "explore-brands" }
+      
       ]
     },
     {
@@ -53,3 +53,6 @@
     }
   ]
 }
+
+
+

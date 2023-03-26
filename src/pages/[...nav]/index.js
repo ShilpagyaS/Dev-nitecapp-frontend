@@ -18,9 +18,9 @@ import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
 import SpecBrands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct, getProductById } from "@/store/slices/product";
+import { getIngredientSearch, getProduct, getProductById } from "@/store/slices/product";
 import useNavDetails from "@/Hooks/useNavDetails";
 import AdminSpecs from "@/components/spec-comp/AdminSpecsComp/AdminSpecs";
 import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page";
@@ -56,17 +56,20 @@ import AdminBrandDetail from "@/Admin/AdminBrands/BrandDetail";
 import AdminExploreBrands from "@/Admin/AdminBrands";
 import BrandsByCategory from "@/components/spec-comp/brands/BrandByCategory";
 import { getAllProduct } from "@/store/slices/allproducts";
+import SelectWithDebounce from "@/utils/DebounceSelect";
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
   const dispatch = useDispatch();
+  const { searchoptions } = useSelector((state) => state.product);
+  const [testvalue, settestvalue] = useState({ label: "", value: "" })
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
-  useEffect(() => {
-    dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine']))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine']))
+  // }, [])
   return (
     <>
       <Head>
@@ -146,43 +149,43 @@ export default function Category() {
         )}
 
 
-         {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
-        <LayoutWithSidebar category={category} subcategory={subcategory}>
-          {category === "specs" && !subcategory && <AdminSpecs />}
-          {path === `/specs/cocktail` && <AdminCocktail />}
-          {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
-          {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
+        {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
+            {category === "specs" && !subcategory && <AdminSpecs />}
+            {path === `/specs/cocktail` && <AdminCocktail />}
+            {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
+            {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
 
-          {path === `/specs/beer` && <AdminBeer />}
-          {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
+            {path === `/specs/beer` && <AdminBeer />}
+            {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
 
-          {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
-          {path === `/specs/beer/brands` && <AdminBrandsBeer />}
-          {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
+            {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
+            {path === `/specs/beer/brands` && <AdminBrandsBeer />}
+            {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
 
-          {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+            {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
-          {path === `/specs/spirit` && <AdminSpirit />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
+            {path === `/specs/spirit` && <AdminSpirit />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
 
-          {path === `/specs/wine` && <AdminWine />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
-
-
-
-          {path === `/specs/low_no_abv` && <AdminLowAbv />}
-          {path === `/specs/low_no_abv/new` && <CreateBeerAndLABV subcategory={'low_no_abv'} />}
-          {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />}
-
-          {category === "dashboard" && <AdminDashboard />}
+            {path === `/specs/wine` && <AdminWine />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
 
 
-        </LayoutWithSidebar>
-      )}
+
+            {path === `/specs/low_no_abv` && <AdminLowAbv />}
+            {path === `/specs/low_no_abv/new` && <CreateBeerAndLABV subcategory={'low_no_abv'} />}
+            {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />}
+
+            {category === "dashboard" && <AdminDashboard />}
+
+
+          </LayoutWithSidebar>
+        )}
 
 
 
@@ -197,6 +200,15 @@ export default function Category() {
 
 
         )}
+
+        <SelectWithDebounce
+          label={"search"}
+          placeholder={"search here"}
+          functiondata={() => dispatch(getIngredientSearch(testvalue))}
+          value={testvalue}
+          searchoptions={searchoptions}
+          onChangeHandler={settestvalue}
+        />
       </AuthWrapper>
 
     </>

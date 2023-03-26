@@ -17,7 +17,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import AuthWrapper from "@/components/Auth/AuthWarpper";
-
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 function Signin() {
   const [userinput, setUserInput] = useState({
     email: "",
@@ -26,75 +27,46 @@ function Signin() {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const [usernameError, setUserNameError] = useState(_INITIAL);
-  const [passwordError, setPasswordError] = useState(_INITIAL);
-  const [errorMessage, setErrorMessage] = useState([]);
+  const { user } = useSelector((state) => state.auth)
   const [step, setstep] = useState(1);
-  useEffect(() => { }, [errorMessage]);
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    console.log(e);
-    setUserInput((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  }
-
-  const handleSubmit = async () => {
-    let dummyEmailError = _INITIAL;
-    let dummyPasswordError = _INITIAL;
-    let dummyStringArray = [];
-    const emailRegEx =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log(emailRegEx.test(userinput.email));
-    const checkemailvalidity = emailRegEx.test(userinput.email);
-    if (userinput.email == "" || checkemailvalidity == false) {
-      dummyEmailError = _ERROR;
-      dummyStringArray = [
-        { message: "Please Enter Valid Email Address", response: _ERROR },
-      ];
+  useEffect(() => {
+    if (user?.first_time_login) {
+      setstep(5)
     }
-    //  else {
-    //   if (userinput.email != "sr@gmail.com") {
-    //     dummyEmailError = _ERROR;
-    //     dummyStringArray = [
-    //       { message: "Your email doesn't match our records", response: _ERROR },
-    //     ];
-    //   } else {
-    //     if (userinput.password != "1234567") {
-    //       dummyPasswordError = _ERROR;
-    //       dummyStringArray = [
-    //         {
-    //           message: "Your password doesn't match our records",
-    //           response: _ERROR,
-    //         },
-    //       ];
-    //     }
-    //   }
-    // }
-    setUserNameError(dummyEmailError);
-    setPasswordError(dummyPasswordError);
-    setErrorMessage(dummyStringArray);
-    if (dummyEmailError != _ERROR && dummyPasswordError != _ERROR) {
-      //login function
+    else setstep(1)
+  }, [user])
 
-      await dispatch(
-        login({
-          email: userinput.email,
-          password: userinput.password,
-        })
-      ).then((res) => {
-        if (res?.data?.resCode === 200) {
-          setstep(2);
-        }
-      });
 
-      setErrorMessage([]);
-    }
+  const handleSubmitForm = async (values) => {
+    await dispatch(
+      login({
+        email: values.email,
+        password: values.password,
+      })
+    ).then((res) => {
+
+      if (res?.data?.resCode === 200) {
+        setstep(2);
+      } else if (res?.error) {
+        formik.setFieldError('email', res.message)
+
+      }
+    })
+
   };
+
+  const formik = useFormik({
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email("Please Enter Valid Email Address").required('Email is required'),
+      password: Yup.string().test('len', 'Must be more 5 characters', val => val.length > 5).required('Password is required'),
+    }),
+    onSubmit: handleSubmitForm,
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+  })
 
   return (
     <>
@@ -106,33 +78,40 @@ function Signin() {
                 Sign in
               </h1>
 
-              <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
+              <form
+                onSubmit={formik.handleSubmit}
+                className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
                 <InputField
                   placeholder="Enter Email"
                   label="Email"
-                  onChangeHandler={handleChange}
-                  value={userinput.email}
-                  name={"email"}
+                  onChangeHandler={formik.handleChange}
+                  alue={formik.values.email}
+                  name="email"
                   type={"text"}
-                  errorResponnse={usernameError}
+                  touched={formik.touched.email}
+                  error={formik.errors.email}
                 />
                 <InputField
                   placeholder="Enter Password"
                   label="Password"
-                  onChangeHandler={handleChange}
-                  value={userinput.password}
-                  name={"password"}
+                  onChangeHandler={formik.handleChange}
+                  value={formik.values.password}
+                  name="password"
                   type={"password"}
-                  errorResponnse={passwordError}
+                  touched={formik.touched.password}
+                  error={formik.errors.password}
                 />
+                {console.log(Object.values(formik.errors))}
+                {Object.values(formik.errors)?.length > 0 && (
+                  <Bullets messageArray={Object.values(formik.errors).map((i) => { return { response: _ERROR, message: i } })} />
+                )}
                 <p className="text-sm max-w-[300px] text-[#959598] text-right cursor-pointer w-full">
                   Forgot Password ?
                 </p>
-                {errorMessage.length > 0 && (
-                  <Bullets messageArray={errorMessage} />
-                )}
-                <Buttons label={"Sign in"} onClickHandler={handleSubmit} />
-              </div>
+                <Buttons label={"Sign in"}
+                  type="submit"
+                />
+              </form>
             </>
           )}
 
@@ -175,7 +154,7 @@ function Signin() {
             />
           )}
 
-          {step === 5 && <OnboardingForm employeeName={"Zaylan"} />}
+          {step === 5 && <OnboardingForm />}
         </LayoutWithHeader>
       </AuthWrapper>
     </>

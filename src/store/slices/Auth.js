@@ -7,6 +7,7 @@ const initialState = {
   role: null,
   tempUserEmail: null,
   firstTimeLogin: false,
+  isOnbording: false
 };
 
 export const authSlice = createSlice({
@@ -44,6 +45,9 @@ export const login = (data) => {
       url: "/api/user-auth/login",
       method: "POST",
       data,
+    }).catch((error) => {
+      return { error: true, message: error?.response?.data?.message }
+
     });
   };
 };
@@ -126,7 +130,7 @@ export const getConcept = (data) => {
     })
       .then((res) => {
         if (res.data.resCode === 200) {
-          const concept = res.data.data.rows.map((i) => {
+          const concept = res.data.data.map((i) => {
             return { label: i.name, value: i.id };
           });
           return concept;

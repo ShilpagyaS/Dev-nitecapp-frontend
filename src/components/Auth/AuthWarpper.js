@@ -17,10 +17,12 @@ export default function AuthWrapper({ children }) {
       if (token) {
         dispatch(setUserRelogin());
       } else router.push("/signin");
-    }
-
-    if (onlyUnAuthpages.includes(path) && Boolean(user)) {
-      router.push("/specs");
+    } else if (onlyUnAuthpages.includes(path) && Boolean(user)) {
+      if (user.first_time_login)
+        router.push("/signin")
+      else router.push("/specs");
+    } else if (Boolean(user) && user.first_time_login) {
+      router.push("/signin")
     }
   }, [user]);
   if (onlyUnAuthpages.includes(path))
