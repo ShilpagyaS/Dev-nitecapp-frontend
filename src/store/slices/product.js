@@ -94,12 +94,31 @@ export const getCategoryList = (productType) => {
     });
   };
 };
+export const getCategoryListByType = (productType) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    await axiosInstance({
+      url: `/api/get_all_${productType}_category_by_type`,
+      method: "GET",
+    }).then((res) => {
+      console.log("response in category,js 47", res);
+      dispatch(
+        productSlice.actions.getCategoryList({
+          data: res?.data?.data,
+          type: productType,
+        })
+      );
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 
 export const getProductByCategoryId = (productType, id) => {
   return async (dispatch, getState) => {
     const state = getState();
     await axiosInstance({
-      url: `/api/${productType}/get_${productType}_by_id_category_id/${id}`,
+      url: `/api/${productType}/get_${productType}_by_category_id/${id}`,
       method: "GET",
     }).then((res) => {
       console.log("response in product,js 47", res);

@@ -1,4 +1,4 @@
-import { emptyProductList, getCategoryList, getProduct } from '@/store/slices/product';
+import { emptyProductList, getCategoryList, getCategoryListByType, getProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -13,7 +13,7 @@ function WineTable() {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getCategoryList('wine'))
+        dispatch(getCategoryListByType('wine'))
 
         return () => {
             dispatch(emptyProductList())

@@ -1,5 +1,5 @@
 import { AddCategory } from '@/components/modal/adminmodal';
-import { emptyProductList, getCategoryList, getProduct } from '@/store/slices/product';
+import { emptyProductList, getCategoryList, getCategoryListByType, getProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -16,7 +16,7 @@ function SpiritTable() {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getCategoryList('spirit'))
+        dispatch(getCategoryListByType('spirit'))
 
         return () => {
             dispatch(emptyProductList())
