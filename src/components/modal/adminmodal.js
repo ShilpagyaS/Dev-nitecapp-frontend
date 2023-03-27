@@ -1043,10 +1043,10 @@ export function EditKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                 style={customStyles}
             >
                 <div className="text-white border-none outline-none">
-                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${input1}`}</h4>
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit `}<span className='capitalize'> {`${input1}`}</span></h4>
                 </div>
                 <div className='flex flex-col w-full'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} Value`}</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} value`}</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
 
