@@ -18,9 +18,9 @@ import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
 import SpecBrands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct, getProductById } from "@/store/slices/product";
+import { getIngredientSearch, getProduct, getProductById } from "@/store/slices/product";
 import useNavDetails from "@/Hooks/useNavDetails";
 import AdminSpecs from "@/components/spec-comp/AdminSpecsComp/AdminSpecs";
 import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page";
@@ -56,12 +56,15 @@ import AdminBrandDetail from "@/Admin/AdminBrands/BrandDetail";
 import AdminExploreBrands from "@/Admin/AdminBrands";
 import BrandsByCategory from "@/components/spec-comp/brands/BrandByCategory";
 import { getAllProduct } from "@/store/slices/allproducts";
+import SelectWithDebounce from "@/utils/DebounceSelect";
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
   const dispatch = useDispatch();
+  const { searchoptions } = useSelector((state) => state.product);
+  const [testvalue, settestvalue] = useState({ label: "", value: "" })
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
   // useEffect(() => {
@@ -77,27 +80,17 @@ export default function Category() {
       </Head>
 
 
-      {/* <AuthWrapper> */}
-      {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
-        <LayoutWithSidebar category={category} subcategory={subcategory}>
-          {path === "/specs" && <SpecComp />}
-          {path === "/specs/cocktail" && <Coctails />}
-          {path === `/specs/cocktail?id=${productId}` && (
-            <CocktailDetailPage id={productId} />
-          )}
-          {path === "/specs/cocktail/cocktail_ingredients" && (
-            <Ingridients productType={"cocktail"} />
-          )}
-          {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
-            <IngridientDetail productId={productId} productType={"cocktail"} />
-          )}
 
-          {path === "/specs/spirit" && <SpiritsCategory />}
-          {path ===
-            `/specs/spirit/${encodeURIComponent(
-              subcategory2
-            )}?id=${productId}` && (
-              <Spirits id={productId} categoryName={subcategory2} />
+      <AuthWrapper>
+        {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
+          <LayoutWithSidebar category={category} subcategory={subcategory}>
+            {path === "/specs" && <SpecComp />}
+            {path === "/specs/cocktail" && <Coctails />}
+            {path === `/specs/cocktail?id=${productId}` && (
+              <CocktailDetailPage id={productId} />
+            )}
+            {path === "/specs/cocktail/cocktail_ingredients" && (
+              <Ingridients productType={"cocktail"} />
             )}
           {path ===
             `/specs/spirit/${encodeURIComponent(
@@ -114,6 +107,9 @@ export default function Category() {
           {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
           {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
+
+
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
 
 
           {path === "/specs/beer" && <BeerSeltzer />}
@@ -146,6 +142,7 @@ export default function Category() {
       )}
 
 
+
       {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
         <LayoutWithSidebar category={category} subcategory={subcategory}>
           {category === "specs" && !subcategory && <AdminSpecs />}
@@ -153,24 +150,26 @@ export default function Category() {
           {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
           {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
 
-          {path === `/specs/beer` && <AdminBeer />}
-          {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
 
-          {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
-          {path === `/specs/beer/brands` && <AdminBrandsBeer />}
-          {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
+            {path === `/specs/beer` && <AdminBeer />}
+            {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
 
-          {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+            {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
+            {path === `/specs/beer/brands` && <AdminBrandsBeer />}
+            {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
 
-          {path === `/specs/spirit` && <AdminSpirit />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
-          {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
+            {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
-          {path === `/specs/wine` && <AdminWine />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
-          {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
+            {path === `/specs/spirit` && <AdminSpirit />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
+
+            {path === `/specs/wine` && <AdminWine />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
+
 
 
 
@@ -181,8 +180,9 @@ export default function Category() {
           {category === "dashboard" && <AdminDashboard />}
 
 
-        </LayoutWithSidebar>
-      )}
+
+          </LayoutWithSidebar>
+        )}
 
 
 
@@ -196,8 +196,20 @@ export default function Category() {
         </LayoutWithSidebar>
 
 
-      )}
-      {/* </AuthWrapper> */}
+
+
+
+        {/* <SelectWithDebounce
+          label={"search"}
+          placeholder={"search here"}
+          functiondata={() => dispatch(getIngredientSearch(testvalue))}
+          value={testvalue}
+          searchoptions={searchoptions}
+          onChangeHandler={settestvalue}
+        /> */}
+      </AuthWrapper>
+
+
 
     </>
   );

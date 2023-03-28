@@ -7,29 +7,15 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { getConcept, updateUser } from "@/store/slices/Auth";
-
-function OnboardingForm({ employeeName }) {
+import { useFormik } from "formik";
+import * as Yup from 'yup'
+function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
-  const [concept, setconcept] = useState([]);
+  const [conceptdata, setconcept] = useState([]);
   const { user } = useSelector((state) => state.auth);
-  const [onboardingForm, setonBoardingForm] = useState({
-    fullName: "Zaylan",
-    dislplayName: "",
-    pronouns: "",
-    role: "Bar Tender",
-    concept: "",
-    user_id: user?.user_id,
-  });
-  function handleChange(e) {
-    const { name, value } = e.target;
 
-    setonBoardingForm((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  }
+  ;
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -37,12 +23,54 @@ function OnboardingForm({ employeeName }) {
     dispatch(getConcept()).then((res) => {
       setconcept(res);
     });
+
   }, []);
+
+
+
+  const handlesubmitdata = (values) => {
+    debugger
+    dispatch(updateUser(values)).then((res) => {
+      if (res?.data?.resCode === 200) router.push("/specs");
+    });
+  }
+  const formik = useFormik({
+    initialValues: {
+      full_name: "",
+      display_name: "",
+      pronouns: "",
+      role: "",
+      concept: "",
+      user_id: user?.id,
+    },
+    enableReinitialize: true,
+    onSubmit: handlesubmitdata,
+    validationSchema: Yup.object().shape({
+      full_name: Yup.string().required('Full name is required'),
+      display_name: Yup.string().required('Display is required'),
+      pronouns: Yup.string().required(),
+      role: Yup.string().required(),
+      concept: Yup.string().required(),
+      user_id: Yup.string().required()
+    }),
+  })
+
+  useEffect(() => {
+    if (user) {
+      formik.setFieldValue('full_name', user.full_name)
+      formik.setFieldValue('display_name', user.display_name)
+      formik.setFieldValue('pronouns', user.pronouns)
+      formik.setFieldValue('role', user.full_name)
+      formik.setFieldValue('concept', user.full_name)
+      formik.setFieldValue('user_id', user.id)
+    }
+
+  }, [user]);
 
   return (
     <>
       <h1 className="h-full not-italic font-normal break-words text-white text-[32px] text-center font-Prata leading-tight ">
-        Welcome to the team , {employeeName}!
+        Welcome to the team {user?.full_name || ""} !
       </h1>
 
       <div className="mt-[24px]">
@@ -50,92 +78,99 @@ function OnboardingForm({ employeeName }) {
           Let's get you set up.
         </p>
       </div>
-      {!isMobile ? (
-        <div className="mt-[24px] sm:mt-[24px] w-full flex flex-col items-center">
+      {(
+        <form
+          onSubmit={formik.handleSubmit}
+          className="mt-[24px] sm:mt-[24px] w-full flex flex-col items-center">
           <InputField
             placeholder=""
             label="Full Name"
-            onChangeHandler={handleChange}
-            value={onboardingForm.fullName}
-            name={"fullName"}
+            onChangeHandler={formik.handleChange}
+            value={formik.values.full_name}
+            name={"full_name"}
             type={"text"}
-            errorResponnse={_INITIAL}
+            error={formik.errors.full_name}
+            touched={formik.touched.full_name}
+            showerror
           />
           <InputField
             placeholder="Preferred Name"
             label="Display Name"
-            onChangeHandler={handleChange}
-            value={onboardingForm.dislplayName}
-            name={"dislplayName"}
+            onChangeHandler={formik.handleChange}
+            value={formik.values.display_name}
+            name={"display_name"}
             type={"text"}
-            errorResponnse={_INITIAL}
+            error={formik.errors.display_name}
+            touched={formik.touched.display_name}
+            showerror
           />
           <InputField
             placeholder="Your Pronouns"
             label="Pronouns"
-            onChangeHandler={handleChange}
-            value={onboardingForm.pronouns}
+            onChangeHandler={formik.handleChange}
+            value={formik.values.pronouns}
             name={"pronouns"}
             type={"text"}
-            errorResponnse={_INITIAL}
+            error={formik.errors.pronouns}
+            touched={formik.touched.pronouns}
+            showerror
           />
           <InputField
             placeholder=""
             label="Role"
-            onChangeHandler={handleChange}
-            value={onboardingForm.role}
+            onChangeHandler={formik.handleChange}
+            value={formik.values.role}
             name={"role"}
             type={"text"}
-            errorResponnse={_INITIAL}
+            error={formik.errors.role}
+            touched={formik.touched.role}
+            showerror
           />
           <SelectWithSearch
-            label={"Concept"}
+            label={"concept"}
             placeholder={"Your Concept"}
-            options={concept}
-            value={onboardingForm.concept}
-            onChangeHandler={handleChange}
+            options={conceptdata}
+            value={formik.values.concept}
+            onChangeHandler={formik.handleChange}
+            error={formik.errors.concept}
+            touched={formik.touched.concept}
+            showerror
           />
           <ConditionalButtons
             condition={true}
             label={"Continue"}
-            onClickHandler={(e) => {
-              e.preventDefault();
-              dispatch(updateUser(onboardingForm)).then((res) => {
-                if (res?.data?.resCode === 200) router.push("/specs");
-              });
-            }}
+            type="submit"
           />
-        </div>
-      ) : (
+        </form>
+      )}
+
+      {/* : (
         <div className="mt-[24px] sm:mt-[24px] w-full flex flex-col items-center">
           <InputField
             placeholder="Your Pronouns"
             label="Pronouns"
-            onChangeHandler={handleChange}
-            value={onboardingForm.pronouns}
+            onChangeHandler={formik.handleChange}
+            value={formik.values.pronouns}
             name={"pronouns"}
             type={"text"}
-            errorResponnse={_INITIAL}
+            showerror
+            error={formik.errors.pronouns}
           />
           <SelectWithSearch
             label={"Concept"}
             placeholder={"Your Concept"}
             options={concept}
-            value={onboardingForm.concept}
-            onChangeHandler={handleChange}
+            name={"concept"}
+            value={formik.values.concept}
+            onChangeHandler={formik.values.concept}
           />
           <ConditionalButtons
             condition={true}
             label={"Continue"}
-            onClickHandler={(e) => {
-              e.preventDefault();
-              dispatch(updateUser(onboardingForm)).then((res) => {
-                if (res?.data?.resCode === 200) router.push("/specs");
-              });
-            }}
+            type="submit"
           />
         </div>
-      )}
+      )} */}
     </>
   );
 }

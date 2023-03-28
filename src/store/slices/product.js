@@ -5,7 +5,8 @@ const initialState = {
   productList: [],
   productDetails: {},
   categoryList: [],
-  productsByCategory: []
+  productsByCategory: [],
+  searchoptions: []
 };
 
 export const productSlice = createSlice({
@@ -23,6 +24,9 @@ export const productSlice = createSlice({
     },
     getProductCategoryList: (state, action) => {
       state.productsByCategory = action.payload.data;
+    },
+    searchdata: (state, action) => {
+      state.searchoptions = action.payload
     },
     emptyAll: (state) => {
       state.productList = [],
@@ -79,7 +83,7 @@ export const getCategoryList = (productType) => {
   return async (dispatch, getState) => {
     const state = getState();
     await axiosInstance({
-      url: `/api/get_all_${productType}_category`,
+      url: `/api/${productType}/get_all_${productType}_category_by_type`,
       method: "GET",
     }).then((res) => {
       console.log("response in category,js 47", res);
@@ -234,9 +238,7 @@ export const deleteProductbyIdWithCategory = (productType, productId, categoryId
       // toastify
       dispatch(getProductByCategoryId(productType, categoryId))
       return res
-    }).catch((err) => {
-      console.log(err)
-    });
+    })
   };
 };
 
@@ -249,5 +251,31 @@ export const emptyProductList = (productType) => {
   };
 };
 
+export const getIngredientSearch = (query) => {
+  return async (dispatch, getState) => {
+    const state = getState();
 
+    if (query.label !== "" && query.value === "") {
+      await axiosInstance({
+        url: `/api/search/cocktail_ingredient_type/${query}`,
+        method: "GET",
+      }).then((res) => {
+
+        const finaldata = res?.data?.data?.map((i) => {
+          return {
+            value: i.ingredient_type_id,
+            label: i.ingredient_type_name
+          }
+        })
+
+        dispatch(productSlice.actions.searchdata(finaldata))
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    else
+      dispatch(productSlice.actions.searchdata([]))
+
+  };
+};
 export default productSlice.reducer;

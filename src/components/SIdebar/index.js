@@ -33,7 +33,7 @@ function SideBar({ category, subcategory }) {
                       <svg
                         width="18"
                         height="30"
-                        className=" absolute -top-3 -left-1"
+                        className=" absolute -top-3 -left-0"
                         viewBox="0 0 18 33"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

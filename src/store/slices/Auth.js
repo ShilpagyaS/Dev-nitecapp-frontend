@@ -7,6 +7,7 @@ const initialState = {
   role: null,
   tempUserEmail: null,
   firstTimeLogin: false,
+  isOnbording: false
 };
 
 export const authSlice = createSlice({
@@ -44,6 +45,9 @@ export const login = (data) => {
       url: "/api/user-auth/login",
       method: "POST",
       data,
+    }).catch((error) => {
+      return { error: true, message: error?.response?.data?.message }
+
     });
   };
 };
@@ -74,7 +78,7 @@ export const setLoggedInUser = (data) => {
   };
 };
 
-export const setUserRelogin = (data) => {
+export const setUserRelogin = () => {
   return async (dispatch) => {
     await axiosInstance({
       url: "/api/user-auth/verify-token",
@@ -111,9 +115,13 @@ export const updateUser = (data) => {
       url: "/api/user-auth/update-user",
       method: "PUT",
       data,
-    }).catch((err) => {
-      console.log(err);
-    });
+    }).then(async (res) => {
+      if (res.status == 200)
+        await dispatch(setUserRelogin())
+    })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
@@ -126,7 +134,7 @@ export const getConcept = (data) => {
     })
       .then((res) => {
         if (res.data.resCode === 200) {
-          const concept = res.data.data.rows.map((i) => {
+          const concept = res.data.data.map((i) => {
             return { label: i.name, value: i.id };
           });
           return concept;
