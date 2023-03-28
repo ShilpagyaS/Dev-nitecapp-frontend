@@ -1043,10 +1043,10 @@ export function EditKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                 style={customStyles}
             >
                 <div className="text-white border-none outline-none">
-                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${input1}`}</h4>
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit `}<span className='capitalize'> {`${input1}`}</span></h4>
                 </div>
                 <div className='flex flex-col w-full'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} Value`}</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} value`}</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
 
@@ -1196,18 +1196,6 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
     };
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
-    const [brandForm, setBrandForm] = useState(
-        {
-            email: "",
-            brandname: "",
-            displayname: "",
-            address: "",
-            city: "",
-            state: "",
-            country: "",
-            password: "",
-        }
-    )
     const handleCancel = () => {
         onClickCancel();
         setinput1("");
@@ -1216,10 +1204,8 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
     };
 
     const handleSave = () => {
-        let dummytype = null
-        if (input2 == "") dummytype = 0
-        else dummytype = 1
-        onSave(input1, input2, dummytype)
+
+        onSave(input1, input2)
         onClickCancel();
         setinput1("");
         setinput2("");
@@ -1243,14 +1229,14 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             style={customStyles}
         >
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Brand`}</h4>
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Category`}</h4>
             </div>
             <div className='max-h-[456px]' >
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Name"
-                    onChangeHandler={handleChange}
-                    value={brandForm.email}
+                    onChangeHandler={(e) => { setinput1(e.target.value) }}
+                    value={input1}
                     name={"email"}
                     type={"text"}
                     errorResponnse={_INITIAL}
@@ -1258,8 +1244,89 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                 <UploadBrandLogoInput
                     placeholder=""
                     label="Brand Logo"
-                    onChangeHandler={handleChange}
+                    onChangeHandler={(e) => { setinput2(e.target.value) }}
+                    value={input2}
+                    name={"logo"}
+                    type={"text"}
+                    errorResponnse={_INITIAL} />
+
+
+                <div className='btncontainers flex items-center justify-between mt-[20px] '>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
+                    </div>
+
+                </div>
+            </div>
+        </Modal>
+    )
+}
+export function EditCategory({ isModalOpen, onClickCancel, onSave, inputone, inputtwo, id }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            width: "480px",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+
+        onSave(input1, input2, id)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Edit Category`}</h4>
+            </div>
+            <div className='max-h-[456px]' >
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Name"
+                    onChangeHandler={(e) => { setinput1(e.target.value) }}
                     value={input1}
+                    name={"email"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <UploadBrandLogoInput
+                    placeholder=""
+                    label="Brand Logo"
+                    onChangeHandler={(e) => { setinput2(e.target.value) }}
+                    value={input2}
                     name={"logo"}
                     type={"text"}
                     errorResponnse={_INITIAL} />

@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { list } from 'postcss'
 import React, { useEffect, useState } from 'react'
 import ChipWithLeftButton from './ChipWithLeftButton'
 import { DeleteCircularButton, EditCircularButton } from './CircularButton'
@@ -22,7 +21,8 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
     useEffect(() => {
         if (mockData != []) {
             console.log('mockkkkkkkk', mockData);
-            setListData([...mockData])
+            // setListData([...mockData])
+            sortByDate('option2',[...mockData])
             setMainListData([...mockData])
         }
     }, [mockData])
@@ -41,7 +41,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         const end = start + pageSize;
         return ListData.slice(start, end).map((element, index) => (
             <tr key={index} className='h-[111px]'>
-                <td className='p-[25px]'>{index + 1}</td>
+                <td className='p-[25px] text-white'>{index + 1}</td>
 
                 <OuterRows element={element} />
 
@@ -84,19 +84,19 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
 
         );
     };
-    function sortByDate(value) {
+    function sortByDate(value,dummyList) {
         let sortedItems;
         console.log(value);
         if (value == 'option2') {
 
-            sortedItems = [...ListData].sort((b, a) => {
+            sortedItems = [...dummyList].sort((b, a) => {
                 return new Date(a.createdDate) - new Date(b.createdDate)
             });
             setListData(sortedItems)
         }
         if (value == 'option3') {
 
-            sortedItems = [...ListData].sort((a, b) => {
+            sortedItems = [...dummyList].sort((a, b) => {
                 return new Date(a.createdDate) - new Date(b.createdDate)
             });
             setListData(sortedItems)
@@ -127,7 +127,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                     <div className='flex pr-[38px] '>
                         <div className='mr-[20px]'>
 
-                            <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value) }} />
+                            <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value,ListData) }} defaultSelect={items[1]} />
                         </div>
 
                         <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />

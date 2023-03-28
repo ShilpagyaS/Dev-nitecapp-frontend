@@ -1,9 +1,13 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function CustomSelect({ items, optionalFunction }) {
+export default function CustomSelect({ items, optionalFunction, defaultSelect }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  useEffect(() => {
+    if (defaultSelect)
+    handleSelectItem(defaultSelect)
+  }, [])
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);

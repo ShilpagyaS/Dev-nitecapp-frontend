@@ -98,6 +98,25 @@ export const getCategoryList = (productType) => {
     });
   };
 };
+export const getCategoryListByType = (productType) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    await axiosInstance({
+      url: `/api/${productType}/get_all_${productType}_category_by_type`,
+      method: "GET",
+    }).then((res) => {
+      console.log("response in category,js 47", res);
+      dispatch(
+        productSlice.actions.getCategoryList({
+          data: res?.data?.data,
+          type: productType,
+        })
+      );
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 
 export const getProductByCategoryId = (productType, id) => {
   return async (dispatch, getState) => {
@@ -160,6 +179,35 @@ export const createProduct = (productType, data) => {
     }).then((res) => {
       // toastify
       return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const createCategory = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/drink_category/add_new_drink_category`,
+      method: "POST",
+      data
+    }).then((res) => {
+      dispatch(getCategoryListByType(productType))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const putCategory = (productType, productId, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/drink_category/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getCategoryListByType(productType))
     }).catch((err) => {
       console.log(err)
     });

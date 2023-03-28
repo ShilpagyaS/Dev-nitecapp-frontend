@@ -17,16 +17,16 @@ function EmptyUSerLayout() {
     const [newMockData, setNewMockData] = useState({
         ingredients: {
             values: [],
-            isActive: false
+            // isActive: false
         },
         methods: {
             values: [],
-            isActive: false
+            // isActive: false
 
         },
         presentation: {
             values: [],
-            isActive: false
+            // isActive: false
 
         }
     });
@@ -176,16 +176,16 @@ function EmptyUSerLayout() {
         setNewMockData({
             ingredients: {
                 values: [],
-                isActive: false
+                // isActive: false
             },
             methods: {
                 values: [],
-                isActive: false
+                // isActive: false
 
             },
             presentation: {
                 values: [],
-                isActive: false
+                // isActive: false
 
             }
         });

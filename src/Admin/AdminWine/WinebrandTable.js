@@ -57,7 +57,7 @@ function WinebrandTable({ productId, subcategory }) {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
                     >
                         <Image src={'/asset/blue-moon.svg'}
                             alt="image"
@@ -68,7 +68,7 @@ function WinebrandTable({ productId, subcategory }) {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
+                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
                             {element.itemName}
                         </p>
                     </div>
@@ -85,7 +85,7 @@ function WinebrandTable({ productId, subcategory }) {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
+                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
                             {element.popularity}
                         </p>
                     </div>

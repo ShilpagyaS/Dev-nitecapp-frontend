@@ -189,8 +189,8 @@ function EditById({ productId, subcategory }) {
     function whatsthestrength(Nabv) {
         let abv = parseFloat(Nabv)
         console.log(abv);
-        if (abv > 15) return 'High'
-        if (abv > 8 && abv < 15) return 'Medium'
+        if (abv >= 15) return 'High'
+        if (abv >= 8 && abv < 15) return 'Medium'
         if (abv > 0 && abv < 8) return 'Low'
         if (abv == 0) return 'No alcohol'
         return '  '
@@ -323,7 +323,7 @@ function EditById({ productId, subcategory }) {
                             </div>
                             <div className="method-details-container">
 
-                                <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                                <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                     onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
                                     <SplitCard desc={"Strength"} quantity={`${newMockData.abv}%`} />

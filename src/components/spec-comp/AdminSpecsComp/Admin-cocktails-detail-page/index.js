@@ -90,15 +90,15 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   useEffect(() => {
     setabv(productDetails.abv)
     setNewMockData({
-      ingredients: productDetails.ingredients || {
+      ingredients: (productDetails.ingredients?.length && productDetails.ingredients) || {
         values: [],
         isActive: true
       },
-      methods: productDetails.methods || {
+      methods: (productDetails.methods?.length && productDetails.methods) || {
         values: [],
         isActive: true
       },
-      presentation: productDetails.presentation || {
+      presentation: (productDetails.presentation?.length && productDetails.presentation) || {
         values: [],
         isActive: true
       },
@@ -213,8 +213,8 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   function whatsthestrength(Nabv) {
     let abv = parseFloat(Nabv)
     console.log(abv);
-    if (abv > 15) return 'High'
-    if (abv > 8 && abv < 15) return 'Medium'
+    if (abv >= 15) return 'High'
+    if (abv >= 8 && abv < 15) return 'Medium'
     if (abv > 0 && abv < 8) return 'Low'
     if (abv == 0) return 'No alcohol'
     return '  '
@@ -233,7 +233,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           [`${subcategory}_name`]: nameref.current.innerText,
           description: textAreaRef.current.value,
           abv: abv,
-          ingridients: newMockData.ingredients,
+          ingredients: newMockData.ingredients,
           presentation: newMockData.presentation,
           methods: newMockData.methods,
         }
