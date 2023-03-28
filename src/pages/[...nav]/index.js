@@ -80,7 +80,7 @@ export default function Category() {
       </Head>
 
 
-      <AuthWrapper> 
+      <AuthWrapper>
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "/specs" && <SpecComp />}
@@ -116,7 +116,7 @@ export default function Category() {
             {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
             {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
 
 
             {path === "/specs/beer" && <BeerSeltzer />}
@@ -202,14 +202,14 @@ export default function Category() {
         )}
 
 
-        <SelectWithDebounce
+        {/* <SelectWithDebounce
           label={"search"}
           placeholder={"search here"}
           functiondata={() => dispatch(getIngredientSearch(testvalue))}
           value={testvalue}
           searchoptions={searchoptions}
           onChangeHandler={settestvalue}
-        />
+        /> */}
       </AuthWrapper>
 
 

@@ -80,7 +80,7 @@ export function LongButton({ onClickHandler, label }) {
   );
 }
 
-export function ConditionalButtons({ onClickHandler, condition, label }) {
+export function ConditionalButtons({ condition, label, ...rest }) {
   return (
     <div className="pt-[26px]">
       <button
@@ -89,7 +89,8 @@ export function ConditionalButtons({ onClickHandler, condition, label }) {
             ? "hover:bg-[#ee854d]"
             : "disabled:hover:bg-[#ee854d] cursor-no-drop "
           } text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]`}
-        onClick={onClickHandler}
+
+        {...rest}
       >
         {label}
       </button>

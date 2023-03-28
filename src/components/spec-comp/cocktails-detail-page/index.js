@@ -96,68 +96,72 @@ const CocktailDetailPage = ({ id }) => {
           </p>
         </div>
       </div>
-      <div className="ingridients-container mb-[16px] ">
+      {productDetails?.ingredients?.values?.length > 0 && <div className="ingridients-container mb-[16px] ">
         <div className="sub-heading-container  mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
             Ingredients
           </h4>
         </div>
         <div className="ingridient-details-container">
-          {ingridients.map((ingridient, i) => {
+          {productDetails?.ingredients.values.map((ingridient, i) => {
             return (
               <>
                 <div className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
-                  <p className=" bg-transparent ">{ingridient.name}</p>
-                  <p className=" bg-transparent ">{ingridient.quantity}</p>
+                  <p className=" bg-transparent ">{ingridient.ingredient_name}</p>
+                  <p className=" bg-transparent ">{`${ingridient.measure_name} ${ingridient.quantity_name}`}</p>
                 </div>
               </>
             );
           })}
         </div>
-      </div>
-      <div className="presentation-container  mb-[16px]">
-        <div className="sub-heading-container mb-[21px]">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
-            Presentation
-          </h4>
+      </div>}
+      {productDetails?.presentations?.values?.length > 0 &&
+        <div className="presentation-container  mb-[16px]">
+          <div className="sub-heading-container mb-[21px]">
+            <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
+              Presentation
+            </h4>
+          </div>
+          <div className="presentation-details-container">
+            {productDetails?.presentations?.values.map((presentation, i) => {
+              return (
+                <>
+                  <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
+                    <p className=" bg-transparent ">{presentation.step}</p>
+                    <p className=" bg-transparent ">
+                      {presentation.detail}
+                    </p>
+                  </div>
+                </>
+              );
+            })}
+          </div>
         </div>
-        <div className="presentation-details-container">
-          {presentation.map((presentation, i) => {
-            return (
-              <>
-                <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
-                  <p className=" bg-transparent ">{presentation.name}</p>
-                  <p className=" bg-transparent ">
-                    {presentation.presentation}
-                  </p>
-                </div>
-              </>
-            );
-          })}
+      }
+      {productDetails?.methods?.values?.length > 0 &&
+        <div className="method-container mb-[32px]">
+          <div className="sub-heading-container flex justify-between items-center mb-[21px]">
+            <h4 className="text-white text-[20px] leading-[32px] font-semibold">
+              Method
+            </h4>
+            <OrangeButtons label="Video" noPadding={true} />
+          </div>
+          <div className="method-details-container">
+            {productDetails?.methods?.values?.map((method, i) => {
+              return (
+                <>
+                  <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+                    <p className=" bg-transparent ">
+                      <span className="mr-6 bg-transparent">{i + 1}.</span>
+                      {method.method_name}`
+                    </p>
+                  </div>
+                </>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className="method-container mb-[32px]">
-        <div className="sub-heading-container flex justify-between items-center mb-[21px]">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold">
-            Method
-          </h4>
-          <OrangeButtons label="Video" noPadding={true} />
-        </div>
-        <div className="method-details-container">
-          {method.map((method, i) => {
-            return (
-              <>
-                <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-                  <p className=" bg-transparent ">
-                    <span className="mr-6 bg-transparent">{i + 1}</span>
-                    {method.method}
-                  </p>
-                </div>
-              </>
-            );
-          })}
-        </div>
-      </div>
+      }
       <div className="lessons-container mb-[32px]">
         <div className="sub-heading-container mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold">

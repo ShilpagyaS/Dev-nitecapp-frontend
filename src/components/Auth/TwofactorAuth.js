@@ -69,7 +69,7 @@ function TwofactorAuth({ authHandler }) {
         <ConditionalButtons
           condition={tfaCondition}
           label={"Sign in"}
-          onClickHandler={handleButton}
+          onClick={handleButton}
         />
       </div>
     </>

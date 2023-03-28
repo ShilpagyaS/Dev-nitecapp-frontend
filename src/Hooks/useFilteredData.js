@@ -27,9 +27,9 @@ const useFilteredData = (productList, typechecking, defauttype, findname) => {
     setfiltereddata(temp);
   };
 
-  useEffect(() => {
-    filtereddata();
-  }, [productList]);
+  // useEffect(() => {
+  //   filtereddata();
+  // }, [productList]);
 
   return filtereddataList;
 };

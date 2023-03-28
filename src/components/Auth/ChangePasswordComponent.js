@@ -54,7 +54,7 @@ function ChangePasswordComponent({ confirmationfunction }) {
       setcondition(true);
     } else setcondition(false);
   }, [errors]);
-  useEffect(() => {}, [conditions]);
+  useEffect(() => { }, [conditions]);
   useEffect(() => {
     validatePassword();
   }, [password]);
@@ -131,11 +131,11 @@ function ChangePasswordComponent({ confirmationfunction }) {
     const { name, value } = e.target;
     console.log(
       name == "newPassword" &&
-        (errors.passwordLength != true ||
-          errors.uppercase != true ||
-          errors.lowercase != true ||
-          errors.special != true ||
-          errors.number != true)
+      (errors.passwordLength != true ||
+        errors.uppercase != true ||
+        errors.lowercase != true ||
+        errors.special != true ||
+        errors.number != true)
     );
 
     setUserInput((prev) => {
@@ -178,7 +178,7 @@ function ChangePasswordComponent({ confirmationfunction }) {
         <Bullets messageArray={conditions} />
         <ConditionalButtons
           condition={condition}
-          onClickHandler={onClick}
+          onClick={onClick}
           label={"Continue"}
         />
       </div>

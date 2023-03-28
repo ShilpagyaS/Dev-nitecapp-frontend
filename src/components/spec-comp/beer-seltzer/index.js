@@ -23,7 +23,12 @@ function BeerSeltzer() {
     }
   }, [])
   const { productList } = useSelector((state) => state.product)
-  const filtereddataList = useFilteredData(productList, true, "beer", "category")
+  // const filtereddataList = useFilteredData(productList.map((i) => {
+  //   return {
+  //     ...i,
+  //     category: i?.category?.drink_category_name || ""
+  //   }
+  // }), true, "beer", "category")
   return (
     <>
       <div className="coctail-container">
@@ -68,28 +73,26 @@ function BeerSeltzer() {
             />
           </div>
         )}
-        {filtereddataList.map((d, inx) => {
-          return <div className="bottle-cards-container mb-8" key={inx}>
-            <p className="text-white text-[20px] font-semibold mb-5">{d.type}</p>
-            <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-              {d.data.map((card, i) => {
-                return (
-                  <div className=" col-span-1 ">
-                    <Link href={`specs/beer?id=${card.beer_id}`}>
-                      <RectangularCard
-                        title={card?.beer_name}
-                        image={"/asset/blue-moon.svg"}
-                        subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
-                      />
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        })
 
-        }
+        <div className="bottle-cards-container mb-8" >
+          <p className="text-white text-[20px] font-semibold mb-5 capitalize">Beer</p>
+          <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+            {productList?.map((card, i) => {
+              return (
+                <div className=" col-span-1 ">
+                  <Link href={`specs/beer?id=${card.beer_id}`}>
+                    <RectangularCard
+                      title={card?.beer_name}
+                      image={"/asset/blue-moon.svg"}
+                      subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
+                    />
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
 
 
         {/* <div className="can-cards-container">
