@@ -41,7 +41,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         const end = start + pageSize;
         return ListData.slice(start, end).map((element, index) => (
             <tr key={index} className='h-[111px]'>
-                <td className='p-[25px]'>{index + 1}</td>
+                <td className='p-[25px] text-white'>{index + 1}</td>
 
                 <OuterRows element={element} />
 

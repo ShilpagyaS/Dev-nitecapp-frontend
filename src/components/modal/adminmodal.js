@@ -1310,7 +1310,7 @@ export function EditCategory({ isModalOpen, onClickCancel, onSave, inputone, inp
             style={customStyles}
         >
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Category`}</h4>
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Edit Category`}</h4>
             </div>
             <div className='max-h-[456px]' >
                 <InputFieldWirhAutoWidth

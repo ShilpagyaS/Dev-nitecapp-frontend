@@ -45,7 +45,7 @@ function WineTable() {
 
     }, [categoryList])
 
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Action"]
+    const HeaderArray = ["Category Image", "Category Name", "Show / Hide", "Action"]
     function OuterRows({ element }) {
 
         return (
@@ -60,10 +60,10 @@ function WineTable() {
                     </div>
                 </td>
                 <td >
-                    <div className='flex flex-row items-center justify-center p-1'>
+                    <div className='flex flex-row items-center justify-center p-1 '>
                         <Link href={`/specs/wine/${element.itemName}?id=${element.id}`} >
 
-                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
+                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c]'>
                                 {element.itemName}
                             </p>
                         </Link>
@@ -137,7 +137,7 @@ function WineTable() {
                     onSave={(name, logo, id) => { onEdit(name, logo, id) }}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { setAdd(true); console.log('ri');  }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD CATEGORY'} buttonFunction={() => { setAdd(true); console.log('ri');  }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
 
         </>
     )

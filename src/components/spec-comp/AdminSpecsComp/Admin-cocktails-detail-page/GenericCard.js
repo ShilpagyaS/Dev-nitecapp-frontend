@@ -94,8 +94,8 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                 <EditNewModal
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
-                    inputone={title == 'ingredients' ? editItem.name : editItem.step}
-                    inputtwo={title == 'ingredients' ? editItem.quantity : editItem.detail}
+                    inputone={title == 'presentation' ? editItem.step : editItem.name}
+                    inputtwo={title == 'presentation' ? editItem.detail : editItem.quantity}
                     onSave={editValues}
                     title={title}
                     index={editItem.index}
