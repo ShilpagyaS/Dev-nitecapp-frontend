@@ -116,7 +116,7 @@ export default function Category() {
             {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
             {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
+            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
 
 
             {path === "/specs/beer" && <BeerSeltzer />}

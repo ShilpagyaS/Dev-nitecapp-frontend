@@ -68,7 +68,7 @@ export const getBrandsByCategory = (productType, id) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/get_brand_by_id_category/${id}`,
+            url: `/api/${productType}/get_brand_by_category_id/${id}`,
             method: "GET",
         }).then((res) => {
             dispatch(
