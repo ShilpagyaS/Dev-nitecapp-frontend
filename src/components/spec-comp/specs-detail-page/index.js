@@ -11,25 +11,23 @@ import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById } from "@/store/slices/product";
 import { whatsthestrength } from "@/utils/abvfinder";
+import { addNoteDetails, emptyNotesList, getNoteDetails, updateNoteDetails } from "@/store/slices/notes";
 
 const SpecsDetailPage = ({ id, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
-  const isTablet = useMediaQuery("(max-width: 786px)");
-  const ingridients = DetailsMock.ingridients;
-  const presentation = DetailsMock.presentation;
-  const method = DetailsMock.method;
-  const lesson = DetailsMock.lesson;
-  const notes = DetailsMock.notes;
 
 
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProductById(subcategory, id))
+    dispatch(getNoteDetails(subcategory, id))
     return () => {
       dispatch(emptyProductList())
+      dispatch(emptyNotesList())
     }
   }, [])
   const { productDetails } = useSelector((state) => state.product)
+  const { noteDetails } = useSelector((state) => state.notes)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -54,13 +52,22 @@ const SpecsDetailPage = ({ id, subcategory }) => {
     <div className="detail-page-container">
       <NotesModal
         title="New Notes"
-        desc="This is my Note: |"
+        desc="Enter Note here: |"
         isModalOpen={isAddModalOpen}
+        onSave={(note) => {
+          dispatch(addNoteDetails(subcategory, id, note))
+          handleCloseModal()
+        }}
         onClickCancel={handleCloseModal}
       />
       <NotesModal
         title="Edit Notes"
-        desc={productDetails.user_notes}
+        defaultvalue={noteDetails?.user_notes || ""}
+        //desc={productDetails.user_notes}
+        onSave={(note) => {
+          dispatch(updateNoteDetails(subcategory, id, note, noteDetails?.[`${subcategory}_notes_id`]))
+          handleCloseModal()
+        }}
         deleteBtn={true}
         isModalOpen={isEditModalOpen}
         onClickCancel={handleCloseModal}
@@ -118,23 +125,20 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           <h4 className="text-white text-[20px] leading-[32px] font-semibold">
             Notes
           </h4>
-          {(!productDetails.user_notes || productDetails.user_notes === "") && <OrangeButtons
+          {(!noteDetails?.user_notes || noteDetails?.user_notes === "") && <OrangeButtons
             onClickHandler={handleAddModalOpen}
             label="Add Notes"
             noPadding={true}
           />}
         </div>
-        {(productDetails.user_notes && productDetails.user_notes !== "") &&
+        {(noteDetails?.user_notes && noteDetails?.user_notes !== "") &&
           <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-            <p className=" bg-transparent mr-24px">{productDetails.user_notes
-            }</p>
+            <p className=" bg-transparent mr-24px">{noteDetails?.user_notes || ""}</p>
 
-            <CustomButton
-              onClickHandler={handleEditModalOpen}
-              label="Edit"
-              color="#F19B6C"
-              noPadding={true}
-            />
+            <button
+              onClick={handleEditModalOpen}
+              className="hover:text-[#F19B6C] font-bold"
+            >Edit</button>
           </div>
         }
       </div>

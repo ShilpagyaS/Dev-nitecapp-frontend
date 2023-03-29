@@ -10,6 +10,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 import { OrangeButtons } from "@/utils/Buttons";
+import { enUrl } from "@/utils/encoderfunc";
 
 function Spirits({ id, categoryName }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -48,7 +49,7 @@ function Spirits({ id, categoryName }) {
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {categoryName}
           </h2>
-          <Link href={`/specs/spirit/${categoryName}/brands/list?id=${id}`} >
+          <Link href={`/specs/spirit/${enUrl(categoryName)}/brands/list?id=${id}`} >
             <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>
@@ -70,7 +71,7 @@ function Spirits({ id, categoryName }) {
           {productsByCategory?.map((card, inx) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`specs/spirit/${categoryName.replace('/', ' ')}/${card.spirit_name.replace('/', " ")}/?id=${card.spirit_id}`}>
+                <Link href={`specs/spirit/${enUrl(categoryName)}/${enUrl(card.spirit_name)}/?id=${card.spirit_id}`}>
                   <RectangularCard
                     title={card.spirit_name}
                     image={card.image}

@@ -26,7 +26,7 @@ function Signin() {
   const [step, setstep] = useState(1);
   useEffect(() => {
     if (user?.first_time_login) {
-      setstep(5)
+      setstep(3)
     }
     else setstep(1)
   }, [user])
@@ -62,7 +62,7 @@ function Signin() {
     },
 
   })
-
+  const [opterror, setotperror] = useState()
   return (
     <>
       <AuthWrapper>
@@ -112,6 +112,8 @@ function Signin() {
 
           {step === 2 && (
             <TwofactorAuth
+              opterror={opterror}
+              setotperror={setotperror}
               authHandler={async (code) => {
                 await dispatch(verifyOTP(code)).then((res) => {
                   if (res?.status === 200) {
@@ -120,6 +122,11 @@ function Signin() {
                       setstep(3);
                     } else {
                       router.push("/specs");
+                    }
+                  } else {
+
+                    if (res.error) {
+                      setotperror(res.message)
                     }
                   }
                 });

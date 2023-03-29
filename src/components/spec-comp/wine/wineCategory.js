@@ -7,7 +7,7 @@ import { emptyProductList, getCategoryList, getProduct } from "@/store/slices/pr
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
-import useNavDetails from "@/Hooks/useNavDetails";
+
 
 function WineCategory() {
     const dispatch = useDispatch();
@@ -62,7 +62,7 @@ function WineCategory() {
                     {categoryList?.map((card, inx) => {
                         return (
                             <div className=" col-span-1 " key={inx}>
-                                <Link href={`specs/wine/${card.drink_category_name.replace("/", ' ')}?id=${card.drink_category_id}`}>
+                                <Link href={`specs/wine/${enUrl(card.drink_category_name)}?id=${card.drink_category_id}`}>
                                     <RectangularCard
                                         title={card.drink_category_name}
                                         image={'/asset/vodka.svg'}
