@@ -9,6 +9,7 @@ import { emptyProductList, getCategoryList, getProduct } from "@/store/slices/pr
 import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
+import { enUrl } from "@/utils/encoderfunc";
 
 function SpiritsCategory() {
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -66,7 +67,7 @@ function SpiritsCategory() {
                     {categoryList?.map((card, inx) => {
                         return (
                             <div className=" col-span-1 ">
-                                <Link href={`specs/spirit/${card.drink_category_name.replace("/", ' ')}?id=${card.drink_category_id}`}>
+                                <Link href={`specs/spirit/${enUrl(card.drink_category_name)}?id=${card.drink_category_id}`}>
                                     <RectangularCard
                                         title={card.drink_category_name}
                                         image={'/asset/vodka.svg'}

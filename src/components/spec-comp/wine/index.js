@@ -10,6 +10,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { OrangeButtons } from "@/utils/Buttons";
+import { enUrl } from "@/utils/encoderfunc";
 
 function Wine({ id, categoryName }) {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function Wine({ id, categoryName }) {
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {categoryName}
           </h2>
-          <Link href={`/specs/wine/${categoryName}/brands/list?id=${id}`} >
+          <Link href={`/specs/wine/${enUrl(categoryName)}/brands/list?id=${id}`} >
             <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>
@@ -69,7 +70,7 @@ function Wine({ id, categoryName }) {
           {productsByCategory?.map((card, inx) => {
             return (
               <div className=" col-span-1 " key={inx}>
-                <Link href={`specs/wine/${categoryName.replace('/', ' ')}/${card.wine_name.replace('/', " ")}/?id=${card.wine_id}`}>
+                <Link href={`specs/wine/${enUrl(categoryName)}/${enUrl(card.wine_name)}/?id=${card.wine_id}`}>
                   <RectangularCard
                     title={card.wine_name}
                     image={card.image}

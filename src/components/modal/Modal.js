@@ -1,9 +1,8 @@
 import {
-  ConditionalButtons,
-  OrangeButtons,
   CustomButton,
 } from "@/utils/Buttons";
-import React, { useState } from "react";
+import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 
 const NotesModal = ({
@@ -13,6 +12,7 @@ const NotesModal = ({
   deleteBtn,
   title,
   desc,
+  defaultvalue
 }) => {
   const customStyles = {
     content: {
@@ -32,11 +32,14 @@ const NotesModal = ({
       backdropFilter: "blur(2.5px)",
     },
   };
+  const textAreaRef = useRef()
+  const [isSAve, setSaved] = useState(false)
+
 
   const handleCancel = () => {
     onClickCancel();
   };
-  const [state, setstate] = useState(desc)
+
   return (
     <Modal
       isOpen={isModalOpen}
@@ -46,7 +49,10 @@ const NotesModal = ({
     >
       <div className="text-white border-none outline-none">
         <h4 className="text-[24px] leading-9 font-semibold mb-4">{title}</h4>
-        <p className="text-[18px] leading-[27px] mb-10" contentEditable>{desc}</p>
+        <DescriptionTextArea
+          textAreaRef={textAreaRef}
+          infiniteHeight
+          isEdit={true} content={defaultvalue || ""} isSAve={isSAve} />
         <div
           className={`button-container flex ${deleteBtn ? "justify-between" : "justify-end"
             }`}
@@ -54,15 +60,19 @@ const NotesModal = ({
           {deleteBtn && (
             <CustomButton background="#929292" color="white" label="Delete" />
           )}
-          <div className="flex">
-            <div className="mr-6">
-              <CustomButton
-                color="#F19B6C"
-                label="Cancel"
-                onClickHandler={handleCancel}
-              />
-            </div>
-            <CustomButton background="#F19B6C" color="#fff" label="Save" />
+          <div className="flex items-center">
+
+            <CustomButton
+              color="#F19B6C"
+              label="Cancel"
+              className="mr-6"
+
+              onClickHandler={handleCancel}
+            />
+
+            <CustomButton background="#F19B6C" color="#fff" label="Save"
+              onClick={() => onSave(textAreaRef.current.value)}
+            />
           </div>
         </div>
       </div>

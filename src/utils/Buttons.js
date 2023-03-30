@@ -22,16 +22,19 @@ export function CustomButton({
   rounded,
   hover,
   icon,
+  className,
+  ...rest
 }) {
   return (
     <button
-      className={` h-fit
+      className={` h-fit p-3
      ${background ? `py-[8px] px-[32px] bg-[${background}]` : `bg-transparent`}
-      h-[54px] rounded-[27px] ${hover && `hover:bg-[#ee854d]`
-        } hover:text-white text-black
-      ${color && `text-[${color}]`}
-      gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px] flex items-center justify-center`}
+      h-[54px] rounded-[10px] ${hover && `hover:bg-[#ee854d]`
+        } hover:text-white 
+      ${`text-[${color || "black"}]`}
+      gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px] flex items-center justify-center ${className}`}
       onClick={onClickHandler}
+      {...rest}
     >
       {icon} {label}
     </button>

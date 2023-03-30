@@ -4,7 +4,7 @@ import { _ERROR, _INITIAL } from "@/utils/Constants";
 import InputField from "@/utils/InputField";
 import React, { useEffect, useState } from "react";
 
-function TwofactorAuth({ authHandler }) {
+function TwofactorAuth({ authHandler, opterror, setotperror }) {
   const [tfaCondition, setTfaCondtion] = useState(false);
 
   const [tfaCode, setTfa] = useState("");
@@ -25,29 +25,6 @@ function TwofactorAuth({ authHandler }) {
   function handleButton(params) {
     if (tfaCode.length > 4) {
       authHandler(tfaCode);
-      // if (  message.length < 2) {
-      //     let dummyArray;
-      //     [...dummyArray] = [...message, { message: 'Your Authentication code is invalid', response: _ERROR }]
-      //     console.log(dummyArray);
-      //     setMessage(() => [...dummyArray])
-      // }
-
-      // if ( message.length < 1) {
-
-      //     let dummyArray;
-      //     [...dummyArray] = [...message]
-      //     dummyArray.pop()
-      //     console.log(dummyArray);
-      //     setMessage(() => [...dummyArray])
-      //     authHandler()
-      // }
-      // if (tfaCode == '123QWE') {
-      //     let dummyArray;
-      //     [...dummyArray] = [...message]
-      //     console.log(dummyArray);
-      //     setMessage(() => [...dummyArray])
-      //     authHandler()
-      // }
     }
   }
 
@@ -59,11 +36,14 @@ function TwofactorAuth({ authHandler }) {
           label="2-Factor Authentication Code"
           onChangeHandler={(e) => {
             setTfa(e.target.value);
+            setotperror(null)
           }}
           value={tfaCode}
           name={"tfa"}
           type={"text"}
-          errorResponnse={message.length > 1 ? _ERROR : _INITIAL}
+          error={opterror}
+          showerror
+          touched={opterror}
         />
         <Bullets messageArray={message} />
         <ConditionalButtons

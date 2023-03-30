@@ -60,6 +60,9 @@ import SelectWithDebounce from "@/utils/DebounceSelect";
 import InputNumber from "@/utils/InputNumber";
 import AddBrandDetailPage from "@/Admin/Drink Brand Section/AddBrandDetailPage";
 
+import { enUrl } from "@/utils/encoderfunc";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -95,23 +98,21 @@ export default function Category() {
               <Ingridients productType={"cocktail"} />
             )}
             {path ===
-              `/specs/spirit/${encodeURIComponent(
-                subcategory2
-              )}/${encodeURIComponent(subcategory3)}?id=${productId}` && (
+              `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && (
                 <SpecsDetailPage id={productId} subcategory={"spirit"} />
               )}
 
-            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/spirit/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
 
             {path === "/specs/wine" && <WineCategory />}
 
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
 
 
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
 
 
             {path === "/specs/beer" && <BeerSeltzer />}
@@ -164,16 +165,16 @@ export default function Category() {
             {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
             {path === `/specs/spirit` && <AdminSpirit />}
-            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
-            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
-            {path === `/specs/spirit/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
+            {path === `/specs/spirit/${enUrl(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
+            {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
 
             {path === `/specs/wine` && <AdminWine />}
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
-            {path === `/specs/wine/${encodeURIComponent(subcategory2)}/${encodeURIComponent(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
 
-
+            {console.log("sdasdsad", path, `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}`)}
 
 
             {path === `/specs/low_no_abv` && <AdminLowAbv />}

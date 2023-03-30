@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-export const baseurl = "https://server.nitecapp.io"
-//"https://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
+export const baseurl = //"https://server.nitecapp.io"
+  "http://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
 
 
 //routes declairation
@@ -31,7 +31,8 @@ axiosInstance.interceptors.response.use(
     return config;
   },
   (error) => {
-    return Promise.reject(error);
+    console.log(error)
+    return { error: true, message: error?.response?.data?.message || "Something Went Wrong" }
 
   }
 );

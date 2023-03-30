@@ -6,6 +6,7 @@ import ingredients from './slices/ingredients'
 import brands from './slices/brands'
 import allproducts from "./slices/allproducts";
 import superAdmin from "./slices/superAdmin";
+import notes from "./slices/notes";
 export const store = configureStore({
   reducer: {
     auth,
@@ -13,8 +14,8 @@ export const store = configureStore({
     ingredients,
     brands,
     allproducts,
-    superAdmin
-
+    superAdmin,
+    notes
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),
