@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList } from '@/store/slices/product'
+import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
@@ -34,7 +34,7 @@ function CocktailTable() {
                     id: element.cocktail_id,
                     itemImage: '',
                     itemName: element.cocktail_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -48,8 +48,8 @@ function CocktailTable() {
     }, [productList])
 
     function toggleSwitch(e, element) {
-        let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList('cocktail', element.id, data))
+        let data = { cocktail_id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProduct('cocktail', data))
     }
     const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
     function OuterRows({ element }) {
@@ -75,9 +75,8 @@ function CocktailTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
-
+                        {console.log(element.showHideStatus)}
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            console.log(e);
                             toggleSwitch(e, element)
                         }} />
                     </div>

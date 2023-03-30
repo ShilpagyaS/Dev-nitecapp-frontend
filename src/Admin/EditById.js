@@ -270,7 +270,7 @@ function EditById({ productId, subcategory }) {
                             <div
                                 className={`w-full flex items-center ${isMobile && "justify-around"
                                     }`}
-                            >
+                             >
                                 <h3 className="title text-[24px] font-bold mr-[16px]" >
 
                                     <EditCard editContent={productDetails?.[`${subcategory}_name`]} isEdit={isEdit} divref={nameref} />
@@ -313,7 +313,7 @@ function EditById({ productId, subcategory }) {
 
                                 }}
                                     // onDeleteClick={() => { setIsDeleteModalOpen(true) }}
-                                    customize={{ add: false, switch: true }}
+                                    customize={{ add: false, switch: false }}
                                     // isActive={localIsActive}
                                     setActive={() => { }}
 

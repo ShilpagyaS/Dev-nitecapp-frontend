@@ -19,9 +19,6 @@ const useNavDetails = () => {
             navDetails = { ...navDetails, [`subcategory`.concat(`${i}`)]: category.replace("/", " ") };
         }
     });
-
-
-    console.log("navDetaisl===================>",)
     return navDetails;
 };
 

@@ -185,7 +185,7 @@ function AddSpirit({ subcategory, productId }) {
 
                             }}
                                 // onDeleteClick={() => { setIsDeleteModalOpen(true) }}
-                                customize={{ add: false, switch: true }}
+                                customize={{ add: false, switch: false }}
                                 // isActive={localIsActive}
                                 setActive={() => { }}
 

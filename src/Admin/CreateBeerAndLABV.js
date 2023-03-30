@@ -184,7 +184,7 @@ function CreateBeerAndLABV({ subcategory }) {
 
                             }}
                                 // onDeleteClick={() => { setIsDeleteModalOpen(true) }}
-                                customize={{ add: false, switch: true }}
+                                customize={{ add: false, switch: false }}
                                 // isActive={localIsActive}
                                 setActive={() => { }}
 
