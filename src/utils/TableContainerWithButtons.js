@@ -52,9 +52,9 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
         return <>
-            <th className='bg-[#171717] w-[54px] not-italic font-normal text-base leading-6 text-gray-600 font-Inter'>#</th>
+            <th className='bg-[#171717] w-[54px] not-italic font-normal text-base leading-6 text-[#959595] font-Inter'>#</th>
             {HeaderArray?.map((element, index) => (
-                <th className='bg-[#171717] not-italic font-normal text-base leading-6 text-gray-600 font-Inter'>{element}</th>
+                <th className='bg-[#171717] not-italic font-normal text-base leading-6 text-[#959595] font-Inter'>{element}</th>
             )
             )
             }

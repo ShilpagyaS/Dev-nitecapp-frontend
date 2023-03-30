@@ -57,7 +57,11 @@ import AdminExploreBrands from "@/Admin/AdminBrands";
 import BrandsByCategory from "@/components/spec-comp/brands/BrandByCategory";
 import { getAllProduct } from "@/store/slices/allproducts";
 import SelectWithDebounce from "@/utils/DebounceSelect";
+import InputNumber from "@/utils/InputNumber";
+import AddBrandDetailPage from "@/Admin/Drink Brand Section/AddBrandDetailPage";
+
 import { enUrl } from "@/utils/encoderfunc";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -156,6 +160,7 @@ export default function Category() {
             {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
             {path === `/specs/beer/brands` && <AdminBrandsBeer />}
             {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
+            {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
 
             {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
@@ -205,9 +210,10 @@ export default function Category() {
           placeholder={"search here"}
           functiondata={() => dispatch(getIngredientSearch(testvalue))}
           value={testvalue}
-          searchoptions={searchoptions}
+          // searchoptions={searchoptions}
           onChangeHandler={settestvalue}
         /> */}
+        {/* <InputNumber /> */}
       </AuthWrapper>
 
 

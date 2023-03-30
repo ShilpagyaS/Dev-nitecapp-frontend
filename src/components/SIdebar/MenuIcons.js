@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 export function MenuIcon(menuOption, active) {
-  console.log("=====================active====================", active);
   const menuObj = {
     Dashboard: (
       <svg

@@ -169,6 +169,21 @@ export const putProductByIdThenUpdateList = (productType, productId, data) => {
     });
   };
 };
+export const putProductByIdThenUpdateListShowProduct = (productType, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/${productType}/show_product/update_by_${productType}_id`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProduct(productType))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const createProduct = (productType, data) => {
   return async (dispatch) => {
 
@@ -256,8 +271,8 @@ export const getIngredientSearch = (query) => {
     const state = getState();
 
     if (query.label !== "" && query.value === "") {
-      await axiosInstance({
-        url: `/api/search/cocktail_ingredient_type/${query}`,
+      return await axiosInstance({
+        url: `/api/cocktail_ingredient_type/search/${query.label}`,
         method: "GET",
       }).then((res) => {
 
@@ -269,6 +284,7 @@ export const getIngredientSearch = (query) => {
         })
 
         dispatch(productSlice.actions.searchdata(finaldata))
+        return finaldata
       }).catch((err) => {
         console.log(err)
       });

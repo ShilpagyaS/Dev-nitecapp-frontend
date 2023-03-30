@@ -1,15 +1,6 @@
-import Breadcrumb from '@/components/Breadcrumb'
-import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo'
-import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
-import { CustomButton } from '@/utils/Buttons'
-import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea'
-import EditCard from '@/utils/Cards/Text card/EditCard'
-import SplitCard from '@/utils/Cards/Text card/SplitCard'
-import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton'
-import Image from 'next/image'
-import React, { useRef, useState } from 'react'
+import React from 'react'
 
-function BrandDetailPage() {
+function AddBrandDetailPage({ categorytype }) {
     const [isEdit, setEdit] = useState(false)
     const [tagline, setTagline] = useState("the tag line info")
     const textAreaRef = useRef()
@@ -20,7 +11,7 @@ function BrandDetailPage() {
     const [newMockData, setNewMockData] = useState({
 
         strength: '2oz',
-        founding: '1997',
+        tastes: 'Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh',
         origin: 'Itly',
     });
     const nameref = useRef(null);
@@ -58,12 +49,9 @@ function BrandDetailPage() {
                         </div>
                     </div>
                 </div>
-                <div className="text-[24px] font-bold italic m-[10px]">
-                    <EditCard editContent={`Blue Moon`} isEdit={isEdit} />
-                </div>
                 <div className="banner-container w-full h-[269px] bg-[url('/asset/brand-bg.svg')] bg-no-repeat bg-cover bg-center mb-8 p-[44px]">
                     <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
-                        <Image
+                         <Image
                             className="bg-[transparent]"
                             src="/asset/brand-logo.svg"
                             fill
@@ -81,6 +69,7 @@ function BrandDetailPage() {
                             Tagline
                         </h2>
                         <DescriptionTextArea textAreaRef={textAreaRef} isEdit={isEdit} content={tagline} />
+
                     </div>
                 }
                 {!isEdit &&
@@ -94,17 +83,19 @@ function BrandDetailPage() {
                             <p className="font-medium">Italy</p>
                         </div>
                         <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
-                            <p className="mr-6">Founding Year</p>
+                            <p className="mr-6">Tastes</p>
                             <p className="font-medium">
-                                1997
+                                Balanced, Bright, Citrus,Floral, Mint, Smooth,fresh
                             </p>
                         </div>
                     </div>
                 }
-                {isEdit && <div className="">
+                {isEdit && <div className="border border-[#3C3C3C] p-[15px] m-[8px]">
                     <div className="method-container mb-[32px]">
-                        {/* <div className="sub-heading-container flex justify-between items-center mb-[21px]">
-                
+                        <div className="sub-heading-container flex justify-between items-center mb-[21px]">
+                            <h4 className="text-white text-[20px] leading-[32px] font-semibold capitalize">
+
+                            </h4>
                             {isEdit && <ButtonCombo onAddClick={() => {
                                 // type == null ? setFirstTimemodal(true) :
                                 //     setAddmodal(true)
@@ -120,10 +111,7 @@ function BrandDetailPage() {
 
                             />}
 
-                        </div> */}
-                        <h2 className='not-italic font-semibold text-sm leading-6 text-[#929292] font-Inter mb-[12px]'>
-                            Other Details
-                        </h2>
+                        </div>
                         <div className="method-details-container">
 
                             <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: newMockData.strength }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
@@ -137,10 +125,10 @@ function BrandDetailPage() {
 
                                 <SplitCard desc={"Origin"} quantity={newMockData.origin} />
                             </div>
-                            <div onDoubleClick={() => { setEditItem({ index: 2, desc: 'founding', quantity: newMockData.founding }); if (foucsed == 2) setAsfocus(null); if (isEdit) setEditmodal(true) }}
+                            <div onDoubleClick={() => { setEditItem({ index: 2, desc: 'tastes', quantity: newMockData.tastes }); if (foucsed == 2) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(2); if (foucsed == 2) setAsfocus(null) }} className={`${foucsed == 2 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Founding Year"} quantity={newMockData.founding} />
+                                <SplitCard desc={"Taste"} quantity={newMockData.tastes} />
                             </div>
 
                         </div>
@@ -161,18 +149,11 @@ function BrandDetailPage() {
                         and in homes.`} />
 
                 </div>
-                <div className=''>
-                    <h2 className='not-italic font-semibold text-sm leading-6 text-[#929292] font-Inter mb-[12px]'>
-                        Website
-                    </h2>
-                    <div className="status-text text-[18px]">
-                        <EditCard editContent={`wwww.abc.com`} isEdit={isEdit} />
-                    </div>
-                </div>
 
             </div>
         </>
     )
 }
 
-export default BrandDetailPage
+
+export default AddBrandDetailPage

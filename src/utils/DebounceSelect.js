@@ -1,3 +1,4 @@
+import { getIngredientSearch } from "@/store/slices/product";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,20 +7,25 @@ const SelectWithDebounce = ({
     label,
     value,
     onChangeHandler,
-    searchoptions,
+    // searchoptions,
     functiondata
 }) => {
     const [enableOption, setEnableOption] = useState(false);
+    const [searchoptions, setsearchoptions] = useState([])
+    const [testvalue, settestvalue] = useState({ label: "", value: "" })
+    const dispatch = useDispatch()
 
 
 
     useEffect(() => {
 
-        const getData = setTimeout(functiondata, 1000)
+        console.log(testvalue);
+        const getData = setTimeout(async () => dispatch(getIngredientSearch(testvalue)).then(res => { console.log(res); if (res) { setsearchoptions(res) }else setsearchoptions([]) }), 500)
+        // const getData = setTimeout(async () => functiondata().then(res => { console.log(res); if (res) { setsearchoptions(res) }else setsearchoptions([]) }), 500)
         return () => clearTimeout(getData)
 
 
-    }, [value])
+    }, [testvalue])
 
     return (
         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
@@ -38,9 +44,10 @@ const SelectWithDebounce = ({
                     type="text"
                     name="concept"
                     placeholder={placeholder}
-                    value={value.label}
+                    value={testvalue.label}
                     onChange={(e) =>
-                        onChangeHandler({ label: e.target.value, value: "" })
+                        settestvalue({ label: e.target.value, value: "" })
+                        // onChangeHandler({ label: e.target.value, value: "" })
                     }
                     onFocus={() => {
                         setEnableOption(true);
@@ -82,8 +89,8 @@ const SelectWithDebounce = ({
                                     key={i}
                                     className="block cursor-pointer w-full text-left px-[15px] py-2 text-[#A8A8A8] hover:bg-white focus:outline-none"
                                     onClick={() => {
-                                        onChangeHandler(option);
-
+                                        // onChangeHandler(option);
+                                        settestvalue(option)
                                         setEnableOption(false);
                                     }}
                                 >
