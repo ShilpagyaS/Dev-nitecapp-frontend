@@ -4,9 +4,11 @@ import { IoNotificationsSharp } from "react-icons/io5";
 import { CustomButton } from "@/utils/Buttons";
 import Image from "next/image";
 import MobileSidebar from "../SIdebar/MobileSidebar";
+import { logout } from "@/store/slices/Auth";
+import { useDispatch } from "react-redux";
 
 const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
-
+const dispatch=useDispatch()
   return (
     <div className={`absolute overflow-hidden w-[80%] h-screen bg:red-500 z-10 top-0 
 
@@ -39,7 +41,7 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
         <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer}  />
       </div>
       <div className="button-container flex justify-between w-full">
-        <CustomButton label="Sign out" color="#fff" />
+        <CustomButton label="Sign out" color="#fff" onClickHandler={()=>dispatch(logout())} />
         <CustomButton label={<AiFillSetting color="#fff" size="20px" />} />
       </div>
     </div>

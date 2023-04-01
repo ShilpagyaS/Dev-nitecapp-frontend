@@ -82,7 +82,7 @@ const CocktailDetailPage = ({ id }) => {
                 }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
-                {productDetails.cocktail_name}
+                {productDetails?.cocktail_name}
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
@@ -107,8 +107,8 @@ const CocktailDetailPage = ({ id }) => {
             return (
               <>
                 <div className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
-                  <p className=" bg-transparent ">{ingridient.ingredient_name}</p>
-                  <p className=" bg-transparent ">{`${ingridient.measure_name} ${ingridient.quantity_name}`}</p>
+                  <p className=" bg-transparent ">{ingridient?.name}</p>
+                  <p className=" bg-transparent ">{`${ingridient?.measure_name} ${ingridient?.quantity}`}</p>
                 </div>
               </>
             );
@@ -153,7 +153,7 @@ const CocktailDetailPage = ({ id }) => {
                   <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
                     <p className=" bg-transparent ">
                       <span className="mr-6 bg-transparent">{i + 1}.</span>
-                      {method.method_name}`
+                      {method?.name}`
                     </p>
                   </div>
                 </>

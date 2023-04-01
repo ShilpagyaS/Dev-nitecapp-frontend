@@ -4,8 +4,10 @@ import "swiper/css";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CoctailCard } from "@/utils/SpecCards";
 import coctailMock from "../mock/CoctailMock.json";
+import { whatsthestrength } from "@/utils/abvfinder";
+import { shortString } from "@/utils/stringShortner";
 
-function CoctailSlider() {
+function CoctailSlider({data}) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const isPhone = useMediaQuery("(max-width: 414px)");
   const coctailData = coctailMock.coctailData;
@@ -18,7 +20,7 @@ function CoctailSlider() {
         modules={[Pagination]}
         pagination={true}
       >
-        {coctailData.map((slide, i) => {
+        {data.map((slide, i) => {
           return (
             <SwiperSlide
               key={i}
@@ -30,9 +32,10 @@ function CoctailSlider() {
               className="mb-8 w-[15px]"
             >
               <CoctailCard
-                title={slide.title}
-                image={"/asset/coctail1.png"}
-                isNew={slide.isNew}
+               title={shortString(slide.cocktail_name)}
+               image={"/asset/coctail1.png"}
+               subtitle={`${whatsthestrength(slide.abv)}(${slide.abv}%)`}
+                isNew={false}
               />
             </SwiperSlide>
           );

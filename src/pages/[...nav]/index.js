@@ -97,6 +97,9 @@ export default function Category() {
             {path === "/specs/cocktail/cocktail_ingredients" && (
               <Ingridients productType={"cocktail"} />
             )}
+
+          {path === `/specs/spirit` && <SpiritsCategory />}
+          {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
             {path ===
               `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && (
                 <SpecsDetailPage id={productId} subcategory={"spirit"} />
