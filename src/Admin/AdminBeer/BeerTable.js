@@ -41,7 +41,7 @@ function BeerTable() {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setList([...dummy])
     }, [productList])

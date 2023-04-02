@@ -42,7 +42,7 @@ function WinebrandTable({ productId, subcategory }) {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setList([...dummy])
 

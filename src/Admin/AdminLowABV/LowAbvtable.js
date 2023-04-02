@@ -41,7 +41,7 @@ function LowAbvtable() {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setList([...dummy])
 

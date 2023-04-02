@@ -41,7 +41,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                 }
 
             }
-        )
+        ) ||[]
         console.log(dummy);
         setList([...dummy])
 

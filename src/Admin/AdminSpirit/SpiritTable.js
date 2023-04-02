@@ -40,7 +40,7 @@ function SpiritTable() {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setList([...dummy])
 

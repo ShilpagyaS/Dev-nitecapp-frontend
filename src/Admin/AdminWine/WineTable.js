@@ -39,7 +39,7 @@ function WineTable() {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setList([...dummy])
 
