@@ -144,10 +144,12 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
   return (
     <div className="relative w-[201px] h-[50px]">
       <button
-        className="w-full py-[8px] pl-[28px] pr-[28px] text-[#767676] bg-[#2C2C2C] border border-[#2C2C2C] rounded shadow-sm outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
+        className="w-full py-[8px] pl-[28px] pr-[28px] text-white bg-[#2C2C2C] border border-[#2C2C2C] rounded shadow-sm outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
         onClick={handleToggleDropdown}
       >
-        {selectedItem ? selectedItem.label : 'Select an option'}
+        {selectedItem ? selectedItem.label : <span className='text-[#767676]'>
+Select an option
+</span>}
         <Image
           src={'/asset/DownArrow.svg'}
           width={14}
