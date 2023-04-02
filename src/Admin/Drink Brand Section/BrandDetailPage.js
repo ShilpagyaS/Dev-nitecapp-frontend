@@ -14,6 +14,7 @@ function BrandDetailPage() {
     const [tagline, setTagline] = useState("the tag line info")
     const textAreaRef = useRef()
     const aboutreaRef = useRef()
+    const websiteRef = useRef()
     const toggleEdit = () => {
         setEdit(prev => !prev)
     }
@@ -151,7 +152,7 @@ function BrandDetailPage() {
                     <h2 className='not-italic font-semibold text-sm leading-6 text-[#929292] font-Inter mb-[12px]'>
                         About
                     </h2>
-                    <DescriptionTextArea textAreaRef={aboutreaRef} maxheight={360} isEdit={isEdit} content={`
+                    <DescriptionTextArea textAreaRef={aboutreaRef} maxheight={'360'} isEdit={isEdit} content={`
                         Hendrick’s Gin launched in 1999. It likely needs no introduction.
                         Hendrick’s Gin was launched by William Grant & Sons at a time when gin
                         wasn’t the diverse, thriving category it is today. A clear callback to
@@ -166,7 +167,7 @@ function BrandDetailPage() {
                         Website
                     </h2>
                     <div className="status-text text-[18px]">
-                        <EditCard editContent={`wwww.abc.com`} isEdit={isEdit} />
+                    <DescriptionTextArea textAreaRef={websiteRef} isEdit={isEdit} content={`www.abc.com`} />
                     </div>
                 </div>
 

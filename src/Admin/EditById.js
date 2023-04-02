@@ -3,11 +3,12 @@ import { EditDualValue, EditKeyValue } from '@/components/modal/adminmodal';
 import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import useMediaQuery from '@/Hooks/useMediaQuery';
-import { emptyProductList, getProductById, putProductById } from '@/store/slices/product';
+import { emptyProductList, getAllDrinkBrands, getProductById, putProductById } from '@/store/slices/product';
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import EditCard from '@/utils/Cards/Text card/EditCard';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton';
+import { CustomSelectForBrands } from '@/utils/CustomSelect';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +36,8 @@ function EditById({ productId, subcategory }) {
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [EditModal, setEditmodal] = useState(false)
+    const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
+    const [drinkBrandArray, setDrinkBrandArray] = useState([])
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getProductById(subcategory, productId))
@@ -67,7 +70,8 @@ function EditById({ productId, subcategory }) {
             tastes: productDetails.tastes || '',
             origin: productDetails.origin || '',
         })
-
+        let body = { brand_id: productDetails.brand_id || '', brand_name: productDetails.brand_name || '' }
+        setDrinkBrand(body)
     }, [productDetails])
 
 
@@ -178,7 +182,9 @@ function EditById({ productId, subcategory }) {
                     description: textAreaRef.current.value,
                     abv: newMockData.abv,
                     origin: newMockData.origin,
-                    tastes: newMockData.tastes
+                    tastes: newMockData.tastes,
+                    brand_id: drinkBrand.brand_id
+
                 }
             ))
             console.log(nameref.current.innerText);
@@ -195,6 +201,9 @@ function EditById({ productId, subcategory }) {
         if (abv == 0) return 'No alcohol'
         return '  '
     }
+    useEffect(() => {
+        dispatch(getAllDrinkBrands()).then((res) => { setDrinkBrandArray(res) })
+    }, [])
     return (
         <>
             {/* {isAddModalOpen && <AddNewTitle
@@ -270,7 +279,7 @@ function EditById({ productId, subcategory }) {
                             <div
                                 className={`w-full flex items-center ${isMobile && "justify-around"
                                     }`}
-                             >
+                            >
                                 <h3 className="title text-[24px] font-bold mr-[16px]" >
 
                                     <EditCard editContent={productDetails?.[`${subcategory}_name`]} isEdit={isEdit} divref={nameref} />
@@ -278,6 +287,16 @@ function EditById({ productId, subcategory }) {
                                 <div className="status-text text-[18px]">
                                     <EditCard editContent={`${whatsthestrength(newMockData.abv)} (${newMockData.abv})%`} isEdit={false} />
                                 </div>
+                                {/* {!isEdit &&
+                                    <div className="status-text text-[18px] ml-[10px]">
+                                        <EditCard editContent={`${productDetails.brand_name}`} isEdit={false} />
+                                    </div>
+                                } */}
+                                {isEdit &&
+                                    <div className='input-desc flex flex-col ml-[25px]'>
+                                        <CustomSelectForBrands items={drinkBrandArray} defaultSelect={{ label: productDetails.brand_name, value: productDetails.brand_name }} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} />
+                                    </div>
+                                }
                             </div>
                         </div>
 

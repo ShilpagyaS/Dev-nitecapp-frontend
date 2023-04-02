@@ -7,8 +7,9 @@ import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
 import axiosInstance from "@/components/Auth/axios";
-import { createProduct } from '@/store/slices/product';
+import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
 import { useDispatch } from 'react-redux';
+import CustomSelect, { CustomSelectForBrands } from '@/utils/CustomSelect';
 
 
 function CreateBeerAndLABV({ subcategory }) {
@@ -29,6 +30,8 @@ function CreateBeerAndLABV({ subcategory }) {
     const [EditModal, setEditmodal] = useState(false)
     const [drinkName, setName] = useState('')
     const [isSAve, setSaved] = useState(false)
+    const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
+    const [drinkBrandArray, setDrinkBrandArray] = useState([])
 
     const dispatch = useDispatch()
 
@@ -77,6 +80,7 @@ function CreateBeerAndLABV({ subcategory }) {
             abv: newMockData.abv,
             origin: newMockData.origin,
             tastes: newMockData.tastes,
+            brand_id: drinkBrand.brand_id
 
         }
         dispatch(createProduct(subcategory, data)).then((res) => {
@@ -98,7 +102,12 @@ function CreateBeerAndLABV({ subcategory }) {
 
             setSaved(false)
         }, 1000);
+        setDrinkBrand({ brand_id: "", brand_name: "" })
     }
+    useEffect(() => {
+        dispatch(getAllDrinkBrands()).then((res) => { setDrinkBrandArray(res) })
+    }, [])
+
     return (
         <>
             {/* {EditModal &&
@@ -157,6 +166,11 @@ function CreateBeerAndLABV({ subcategory }) {
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
 
                                 </div> */}
+                                <div className='input-desc flex flex-col ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Brands</h3>
+                                    <CustomSelectForBrands items={drinkBrandArray} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} isclear={isSAve} />
+                                </div>
+
                             </div>
                         </div>
 

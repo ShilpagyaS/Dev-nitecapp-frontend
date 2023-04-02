@@ -26,7 +26,6 @@ function DescriptionTextArea({ content, textAreaRef, isEdit, maxheight, isSAve, 
   const onChange = e => {
     setVal(e.target.value);
   };
-
   return (
     // <div ref={textAreaRef} className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center" contentEditable={true} onClick={() => { console.log(textAreaRef.current.innerText) }}>
     //   {content}

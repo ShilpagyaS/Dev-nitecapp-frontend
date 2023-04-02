@@ -17,16 +17,13 @@ function EmptyUSerLayout() {
     const [newMockData, setNewMockData] = useState({
         ingredients: {
             values: [],
-            // isActive: false
         },
         methods: {
             values: [],
-            // isActive: false
 
         },
-        presentation: {
+        presentations: {
             values: [],
-            // isActive: false
 
         }
     });
@@ -160,7 +157,7 @@ function EmptyUSerLayout() {
             abv: abv,
             ingredients: newMockData.ingredients,
             methods: newMockData.methods,
-            presentation: newMockData.presentation,
+            presentations: newMockData.presentations,
 
         }
         dispatch(createProduct(subcategory, data)).then((res) => {
@@ -183,7 +180,7 @@ function EmptyUSerLayout() {
                 // isActive: false
 
             },
-            presentation: {
+            presentations: {
                 values: [],
                 // isActive: false
 
@@ -194,6 +191,17 @@ function EmptyUSerLayout() {
 
             setSaved(false)
         }, 1000);
+    }
+    function checkVals() {
+        if (
+
+            drinkName != "" &&
+            newMockData.ingredients.values.length > 0 &&
+            newMockData.methods.values.length > 0 &&
+            newMockData.presentations.values.length > 0
+        )
+            return true
+        return false
     }
 
     return (
@@ -224,7 +232,7 @@ function EmptyUSerLayout() {
                     </div>
                     <div className="flex items-center justify-center">
 
-                        <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { createdrink() }} />
+                        <ConditionalButton label={'Save'} condition={checkVals()} onClickHandler={() => { createdrink() }} />
                     </div>
                 </div>
                 {/* image and desc */}
