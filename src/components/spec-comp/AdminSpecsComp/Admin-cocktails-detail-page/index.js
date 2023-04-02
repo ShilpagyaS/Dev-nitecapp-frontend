@@ -66,6 +66,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const [abv, setabv] = useState(0)
   const [foucsed, setAsfocus] = useState(null)
   const [editItem, setEditItem] = useState({})
+  const [showIngredients, setShowIngredient] = useState(false)
+  const [showMethods, setShowMethod] = useState(false)
+  const [showPresentations, setShowPresentation] = useState(false)
 
 
   const textAreaRef = useRef(null);
@@ -101,6 +104,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
         values: [],
       },
     })
+    setShowIngredient(productDetails.showIngredients)
+    setShowMethod(productDetails.showMethods)
+    setShowPresentation(productDetails.showPresentations)
 
   }, [productDetails])
 
@@ -140,15 +146,10 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
 
   }
   function setActive(title, data) {
-    setNewMockData(((prev) => {
-      return {
-        ...prev,
-        [title]: {
-          ...prev[title],
-          isActive: data,
-        }
-      }
-    }))
+    console.log(title, data);
+    if (title == 'ingredients') setShowIngredient(data)
+    if (title == 'methods') setShowMethod(data)
+    if (title == 'presentations') setShowPresentation(data)
     // superData = { ...superData, ...newMockData }
     // console.log('superData', superData);
 
@@ -234,6 +235,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           ingredients: newMockData.ingredients,
           presentations: newMockData.presentations,
           methods: newMockData.methods,
+          showIngredients: showIngredients,
+          showMethods: showMethods,
+          showPresentations: showPresentations
         }
       ))
       console.log(nameref.current.innerText);
@@ -347,7 +351,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
 
           {Object.keys(newMockData).map((e) =>
             <GenericCard title={e} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
-              addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
+              addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection}
+              isActive={e == 'ingredients' ? showIngredients : e == 'methods' ? showMethods : showPresentations}
+              setActive={setActive} fromeditnigscreen={true} />
           )}
 
         </div>
