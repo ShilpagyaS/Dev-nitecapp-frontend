@@ -4,7 +4,7 @@ const useFilteredData = (productList, typechecking, defauttype, findname) => {
   const [filtereddataList, setfiltereddata] = useState([]);
   const filtereddata = () => {
     let temp = [];
-
+    
     if (typechecking) {
       const Alltypetemp = productList.map((i) => {
 
@@ -21,17 +21,19 @@ const useFilteredData = (productList, typechecking, defauttype, findname) => {
           temp.push({ type: i?.[`${findname}`], data: [i] });
         }
       });
+      
     } else {
       temp = [{ type: defauttype, data: productList }];
+     
     }
-    setfiltereddata(temp);
+    
+    return temp
   };
 
-  // useEffect(() => {
-  //   filtereddata();
-  // }, [productList]);
 
-  return filtereddataList;
+   
+
+  return  filtereddata();
 };
 
 export default useFilteredData;

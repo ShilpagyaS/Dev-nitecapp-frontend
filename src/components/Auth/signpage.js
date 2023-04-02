@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import AuthWrapper from "@/components/Auth/AuthWarpper";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import Link from "next/link";
 function Signin() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -63,6 +64,7 @@ function Signin() {
 
   })
   const [opterror, setotperror] = useState()
+  
   return (
     <>
       <AuthWrapper>
@@ -85,6 +87,7 @@ function Signin() {
                   type={"text"}
                   touched={formik.touched.email}
                   error={formik.errors.email}
+                  showerror
                 />
                 <InputField
                   placeholder="Enter Password"
@@ -95,14 +98,13 @@ function Signin() {
                   type={"password"}
                   touched={formik.touched.password}
                   error={formik.errors.password}
+                  showerror
                 />
-                {console.log(Object.values(formik.errors))}
-                {Object.values(formik.errors)?.length > 0 && (
-                  <Bullets messageArray={Object.values(formik.errors).map((i) => { return { response: _ERROR, message: i } })} />
-                )}
-                <p className="text-sm max-w-[300px] text-[#959598] text-right cursor-pointer w-full">
+                <Link href="/forgotpassword" className=" w-full text-right max-w-[300px]"> 
+                <p className="text-sm  text-[#959598]  cursor-pointer">
                   Forgot Password ?
                 </p>
+                </Link>
                 <Buttons label={"Sign in"}
                   type="submit"
                 />

@@ -12,8 +12,9 @@ import * as Yup from 'yup'
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
-  const { user } = useSelector((state) => state.auth);
-
+  const { user,role } = useSelector((state) => state.auth);
+  
+const [indata,setindata]=useState({})
   ;
 
   const router = useRouter();
@@ -29,20 +30,14 @@ function OnboardingForm() {
 
 
   const handlesubmitdata = (values) => {
-    debugger
+    
     dispatch(updateUser(values)).then((res) => {
       if (res?.data?.resCode === 200) router.push("/specs");
     });
   }
+
   const formik = useFormik({
-    initialValues: {
-      full_name: "",
-      display_name: "",
-      pronouns: "",
-      role: "",
-      concept: "",
-      user_id: user?.id,
-    },
+    initialValues: indata,
     enableReinitialize: true,
     onSubmit: handlesubmitdata,
     validationSchema: Yup.object().shape({
@@ -54,15 +49,11 @@ function OnboardingForm() {
       user_id: Yup.string().required()
     }),
   })
-
+  console.log("error",formik.errors)
   useEffect(() => {
+    debugger
     if (user) {
-      formik.setFieldValue('full_name', user.full_name)
-      formik.setFieldValue('display_name', user.display_name)
-      formik.setFieldValue('pronouns', user.pronouns)
-      formik.setFieldValue('role', user.full_name)
-      formik.setFieldValue('concept', user.full_name)
-      formik.setFieldValue('user_id', user.id)
+      setindata({...user,user_id:user.id,role:role.name})
     }
 
   }, [user]);
@@ -122,6 +113,7 @@ function OnboardingForm() {
             value={formik.values.role}
             name={"role"}
             type={"text"}
+            disabled
             error={formik.errors.role}
             touched={formik.touched.role}
             showerror

@@ -3,11 +3,20 @@ import { CiSearch } from "react-icons/ci";
 import CoctailSlider from "./CoctailSlider";
 import CoreBeverage from "./CoreBeverage";
 import Trending from "./Trending";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyProductList, getProduct } from "@/store/slices/product";
+import { useEffect } from "react";
+import Link from "next/link";
 
 function SpecComp() {
-  console.log(
-    "==================specs===================================================================================="
-  );
+  const { productList } = useSelector((state) => state.product);
+const dispatch=useDispatch()
+  useEffect(() => {
+    dispatch(getProduct("cocktail"));
+    return () => {
+      dispatch(emptyProductList());
+    };
+  }, []);
   return (
     <>
       <div className="Header-container md:flex-row lg:flex-row flex-col flex justify-between lg:items-center md:items-center mb-6  ">
@@ -33,9 +42,12 @@ function SpecComp() {
         <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
           Cocktails
         </h3>
-        <p className="text-[#F19B6C]">See All</p>
+        <Link href="/specs/cocktail">
+        <p className="text-[#F19B6C] cursor-pointer">See All</p>
+        </Link>
+       
       </div>
-      <CoctailSlider />
+      <CoctailSlider data={productList.length<=10?productList:productList.slice(0,10) } />
       <CoreBeverage />
       <Trending />
     </>

@@ -1,22 +1,27 @@
 import { BeverageCard } from "@/utils/SpecCards";
+import Link from "next/link";
 
 function CoreBeverage() {
   const CoreBeverage = [
     {
       title: "Beer / Seltzer",
       img: "/asset/beverage1.svg",
+      href:"/specs/beer"
     },
     {
-      title: "Beer / Seltzer",
+      title: "Spirits",
       img: "/asset/beverage1.svg",
+      href:'/specs/spirit'
     },
     {
-      title: "Beer / Seltzer",
+      title: "Wine",
       img: "/asset/beverage1.svg",
+      href:'/specs/wine'
     },
     {
-      title: "Beer / Seltzer",
+      title: "Low / No ABV",
       img: "/asset/beverage1.svg",
+      href:'/specs/low_no_abv'
     },
   ];
 
@@ -27,7 +32,10 @@ function CoreBeverage() {
         {CoreBeverage.map((card, i) => {
           return (
             <div className=" w-full" key={i}>
+              <Link href={card.href}>
               <BeverageCard image={card.img} title={card.title} />
+              </Link>
+             
             </div>
           );
         })}

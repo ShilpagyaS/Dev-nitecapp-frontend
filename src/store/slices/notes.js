@@ -47,7 +47,7 @@ export const addNoteDetails = (productType, id, note) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/createNote`,
+            url: `/api/createUserNote`,
             method: "POST",
             data: {
                 type: productType,
@@ -70,6 +70,27 @@ export const updateNoteDetails = (productType, id, note, noteid) => {
         axiosInstance({
             url: `/api/updateUserNote/${noteid}`,
             method: "PUT",
+            data: {
+                type: productType,
+                product_id: id,
+                user_id: state?.auth?.user?.id,
+                user_notes: note
+            }
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(getNoteDetails(productType, id));
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+
+export const deleteNoteDetails = (productType, id, note, noteid) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            url: `/api/deleteUserNote/${noteid}`,
+            method: "DELETE",
             data: {
                 type: productType,
                 product_id: id,

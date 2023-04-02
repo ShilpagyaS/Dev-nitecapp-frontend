@@ -12,7 +12,8 @@ const NotesModal = ({
   deleteBtn,
   title,
   desc,
-  defaultvalue
+  defaultvalue,
+  onDelete
 }) => {
   const customStyles = {
     content: {
@@ -58,7 +59,9 @@ const NotesModal = ({
             }`}
         >
           {deleteBtn && (
-            <CustomButton background="#929292" color="white" label="Delete" />
+            <CustomButton background="#929292" color="white" label="Delete" 
+            onClickHandler={()=>onDelete(textAreaRef.current.value)}
+            />
           )}
           <div className="flex items-center">
 

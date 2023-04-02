@@ -159,7 +159,7 @@ function ChangePasswordComponent({ confirmationfunction }) {
       <div className="mt-[40px] sm:mt-[50px] flex flex-col items-center">
         <InputField
           placeholder="Enter Password"
-          label="New Passeord"
+          label="New Password"
           onChangeHandler={handleChange}
           value={password.newPassword}
           name={"newPassword"}

@@ -20,6 +20,7 @@ function Header(props) {
   }, []);
 
   const handleLogout = () => {
+    
     dispatch(logout());
   };
 
