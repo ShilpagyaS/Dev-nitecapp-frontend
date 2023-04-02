@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import AuthWrapper from "@/components/Auth/AuthWarpper";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import Link from "next/link";
 function Signin() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -63,6 +64,7 @@ function Signin() {
 
   })
   const [opterror, setotperror] = useState()
+  
   return (
     <>
       <AuthWrapper>
@@ -98,10 +100,11 @@ function Signin() {
                   error={formik.errors.password}
                   showerror
                 />
-                
-                <p className="text-sm max-w-[300px] text-[#959598] text-right cursor-pointer w-full">
+                <Link href="/forgotpassword" className=" w-full text-right max-w-[300px]"> 
+                <p className="text-sm  text-[#959598]  cursor-pointer">
                   Forgot Password ?
                 </p>
+                </Link>
                 <Buttons label={"Sign in"}
                   type="submit"
                 />

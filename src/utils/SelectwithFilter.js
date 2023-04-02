@@ -13,7 +13,7 @@ const SelectWithSearch = ({
   const [enableOption, setEnableOption] = useState(false);
 
   const filteredOptions =
-    value !== ""
+    value !== "" && value
       ? [...options].filter((option) =>
         option?.label?.toLowerCase().includes(value.toLowerCase())
       )

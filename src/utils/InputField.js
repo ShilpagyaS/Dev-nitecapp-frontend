@@ -10,7 +10,8 @@ function InputField({
   type,
   error,
   touched,
-  showerror
+  showerror,
+  ...rest
 }) {
   const [isfocused, setisFocused] = useState(false);
 
@@ -50,6 +51,7 @@ function InputField({
         onBlur={(e) => {
           setisFocused(false);
         }}
+        {...rest}
       />
 
       {showerror && error && touched && <ul className='list-disc max-w-[302px]  pl-4 '>

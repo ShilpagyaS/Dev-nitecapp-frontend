@@ -19,7 +19,6 @@ import SpecBrands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
 import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { getIngredientSearch, getProduct, getProductById } from "@/store/slices/product";
 import useNavDetails from "@/Hooks/useNavDetails";
 import AdminSpecs from "@/components/spec-comp/AdminSpecsComp/AdminSpecs";
@@ -61,14 +60,17 @@ import InputNumber from "@/utils/InputNumber";
 import AddBrandDetailPage from "@/Admin/Drink Brand Section/AddBrandDetailPage";
 
 import { enUrl } from "@/utils/encoderfunc";
+import ForgotPassword from "@/components/Auth/forgotpass";
+import Signin from "@/components/Auth/signpage";
+import { onlyUnAuthpages } from "@/components/Auth/guestRoutes";
 
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-  const dispatch = useDispatch();
-  const { searchoptions } = useSelector((state) => state.product);
+  // const dispatch = useDispatch();
+  // const { searchoptions } = useSelector((state) => state.product);
   const [testvalue, settestvalue] = useState({ label: "", value: "" })
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
@@ -88,6 +90,10 @@ export default function Category() {
 
       <AuthWrapper>
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
+          <>
+          {onlyUnAuthpages.includes(path) ?<>{path==="/signin" && <Signin/> }
+          {path==="/forgotpassword" && <ForgotPassword/> }</>:
+
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "/specs" && <SpecComp />}
             {path === "/specs/cocktail" && <Coctails />}
@@ -145,50 +151,45 @@ export default function Category() {
             {path === "/brand/explore-brands" && <ExploreBrands />}
             {path === `/brand/explore-brands?id=${productId}` && <BrandDetail />}
           </LayoutWithSidebar>
+          }
+          </>
         )}
 
 
 
         {process.env.NEXT_PUBLIC_APP_TYPE === "admin" && (
+          <>
+          
+          {onlyUnAuthpages.includes(path) ?<>{path==="/signin" && <Signin/> }
+          {path==="/forgotpassword" && <ForgotPassword/> }</>:
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {category === "specs" && !subcategory && <AdminSpecs />}
             {path === `/specs/cocktail` && <AdminCocktail />}
             {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
             {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
-
-
             {path === `/specs/beer` && <AdminBeer />}
             {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
-
             {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
             {path === `/specs/beer/brands` && <AdminBrandsBeer />}
             {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
             {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
-
             {subcategory === "bestselling" && <BestSellingAdminCoctails />}
-
             {path === `/specs/spirit` && <AdminSpirit />}
             {path === `/specs/spirit/${enUrl(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
             {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
             {path === `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />}
-
             {path === `/specs/wine` && <AdminWine />}
             {path === `/specs/wine/${enUrl(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
             {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
             {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />}
-
-            {console.log("sdasdsad", path, `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}`)}
-
-
             {path === `/specs/low_no_abv` && <AdminLowAbv />}
             {path === `/specs/low_no_abv/new` && <CreateBeerAndLABV subcategory={'low_no_abv'} />}
             {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />}
             {path === `/brand` && <AdminExploreBrands />}
             {category === "dashboard" && <AdminDashboard />}
-
-
-
           </LayoutWithSidebar>
+}
+          </>
         )}
 
 
@@ -197,26 +198,20 @@ export default function Category() {
 
         {/* superAdmin */}
         {process.env.NEXT_PUBLIC_APP_TYPE === "superAdmin" && (
+          <>
+          {onlyUnAuthpages.includes(path) ?<>{path==="/signin" && <Signin/> }
+          {path==="/forgotpassword" && <ForgotPassword/> }</>:
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {category === "dashboard" && <AdminDashboard />}
             {category === "brand" && <SuperAdminBrand />}
 
           </LayoutWithSidebar>
+
+        }
+          </>
         )}
 
 
-
-
-
-        {/* <SelectWithDebounce
-          label={"search"}
-          placeholder={"search here"}
-          functiondata={() => dispatch(getIngredientSearch(testvalue))}
-          value={testvalue}
-          // searchoptions={searchoptions}
-          onChangeHandler={settestvalue}
-        /> */}
-        {/* <InputNumber /> */}
       </AuthWrapper>
 
 

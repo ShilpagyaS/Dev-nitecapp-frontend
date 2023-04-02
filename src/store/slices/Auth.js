@@ -7,7 +7,8 @@ const initialState = {
   role: null,
   tempUserEmail: null,
   firstTimeLogin: false,
-  isOnbording: false
+  isOnbording: false,
+  tempcode:null
 };
 
 export const authSlice = createSlice({
@@ -19,9 +20,14 @@ export const authSlice = createSlice({
       state.user = action.payload?.data;
       state.accessToken = action.payload?.token;
       state.firstTimeLogin = action.payload?.data?.first_time_login;
+      state.role = action.payload?.data?.role_data
     },
     updateTempUser: (state, action) => {
       state.tempUserEmail = action.payload;
+    },
+
+    updateTempCode: (state, action) => {
+      state.tempcode = action.payload;
     },
 
     reloadUpdateUser: (state, action) => {
@@ -29,6 +35,7 @@ export const authSlice = createSlice({
       state.user = action.payload;
       state.accessToken = token;
       state.firstTimeLogin = action.payload?.first_time_login;
+      state.role = action.payload?.role_data
     },
 
     logoutUser: (state, action) => {
@@ -147,4 +154,53 @@ export const getConcept = (data) => {
   };
 };
 
+export const sendForgotOTP = (email) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch(authSlice.actions.updateTempUser(email));
+    return axiosInstance({
+      url: "/api/user-auth/send-otp",
+      method: "POST",
+      data: { email },
+    });
+  };
+};
+
+export const verifyforgotOTP = (code) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch(authSlice.actions.updateTempCode(code));
+    return axiosInstance({
+      url: "/api/user-auth/verify-otp-to-forgot-password",
+      method: "POST",
+      data: {
+        otp: code,
+        email: state.auth?.tempUserEmail,
+      },
+    });
+  };
+ };
+
+ export const changeForgotPassword = (data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: "/api/user-auth/forgot-password",
+      method: "POST",
+      data:{
+        ...data,
+        email: state.auth?.tempUserEmail,
+        otp:state.auth?.tempcode
+      },
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+};
+
+ 
+
+
+
 export default authSlice.reducer;
+// /api/user-auth/send-otp
