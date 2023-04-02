@@ -48,16 +48,13 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const [newMockData, setNewMockData] = useState({
     ingredients: {
       values: [],
-      isActive: true
     },
     methods: {
       values: [],
-      isActive: false
 
     },
-    presentation: {
+    presentations: {
       values: [],
-      isActive: true
 
     }
   });
@@ -88,19 +85,20 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   }, [newMockData])
 
   useEffect(() => {
+    console.log(productDetails);
     setabv(productDetails.abv)
     setNewMockData({
-      ingredients: (productDetails.ingredients?.length && productDetails.ingredients) || {
+      // ingredients: (productDetails.ingredients?.length && productDetails.ingredients) || {
+      //   values: [],
+      // },
+      ingredients: (productDetails.ingredients?.values.length && productDetails.ingredients) || {
         values: [],
-        isActive: true
       },
-      methods: (productDetails.methods?.length && productDetails.methods) || {
+      methods: (productDetails.methods?.values.length && productDetails.methods) || {
         values: [],
-        isActive: true
       },
-      presentation: (productDetails.presentation?.length && productDetails.presentation) || {
+      presentations: (productDetails.presentations?.values.length && productDetails.presentations) || {
         values: [],
-        isActive: true
       },
     })
 
@@ -234,7 +232,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           description: textAreaRef.current.value,
           abv: abv,
           ingredients: newMockData.ingredients,
-          presentation: newMockData.presentation,
+          presentations: newMockData.presentations,
           methods: newMockData.methods,
         }
       ))

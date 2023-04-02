@@ -72,9 +72,6 @@ export default function Category() {
   const [testvalue, settestvalue] = useState({ label: "", value: "" })
   const { category, subcategory, subcategory2, subcategory3, productId, path } =
     useNavDetails();
-  // useEffect(() => {
-  //   dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine']))
-  // }, [])
   return (
     <>
       <Head>
@@ -86,7 +83,7 @@ export default function Category() {
 
 
 
-      <AuthWrapper>
+      {/* <AuthWrapper> */}
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <LayoutWithSidebar category={category} subcategory={subcategory}>
             {path === "/specs" && <SpecComp />}
@@ -214,7 +211,7 @@ export default function Category() {
           onChangeHandler={settestvalue}
         /> */}
         {/* <InputNumber /> */}
-      </AuthWrapper>
+      {/* </AuthWrapper> */}
 
 
 

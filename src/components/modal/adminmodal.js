@@ -1,9 +1,12 @@
+import { getUnitOFMeasure } from '@/store/slices/product';
 import { _INITIAL } from '@/utils/Constants';
-import CustomSelect from '@/utils/CustomSelect';
+import CustomSelect, { CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
+import SelectWithDebounce from '@/utils/DebounceSelect';
 import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
 import UploadBrandLogoInput from '@/utils/uploadBrandInput';
 import React, { useEffect, useState } from 'react'
 import Modal from "react-modal";
+import { useDispatch } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
 export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, }) {
@@ -25,20 +28,40 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
             backdropFilter: "blur(2.5px)",
         },
     };
-    const [input1, setinput1] = useState("")
-    const [input2, setinput2] = useState("")
+    const [ingredient, setingredient] = useState({ ingredient_id: '', name: '' })
+    const [quantity, setQuantity] = useState("")
+    const [measure, setmeasure] = useState({ measure_id: '', measure_name: '' })
+    const dispatch = useDispatch()
+    const [measureArray, setmeasureArray] = useState([])
+    useEffect(() => {
+        dispatch(getUnitOFMeasure()).then((res) => { setmeasureArray(res) })
+    }, [])
+    useEffect(() => { console.log(ingredient); }, [ingredient])
+    useEffect(() => { console.log(measure); }, [measure])
+    useEffect(() => { console.log(quantity); }, [quantity])
+
+    function onIngredientSelect(data) {
+        console.log(data);
+        setingredient({ ingredient_id: data.value, name: data.label })
+    }
+    const handleNumberChange = event => {
+        const newValue = event.target.value;
+        if (/^\d*\.?\d*$/.test(newValue)) {
+            setQuantity(newValue);
+        }
+    };
     const handleCancel = () => {
         onClickCancel();
-        setinput1("");
-        setinput2("");
+
 
     };
 
     const handleSave = () => {
-        onSave(input1, input2)
+        let body = { ...ingredient, quantity, ...measure }
+        console.log(body);
+        onSave(body)
         onClickCancel();
-        setinput1("");
-        setinput2("");
+
 
     };
     return (
@@ -51,18 +74,43 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
             <div className="text-white border-none outline-none">
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
-            <div className='flex flex-col w-full mb-[26px]'>
+            {/* <div className='flex flex-col w-full mb-[26px]'>
                 <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
-            </div>
-            <div className='flex flex-col w-full'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
-                <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+            </div> */}
+            <div className='h-[200px] mb-[10px]'>
+
+                <SelectWithDebounce
+                    label={"Ingredients"}
+                    placeholder={"search here"}
+                    onChangeHandler={(e) => { onIngredientSelect(e) }}
+                />
+                <div className='flex'>
+
+                    <div className='flex flex-col w-full'>
+                        <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Quantity</h3>
+                        <input value={quantity} onChange={handleNumberChange} className='box-border py-[8px] pl-[16px] rounded-[9px] h-[50px] border border-solid border-[#3C3C3C] text-white font-Inter not-italic font-normal text-[14px] 
+                     placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none
+                     focus:border-white  focus:ring-offset-white focus:ring-1 
+                     block w-full  appearance-none pr-[35px]' />
+                    </div>
+
+                    <div className='flex flex-col w-full ml-[20px]'>
+                        <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Unit</h3>
+
+                        <CustomSelectWithAllBlackTheme
+                            items={measureArray}
+                            // items={
+                            //     [{ label: 'oz', value: 'option1' },
+                            //     { label: 'tsp', value: 'option2' },]}
+                            optionalFunction={(e) => { console.log(e); setmeasure({ measure_id: e.value, measure_name: e.label }) }} />
+                    </div>
+                </div>
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -70,7 +118,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
         </Modal>
     )
 }
-export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, inputone, inputtwo, index }) {
+export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, data, index }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -89,55 +137,123 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
             backdropFilter: "blur(2.5px)",
         },
     };
-    const [input1, setinput1] = useState("")
-    const [input2, setinput2] = useState("")
+    const [ingredient, setingredient] = useState({ ingredient_id: '', name: '' })
+    const [quantity, setQuantity] = useState("")
+    const [measure, setmeasure] = useState({ measure_id: '', measure_name: '' })
+    const dispatch = useDispatch()
+    const [measureArray, setmeasureArray] = useState([])
+    const [EditModal, setEditmodal] = useState(false)
+
+
     const handleCancel = () => {
         onClickCancel();
-        setinput1("");
-        setinput2("");
+
 
     };
-
     const handleSave = () => {
-        onSave(input1, input2, index)
+        let body;
+        body = { ...ingredient, quantity, ...measure }
+        console.log(body);
+        onSave(body)
         onClickCancel();
-        setinput1("");
-        setinput2("");
 
+
+    };
+    function onIngredientSelect(data) {
+        console.log(data);
+        setingredient({ ingredient_id: data.value, name: data.label })
+    }
+    const handleNumberChange = event => {
+        const newValue = event.target.value;
+        if (/^\d*\.?\d*$/.test(newValue)) {
+            setQuantity(newValue);
+        }
     };
     // console.log(inputone, '-->', input1);
     useEffect(() => {
-        setinput1(inputone)
-        setinput2(inputtwo)
+        dispatch(getUnitOFMeasure()).then((res) => { setmeasureArray(res) })
+        console.log(data);
+        setingredient({ ingredient_id: data.ingredient_id, name: data.name })
+        setmeasure({ measure_id: data.measure_id, measure_name: data.measure_name })
+        setQuantity(data.quantity)
     }, [])
 
     return (
-        <Modal
-            isOpen={isModalOpen}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-            style={customStyles}
-        >
-            <div className="text-white border-none outline-none">
-                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
-            </div>
-            <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
-                <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
-            </div>
-            <div className='flex flex-col w-full'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
-                <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
-            </div>
-            <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
-                <div className='ml-[24px]'>
-                    <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+        <>
+            {EditModal &&
+                <Delete
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    inputone={ingredient.name}
+                    inputtwo={"2"}
+                    onSave={() => { setEditmodal(false) }}
+                    title={title}
+                    index={0}
+                    deleteBtn={deleteBtn}
+                />
+            }
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none">
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit Ingreasdasd${title}`}</h4>
+                </div>
+                <div className='h-[200px] mb-[10px]'>
+
+                    <SelectWithDebounce
+                        label={"Ingredients"}
+                        placeholder={"search here"}
+                        defaultvalue={data}
+                        onChangeHandler={(e) => { onIngredientSelect(e) }}
+                    />
+                    <div className='flex'>
+
+                        <div className='flex flex-col w-full'>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Quantity</h3>
+                            <input value={quantity} onChange={handleNumberChange} className='box-border py-[8px] pl-[16px] rounded-[9px] h-[50px] border border-solid border-[#3C3C3C] text-white font-Inter not-italic font-normal text-[14px] 
+     placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none
+     focus:border-white  focus:ring-offset-white focus:ring-1 
+     block w-full  appearance-none pr-[35px]' />
+                        </div>
+
+                        <div className='flex flex-col w-full ml-[20px]'>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Unit</h3>
+
+                            <CustomSelectWithAllBlackTheme
+                                items={measureArray}
+                                defaultSelect={{ value: data.measure_id, label: data.measure_name }}
+                                optionalFunction={(e) => { console.log(e); setmeasure({ measure_id: e.value, measure_name: e.label }) }} />
+                        </div>
+                    </div>
                 </div>
 
-            </div>
+                <div className='btncontainers flex items-center justify-between mt-[18px] '>
+                    <div className="flex items-center">
+                        <button
+                            className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                           
+                        
+                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                            onClick={() => { setEditmodal(true) }}
+                        >
+                            Delete
+                        </button>
+                    </div >
+                    <div className='flex items-center'>
 
-        </Modal>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <div className='ml-[24px]'>
+                            <ConditionalButton label={'Save'} condition={ true} onClickHandler={handleSave} />
+                        </div>
+                    </div>
+
+                </div>
+
+            </Modal>
+        </>
     )
 }
 export function AddMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, }) {

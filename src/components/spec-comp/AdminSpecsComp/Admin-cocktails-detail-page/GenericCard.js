@@ -1,4 +1,4 @@
-import { AddIngredientModal, AddNewDataModal, AddNewFirstItem, DeleteSection, EditNewModal } from '@/components/modal/adminmodal';
+import { AddIngredientModal, AddNewDataModal, AddNewFirstItem, DeleteSection, EditNewModal, EditIngredientModal } from '@/components/modal/adminmodal';
 import MethodCard from '@/utils/Cards/Text card/MethodCard'
 import PrepText from '@/utils/Cards/Text card/PrepText'
 import Simplecard from '@/utils/Cards/Text card/Simplecard'
@@ -6,15 +6,17 @@ import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useState } from 'react'
 import ButtonCombo from './ButtonCombo';
 
-function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive }) {
-    console.log(title, type, arr, isActive);
+function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive ,fromeditnigscreen}) {
+    // console.log(title, type, arr, isActive);
     if (title == 'ingredients') type = 1
-    if (title == 'presentation') type = 1
+    if (title == 'presentations') type = 1
     if (title == 'methods') type = 0
-    console.log(title, type, arr, isActive);
+    // console.log(title, type, arr, isActive);
     const [FirstModal, setFirstTimemodal] = useState(false)
     const [addModal, setAddmodal] = useState(false)
+    const [addIngredients, setAddIngredients] = useState(false)
     const [EditModal, setEditmodal] = useState(false)
+    const [EditIngredient, setEditIngredient] = useState(false)
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -32,9 +34,15 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
         if (type == 0) dummy = { name: input1 }
         if (type == 1) {
             if (title == 'ingredients') dummy = { name: input1, quantity: input2 }
-            if (title == 'presentation') dummy = { step: input1, detail: input2 }
+            if (title == 'presentations') dummy = { step: input1, detail: input2 }
         }
-        console.log(type, dummy);
+        // console.log(type, dummy);
+        addValuesOnData(title, dummy)
+        setAddmodal(false)
+
+    }
+    function addTngredientValues(dummy) {
+
         addValuesOnData(title, dummy)
         setAddmodal(false)
 
@@ -44,9 +52,14 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
         if (type == 0) dummy = { name: input1 }
         if (type == 1) {
             if (title == 'ingredients') dummy = { name: input1, quantity: input2 }
-            if (title == 'presentation') dummy = { step: input1, detail: input2 }
+            if (title == 'presentations') dummy = { step: input1, detail: input2 }
         }
-        console.log(dummy);
+        // console.log(dummy);
+        editValuesat(title, dummy, editItem.index)
+        setEditmodal(false)
+    }
+    function editIngredientValues(dummy) {
+
         editValuesat(title, dummy, editItem.index)
         setEditmodal(false)
     }
@@ -56,6 +69,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
         console.log(dummy);
         deleteItem(title, dummy)
         setEditmodal(false)
+        setEditIngredient(false)
 
         setAsfocus(null)
 
@@ -81,6 +95,24 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                     title={'Values'}
                 />
             }
+            {addIngredients && <AddIngredientModal
+                isModalOpen={addIngredients}
+                onClickCancel={() => { setAddIngredients(false) }}
+                onSave={addTngredientValues}
+                title={'Values'}
+                type={type}
+                header={title}
+
+            />}
+            {addModal && <AddNewDataModal
+                isModalOpen={addModal}
+                onClickCancel={() => { setAddmodal(false) }}
+                onSave={addValues}
+                title={'Values'}
+                type={type}
+                header={title}
+
+            />}
             {addModal && <AddNewDataModal
                 isModalOpen={addModal}
                 onClickCancel={() => { setAddmodal(false) }}
@@ -94,12 +126,23 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                 <EditNewModal
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
-                    inputone={title == 'presentation' ? editItem.step : editItem.name}
-                    inputtwo={title == 'presentation' ? editItem.detail : editItem.quantity}
+                    inputone={title == 'presentations' ? editItem.step : editItem.name}
+                    inputtwo={title == 'presentations' ? editItem.detail : editItem.quantity}
                     onSave={editValues}
                     title={title}
                     index={editItem.index}
                     type={type}
+                    deleteBtn={onDelete}
+                />
+            }
+            {EditIngredient &&
+                <EditIngredientModal
+                    isModalOpen={EditIngredient}
+                    onClickCancel={() => { setEditIngredient(false) }}
+                    data={editItem}
+                    onSave={editIngredientValues}
+                    title={title}
+                    index={editItem.index}
                     deleteBtn={onDelete}
                 />
             }
@@ -119,14 +162,15 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                             {title}
                         </h4>
                         {isEdit && <ButtonCombo onAddClick={() => {
-                            type == null ? setFirstTimemodal(true) :
-                                setAddmodal(true)
+                            // type == null ? setFirstTimemodal(true) :
+                            if (title == 'ingredients') setAddIngredients(true)
+                            else setAddmodal(true)
                             // console.log('not null --.', type);
 
 
                         }}
                             onDeleteClick={() => { setIsDeleteModalOpen(true) }}
-                            customize={{ add: true, switch: true }}
+                            customize={{ add: true, switch: false }}
                             isActive={localIsActive}
                             setActive={setActiveData}
 
@@ -150,9 +194,23 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                             <>
                                 {
                                     arr.map((e, i) =>
-                                        <div onDoubleClick={() => { setEditItem({ ...e, index: i }); if (foucsed == i) setAsfocus(null); if (isEdit) setEditmodal(true) }} onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
+                                        <div onDoubleClick={() => {
+                                            setEditItem({ ...e, index: i });
+                                            if (foucsed == i) setAsfocus(null);
 
-                                            <SplitCard desc={title == 'ingredients' ? e.name : e.step} quantity={title == 'ingredients' ? e.quantity : e.detail} />
+                                            if (isEdit) {
+                                                if (title == 'ingredients') {
+                                                    setEditIngredient(true)
+                                                }
+                                                else
+                                                    setEditmodal(true)
+
+                                            }
+                                        }}
+
+                                            onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
+
+                                            <SplitCard desc={title == 'ingredients' ? e.name : e.step} quantity={title == 'ingredients' ? `${e.quantity} ${e.measure_name}` : e.detail} />
                                         </div>
                                     )
                                 }
