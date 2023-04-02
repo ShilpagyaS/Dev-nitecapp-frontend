@@ -8,7 +8,8 @@ import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
 import axiosInstance from "@/components/Auth/axios";
 import { useDispatch } from 'react-redux';
-import { createProduct } from '@/store/slices/product';
+import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
+import { CustomSelectForBrands } from '@/utils/CustomSelect';
 
 
 function AddSpirit({ subcategory, productId }) {
@@ -211,7 +212,7 @@ function AddSpirit({ subcategory, productId }) {
                             <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Strength"} quantity={newMockData.abv} />
+                                <SplitCard desc={"Strength"} quantity={newMockData.abv == "" ? "" : `${newMockData.abv}%`} />
 
                             </div>
                             <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}

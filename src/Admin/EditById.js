@@ -183,7 +183,8 @@ function EditById({ productId, subcategory }) {
                     abv: newMockData.abv,
                     origin: newMockData.origin,
                     tastes: newMockData.tastes,
-                    brand_id: drinkBrand.brand_id
+                    brand_id: drinkBrand.brand_id,
+                    showProduct:true
 
                 }
             ))

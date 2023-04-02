@@ -237,7 +237,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           methods: newMockData.methods,
           showIngredients: showIngredients,
           showMethods: showMethods,
-          showPresentations: showPresentations
+          showPresentations: showPresentations,
+          showProduct: true
+
         }
       ))
       console.log(nameref.current.innerText);
