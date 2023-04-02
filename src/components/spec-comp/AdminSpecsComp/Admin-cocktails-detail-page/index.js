@@ -238,7 +238,6 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           showIngredients: showIngredients,
           showMethods: showMethods,
           showPresentations: showPresentations,
-          showProduct: true
 
         }
       ))

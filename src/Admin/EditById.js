@@ -184,7 +184,6 @@ function EditById({ productId, subcategory }) {
                     origin: newMockData.origin,
                     tastes: newMockData.tastes,
                     brand_id: drinkBrand.brand_id,
-                    showProduct:true
 
                 }
             ))

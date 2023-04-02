@@ -192,9 +192,6 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                     tastes: newMockData.tastes,
                     brand_id: drinkBrand.brand_id,
                     packaging_type: selectedOption,
-                    showProduct:true
-
-
 
                 }
             ))
