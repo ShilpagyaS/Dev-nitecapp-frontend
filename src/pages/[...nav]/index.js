@@ -63,6 +63,9 @@ import { enUrl } from "@/utils/encoderfunc";
 import ForgotPassword from "@/components/Auth/forgotpass";
 import Signin from "@/components/Auth/signpage";
 import { onlyUnAuthpages } from "@/components/Auth/guestRoutes";
+import AdminIngredients from "@/Admin/AdminIngredients";
+import AdminIngridientDetail from "@/Admin/AdminIngredients/ingredientDetail";
+import AddIngredients from "@/Admin/AdminIngredients/addingredient";
 
 
 
@@ -100,6 +103,11 @@ export default function Category() {
             {path === "/specs/cocktail/cocktail_ingredients" && (
               <Ingridients productType={"cocktail"} />
             )}
+
+            {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
+              <IngridientDetail productType={"cocktail"} productId={productId}/>
+            )}
+
 
           {path === `/specs/spirit` && <SpiritsCategory />}
           {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
@@ -164,13 +172,20 @@ export default function Category() {
             {path === `/specs/cocktail` && <AdminCocktail />}
             {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
             {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
+            {path === "/specs/cocktail/cocktail_ingredients" && (
+              <AdminIngredients productType={"cocktail"} />
+            )}
+            {path === `/specs/cocktail/cocktail_ingredients/new` && <AddIngredients subcategory={'cocktail'} />}
+            {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
+              <AdminIngridientDetail productType={"cocktail"} productId={productId}/>
+            )}
             {path === `/specs/beer` && <AdminBeer />}
             {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
             {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
             {path === `/specs/beer/brands` && <AdminBrandsBeer />}
             {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
             {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
-            {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+            {subcategory === "bestselling" && <BestSellingAdminCoctails/>}
             {path === `/specs/spirit` && <AdminSpirit />}
             {path === `/specs/spirit/${enUrl(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
             {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
