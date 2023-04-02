@@ -165,8 +165,10 @@ export default function Category() {
             {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
             {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
             {path === `/specs/beer` && <AdminBeer />}
-            {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />}
-            {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />}
+            {/* {path === `/specs/beer/new` && <CreateBeerAndLABV subcategory={'beer'} />} */}
+            {path === `/specs/beer/new` && <EmptyUserLayoutBeer subcategory={'beer'} />}
+            {/* {path === `/specs/beer?id=${productId}` && <EditById productId={productId} subcategory={'beer'} />} */}
+            {path === `/specs/beer?id=${productId}` && <BeerDisplayById productId={productId} subcategory={'beer'} />}
             {path === `/specs/beer/brands` && <AdminBrandsBeer />}
             {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
             {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
