@@ -125,8 +125,9 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
   }, [])
   useEffect(() => {
     if (isclear == true)
+    
       setSelectedItem(null)
-  }, [])
+  }, [isclear])
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);

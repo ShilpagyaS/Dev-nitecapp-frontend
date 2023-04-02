@@ -99,11 +99,11 @@ function EmptyUserLayoutBeer({ subcategory }) {
 
         });
         setSaved(true)
+        setDrinkBrand({ brand_id: "", brand_name: "" })
         setTimeout(() => {
 
             setSaved(false)
         }, 1000);
-        setDrinkBrand({ brand_id: "", brand_name: "" })
     }
     useEffect(() => {
         dispatch(getAllDrinkBrands()).then((res) => { setDrinkBrandArray(res) })
