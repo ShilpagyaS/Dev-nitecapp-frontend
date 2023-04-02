@@ -26,7 +26,7 @@ function WineTable() {
     }, [])
     console.log(categoryList);
     useEffect(() => {
-        let dummy = categoryList.map(
+        let dummy = categoryList?.map(
             (element) => {
                 return {
                     id: element.drink_category_id,

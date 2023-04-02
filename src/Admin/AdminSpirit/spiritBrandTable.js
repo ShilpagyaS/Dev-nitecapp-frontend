@@ -28,7 +28,7 @@ function SpiritBrandTable({ productId, subcategory }) {
     }, [])
     console.log(productsByCategory);
     useEffect(() => {
-        let dummy = productsByCategory.map(
+        let dummy = productsByCategory?.map(
             (element) => {
                 return {
                     id: element.spirit_id,

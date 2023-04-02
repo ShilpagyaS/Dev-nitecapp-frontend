@@ -28,7 +28,7 @@ function BeerTable() {
     }, [])
     console.log(productList);
     useEffect(() => {
-        let dummy = productList.map(
+        let dummy = productList?.map(
             (element) => {
                 return {
                     id: element.beer_id,

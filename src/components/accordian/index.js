@@ -12,7 +12,7 @@ export default function Accordian({ category, subcategory, handleClose }) {
   return (
     <div className="w-full">
       <div className="mx-auto w-full max-w-md text-white p-2">
-        {options.map((option, i) => {
+        {options?.map((option, i) => {
           return (
             <>
               <Disclosure key={option.id}>
@@ -42,7 +42,7 @@ export default function Accordian({ category, subcategory, handleClose }) {
                     </Disclosure.Button>
                     {option.subOptions.length ? (
                       <Disclosure.Panel className="px-4 pt-2 pb-2 text-sm text-white  transition duration-500">
-                        {option.subOptions.map((subOption, i) => {
+                        {option?.subOptions?.map((subOption, i) => {
                           return (
                             <>
                               <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-[7px] text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75 ">

@@ -32,7 +32,7 @@ function SpecsTable() {
         }
     }, [])
     useEffect(() => {
-        let dummy = cocktailList.map(
+        let dummy = cocktailList?.map(
             (element) => {
                 return {
                     id: element.cocktail_id,
@@ -51,7 +51,7 @@ function SpecsTable() {
         setcocktailList([...dummy])
     }, [cocktailList])
     useEffect(() => {
-        let dummy = beerList.map(
+        let dummy = beerList?.map(
             (element) => {
                 return {
                     id: element.beer_id,
@@ -70,7 +70,7 @@ function SpecsTable() {
         setbeerList([...dummy])
     }, [beerList])
     useEffect(() => {
-        let dummy = spiritList.map(
+        let dummy = spiritList?.map(
             (element) => {
                 return {
                     id: element.spirit_id,
@@ -89,7 +89,7 @@ function SpecsTable() {
         setspiritList([...dummy])
     }, [spiritList])
     useEffect(() => {
-        let dummy = wineList.map(
+        let dummy = wineList?.map(
             (element) => {
                 return {
                     id: element.wine_id,
@@ -108,7 +108,7 @@ function SpecsTable() {
         setwineList([...dummy])
     }, [wineList])
     useEffect(() => {
-        let dummy = low_no_abvList.map(
+        let dummy = low_no_abvList?.map(
             (element) => {
                 return {
                     id: element.low_no_abv_id,

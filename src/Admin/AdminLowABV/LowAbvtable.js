@@ -28,7 +28,7 @@ function LowAbvtable() {
     }, [])
     console.log(productList);
     useEffect(() => {
-        let dummy = productList.map(
+        let dummy = productList?.map(
             (element) => {
                 return {
                     id: element.low_no_abv_id,

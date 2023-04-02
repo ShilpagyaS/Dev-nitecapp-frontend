@@ -29,7 +29,7 @@ function WinebrandTable({ productId, subcategory }) {
     }, [])
     console.log(productsByCategory);
     useEffect(() => {
-        let dummy = productsByCategory.map(
+        let dummy = productsByCategory?.map(
             (element) => {
                 return {
                     id: element.wine_id,

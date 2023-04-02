@@ -14,7 +14,7 @@ function Trending() {
     <div className=" mt-5 w-full">
       <h3 className="text-white text-[20px] leading-8 mb-4">Trending</h3>
       <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true}>
-        {TrendingData.map((slide, i) => {
+        {TrendingData?.map((slide, i) => {
           return (
             <SwiperSlide
               style={{

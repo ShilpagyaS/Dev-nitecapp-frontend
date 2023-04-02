@@ -79,7 +79,7 @@ function ChangePasswordComponent({ confirmationfunction }) {
     });
   }
   function updateConditionStatus() {
-    let dummy = conditions.map((cond) => {
+    let dummy = conditions?.map((cond) => {
       switch (cond.id) {
         case "1":
           if (errors.passwordLength == true)

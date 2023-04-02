@@ -29,7 +29,7 @@ function BrandsSlider() {
         pagination={true}
         className="mb-4"
       >
-        {sliderData.map((slide, i) => {
+        {sliderData?.map((slide, i) => {
           return (
             <SwiperSlide
               key={i}
@@ -51,7 +51,7 @@ function BrandsSlider() {
         spaceBetween={12}
         pagination={true}
       >
-        {sliderData.map((slide, i) => {
+        {sliderData?.map((slide, i) => {
           return (
             <SwiperSlide key={i} style={{ width: "fit-content" }}>
               <div

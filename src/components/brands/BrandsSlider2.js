@@ -27,7 +27,7 @@ function BrandsSlider2({ skipTo }) {
         className=" md:max-w-lg max-w-sm mt-4 w-full max-h-[450px]"
         spaceBetween={0}
       >
-        {sliderData.map((slide, i) => {
+        {sliderData?.map((slide, i) => {
           return (
             <SwiperSlide key={i}>
               <div>

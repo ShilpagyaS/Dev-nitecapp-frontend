@@ -18,7 +18,7 @@ function CourceSlider() {
                     modules={[Pagination]}
             
                 >
-                    {coctailData.map((slide, i) => {
+                    {coctailData?.map((slide, i) => {
                         return (
                             <SwiperSlide
                                 key={i}

@@ -39,7 +39,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
     const renderRows = () => {
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
-        return ListData.slice(start, end).map((element, index) => (
+        return ListData.slice(start, end)?.map((element, index) => (
             <tr key={index} className='h-[111px]'>
                 <td className='p-[25px] text-white'>{index + 1}</td>
 

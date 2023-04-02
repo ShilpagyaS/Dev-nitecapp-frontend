@@ -101,7 +101,7 @@ const ExploreBrands = ({ admin }) => {
       <div className="brands-container">
         <h1 className="mb-[48px] text-[24px] font-bold">All Brands</h1>
       </div>
-      {brandsData.map((brand, i) => {
+      {brandsData?.map((brand, i) => {
         return (
           <>
             <div key={i} className="category-container">
@@ -115,7 +115,7 @@ const ExploreBrands = ({ admin }) => {
                   </p>
                 </div>
               </div>
-              {brand.categoryCards.map((subcategory, i) => {
+              {brand?.categoryCards?.map((subcategory, i) => {
                 return (
                   <div className="brand-cards-container">
                     <div className="flex justify-between mb-6">

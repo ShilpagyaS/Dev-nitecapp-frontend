@@ -47,7 +47,7 @@ function Slider({ skipTo }) {
           setswipperInstance(e);
         }}
       >
-        {sliderData.map((slide, i) => {
+        {sliderData?.map((slide, i) => {
           return (
             <SwiperSlide key={i}>
               <div className="p-4">

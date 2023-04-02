@@ -10,7 +10,7 @@ function SideBar({ category, subcategory }) {
   return (
     <>
       <div className="sidebar-container w-auto h-full">
-        {menuOptions.map((option, ik) => {
+        {menuOptions?.map((option, ik) => {
           return (
             <>
               <div className="flex items-center py-[12px]" key={ik}>
@@ -24,7 +24,7 @@ function SideBar({ category, subcategory }) {
                 </Link>
               </div>
               <div className="ml-[6px]">
-                {option.subOptions.map((subOption, i) => {
+                {option.subOptions?.map((subOption, i) => {
                   return (
                     <div
                       className="w-[139px] mt- flex items-baseline py-[6px] relative"

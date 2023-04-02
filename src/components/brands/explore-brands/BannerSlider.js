@@ -67,7 +67,7 @@ const BannerSlider = (props) => {
           setswipperInstance(e);
         }}
       >
-        {sliderData.map((slide, i) => {
+        {sliderData?.map((slide, i) => {
           return (
             <SwiperSlide key={i}>
               <div className="p-4 bg-[url('/asset/brand-bg1.svg')] h-full  bg-cover bg-center  brand-img-container">

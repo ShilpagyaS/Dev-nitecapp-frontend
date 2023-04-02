@@ -118,7 +118,7 @@ const AdminExploreBrands = () => {
       <div className="brands-container">
         <h1 className="mb-[48px] text-[24px] font-bold">All Brands</h1>
       </div>
-      {brandsData.map((brand, i) => {
+      {brandsData?.map((brand, i) => {
         return (
           <>
             <div key={i} className="category-container">
@@ -132,7 +132,7 @@ const AdminExploreBrands = () => {
                   </p>
                 </div>
               </div>
-              {brand.categoryCards.map((subcategory, i) => {
+              {brand.categoryCards?.map((subcategory, i) => {
                 return (
                   <div className="brand-cards-container">
                     <div className="flex justify-between mb-6">
@@ -158,7 +158,7 @@ const AdminExploreBrands = () => {
                       </div>
                     </div>
                     <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
-                      {subcategory.subcategoryCards.map((card, i) => {
+                      {subcategory.subcategoryCards?.map((card, i) => {
                         return (
                           <Link href={`/brand/explore-brands?id=${i}`}>
                             <div className="col-span-1 relative w-[237px] h-[127px] ronded-[6px]">
