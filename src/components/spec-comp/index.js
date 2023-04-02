@@ -47,7 +47,7 @@ const dispatch=useDispatch()
         </Link>
        
       </div>
-      <CoctailSlider data={productList.length<=10?productList:productList.slice(0,10) } />
+      <CoctailSlider data={productList?.length<=10?productList:productList?.slice(0,10) } />
       <CoreBeverage />
       <Trending />
     </>

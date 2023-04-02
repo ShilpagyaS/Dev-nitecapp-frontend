@@ -85,7 +85,7 @@ export default function Category() {
 
 
 
-      {/* <AuthWrapper> */}
+      <AuthWrapper>
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <>
           {onlyUnAuthpages.includes(path) ?<>{path==="/signin" && <Signin/> }
