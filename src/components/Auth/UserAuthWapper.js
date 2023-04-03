@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onlyUnAuthpages } from "./guestRoutes";
 
 export default function UserAuthWrapper({ children }) {
-    const { user } = useSelector((state) => state.auth);
+    const { user,firstTimeLogin } = useSelector((state) => state.auth);
     const { path } = useNavDetails()
     const router = useRouter();
 
@@ -20,11 +20,11 @@ export default function UserAuthWrapper({ children }) {
             } else  router.push("/signin")
         } 
         else if (isguestroute && Boolean(user)) {
-            if (user.first_time_login)
+            if (firstTimeLogin)
                 router.push("/signin")
             else router.push("/specs");
         } 
-        else if (Boolean(user) && user.first_time_login) {
+        else if (Boolean(user) && firstTimeLogin) {
             router.push("/signin")
         }
 

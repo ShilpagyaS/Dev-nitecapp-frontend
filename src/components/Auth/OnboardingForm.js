@@ -53,10 +53,10 @@ const [indata,setindata]=useState({})
   useEffect(() => {
     debugger
     if (user) {
-      setindata({...user,user_id:user.id,role:role.name})
+      setindata({...user,user_id:user.id,role:role?.name})
     }
 
-  }, [user]);
+  }, [user,role]);
 
   return (
     <>
