@@ -7,11 +7,12 @@ import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
 import axiosInstance from "@/components/Auth/axios";
-import { createProduct } from '@/store/slices/product';
+import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
 import { useDispatch } from 'react-redux';
+import { CustomSelectForBrands } from '@/utils/CustomSelect';
 
 
-function EmptyUserLayoutBeer() {
+function EmptyUserLayoutBeer({ subcategory }) {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -29,7 +30,9 @@ function EmptyUserLayoutBeer() {
     const [EditModal, setEditmodal] = useState(false)
     const [drinkName, setName] = useState('')
     const [isSAve, setSaved] = useState(false)
-
+    const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
+    const [drinkBrandArray, setDrinkBrandArray] = useState([])
+    const [selectedOption, setSelection] = useState('bottle')
     const dispatch = useDispatch()
 
 
@@ -72,14 +75,16 @@ function EmptyUserLayoutBeer() {
     function createdrink() {
         console.log('calling');
         let data = {
-            beer_name: drinkName,
+            [`${subcategory}_name`]: drinkName,
             description: textAreaRef.current.value || '',
             abv: newMockData.abv,
             origin: newMockData.origin,
             tastes: newMockData.tastes,
+            brand_id: drinkBrand.brand_id,
+            packaging_type: selectedOption
 
         }
-        dispatch(createProduct('beer', data)).then((res) => {
+        dispatch(createProduct(subcategory, data)).then((res) => {
             console.log(res);
             clearForm();
         })
@@ -94,11 +99,19 @@ function EmptyUserLayoutBeer() {
 
         });
         setSaved(true)
+        setDrinkBrand({ brand_id: "", brand_name: "" })
         setTimeout(() => {
 
             setSaved(false)
         }, 1000);
     }
+    useEffect(() => {
+        dispatch(getAllDrinkBrands()).then((res) => { setDrinkBrandArray(res) })
+    }, [])
+    const handleOptionChange = (event) => {
+        setSelection(event.target.value);
+    };
+
     return (
         <>
             {/* {EditModal &&
@@ -157,6 +170,41 @@ function EmptyUserLayoutBeer() {
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
 
                                 </div> */}
+                                <div className='input-desc flex flex-col ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Brands</h3>
+                                    <CustomSelectForBrands items={drinkBrandArray} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} isclear={isSAve} />
+                                </div>
+                                <div className='flex flex-col ml-[10px] '>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Select Packaging Type</h3>
+                                    <div className='flex items-center justify-evenly'>
+
+                                        <div className='flex justify-center items-center'>
+
+                                            <input
+                                                id='bottle'
+                                                type="radio"
+                                                value="bottle"
+                                                checked={selectedOption === 'bottle'}
+                                                onChange={handleOptionChange}
+                                                className='appearance-none'
+                                            />
+                                            <label htmlFor='bottle' className={`ml-[10px] ${selectedOption === 'bottle' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Bottle</label>
+                                        </div>
+                                        <div className='flex justify-center items-center ml-[10px] h-[50px]'>
+
+                                            <input
+                                                id='can'
+                                                type="radio"
+                                                value="can"
+                                                checked={selectedOption === 'can'}
+                                                onChange={handleOptionChange}
+                                                className='appearance-none'
+
+                                            />
+                                            <label htmlFor='can' className={`ml-[10px] ${selectedOption === 'can' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Can</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -184,7 +232,7 @@ function EmptyUserLayoutBeer() {
 
                             }}
                                 // onDeleteClick={() => { setIsDeleteModalOpen(true) }}
-                                customize={{ add: false, switch: true }}
+                                customize={{ add: false, switch: false }}
                                 // isActive={localIsActive}
                                 setActive={() => { }}
 
@@ -197,7 +245,7 @@ function EmptyUserLayoutBeer() {
                             <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Strength"} quantity={newMockData.abv} />
+                                <SplitCard desc={"Strength"} quantity={newMockData.abv == "" ? "" : `${newMockData.abv}%`} />
 
                             </div>
                             <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
@@ -218,5 +266,6 @@ function EmptyUserLayoutBeer() {
         </>
     )
 }
+
 
 export default EmptyUserLayoutBeer

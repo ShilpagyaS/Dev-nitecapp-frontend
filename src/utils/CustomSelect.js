@@ -125,8 +125,9 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
   }, [])
   useEffect(() => {
     if (isclear == true)
+    
       setSelectedItem(null)
-  }, [])
+  }, [isclear])
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
@@ -147,9 +148,9 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
         className="w-full py-[8px] pl-[28px] pr-[28px] text-white bg-[#2C2C2C] border border-[#2C2C2C] rounded shadow-sm outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
         onClick={handleToggleDropdown}
       >
-        {selectedItem ? selectedItem.label : <span className='text-[#767676]'>
-Select an option
-</span>}
+        {selectedItem ? selectedItem.label : <span className='text-[#767676] bg-transparent'>
+          Select an option
+        </span>}
         <Image
           src={'/asset/DownArrow.svg'}
           width={14}

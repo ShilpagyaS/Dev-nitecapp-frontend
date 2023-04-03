@@ -8,7 +8,8 @@ import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useEffect, useRef, useState } from 'react'
 import axiosInstance from "@/components/Auth/axios";
 import { useDispatch } from 'react-redux';
-import { createProduct } from '@/store/slices/product';
+import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
+import { CustomSelectForBrands } from '@/utils/CustomSelect';
 
 
 function AddSpirit({ subcategory, productId }) {
@@ -29,6 +30,8 @@ function AddSpirit({ subcategory, productId }) {
     const [EditModal, setEditmodal] = useState(false)
     const [drinkName, setName] = useState('')
     const [isSAve, setSaved] = useState(false)
+    const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
+    const [drinkBrandArray, setDrinkBrandArray] = useState([])
 
     const dispatch = useDispatch()
 
@@ -78,6 +81,8 @@ function AddSpirit({ subcategory, productId }) {
             origin: newMockData.origin,
             tastes: newMockData.tastes,
             category_id: productId,
+            brand_id: drinkBrand.brand_id
+
 
         }
         dispatch(createProduct(subcategory, data)).then((res) => {
@@ -95,11 +100,16 @@ function AddSpirit({ subcategory, productId }) {
 
         });
         setSaved(true)
+        setDrinkBrand({ brand_id: "", brand_name: "" })
+
         setTimeout(() => {
 
             setSaved(false)
         }, 1000);
     }
+    useEffect(() => {
+        dispatch(getAllDrinkBrands()).then((res) => { setDrinkBrandArray(res) })
+    }, [])
     return (
         <>
             {/* {EditModal &&
@@ -158,6 +168,10 @@ function AddSpirit({ subcategory, productId }) {
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
 
                                 </div> */}
+                                <div className='input-desc flex flex-col ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Brands</h3>
+                                    <CustomSelectForBrands items={drinkBrandArray} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} isclear={isSAve} />
+                                </div>
                             </div>
                         </div>
 
@@ -198,7 +212,7 @@ function AddSpirit({ subcategory, productId }) {
                             <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'abv', quantity: newMockData.abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
                                 onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                <SplitCard desc={"Strength"} quantity={newMockData.abv} />
+                                <SplitCard desc={"Strength"} quantity={newMockData.abv == "" ? "" : `${newMockData.abv}%`} />
 
                             </div>
                             <div onDoubleClick={() => { setEditItem({ index: 1, desc: 'origin', quantity: newMockData.origin }); if (foucsed == 1) setAsfocus(null); if (isEdit) setEditmodal(true) }}
