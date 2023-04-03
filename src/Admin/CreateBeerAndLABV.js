@@ -16,7 +16,7 @@ function CreateBeerAndLABV({ subcategory }) {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
-
+ 
     const [newMockData, setNewMockData] = useState({
 
         abv: '',

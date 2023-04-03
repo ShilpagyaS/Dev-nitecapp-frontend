@@ -6,8 +6,8 @@ import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useState } from 'react'
 import ButtonCombo from './ButtonCombo';
 
-function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive ,fromeditnigscreen}) {
-    // console.log(title, type, arr, isActive);
+function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive, fromeditnigscreen }) {
+    console.log(title, type, arr, isActive);
     if (title == 'ingredients') type = 1
     if (title == 'presentations') type = 1
     if (title == 'methods') type = 0
@@ -20,7 +20,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [localIsActive, setLocalIsActive] = useState(isActive)
+    // const [localIsActive, setLocalIsActive] = useState()
 
 
 
@@ -82,7 +82,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
 
     }
     function setActiveData(e) {
-        setLocalIsActive(e);
+        // setLocalIsActive(e);
         setActive(title, e)
     }
     return (
@@ -170,8 +170,8 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
 
                         }}
                             onDeleteClick={() => { setIsDeleteModalOpen(true) }}
-                            customize={{ add: true, switch: false }}
-                            isActive={localIsActive}
+                            customize={{ add: true, switch: fromeditnigscreen && isEdit ? true : false }}
+                            isActive={isActive}
                             setActive={setActiveData}
 
 
