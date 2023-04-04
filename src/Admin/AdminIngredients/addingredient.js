@@ -11,6 +11,7 @@ import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
 import { useDispatch } from 'react-redux';
 import CustomSelect, { CustomSelectForBrands } from '@/utils/CustomSelect';
 import Breadcrumb from '@/components/Breadcrumb';
+import { createMasterIngredient, getAllIngredientCategoryForSelect } from '@/store/slices/ingredients';
 
 
 function AddIngredients({ subcategory }) {
@@ -18,21 +19,17 @@ function AddIngredients({ subcategory }) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
 
-    const [newMockData, setNewMockData] = useState({
-
-        abv: '',
-        tastes: '',
-        origin: '',
-    });
-
     const textAreaRef = useRef(null);
+    const aboutref = useRef(null);
     const [editItem, setEditItem] = useState({})
     const [foucsed, setAsfocus] = useState(null)
     const [EditModal, setEditmodal] = useState(false)
-    const [drinkName, setName] = useState('')
+    const [ingredientName, setName] = useState('')
+    const [abv, setabv] = useState('')
     const [isSAve, setSaved] = useState(false)
-    const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
-    const [drinkBrandArray, setDrinkBrandArray] = useState([])
+    const [ingredient_Type, setIngredientType] = useState({ ingredient_id: '', ingredient_name: '' })
+    const [ingredient_TypeArray, setIngredientTypeArray] = useState([])
+
 
     const dispatch = useDispatch()
 
@@ -43,70 +40,66 @@ function AddIngredients({ subcategory }) {
     }
 
     // new generic approach
-    useEffect(() => {
-        console.log(newMockData);
 
-    }, [newMockData])
-
+    const handleChange = event => {
+        const newValue = event;
+        if (/^\d*\.?\d*$/.test(newValue)) {
+            setabv(newValue);
+        }
+    };
 
     function setActive(title, data) {
-        setNewMockData(((prev) => {
-            return {
-                ...prev,
-                [title]: {
-                    ...prev[title],
-                    isActive: data,
-                }
-            }
-        }))
+        // setNewMockData(((prev) => {
+        //     return {
+        //         ...prev,
+        //         [title]: {
+        //             ...prev[title],
+        //             isActive: data,
+        //         }
+        //     }
+        // }))
 
     }
 
     function editValues(title, data, index) {
 
-        setNewMockData(((prev) => {
-            return {
-                ...prev,
-                [title]: data
-            }
-        }))
+        // setNewMockData(((prev) => {
+        //     return {
+        //         ...prev,
+        //         [title]: data
+        //     }
+        // }))
 
     }
 
     function createdrink() {
         console.log('calling');
         let data = {
-            [`${subcategory}_name`]: drinkName,
-            description: textAreaRef.current.value || '',
-            abv: newMockData.abv,
-            origin: newMockData.origin,
-            tastes: newMockData.tastes,
-            brand_id: drinkBrand.brand_id
-
+            master_ingredient_name: ingredientName,
+            ingredient_type_id: ingredient_Type.ingredient_id,
+            abv: abv,
+            short_description: textAreaRef.current.value || '',
+            description: aboutref.current.value || ''
         }
-        dispatch(createProduct(subcategory, data)).then((res) => {
+
+
+        dispatch(createMasterIngredient(data)).then((res) => {
             console.log(res);
             clearForm();
         })
 
     }
     function clearForm() {
-
-        setName(""); setNewMockData({
-            abv: '',
-            tastes: '',
-            origin: '',
-
-        });
+        setabv('')
+        setName('')
         setSaved(true)
         setTimeout(() => {
 
             setSaved(false)
         }, 1000);
-        setDrinkBrand({ brand_id: "", brand_name: "" })
     }
     useEffect(() => {
-        dispatch(getAllDrinkBrands()).then((res) => { setDrinkBrandArray(res) })
+        dispatch(getAllIngredientCategoryForSelect()).then((res) => { setIngredientTypeArray(res) })
     }, [])
 
     return (
@@ -133,7 +126,7 @@ function AddIngredients({ subcategory }) {
                 <div className="flex flex-row items-center justify-between">
 
                     <div className="text-container ">
-                       <Breadcrumb last={`/ ingredients`}/>
+                        <Breadcrumb last={`/ ingredients`} />
                     </div>
                     <div className="flex items-center justify-center">
 
@@ -158,7 +151,7 @@ function AddIngredients({ subcategory }) {
                                 <div className='input-desc flex flex-col'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Item Name</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
-                                        value={drinkName || ''} onChange={(e) => { setName(e.target.value) }} />
+                                        value={ingredientName || ''} onChange={(e) => { setName(e.target.value) }} />
                                 </div>
                                 {/* <div className='input-val flex flex-col ml-[25px]'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
@@ -166,8 +159,8 @@ function AddIngredients({ subcategory }) {
 
                                 </div> */}
                                 <div className='input-desc flex flex-col ml-[25px]'>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Category</h3>
-                                    <CustomSelectForBrands items={drinkBrandArray} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} isclear={isSAve} />
+                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Ingredient Type</h3>
+                                    <CustomSelectForBrands items={ingredient_TypeArray} optionalFunction={(e) => { console.log(e); setIngredientType({ ingredient_id: e.value, ingredient_name: e.label }) }} isclear={isSAve} />
                                 </div>
 
                             </div>
@@ -177,18 +170,22 @@ function AddIngredients({ subcategory }) {
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}
                         >
-                            <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Detail</h3>
-                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} isSAve={isSAve} minHeight={"250px"}  />
+                            <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Detail</h3>
+                            <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} isSAve={isSAve} minHeight={"250px"} />
                         </p>
                         <div className='input-desc '>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Strength</h3>
-                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
-                                        value={drinkName || ''} onChange={(e) => { setName(e.target.value) }} />
-                                </div>
+                            <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Strength</h3>
+                            <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
+                                value={abv || ''} onChange={(e) => { handleChange(e.target.value) }} />
+                        </div>
+
                     </div>
 
+
                 </div>
-               
+                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Description</h3>
+                <DescriptionTextArea textAreaRef={aboutref} maxheight={'200'} isEdit={true} content={''} isSAve={isSAve} minHeight={"250px"} />
+
             </div>
         </>
     )

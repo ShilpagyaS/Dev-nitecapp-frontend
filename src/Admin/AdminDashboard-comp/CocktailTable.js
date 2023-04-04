@@ -48,10 +48,10 @@ function CocktailTable() {
     }, [productList])
 
     function toggleSwitch(e, element) {
-        let data = { cocktail_id: element.id, showProduct: e }
-        dispatch(putProductByIdThenUpdateListShowProduct('cocktail', data))
+        let data = { type: 'cocktail', id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProduct(data))
     }
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
@@ -124,7 +124,7 @@ function CocktailTable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/cocktail/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            <TableContainerWithButtons label={'ADD COCKTAIL'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/cocktail/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
         </>
     )
 }

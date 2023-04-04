@@ -169,16 +169,31 @@ export const putProductByIdThenUpdateList = (productType, productId, data) => {
     });
   };
 };
-export const putProductByIdThenUpdateListShowProduct = (productType, data) => {
+export const putProductByIdThenUpdateListShowProduct = (data) => {
   return async (dispatch, getState) => {
     const state = getState();
     return axiosInstance({
-      url: `/api/${productType}/show_product/update_by_${productType}_id`,
+      url: `/api/show_Produt/comman_api_for_all_product`,
       method: "PUT",
       data
     }).then((res) => {
       // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
-      dispatch(getProduct(productType))
+      dispatch(getProduct(data.type))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const putProductByIdThenUpdateListShowProductForCategory = (data, productId) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/show_Produt/comman_api_for_all_product`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProductByCategoryId(data.type, productId))
     }).catch((err) => {
       console.log(err)
     });

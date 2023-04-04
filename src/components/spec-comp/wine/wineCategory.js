@@ -2,18 +2,20 @@ import { CiSearch } from "react-icons/ci";
 import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { emptyProductList, getCategoryList, getProduct } from "@/store/slices/product";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
 import { enUrl } from "@/utils/encoderfunc";
+import Search from "@/utils/Search";
 
 
 function WineCategory() {
     const dispatch = useDispatch();
     const isTablet = useMediaQuery("(max-width: 786px)");
     const { categoryList } = useSelector((state) => state.product);
+    const [searchTerm , setSearch]=useState("")
 
     useEffect(() => {
         dispatch(getCategoryList("wine"));
@@ -28,22 +30,26 @@ function WineCategory() {
                 <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
                     <Breadcrumb />
                     {!isTablet && (
-                        <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
-                            <CiSearch
-                                color="#929292"
-                                size="15px"
-                                className="bg-[#1D1D1D] mr-[26px]"
-                            />
-                            <input
-                                className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-                                type="text"
-                                placeholder="Search"
-                            />
-                        </div>
+                        // <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
+                        //     <CiSearch
+                        //         color="#929292"
+                        //         size="15px"
+                        //         className="bg-[#1D1D1D] mr-[26px]"
+                        //     />
+                        //     <input
+                        //         className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
+                        //         type="text"
+                        //         placeholder="Search"
+                        //     />
+                        // </div>
+                        <Search search={searchTerm} setSearch={(e) => {
+                            setSearch(e);
+                            //  filterData(e) 
+                        }} />
                     )}
                 </div>
                 <div className="heading-container lg:mb-8 mb-3">
-                    <h2 className="text-white text-[24px] leading-9 font-bold ">Wine</h2>
+                    <h2 className="text-white text-[24px] leading-9 font-bold ">   {'Wine (Category)'}</h2>
                 </div>
                 {isTablet && (
                     <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">

@@ -46,7 +46,7 @@ function SpecsTable() {
                 }
 
             }
-        )
+        ) || []
         console.log(dummy);
         setcocktailList([...dummy])
     }, [cocktailList])
@@ -65,7 +65,7 @@ function SpecsTable() {
                 }
 
             }
-        )
+        )|| []
         console.log(dummy);
         setbeerList([...dummy])
     }, [beerList])
@@ -84,7 +84,7 @@ function SpecsTable() {
                 }
 
             }
-        )
+        )|| []
         console.log(dummy);
         setspiritList([...dummy])
     }, [spiritList])
@@ -103,7 +103,7 @@ function SpecsTable() {
                 }
 
             }
-        )
+        )|| []
         console.log(dummy);
         setwineList([...dummy])
     }, [wineList])
@@ -122,7 +122,7 @@ function SpecsTable() {
                 }
 
             }
-        )
+        )|| []
         console.log(dummy);
         setlow_no_abvList([...dummy])
     }, [low_no_abvList])
@@ -132,7 +132,7 @@ function SpecsTable() {
         dispatch(putProductByIdThenUpdateList(element.type, element.id, data))
             .then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
     }
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRowsnormal({ element }) {
 
         return (

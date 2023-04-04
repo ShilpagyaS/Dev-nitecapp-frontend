@@ -22,16 +22,14 @@ function AdminBrandsBeer() {
             <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between mb-[15px]'>
                 {/* grid for search and button  */}
 
-                <ChipWithLeftButton condition={true} label={'Add Item'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { }} />
-                <div className='flex pr-[38px] '>
-                    <Search />
-                </div>
+                <ChipWithLeftButton condition={true} label={'Add a Brand'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { }} />
+           
             </div>
             <div className="sub-heading-container flex justify-between items-center mb-[21px] pr-[18px]">
                 <h4 className="text-white text-[20px] leading-[32px] font-semibold capitalize">
 
                 </h4>
-                {isEdit && <ButtonCombo onAddClick={() => {
+                {/* {isEdit && <ButtonCombo onAddClick={() => {
                     // type == null ? setFirstTimemodal(true) :
                     //     setAddmodal(true)
                     // console.log('not null --.', type);
@@ -44,7 +42,7 @@ function AdminBrandsBeer() {
                     setActive={() => { }}
 
 
-                />}
+                />} */}
 
             </div>
             <div className="cards-container flex lg:justify-start justify-center items-center flex-wrap gap-x-[81px] gap-y-[50px]">

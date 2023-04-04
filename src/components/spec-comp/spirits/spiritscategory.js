@@ -46,7 +46,7 @@ function SpiritsCategory() {
                 </div>
                 <div className="heading-container lg:mb-8 mb-3">
                     <h2 className="text-white text-[24px] leading-9 font-bold ">
-                        Spirits
+                        {'Spirits (Category)'}
                     </h2>
                 </div>
                 {isTablet && (

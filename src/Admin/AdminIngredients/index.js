@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
 import { RectangularCard } from "@/utils/SpecCards";
@@ -10,14 +10,20 @@ import { emptyIngredientsList, getIngredientsList } from "@/store/slices/ingredi
 import Breadcrumb from "@/components/Breadcrumb";
 import useFilteredData from "@/Hooks/useFilteredData";
 import { Buttons, CustomButton, OrangeButtons } from "@/utils/Buttons";
+import ChipWithLeftButton from "@/utils/ChipWithLeftButton";
+import { useRouter } from "next/router";
+import Search from "@/utils/Search";
 
 function AdminIngredients({ productType }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
-
-
+  const [finaldata, setfinalDate] = useState([])
+  const [searchTerm, setSearch] = useState("")
   const { ingredients } = useSelector((state) => state.ingredients);
-  const filteredData = useFilteredData(ingredients, true, "cocktails", "ingredient_type_name")
+  const filteredData = useFilteredData(finaldata, true, "cocktails", "ingredient_type_name")
+  const router = useRouter();
   const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     dispatch(getIngredientsList(productType));
@@ -25,6 +31,24 @@ function AdminIngredients({ productType }) {
       dispatch(emptyIngredientsList())
     }
   }, []);
+
+  useEffect(() => {
+    if (searchTerm !== "" && searchTerm) {
+
+      let filterDummy = []
+      filterDummy = ingredients.filter((item) =>
+
+        item.master_ingredient_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      console.log(filterDummy);
+      setfinalDate(filterDummy)
+
+    }
+    else
+      setfinalDate(ingredients)
+
+  }
+    , [searchTerm, ingredients])
 
 
   const addIcon = (
@@ -45,20 +69,15 @@ function AdminIngredients({ productType }) {
   return (
     <>
       <div className="coctail-container">
-        <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
+        <div className="search-container flex justify-between items-center lg:mb-5 mb-2 ">
           <Breadcrumb last={`${productType} Ingredients`} />
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
-              <CiSearch
-                color="#929292"
-                size="15px"
-                className="bg-[#1D1D1D] mr-[26px]"
-              />
-              <input
-                className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-                type="text"
-                placeholder="Search"
-              />
+
+              <Search search={searchTerm} setSearch={(e) => {
+                setSearch(e);
+                //  filterData(e) 
+              }} />
             </div>
           )}
         </div>
@@ -66,26 +85,16 @@ function AdminIngredients({ productType }) {
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {`${productType} Ingredients`}
           </h2>
-          <Link href={`/specs/cocktail/cocktail_ingredients/new`}>
-          <CustomButton
-                          background="#F19B6C"
-                          icon={addIcon}
-                          label="Add New"
-                        />
-          </Link>
+          <ChipWithLeftButton condition={true} label={'Add Ingredients'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { router.push("/specs/cocktail/cocktail_ingredients/new") }} />
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
-            <CiSearch
-              color="#929292"
-              size="15px"
-              className="bg-[#1D1D1D] mr-[26px]"
-            />
-            <input
-              className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-              type="text"
-              placeholder="Search"
-            />
+
+            <Search search={searchTerm} setSearch={(e) => {
+              setSearch(e);
+              //  filterData(e) 
+            }} />
+
           </div>
         )}
         <div className="bottle-cards-container mb-8">
@@ -96,15 +105,15 @@ function AdminIngredients({ productType }) {
                 <p className="text-white text-[20px] font-semibold mb-5">
                   {section.type}
                 </p>
-                <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+                <div className="cards-container grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
                   {section.data.map((card, i) => {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients?id=${card.ingredient_type_id}`}
+                          href={`/specs/cocktail/cocktail_ingredients?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
-                            title={card.ingredient_type_name}
+                            title={card.master_ingredient_name}
                             image={'/asset/london-dry.svg'}
                             subtitle={""}
                           />

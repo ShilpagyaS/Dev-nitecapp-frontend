@@ -348,6 +348,19 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                                         />
                                         <label htmlFor='can' className={`ml-[10px] ${selectedOption === 'can' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Can</label>
                                     </div>
+                                    <div className='flex justify-center items-center ml-[10px]'>
+
+                                        <input
+                                            id='draft'
+                                            type="radio"
+                                            value="draft"
+                                            checked={selectedOption === 'draft'}
+                                            onChange={handleOptionChange}
+                                            className='appearance-none'
+
+                                        />
+                                        <label htmlFor='draft' className={`ml-[10px] ${selectedOption === 'draft' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Draft</label>
+                                    </div>
                                 </div>
                             }
                             {!isEdit &&

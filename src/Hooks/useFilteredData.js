@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 const useFilteredData = (productList, typechecking, defauttype, findname) => {
-  const [filtereddataList, setfiltereddata] = useState([]);
   const filtereddata = () => {
     let temp = [];
     

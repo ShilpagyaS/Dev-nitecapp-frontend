@@ -66,6 +66,8 @@ import { onlyUnAuthpages } from "@/components/Auth/guestRoutes";
 import AdminIngredients from "@/Admin/AdminIngredients";
 import AdminIngridientDetail from "@/Admin/AdminIngredients/ingredientDetail";
 import AddIngredients from "@/Admin/AdminIngredients/addingredient";
+import LayoutWithSidebarAdmin from "@/components/Layouts/LayoutWithSidebarAdmin";
+import ManageUsers from "@/Admin/AdminManager/ManageUsers";
 
 
 
@@ -118,6 +120,9 @@ export default function Category() {
 
             {path === `/specs/spirit/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
 
+
+
+
             {path === "/specs/wine" && <WineCategory />}
 
             {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
@@ -167,7 +172,7 @@ export default function Category() {
           
           {onlyUnAuthpages.includes(path) ?<>{path==="/signin" && <Signin/> }
           {path==="/forgotpassword" && <ForgotPassword/> }</>:
-          <LayoutWithSidebar category={category} subcategory={subcategory}>
+          <LayoutWithSidebarAdmin category={category} subcategory={subcategory}>
             {category === "specs" && !subcategory && <AdminSpecs />}
             {path === `/specs/cocktail` && <AdminCocktail />}
             {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
@@ -199,7 +204,9 @@ export default function Category() {
             {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />}
             {path === `/brand` && <AdminExploreBrands />}
             {category === "dashboard" && <AdminDashboard />}
-          </LayoutWithSidebar>
+
+            {path === `/manageusers` && <ManageUsers />}
+          </LayoutWithSidebarAdmin>
 }
           </>
         )}

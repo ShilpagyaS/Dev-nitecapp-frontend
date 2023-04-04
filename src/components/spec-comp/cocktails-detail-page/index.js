@@ -3,7 +3,7 @@ import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton, OrangeButtons } from "@/utils/Buttons";
 import { RectangularCard } from "@/utils/SpecCards";
 import Image from "next/image";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import DetailsMock from "../../mock/DetailsMock.json";
 import NotesModal from "../../modal/Modal";
 import useNavDetails from "@/Hooks/useNavDetails";
@@ -86,7 +86,8 @@ const CocktailDetailPage = ({ id }) => {
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
-            {!isMobile && <AiOutlineHeart size="25px" color="#fff" />}
+            {!isMobile && <AiOutlineHeart size="25px" color="#fff"/>}
+            {!isMobile && <AiFillHeart size="25px" color="#fff" fill="#fff"/>}
           </div>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"

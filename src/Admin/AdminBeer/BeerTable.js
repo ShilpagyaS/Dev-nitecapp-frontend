@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList } from '@/store/slices/product'
+import { deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
@@ -34,7 +34,7 @@ function BeerTable() {
                     id: element.beer_id,
                     itemImage: '',
                     itemName: element.beer_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -46,11 +46,12 @@ function BeerTable() {
         setList([...dummy])
     }, [productList])
 
+
     function toggleSwitch(e, element) {
-        let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList('beer', element.id, data))
+        let data = { type: 'beer', id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProduct(data))
     }
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
@@ -123,7 +124,7 @@ function BeerTable() {
                 onSave={deleteProduct}
             />
         }
-            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/beer/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD BEER'} buttonFunction={() => { router.push("/specs/beer/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

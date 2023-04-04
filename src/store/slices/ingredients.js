@@ -29,7 +29,8 @@ export const getIngredientsList = (productType) => {
     return async (dispatch, getState) => {
         const state = getState();
         await axiosInstance({
-            url: `/api/${productType}_ingredient_type/get_all_${productType}_ingredient_type`,
+            url: `/api/master_ingredients/get_all_master_ingredients`,
+            // url: `/api/${productType}_ingredient_type/get_all_${productType}_ingredient_type`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
@@ -62,8 +63,73 @@ export const getIngredientsDetails = (productType, id) => {
         });
     };
 };
+export const getMasterIngredientsDetails = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            url: `/api/master_ingredients/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                ingredientsSlice.actions.getIngredientDetails(res.data?.data)
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const putIngredientById = (productId, data) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return axiosInstance({
+            url: `/api/master_ingredients/${productId}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getMasterIngredientsDetails(productId))
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getAllIngredientCategoryForSelect = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
 
 
+        return await axiosInstance({
+            url: `/api/cocktail_ingredient_type/get_all_cocktail_ingredient_type`,
+            method: "GET",
+        }).then((res) => {
+
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i.ingredient_type_id,
+                    label: i.ingredient_type_name
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    };
+};
+export const createMasterIngredient = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/master_ingredients/add_new_master_ingredients`,
+            method: "POST",
+            data
+        }).then((res) => {
+            // dispatch(getCategoryListByType(productType))
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const emptyIngredientsList = (productType) => {
 
     return async (dispatch, getState) => {
