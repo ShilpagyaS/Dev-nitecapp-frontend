@@ -120,6 +120,7 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   useEffect(() => {
+    console.log(defaultSelect);
     if (defaultSelect)
       handleSelectItem(defaultSelect)
   }, [])

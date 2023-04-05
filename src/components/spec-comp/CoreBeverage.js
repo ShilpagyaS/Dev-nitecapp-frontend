@@ -10,17 +10,17 @@ function CoreBeverage() {
     },
     {
       title: "Spirits",
-      img: "/asset/beverage1.svg",
+      img: "/asset/spirit-specs.svg",
       href:'/specs/spirit'
     },
     {
       title: "Wine",
-      img: "/asset/beverage1.svg",
+      img: "/asset/wine-specs.svg",
       href:'/specs/wine'
     },
     {
       title: "Low / No ABV",
-      img: "/asset/beverage1.svg",
+      img: "/asset/low_no_abv.svg",
       href:'/specs/low_no_abv'
     },
   ];

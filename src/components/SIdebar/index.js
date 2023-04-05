@@ -3,9 +3,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { MenuIcon } from "./MenuIcons";
 
-function SideBar({ category, subcategory }) {
+function SideBar({ category, subcategory ,menuOptions }) {
   const router = useRouter();
-  const menuOptions = mockData.menuOptions;
 
   return (
     <>

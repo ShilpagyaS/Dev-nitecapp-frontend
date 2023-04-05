@@ -251,12 +251,12 @@ function EmptyUSerLayout() {
                                     }`}
                             >
                                 <div className='input-desc flex flex-col'>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Item Name</h3>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Item Name</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
                                         value={drinkName || ''} onChange={(e) => { setName(e.target.value) }} />
                                 </div>
                                 <div className='input-val flex flex-col ml-[25px]'>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Alcohol percentage</h3>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Alcohol percentage</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]'
                                         value={abv || ''} onChange={(e) => { setabv(e.target.value) }} />
 
@@ -268,7 +268,7 @@ function EmptyUSerLayout() {
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}
                         >
-                            <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Desc</h3>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Add Desc</h3>
                             <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} isSAve={isSAve} />
                         </p>
                     </div>

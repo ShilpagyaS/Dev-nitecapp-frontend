@@ -101,11 +101,11 @@ export function ConditionalButtons({ condition, label, ...rest }) {
   );
 }
 
-export function OrangeButtons({ onClickHandler, label, noPadding }) {
+export function OrangeButtons({ onClickHandler, label, noPadding, width }) {
   return (
     <div className={`${!noPadding && "pt-[26px]"}`}>
       <button
-        className="border border-[#F19B6C] text-[#F19B6C]  py-[6px] px-[12px] w-[111px] rounded-full hover:bg-[#ee854d] hover:text-black not-italic font-medium text-base leading-6 font-Inter"
+        className={`border border-[#F19B6C] text-[#F19B6C]  py-[6px] px-[12px] w-[${width ? width :'111'}px] rounded-full hover:bg-[#ee854d] hover:text-black not-italic font-medium text-base leading-6 font-Inter`}
         onClick={onClickHandler}
       >
         {label}

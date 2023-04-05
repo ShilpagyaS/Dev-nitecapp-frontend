@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
-import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList } from '@/store/slices/product';
+import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -17,7 +17,7 @@ function SpiritBrandTable({ productId, subcategory }) {
         title: '',
         id: ''
     })
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()
     useEffect(() => {
 
         dispatch(getProductByCategoryId('spirit', productId))
@@ -34,24 +34,24 @@ function SpiritBrandTable({ productId, subcategory }) {
                     id: element.spirit_id,
                     itemImage: '',
                     itemName: element.spirit_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
                 }
 
             }
-        ) ||[]
+        ) || []
         console.log(dummy);
         setList([...dummy])
 
     }, [productsByCategory])
     function toggleSwitch(e, element) {
-        let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList('spirit', element.id, data))
+        let data = { type: 'spirit', id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProductForCategory(data, productId))
     }
 
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "popularity", "Action"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
@@ -113,7 +113,7 @@ function SpiritBrandTable({ productId, subcategory }) {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductbyIdWithCategory('spirit', elementItem.id,productId))
+        dispatch(deleteProductbyIdWithCategory('spirit', elementItem.id, productId))
     }
     return (
         <>
@@ -125,7 +125,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push(`/specs/spirit/${subcategory}/new/newspirit?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD SPIRIT'} buttonFunction={() => { router.push(`/specs/spirit/${subcategory}/new/newspirit?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

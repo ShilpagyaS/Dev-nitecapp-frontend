@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
-import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList } from '@/store/slices/product';
+import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -35,7 +35,7 @@ function WinebrandTable({ productId, subcategory }) {
                     id: element.wine_id,
                     itemImage: '',
                     itemName: element.wine_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -48,11 +48,11 @@ function WinebrandTable({ productId, subcategory }) {
 
     }, [productsByCategory])
     function toggleSwitch(e, element) {
-        let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList('wine', element.id, data))
+        let data = { type: 'wine', id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProductForCategory(data, productId))
     }
 
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "popularity", "Action"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
@@ -126,7 +126,7 @@ function WinebrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD WINE'} buttonFunction={() => { router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

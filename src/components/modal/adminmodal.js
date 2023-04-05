@@ -301,7 +301,7 @@ export function AddMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             {/* <div className='flex flex-col w-full'>
@@ -369,7 +369,7 @@ export function EditMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             {/* <div className='flex flex-col w-full'>
@@ -434,11 +434,11 @@ export function AddTitle({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Title</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Title</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             <div className='flex flex-col w-full'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Type</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Type</h3>
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -518,18 +518,18 @@ export function AddGeneric({ isModalOpen, onClickCancel, onSave, data, title }) 
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             {type == 1 &&
                 < div className='flex flex-col w-full mb-[26px]'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Value</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }}
                         className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
             }
             < div className='flex flex-col w-full'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Type</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Type</h3>
                 <CustomSelect items={selectarray} optionalFunction={(e) => { setType(e.type), setIndex(e.indexat) }} />
             </div>
 
@@ -593,7 +593,7 @@ export function AddNewTitle({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Title</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Title</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             {/* <div className='flex flex-col w-full'>
@@ -660,11 +660,11 @@ export function AddNewFirstItem({ isModalOpen, onClickCancel, onSave, deleteBtn,
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Title</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Title</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             <div className='flex flex-col w-full'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Type</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Type</h3>
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -726,12 +726,12 @@ export function AddNewDataModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             {type == 1 &&
                 <div className='flex flex-col w-full'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Value</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
             }
@@ -816,12 +816,12 @@ export function EditNewModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                     <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
                 </div>
                 <div className='flex flex-col w-full mb-[26px]'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Description</h3>
                     <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
                 {type == 1 &&
                     <div className='flex flex-col w-full'>
-                        <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
+                        <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Value</h3>
                         <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                     </div>
                 }
@@ -903,7 +903,7 @@ export function Delete({ isModalOpen, onClickCancel, onSave, deleteBtn, title, t
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${input1}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>
+                <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
                     {`Do You Want To Delete ${input1} from ${title}`}
                 </h3>
 
@@ -973,7 +973,7 @@ export function DeleteSection({ isModalOpen, onClickCancel, onSave, deleteBtn, t
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>
+                <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
                     {`Do You Want To Delete ${input1} ?"`}
                 </h3>
 
@@ -1059,12 +1059,12 @@ export function EditDualValue({ isModalOpen, onClickCancel, onSave, deleteBtn, t
                     <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
                 </div>
                 <div className='flex flex-col w-full mb-[26px]'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Description</h3>
                     <input disabled value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
 
                 <div className='flex flex-col w-full'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Value</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Value</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
 
@@ -1162,7 +1162,7 @@ export function EditKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                     <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit `}<span className='capitalize'> {`${input1}`}</span></h4>
                 </div>
                 <div className='flex flex-col w-full'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} value`}</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>{`Enter ${input1} value`}</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
                 </div>
 
@@ -1260,7 +1260,7 @@ export function AddKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                     <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${input1}`}</h4>
                 </div>
                 <div className='flex flex-col w-full'>
-                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>{`Enter ${input1} Value`}</h3>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>{`Enter ${input1} Value`}</h3>
                     <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none'
                         placeholder='Enter Value' />
                 </div>
@@ -1511,7 +1511,7 @@ export function DeleteProduct({ isModalOpen, onClickCancel, onSave, deleteBtn, t
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
-                <h3 className='italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>
+                <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
                     {`Deleting this will permanantly remove all the data of the Item .Do You Want To Delete ${title} ?"`}
                 </h3>
 

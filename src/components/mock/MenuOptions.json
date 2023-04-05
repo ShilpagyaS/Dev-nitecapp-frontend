@@ -11,48 +11,38 @@
       "id": "specs",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        { "name": "Cocktails", "id": "cocktail" },
-        { "name": "Spirits", "id": "spirit" },
-        { "name": "Wine", "id": "wine" },
-        { "name": "Beer/Seltzer", "id": "beer" },
-        { "name": "Low / No ABV", "id": "low_no_abv" }
+        {
+          "name": "Cocktails",
+          "id": "cocktail"
+        },
+        {
+          "name": "Spirits",
+          "id": "spirit"
+        },
+        {
+          "name": "Wine",
+          "id": "wine"
+        },
+        {
+          "name": "Beer/Seltzer",
+          "id": "beer"
+        },
+        {
+          "name": "Low / No ABV",
+          "id": "low_no_abv"
+        }
       ]
     },
     {
-      "name": "Learn",
-      "id": "learn",
-      "menuIcon": "ImGlass2",
-      "subOptions": []
-    },
-    {
-      "name": "Brand",
+      "name": "Brands",
       "id": "brand",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        { "name": "Brands", "id": "explore-brands" }
-      
+        {
+          "name": "Brands",
+          "id": "explore-brands"
+        }
       ]
-    },
-    {
-      "name": "Sales",
-      "id": "sales",
-      "menuIcon": "AiFillAppstore",
-      "subOptions": []
-    },
-    {
-      "name": "Schedule",
-      "id": "schedule",
-      "menuIcon": "AiFillAppstore",
-      "subOptions": []
-    },
-    {
-      "name": "Saved",
-      "id": "saved",
-      "menuIcon": "AiFillAppstore",
-      "subOptions": []
     }
   ]
 }
-
-
-

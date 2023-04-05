@@ -179,7 +179,7 @@ function EditById({ productId, subcategory }) {
                 {
                     ...productDetails,
                     [`${subcategory}_name`]: nameref.current.innerText,
-                    description: textAreaRef.current.value,
+                    description: textAreaRef.current.value || '',
                     abv: newMockData.abv,
                     origin: newMockData.origin,
                     tastes: newMockData.tastes,
@@ -294,7 +294,7 @@ function EditById({ productId, subcategory }) {
                                 } */}
                                 {isEdit &&
                                     <div className='input-desc flex flex-col ml-[25px]'>
-                                        <CustomSelectForBrands items={drinkBrandArray} defaultSelect={drinkBrand.brand_id ? { label: drinkBrand.brand_name, value: drinkBrand.brand_id } : null } optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} />
+                                        <CustomSelectForBrands items={drinkBrandArray} defaultSelect={drinkBrand.brand_id ? { label: drinkBrand.brand_name, value: drinkBrand.brand_id } : null} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} />
                                     </div>
                                 }
                             </div>

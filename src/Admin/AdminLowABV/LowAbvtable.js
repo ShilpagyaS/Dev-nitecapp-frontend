@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
-import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList } from '@/store/slices/product';
+import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -34,7 +34,7 @@ function LowAbvtable() {
                     id: element.low_no_abv_id,
                     itemImage: '',
                     itemName: element.low_no_abv_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -47,11 +47,11 @@ function LowAbvtable() {
 
     }, [productList])
     function toggleSwitch(e, element) {
-        let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList('low_no_abv', element.id, data))
+        let data = { type: 'low_no_abv', id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProduct(data))
     }
 
-    const HeaderArray = ["Item Image", "Item Name", "Show / Hide", "Popularity", "Action"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
@@ -125,7 +125,7 @@ function LowAbvtable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD ITEM'} buttonFunction={() => { router.push("/specs/low_no_abv/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            <TableContainerWithButtons label={'ADD LOW / NO ABV'} buttonFunction={() => { router.push("/specs/low_no_abv/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
         </>
     )
 }

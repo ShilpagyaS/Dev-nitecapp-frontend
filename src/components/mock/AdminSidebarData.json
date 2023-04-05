@@ -1,0 +1,50 @@
+{
+    "menuOptions": [
+        {
+            "id": "dashboard",
+            "name": "Dashboard",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": []
+        },
+        {
+            "name": "Specs",
+            "id": "specs",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": [
+                {
+                    "name": "Cocktails",
+                    "id": "cocktail"
+                },
+                {
+                    "name": "Spirits",
+                    "id": "spirit"
+                },
+                {
+                    "name": "Wine",
+                    "id": "wine"
+                },
+                {
+                    "name": "Beer/Seltzer",
+                    "id": "beer"
+                },
+                {
+                    "name": "Low / No ABV",
+                    "id": "low_no_abv"
+                }
+            ]
+        },
+        {
+            "name": "Brands",
+            "id": "brand",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": [  ]
+        },
+        {
+            "name": "Manage Users",
+            "id": "manageusers",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": []
+        }
+        
+    ]
+}
