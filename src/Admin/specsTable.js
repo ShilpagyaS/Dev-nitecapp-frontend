@@ -231,7 +231,7 @@ function SpecsTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/${element.type}/category/${element.itemName}?id=${element.id}`); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/${element.type}?id=${element.id}`); }}
                         />
                         {/* <div className='ml-[15px]'>
 

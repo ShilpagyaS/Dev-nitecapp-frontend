@@ -14,14 +14,20 @@ export const manageUsersSlice = createSlice({
             state.userList = action.payload.data
         },
         getAdminsList: (state, action) => {
-            state.userList = action.payload.data
+            state.adminsListList = action.payload.data
         },
         getUserDetails: (state, action) => {
             state.userDetails = action.payload
         },
         emptyAlling: (state) => {
-            state.ingredients = []
-            state.ingredientDetails = {}
+            state.userList = []
+            state.adminsList = []
+            state.userDetails = {}
         }
     },
 });
+
+
+
+
+export default manageUsersSlice.reducer;

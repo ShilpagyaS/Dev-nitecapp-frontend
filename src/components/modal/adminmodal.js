@@ -21,7 +21,8 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -130,7 +131,8 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -246,7 +248,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
 
                         <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
-                            <ConditionalButton label={'Save'} condition={ true} onClickHandler={handleSave} />
+                            <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
                         </div>
                     </div>
 
@@ -268,7 +270,8 @@ export function AddMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn, 
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -331,7 +334,8 @@ export function EditMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -400,7 +404,8 @@ export function AddTitle({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -464,7 +469,8 @@ export function AddGeneric({ isModalOpen, onClickCancel, onSave, data, title }) 
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -559,7 +565,8 @@ export function AddNewTitle({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -623,7 +630,8 @@ export function AddNewFirstItem({ isModalOpen, onClickCancel, onSave, deleteBtn,
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -690,7 +698,8 @@ export function AddNewDataModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -760,7 +769,8 @@ export function EditNewModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -863,7 +873,8 @@ export function Delete({ isModalOpen, onClickCancel, onSave, deleteBtn, title, t
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -933,7 +944,8 @@ export function DeleteSection({ isModalOpen, onClickCancel, onSave, deleteBtn, t
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -1003,7 +1015,8 @@ export function EditDualValue({ isModalOpen, onClickCancel, onSave, deleteBtn, t
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -1106,7 +1119,8 @@ export function EditKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -1204,7 +1218,8 @@ export function AddKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -1303,7 +1318,8 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -1390,7 +1406,8 @@ export function EditCategory({ isModalOpen, onClickCancel, onSave, inputone, inp
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -1471,7 +1488,8 @@ export function DeleteProduct({ isModalOpen, onClickCancel, onSave, deleteBtn, t
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",

@@ -1,4 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
+import { AddItemModal } from '@/components/modal/NewDminFlowModals';
 import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
@@ -15,6 +16,7 @@ function WinebrandTable({ productId, subcategory }) {
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
@@ -126,7 +128,21 @@ function WinebrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD WINE'} buttonFunction={() => { router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+             {AddModal &&
+                <AddItemModal
+                    isModalOpen={AddModal}
+                    onClickCancel={() => { setAddModal(false) }}
+                    label={'Wines'}
+                    type={'wine'}
+                    title={'Wine'}
+                    onSave={() => { }}
+                />
+            }
+            <TableContainerWithButtons label={'ADD WINE'} buttonFunction={() => {
+                //  router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) 
+                setAddModal(true) 
+
+                 }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

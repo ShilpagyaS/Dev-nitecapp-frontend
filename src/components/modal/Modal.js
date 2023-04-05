@@ -26,7 +26,8 @@ const NotesModal = ({
       border: "none",
       background: "black",
       padding: "24px",
-      width: "480px",
+      maxWidth: "480px",
+      width: "90%",
     },
     overlay: {
       background: "rgba(255, 255, 255, 0.1)",

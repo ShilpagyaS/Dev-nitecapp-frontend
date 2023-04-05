@@ -1,4 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
+import { AddItemModal } from '@/components/modal/NewDminFlowModals';
 import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
@@ -13,6 +14,7 @@ function SpiritBrandTable({ productId, subcategory }) {
     const { productsByCategory } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
@@ -125,7 +127,20 @@ function SpiritBrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD SPIRIT'} buttonFunction={() => { router.push(`/specs/spirit/${subcategory}/new/newspirit?id=${productId}`) }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            {AddModal &&
+                <AddItemModal
+                    isModalOpen={AddModal}
+                    onClickCancel={() => { setAddModal(false) }}
+                    label={'Spirits'}
+                    type={'spirit'}
+                    title={'Spirit'}
+                    onSave={() => { }}
+                />
+            }
+            <TableContainerWithButtons label={'ADD SPIRIT'} buttonFunction={() => {
+                // router.push(`/specs/spirit/${subcategory}/new/newspirit?id=${productId}`) 
+                setAddModal(true)
+            }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }
