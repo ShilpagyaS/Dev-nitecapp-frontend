@@ -26,9 +26,9 @@ function SpecComp() {
             Specs
           </h1>
         </div>
-        <Link href={`/specs/cocktail/cocktail_ingredients`}>
+        {/* <Link href={`/specs/cocktail/cocktail_ingredients`}>
           <OrangeButtons label="Drink Brands" noPadding={true} width={'200'}/>
-        </Link>
+        </Link> */}
       </div>
       <div className="sub-heading-container flex lg:justify-start md:justify-start justify-between items-center">
         <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
