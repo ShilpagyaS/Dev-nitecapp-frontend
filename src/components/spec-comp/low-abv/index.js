@@ -3,12 +3,13 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import { OrangeButtons } from "@/utils/Buttons";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { emptyProductList, getProduct } from "@/store/slices/product";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { whatsthestrength } from "@/utils/abvfinder";
+import Search from "@/utils/Search";
 
 function LowABV() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -22,6 +23,20 @@ function LowABV() {
     }
   }, [])
   const { productList } = useSelector((state) => state.product)
+  const [finaldata,setfinaldata]=useState([])
+  const [searchTerm,setSearch]=useState("")
+  useEffect(() => {
+    let temp=[]
+    if(searchTerm==""){
+      temp=[...productList]
+    } else {
+      const info=productList.filter((i)=>i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
+      temp=[...info]
+    }
+    setfinaldata([...temp])
+  }, [productList,searchTerm]);
+
+
 
   return (
     <>
@@ -30,20 +45,10 @@ function LowABV() {
           <p className="text-white text-[14px]">
             <span className="text-[#CCCCCC]">Specs</span> / Low/No ABV
           </p>
-          {!isTablet && (
-            <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
-              <CiSearch
-                color="#929292"
-                size="15px"
-                className="bg-[#1D1D1D] mr-[26px]"
-              />
-              <input
-                className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-                type="text"
-                placeholder="Search"
-              />
-            </div>
-          )}
+          {!isTablet && <Search search={searchTerm} setSearch={(e) => {
+      setSearch(e);
+      //  filterData(e) 
+    }} />}
         </div>
         <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
@@ -53,22 +58,12 @@ function LowABV() {
             <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>
-        {isTablet && (
-          <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
-            <CiSearch
-              color="#929292"
-              size="15px"
-              className="bg-[#1D1D1D] mr-[26px]"
-            />
-            <input
-              className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-        )}
+        {isTablet && <Search search={searchTerm} setSearch={(e) => {
+      setSearch(e);
+      //  filterData(e) 
+    }} />}
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {productList.map((card, i) => {
+          {finaldata.map((card, i) => {
             return (
               <div className=" col-span-1 ">
                 <Link href={`/specs/low_no_abv?id=${card.low_no_abv_id}`}>

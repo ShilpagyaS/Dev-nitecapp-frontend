@@ -53,7 +53,8 @@ export const login = (data) => {
       method: "POST",
       data,
     }).catch((error) => {
-      return { error: true, message: error?.response?.data?.message }
+  
+      return { error: true, message: error || "Something Went Wrong" }
 
     });
   };
@@ -75,7 +76,9 @@ export const verifyOTP = (code) => {
         otp: code,
         email: state.auth?.tempUserEmail,
       },
-    });
+    }).catch(()=>{
+      return { error: true, message: error?.response?.data?.message || "Something Went Wrong"}
+    })
   };
 };
 

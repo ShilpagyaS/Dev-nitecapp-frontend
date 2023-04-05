@@ -1,5 +1,7 @@
+import { setloader } from "@/store/slices/ui";
 import axios from "axios";
-
+import { store } from "@/store/store"
+import { errortoast, successtoast } from "../tostify";
 
 
 export const baseurl = "https://server.nitecapp.io"
@@ -19,6 +21,7 @@ const axiosInstance = axios.create({
 //token injection for local storage on protected routes
 
 axiosInstance.interceptors.request.use(async (config) => {
+  store.dispatch(setloader(true))
   let token = localStorage.getItem("nightcpp-token");
   if (token && !unprotectedRoutes.includes(config.url)) {
     config.headers.authorization = `Bearer ${token}`;
@@ -30,15 +33,42 @@ axiosInstance.interceptors.request.use(async (config) => {
 
 axiosInstance.interceptors.response.use(
   async (config) => {
+    store.dispatch(setloader(false))
     return config;
   },
   (error) => {
-    console.log(error)
-    return { error: true, message: error?.response?.data?.message || "Something Went Wrong" }
-
+    store.dispatch(setloader(false))
+   return Promise.reject(error?.response?.data?.message || "Something Went Wrong" )
   }
 );
 
 
 
 export default axiosInstance;
+
+
+
+export const axiosDebounceInstance = axios.create({
+  baseURL: baseurl,
+}); 
+
+//token injection for local storage on protected routes
+
+axiosDebounceInstance.interceptors.request.use(async (config) => {
+  let token = localStorage.getItem("nightcpp-token");
+  if (token && !unprotectedRoutes.includes(config.url)) {
+    config.headers.authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+//error handling on api response
+
+axiosDebounceInstance.interceptors.response.use(
+  async (config) => {
+    return config;
+  },
+  (error) => {
+   return Promise.reject(error?.response?.data?.message || "Something Went Wrong" )
+  }
+);

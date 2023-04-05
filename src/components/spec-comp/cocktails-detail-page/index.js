@@ -9,6 +9,9 @@ import NotesModal from "../../modal/Modal";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById } from "@/store/slices/product";
+import HeartLogo from "@/components/CustomHeart";
+import Breadcrumb from "@/components/Breadcrumb";
+import Notes from "../notesComp/notes";
 
 const CocktailDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -45,25 +48,12 @@ const CocktailDetailPage = ({ id }) => {
     setIsAddModalOpen(false);
   };
   const { category, subcategory, productId } = useNavDetails()
+  const [filledHeart,setfilledHeart]=useState(false)
   return (
     <div className="detail-page-container">
-      <NotesModal
-        title="New Notes"
-        desc="This is my Note: |"
-        isModalOpen={isAddModalOpen}
-        onClickCancel={handleCloseModal}
-      />
-      <NotesModal
-        title="Edit Notes"
-        desc="This is my Note: I like this pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint."
-        deleteBtn={true}
-        isModalOpen={isEditModalOpen}
-        onClickCancel={handleCloseModal}
-      />
+   
       <div className="text-container ">
-        <p className="text-white text-[14px]">
-          <span className="text-[#CCCCCC]">Specs / Coctail/</span> Southside
-        </p>
+      <Breadcrumb last={productDetails?.cocktail_name}/>
       </div>
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
@@ -86,8 +76,7 @@ const CocktailDetailPage = ({ id }) => {
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
-            {!isMobile && <AiOutlineHeart size="25px" color="#fff"/>}
-            {!isMobile && <AiFillHeart size="25px" color="#fff" fill="#fff"/>}
+            <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/>
           </div>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
@@ -183,29 +172,7 @@ const CocktailDetailPage = ({ id }) => {
           })}
         </div>
       </div>
-      <div className="notes-container ">
-        <div className="sub-heading-container flex justify-between items-center mb-[21px]">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold">
-            Notes
-          </h4>
-          <OrangeButtons
-            onClickHandler={handleAddModalOpen}
-            label="Add Notes"
-            noPadding={true}
-          />
-        </div>
-        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-          {notes.map((note, i) => {
-            return <p className=" bg-transparent mr-24px">{note.note}</p>;
-          })}
-          <CustomButton
-            onClickHandler={handleEditModalOpen}
-            label="Edit"
-            color="#F19B6C"
-            noPadding={true}
-          />
-        </div>
-      </div>
+      <Notes id={id} subcategory={subcategory}/>
     </div>
   );
 };

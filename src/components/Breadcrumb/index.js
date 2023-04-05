@@ -1,16 +1,24 @@
 import useNavDetails from "@/Hooks/useNavDetails";
+import { enUrl } from "@/utils/encoderfunc";
+import Link from "next/link";
 
 
 export default function Breadcrumb({ last }) {
-  const { category, subcategory, productId } = useNavDetails()
-  let crun = ""
-  if (category) crun = crun + `${category} /`
-  if (subcategory) crun = crun + ` ${subcategory} ${productId ? '/' : ''} `
-  if (productId && !last) crun = crun + `${productId}`
-  if (last) crun = crun + ` ${last}`
+  const { category, subcategory, subcategory2, subcategory3, productId, path,typeid } =
+    useNavDetails()
+  let crun = []
+  if (category) crun.push( {label:category,link:`/${enUrl(category)}`})
+  if (subcategory) crun.push( {label:subcategory,link:`/${enUrl(category)}/${enUrl(subcategory)}`})
+  if (subcategory2) crun.push( {label:subcategory2,link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}${typeid?`?id=${typeid}`:''}`})
+  if (subcategory3) crun.push( {label:subcategory3,link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}/${enUrl(subcategory3)}${typeid?`?id=${typeid}`:''}`})
+  if (last) crun.push( {label:last|| "",link:""})
+
   return <div className="text-container my-2 ">
     <p className="text-white text-[14px]">
-      <span className="text-[#CCCCCC] capitalize">{crun}</span>
+      {crun.map((i,inx)=>{
+        return i.link!=="" && inx<crun.length-1 ?<Link href={i.link}><span>{`${inx!==0 ? " / " :"" }`}</span><span className="text-[#CCCCCC] capitalize">{i.label}</span></Link>
+        :<><span>{`${inx!==0 ? " / " :"" }`}</span><span className="text-[#CCCCCC] capitalize">{i.label}</span></>
+      })}
     </p>
   </div>
 }

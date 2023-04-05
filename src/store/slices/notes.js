@@ -24,6 +24,7 @@ export const notesSlice = createSlice({
 export const getNoteDetails = (productType, id) => {
     return async (dispatch, getState) => {
         const state = getState();
+       console.log(state?.auth?.user?.id)
         axiosInstance({
             url: `/api/getUserNote`,
             method: "POST",
