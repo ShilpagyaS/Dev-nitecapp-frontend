@@ -75,10 +75,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
   // const dispatch = useDispatch();
+ 
   // const { searchoptions } = useSelector((state) => state.product);
   const [testvalue, settestvalue] = useState({ label: "", value: "" })
-  const { category, subcategory, subcategory2, subcategory3, productId, path } =
+  const { category, subcategory, subcategory2, subcategory3, productId,typeid, path } =
     useNavDetails();
+
   return (
     <>
       <Head>
@@ -114,7 +116,7 @@ export default function Category() {
           {path === `/specs/spirit` && <SpiritsCategory />}
           {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
             {path ===
-              `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && (
+              `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && (
                 <SpecsDetailPage id={productId} subcategory={"spirit"} />
               )}
 
@@ -126,7 +128,7 @@ export default function Category() {
             {path === "/specs/wine" && <WineCategory />}
 
             {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
-            {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
+            {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
 
             {path === `/specs/wine/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
 

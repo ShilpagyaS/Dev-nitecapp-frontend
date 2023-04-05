@@ -29,7 +29,7 @@ function Spirits({ id, categoryName }) {
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <Breadcrumb last={categoryName} />
+          <Breadcrumb  />
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
               <CiSearch
@@ -71,7 +71,7 @@ function Spirits({ id, categoryName }) {
           {productsByCategory?.map((card, inx) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`specs/spirit/${enUrl(categoryName)}/${enUrl(card.spirit_name)}/?id=${card.spirit_id}`}>
+                <Link href={`specs/spirit/${enUrl(categoryName)}/${enUrl(card.spirit_name)}/?id=${card.spirit_id}&typeid=${id}`}>
                   <RectangularCard
                     title={card.spirit_name}
                     image={card.image}

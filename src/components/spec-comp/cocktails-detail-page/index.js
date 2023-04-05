@@ -9,6 +9,8 @@ import NotesModal from "../../modal/Modal";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById } from "@/store/slices/product";
+import HeartLogo from "@/components/CustomHeart";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const CocktailDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -45,6 +47,7 @@ const CocktailDetailPage = ({ id }) => {
     setIsAddModalOpen(false);
   };
   const { category, subcategory, productId } = useNavDetails()
+  const [filledHeart,setfilledHeart]=useState(false)
   return (
     <div className="detail-page-container">
       <NotesModal
@@ -61,9 +64,7 @@ const CocktailDetailPage = ({ id }) => {
         onClickCancel={handleCloseModal}
       />
       <div className="text-container ">
-        <p className="text-white text-[14px]">
-          <span className="text-[#CCCCCC]">Specs / Coctail/</span> Southside
-        </p>
+      <Breadcrumb last={productDetails?.cocktail_name}/>
       </div>
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
@@ -86,8 +87,7 @@ const CocktailDetailPage = ({ id }) => {
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
-            {!isMobile && <AiOutlineHeart size="25px" color="#fff"/>}
-            {!isMobile && <AiFillHeart size="25px" color="#fff" fill="#fff"/>}
+            <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/>
           </div>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"

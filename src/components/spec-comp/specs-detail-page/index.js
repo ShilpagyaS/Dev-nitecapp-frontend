@@ -35,7 +35,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
   return (
     <div className="detail-page-container">
      
-      <Breadcrumb last={productDetails?.[`${subcategory}_name`]} />
+      <Breadcrumb  />
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
           className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px]"

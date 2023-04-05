@@ -7,8 +7,9 @@ const useNavDetails = () => {
     const { nav } = router.query;
     const path = router.asPath;
     const productId = router?.query?.id;
+    const typeid =router?.query?.typeid
 
-    navDetails = { ...navDetails, productId, path };
+    navDetails = { ...navDetails, productId,typeid, path };
 
     nav?.forEach((category, i) => {
         if (!navDetails.category) {

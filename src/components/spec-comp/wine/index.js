@@ -70,7 +70,7 @@ function Wine({ id, categoryName }) {
           {productsByCategory?.map((card, inx) => {
             return (
               <div className=" col-span-1 " key={inx}>
-                <Link href={`specs/wine/${enUrl(categoryName)}/${enUrl(card.wine_name)}/?id=${card.wine_id}`}>
+                <Link href={`specs/wine/${enUrl(categoryName)}/${enUrl(card.wine_name)}/?id=${card.wine_id}&typeid=${id}`}>
                   <RectangularCard
                     title={card.wine_name}
                     image={card.image}
