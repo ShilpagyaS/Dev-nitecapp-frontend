@@ -1,5 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { AddItemModal } from '@/components/modal/NewDminFlowModals'
+import { createProduct, createProductAndUpdatingList, deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
@@ -13,6 +14,7 @@ function BeerTable() {
     const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
@@ -122,9 +124,24 @@ function BeerTable() {
                 onClickCancel={() => { setDeleteModal(false) }}
                 title={elementItem.title}
                 onSave={deleteProduct}
-            />
-        }
-            <TableContainerWithButtons label={'ADD BEER'} buttonFunction={() => { router.push("/specs/beer/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            />}
+            {AddModal &&
+                <AddItemModal
+                    isModalOpen={AddModal}
+                    onClickCancel={() => { setAddModal(false) }}
+                    label={'Beers'}
+                    type={'beer'}
+                    title={'Beer'}
+                    onSave={(data) => {
+                        
+                        return dispatch(createProductAndUpdatingList('beer', data))
+                    }}
+                />
+            }
+            <TableContainerWithButtons label={'ADD BEER'} buttonFunction={() => {
+                // router.push("/specs/beer/new")
+                setAddModal(true)
+            }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

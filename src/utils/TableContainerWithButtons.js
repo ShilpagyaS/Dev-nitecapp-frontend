@@ -8,19 +8,19 @@ import Search from './Search'
 import TableComponent from './TableComponent'
 
 const items = [
-    { label: 'All', value: 'option1' },
+    // { label: 'All', value: 'option1' },
     { label: 'Latest to Old', value: 'option2' },
     { label: 'Old to New', value: 'option3' },
 ];
 function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize, label, buttonFunction, deactivateadd }) {
     const router = useRouter();
-    console.log(mockData, deactivateadd);
+    // console.log(mockData, deactivateadd);
     const [ListData, setListData] = useState([])
     const [MainListData, setMainListData] = useState([])
     const [searchTerm, setSearch] = useState("")
     useEffect(() => {
         if (mockData != []) {
-            console.log('mockkkkkkkk', mockData);
+            // console.log('mockkkkkkkk', mockData);
             // setListData([...mockData])
             sortByDate('option2',[...mockData])
             setMainListData([...mockData])
@@ -127,7 +127,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                     <div className='flex pr-[38px] '>
                         <div className='mr-[20px]'>
 
-                            <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value,ListData) }} defaultSelect={items[1]} />
+                            <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value,ListData) }} defaultSelect={items[0]} />
                         </div>
 
                         <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />

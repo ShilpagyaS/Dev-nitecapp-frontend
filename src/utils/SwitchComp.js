@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Switch } from '@headlessui/react'
 
 export default function SwitchComp({ showHideStatus, onChangeHandler }) {
-    console.log(showHideStatus);
+    // console.log(showHideStatus);
     const [enabled, setEnabled] = useState(showHideStatus)
 
     if (showHideStatus !== undefined && showHideStatus !== null)

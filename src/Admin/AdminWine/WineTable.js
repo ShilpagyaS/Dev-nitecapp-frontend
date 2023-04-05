@@ -78,12 +78,12 @@ function WineTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => {
+                        {/* <EditCircularButton onClickHandler={() => {
                             // router.push(`/specs/wine/${element.itemName}?id=${element.id}`);
                             setGlobal({ ...element.data })
                             setEdit(true)
                         }}
-                        />
+                        /> */}
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton />

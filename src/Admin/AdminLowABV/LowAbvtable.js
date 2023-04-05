@@ -1,5 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
-import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
+import { AddItemModal } from '@/components/modal/NewDminFlowModals';
+import { createProductAndUpdatingList, deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -14,6 +15,7 @@ function LowAbvtable() {
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
@@ -125,7 +127,21 @@ function LowAbvtable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD LOW / NO ABV'} buttonFunction={() => { router.push("/specs/low_no_abv/new") }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            {AddModal &&
+                <AddItemModal
+                    isModalOpen={AddModal}
+                    onClickCancel={() => { setAddModal(false) }}
+                    label={'Low / No ABV'}
+                    type={'low_no_abv'}
+                    title={'Low / No ABV'}
+                    onSave={(data) => { return dispatch(createProductAndUpdatingList('low_no_abv', data)) }}
+                />
+            }
+            <TableContainerWithButtons label={'ADD LOW / NO ABV'} buttonFunction={() => {
+                // router.push("/specs/low_no_abv/new")
+                setAddModal(true)
+            }}
+                OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
         </>
     )
 }
