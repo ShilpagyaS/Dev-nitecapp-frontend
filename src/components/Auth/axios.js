@@ -33,9 +33,7 @@ axiosInstance.interceptors.response.use(
     return config;
   },
   (error) => {
-    console.log(error)
-    return { error: true, message: error?.response?.data?.message || "Something Went Wrong" }
-
+   return Promise.reject(error?.response?.data?.message || "Something Went Wrong" )
   }
 );
 
