@@ -1,4 +1,4 @@
-import axiosInstance from "@/components/Auth/axios";
+import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -301,7 +301,7 @@ export const getIngredientSearch = (query) => {
     const state = getState();
 
     if (query.label !== "" && query.value === "") {
-      return await axiosInstance({
+      return await axiosDebounceInstance({
         url: `/api/ingredient/search/${query.label}`,
         method: "GET",
       }).then((res) => {
@@ -329,7 +329,7 @@ export const getProductSearch = (query, productType) => {
     const state = getState();
 
     if (query.label !== "" && query.value === "") {
-      return await axiosInstance({
+      return await axiosDebounceInstance({
         url: `/api/${productType}/search/${query.label}`,
         method: "GET",
       }).then((res) => {
@@ -359,7 +359,7 @@ export const getBrandSearch = (query) => {
     const state = getState();
 
     if (query.label !== "" && query.value === "") {
-      return await axiosInstance({
+      return await axiosDebounceInstance({
         url: `/api/drink_brand/search/${query.label}`,
         method: "GET",
       }).then((res) => {

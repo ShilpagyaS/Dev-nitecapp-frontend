@@ -13,7 +13,10 @@ export default function AuthWrapper({ children }) {
 
   if (process.env.NEXT_PUBLIC_APP_TYPE === "admin") {
     return <Provider store={store}>
+      <UserAuthWrapper>
       {children}
+      </UserAuthWrapper>
+      
     </Provider>
   }
 
