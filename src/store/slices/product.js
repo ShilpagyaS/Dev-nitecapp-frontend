@@ -214,6 +214,21 @@ export const createProduct = (productType, data) => {
     });
   };
 };
+export const createProductAndUpdatingList = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/${productType}/new_create_${productType}`,
+      method: "POST",
+      data
+    }).then((res) => {
+      dispatch(getProduct(productType))
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const createCategory = (productType, data) => {
   return async (dispatch) => {
 
@@ -295,6 +310,66 @@ export const getIngredientSearch = (query) => {
           return {
             value: i.master_ingredient_id,
             label: i.master_ingredient_name
+          }
+        })
+
+        dispatch(productSlice.actions.searchdata(finaldata))
+        return finaldata
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    else
+      dispatch(productSlice.actions.searchdata([]))
+
+  };
+};
+export const getProductSearch = (query, productType) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+    if (query.label !== "" && query.value === "") {
+      return await axiosInstance({
+        url: `/api/${productType}/search/${query.label}`,
+        method: "GET",
+      }).then((res) => {
+
+        const finaldata = res?.data?.data?.map((i) => {
+          return {
+            value: i[`${productType}_id`],
+            label: i[`${productType}_name`],
+            image: i.image,
+            body: i
+          }
+        })
+
+        dispatch(productSlice.actions.searchdata(finaldata))
+        return finaldata
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    else
+      dispatch(productSlice.actions.searchdata([]))
+
+  };
+};
+export const getBrandSearch = (query) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+    if (query.label !== "" && query.value === "") {
+      return await axiosInstance({
+        url: `/api/drink_brand/search/${query.label}`,
+        method: "GET",
+      }).then((res) => {
+
+        const finaldata = res?.data?.data?.map((i) => {
+          return {
+            value: i.drink_brand_id,
+            label: i.drink_brand_name,
+            image: i.image,
+            body: i
           }
         })
 

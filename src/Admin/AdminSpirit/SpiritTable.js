@@ -120,12 +120,12 @@ function SpiritTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => {
+                        {/* <EditCircularButton onClickHandler={() => {
                             // router.push(`/specs/spirit/${element.itemName}?id=${element.id}`);
                             setGlobal({ ...element.data })
                             setEdit(true)
                         }}
-                        />
+                        /> */}
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton />
