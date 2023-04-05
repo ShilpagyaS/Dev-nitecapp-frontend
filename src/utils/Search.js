@@ -3,7 +3,7 @@ import React from 'react'
 
 function Search({ search, setSearch }) {
     return (
-        <div className="search-container flex items-center bg-[#1D1D1D] w-[201px] h-[40px] rounded-[10.9744px] pl-[20px]">
+        <div className="search-container flex items-center bg-[#1D1D1D] md:min-w-[201px] h-[40px] rounded-[10.9744px] pl-[20px]">
             <Image
                 src={'/asset/SearchIcon.svg'}
                 width={14}

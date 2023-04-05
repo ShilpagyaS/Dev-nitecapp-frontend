@@ -24,7 +24,8 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -136,7 +137,8 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
             border: "none",
             background: "black",
             padding: "24px",
-            width: "480px",
+            maxWidth: "480px",
+            width: "90%",
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",

@@ -91,9 +91,11 @@ function CocktailTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
+                        <div>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/cocktail?id=${element.id}`); }}
-                        />
+                            <EditCircularButton onClickHandler={() => { router.push(`/specs/cocktail?id=${element.id}`); }}
+                            />
+                        </div>
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {

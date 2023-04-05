@@ -1,3 +1,4 @@
+import useMediaQuery from '@/Hooks/useMediaQuery'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -12,7 +13,9 @@ const items = [
     { label: 'Latest to Old', value: 'option2' },
     { label: 'Old to New', value: 'option3' },
 ];
+
 function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize, label, buttonFunction, deactivateadd }) {
+    const isTablet = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
     // console.log(mockData, deactivateadd);
     const [ListData, setListData] = useState([])
@@ -22,7 +25,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         if (mockData != []) {
             // console.log('mockkkkkkkk', mockData);
             // setListData([...mockData])
-            sortByDate('option2',[...mockData])
+            sortByDate('option2', [...mockData])
             setMainListData([...mockData])
         }
     }, [mockData])
@@ -84,7 +87,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
 
         );
     };
-    function sortByDate(value,dummyList) {
+    function sortByDate(value, dummyList) {
         let sortedItems;
         console.log(value);
         if (value == 'option2') {
@@ -118,21 +121,44 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
     return (
         <>
             <div className='border border-[#3C3C3C] '>
-                <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between '>
-                    {/* grid for search and button  */}
+                {isTablet == false &&
+                    <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between '>
+                        {/* grid for search and button  */}
 
-                    {!deactivateadd && <ChipWithLeftButton condition={true} label={label} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { buttonFunction() }} />
-                    }
-                    {deactivateadd && <div></div>}
-                    <div className='flex pr-[38px] '>
-                        <div className='mr-[20px]'>
+                        {!deactivateadd && <ChipWithLeftButton condition={true} label={label} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { buttonFunction() }} />
+                        }
+                        {deactivateadd && <div></div>}
+                        <div className='flex pr-[38px] '>
+                            <div className='mr-[20px]'>
 
-                            <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value,ListData) }} defaultSelect={items[0]} />
+                                <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value, ListData) }} defaultSelect={items[0]} />
+                            </div>
+
+                            <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />
+                        </div>
+                    </div>
+                }
+                {isTablet == true &&
+                    <div className='buttonRow flex flex-col w-full pt-[18px] pb-[12.5px] px-[18px] '>
+                        {/* grid for search and button  */}
+                        <div className='w-full mb-[15px]'>
+
+                            <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />
                         </div>
 
-                        <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />
+
+                        {deactivateadd && <div></div>}
+                        <div className='flex items-center flex-wrap justify-between pr-[3px] '>
+                            {!deactivateadd && <ChipWithLeftButton condition={true} label={label} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { buttonFunction() }} />
+                            }
+                            <div className=''>
+
+                                <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value, ListData) }} defaultSelect={items[0]} />
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                }
 
                 {mockData?.length &&
                     <div className='Table'>
