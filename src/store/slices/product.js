@@ -126,7 +126,7 @@ export const getProductByCategoryId = (productType, id) => {
       method: "GET",
     }).then((res) => {
       console.log("response in product,js 47", res);
-
+      debugger
       dispatch(
         productSlice.actions.getProductCategoryList({
           data: res?.data?.data,

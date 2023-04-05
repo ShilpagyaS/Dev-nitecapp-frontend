@@ -7,15 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { getProduct, emptyProductList } from "@/store/slices/product";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import { whatsthestrength } from "@/utils/abvfinder";
+import Search from "@/utils/Search";
 
 function Coctails({ headerHidden }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
   const dispatch = useDispatch();
-
+const [searchTerm,setSearch]=useState("")
   const { productList } = useSelector((state) => state.product);
 
   useEffect(() => {
@@ -24,29 +25,31 @@ function Coctails({ headerHidden }) {
       dispatch(emptyProductList());
     };
   }, []);
+  const [finaldata,setfinaldata]=useState([])
+  useEffect(() => {
+    let temp=[]
+    if(searchTerm==""){
+      temp=[...productList]
+    } else {
+      const info=productList.filter((i)=>i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
+      temp=[...info]
+    }
+    setfinaldata([...temp])
+  }, [productList,searchTerm]);
 
   return (
     <>
       <div className="coctail-container">
-        {(
-          <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
+        
+          <div className="search-container flex justify-between items-center lg:mb-5 mb-1 flex-wrap">
             <Breadcrumb />
-            {!isTablet && (
-              <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
-                <CiSearch
-                  color="#929292"
-                  size="15px"
-                  className="bg-[#1D1D1D] mr-[26px]"
-                />
-                <input
-                  className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-                  type="text"
-                  placeholder="Search"
-                />
-              </div>
-            )}
+            {!isTablet &&    <Search search={searchTerm} setSearch={(e) => {
+                setSearch(e);
+                //  filterData(e) 
+              }} />}
+            
           </div>
-        )}
+        
 
         <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
@@ -56,22 +59,12 @@ function Coctails({ headerHidden }) {
             <OrangeButtons label="Ingredients" noPadding={true} />
           </Link>
         </div>
-        {isTablet && headerHidden && (
-          <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
-            <CiSearch
-              color="#929292"
-              size="15px"
-              className="bg-[#1D1D1D] mr-[26px]"
-            />
-            <input
-              className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-        )}
-        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {productList?.map((card, i) => {
+        {isTablet &&    <Search search={searchTerm} setSearch={(e) => {
+                setSearch(e);
+                //  filterData(e) 
+              }} />}
+        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-4 ">
+          {finaldata?.map((card, i) => {
             return (
               <div className=" col-span-1 ">
                 <Link href={`/specs/cocktail?id=${card.cocktail_id}`}>

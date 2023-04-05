@@ -3,7 +3,7 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { emptyProductList, getProduct, getProductByCategoryId } from "@/store/slices/product";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -11,6 +11,7 @@ import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { OrangeButtons } from "@/utils/Buttons";
 import { enUrl } from "@/utils/encoderfunc";
+import Search from "@/utils/Search";
 
 function Wine({ id, categoryName }) {
   const dispatch = useDispatch();
@@ -24,25 +25,29 @@ function Wine({ id, categoryName }) {
     };
   }, []);
 
+  const [finaldata,setfinaldata]=useState([])
+    const [searchTerm,setSearch]=useState("")
+    useEffect(() => {
+      let temp=[]
+      
+      if(searchTerm==""){
+        temp=[...productsByCategory]
+      } else {
+        const info=productsByCategory.filter((i)=>i.wine_name?.toLowerCase()?.includes(searchTerm.toLowerCase())) 
+        temp=[...info]
+      }
+      setfinaldata([...temp])
+    }, [productsByCategory,searchTerm]);
+
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
           <Breadcrumb last={categoryName} />
-          {!isTablet && (
-            <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
-              <CiSearch
-                color="#929292"
-                size="15px"
-                className="bg-[#1D1D1D] mr-[26px]"
-              />
-              <input
-                className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-                type="text"
-                placeholder="Search"
-              />
-            </div>
-          )}
+          {!isTablet && (<Search search={searchTerm} setSearch={(e) => {
+                setSearch(e);
+                //  filterData(e) 
+              }} />)}
         </div>
         <div className="heading-container lg:mb-8 mb-3 flex w-full justify-between">
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
@@ -53,21 +58,13 @@ function Wine({ id, categoryName }) {
           </Link>
         </div>
         {isTablet && (
-          <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
-            <CiSearch
-              color="#929292"
-              size="15px"
-              className="bg-[#1D1D1D] mr-[26px]"
-            />
-            <input
-              className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
-        )}
-        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-          {productsByCategory?.map((card, inx) => {
+                     <Search search={searchTerm} setSearch={(e) => {
+                        setSearch(e);
+                        //  filterData(e) 
+                    }} />
+                )}
+        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-4 ">
+          {finaldata?.map((card, inx) => {
             return (
               <div className=" col-span-1 " key={inx}>
                 <Link href={`specs/wine/${enUrl(categoryName)}/${enUrl(card.wine_name)}/?id=${card.wine_id}&typeid=${id}`}>
