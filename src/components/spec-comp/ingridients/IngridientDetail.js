@@ -9,7 +9,7 @@ import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 import { RectangularCard } from "@/utils/SpecCards";
 import Breadcrumb from "@/components/Breadcrumb";
-import { emptyIngredientsList, getIngredientsDetails } from "@/store/slices/ingredients";
+import { emptyIngredientsList, getMasterIngredientsDetails } from "@/store/slices/ingredients";
 
 const IngridientDetail = ({ productType, productId }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -21,7 +21,7 @@ const IngridientDetail = ({ productType, productId }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredientsDetails(productType, productId));
+    dispatch(getMasterIngredientsDetails(productId));
     return () => dispatch(emptyIngredientsList())
   }, []);
 
@@ -32,12 +32,12 @@ const IngridientDetail = ({ productType, productId }) => {
       </div>
       <div className="img-title-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div className="title-container text-white w-[294px] mr-8">
-          <h3 className="title text-[24px] font-bold mb-6">{ingredientDetails.ingredient_type_name}</h3>
+          <h3 className="title text-[24px] font-bold mb-6">{ingredientDetails.master_ingredient_name}</h3>
           <p
             className={`sub-title text-[16px] leading-6 ${isMobile && "text-center"
               }`}
           >
-            Spirit made through the distillation mainly of granis or potatos
+            {ingredientDetails?.short_description}
           </p>
         </div>
         <div className="img-container relative w-[136px] h-[154px]">
@@ -47,14 +47,10 @@ const IngridientDetail = ({ productType, productId }) => {
       <div className="description-container text-white mb-8">
         <div className="strength-container flex items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
           <p className="mr-6">Strength</p>
-          <p className="font-medium">45%</p>
+          <p className="font-medium">{`${ingredientDetails?.abv}%`}</p>
         </div>
         <div className="desc-container text-[16px]">
-          Usually high-proof(45% ABV), crisp style of gin with prominent flavors
-          of juniper and citrus. The London dry style is considered the
-          benchmark for all other gin. While it is associated with London, it
-          does not need to be made there - only a couple of London dry gins are
-          made in the city.
+         {ingredientDetails?.description}
         </div>
       </div>
       <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">

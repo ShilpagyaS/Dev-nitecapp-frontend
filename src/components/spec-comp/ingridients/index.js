@@ -80,10 +80,10 @@ function Ingridients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients?id=${card.ingredient_type_id}`}
+                          href={`/specs/cocktail/cocktail_ingredients?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
-                            title={card.ingredient_type_name}
+                            title={card.master_ingredient_name}
                             image={'/asset/london-dry.svg'}
                             subtitle={""}
                           />
