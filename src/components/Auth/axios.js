@@ -34,7 +34,6 @@ axiosInstance.interceptors.request.use(async (config) => {
 axiosInstance.interceptors.response.use(
   async (config) => {
     store.dispatch(setloader(false))
-    successtoast("Wow working")
     return config;
   },
   (error) => {
@@ -46,3 +45,30 @@ axiosInstance.interceptors.response.use(
 
 
 export default axiosInstance;
+
+
+
+export const axiosDebounceInstance = axios.create({
+  baseURL: baseurl,
+}); 
+
+//token injection for local storage on protected routes
+
+axiosDebounceInstance.interceptors.request.use(async (config) => {
+  let token = localStorage.getItem("nightcpp-token");
+  if (token && !unprotectedRoutes.includes(config.url)) {
+    config.headers.authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+//error handling on api response
+
+axiosDebounceInstance.interceptors.response.use(
+  async (config) => {
+    return config;
+  },
+  (error) => {
+   return Promise.reject(error?.response?.data?.message || "Something Went Wrong" )
+  }
+);
