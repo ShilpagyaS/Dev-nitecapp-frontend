@@ -47,7 +47,7 @@ import BrandDetailPage from "@/Admin/Drink Brand Section/BrandDetailPage";
 import AddLowAbv from "@/Admin/AdminLowABV/AddLowAbv";
 import AddSpirit from "@/Admin/AdminSpirit/AddSpirit";
 import CreateBeerAndLABV from "@/Admin/CreateBeerAndLABV";
-
+import { ToastContainer, toast } from 'react-toastify';
 import Brands from "@/components/brands";
 import ExploreBrands from "@/components/brands/explore-brands";
 import BrandsBrandDetail from "@/components/brands/explore-brands/BrandDetail";
@@ -68,15 +68,13 @@ import AdminIngridientDetail from "@/Admin/AdminIngredients/ingredientDetail";
 import AddIngredients from "@/Admin/AdminIngredients/addingredient";
 import LayoutWithSidebarAdmin from "@/components/Layouts/LayoutWithSidebarAdmin";
 import ManageUsers from "@/Admin/AdminManager/ManageUsers";
+import Loader from "@/components/loader";
 
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
-  // const dispatch = useDispatch();
- 
-  // const { searchoptions } = useSelector((state) => state.product);
   const [testvalue, settestvalue] = useState({ label: "", value: "" })
   const { category, subcategory, subcategory2, subcategory3, productId,typeid, path } =
     useNavDetails();
@@ -90,9 +88,11 @@ export default function Category() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-
+   
 
       <AuthWrapper>
+        <Loader/>
+  
         {process.env.NEXT_PUBLIC_APP_TYPE === "user" && (
           <>
           {onlyUnAuthpages.includes(path) ?<>{path==="/signin" && <Signin/> }

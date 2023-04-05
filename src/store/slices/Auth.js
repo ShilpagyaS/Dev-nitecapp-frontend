@@ -53,7 +53,8 @@ export const login = (data) => {
       method: "POST",
       data,
     }).catch((error) => {
-      return { error: true, message: error?.response?.data?.message || "Something Went Wrong" }
+  
+      return { error: true, message: error || "Something Went Wrong" }
 
     });
   };

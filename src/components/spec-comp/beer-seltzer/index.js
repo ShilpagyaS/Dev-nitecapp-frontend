@@ -11,6 +11,7 @@ import Link from "next/link";
 import useNavDetails from "@/Hooks/useNavDetails";
 import { whatsthestrength } from "@/utils/abvfinder";
 import Search from "@/utils/Search";
+import Breadcrumb from "@/components/Breadcrumb";
 
 function BeerSeltzer() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -32,26 +33,20 @@ function BeerSeltzer() {
     if(searchTerm==""){
       temp=[...productList]
     } else {
-      const info=productList.filter((i)=>i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
+      const info=productList.filter((i)=>i.beer_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
       temp=[...info]
     }
     setfinaldata([...temp])
   }, [productList,searchTerm]);
 
 
-  const filtereddataList = useFilteredData(productList.map((i) => {
-    return {
-      ...i,
-      category: i?.category?.drink_category_name || ""
-    }
-  }), true, "beer", "category")
+  const filteredData = useFilteredData(finaldata, true, "beer", "packaging_type")
+  
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <p className="text-white text-[14px]">
-            <span className="text-[#CCCCCC]">Specs</span> / Beer-Seltzer
-          </p>
+         <Breadcrumb/>
           {!isTablet && <Search search={searchTerm} setSearch={(e) => {
       setSearch(e);
       //  filterData(e) 
@@ -69,11 +64,11 @@ function BeerSeltzer() {
       setSearch(e);
       //  filterData(e) 
     }} />}
-
-        <div className="bottle-cards-container mb-8" >
-          <p className="text-white text-[20px] font-semibold mb-5 capitalize">Beer</p>
+      {filteredData.map((i)=>{
+          return  <div className="bottle-cards-container mb-8" >
+          <p className="text-white text-[20px] font-semibold mb-5 capitalize">{i.type}</p>
           <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-            {finaldata?.map((card, i) => {
+            {i.data?.map((card, i) => {
               return (
                 <div className=" col-span-1 ">
                   <Link href={`specs/beer?id=${card.beer_id}`}>
@@ -88,6 +83,8 @@ function BeerSeltzer() {
             })}
           </div>
         </div>
+      })
+    }
 
 
 
