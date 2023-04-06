@@ -126,7 +126,7 @@ function CocktailTable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD COCKTAIL'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/cocktail/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={3} />
+            <TableContainerWithButtons label={'ADD COCKTAIL'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/cocktail/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

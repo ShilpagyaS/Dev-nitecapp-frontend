@@ -9,15 +9,29 @@ function BrandsSlider() {
   const sliderData = [
     {
       title: "Get Certified for Training",
-      img: "/asset/sliderImg-1.svg",
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/Screen+Shot+2023-04-05+at+6.05.27+PM.png",
     },
     {
       title: "Work From Beautiful Concepts",
-      img: "/asset/sliderImg-2.svg",
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/Denaes+Diner.jpeg",
     },
     {
       title: "Claim Rewards for Your Progress",
-      img: "/asset/sliderImg-3.png",
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/rooftop-at-the-standard-downtown-night.jpeg",
+    },
+  ];
+  const sliderData2 = [
+    {
+      title: "Get Certified for Training",
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/rooftop-at-the-standard-downtown-night.jpeg",
+    },
+    {
+      title: "Work From Beautiful Concepts",
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/barmakase.jpeg",
+    },
+    {
+      title: "Claim Rewards for Your Progress",
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/Screen+Shot+2023-04-05+at+6.05.19+PM.png",
     },
   ];
 
@@ -37,9 +51,9 @@ function BrandsSlider() {
               style={{ width: "fit-content" }}
             >
               <div
-                className={`bg-[url(/asset/brand1.svg)] bg-no-repeat bg-cover bg-center  brand-img-container rounded-[8px] w-[188px]  h-[102px]`}
+                className={`bg-no-repeat bg-cover bg-center  brand-img-container rounded-[8px] w-[188px]  h-[102px]`}
               >
-                {/* <Image src="/asset/brand1.svg" fill /> */}
+                <Image src={slide.img} fill />
               </div>
             </SwiperSlide>
           );
@@ -51,13 +65,13 @@ function BrandsSlider() {
         spaceBetween={12}
         pagination={true}
       >
-        {sliderData?.map((slide, i) => {
+        {sliderData2?.map((slide, i) => {
           return (
             <SwiperSlide key={i} style={{ width: "fit-content" }}>
               <div
-                className={`bg-[url(/asset/brand1.svg)] bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] w-[188px] h-[102px]`}
+                className={`bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] w-[188px] h-[102px]`}
               >
-                {/* <Image src="/asset/brand1.svg" fill /> */}
+                <Image src={slide.img} fill />
               </div>
             </SwiperSlide>
           );
