@@ -30,11 +30,12 @@ function WineTable() {
             (element) => {
                 return {
                     id: element.drink_category_id,
-                    itemImage: '',
+                    itemImage: element.image,
                     itemName: element.drink_category_name,
                     showHideStatus: element.isActive,
                     data: element,
                     createdDate: element.createdAt,
+                    
 
                 }
 
@@ -53,7 +54,7 @@ function WineTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/redwine.jpg'}
+                        <Image src={element.itemImage}
                             alt="image"
                             width={106}
                             height={106} />
