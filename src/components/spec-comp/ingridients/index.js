@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import IngridientsMock from "../../mock/ingridientsMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
@@ -10,13 +10,13 @@ import Link from "next/link";
 import { emptyIngredientsList, getIngredientsList } from "@/store/slices/ingredients";
 import Breadcrumb from "@/components/Breadcrumb";
 import useFilteredData from "@/Hooks/useFilteredData";
+import Search from "@/utils/Search";
 
 function Ingridients({ productType }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const IngridientsData = IngridientsMock.ingridientsMock;
 
-  const { ingredients } = useSelector((state) => state.ingredients);
-  const filteredData = useFilteredData(ingredients, true, "cocktails", "ingredient_type_name")
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,27 +26,30 @@ function Ingridients({ productType }) {
     }
   }, []);
 
+  const { ingredients } = useSelector((state) => state.ingredients);
+  const [finaldata,setfinaldata]=useState([])
+  const [searchTerm,setSearch]=useState("")
+  useEffect(() => {
+    let temp=[]
+    if(searchTerm==""){
+      temp=[...ingredients]
+    } else {
+      const info=ingredients.filter((i)=>i.master_ingredient_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
+      temp=[...info]
+    }
+    setfinaldata([...temp])
+  }, [ingredients,searchTerm]);
 
-
+  const filteredData = useFilteredData(finaldata, true, "cocktails", "ingredient_type_name")
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <Breadcrumb last={`${productType} Ingredients`} />
-          {!isTablet && (
-            <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
-              <CiSearch
-                color="#929292"
-                size="15px"
-                className="bg-[#1D1D1D] mr-[26px]"
-              />
-              <input
-                className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-                type="text"
-                placeholder="Search"
-              />
-            </div>
-          )}
+          <Breadcrumb  />
+          {!isTablet &&     <Search search={searchTerm} setSearch={(e) => {
+                setSearch(e);
+                //  filterData(e) 
+              }} />}
         </div>
         <div className="heading-container lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
@@ -54,18 +57,10 @@ function Ingridients({ productType }) {
           </h2>
         </div>
         {isTablet && (
-          <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
-            <CiSearch
-              color="#929292"
-              size="15px"
-              className="bg-[#1D1D1D] mr-[26px]"
-            />
-            <input
-              className="text-[#767676] bg-[#1D1D1D] text-[16px] leading-6 h-full"
-              type="text"
-              placeholder="Search"
-            />
-          </div>
+          <Search search={searchTerm} setSearch={(e) => {
+            setSearch(e);
+            //  filterData(e) 
+          }} />
         )}
         <div className="bottle-cards-container mb-8">
           {filteredData.map((section, i) => {
@@ -84,7 +79,8 @@ function Ingridients({ productType }) {
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}
-                            image={'/asset/london-dry.svg'}
+                            // image={'/asset/london-dry.svg'}
+                            image={card.image}
                             subtitle={""}
                           />
                         </Link>

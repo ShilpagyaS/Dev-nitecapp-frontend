@@ -60,7 +60,8 @@ const CocktailDetailPage = ({ id }) => {
           className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px]"
             }`}
         >
-          <Image src="/asset/coctail1.png" fill />
+          {/* <Image src="/asset/coctail1.png" fill /> */}
+          <Image src={productDetails?.image} fill />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
@@ -76,7 +77,7 @@ const CocktailDetailPage = ({ id }) => {
               </h3>
               <p className="status-text text-[18px]">Medium(12%)</p>
             </div>
-            <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/>
+            {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"

@@ -74,7 +74,7 @@ function BeerSeltzer() {
                   <Link href={`specs/beer?id=${card.beer_id}`}>
                     <RectangularCard
                       title={card?.beer_name}
-                      image={"/asset/blue-moon.svg"}
+                      image={card.image}
                       subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
                     />
                   </Link>

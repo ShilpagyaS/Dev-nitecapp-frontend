@@ -51,7 +51,6 @@ const [indata,setindata]=useState({})
   })
   console.log("error",formik.errors)
   useEffect(() => {
-    debugger
     if (user) {
       setindata({...user,user_id:user.id,role:role?.name})
     }

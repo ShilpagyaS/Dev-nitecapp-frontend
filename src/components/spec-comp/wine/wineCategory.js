@@ -79,7 +79,8 @@ function WineCategory() {
                                 <Link href={`specs/wine/${enUrl(card.drink_category_name)}?id=${card.drink_category_id}`}>
                                     <RectangularCard
                                         title={card.drink_category_name}
-                                        image={'/asset/vodka.svg'}
+                                        // image={'/asset/vodka.svg'}
+                                        image={card.image}
                                         circularImg={true}
                                     />
                                 </Link>

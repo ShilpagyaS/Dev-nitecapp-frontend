@@ -33,7 +33,8 @@ function CoctailSlider({data}) {
             >
               <CoctailCard
                title={shortString(slide.cocktail_name)}
-               image={"/asset/coctail1.png"}
+              //  image={"/asset/coctail1.png"}
+              image={slide.image}
                subtitle={`${whatsthestrength(slide.abv)}(${slide.abv}%)`}
                 isNew={false}
               />

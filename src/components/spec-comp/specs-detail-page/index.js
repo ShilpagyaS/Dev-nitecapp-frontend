@@ -41,7 +41,9 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px]"
             }`}
         >
-          <Image src="/asset/london-dry-green.svg" fill alt={productDetails?.[`${subcategory}_name`]} />
+          {/* src="/asset/london-dry-green.svg" */}
+          <Image  src={productDetails?.image}
+           fill alt={productDetails?.[`${subcategory}_name`]} />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div

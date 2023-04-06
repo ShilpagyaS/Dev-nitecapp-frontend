@@ -41,7 +41,8 @@ const IngridientDetail = ({ productType, productId }) => {
           </p>
         </div>
         <div className="img-container relative w-[136px] h-[154px]">
-          <Image src="/asset/london-dry-green.svg" fill />
+        {/* src="/asset/london-dry-green.svg" */}
+          <Image src={ingredientDetails?.image} fill />
         </div>
       </div>
       <div className="description-container text-white mb-8">
@@ -59,7 +60,7 @@ const IngridientDetail = ({ productType, productId }) => {
         </h2>
 
       </div>
-      <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+      {/* <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
         {[{ cocktail_name: "wola", cocktail_id: 4 }]?.map((card, i) => {
           return (
             <div className=" col-span-1 ">
@@ -73,7 +74,7 @@ const IngridientDetail = ({ productType, productId }) => {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 };
