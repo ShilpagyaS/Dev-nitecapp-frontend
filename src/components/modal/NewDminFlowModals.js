@@ -100,7 +100,8 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                         </h3>
                         <div className='h-[70px] w-[70px] rounded-full relative'>
                             <Image
-                                src={'/asset/blue-moon.svg'}
+                                src={selectedItem.image}
+                                // src={'/asset/blue-moon.svg'}
                                 className={` rounded-full `}
                                 fill
                                 alt={'image'}

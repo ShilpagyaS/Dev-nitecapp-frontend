@@ -133,7 +133,7 @@ function BeerTable() {
                     type={'beer'}
                     title={'Beer'}
                     onSave={(data) => {
-                        
+
                         return dispatch(createProductAndUpdatingList('beer', data))
                     }}
                 />

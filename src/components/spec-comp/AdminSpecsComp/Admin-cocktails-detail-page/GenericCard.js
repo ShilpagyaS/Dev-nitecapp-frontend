@@ -42,7 +42,6 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
 
     }
     function addTngredientValues(dummy) {
-
         addValuesOnData(title, dummy)
         setAddmodal(false)
 

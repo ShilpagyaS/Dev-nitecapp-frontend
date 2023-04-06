@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingList, deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -60,12 +60,12 @@ function WinebrandTable({ productId, subcategory }) {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
+                    <div className='relative h-[106px] w-[106px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            style={{ objectFit: 'cover' }} />
                     </div>
                 </td>
                 <td >
@@ -128,21 +128,25 @@ function WinebrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
-             {AddModal &&
+            {AddModal &&
                 <AddItemModal
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAddModal(false) }}
                     label={'Wines'}
                     type={'wine'}
                     title={'Wine'}
-                    onSave={() => { }}
+                    onSave={(data) => {
+                        let body = {}
+                        body = { ...data, category_id: productId, }
+                        return dispatch(createProductAndUpdatingList('wine', body))
+                    }}
                 />
             }
             <TableContainerWithButtons label={'ADD WINE'} buttonFunction={() => {
                 //  router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) 
-                setAddModal(true) 
+                setAddModal(true)
 
-                 }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

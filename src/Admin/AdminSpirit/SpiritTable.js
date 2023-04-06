@@ -31,7 +31,7 @@ function SpiritTable() {
             (element) => {
                 return {
                     id: element.drink_category_id,
-                    itemImage: '',
+                    itemImage: element.image,
                     itemName: element.drink_category_name,
                     showHideStatus: element.isActive,
                     data: element,
@@ -94,12 +94,14 @@ function SpiritTable() {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
-                        <Image src={'/asset/vodkaImage.jpg'}
+                        <Image src={element.itemImage}
+                            // <Image src={'/asset/vodkaImage.jpg'}
                             alt="image"
-                            width={106}
-                            height={106} />
+                          
+                            fill
+                            style={{ objectFit: 'cover' }} />
                     </div>
                 </td>
                 <td >
