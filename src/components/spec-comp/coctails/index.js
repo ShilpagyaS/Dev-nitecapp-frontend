@@ -70,7 +70,7 @@ const [searchTerm,setSearch]=useState("")
                 <Link href={`/specs/cocktail?id=${card.cocktail_id}`}>
                   <RectangularCard
                     title={card.cocktail_name}
-                    image={"/asset/coctail1.png"}
+                    image={card.image}
                     subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
                   />
                 </Link>
