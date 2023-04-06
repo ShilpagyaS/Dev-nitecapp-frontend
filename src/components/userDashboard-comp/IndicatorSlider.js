@@ -10,6 +10,9 @@ function IndicatorSlider() {
         const isPhone = useMediaQuery("(max-width: 414px)");
         const coctailData = coctailMock.coctailData;
 
+        const data=[{name:"Bar 101",image:"/asset/Bar 101.png"},
+        {name:"Raise the Bar",image:"/asset/Raise the Bar.png"},
+        {name:"Psychology of Hospitality",image:"/asset/Psychology of Hospitality.png"}]
         return (
             <div className='mt-[35px]'>
                 <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[33px]'>
@@ -22,7 +25,7 @@ function IndicatorSlider() {
                         modules={[Pagination]}
 
                     >
-                        {coctailData.map((slide, i) => {
+                        {data.map((slide, i) => {
                             return (
                                 <SwiperSlide
                                     key={i}
@@ -33,7 +36,7 @@ function IndicatorSlider() {
                                     }}
                                     className="mb-8 w-[15px]"
                                 >
-                                    <CourseCardwithIndicators />
+                                    <CourseCardwithIndicators data={slide} />
                                 </SwiperSlide>
                             );
                         })}
