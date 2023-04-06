@@ -1,9 +1,13 @@
-import LayoutWithSidebar from "../Layouts/LayoutWithSidebar";
+import { getOutlets } from "@/store/slices/outlet";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BrandsSlider from "./BrandsSlider";
 import BrandsSlider2 from "./BrandsSlider2";
 import Paragraph from "./Paragraph";
 
 function Brands() {
+  
+
   return (
     <>
       <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px] py-6">

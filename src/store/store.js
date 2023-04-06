@@ -8,6 +8,7 @@ import allproducts from "./slices/allproducts";
 import superAdmin from "./slices/superAdmin";
 import notes from "./slices/notes";
 import ui from "./slices/ui";
+import outlets from './slices/outlet';
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +19,8 @@ export const store = configureStore({
     allproducts,
     superAdmin,
     notes,
-    ui
+    ui,
+    outlets
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),

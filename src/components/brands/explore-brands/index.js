@@ -5,9 +5,19 @@ import BrandsMock from "../../mock/BrandsMock.json";
 import Link from "next/link";
 import { CustomButton, GrayButton, TextButton } from "@/utils/Buttons";
 import SwitchComp from "@/utils/SwitchComp";
+import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const ExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
+  const { outlets } = useSelector((state) => state.outlets)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getOutlets())
+    return () => dispatch(emptyAllOutlet())
+  }, [])
+
 
   const addIcon = (
     <svg
@@ -101,7 +111,7 @@ const ExploreBrands = ({ admin }) => {
       <div className="brands-container">
         <h1 className="mb-[48px] text-[24px] font-bold">All Brands</h1>
       </div>
-      {brandsData?.map((brand, i) => {
+      {/* {brandsData?.map((brand, i) => {
         return (
           <>
             <div key={i} className="category-container">
@@ -158,7 +168,20 @@ const ExploreBrands = ({ admin }) => {
             </div>
           </>
         );
-      })}
+      })} */}
+
+
+<div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
+                      {outlets.map((card, i) => {
+                        return (
+                          <Link href={`/brand/explore-brands?id=${i}`}>
+                            <div className="col-span-1 relative w-[237px] h-[127px] ronded-[6px] ">
+                              <Image src={card.image} fill className="rounded-md" />
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
     </div>
   );
 };
