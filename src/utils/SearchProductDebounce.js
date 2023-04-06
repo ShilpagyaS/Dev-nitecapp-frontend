@@ -119,7 +119,8 @@ const SearchProductDebounce = ({
                                     {option.label}
                                     <div className='h-[50px] w-[50px] rounded-full relative'>
                                         <Image
-                                            src={'/asset/blue-moon.svg'}
+                                            src={option.image}
+                                            // src={'/asset/blue-moon.svg'}
                                             className={` rounded-full `}
                                             fill
                                             alt={'image'}

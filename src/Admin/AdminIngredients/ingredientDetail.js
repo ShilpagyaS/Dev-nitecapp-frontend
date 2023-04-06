@@ -121,14 +121,18 @@ const AdminIngridientDetail = ({ productType, productId }) => {
             </p>
           </div>
           <div className="img-container relative w-[136px] h-[154px]">
-            <Image src="/asset/london-dry-green.svg" fill />
+            <Image src={ingredientDetails?.image} fill className="rounded-lg" />
+            {/* <Image src="/asset/london-dry-green.svg" fill /> */}
           </div>
         </div>
         <div className="description-container text-white mb-8">
-          <div className="strength-container flex items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
-            <p className="mr-6">Strength</p>
-            <p className="font-medium">{ingredientDetails.abv}</p>
-          </div>
+          {ingredientDetails?.abv == 0 || ingredientDetails?.abv == null
+            &&
+            <div className="strength-container flex items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
+              <p className="mr-6">Strength</p>
+              <p className="font-medium">{ingredientDetails.abv}</p>
+            </div>
+          }
           <div className="desc-container text-[16px]">
             {ingredientDetails.description}
           </div>
@@ -146,7 +150,8 @@ const AdminIngridientDetail = ({ productType, productId }) => {
 
             <div className="w-full md:w-1/4">
               <div className="img-container relative w-[136px] h-[154px]">
-                <Image src="/asset/london-dry-green.svg" fill />
+                <Image src={ingredientDetails?.image} fill className="rounded-lg" />
+
               </div>
 
               <div className="editbutton flex text-[#929292] ">
@@ -194,7 +199,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
                 </div>
                 {isEdit &&
                   <div className='ml-[75px]'>
-                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Enter Strength</h6>
+                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Enter Ingredient Type</h6>
                     <div className="strength-container flex items-center text-[16px] mb-4 pb-4 ">
                       <CustomSelectForBrands items={ingredient_TypeArray}
                         defaultSelect={ingredient_Type.ingredient_id != "" ? { label: ingredient_Type.ingredient_name, value: ingredient_Type.ingredient_id } : null}

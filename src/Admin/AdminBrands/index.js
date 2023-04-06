@@ -12,6 +12,20 @@ import { useState } from "react";
 const AdminExploreBrands = () => {
   const brandsData = BrandsMock.Brandsdata;
   const [isEdit, setIsEdit] = useState()
+  const [dummyImages, setDummyImages] = useState([
+    {
+      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/Screen+Shot+2023-04-05+at+6.05.27+PM.png",
+      name: "Barcade Lobby Cafe"
+    },
+    {
+      img: "/asset/brand-icon-1.svg",
+      name: "The Delphi Lobby Cafe | Tea Bar"
+    },
+    {
+      img: "/asset/brand-icon-1.svg",
+      name: "XYZ"
+    }
+  ])
   function onSave() {
 
   }
@@ -116,9 +130,9 @@ const AdminExploreBrands = () => {
         </div>
       </div>
       <div className="brands-container">
-        <h1 className="mb-[48px] text-[24px] font-bold">All Brands</h1>
+        <h1 className="mb-[48px] text-[24px] font-bold">All Outlets</h1>
       </div>
-      {brandsData?.map((brand, i) => {
+      {/* {brandsData?.map((brand, i) => {
         return (
           <>
             <div key={i} className="category-container">
@@ -174,7 +188,23 @@ const AdminExploreBrands = () => {
             </div>
           </>
         );
-      })}
+      })} */}
+      <div className="flex items-center justify-evenly">
+
+        {
+          dummyImages?.map((element) => {
+            return <div className="flex flex-col items-center justify-center mb-[30px]">
+              <div className="relative w-[350px] h-[250px] ronded-[6px]">
+                <Image src={element.img} className="rounded-[10px]" fill style={{objectFit:'cover'}} />
+              </div>
+              <h3 className="not-italic font-semibold text-xl font-Inter mt-[10px]">{element.name}</h3>
+            </div>
+
+
+          }
+          )
+        }
+      </div>
     </div>
   );
 };

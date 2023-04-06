@@ -89,24 +89,24 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
 
   useEffect(() => {
     console.log(productDetails);
-    setabv(productDetails.abv)
+    setabv(productDetails?.abv)
     setNewMockData({
       // ingredients: (productDetails.ingredients?.length && productDetails.ingredients) || {
       //   values: [],
       // },
-      ingredients: (productDetails.ingredients?.values.length && productDetails.ingredients) || {
+      ingredients: (productDetails?.ingredients?.values.length && productDetails?.ingredients) || {
         values: [],
       },
-      methods: (productDetails.methods?.values.length && productDetails.methods) || {
+      methods: (productDetails?.methods?.values.length && productDetails?.methods) || {
         values: [],
       },
-      presentations: (productDetails.presentations?.values.length && productDetails.presentations) || {
+      presentations: (productDetails?.presentations?.values.length && productDetails?.presentations) || {
         values: [],
       },
     })
-    setShowIngredient(productDetails.showIngredients)
-    setShowMethod(productDetails.showMethods)
-    setShowPresentation(productDetails.showPresentations)
+    setShowIngredient(productDetails?.showIngredients)
+    setShowMethod(productDetails?.showMethods)
+    setShowPresentation(productDetails?.showPresentations)
 
   }, [productDetails])
 
@@ -294,7 +294,8 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
             <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px] "
               }`}>
-              <Image src="/asset/coctail1.png" className="w-full" fill />
+              <Image src={productDetails?.image} className="w-full" fill />
+              {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
             </div>
             <div className="editbutton flex text-[#929292] ">

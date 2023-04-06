@@ -105,12 +105,12 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
         }`}
     >
       <div
-        className={`relative image-container mr-[16px] ${circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px]"
+        className={`relative image-container mr-[16px] ${circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px] rounded-lg"
           }`}
       >
         <Image
           src={image}
-          className={`${circularImg && " rounded-full "}`}
+          className={`${circularImg ? " rounded-full " : "rounded-lg"}`}
           fill
           alt={title}
           priority

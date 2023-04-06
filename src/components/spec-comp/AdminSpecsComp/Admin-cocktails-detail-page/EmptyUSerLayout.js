@@ -203,7 +203,12 @@ function EmptyUSerLayout() {
             return true
         return false
     }
-
+    const handleChange = event => {
+        const newValue = event.target.value;
+        if (/^\d*\.?\d*$/.test(newValue)) {
+            setabv(newValue);
+        }
+    };
     return (
         <>
             {isAddModalOpen && <AddNewTitle
@@ -258,7 +263,7 @@ function EmptyUSerLayout() {
                                 <div className='input-val flex flex-col ml-[25px]'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Alcohol percentage</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]'
-                                        value={abv || ''} onChange={(e) => { setabv(e.target.value) }} />
+                                        value={abv || ''} onChange={(e) => { handleChange(e) }} />
 
                                 </div>
                             </div>

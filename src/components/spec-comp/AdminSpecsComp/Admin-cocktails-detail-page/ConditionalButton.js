@@ -9,7 +9,7 @@ export function ConditionalButton({ onClickHandler, condition, label }) {
                         ? "hover:bg-[#ee854d] "
                         : "disabled:hover:bg-[#ee854d] cursor-no-drop "
                     } text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
-                onClick={onClickHandler}
+                onClick={() => { if (condition == true) onClickHandler() }}
             >
                 {label}
             </button>

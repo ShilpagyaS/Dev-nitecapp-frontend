@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingList, deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { enUrl } from "@/utils/encoderfunc";
 
 function SpiritBrandTable({ productId, subcategory }) {
     const router = useRouter();
@@ -59,12 +60,13 @@ function SpiritBrandTable({ productId, subcategory }) {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            style={{ objectFit: 'cover' }}
+                        />
                     </div>
                 </td>
                 <td >
@@ -95,7 +97,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/spirit/${subcategory}/${element.itemName}?id=${element.id}`); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/spirit/${enUrl(subcategory)}/${enUrl(element.itemName)}?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 
@@ -134,7 +136,12 @@ function SpiritBrandTable({ productId, subcategory }) {
                     label={'Spirits'}
                     type={'spirit'}
                     title={'Spirit'}
-                    onSave={() => { }}
+                    onSave={(data) => {
+                        let body = {}
+                        body = { ...data, category_id: productId, }
+                        return dispatch(createProductAndUpdatingList('spirit', body))
+
+                    }}
                 />
             }
             <TableContainerWithButtons label={'ADD SPIRIT'} buttonFunction={() => {

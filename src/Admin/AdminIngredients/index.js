@@ -114,7 +114,8 @@ function AdminIngredients({ productType }) {
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}
-                            image={'/asset/london-dry.svg'}
+                            image={card.image}
+                            // image={'/asset/london-dry.svg'}
                             subtitle={""}
                           />
                         </Link>
