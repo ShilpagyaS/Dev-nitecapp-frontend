@@ -32,7 +32,7 @@ function CocktailTable() {
             (element) => {
                 return {
                     id: element.cocktail_id,
-                    itemImage: '',
+                    itemImage: element.image,
                     itemName: element.cocktail_name,
                     showHideStatus: element.showProduct,
                     popularity: 'New',
@@ -59,7 +59,7 @@ function CocktailTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/coctail1.png'}
+                        <Image src={element.itemImage}
                             alt="image"
                             width={106}
                             height={106} />

@@ -35,7 +35,7 @@ function WinebrandTable({ productId, subcategory }) {
             (element) => {
                 return {
                     id: element.wine_id,
-                    itemImage: '',
+                    itemImage: element.image,
                     itemName: element.wine_name,
                     showHideStatus: element.showProduct,
                     popularity: 'New',
@@ -62,7 +62,7 @@ function WinebrandTable({ productId, subcategory }) {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
                     >
-                        <Image src={'/asset/blue-moon.svg'}
+                        <Image src={element.itemImage}
                             alt="image"
                             width={106}
                             height={106} />
