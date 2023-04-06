@@ -10,9 +10,9 @@ function IndicatorSlider() {
         const isPhone = useMediaQuery("(max-width: 414px)");
         const coctailData = coctailMock.coctailData;
 
-        const data=[{name:"Bar 101",image:"/asset/Bar 101.png"},
-        {name:"Raise the Bar",image:"/asset/Raise the Bar.png"},
-        {name:"Psychology of Hospitality",image:"/asset/Psychology of Hospitality.png"}]
+        const data=[{name:"Bar 101",image:"/asset/Bar 101.png",completionPercentage:5},
+        {name:"Raise the Bar",image:"/asset/Raise the Bar.png",completionPercentage:20},
+        {name:"Psychology of Hospitality",image:"/asset/Psychology of Hospitality.png",completionPercentage:15}]
         return (
             <div className='mt-[35px]'>
                 <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[33px]'>
