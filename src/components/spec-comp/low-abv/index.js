@@ -69,8 +69,8 @@ function LowABV() {
                 <Link href={`/specs/low_no_abv?id=${card.low_no_abv_id}`}>
                   <RectangularCard
                     title={card.low_no_abv_name}
-                    image={"/asset/redbull.svg"}
-                    subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
+                    image={card.image}
+                    subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
                   />
                 </Link>
               </div>

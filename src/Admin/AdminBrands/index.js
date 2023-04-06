@@ -7,31 +7,20 @@ import { CustomButton, GrayButton, TextButton } from "@/utils/Buttons";
 import SwitchComp from "@/utils/SwitchComp";
 import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
 import { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
+import BannerSlider from "@/components/brands/explore-brands/BannerSlider";
 
-const AdminExploreBrands = () => {
+const AdminExploreBrands = ({admin}) => {
   const brandsData = BrandsMock.Brandsdata;
-  const [isEdit, setIsEdit] = useState()
-  const [dummyImages, setDummyImages] = useState([
-    {
-      img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/Screen+Shot+2023-04-05+at+6.05.27+PM.png",
-      name: "Barcade Lobby Cafe"
-    },
-    {
-      img: "/asset/brand-icon-1.svg",
-      name: "The Delphi Lobby Cafe | Tea Bar"
-    },
-    {
-      img: "/asset/brand-icon-1.svg",
-      name: "XYZ"
-    }
-  ])
-  function onSave() {
+  const { outlets } = useSelector((state) => state.outlets)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getOutlets())
+    return () => dispatch(emptyAllOutlet())
+  }, [])
 
-  }
-  function toggleEdit() {
-
-  }
 
   const addIcon = (
     <svg
@@ -99,35 +88,28 @@ const AdminExploreBrands = () => {
 
   return (
     <div className="explore-brands-container text-white">
-      <div className="flex flex-row items-center justify-between">
-
-        <div className="text-container ">
-          <p className="text-white text-[14px]">
-            <div className="text-container my-2 ">
-              <p className="text-white text-[14px]">
-                <span className="text-[#CCCCCC] capitalize">Brand</span>
-              </p>
+      <div className="breadcrumb-container flex justify-between items-center">
+        <Breadcrumb />
+        {admin && (
+          <div className="btns-container flex ">
+            <div className="mr-4">
+              <GrayButton icon={editIcon("black")} label="Edit" />
             </div>
-          </p>
-        </div>
-        <div className="flex items-center justify-center">
-
-          <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={onSave} />
-          <div className="ml-[15px]">
-            <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
+            <CustomButton background="#F19B6C" label="Save" />
           </div>
-        </div>
+        )}
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
-        <AdminBannerSlider pagination={false} height="187px" />
-
-        <div className="edit-image-container flex justify-end ">
-          <TextButton
-            color="#929292"
-            icon={editIcon("#929292")}
-            label="Edit Image"
-          />
-        </div>
+        <BannerSlider pagination={false} height="250px" />
+        {admin && (
+          <div className="edit-image-container flex justify-end ">
+            <TextButton
+              color="#929292"
+              icon={editIcon("#929292")}
+              label="Edit Image"
+            />
+          </div>
+        )}
       </div>
       <div className="brands-container">
         <h1 className="mb-[48px] text-[24px] font-bold">All Outlets</h1>
@@ -140,39 +122,40 @@ const AdminExploreBrands = () => {
                 <h5 className="category-heading text-[20px] font-semibold leading-8 w-[138px] mr-6 ">
                   {brand.categoryName}
                 </h5>
-                <div className="bg-[#2C2C2C] p-4 rounded-[5px]">
+                <div className={`${admin && "bg-[#2C2C2C]"} p-4 rounded-[5px]`}>
                   <p className="category-description bg-transparent text-[16px] text-[#A8A8A8] leading-6">
                     {brand.categoryDesc}
                   </p>
                 </div>
               </div>
-              {brand.categoryCards?.map((subcategory, i) => {
+              {brand?.categoryCards?.map((subcategory, i) => {
                 return (
                   <div className="brand-cards-container">
                     <div className="flex justify-between mb-6">
                       <h4 className="category-heading  text-[20px] font-semibold leading-8">
                         {subcategory.subcategory}
                       </h4>
-
-                      <div className="btns-container flex items-center">
-                        <div className="mr-4">
-                          <TextButton icon={deleteIcon()} />
-                        </div>
-                        <div className="mr-4">
-                          <SwitchComp
-                            showHideStatus={true}
-                            onChangeHandler={() => { }}
+                      {admin && (
+                        <div className="btns-container flex items-center">
+                          <div className="mr-4">
+                            <TextButton icon={deleteIcon()} />
+                          </div>
+                          <div className="mr-4">
+                            <SwitchComp
+                              showHideStatus={true}
+                              onChangeHandler={() => {}}
+                            />
+                          </div>
+                          <CustomButton
+                            background="#F19B6C"
+                            icon={addIcon}
+                            label="Add New"
                           />
                         </div>
-                        <CustomButton
-                          background="#F19B6C"
-                          icon={addIcon}
-                          label="Add New"
-                        />
-                      </div>
+                      )}
                     </div>
                     <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
-                      {subcategory.subcategoryCards?.map((card, i) => {
+                      {subcategory.subcategoryCards.map((card, i) => {
                         return (
                           <Link href={`/brand/explore-brands?id=${i}`}>
                             <div className="col-span-1 relative w-[237px] h-[127px] ronded-[6px]">
@@ -189,24 +172,26 @@ const AdminExploreBrands = () => {
           </>
         );
       })} */}
-      <div className="flex items-center justify-evenly">
 
-        {
-          dummyImages?.map((element) => {
-            return <div className="flex flex-col items-center justify-center mb-[30px]">
-              <div className="relative w-[350px] h-[250px] ronded-[6px]">
-                <Image src={element.img} className="rounded-[10px]" fill style={{objectFit:'cover'}} />
+
+      <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
+        {outlets.map((card, i) => {
+          console.log(outlets);
+          return (
+            <Link href={`/brand/explore-brands?id=${card.outlet_id}`}>
+              <div className="flex flex-col items-center justify-center mb-[30px]">
+                <div className="col-span-1 relative md:w-[350px] md:h-[250px] ronded-[10px] ">
+                  <Image src={card.image} fill className="rounded-md" />
+                </div>
+                <h3 className="not-italic font-semibold text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
               </div>
-              <h3 className="not-italic font-semibold text-xl font-Inter mt-[10px]">{element.name}</h3>
-            </div>
-
-
-          }
-          )
-        }
+            </Link>
+          );
+        })}
       </div>
-    </div>
+    </div >
   );
 };
+
 
 export default AdminExploreBrands;

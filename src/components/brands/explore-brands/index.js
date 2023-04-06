@@ -97,7 +97,7 @@ const ExploreBrands = ({ admin }) => {
         )}
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
-        <BannerSlider pagination={false} height="187px" />
+        <BannerSlider pagination={false} height="250px" />
         {admin && (
           <div className="edit-image-container flex justify-end ">
             <TextButton
@@ -109,7 +109,7 @@ const ExploreBrands = ({ admin }) => {
         )}
       </div>
       <div className="brands-container">
-        <h1 className="mb-[48px] text-[24px] font-bold">All Brands</h1>
+        <h1 className="mb-[48px] text-[24px] font-bold">All Outlets</h1>
       </div>
       {/* {brandsData?.map((brand, i) => {
         return (
@@ -171,18 +171,22 @@ const ExploreBrands = ({ admin }) => {
       })} */}
 
 
-<div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
-                      {outlets.map((card, i) => {
-                        return (
-                          <Link href={`/brand/explore-brands?id=${i}`}>
-                            <div className="col-span-1 relative w-[237px] h-[127px] ronded-[6px] ">
-                              <Image src={card.image} fill className="rounded-md" />
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-    </div>
+      <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
+        {outlets.map((card, i) => {
+          console.log(outlets);
+          return (
+            <Link href={`/brand/explore-brands?id=${card.outlet_id}`}>
+              <div className="flex flex-col items-center justify-center mb-[30px]">
+                <div className="col-span-1 relative md:w-[350px] md:h-[250px] ronded-[10px] ">
+                  <Image src={card.image} fill className="rounded-md" />
+                </div>
+                <h3 className="not-italic font-semibold text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </div >
   );
 };
 

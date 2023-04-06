@@ -75,7 +75,7 @@ function BeerSeltzer() {
                     <RectangularCard
                       title={card?.beer_name}
                       image={card.image}
-                      subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
+                      subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
                     />
                   </Link>
                 </div>

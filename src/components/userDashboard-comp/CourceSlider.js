@@ -9,9 +9,9 @@ function CourceSlider() {
         const isTablet = useMediaQuery("(max-width: 786px)");
         const isPhone = useMediaQuery("(max-width: 414px)");
         const coctailData = coctailMock.coctailData;
-        const data=[{name:"Bar 101",image:"/Bar 101.png"},
-        {name:"Raise the Bar",image:"/Raise the Bar.png"},
-        {name:"Psychology of Hospitality",image:"/Psychology of Hospitality.png"}
+        const data=[{name:"Bar 101",image:"/asset/Bar 101.png"},
+        {name:"Raise the Bar",image:"/asset/Raise the Bar.png"},
+        {name:"Psychology of Hospitality",image:"/asset/Psychology of Hospitality.png"}
     ]
         return (
             <div className=" mt-5 w-full">

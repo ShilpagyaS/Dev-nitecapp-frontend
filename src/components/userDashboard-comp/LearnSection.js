@@ -11,7 +11,7 @@ function LearnSection() {
                 <div className='grid gap-x-[24px] grid-cols-[139px_auto]'>
                     <div className='firstGrid'>
 
-                        <CircularProgress percentage={0} svgUrl={"/asset/flashicon.svg"} innerText={3}/>
+                        <CircularProgress percentage={3} svgUrl={"/asset/flashicon.svg"} innerText={3}/>
                     </div>
                     <div className='flex flex-col justify-center text-white'>
 

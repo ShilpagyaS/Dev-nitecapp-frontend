@@ -71,7 +71,7 @@ const [searchTerm,setSearch]=useState("")
                   <RectangularCard
                     title={card.cocktail_name}
                     image={card.image}
-                    subtitle={`${whatsthestrength(card.abv)}(${card.abv}%)`}
+                    subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
                   />
                 </Link>
               </div>

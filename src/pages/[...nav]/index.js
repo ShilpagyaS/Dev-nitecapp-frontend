@@ -71,6 +71,8 @@ import ManageUsers from "@/Admin/AdminManager/ManageUsers";
 import Loader from "@/components/loader";
 import RestrictedBeerEdit from "@/Admin/AdminBeer/RestrictedBeerEdit";
 import CommonEditRestrictPage from "@/Admin/CommonEditRestrictPage";
+import HotelBrandDetail from "@/components/brands/explore-brands/HotelBrandsDetailPage";
+import AdminHotelBrandDetail from "@/Admin/AdminBrands/AdminHotelBrandDetail";
 
 
 
@@ -164,7 +166,7 @@ export default function Category() {
             {path === "/dashboard" && <UserDashboard />}
             {path === "/brand" && <Brands />}
             {path === "/brand/explore-brands" && <ExploreBrands />}
-            {path === `/brand/explore-brands?id=${productId}` && <BrandDetail />}
+            {path === `/brand/explore-brands?id=${productId}` && <HotelBrandDetail productId={productId} />}
           </LayoutWithSidebar>
           }
           </>
@@ -218,6 +220,8 @@ export default function Category() {
             {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
             {path === `/specs/low_no_abv?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
             {path === `/brand` && <AdminExploreBrands />}
+            {path === `/brand/explore-brands?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
+
             {category === "dashboard" && <AdminDashboard />}
 
             {path === `/manageusers` && <ManageUsers />}
