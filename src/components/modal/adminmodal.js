@@ -1361,7 +1361,7 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             style={customStyles}
         >
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Category`}</h4>
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create ${title} Category`}</h4>
             </div>
             <div className='max-h-[456px]' >
                 <InputFieldWirhAutoWidth
@@ -1375,7 +1375,7 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                 />
                 <UploadBrandLogoInput
                     placeholder=""
-                    label="Brand Logo"
+                    label="Category Image"
                     onChangeHandler={(e) => { setinput2(e.target.value) }}
                     value={input2}
                     name={"logo"}

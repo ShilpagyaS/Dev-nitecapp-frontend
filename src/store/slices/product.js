@@ -172,7 +172,7 @@ export const putProductByIdThenUpdateListShowProduct = (data) => {
   return async (dispatch, getState) => {
     const state = getState();
     return axiosInstance({
-      url: `/api/show_Produt/comman_api_for_all_product`,
+      url: `/api/show_product/common_api_for_all_product`,
       method: "PUT",
       data
     }).then((res) => {

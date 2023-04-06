@@ -124,6 +124,7 @@ function WineTable() {
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAdd(false) }}
                     type={'wine'}
+                    title={'Wine'}
                     onSave={(name, logo) => { onSave(name, logo) }}
                 />
             }

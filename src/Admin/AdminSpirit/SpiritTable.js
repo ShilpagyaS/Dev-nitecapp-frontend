@@ -167,6 +167,7 @@ function SpiritTable() {
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAdd(false) }}
                     type={'spirit'}
+                    title={'Spirit'}
                     onSave={(name, logo) => { onSave(name, logo) }}
                 />
             }

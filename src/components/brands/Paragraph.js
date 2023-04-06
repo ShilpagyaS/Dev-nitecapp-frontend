@@ -1,6 +1,6 @@
 import { CustomButton } from "@/utils/Buttons";
 
-function Paragraph({ title, desc, btnLabel }) {
+function Paragraph({ title, desc, btnLabel, onClickHandler }) {
   return (
     <>
       <div className="paragraph-container lg:text-left text-center ">
@@ -15,6 +15,7 @@ function Paragraph({ title, desc, btnLabel }) {
           rounded="27px"
           color="#111"
           label={btnLabel}
+          onClickHandler={onClickHandler}
         />
       </div>
     </>

@@ -22,7 +22,7 @@ function LeaderShipSlider() {
     // [{ name: 'Jack ', star: '64', number: '65', thunder: '54' }, { name: 'Harry', star: '99', number: '78', thunder: '17' }, { name: 'Joey', star: '52', number: '77', thunder: '3' }  ],
     // [{ name: 'Max ', star: '23', number: '29', thunder: '45' }, { name: 'Albert', star: '85', number: '87', thunder: '69' }, { name: 'Monica', star: '23', number: '24', thunder: '7' }  ],
   ]
-
+  const titlear = ['Best Bartender', 'Best Server']
   return (
     <div className=" mt-5 w-full">
       <Swiper
@@ -47,7 +47,7 @@ function LeaderShipSlider() {
               className="mb-8 w-[15px]"
             >
               <div className=' border border-[#3C3C3C] justify-end items-center px-[16px] pt-[4px] pb-[16px] flex flex-col w-[380px] h-[279px] rounded-[12px]'>
-                <h3 className='not-italic font-semibold text-base leading-9 text-white font-Inter mb-[4px] w-full'>Title</h3>
+                <h3 className='not-italic font-semibold text-base leading-9 text-white font-Inter mb-[4px] w-full'>{titlear[i]}</h3>
                 <LeaderShipTableCards img={slide[0].img} name={slide[0].name} number={slide[0].number} star={slide[0].star} thunder={slide[0].thunder} />
                 <LeaderShipTableCards img={slide[1].img} name={slide[1].name} number={slide[1].number} star={slide[1].star} thunder={slide[1].thunder} />
                 <LeaderShipTableCards img={slide[2].img} name={slide[2].name} number={slide[2].number} star={slide[2].star} thunder={slide[2].thunder} />

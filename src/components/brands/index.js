@@ -1,4 +1,5 @@
 import { getOutlets } from "@/store/slices/outlet";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BrandsSlider from "./BrandsSlider";
@@ -6,8 +7,7 @@ import BrandsSlider2 from "./BrandsSlider2";
 import Paragraph from "./Paragraph";
 
 function Brands() {
-  
-
+  const router = useRouter();
   return (
     <>
       <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px] py-6">
@@ -22,9 +22,10 @@ function Brands() {
         </div>
         <div className=" col-span-1 ">
           <Paragraph
-            title="Explore Our Brands"
+            title="Explore Our Outlets"
             desc="Discover Classic brands, time-honored hospitality for the modern traveller. We offer our family of Distinctive brands."
             btnLabel="Explore All"
+            onClickHandler={()=>{router.push("/brand/explore-brands")}}
           />
         </div>
       </div>

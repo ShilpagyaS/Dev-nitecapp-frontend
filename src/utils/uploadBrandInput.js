@@ -80,7 +80,7 @@ function UploadBrandLogoInput({
                     ) : (
                         <label htmlFor="upload-button">
                             <div className="rounded-[8px] border border-[#787878] flex items-end cursor-pointer justify-center h-[116px] w-full">
-                                <h5 className="not-italic font-normal text-sm text-[#959595] bg-transparent mb-[20px]">Upload Brand Logo</h5>
+                                <h5 className="not-italic font-normal text-sm text-[#959595] bg-transparent mb-[20px]">Upload Category Image</h5>
                             </div>
                         </label>
                     )}
