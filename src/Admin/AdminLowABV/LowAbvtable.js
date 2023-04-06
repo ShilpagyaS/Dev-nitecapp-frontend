@@ -34,7 +34,7 @@ function LowAbvtable() {
             (element) => {
                 return {
                     id: element.low_no_abv_id,
-                    itemImage: '',
+                    itemImage:element.image,
                     itemName: element.low_no_abv_name,
                     showHideStatus: element.showProduct,
                     popularity: 'New',
@@ -61,7 +61,7 @@ function LowAbvtable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
                     >
-                        <Image src={'/asset/redbull.svg'}
+                        <Image src={element.itemImage}
                             alt="image"
                             width={106}
                             height={106} />
