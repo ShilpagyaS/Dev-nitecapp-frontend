@@ -183,7 +183,7 @@ export default function Category() {
             {category === "specs" && !subcategory && <AdminSpecs />}
             {path === `/specs/cocktail` && <AdminCocktail />}
             {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
-            {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
+            {path === `/specs/cocktail/${enUrl(subcategory2)}?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
             {path === "/specs/cocktail/cocktail_ingredients" && (
               <AdminIngredients productType={"cocktail"} />
             )}
@@ -194,7 +194,7 @@ export default function Category() {
             {path === `/specs/beer` && <AdminBeer />}
             {path === `/specs/beer/new` && <EmptyUserLayoutBeer subcategory={'beer'} />}
             {/* {path === `/specs/beer?id=${productId}` && <BeerDisplayById productId={productId} subcategory={'beer'} />}  */}
-            {path === `/specs/beer?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />} 
+            {path === `/specs/beer/${enUrl(subcategory2)}?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />} 
             {path === `/specs/beer/brands` && <AdminBrandsBeer />}
             {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
             {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
@@ -218,7 +218,7 @@ export default function Category() {
             {path === `/specs/low_no_abv` && <AdminLowAbv />}
             {path === `/specs/low_no_abv/new` && <CreateBeerAndLABV subcategory={'low_no_abv'} />}
             {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
-            {path === `/specs/low_no_abv?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
+            {path === `/specs/low_no_abv/${enUrl(subcategory2)}?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
             {path === `/brand` && <AdminExploreBrands />}
             {path === `/brand/explore-brands?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 
