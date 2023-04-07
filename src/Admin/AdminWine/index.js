@@ -19,7 +19,7 @@ function AdminWine() {
 
             <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
                 <h2 className="text-white text-[24px] leading-9 font-bold ">
-                    Wine
+                    Wine Categories
                 </h2>
             </div>
 
