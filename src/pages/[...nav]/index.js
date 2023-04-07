@@ -73,6 +73,7 @@ import RestrictedBeerEdit from "@/Admin/AdminBeer/RestrictedBeerEdit";
 import CommonEditRestrictPage from "@/Admin/CommonEditRestrictPage";
 import HotelBrandDetail from "@/components/brands/explore-brands/HotelBrandsDetailPage";
 import AdminHotelBrandDetail from "@/Admin/AdminBrands/AdminHotelBrandDetail";
+import UserProfile from "@/components/Userprofile";
 
 
 
@@ -223,7 +224,7 @@ export default function Category() {
             {path === `/brand/explore-brands?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 
             {category === "dashboard" && <AdminDashboard />}
-
+            {path==="/user_profile" && <UserProfile/>}
             {path === `/manageusers` && <ManageUsers />}
           </LayoutWithSidebarAdmin>
 }

@@ -122,3 +122,7 @@
 /* .Toastify__toast--success {
   background-color: #FFA500 !important;
 } */
+
+.hidescrollbar::-webkit-scrollbar {
+  width: 0px;
+}

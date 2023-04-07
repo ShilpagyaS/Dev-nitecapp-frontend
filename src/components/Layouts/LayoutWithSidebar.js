@@ -15,7 +15,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
   };
 
   return (
-    <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full ">
+    <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full  h-screen overflow-hidden ">
       <Header handleDrawer={handleDrawer} user={true} />
       <MobileDrawer
         category={category}
@@ -28,7 +28,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
         <div className="lg:block hidden col-span-1 w-[175px]">
           <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} />
         </div>
-        <div className=" mb-3 col-span-5">
+        <div className=" mb-3 col-span-5 h-[80vh]  overflow-y-auto pb-10 hidescrollbar">
           <Layout>{children}</Layout>
         </div>
       </div>

@@ -47,6 +47,7 @@ function Header(props) {
               className="lg:text-[25px] text-[29px]"
             />
             <div className="avtar-container flex justify-end items-center ">
+              <Link className="cursor-pointer" href={"/user_profile"}>
               <Image
                 src="/asset/avatar.png"
                 alt="profile-avatar"
@@ -54,6 +55,7 @@ function Header(props) {
                 height={50}
                 className="rounded-[50%] mr-2"
               />
+              </Link>
               <ProfileDropdown onClickHandler={handleLogout} />
             </div>
           </div>
