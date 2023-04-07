@@ -13,6 +13,19 @@
   scrollbar-gutter: stable;
 }
 
+:root {
+  --toastify-icon-color-success: #ee854d !important;
+  --toastify-color-progress-success: #ee854d !important;
+}
+.Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--success{
+  background: black !important;
+}
+.Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--error{
+  background: black !important;
+}
+.Toastify__toast-container.Toastify__toast-container--top-right{
+  background: transparent;
+}
 .swiper-pagination {
   line-height: 0 !important;
   bottom: 0 !important;
@@ -79,8 +92,33 @@
   background: #F19B6C;
   border-radius: 10px;
 }
+
 .brandModal::-webkit-scrollbar-track {
-  background: #2B2828; 
+  background: #2B2828;
   border-radius: 10px;
 }
 
+.notificationModal {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  /* Firefox */
+}
+
+.notificationModal::-webkit-scrollbar {
+  width: 5px;
+}
+
+.notificationModal::-webkit-scrollbar-thumb {
+  background: #F19B6C;
+  border-radius: 5px;
+}
+
+.notificationModal::-webkit-scrollbar-track {
+  background: #2B2828;
+  border-radius: 5px;
+}
+
+/* .Toastify__toast--success {
+  background-color: #FFA500 !important;
+} */

@@ -7,11 +7,13 @@ import Search from '@/utils/Search';
 import Link from 'next/link';
 import React from 'react'
 import { CiSearch } from 'react-icons/ci';
+import { successtoast, errortoast } from '@/components/tostify';
 
 function AdminBrandsBeer() {
     const isTablet = useMediaQuery("(max-width: 786px)");
     const { category, subcategory, productId } = useNavDetails()
     const isEdit = true
+
     return (
         <div className="brands-container">
             <div className="search-container lg:flex lg:justify-between lg:items-center mb-8">
@@ -22,8 +24,8 @@ function AdminBrandsBeer() {
             <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between mb-[15px]'>
                 {/* grid for search and button  */}
 
-                <ChipWithLeftButton condition={true} label={'Add a Brand'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { }} />
-           
+                <ChipWithLeftButton condition={true} label={'Add a Brand'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { successtoast({ message: 'hi' }); console.log('hi'); errortoast({ message: 'HI' }) }} />
+
             </div>
             <div className="sub-heading-container flex justify-between items-center mb-[21px] pr-[18px]">
                 <h4 className="text-white text-[20px] leading-[32px] font-semibold capitalize">
@@ -62,6 +64,7 @@ function AdminBrandsBeer() {
                     </div>
                 </Link>
             </div>
+
         </div>
     );
 }
