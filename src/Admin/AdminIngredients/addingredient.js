@@ -126,7 +126,7 @@ function AddIngredients({ subcategory }) {
                 <div className="flex flex-row items-center justify-between">
 
                     <div className="text-container ">
-                        <Breadcrumb last={`/ ingredients`} />
+                        <Breadcrumb />
                     </div>
                     <div className="flex items-center justify-center">
 

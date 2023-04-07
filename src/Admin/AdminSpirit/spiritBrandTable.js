@@ -97,7 +97,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/spirit/${enUrl(subcategory)}/${enUrl(element.itemName)}?id=${element.id}`); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/spirit/${enUrl(subcategory)}/${enUrl(element.itemName)}?id=${element.id}&typeid=${productId}`); }}
                         />
                         <div className='ml-[15px]'>
 

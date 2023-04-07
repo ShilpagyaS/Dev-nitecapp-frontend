@@ -13,6 +13,7 @@ import { Buttons, CustomButton, OrangeButtons } from "@/utils/Buttons";
 import ChipWithLeftButton from "@/utils/ChipWithLeftButton";
 import { useRouter } from "next/router";
 import Search from "@/utils/Search";
+import { enUrl } from "@/utils/encoderfunc";
 
 function AdminIngredients({ productType }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -70,7 +71,7 @@ function AdminIngredients({ productType }) {
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-2 ">
-          <Breadcrumb last={`${productType} Ingredients`} />
+          <Breadcrumb  />
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
 
@@ -110,7 +111,7 @@ function AdminIngredients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients?id=${card.master_ingredient_id}`}
+                          href={`/specs/cocktail/cocktail_ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}
