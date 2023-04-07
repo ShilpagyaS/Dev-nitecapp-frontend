@@ -1,3 +1,4 @@
+import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea'
 import React from 'react'
 
 function AddBrandDetailPage({ categorytype }) {

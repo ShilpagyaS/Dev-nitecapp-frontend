@@ -51,13 +51,13 @@ function BrandDetailPage() {
                             <Breadcrumb />
                         </p>
                     </div>
-                    <div className="flex items-center justify-center">
+                    {/* <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={onSave} />
                         <div className="ml-[15px]">
                             <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="text-[24px] font-bold italic m-[10px]">
                     <EditCard editContent={`Blue Moon`} isEdit={isEdit} />
