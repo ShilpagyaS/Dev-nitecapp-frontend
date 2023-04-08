@@ -136,6 +136,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     label={'Spirits'}
                     type={'spirit'}
                     title={'Spirit'}
+                    productId={productId}
                     onSave={(data) => {
                         let body = {}
                         body = { ...data, category_id: productId, }

@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+ 
 function BeerTable() {
     const router = useRouter();
     const { productList } = useSelector((state) => state.product)
