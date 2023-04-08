@@ -353,6 +353,36 @@ export const getProductSearch = (query, productType) => {
 
   };
 };
+export const getProductSearchByCategory = (query, productType,productId) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+    if (query.label !== "" && query.value === "") {
+      return await axiosDebounceInstance({
+        url: `/api/${productType}/search/${productId}/${query.label}`,
+        method: "GET",
+      }).then((res) => {
+
+        const finaldata = res?.data?.data?.map((i) => {
+          return {
+            value: i[`${productType}_id`],
+            label: i[`${productType}_name`],
+            image: i.image,
+            body: i
+          }
+        })
+
+        dispatch(productSlice.actions.searchdata(finaldata))
+        return finaldata
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    else
+      dispatch(productSlice.actions.searchdata([]))
+
+  };
+};
 export const getBrandSearch = (query) => {
   return async (dispatch, getState) => {
     const state = getState();

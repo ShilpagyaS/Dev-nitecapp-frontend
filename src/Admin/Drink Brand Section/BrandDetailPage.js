@@ -1,17 +1,30 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
+import { emptyBrandsList, getBrandsDetails } from '@/store/slices/brands'
 import { CustomButton } from '@/utils/Buttons'
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea'
 import EditCard from '@/utils/Cards/Text card/EditCard'
 import SplitCard from '@/utils/Cards/Text card/SplitCard'
 import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton'
 import Image from 'next/image'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-function BrandDetailPage() {
+function BrandDetailPage({ productType, productId }) {
     const [isEdit, setEdit] = useState(false)
     const [tagline, setTagline] = useState("the tag line info")
+    const { brandsDetails } = useSelector((state) => state.brands)
+
+    //show logic
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getBrandsDetails(productType, productId))
+        return () => dispatch(emptyBrandsList())
+    }, [])
+
+
+    //edit logic
     const textAreaRef = useRef()
     const aboutreaRef = useRef()
     const websiteRef = useRef()
@@ -60,19 +73,17 @@ function BrandDetailPage() {
                     </div> */}
                 </div>
                 <div className="text-[24px] font-bold italic m-[10px]">
-                    <EditCard editContent={`Blue Moon`} isEdit={isEdit} />
+                    <EditCard editContent={brandsDetails.drink_brand_name} isEdit={isEdit} />
                 </div>
-                <div className="banner-container w-full h-[269px] bg-[url('/asset/brand-bg.svg')] bg-no-repeat bg-cover bg-center mb-8 p-[44px]">
-                    <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
-                        <Image
-                            className="bg-[transparent]"
-                            src="/asset/brand-logo.svg"
-                            fill
-                        />
-                    </div>
+                <div className="banner-container w-full h-[269px] bg-no-repeat bg-cover bg-center mb-8 p-[44px] relative">
+                    <Image src={brandsDetails.image} fill style={{objectFit:'cover'}}/>
+                    {/* <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
+                     
+                    </div> */}
                     {!isEdit &&
-                        <p className="text-black bg-[transparent] text-center text-[16px] font-[400]">
-                            {textAreaRef?.current?.value || tagline}
+                        <p className="text-black bg-[transparent] text-center text-[16px] font-[400] absolute bottom-[30%] left-[30%]">
+                            {brandsDetails.tagline}
+                            {/* {textAreaRef?.current?.value || tagline} */}
                         </p>
                     }
                 </div>
@@ -86,18 +97,18 @@ function BrandDetailPage() {
                 }
                 {!isEdit &&
                     <div className="properties-container text-white mb-8">
-                        <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
+                        {/* <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
                             <p className="mr-6">Strength</p>
                             <p className="font-medium">45%</p>
-                        </div>
+                        </div> */}
                         <div className="origin-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
-                            <p className="mr-6">Origin</p>
-                            <p className="font-medium">Italy</p>
+                            <p className="mr-6">Location</p>
+                            <p className="font-medium">{brandsDetails.location}</p>
                         </div>
                         <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
                             <p className="mr-6">Founding Year</p>
                             <p className="font-medium">
-                                1997
+                               {brandsDetails.founding_date}
                             </p>
                         </div>
                     </div>
@@ -152,14 +163,7 @@ function BrandDetailPage() {
                     <h2 className='not-italic font-semibold text-sm leading-6 text-[#929292] font-Inter mb-[12px]'>
                         About
                     </h2>
-                    <DescriptionTextArea textAreaRef={aboutreaRef} maxheight={'360'} isEdit={isEdit} content={`
-                        Hendrick’s Gin launched in 1999. It likely needs no introduction.
-                        Hendrick’s Gin was launched by William Grant & Sons at a time when gin
-                        wasn’t the diverse, thriving category it is today. A clear callback to
-                        gin’s forbears, the apothecary style bottle suggests comparison to
-                        Genevers and a time when gin was a medicine. The Edwardian era
-                        advertising campaign has helped make the brand a stalwart both in bars
-                        and in homes.`} />
+                    <DescriptionTextArea textAreaRef={aboutreaRef} maxheight={'360'} isEdit={isEdit} content={`${brandsDetails.description}`} />
 
                 </div>
                 <div className=''>
@@ -167,7 +171,7 @@ function BrandDetailPage() {
                         Website
                     </h2>
                     <div className="status-text text-[18px]">
-                    <DescriptionTextArea textAreaRef={websiteRef} isEdit={isEdit} content={`www.abc.com`} />
+                        <DescriptionTextArea textAreaRef={websiteRef} isEdit={isEdit} content={brandsDetails.website} />
                     </div>
                 </div>
 

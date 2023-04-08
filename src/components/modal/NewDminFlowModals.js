@@ -4,6 +4,7 @@ import CustomSelect, { CustomSelectWithAllBlackTheme } from '@/utils/CustomSelec
 import SelectWithDebounce from '@/utils/DebounceSelect';
 import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
 import SearchDrinkBrandDebounce from '@/utils/SearchDrinkBrandDebounce';
+import SearchProductByCategoryId from '@/utils/SearchProductByCategoryId';
 import SearchProductDebounce from '@/utils/SearchProductDebounce';
 import UploadBrandLogoInput from '@/utils/uploadBrandInput';
 import Image from 'next/image';
@@ -12,7 +13,7 @@ import Modal from "react-modal";
 import { useDispatch } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
-export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label }) {
+export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, productId }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -75,13 +76,23 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
 
             <div className='h-[200px] mb-[10px]'>
 
-                <SearchProductDebounce
+                {!productId && <SearchProductDebounce
                     label={label}
                     type={type}
                     isClear={isClear}
                     placeholder={"search here"}
                     onChangeHandler={(e) => { onItemSelect(e) }}
-                />
+                />}
+                {productId &&
+                    <SearchProductByCategoryId
+                        label={label}
+                        type={type}
+                        isClear={isClear}
+                        productId={productId}
+                        placeholder={"search here"}
+                        onChangeHandler={(e) => { onItemSelect(e) }}
+                    />
+                }
                 {selectedItem.value == "" &&
 
                     <div className='flex flex-col w-full mb-[26px]'>

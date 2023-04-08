@@ -10,7 +10,9 @@ function AdminLowAbv() {
     return (
         <div className="coctail-container">
             <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-                <Breadcrumb/>
+
+                <Breadcrumb />
+
             </div>
 
             <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">

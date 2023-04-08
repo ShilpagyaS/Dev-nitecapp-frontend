@@ -1,5 +1,7 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import useNavDetails from '@/Hooks/useNavDetails'
+import { OrangeButtons } from '@/utils/Buttons'
+import Link from 'next/link'
 import React from 'react'
 import SpiritTable from './SpiritTable'
 
@@ -19,6 +21,10 @@ function AdminSpirit() {
                 Spirits Categories
 
                 </h2>
+                <Link href={`/specs/spirit/brands?id=1`} >
+
+                    <OrangeButtons label="Brands" noPadding={true} />
+                </Link>
             </div>
 
             <SpiritTable />

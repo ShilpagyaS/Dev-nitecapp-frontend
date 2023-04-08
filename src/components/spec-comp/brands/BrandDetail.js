@@ -8,11 +8,11 @@ import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 
 const BrandDetail = ({ productType, productId }) => {
-
+ 
   const { brandsDetails } = useSelector((state) => state.brands)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getBrandsDetails('beer', productId))
+    dispatch(getBrandsDetails(productType, productId))
     return () => dispatch(emptyBrandsList())
   }, [])
   const isTablet = useMediaQuery("(max-width: 786px)");

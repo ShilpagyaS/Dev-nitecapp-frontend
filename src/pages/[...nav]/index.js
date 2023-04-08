@@ -73,6 +73,9 @@ import RestrictedBeerEdit from "@/Admin/AdminBeer/RestrictedBeerEdit";
 import CommonEditRestrictPage from "@/Admin/CommonEditRestrictPage";
 import HotelBrandDetail from "@/components/brands/explore-brands/HotelBrandsDetailPage";
 import AdminHotelBrandDetail from "@/Admin/AdminBrands/AdminHotelBrandDetail";
+
+import BrandsList from "@/Admin/BrandsList";
+
 import UserProfile from "@/components/Userprofile";
 
 
@@ -195,15 +198,20 @@ export default function Category() {
             {path === `/specs/beer` && <AdminBeer />}
             {path === `/specs/beer/new` && <EmptyUserLayoutBeer subcategory={'beer'} />}
             {/* {path === `/specs/beer?id=${productId}` && <BeerDisplayById productId={productId} subcategory={'beer'} />}  */}
-            {path === `/specs/beer/${enUrl(subcategory2)}?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />} 
-            {path === `/specs/beer/brands` && <AdminBrandsBeer />}
-            {path === `/specs/beer/brands?id=${productId}` && <BrandDetailPage />}
+
+            {path === `/specs/beer?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />} 
+            {/* {path === `/specs/beer/brands` && <AdminBrandsBeer productType={'beer'}/>} */}
+            {path === `/specs/beer/brands` && <BrandsList productType={'beer'}/>}
+            {path === `/specs/beer/brands/${subcategory3}?id=${productId}` && <BrandDetailPage productType={'beer'} productId={productId}/>}
+
             {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
             {subcategory === "bestselling" && <BestSellingAdminCoctails/>}
 
             {path === `/specs/spirit` && <AdminSpirit />}
-            {path === `/specs/spirit/${enUrl(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
+            {path === `/specs/spirit/brands?id=${productId}` && <BrandsList productType={'spirit'}/>}
             {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
+            
+            {path === `/specs/spirit/${enUrl(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
             {/* {path === `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />} */}
             {path === `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <CommonEditRestrictPage productId={productId} subcategory={'spirit'} />}
             {path === `/specs/spirit?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'spirit'} />}
@@ -218,6 +226,9 @@ export default function Category() {
 
             {path === `/specs/low_no_abv` && <AdminLowAbv />}
             {path === `/specs/low_no_abv/new` && <CreateBeerAndLABV subcategory={'low_no_abv'} />}
+            {path === `/specs/low_no_abv/brands` && <BrandsList productType={'low_no_abv'}/>}
+            {path === `/specs/low_no_abv/brands/${subcategory3}?id=${productId}` && <BrandDetailPage productType={'low_no_abv'} productId={productId}/>}
+
             {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
             {path === `/specs/low_no_abv/${enUrl(subcategory2)}?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
             {path === `/brand` && <AdminExploreBrands />}
