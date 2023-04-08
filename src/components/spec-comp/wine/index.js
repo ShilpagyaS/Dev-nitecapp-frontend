@@ -53,7 +53,7 @@ function Wine({ id, categoryName }) {
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {categoryName}
           </h2>
-          <Link href={`/specs/wine/${enUrl(categoryName)}/brands/list?id=${id}`} >
+          <Link href={`/specs/wine/${enUrl(categoryName)}/brands/list?id=${id}&typeid=${id}`} >
             <OrangeButtons label="Brands" noPadding={true} />
           </Link>
         </div>

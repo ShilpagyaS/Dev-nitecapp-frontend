@@ -129,7 +129,7 @@ export default function Category() {
                 <SpecsDetailPage id={productId} subcategory={"spirit"} />
               )}
 
-            {path === `/specs/spirit/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
+            {path === `/specs/spirit/${enUrl(subcategory2)}/brands/list?id=${productId}&typeid=${productId}` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
 
 
 
@@ -138,21 +138,15 @@ export default function Category() {
 
             {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
             {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
-
-            {path === `/specs/wine/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} />}
-
-
-            {path === `/specs/wine/${enUrl(subcategory2)}/brands/list?id=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
-
+            {path === `/specs/wine/${enUrl(subcategory2)}/brands/list?id=${productId}&typeid=${productId}` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
+            
 
             {path === "/specs/beer" && <BeerSeltzer />}
             {path === `/specs/beer?id=${productId}` && (
               <SpecsDetailPage id={productId} subcategory={"beer"} />
             )}
             {path === "/specs/beer/brands" && <SpecBrands productType={"beer"} />}
-            {path === `/specs/beer/brands?id=${productId}` && (
-              <BrandDetail productType={"beer"} productId={productId} />
-            )}
+            
 
             {path === "/specs/low_no_abv" && <LowABV />}
             {path === `/specs/low_no_abv?id=${productId}` && (
@@ -161,7 +155,7 @@ export default function Category() {
             {path === "/specs/low_no_abv/brands" && (
               <SpecBrands productType={"low_no_abv"} />
             )}
-            {path === `/specs/low_no_abv/brands?id=${productId}` && (
+            {path === `/specs/low_no_abv/brand?id=${productId}` && (
               <BrandDetail productType={"low_no_abv"} productId={productId} />
             )}
 
@@ -171,6 +165,10 @@ export default function Category() {
             {path === "/brand" && <Brands />}
             {path === "/brand/explore-brands" && <ExploreBrands />}
             {path === `/brand/explore-brands?id=${productId}` && <HotelBrandDetail productId={productId} />}
+            {path === `/specs/brand?id=${productId}` && (
+              <BrandDetail productType={"beer"} productId={productId} />
+            )}
+
           </LayoutWithSidebar>
           }
           </>
