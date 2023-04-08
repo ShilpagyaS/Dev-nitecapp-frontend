@@ -13,13 +13,14 @@ import ProfileFileUpdate from "./profileupload";
 import TextAreaField from "@/utils/textArea";
 import { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
 import ConditionalButton from "../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
+import { uploadimage } from "@/store/slices/ui";
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
   const { user,role } = useSelector((state) => state.auth);
   const [isEdit, setEdit] = useState(false)
 const [indata,setindata]=useState({})
-  ;
+const [upimage,setimage]=useState()
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -36,12 +37,30 @@ const [indata,setindata]=useState({})
   
   }
 
+
   const handlesubmitdata = (values) => {
     
-    dispatch(updateUser(values)).then((res) => {
-      if (res?.data?.resCode === 200) router.push("/specs");
-    });
+    if(upimage){
+      dispatch(uploadimage(upimage)).then((imageurl)=>{
+        if(imageurl)
+        dispatch(updateUser({...values,image:imageurl})).then((res) => {
+          if (res?.data?.resCode === 200) router.push("/specs");
+        }); 
+        else console.log("cannot upload")
+      })
+    }
+    else {
+      dispatch(updateUser({...values})).then((res) => {
+        if (res?.data?.resCode === 200) router.push("/specs");
+      }); 
+    }
+
+
+    
+   
   }
+
+ 
 
   const formik = useFormik({
     initialValues: indata,
@@ -77,7 +96,7 @@ const [indata,setindata]=useState({})
 </div>
 </div>
     </div>
-   <ProfileFileUpdate/>
+   <ProfileFileUpdate setimage={setimage} upimage={upimage}/>
       {(
         <form
           onSubmit={formik.handleSubmit}

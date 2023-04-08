@@ -17,6 +17,7 @@ import SplitCard from "@/utils/Cards/Text card/SplitCard";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
 import Breadcrumb from "@/components/Breadcrumb";
+import ProfileFileUpdate from "@/components/Userprofile/profileupload";
 
 const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -291,11 +292,12 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
             <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px] "
               }`}>
-              <Image src={productDetails?.image} className="w-full" fill />
+              {/* <Image src={productDetails?.image} className="w-full" fill /> */}
               {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
+              <ProfileFileUpdate defaultImage={productDetails?.image}/>
 
             </div>
-            <div className="editbutton flex text-[#929292] ">
+            {/* <div className="editbutton flex text-[#929292] ">
               <Image
                 src={'/asset/EditVector.svg'}
                 // src={'/asset/DeleteVector.svg'}
@@ -306,7 +308,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
               <div className="ml-[12px]">
                 Edit Image
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="desc-container inline-block w-full  text-white">

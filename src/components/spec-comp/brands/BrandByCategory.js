@@ -21,7 +21,7 @@ const BrandsByCategory = ({ productType, productId, subcategory }) => {
     return (
         <div className="brands-container">
             <div className="search-container lg:flex lg:justify-between lg:items-center mb-8">
-                <Breadcrumb last={`${subcategory} / Brands`} />
+                <Breadcrumb  />
                 <div className="search-container flex items-center bg-[#1D1D1D] w-full lg:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
                     <CiSearch
                         color="#929292"

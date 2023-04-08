@@ -2,29 +2,38 @@ import useMediaQuery from "@/Hooks/useMediaQuery";
 import { uploadimage } from "@/store/slices/ui";
 import { AddCircularButton } from "@/utils/CircularButton";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 // dispatch(uploadimage(upimage)
-export default function ProfileFileUpdate({setimage,upimage}) {
+export default function ProfileFileUpdate({setimage,upimage,defaultImage}) {
     const [image, setImage] = useState({ preview: "", raw: "" });
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
     const dispatch =useDispatch()
+
+
+    useEffect(()=>{
+        if(defaultImage){
+            setImage({
+                preview:defaultImage,
+                raw:null
+            })
+        }
+    },[defaultImage])
+
     const handleChange = e => {
         if (e.target.files.length) {
+            console.log(e.target.files)
+            console.log( URL.createObjectURL(e.target.files[0]))
             setImage({
                 preview: URL.createObjectURL(e.target.files[0]),
                 raw: e.target.files[0]
             });
-           setimage( e.target.files[0])
+        //    setimage( e.target.files[0])
         }
     };
 
-    // const handleUpload = async e => {
-    //     dispatch(uploadimage(upimage)).then((res)=>{
-    //         setimageurl(res)  
-    //     })
-    // };
+   
 
     return (
         <div>

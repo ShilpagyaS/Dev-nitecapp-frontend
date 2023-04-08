@@ -33,11 +33,9 @@ export const uploadimage =(file)=>{
           method: "POST",
           data:formdata
         }).then((res) => {
-    
-         debugger
-          return finaldata
+          return res?.data?.data
         }).catch((err) => {
-          console.log(err)
+          return {error:true,message:err.message}
         });
     
       };
