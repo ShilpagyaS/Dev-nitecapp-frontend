@@ -16,6 +16,7 @@ import GenericCard from "./GenericCard";
 import SplitCard from "@/utils/Cards/Text card/SplitCard";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -277,11 +278,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
       <div className="detail-page-container">
         <div className="flex flex-row items-center justify-between">
 
-          <div className="text-container ">
-            <p className="text-white text-[14px]">
-              <span className="text-[#CCCCCC]">Specs / Coctail /</span> Southside
-            </p>
-          </div>
+         <Breadcrumb/>
           <div className="flex items-center justify-center">
 
             <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { onSave() }} />

@@ -10,6 +10,7 @@ import axiosInstance from "@/components/Auth/axios";
 import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
 import { useDispatch } from 'react-redux';
 import CustomSelect, { CustomSelectForBrands } from '@/utils/CustomSelect';
+import Breadcrumb from '@/components/Breadcrumb';
 
 
 function CreateBeerAndLABV({ subcategory }) {
@@ -131,11 +132,7 @@ function CreateBeerAndLABV({ subcategory }) {
             <div className='outer-container'>
                 <div className="flex flex-row items-center justify-between">
 
-                    <div className="text-container ">
-                        <p className="text-white text-[14px]">
-                            <span className="text-[#CCCCCC]">Specs / Beer </span>
-                        </p>
-                    </div>
+                   <Breadcrumb/>
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { createdrink() }} />

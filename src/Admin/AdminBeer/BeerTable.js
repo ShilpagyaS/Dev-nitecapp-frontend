@@ -2,6 +2,7 @@ import { DeleteProduct } from '@/components/modal/adminmodal'
 import { AddItemModal } from '@/components/modal/NewDminFlowModals'
 import { createProduct, createProductAndUpdatingList, deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
+import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
 import Image from 'next/image'
@@ -95,7 +96,7 @@ function BeerTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/beer?id=${element.id}`); }}
+                        <EditCircularButton onClickHandler={() => { router.push(`/specs/beer/${enUrl(element.itemName)}?id=${element.id}`); }}
                         />
                         <div className='ml-[15px]'>
 

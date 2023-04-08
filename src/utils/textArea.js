@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { _INITIAL, _PASS } from "./Constants";
 
-function InputField({
+function TextAreaField({
   placeholder,
   label,
   value,
@@ -32,7 +32,7 @@ function InputField({
         {label}
       </h5>
 
-      <input
+      <textarea
         className={`box-border mt-[4px] py-[8px] pr-[13px] pl-[16px] rounded-[9px] h-[50px] ${fullwidth ?`w-full`:`min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px]`}  border border-solid border-[#3C3C3C] text-white font-Inter not-italic font-normal text-[14px]  placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none 
         ${!touched && !error
             ? "focus:border-[#959595]  focus:ring-offset-white focus:ring-1 "
@@ -72,4 +72,4 @@ function InputField({
   );
 }
 
-export default InputField;
+export default TextAreaField;

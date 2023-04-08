@@ -10,6 +10,7 @@ import axiosInstance from "@/components/Auth/axios";
 import { useDispatch } from 'react-redux';
 import { createProduct, getAllDrinkBrands } from '@/store/slices/product';
 import { CustomSelectForBrands } from '@/utils/CustomSelect';
+import Breadcrumb from '@/components/Breadcrumb';
 
 
 function AddSpirit({ subcategory, productId }) {
@@ -133,11 +134,7 @@ function AddSpirit({ subcategory, productId }) {
             <div className='outer-container'>
                 <div className="flex flex-row items-center justify-between">
 
-                    <div className="text-container ">
-                        <p className="text-white text-[14px]">
-                            <span className="text-[#CCCCCC]">Specs / Beer </span>
-                        </p>
-                    </div>
+                    <Breadcrumb/>
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { createdrink() }} />

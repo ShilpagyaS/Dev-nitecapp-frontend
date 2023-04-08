@@ -8,6 +8,7 @@ import ChipWithLeftButton from '@/utils/ChipWithLeftButton';
 import GenericCard from './GenericCard';
 import { useDispatch } from 'react-redux';
 import { createProduct } from '@/store/slices/product';
+import Breadcrumb from '@/components/Breadcrumb';
 
 function EmptyUSerLayout() {
     const isEdit = true;
@@ -229,12 +230,7 @@ function EmptyUSerLayout() {
             }
             <div className='outer-container'>
                 <div className="flex flex-row items-center justify-between">
-
-                    <div className="text-container ">
-                        <p className="text-white text-[14px]">
-                            <span className="text-[#CCCCCC]">Specs / Coctail /</span> Southside
-                        </p>
-                    </div>
+<Breadcrumb/>
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={checkVals()} onClickHandler={() => { createdrink() }} />

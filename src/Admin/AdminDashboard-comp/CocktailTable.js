@@ -1,6 +1,7 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
 import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
+import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
 import Image from 'next/image'
@@ -93,7 +94,7 @@ function CocktailTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
                         <div>
 
-                            <EditCircularButton onClickHandler={() => { router.push(`/specs/cocktail?id=${element.id}`); }}
+                            <EditCircularButton onClickHandler={() => { router.push(`/specs/cocktail/${enUrl(element.itemName)}?id=${element.id}`); }}
                             />
                         </div>
                         <div className='ml-[15px]'>

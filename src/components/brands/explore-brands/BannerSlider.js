@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Pagination } from "swiper";
+import { Pagination ,Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
@@ -36,6 +36,8 @@ const BannerSlider = (props) => {
   function prev() {
     return swipperInstance.slidePrev();
   }
+
+ 
 
   // function prev() {
   //   // if (swipperInstance.activeIndex === sliderData.length - 1) {
@@ -87,8 +89,10 @@ const BannerSlider = (props) => {
         slidesPerView={1}
         className={`mt-4 w-full ${height ? `h-[${height}]` : "h-[250px]"}`}
         spaceBetween={0}
-        modules={[Pagination]}
+        autoplay
+        modules={[Pagination,Autoplay]}
         pagination={pagination}
+        loop
         onSwiper={(e) => {
           setswipperInstance(e);
         }}

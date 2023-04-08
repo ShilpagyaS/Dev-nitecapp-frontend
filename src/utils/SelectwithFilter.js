@@ -34,7 +34,9 @@ const SelectWithSearch = ({
       >
         {label}
       </h5>
-      <div className="relative">
+      <div className="relative" onBlur={() => {
+            setEnableOption(false);
+          }}>
         <input
           className={`box-border mt-[4px] py-[8px] pl-[16px] rounded-[9px] h-[50px] min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px] border border-solid 
           border-[#3C3C3C] text-white font-Inter not-italic font-normal text-[14px] 

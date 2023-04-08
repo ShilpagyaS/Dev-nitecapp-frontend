@@ -7,10 +7,10 @@ export default function Breadcrumb({ last }) {
   const { category, subcategory, subcategory2, subcategory3, productId, path,typeid } =
     useNavDetails()
   let crun = []
-  if (category) crun.push( {label:category,link:`/${enUrl(category)}`})
-  if (subcategory) crun.push( {label:subcategory,link:`/${enUrl(category)}/${enUrl(subcategory)}`})
-  if (subcategory2) crun.push( {label:subcategory2,link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}${typeid?`?id=${typeid}`:''}`})
-  if (subcategory3) crun.push( {label:subcategory3,link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}/${enUrl(subcategory3)}${typeid?`?id=${typeid}`:''}`})
+  if (category) crun.push( {label:category.replace('_'," "),link:`/${enUrl(category)}`})
+  if (subcategory) crun.push( {label:subcategory.replace('_'," "),link:`/${enUrl(category)}/${enUrl(subcategory)}`})
+  if (subcategory2) crun.push( {label:subcategory2.replace('_'," "),link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}${typeid?`?id=${typeid}`:''}`})
+  if (subcategory3) crun.push( {label:subcategory3.replace('_'," "),link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}/${enUrl(subcategory3)}${typeid?`?id=${typeid}`:''}`})
   if (last) crun.push( {label:last|| "",link:""})
 
   return <div className="text-container my-2 ">

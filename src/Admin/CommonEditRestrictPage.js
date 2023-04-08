@@ -215,11 +215,9 @@ function CommonEditRestrictPage({ productId, subcategory }) {
             <div className="detail-page-container">
                 <div className="flex flex-row items-center justify-between">
 
-                    <div className="text-container ">
-                        <p className="text-white text-[14px]">
+                  
                             <Breadcrumb />
-                        </p>
-                    </div>
+                    
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={onSave} />
