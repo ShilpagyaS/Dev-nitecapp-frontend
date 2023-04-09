@@ -17,10 +17,10 @@ import { uploadimage } from "@/store/slices/ui";
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
-  const { user,role } = useSelector((state) => state.auth);
+  const { user, role } = useSelector((state) => state.auth);
   const [isEdit, setEdit] = useState(false)
-const [indata,setindata]=useState({})
-const [upimage,setimage]=useState()
+  const [indata, setindata] = useState({})
+  const [upimage, setimage] = useState()
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -34,33 +34,33 @@ const [upimage,setimage]=useState()
 
   const toggleEdit = () => {
     setEdit(prev => !prev)
-  
+
   }
 
 
   const handlesubmitdata = (values) => {
-    
-    if(upimage){
-      dispatch(uploadimage(upimage)).then((imageurl)=>{
-        if(imageurl)
-        dispatch(updateUser({...values,image:imageurl})).then((res) => {
-          if (res?.data?.resCode === 200) router.push("/specs");
-        }); 
+
+    if (upimage) {
+      dispatch(uploadimage(upimage)).then((imageurl) => {
+        if (imageurl)
+          dispatch(updateUser({ ...values, image: imageurl })).then((res) => {
+            if (res?.data?.resCode === 200) router.push("/specs");
+          });
         else console.log("cannot upload")
       })
     }
     else {
-      dispatch(updateUser({...values})).then((res) => {
+      dispatch(updateUser({ ...values })).then((res) => {
         if (res?.data?.resCode === 200) router.push("/specs");
-      }); 
+      });
     }
 
 
-    
-   
+
+
   }
 
- 
+
 
   const formik = useFormik({
     initialValues: indata,
@@ -75,28 +75,28 @@ const [upimage,setimage]=useState()
       user_id: Yup.string().required()
     }),
   })
-  console.log("error",formik.errors)
+  console.log("error", formik.errors)
   useEffect(() => {
     if (user) {
-      setindata({...user,user_id:user.id,role:role?.name})
+      setindata({ ...user, user_id: user.id, role: role?.name })
     }
 
-  }, [user,role]);
+  }, [user, role]);
 
   return (
     <div className="grid place-items-center">
-    {/* <ProfileFileUpdate/> */}
-    <div className="flex justify-between w-full max-w-[706px]">
-    <h1 className="text-white font-[700] text-[32px] leading-[48px]">Profile</h1>
-    <div className="flex items-center justify-center">
+      {/* <ProfileFileUpdate/> */}
+      <div className="flex justify-between w-full max-w-[706px]">
+        <h1 className="text-white font-[700] text-[32px] leading-[48px]">Profile</h1>
+        <div className="flex items-center justify-center">
 
-<ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => {  }} />
-<div className="ml-[15px]">
-  <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
-</div>
-</div>
-    </div>
-   <ProfileFileUpdate setimage={setimage} upimage={upimage}/>
+          <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { }} />
+          <div className="ml-[15px]">
+            <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
+          </div>
+        </div>
+      </div>
+      <ProfileFileUpdate setimage={setimage} upimage={upimage} />
       {(
         <form
           onSubmit={formik.handleSubmit}
@@ -111,7 +111,7 @@ const [upimage,setimage]=useState()
             error={formik.errors.first_name}
             touched={formik.touched.first_name}
             showerror
-            
+            fullwidth
           />
           <InputField
             placeholder="Last Name"
@@ -123,7 +123,7 @@ const [upimage,setimage]=useState()
             error={formik.errors.last_name}
             touched={formik.touched.last_name}
             showerror
-            
+            fullwidth
           />
           <InputField
             placeholder="Email"
@@ -135,7 +135,7 @@ const [upimage,setimage]=useState()
             error={formik.errors.email}
             touched={formik.touched.email}
             showerror
-            
+            fullwidth
           />
           <InputField
             placeholder=""
@@ -148,61 +148,61 @@ const [upimage,setimage]=useState()
             error={formik.errors.contact}
             touched={formik.touched.contact}
             showerror
-            
+            fullwidth
           />
           <SelectWithSearch
             label={"Country"}
             placeholder={"Country"}
-            options={[{label:"yo",value:"yo"}]}
+            options={[{ label: "yo", value: "yo" }]}
             value={formik.values.concept}
             onChangeHandler={formik.handleChange}
             error={formik.errors.concept}
             touched={formik.touched.concept}
-            showerror
-            
-          />
-
-<SelectWithSearch
-            label={"State"}
-            placeholder={"State"}
-            options={[{label:"yo",value:"yo"}]}
-            value={formik.values.concept}
-            onChangeHandler={formik.handleChange}
-            error={formik.errors.concept}
-            touched={formik.touched.concept}
-            showerror
-            
-          />
-          <div className="col-span-1 md:col-span-2 w-full flex justify-center">
-          <InputField
-            placeholder=""
-            label="Address Line 1st"
-            onChangeHandler={formik.handleChange}
-            value={formik.values.contact}
-            name={"role"}
-            type={"text"}
-            disabled
-            error={formik.errors.contact}
-            touched={formik.touched.contact}
             showerror
             fullwidth
           />
+
+          <SelectWithSearch
+            label={"State"}
+            placeholder={"State"}
+            options={[{ label: "yo", value: "yo" }]}
+            value={formik.values.concept}
+            onChangeHandler={formik.handleChange}
+            error={formik.errors.concept}
+            touched={formik.touched.concept}
+            showerror
+
+          />
+          <div className="col-span-1 md:col-span-2 w-full flex justify-center">
+            <InputField
+              placeholder=""
+              label="Address Line 1st"
+              onChangeHandler={formik.handleChange}
+              value={formik.values.contact}
+              name={"role"}
+              type={"text"}
+              disabled
+              error={formik.errors.contact}
+              touched={formik.touched.contact}
+              showerror
+              fullwidth
+            />
           </div>
 
           <div className="col-span-1 md:col-span-2 w-full flex justify-center">
-          <InputField
-            placeholder=""
-            label="Address Line 2nd"
-            onChangeHandler={formik.handleChange}
-            value={formik.values.contact}
-            name={"role"}
-            type={"text"}
-            disabled
-            error={formik.errors.contact}
-            touched={formik.touched.contact}
-            showerror
-            fullwidth
-          />
+            <InputField
+              placeholder=""
+              label="Address Line 2nd"
+              onChangeHandler={formik.handleChange}
+              value={formik.values.contact}
+              name={"role"}
+              type={"text"}
+              disabled
+              error={formik.errors.contact}
+              touched={formik.touched.contact}
+              showerror
+              fullwidth
+            />
           </div>
 
           <InputField
@@ -216,10 +216,10 @@ const [upimage,setimage]=useState()
             error={formik.errors.role}
             touched={formik.touched.role}
             showerror
-            
+            fullwidth
           />
 
-<InputField
+          <InputField
             placeholder=""
             label="Password"
             onChangeHandler={formik.handleChange}
@@ -230,38 +230,38 @@ const [upimage,setimage]=useState()
             error={formik.errors.role}
             touched={formik.touched.role}
             showerror
-            
-          />
-
-<div className="col-span-1 md:col-span-2 w-full flex justify-center">
-          <TextAreaField
-            placeholder=""
-            label="Description"
-            onChangeHandler={formik.handleChange}
-            value={formik.values.contact}
-            name={"role"}
-            type={"text"}
-            disabled
-            error={formik.errors.contact}
-            touched={formik.touched.contact}
-            showerror
             fullwidth
           />
+
+          <div className="col-span-1 md:col-span-2 w-full flex justify-center">
+            <TextAreaField
+              placeholder=""
+              label="Description"
+              onChangeHandler={formik.handleChange}
+              value={formik.values.contact}
+              name={"role"}
+              type={"text"}
+              disabled
+              error={formik.errors.contact}
+              touched={formik.touched.contact}
+              showerror
+              fullwidth
+            />
           </div>
 
-          
+
           <div className="col-span-1 md:col-span-2">
-          <ConditionalButtons
-            condition={true}
-            label={"Continue"}
-            type="submit"
-          />
+            <ConditionalButtons
+              condition={true}
+              label={"Continue"}
+              type="submit"
+            />
           </div>
-          
+
         </form>
       )}
 
-     
+
     </div>
   );
 }

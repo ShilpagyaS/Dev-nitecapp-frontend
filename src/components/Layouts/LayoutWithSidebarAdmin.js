@@ -14,7 +14,7 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
     };
 
     return (
-        <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full h-screen overflow-hidden">
+        <div className="relative lg:max-w-[1440px] px-4 w-full h-screen overflow-hidden">
             <Header handleDrawer={handleDrawer} user={true} />
             <MobileDrawer
                 category={category}
@@ -23,11 +23,11 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
                 isSidebarVisible={isSidebarVisible}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-[auto_repeat(5,minmax(175px,1fr))] w-full mt-[26px] ">
-                <div className="lg:block hidden col-span-1 w-[175px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[175px_auto] w-full mt-[26px] ">
+                <div className="lg:block hidden ">
                     <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} />
                 </div>
-                <div className=" mb-3 col-span-5 overflow-y-auto h-[80vh] pb-10 hidescrollbar">
+                <div className=" mb-3 overflow-y-auto h-[80vh] pb-10 hidescrollbar">
                     <Layout>{children}</Layout>
                 </div>
             </div>
