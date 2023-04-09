@@ -35,7 +35,7 @@ function LowAbvtable() {
             (element) => {
                 return {
                     id: element.low_no_abv_id,
-                    itemImage:element.image,
+                    itemImage: element.image,
                     itemName: element.low_no_abv_name,
                     showHideStatus: element.showProduct,
                     popularity: 'New',
@@ -60,12 +60,13 @@ function LowAbvtable() {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            style={{ objectFit: 'contain' }}
+                        />
                     </div>
                 </td>
                 <td >
@@ -104,7 +105,7 @@ function LowAbvtable() {
                                 setElementItem({
                                     title: element.itemName,
                                     id: element.id
-                                }); setDeleteModal(true) 
+                                }); setDeleteModal(true)
                             }} />
                         </div>
                     </div>
@@ -135,9 +136,9 @@ function LowAbvtable() {
                     label={'Low / No ABV'}
                     type={'low_no_abv'}
                     title={'Low / No ABV'}
-                    onSave={(data) => { 
+                    onSave={(data) => {
                         // return dispatch(createProductAndUpdatingList('low_no_abv', data)) 
-                        return dispatch(createProductAndUpdatingListNew('low_no_abv', data)) 
+                        return dispatch(createProductAndUpdatingListNew('low_no_abv', data))
                     }}
                 />
             }

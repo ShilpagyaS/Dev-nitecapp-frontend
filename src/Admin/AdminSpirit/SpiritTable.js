@@ -99,11 +99,10 @@ function SpiritTable() {
                     <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         <Image src={element.itemImage}
-                            // <Image src={'/asset/vodkaImage.jpg'}
                             alt="image"
-
                             fill
-                            style={{ objectFit: 'cover' }} />
+                            style={{ objectFit: 'contain' }}
+                        />
                     </div>
                 </td>
                 <td >
