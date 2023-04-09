@@ -9,6 +9,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
 import { enUrl } from "@/utils/encoderfunc";
 import Search from "@/utils/Search";
+import { OrangeButtons } from "@/utils/Buttons";
 
 
 function WineCategory() {
@@ -24,18 +25,18 @@ function WineCategory() {
         };
     }, []);
 
-    const [finaldata,setfinaldata]=useState([])
-    const [searchTerm,setSearch]=useState("")
+    const [finaldata, setfinaldata] = useState([])
+    const [searchTerm, setSearch] = useState("")
     useEffect(() => {
-      let temp=[]
-      if(searchTerm==""){
-        temp=[...categoryList]
-      } else {
-        const info=categoryList.filter((i)=>i.drink_category_name?.toLowerCase()?.includes(searchTerm.toLowerCase())) 
-        temp=[...info]
-      }
-      setfinaldata([...temp])
-    }, [categoryList,searchTerm]);
+        let temp = []
+        if (searchTerm == "") {
+            temp = [...categoryList]
+        } else {
+            const info = categoryList.filter((i) => i.drink_category_name?.toLowerCase()?.includes(searchTerm.toLowerCase()))
+            temp = [...info]
+        }
+        setfinaldata([...temp])
+    }, [categoryList, searchTerm]);
 
 
 
@@ -63,11 +64,14 @@ function WineCategory() {
                         }} />
                     )}
                 </div>
-                <div className="heading-container lg:mb-8 mb-3">
+                <div className="heading-container lg:mb-8 mb-3 flex justify-between">
                     <h2 className="text-white text-[24px] leading-9 font-bold ">   {'Wine (Category)'}</h2>
+                    <Link href={`/specs/wine/brands`} >
+                        <OrangeButtons label="Brands" noPadding={true} />
+                    </Link>
                 </div>
                 {isTablet && (
-                     <Search search={searchTerm} setSearch={(e) => {
+                    <Search search={searchTerm} setSearch={(e) => {
                         setSearch(e);
                         //  filterData(e) 
                     }} />

@@ -30,36 +30,36 @@ const IngridientDetail = ({ productType, productId }) => {
       <div className="text-container ">
         <Breadcrumb />
       </div>
-      <div className="img-title-container md:flex md:items-center lg:flex lg:items-center mb-8">
-        <div className="title-container text-white w-[294px] mr-8">
+      <div className="img-title-container md:flex md:items-center flex lg:items-center mb-8">
+        <div className="title-container text-white w-[200px] sm:w-[294px] mr-8">
           <h3 className="title text-[24px] font-bold mb-6">{ingredientDetails.master_ingredient_name}</h3>
           <p
-            className={`sub-title text-[16px] leading-6 ${isMobile && "text-center"
+            className={`sub-title text-[16px] leading-6 my-2
               }`}
           >
             {ingredientDetails?.short_description}
           </p>
         </div>
         <div className="img-container relative w-[136px] h-[154px]">
-        {/* src="/asset/london-dry-green.svg" */}
-          <Image src={ingredientDetails?.image} fill />
+          {/* src="/asset/london-dry-green.svg" */}
+          <Image src={ingredientDetails?.image} fill className="rounded-lg" />
         </div>
       </div>
-      <div className="description-container text-white mb-8">
-        <div className="strength-container flex items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
+      <div className="description-container text-white mb-8 border-t border-[#222222] pt-2">
+        {parseFloat(ingredientDetails?.abv) > 0 && <div className="strength-container flex items-center text-[16px] mb-4 pb-4 ">
           <p className="mr-6">Strength</p>
           <p className="font-medium">{`${ingredientDetails?.abv}%`}</p>
-        </div>
+        </div>}
         <div className="desc-container text-[16px]">
-         {ingredientDetails?.description}
+          {ingredientDetails?.description}
         </div>
       </div>
-      <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
+      {/* <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
         <h2 className="text-white text-[24px] leading-9 font-bold capitalize">
           {productType}
         </h2>
 
-      </div>
+      </div> */}
       {/* <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
         {[{ cocktail_name: "wola", cocktail_id: 4 }]?.map((card, i) => {
           return (

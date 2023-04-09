@@ -48,12 +48,12 @@ const CocktailDetailPage = ({ id }) => {
     setIsAddModalOpen(false);
   };
   const { category, subcategory, productId } = useNavDetails()
-  const [filledHeart,setfilledHeart]=useState(false)
+  const [filledHeart, setfilledHeart] = useState(false)
   return (
     <div className="detail-page-container">
-   
+
       <div className="text-container ">
-      <Breadcrumb last={productDetails?.cocktail_name}/>
+        <Breadcrumb last={productDetails?.cocktail_name} />
       </div>
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
@@ -61,7 +61,7 @@ const CocktailDetailPage = ({ id }) => {
             }`}
         >
           {/* <Image src="/asset/coctail1.png" fill /> */}
-          <Image src={productDetails?.image} fill />
+          <Image src={productDetails?.image} fill className="object-cover" />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
@@ -173,7 +173,7 @@ const CocktailDetailPage = ({ id }) => {
           })}
         </div>
       </div>
-      <Notes id={id} subcategory={subcategory}/>
+      <Notes id={id} subcategory={subcategory} />
     </div>
   );
 };

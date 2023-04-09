@@ -24,14 +24,15 @@ export const notesSlice = createSlice({
 export const getNoteDetails = (productType, id) => {
     return async (dispatch, getState) => {
         const state = getState();
-       console.log(state?.auth?.user?.id)
+        console.log(state?.auth?.user?.id)
         axiosInstance({
             url: `/api/getUserNote`,
             method: "POST",
             data: {
                 type: productType,
                 product_id: id,
-                user_id: state?.auth?.user?.id
+                user_id: state?.auth?.user?.id || state?.auth?.user?.user_id
+
             }
         }).then((res) => {
             console.log("response in product,js 47", res);

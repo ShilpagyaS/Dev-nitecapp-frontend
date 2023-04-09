@@ -84,29 +84,14 @@ const ExploreBrands = ({ admin }) => {
   };
 
   return (
-    <div className="explore-brands-container text-white">
+    <div className="explore-brands-container text-white w-full flex justify-center flex-col">
       <div className="breadcrumb-container flex justify-between items-center">
         <Breadcrumb />
-        {admin && (
-          <div className="btns-container flex ">
-            <div className="mr-4">
-              <GrayButton icon={editIcon("black")} label="Edit" />
-            </div>
-            <CustomButton background="#F19B6C" label="Save" />
-          </div>
-        )}
+
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
         <BannerSlider pagination={false} height="250px" />
-        {admin && (
-          <div className="edit-image-container flex justify-end ">
-            <TextButton
-              color="#929292"
-              icon={editIcon("#929292")}
-              label="Edit Image"
-            />
-          </div>
-        )}
+
       </div>
       <div className="brands-container">
         <h1 className="mb-[48px] text-[24px] font-bold">All Outlets</h1>
@@ -171,16 +156,15 @@ const ExploreBrands = ({ admin }) => {
       })} */}
 
 
-      <div className="cards-container mb-6 grid lg:grid-cols-3 md:grid-cols-3 grid-cols-2 gap-x-[39px] gap-y-[33px]">
+      <div className="cards-container mb-6 grid  md:grid-cols-3 grid-cols-2 gap-4 ">
         {outlets.map((card, i) => {
-          console.log(outlets);
           return (
             <Link href={`/brand/explore-brands?id=${card.outlet_id}`}>
               <div className="flex flex-col items-center justify-center mb-[30px]">
-                <div className="col-span-1 relative md:w-[350px] md:h-[250px] ronded-[10px] ">
-                  <Image src={card.image} fill className="rounded-md" />
+                <div className=" relative w-full rounded-[10px] min-h-[250px] ">
+                  <Image src={card.image} fill className="rounded-md object-cover" />
                 </div>
-                <h3 className="not-italic font-semibold text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
+                <h3 className="not-italic font-semibold  text-md lg:text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
               </div>
             </Link>
           );

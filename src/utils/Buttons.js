@@ -41,6 +41,33 @@ export function CustomButton({
   );
 }
 
+export function CustomButtonRound({
+  onClickHandler,
+  label,
+  color,
+  background,
+  rounded,
+  hover,
+  icon,
+  className,
+  ...rest
+}) {
+  return (
+    <button
+      className={` h-fit p-3
+     ${background ? `py-[8px] px-[32px] bg-[${background}]` : `bg-transparent`}
+      h-[54px]  ${hover && `hover:bg-[#ee854d]`
+        } hover:text-white 
+      ${`text-[${color || "black"}]`}
+      gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px] flex items-center justify-center ${className}`}
+      onClick={onClickHandler}
+      {...rest}
+    >
+      {icon} {label}
+    </button>
+  );
+}
+
 export function TextButton({ onClickHandler, label, color, icon }) {
   return (
     <button
@@ -105,7 +132,7 @@ export function OrangeButtons({ onClickHandler, label, noPadding, width }) {
   return (
     <div className={`${!noPadding && "pt-[26px]"}`}>
       <button
-        className={`border border-[#F19B6C] text-[#F19B6C]  py-[6px] px-[12px] w-[${width ? width :'111'}px] rounded-full hover:bg-[#ee854d] hover:text-black not-italic font-medium text-base leading-6 font-Inter`}
+        className={`border border-[#F19B6C] text-[#F19B6C]  py-[6px] px-[12px] w-[${width ? width : '111'}px] rounded-full hover:bg-[#ee854d] hover:text-black not-italic font-medium text-base leading-6 font-Inter`}
         onClick={onClickHandler}
       >
         {label}

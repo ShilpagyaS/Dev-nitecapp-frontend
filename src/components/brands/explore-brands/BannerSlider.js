@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Pagination ,Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import LayoutWithHeader from "@/components/Layouts/LayoutWithHeader";
@@ -37,7 +37,7 @@ const BannerSlider = (props) => {
     return swipperInstance.slidePrev();
   }
 
- 
+
 
   // function prev() {
   //   // if (swipperInstance.activeIndex === sliderData.length - 1) {
@@ -87,10 +87,10 @@ const BannerSlider = (props) => {
     <>
       <Swiper
         slidesPerView={1}
-        className={`mt-4 w-full ${height ? `h-[${height}]` : "h-[250px]"}`}
+        className={` w-full ${height ? `h-[${height}]` : "h-[250px]"}  flex justify-center mt-4`}
         spaceBetween={0}
         autoplay
-        modules={[Pagination,Autoplay]}
+        modules={[Pagination, Autoplay]}
         pagination={pagination}
         loop
         onSwiper={(e) => {
@@ -100,14 +100,14 @@ const BannerSlider = (props) => {
         {sliderData?.map((slide, i) => {
           return (
             <SwiperSlide key={i}>
-              <div className="h-full w-full m-5">
+              <div className="h-full w-full ">
 
-                <div className="p-8 h-full w-full relative ">
+                <div className=" h-full w-full relative ">
 
                   <Image
                     src={slide.img}
-                    className="w-full" fill
-                    style={{ objectFit: 'cover' }}
+                    className="w-full object-cover sm:rounded-lg" fill
+
                   />
 
                   <div className="bg-transparent h-full flex items-center w-full justify-between absolute pr-5 top-0 left-0">

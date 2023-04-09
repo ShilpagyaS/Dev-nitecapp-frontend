@@ -1,4 +1,4 @@
-import { CustomButton } from "@/utils/Buttons";
+import { CustomButton, CustomButtonRound } from "@/utils/Buttons";
 
 function Paragraph({ title, desc, btnLabel, onClickHandler }) {
   return (
@@ -10,13 +10,17 @@ function Paragraph({ title, desc, btnLabel, onClickHandler }) {
         <p className="heading text-[16px] text-white leading-[25px] lg:mb-8 mb-3 ">
           {desc}
         </p>
-        <CustomButton
-          background="#F19B6C"
-          rounded="27px"
-          color="#111"
-          label={btnLabel}
-          onClickHandler={onClickHandler}
-        />
+        <div className="flex justify-center">
+          <CustomButtonRound
+            background="#F19B6C"
+            rounded="27px"
+            color="#111"
+            label={btnLabel}
+            className={"rounded-[27px]"}
+            onClickHandler={onClickHandler}
+          />
+        </div>
+
       </div>
     </>
   );

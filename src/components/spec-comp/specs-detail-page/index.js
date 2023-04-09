@@ -34,32 +34,32 @@ const SpecsDetailPage = ({ id, subcategory }) => {
 
   return (
     <div className="detail-page-container">
-     
-      <Breadcrumb  />
-      <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
+
+      <Breadcrumb />
+      <div className="img-description-container mt-8 md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
           className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px]"
             }`}
         >
           {/* src="/asset/london-dry-green.svg" */}
-          <Image  src={productDetails?.image}
-           fill alt={productDetails?.[`${subcategory}_name`]} />
+          <Image src={productDetails?.image} className="object-cover rounded-lg"
+            fill alt={productDetails?.[`${subcategory}_name`]} />
         </div>
-        <div className="desc-container inline-block w-full  text-white">
+        <div className="desc-container inline-block w-full  text-white mt-4 ">
           <div
-            className={`heading-container mb-8 flex justify-between items-center ${isMobile && "text-center"
+            className={`heading-container mb-8 flex justify-between font-[600] text-[24px] leading-[36px] items-center ${isMobile && "text-center"
               }`}
           >
             <div
-              className={`w-full flex items-center ${isMobile && "justify-around"
+              className={`w-full flex items-center  ${isMobile && "justify-around"
                 }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.[`${subcategory}_name`]}
               </h3>
-              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)}(${productDetails?.abv || ""}%)`}</p>
+              <p className="status-text text-[18px] font-[400] leading-[27px]">{`${whatsthestrength(productDetails?.abv)}(${productDetails?.abv || ""}%)`}</p>
             </div>
-            {!isMobile && <AiOutlineHeart size="25px" color="#fff" />}
+            {/* {!isMobile && <AiOutlineHeart size="25px" color="#fff" />} */}
           </div>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
@@ -85,7 +85,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           </p>
         </div>
       </div>
-      <Notes id={id} subcategory={subcategory}/>
+      <Notes id={id} subcategory={subcategory} />
     </div>
   );
 };

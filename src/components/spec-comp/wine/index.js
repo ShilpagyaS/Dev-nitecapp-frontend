@@ -25,44 +25,42 @@ function Wine({ id, categoryName }) {
     };
   }, []);
 
-  const [finaldata,setfinaldata]=useState([])
-    const [searchTerm,setSearch]=useState("")
-    useEffect(() => {
-      let temp=[]
-      
-      if(searchTerm==""){
-        temp=[...productsByCategory]
-      } else {
-        const info=productsByCategory.filter((i)=>i.wine_name?.toLowerCase()?.includes(searchTerm.toLowerCase())) 
-        temp=[...info]
-      }
-      setfinaldata([...temp])
-    }, [productsByCategory,searchTerm]);
+  const [finaldata, setfinaldata] = useState([])
+  const [searchTerm, setSearch] = useState("")
+  useEffect(() => {
+    let temp = []
+
+    if (searchTerm == "") {
+      temp = [...productsByCategory]
+    } else {
+      const info = productsByCategory.filter((i) => i.wine_name?.toLowerCase()?.includes(searchTerm.toLowerCase()))
+      temp = [...info]
+    }
+    setfinaldata([...temp])
+  }, [productsByCategory, searchTerm]);
 
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <Breadcrumb last={categoryName} />
+          <Breadcrumb />
           {!isTablet && (<Search search={searchTerm} setSearch={(e) => {
-                setSearch(e);
-                //  filterData(e) 
-              }} />)}
+            setSearch(e);
+            //  filterData(e) 
+          }} />)}
         </div>
         <div className="heading-container lg:mb-8 mb-3 flex w-full justify-between">
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {categoryName}
           </h2>
-          <Link href={`/specs/wine/${enUrl(categoryName)}/brands/list?id=${id}&typeid=${id}`} >
-            <OrangeButtons label="Brands" noPadding={true} />
-          </Link>
+
         </div>
         {isTablet && (
-                     <Search search={searchTerm} setSearch={(e) => {
-                        setSearch(e);
-                        //  filterData(e) 
-                    }} />
-                )}
+          <Search search={searchTerm} setSearch={(e) => {
+            setSearch(e);
+            //  filterData(e) 
+          }} />
+        )}
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-4 ">
           {finaldata?.map((card, inx) => {
             return (

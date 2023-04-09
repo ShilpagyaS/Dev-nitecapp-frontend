@@ -8,9 +8,9 @@ import { logout } from "@/store/slices/Auth";
 import { useDispatch } from "react-redux";
 
 const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
-const dispatch=useDispatch()
+  const dispatch = useDispatch()
   return (
-    <div className={`absolute overflow-hidden w-[80%] h-screen bg:red-500 z-10 top-0 
+    <div className={`absolute overflow-hidden w-[80%] sm:w-[40%] h-screen bg:red-500 z-10 top-0 shadow-lg shadow-slate-500
 
     left-0 text-white px-6 py-4 pb-[18px] flex flex-col justify-between transition duration-500 ${isSidebarVisible ? 'translate-x-0' : `-translate-x-[5000px]`}`}>
 
@@ -38,10 +38,10 @@ const dispatch=useDispatch()
           </div>
           <h4 className="username ">Hi User!</h4>
         </div>
-        <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer}  />
+        <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer} />
       </div>
       <div className="button-container flex justify-between w-full">
-        <CustomButton label="Sign out" color="#fff" onClickHandler={()=>dispatch(logout())} />
+        <CustomButton label="Sign out" color="#fff" onClickHandler={() => dispatch(logout())} />
         <CustomButton label={<AiFillSetting color="#fff" size="20px" />} />
       </div>
     </div>

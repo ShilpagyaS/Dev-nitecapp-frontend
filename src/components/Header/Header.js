@@ -20,17 +20,16 @@ function Header(props) {
   }, []);
 
   const handleLogout = () => {
-    
+
     dispatch(logout());
   };
 
   return (
     <div
-      className={`${
-        props.user
-          ? "flex-row justify-between items-center"
-          : "flex-col justify-center items-start"
-      } flex left-0 h-20 w-full sm:py-[12px]  py-[10px]  bg-black `}
+      className={`${props.user
+        ? "flex-row justify-between items-center"
+        : "flex-col justify-center items-start"
+        } flex left-0 h-20 w-full sm:py-[12px]  py-[10px]  bg-black `}
     >
       <Image
         className="sm:w-[115px] sm:h-[60px] lg:w-[120px] lg:h-[57px] object-cover"
@@ -40,27 +39,27 @@ function Header(props) {
         alt="logo"
       />
       {props.user &&
-        (!isTablet ? (
-          <div className="avtar-container flex justify-between items-center w-[145px]">
+        <>
+          <div className="avtar-container justify-between items-center w-[145px] hidden lg:flex">
             <IoNotifications
               color="#fff"
               className="lg:text-[25px] text-[29px]"
             />
             <div className="avtar-container flex justify-end items-center ">
               <Link className="cursor-pointer" href={"/user_profile"}>
-              <Image
-                src="/asset/avatar.png"
-                alt="profile-avatar"
-                width={50}
-                height={50}
-                className="rounded-[50%] mr-2"
-              />
+                <Image
+                  src="/asset/avatar.png"
+                  alt="profile-avatar"
+                  width={50}
+                  height={50}
+                  className="rounded-[50%] mr-2"
+                />
               </Link>
               <ProfileDropdown onClickHandler={handleLogout} />
             </div>
           </div>
-        ) : (
-          <div className="avtar-container flex justify-around items-center">
+
+          <div className="avtar-container flex justify-around items-center lg:hidden">
             <div className="p-[15px] md:p-[20px]  ">
               <Link href={"/specs"} legacyBehavior>
                 <a>
@@ -92,7 +91,7 @@ function Header(props) {
                 </a>
               </Link>
             </div>
-            <div className="p-[15px]  md:p-[20px]">
+            <div className="p-[15px]  md:p-[20px] cursor-pointer">
               <HiOutlineBars3
                 onClick={props.handleDrawer}
                 color="#fff"
@@ -100,7 +99,8 @@ function Header(props) {
               />
             </div>
           </div>
-        ))}
+        </>
+      }
     </div>
   );
 }

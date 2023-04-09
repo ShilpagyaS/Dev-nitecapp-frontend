@@ -23,18 +23,18 @@ function LowABV() {
     }
   }, [])
   const { productList } = useSelector((state) => state.product)
-  const [finaldata,setfinaldata]=useState([])
-  const [searchTerm,setSearch]=useState("")
+  const [finaldata, setfinaldata] = useState([])
+  const [searchTerm, setSearch] = useState("")
   useEffect(() => {
-    let temp=[]
-    if(searchTerm==""){
-      temp=[...productList]
+    let temp = []
+    if (searchTerm == "") {
+      temp = [...productList]
     } else {
-      const info=productList.filter((i)=>i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
-      temp=[...info]
+      const info = productList.filter((i) => i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
+      temp = [...info]
     }
     setfinaldata([...temp])
-  }, [productList,searchTerm]);
+  }, [productList, searchTerm]);
 
 
 
@@ -46,9 +46,9 @@ function LowABV() {
             <span className="text-[#CCCCCC]">Specs</span> / Low/No ABV
           </p>
           {!isTablet && <Search search={searchTerm} setSearch={(e) => {
-      setSearch(e);
-      //  filterData(e) 
-    }} />}
+            setSearch(e);
+            //  filterData(e) 
+          }} />}
         </div>
         <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
@@ -59,10 +59,10 @@ function LowABV() {
           </Link>
         </div>
         {isTablet && <Search search={searchTerm} setSearch={(e) => {
-      setSearch(e);
-      //  filterData(e) 
-    }} />}
-        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+          setSearch(e);
+          //  filterData(e) 
+        }} />}
+        <div className="cards-container mt-4 grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
           {finaldata.map((card, i) => {
             return (
               <div className=" col-span-1 ">

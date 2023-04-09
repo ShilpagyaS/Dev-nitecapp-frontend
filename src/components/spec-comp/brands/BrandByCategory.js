@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 import { useEffect } from "react";
-import { emptyBrandsList, getBrandsByCategory, getBrandsList } from "@/store/slices/brands";
+import { emptyBrandsList, getBrandsByCategory, getBrandsList, getBrandsListNew } from "@/store/slices/brands";
 import { useDispatch, useSelector } from "react-redux";
 
 const BrandsByCategory = ({ productType, productId, subcategory }) => {
@@ -14,14 +14,16 @@ const BrandsByCategory = ({ productType, productId, subcategory }) => {
     const { brandsList } = useSelector((state) => state.brands)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getBrandsByCategory(productType, productId))
+        //dispatch(getBrandsList(productType))
+        dispatch(getBrandsListNew(productType))
+        // dispatch(getBrandsByCategory(productType, productId))
         return () => dispatch(emptyBrandsList())
     }, [])
 
     return (
         <div className="brands-container">
             <div className="search-container lg:flex lg:justify-between lg:items-center mb-8">
-                <Breadcrumb  />
+                <Breadcrumb />
                 <div className="search-container flex items-center bg-[#1D1D1D] w-full lg:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
                     <CiSearch
                         color="#929292"

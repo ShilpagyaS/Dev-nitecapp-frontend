@@ -12,6 +12,7 @@ import useNavDetails from "@/Hooks/useNavDetails";
 import { whatsthestrength } from "@/utils/abvfinder";
 import Search from "@/utils/Search";
 import Breadcrumb from "@/components/Breadcrumb";
+import { enUrl } from "@/utils/encoderfunc";
 
 function BeerSeltzer() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -26,31 +27,31 @@ function BeerSeltzer() {
   }, [])
 
   const { productList } = useSelector((state) => state.product)
-  const [finaldata,setfinaldata]=useState([])
-  const [searchTerm,setSearch]=useState("")
+  const [finaldata, setfinaldata] = useState([])
+  const [searchTerm, setSearch] = useState("")
   useEffect(() => {
-    let temp=[]
-    if(searchTerm==""){
-      temp=[...productList]
+    let temp = []
+    if (searchTerm == "") {
+      temp = [...productList]
     } else {
-      const info=productList.filter((i)=>i.beer_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
-      temp=[...info]
+      const info = productList.filter((i) => i.beer_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
+      temp = [...info]
     }
     setfinaldata([...temp])
-  }, [productList,searchTerm]);
+  }, [productList, searchTerm]);
 
 
   const filteredData = useFilteredData(finaldata, true, "beer", "packaging_type")
-  
+
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-         <Breadcrumb/>
+          <Breadcrumb />
           {!isTablet && <Search search={searchTerm} setSearch={(e) => {
-      setSearch(e);
-      //  filterData(e) 
-    }} />}
+            setSearch(e);
+            //  filterData(e) 
+          }} />}
         </div>
         <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
@@ -61,30 +62,30 @@ function BeerSeltzer() {
           </Link>
         </div>
         {isTablet && <Search search={searchTerm} setSearch={(e) => {
-      setSearch(e);
-      //  filterData(e) 
-    }} />}
-      {filteredData.map((i)=>{
-          return  <div className="bottle-cards-container mb-8" >
-          <p className="text-white text-[20px] font-semibold mb-5 capitalize">{i.type}</p>
-          <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
-            {i.data?.map((card, i) => {
-              return (
-                <div className=" col-span-1 ">
-                  <Link href={`specs/beer?id=${card.beer_id}`}>
-                    <RectangularCard
-                      title={card?.beer_name}
-                      image={card.image}
-                      subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
-                    />
-                  </Link>
-                </div>
-              );
-            })}
+          setSearch(e);
+          //  filterData(e) 
+        }} />}
+        {filteredData.map((i) => {
+          return <div className="bottle-cards-container mb-8" >
+            <p className="text-white text-[20px] font-semibold mb-5 capitalize">{i.type}</p>
+            <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] ">
+              {i.data?.map((card, i) => {
+                return (
+                  <div className=" col-span-1 ">
+                    <Link href={`specs/beer/${enUrl(card?.beer_name)}?id=${card.beer_id}`}>
+                      <RectangularCard
+                        title={card?.beer_name}
+                        image={card.image}
+                        subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
+                      />
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      })
-    }
+        })
+        }
 
 
 

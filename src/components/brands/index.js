@@ -20,12 +20,12 @@ function Brands() {
         <div className=" col-span-1 lg:mb-0 mb-6">
           <BrandsSlider />
         </div>
-        <div className=" col-span-1 ">
+        <div className=" col-span-1  ">
           <Paragraph
             title="Explore Our Outlets"
             desc="Discover Classic brands, time-honored hospitality for the modern traveller. We offer our family of Distinctive brands."
             btnLabel="Explore All"
-            onClickHandler={()=>{router.push("/brand/explore-brands")}}
+            onClickHandler={() => { router.push("/brand/explore-brands") }}
           />
         </div>
       </div>

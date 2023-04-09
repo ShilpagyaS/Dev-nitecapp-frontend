@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import useNavDetails from "@/Hooks/useNavDetails";
 import Link from "next/link";
 import { useEffect } from "react";
-import { emptyBrandsList, getBrandsList } from "@/store/slices/brands";
+import { emptyBrandsList, getBrandsList, getBrandsListNew } from "@/store/slices/brands";
 import { useDispatch, useSelector } from "react-redux";
 
 const SpecBrands = ({ productType, productId }) => {
@@ -13,7 +13,7 @@ const SpecBrands = ({ productType, productId }) => {
   const { brandsList } = useSelector((state) => state.brands)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getBrandsList(productType))
+    dispatch(getBrandsListNew(productType))
     return () => dispatch(emptyBrandsList())
   }, [])
 
