@@ -65,7 +65,7 @@ function WinebrandTable({ productId, subcategory }) {
                         <Image src={element.itemImage}
                             alt="image"
                             fill
-                            style={{ objectFit: 'cover' }} />
+                            style={{ objectFit: 'contain' }} />
                     </div>
                 </td>
                 <td >

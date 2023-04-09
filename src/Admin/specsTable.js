@@ -126,7 +126,7 @@ function SpecsTable() {
         console.log(dummy);
         setlow_no_abvList([...dummy])
     }, [low_no_abvList])
-    function toggleSwitch(e, element ,type) {
+    function toggleSwitch(e, element, type) {
         let data = { type: type, id: element.id, showProduct: e }
         dispatch(putProductByIdShowProduct(data)).then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
     }
@@ -142,12 +142,13 @@ function SpecsTable() {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            style={{ objectFit: 'contain' }}
+                        />
                     </div>
                 </td>
                 <td >
@@ -163,7 +164,7 @@ function SpecsTable() {
 
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
                             console.log(e);
-                            toggleSwitch(e, element ,element.type)
+                            toggleSwitch(e, element, element.type)
                         }} />
                     </div>
                 </td>
@@ -199,12 +200,13 @@ function SpecsTable() {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            style={{ objectFit: 'contain' }}
+                        />
                     </div>
                 </td>
                 <td >
@@ -220,7 +222,7 @@ function SpecsTable() {
 
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
                             console.log(e);
-                            toggleSwitch(e, element ,element.type)
+                            toggleSwitch(e, element, element.type)
                         }} />
                     </div>
                 </td>

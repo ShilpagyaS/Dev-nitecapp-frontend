@@ -54,12 +54,13 @@ function WineTable() {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            style={{ objectFit: 'contain' }}
+                        />
                     </div>
                 </td>
                 <td >

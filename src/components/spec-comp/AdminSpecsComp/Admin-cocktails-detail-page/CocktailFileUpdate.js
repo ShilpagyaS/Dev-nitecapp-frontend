@@ -48,7 +48,7 @@ export default function CocktailFileUpdate({ setimage, defaultImage, isClear, is
                     }`}>
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} className="w-full" fill />
+                    <Image src={image.preview} className="w-full object-contain" fill  />
 
                 </div>
                 <label htmlFor="upload-button">

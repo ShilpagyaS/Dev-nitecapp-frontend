@@ -64,15 +64,15 @@ const AdminIngridientDetail = ({ productType, productId }) => {
           else console.log("cannot upload")
         })
       }
+      else
+        dispatch(putIngredientById(productId, body)).then((res) => {
+          console.log(res);
+          res.error ? errortoast({ message: res.message }) :
+            successtoast({ message: `${body.master_ingredient_name} updated successfully` });
+        })
+      toggleEdit()
+      setimage()
     }
-    else
-      dispatch(putIngredientById(productId, body)).then((res) => {
-        console.log(res);
-        res.error ? errortoast({ message: res.message }) :
-          successtoast({ message: `${body.master_ingredient_name} updated successfully` });
-      })
-    toggleEdit()
-    setimage()
     // console.log(superData);
 
   }
@@ -150,7 +150,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
           </div>
         </div>
         <div className="description-container text-white mb-8">
-          {ingredientDetails?.abv == 0 || ingredientDetails?.abv == null
+          {parseFloat(ingredientDetails?.abv) > 0
             &&
             <div className="strength-container flex items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
               <p className="mr-6">Strength</p>
