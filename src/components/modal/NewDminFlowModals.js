@@ -1,8 +1,11 @@
+import { getRoles } from '@/store/slices/manageusers';
+import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
 import { _INITIAL } from '@/utils/Constants';
 import CustomSelect, { CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
 import SelectWithDebounce from '@/utils/DebounceSelect';
 import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
+import SearchCategoryDebounce from '@/utils/SearchCategory';
 import SearchDrinkBrandDebounce from '@/utils/SearchDrinkBrandDebounce';
 import SearchProductByCategoryId from '@/utils/SearchProductByCategoryId';
 import SearchProductDebounce from '@/utils/SearchProductDebounce';
@@ -10,8 +13,9 @@ import UploadBrandLogoInput from '@/utils/uploadBrandInput';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import Modal from "react-modal";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
+import { errortoast, successtoast } from '../tostify';
 
 export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, productId }) {
     const customStyles = {
@@ -49,9 +53,12 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
     const handleSave = () => {
         let body = selectedItem
         console.log(body);
-        onSave(selectedItem.body).then(() => {
-
-            clearForm()
+        onSave(selectedItem.body).then((res) => {
+            console.log(res);
+            res.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `Product added successfully` });
+            if (!res.error)
+                clearForm()
             // onClickCancel();
         })
 
@@ -137,6 +144,128 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
         </Modal>
     )
 }
+export function AddCategoryModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, productId }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [selectedItem, setSelectedItem] = useState({ label: '', value: '', image: '', body: {} })
+    const [isClear, SetClear] = useState(false)
+    function onItemSelect(data) {
+        console.log(data);
+        setSelectedItem({ value: data.value, label: data.label, image: data.image, body: data.body })
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+        let body = {
+            category_id: selectedItem.value,
+            type: selectedItem.body.type
+        }
+        console.log(body);
+
+        onSave(body).then((res) => {
+            console.log(res);
+            res.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `Product added successfully` });
+            if (!res.error)
+                clearForm()
+            // onClickCancel();
+        })
+
+    };
+    function clearForm() {
+        setSelectedItem({ label: '', value: '', image: '', body: {} })
+        SetClear(true)
+        setTimeout(() => {
+            SetClear(false)
+        }, 500);
+    }
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+            </div>
+
+            <div className='h-[200px] mb-[10px]'>
+
+                <SearchCategoryDebounce
+                    label={label}
+                    type={type}
+                    isClear={isClear}
+                    placeholder={"search here"}
+                    onChangeHandler={(e) => { onItemSelect(e) }}
+                />
+
+                {selectedItem.value == "" &&
+
+                    <div className='flex flex-col w-full mb-[26px]'>
+                        <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                            {`Here You can search and find the suitable product that are currently on our platform. Click on Add to add the product in your List after selecting `}
+                        </h3>
+
+                    </div>
+                }
+                {selectedItem.value != "" &&
+
+                    <div className='flex items-center justify-around w-full mb-[26px] mt-[20px]'>
+
+                        <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                            {`You Have Selected ${selectedItem.label} `}
+                        </h3>
+                        <div className='h-[70px] w-[70px] rounded-full relative'>
+                            <Image
+                                src={selectedItem.image}
+                                // src={'/asset/blue-moon.svg'}
+                                className={` rounded-full `}
+                                fill
+                                alt={'image'}
+                                priority
+                                style={{ objectFit: "cover" }}
+                            />
+                        </div>
+
+                    </div>
+
+                }
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
 export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label }) {
     const customStyles = {
         content: {
@@ -171,12 +300,18 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
     };
 
     const handleSave = () => {
-        let body = selectedItem
+        let body = {
+            brand_id: selectedItem.value,
+            type: selectedItem.body.type
+        }
         console.log(body);
-        // onSave(selectedItem.body).then(() => {
-
-        //     // onClickCancel();
-        // })
+        onSave(body).then((res) => {
+            res.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `Product added successfully` });
+            if (!res.error)
+                clearForm()
+            // onClickCancel();
+        })
 
         clearForm()
     };
@@ -199,14 +334,23 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
             </div>
 
             <div className='h-[200px] mb-[10px]'>
+                {type ?
+                    <SearchDrinkBrandDebounce
+                        label={label}
+                        type={type}
+                        isClear={isClear}
+                        placeholder={"search here"}
+                        onChangeHandler={(e) => { onItemSelect(e) }}
+                    />
+                    :
 
-                <SearchDrinkBrandDebounce
-                    label={label}
-                    type={type}
-                    isClear={isClear}
-                    placeholder={"search here"}
-                    onChangeHandler={(e) => { onItemSelect(e) }}
-                />
+                    <SearchDrinkBrandDebounce
+                        label={label}
+                        isClear={isClear}
+                        placeholder={"search here"}
+                        onChangeHandler={(e) => { onItemSelect(e) }}
+                    />
+                }
                 {selectedItem.value == "" &&
 
                     <div className='flex flex-col w-full mb-[26px]'>
@@ -250,7 +394,7 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         </Modal>
     )
 }
-export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label }) {
+export function NotificationModal({ isModalOpen, onClickCancel, list, onSave, deleteBtn, title, desc, type, label }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -273,15 +417,21 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
     };
     const [isClear, SetClear] = useState(false)
     const [EditModal, setEdit] = useState(false)
-    const [users, setUsers] = useState([
-        { id: 1, name: 'John Luis' },
-        { id: 2, name: 'John Luis' },
-        { id: 3, name: 'John Luis' },
-        { id: 4, name: 'John Luis' },
-        { id: 5, name: 'John Luis' },
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        setUsers([...list])
+        console.log(list);
+    }, [list])
+
+    // const [users, setUsers] = useState([
+    //     { id: 1, name: 'John Luis' },
+    //     { id: 2, name: 'John Luis' },
+    //     { id: 3, name: 'John Luis' },
+    //     { id: 4, name: 'John Luis' },
+    //     { id: 5, name: 'John Luis' },
 
 
-    ]);
+    // ]);
 
     const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -378,8 +528,8 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                                     />
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
-                                    <h5 className='not-italic font-semibold text-[20px] leading-7 font-Inter'>{user.name}</h5>
-                                    <p className='not-italic font-semibold text-[14px] text-[#8E8E8E] leading-7'>Sayaji@gmail.com</p>
+                                    <h5 className='not-italic font-semibold text-[18px] leading-7 font-Inter'>{user.full_name}</h5>
+                                    <p className='not-italic font-semibold text-[14px] text-[#8E8E8E] leading-7'>{user.email}</p>
                                 </div>
                             </label>
                             <div className='w-full flex justify-center'>
@@ -522,6 +672,27 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     };
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
+    const [enableOption, setEnableOption] = useState(false);
+    const [roles, setroles] = useState([])
+    const [outletsList, setoutles] = useState([])
+    const [outletdetails, setOutletDetail] = useState({})
+    const [testvalue, settestvalue] = useState({ label: "", value: "" })
+    const { outlets } = useSelector((state) => state.outlets)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getOutlets())
+        dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); console.log(d); setroles(d) })
+        return () => dispatch(emptyAllOutlet())
+
+    }, [])
+    useEffect(() => {
+        let dummy
+        dummy = outlets?.map((e) => { return { value: e.outlet_id, label: e.outlet_name, hotel_id: e.hotel_id } }) || []
+        console.log(dummy);
+        setoutles(dummy)
+    }, [outlets])
+
+
     const [brandForm, setBrandForm] = useState(
         {
             email: "",
@@ -529,8 +700,9 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
             phone: "",
             role: "",
             pronouns: "",
-            concept: "",
+            outlet: "",
             password: "",
+            hotel: ""
         }
     )
     const handleCancel = () => {
@@ -542,7 +714,8 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
 
     const handleSave = () => {
         let dummytype = brandForm
-        onSave(input1, dummytype)
+        console.log(brandForm);
+        // onSave(dummytype)
         onClickCancel();
         setinput1("");
         setinput2("");
@@ -566,7 +739,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
             style={customStyles}
         >
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Create a Brand`}</h4>
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add a User`}</h4>
             </div>
             <div className='notificationModal max-h-[406px] pr-[15px]' >
                 <InputFieldWirhAutoWidth
@@ -596,15 +769,24 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <InputFieldWirhAutoWidth
-                    placeholder=""
-                    label="Role"
-                    onChangeHandler={handleChange}
-                    value={brandForm.role}
-                    name={"role"}
-                    type={"text"}
-                    errorResponnse={_INITIAL}
-                />
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Role
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={roles}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            setBrandForm(prev => { return { ...prev, role: e.value } })
+                        }} />
+                </div>
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Pronouns"
@@ -614,6 +796,24 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Concept
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={outletsList}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                        }} />
+                </div>
                 <InputFieldWirhAutoWidth
                     placeholder="Enter Password"
                     label="Password"
@@ -624,15 +824,205 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     errorResponnse={_INITIAL}
                 />
 
+
+
+                <div className='btncontainers flex items-center justify-between mt-[20px] '>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    </div>
+
+                </div>
+            </div>
+            {/* <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Title</h3>
+                <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+                </div>
+                <div className='flex flex-col w-full'>
+                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Type</h3>
+                <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+            </div> */}
+
+
+        </Modal>
+    )
+}
+export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            paddingRight: "2px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [enableOption, setEnableOption] = useState(false);
+    const [roles, setroles] = useState([])
+    const [outletsList, setoutles] = useState([])
+    const [outletdetails, setOutletDetail] = useState({})
+    const [testvalue, settestvalue] = useState({ label: "", value: "" })
+    const { outlets } = useSelector((state) => state.outlets)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getOutlets())
+        dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); console.log(d); setroles(d) })
+        return () => dispatch(emptyAllOutlet())
+
+    }, [])
+    useEffect(() => {
+        let dummy
+        dummy = outlets?.map((e) => { return { value: e.outlet_id, label: e.outlet_name, hotel_id: e.hotel_id } }) || []
+        console.log(dummy);
+        setoutles(dummy)
+    }, [outlets])
+
+
+    const [brandForm, setBrandForm] = useState(
+        {
+            email: "",
+            displayname: "",
+            phone: "",
+            role: "",
+            pronouns: "",
+            outlet: "",
+            password: "",
+            hotel: ""
+        }
+    )
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        let dummytype = brandForm
+        console.log(brandForm);
+        // onSave(dummytype)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setBrandForm((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add a User`}</h4>
+            </div>
+            <div className='notificationModal max-h-[406px] pr-[15px]' >
                 <InputFieldWirhAutoWidth
                     placeholder=""
-                    label="Concept"
+                    label="Name"
                     onChangeHandler={handleChange}
-                    value={brandForm.concept}
-                    name={"concept"}
+                    value={brandForm.displayname}
+                    name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Email"
+                    onChangeHandler={handleChange}
+                    value={brandForm.email}
+                    name={"email"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Phone"
+                    onChangeHandler={handleChange}
+                    value={brandForm.phone}
+                    name={"phone"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Role
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={roles}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            setBrandForm(prev => { return { ...prev, role: e.value } })
+                        }} />
+                </div>
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Pronouns"
+                    onChangeHandler={handleChange}
+                    value={brandForm.pronouns}
+                    name={"pronouns"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Concept
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={outletsList}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                        }} />
+                </div>
+                <InputFieldWirhAutoWidth
+                    placeholder="Enter Password"
+                    label="Password"
+                    onChangeHandler={handleChange}
+                    value={brandForm.password}
+                    name={"password"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+
+
 
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>

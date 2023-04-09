@@ -10,7 +10,7 @@ export default function ProfileFileUpdate({setimage,upimage,defaultImage}) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
     const dispatch =useDispatch()
-
+ 
 
     useEffect(()=>{
         if(defaultImage){

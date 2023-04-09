@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
 import Breadcrumb from "@/components/Breadcrumb";
 import ProfileFileUpdate from "@/components/Userprofile/profileupload";
+import CocktailFileUpdate from "./CocktailFileUpdate";
+import { successtoast } from "@/components/tostify";
+import { uploadimage } from "@/store/slices/ui";
 
 const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -71,6 +74,8 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const [showIngredients, setShowIngredient] = useState(false)
   const [showMethods, setShowMethod] = useState(false)
   const [showPresentations, setShowPresentation] = useState(false)
+  const [upimage, setimage] = useState()
+
 
 
   const textAreaRef = useRef(null);
@@ -227,22 +232,52 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   function onSave() {
     console.log(isEdit);
     if (isEdit == true) {
+      if (upimage) {
+        dispatch(uploadimage(upimage)).then((imageurl) => {
+          if (imageurl && !imageurl?.error)
+            dispatch(putProductById(subcategory, productId,
+              {
+                ...productDetails,
+                [`${subcategory}_name`]: nameref.current.innerText,
+                description: textAreaRef.current.value,
+                abv: abv,
+                ingredients: newMockData.ingredients,
+                presentations: newMockData.presentations,
+                methods: newMockData.methods,
+                showIngredients: showIngredients,
+                showMethods: showMethods,
+                showPresentations: showPresentations,
+                image: imageurl
 
-      dispatch(putProductById(subcategory, productId,
-        {
-          ...productDetails,
-          [`${subcategory}_name`]: nameref.current.innerText,
-          description: textAreaRef.current.value,
-          abv: abv,
-          ingredients: newMockData.ingredients,
-          presentations: newMockData.presentations,
-          methods: newMockData.methods,
-          showIngredients: showIngredients,
-          showMethods: showMethods,
-          showPresentations: showPresentations,
+              }
+            )).then((res) => {
+              console.log(res);
+              res.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+            })
+          else console.log("cannot upload")
+        })
+      }
+      else
+        dispatch(putProductById(subcategory, productId,
+          {
+            ...productDetails,
+            [`${subcategory}_name`]: nameref.current.innerText,
+            description: textAreaRef.current.value,
+            abv: abv,
+            ingredients: newMockData.ingredients,
+            presentations: newMockData.presentations,
+            methods: newMockData.methods,
+            showIngredients: showIngredients,
+            showMethods: showMethods,
+            showPresentations: showPresentations,
 
-        }
-      ))
+          }
+        )).then((res) => {
+          console.log(res);
+          res.error ? errortoast({ message: res.message }) :
+            successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+        })
       console.log(nameref.current.innerText);
       toggleEdit()
     }
@@ -279,7 +314,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
       <div className="detail-page-container">
         <div className="flex flex-row items-center justify-between">
 
-         <Breadcrumb/>
+          <Breadcrumb />
           <div className="flex items-center justify-center">
 
             <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { onSave() }} />
@@ -290,13 +325,14 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
         </div>
         <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
           <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
-            <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px] "
-              }`}>
-              {/* <Image src={productDetails?.image} className="w-full" fill /> */}
-              {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
-              <ProfileFileUpdate defaultImage={productDetails?.image}/>
 
-            </div>
+            {/* <Image src={productDetails?.image} className="w-full" fill /> */}
+            {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
+            <CocktailFileUpdate defaultImage={productDetails?.image}
+              setimage={setimage}
+              isEdit={isEdit} />
+
+
             {/* <div className="editbutton flex text-[#929292] ">
               <Image
                 src={'/asset/EditVector.svg'}

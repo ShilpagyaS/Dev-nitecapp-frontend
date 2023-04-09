@@ -44,7 +44,41 @@ export const getBrandsList = (productType) => {
         });
     };
 };
-
+export const getBrandsListNew = (productType) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/drink_brand/get_all_brands_for_hotel/${productType}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                brandSlice.actions.getBrands({
+                    data: res?.data?.data,
+                    type: productType,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const createBrandAndUpdatingList = (productType, data) => {
+    return async (dispatch) => {
+  
+      return await axiosInstance({
+        url: `/api/drink_brand_hotel/add_brand_to_hotel`,
+        method: "POST",
+        data
+      }).then((res) => {
+        dispatch(getBrandsListNew(productType))
+        return res
+      }).catch((err) => {
+        console.log(err)
+        return { error: true, message: err }
+      });
+    };
+  };
 
 export const getBrandsDetails = (productType, id) => {
     return async (dispatch, getState) => {

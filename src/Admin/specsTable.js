@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { emptyAllProduct, getAllProduct } from '@/store/slices/allproducts';
-import { putProductByIdThenUpdateList } from '@/store/slices/product';
+import { putProductByIdShowProduct, putProductByIdThenUpdateList } from '@/store/slices/product';
 import { EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -38,7 +38,7 @@ function SpecsTable() {
                     id: element.cocktail_id,
                     itemImage: element.image,
                     itemName: element.cocktail_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -57,7 +57,7 @@ function SpecsTable() {
                     id: element.beer_id,
                     itemImage: element.image,
                     itemName: element.beer_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -76,7 +76,7 @@ function SpecsTable() {
                     id: element.spirit_id,
                     itemImage: element.image,
                     itemName: element.spirit_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -95,7 +95,7 @@ function SpecsTable() {
                     id: element.wine_id,
                     itemImage: element.image,
                     itemName: element.wine_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -114,7 +114,7 @@ function SpecsTable() {
                     id: element.low_no_abv_id,
                     itemImage: element.image,
                     itemName: element.low_no_abv_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     popularity: 'New',
                     data: element,
                     createdDate: element.createdAt,
@@ -126,12 +126,16 @@ function SpecsTable() {
         console.log(dummy);
         setlow_no_abvList([...dummy])
     }, [low_no_abvList])
-
-    function toggleSwitch(e, element) {
-        let data = { ...element.data, isActive: e }
-        dispatch(putProductByIdThenUpdateList(element.type, element.id, data))
-            .then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
+    function toggleSwitch(e, element ,type) {
+        let data = { type: type, id: element.id, showProduct: e }
+        dispatch(putProductByIdShowProduct(data)).then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
     }
+
+    // function toggleSwitch(e, element) {
+    //     let data = { ...element.data, isActive: e }
+    //     dispatch(putProductByIdThenUpdateList(element.type, element.id, data))
+    //         .then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
+    // }
     const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
     function OuterRowsnormal({ element }) {
 
@@ -159,7 +163,7 @@ function SpecsTable() {
 
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
                             console.log(e);
-                            toggleSwitch(e, element)
+                            toggleSwitch(e, element ,element.type)
                         }} />
                     </div>
                 </td>
@@ -216,7 +220,7 @@ function SpecsTable() {
 
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
                             console.log(e);
-                            toggleSwitch(e, element)
+                            toggleSwitch(e, element ,element.type)
                         }} />
                     </div>
                 </td>

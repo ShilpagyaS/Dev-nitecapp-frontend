@@ -100,7 +100,7 @@ const [upimage,setimage]=useState()
       {(
         <form
           onSubmit={formik.handleSubmit}
-          className="mt-[24px] sm:mt-[24px] w-full grid grid-cols-1  max-w-[706px]">
+          className="mt-[24px] sm:mt-[24px] w-full grid md:grid-cols-2 grid-cols-1 max-w-[706px]">
           <InputField
             placeholder="First Name"
             label="First Name"

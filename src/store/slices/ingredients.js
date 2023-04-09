@@ -88,8 +88,10 @@ export const putIngredientById = (productId, data) => {
             data
         }).then((res) => {
             dispatch(getMasterIngredientsDetails(productId))
+            return res
         }).catch((err) => {
             console.log(err)
+            return { error: true, message: err }
         });
     };
 };
@@ -125,8 +127,10 @@ export const createMasterIngredient = (data) => {
             data
         }).then((res) => {
             // dispatch(getCategoryListByType(productType))
+            return res
         }).catch((err) => {
             console.log(err)
+            return { error: true, message: err }
         });
     };
 };

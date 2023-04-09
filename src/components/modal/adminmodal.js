@@ -101,9 +101,6 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
 
                         <CustomSelectWithAllBlackTheme
                             items={measureArray}
-                            // items={
-                            //     [{ label: 'oz', value: 'option1' },
-                            //     { label: 'tsp', value: 'option2' },]}
                             optionalFunction={(e) => { console.log(e); setmeasure({ measure_id: e.value, measure_name: e.label }) }} />
                     </div>
                 </div>

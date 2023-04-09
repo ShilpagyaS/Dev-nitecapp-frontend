@@ -1,10 +1,21 @@
 import { NotificationModal } from '@/components/modal/NewDminFlowModals'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
-import React, { useState } from 'react'
+import { getAllusers } from '@/store/slices/manageusers'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ManageUserTable from './ManageUserTable'
 
 function ManageUsers() {
   const [AddModal, setAddModal] = useState(false)
+  const { allUsers } = useSelector((state) => state.manageusers)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+
+    dispatch(getAllusers())
+
+  }, [])
 
   return (<>
     {AddModal &&
@@ -12,6 +23,7 @@ function ManageUsers() {
         isModalOpen={AddModal}
         onClickCancel={() => { setAddModal(false) }}
         title={'Notification'}
+        list={allUsers}
         onSave={(data) => {
 
           // return dispatch(createProductAndUpdatingList('beer', data))
@@ -27,7 +39,7 @@ function ManageUsers() {
     </div>
     <ManageUserTable />
     <div className='w-full flex items-center justify-end mt-[35px]'>
-      <ConditionalButton label={'Send Notifications'} condition={true} onClickHandler={() => { setAddModal(true)}} />
+      <ConditionalButton label={'Send Notifications'} condition={true} onClickHandler={() => { setAddModal(true) }} />
     </div>
   </>
   )

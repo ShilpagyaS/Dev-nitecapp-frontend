@@ -1,5 +1,6 @@
 import { AddCategory, EditCategory } from '@/components/modal/adminmodal';
-import { createCategory, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
+import { AddCategoryModal } from '@/components/modal/NewDminFlowModals';
+import { createCategory, createCategoryAndUpdatingList, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -31,7 +32,7 @@ function SpiritTable() {
         let dummy = categoryList?.map(
             (element) => {
                 return {
-                    id: element.drink_category_id,
+                    id: element.category_id,
                     itemImage: element.image,
                     itemName: element.drink_category_name,
                     showHideStatus: element.isActive,
@@ -100,7 +101,7 @@ function SpiritTable() {
                         <Image src={element.itemImage}
                             // <Image src={'/asset/vodkaImage.jpg'}
                             alt="image"
-                          
+
                             fill
                             style={{ objectFit: 'cover' }} />
                     </div>
@@ -163,13 +164,26 @@ function SpiritTable() {
     }
     return (
         <>
-            {AddModal &&
+            {/* {AddModal &&
                 <AddCategory
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAdd(false) }}
                     type={'spirit'}
                     title={'Spirit'}
                     onSave={(name, logo) => { onSave(name, logo) }}
+                />
+            } */}
+            {AddModal &&
+                <AddCategoryModal
+                    isModalOpen={AddModal}
+                    onClickCancel={() => { setAdd(false) }}
+                    label={'Spirits'}
+                    type={'spirit'}
+                    title={'Spirit Category'}
+                    onSave={(data) => {
+
+                        return dispatch(createCategoryAndUpdatingList(data.type, data))
+                    }}
                 />
             }
             {EditModal &&
