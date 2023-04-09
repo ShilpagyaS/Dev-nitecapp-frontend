@@ -14,7 +14,7 @@ function Empty({ componentName, buttonOnclick }) {
             />
             <p className='not-italic font-bold text-xl font-Inter text-white mt-[54px]'>You have not added, any items</p>
             <p className='not-italic font-semibold text-base leading-6 text-[#959595] mt-[10px] mb-[17px]'>Please add Item to Show</p>
-            <ConditionalButton label={`Add ${componentName}`} condition={true} />
+            {/* <ConditionalButton label={`Add ${componentName}`} condition={true} /> */}
         </div>
     )
 }

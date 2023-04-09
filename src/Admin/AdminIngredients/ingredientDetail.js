@@ -15,6 +15,9 @@ import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cockt
 import EditCard from "@/utils/Cards/Text card/EditCard";
 import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
 import { CustomSelectForBrands } from "@/utils/CustomSelect";
+import { errortoast, successtoast } from "@/components/tostify";
+import { uploadimage } from "@/store/slices/ui";
+import IngredientFileUpload from "./IngredientFileUpdate";
 
 const AdminIngridientDetail = ({ productType, productId }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -27,6 +30,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
   const [abv, setabv] = useState(false)
   const [ingredient_Type, setIngredientType] = useState({ ingredient_id: '', ingredient_name: '' })
   const [ingredient_TypeArray, setIngredientTypeArray] = useState([])
+  const [upimage, setimage] = useState()
 
 
   console.log(ingredientDetails)
@@ -34,23 +38,43 @@ const AdminIngridientDetail = ({ productType, productId }) => {
     setEdit(prev => !prev)
   }
   const dispatch = useDispatch();
+
   function onSave() {
     console.log(isEdit);
-    if (isEdit == true) {
-      let body
-      body = {
-        ...ingredientDetails,
-        abv: abv,
-        master_ingredient_name: nameref.current.innerText,
-        short_description: taglineref.current.value,
-        description: textAreaRef.current.value,
-        ingredient_type_id: ingredient_Type.ingredient_id
-      }
-      console.log(body);
-      dispatch(putIngredientById(productId, body))
-      toggleEdit()
-      // console.log(superData);
+    let body
+    body = {
+      ...ingredientDetails,
+      abv: abv,
+      master_ingredient_name: nameref.current.innerText,
+      short_description: taglineref.current.value,
+      description: textAreaRef.current.value,
+      ingredient_type_id: ingredient_Type.ingredient_id
     }
+    console.log(body);
+    if (isEdit == true) {
+      if (upimage) {
+        dispatch(uploadimage(upimage)).then((imageurl) => {
+          if (imageurl && !imageurl?.error)
+            dispatch(putIngredientById(productId, { ...body, image: imageurl })
+            ).then((res) => {
+              console.log(res);
+              res.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `${body.master_ingredient_name} updated successfully` });
+            })
+          else console.log("cannot upload")
+        })
+      }
+    }
+    else
+      dispatch(putIngredientById(productId, body)).then((res) => {
+        console.log(res);
+        res.error ? errortoast({ message: res.message }) :
+          successtoast({ message: `${body.master_ingredient_name} updated successfully` });
+      })
+    toggleEdit()
+    setimage()
+    // console.log(superData);
+
   }
 
 
@@ -149,11 +173,10 @@ const AdminIngridientDetail = ({ productType, productId }) => {
           <div className="img-title-container md:flex md:items-center lg:flex lg:items-center mb-8">
 
             <div className="w-full md:w-1/4">
-              <div className="img-container relative w-[136px] h-[154px]">
-                <Image src={ingredientDetails?.image} fill className="rounded-lg" />
-
-              </div>
-
+              <IngredientFileUpload defaultImage={ingredientDetails?.image}
+                setimage={setimage}
+                isEdit={isEdit} />
+              {/* 
               <div className="editbutton flex text-[#929292] ">
                 <Image
                   src={'/asset/EditVector.svg'}
@@ -165,7 +188,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
                 <div className="ml-[12px]">
                   Edit Image
                 </div>
-              </div>
+              </div> */}
 
             </div>
 

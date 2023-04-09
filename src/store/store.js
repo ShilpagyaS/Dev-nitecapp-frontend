@@ -9,6 +9,7 @@ import superAdmin from "./slices/superAdmin";
 import notes from "./slices/notes";
 import ui from "./slices/ui";
 import outlets from './slices/outlet';
+import manageusers from './slices/manageusers';
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +21,8 @@ export const store = configureStore({
     superAdmin,
     notes,
     ui,
-    outlets
+    outlets,
+    manageusers
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),

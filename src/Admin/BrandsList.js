@@ -2,7 +2,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { AddDrinkBrandsModal } from '@/components/modal/NewDminFlowModals';
 import useMediaQuery from '@/Hooks/useMediaQuery';
 import useNavDetails from '@/Hooks/useNavDetails';
-import { emptyBrandsList, getBrandsList } from '@/store/slices/brands';
+import { createBrandAndUpdatingList, emptyBrandsList, getBrandsList, getBrandsListNew } from '@/store/slices/brands';
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +18,8 @@ function BrandsList({ productType }) {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getBrandsList(productType))
+        // dispatch(getBrandsList(productType))
+        dispatch(getBrandsListNew(productType))
         return () => dispatch(emptyBrandsList())
     }, [])
     return (
@@ -28,10 +29,11 @@ function BrandsList({ productType }) {
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAddModal(false) }}
                     label={'Brands'}
+                    type={productType}
                     title={'Drink Brand'}
                     onSave={(data) => {
 
-                        // return dispatch(createProductAndUpdatingList('beer', data))
+                        return dispatch(createBrandAndUpdatingList(productType, data))
                     }}
                 />
             }

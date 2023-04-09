@@ -102,7 +102,8 @@ export const getCategoryListByType = (productType) => {
   return async (dispatch, getState) => {
     const state = getState();
     await axiosInstance({
-      url: `/api/${productType}/get_all_${productType}_category_by_type`,
+      // url: `/api/${productType}/get_all_${productType}_category_by_type`,
+      url: `/api/drink_category/get_all_categories_for_hotel/${productType}`,
       method: "GET",
     }).then((res) => {
       console.log("response in category,js 47", res);
@@ -148,8 +149,10 @@ export const putProductById = (productType, productId, data) => {
     }).then((res) => {
       // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
       dispatch(getProductById(productType, productId))
+      return res
     }).catch((err) => {
       console.log(err)
+      return { error: true, message: err }
     });
   };
 };
@@ -183,6 +186,21 @@ export const putProductByIdThenUpdateListShowProduct = (data) => {
     });
   };
 };
+export const putProductByIdShowProduct = (data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/show_product/common_api_for_all_product`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      // dispatch(getProduct(data.type))
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const putProductByIdThenUpdateListShowProductForCategory = (data, productId) => {
   return async (dispatch, getState) => {
     const state = getState();
@@ -210,6 +228,8 @@ export const createProduct = (productType, data) => {
       return res
     }).catch((err) => {
       console.log(err)
+      console.log(err)
+      return { error: true, message: err }
     });
   };
 };
@@ -225,6 +245,40 @@ export const createProductAndUpdatingList = (productType, data) => {
       return res
     }).catch((err) => {
       console.log(err)
+      return { error: true, message: err }
+    });
+  };
+};
+export const createProductAndUpdatingListNew = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+
+      url: `/api/${productType}/add_new_${productType}_to_hotel`,
+      method: "POST",
+      data
+    }).then((res) => {
+      dispatch(getProduct(productType))
+      return res
+    }).catch((err) => {
+      console.log(err)
+      return { error: true, message: err }
+    });
+  };
+};
+export const createCategoryAndUpdatingList = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/drink_category_hotel/add_category_to_hotel`,
+      method: "POST",
+      data
+    }).then((res) => {
+      dispatch(getCategoryListByType(productType))
+      return res
+    }).catch((err) => {
+      console.log(err)
+      return { error: true, message: err }
     });
   };
 };
@@ -353,7 +407,37 @@ export const getProductSearch = (query, productType) => {
 
   };
 };
-export const getProductSearchByCategory = (query, productType,productId) => {
+export const getCategorySearch = (query, productType) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+    if (query.label !== "" && query.value === "") {
+      return await axiosDebounceInstance({
+        url: `/api/drink_category/search/${productType}/${query.label}`,
+        method: "GET",
+      }).then((res) => {
+
+        const finaldata = res?.data?.data?.map((i) => {
+          return {
+            value: i.drink_category_id,
+            label: i.drink_category_name,
+            image: i.image,
+            body: i
+          }
+        })
+
+        dispatch(productSlice.actions.searchdata(finaldata))
+        return finaldata
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    else
+      dispatch(productSlice.actions.searchdata([]))
+
+  };
+};
+export const getProductSearchByCategory = (query, productType, productId) => {
   return async (dispatch, getState) => {
     const state = getState();
 
@@ -390,6 +474,36 @@ export const getBrandSearch = (query) => {
     if (query.label !== "" && query.value === "") {
       return await axiosDebounceInstance({
         url: `/api/drink_brand/search/${query.label}`,
+        method: "GET",
+      }).then((res) => {
+
+        const finaldata = res?.data?.data?.map((i) => {
+          return {
+            value: i.drink_brand_id,
+            label: i.drink_brand_name,
+            image: i.image,
+            body: i
+          }
+        })
+
+        dispatch(productSlice.actions.searchdata(finaldata))
+        return finaldata
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+    else
+      dispatch(productSlice.actions.searchdata([]))
+
+  };
+};
+export const getBrandSearchByType = (query, productType) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+    if (query.label !== "" && query.value === "") {
+      return await axiosDebounceInstance({
+        url: `/api/drink_brand/search/${productType}/${query.label}`,
         method: "GET",
       }).then((res) => {
 

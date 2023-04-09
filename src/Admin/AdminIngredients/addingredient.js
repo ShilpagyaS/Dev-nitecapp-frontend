@@ -12,7 +12,9 @@ import { useDispatch } from 'react-redux';
 import CustomSelect, { CustomSelectForBrands } from '@/utils/CustomSelect';
 import Breadcrumb from '@/components/Breadcrumb';
 import { createMasterIngredient, getAllIngredientCategoryForSelect } from '@/store/slices/ingredients';
-
+import { uploadimage } from '@/store/slices/ui';
+import { successtoast, errortoast } from '@/components/tostify';
+import IngredientFileUpload from './IngredientFileUpdate';
 
 function AddIngredients({ subcategory }) {
     const isEdit = true;
@@ -29,6 +31,7 @@ function AddIngredients({ subcategory }) {
     const [isSAve, setSaved] = useState(false)
     const [ingredient_Type, setIngredientType] = useState({ ingredient_id: '', ingredient_name: '' })
     const [ingredient_TypeArray, setIngredientTypeArray] = useState([])
+    const [upimage, setimage] = useState()
 
 
     const dispatch = useDispatch()
@@ -81,17 +84,33 @@ function AddIngredients({ subcategory }) {
             short_description: textAreaRef.current.value || '',
             description: aboutref.current.value || ''
         }
-
-
-        dispatch(createMasterIngredient(data)).then((res) => {
-            console.log(res);
-            clearForm();
-        })
+        if (upimage) {
+            dispatch(uploadimage(upimage)).then((imageurl) => {
+                if (imageurl && !imageurl?.error)
+                    dispatch(createMasterIngredient({ ...data, image: imageurl })).then((res) => {
+                        console.log(res);
+                        res.error ? errortoast({ message: res.message }) :
+                            successtoast({ message: `${ingredientName} is created successfully` });
+                        if (!res.error)
+                            clearForm()
+                    })
+                else console.log("cannot upload")
+            })
+        }
+        else
+            dispatch(createMasterIngredient(data)).then((res) => {
+                console.log(res);
+                res.error ? errortoast({ message: res.message }) :
+                    successtoast({ message: `${ingredientName} is created successfully` });
+                if (!res.error)
+                    clearForm()
+            })
 
     }
     function clearForm() {
         setabv('')
         setName('')
+        setimage()
         setSaved(true)
         setTimeout(() => {
 
@@ -137,7 +156,7 @@ function AddIngredients({ subcategory }) {
 
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
                     <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
-                        <CocktailFileUpdate />
+                    <IngredientFileUpload setimage={setimage} isClear={isSAve} isEdit={true} />
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">

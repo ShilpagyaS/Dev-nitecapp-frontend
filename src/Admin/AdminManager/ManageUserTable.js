@@ -1,48 +1,65 @@
 import { AddUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
-import { DeleteCircularButton } from '@/utils/CircularButton'
+import { emptyAllUsers, getAllUsersandAdmins } from '@/store/slices/manageusers'
+import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 function ManageUserTable() {
   // const router = useRouter();
-  // const { categoryList } = useSelector((state) => state.product)
+  const { adminsList, userList } = useSelector((state) => state.manageusers)
   const [newList, setList] = useState([])
+  const [adminList, setAdminList] = useState([])
   const [AddModal, setAdd] = useState(false)
   const [EditModal, setEdit] = useState(false)
   const [globalData, setGlobal] = useState({})
-  // const dispatch = useDispatch()
-  // useEffect(() => {
+  const dispatch = useDispatch()
+  useEffect(() => {
 
-  //   // dispatch(getCategoryListByType('spirit'))
+    dispatch(getAllUsersandAdmins())
 
-  //   return () => {
-  //     // dispatch(emptyProductList())
-  //   }
-  // }, [])
-  // console.log(categoryList);
-  // useEffect(() => {
-  //   let dummy = categoryList?.map(
-  //     (element) => {
-  //       return {
-  //         id: element.drink_category_id,
-  //         itemImage: element.image,
-  //         itemName: element.drink_category_name,
-  //         showHideStatus: element.isActive,
-  //         data: element,
-  //         createdDate: element.createdAt,
+    return () => {
+      dispatch(emptyAllUsers())
+    }
+  }, [])
+  useEffect(() => {
+    let dummy = userList?.map(
+      (element) => {
+        return {
+          id: element.id,
+          itemImage: element.image,
+          itemName: element.full_name,
+          email: element.email,
+          data: element,
+        }
 
-  //       }
+      }
+    ) || []
+    console.log(dummy);
+    setList([...dummy])
 
-  //     }
-  //   ) || []
-  //   console.log(dummy);
-  //   setList([...dummy])
+  }, [userList])
+  useEffect(() => {
+    let dummy = adminsList?.map(
+      (element) => {
+        return {
+          id: element.id,
+          itemImage: element.image,
+          itemName: element.full_name,
+          email: element.email,
+          data: element,
+        }
 
-  // }, [categoryList])
+      }
+    ) || []
+    console.log(dummy);
+    setAdminList([...dummy])
+
+  }, [adminsList])
 
   const mockData = [
     {
@@ -86,7 +103,7 @@ function ManageUserTable() {
 
     },
   ]
-  const HeaderArray = ["Category Image", "Category Name", "Show / Hide", "Action"]
+  const HeaderArray = ["Profile Image", "Name", "Email", "Action"]
   function OuterRows({ element }) {
 
     return (
@@ -94,8 +111,8 @@ function ManageUserTable() {
         <td className='flex flex-row items-center justify-center p-[12px]'>
           <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
           >
-            <Image src={element.itemImage}
-              // <Image src={'/asset/vodkaImage.jpg'}
+            {/* <Image src={element.itemImage} */}
+            <Image src={'/asset/vodkaImage.jpg'}
               alt="image"
 
               fill
@@ -104,28 +121,27 @@ function ManageUserTable() {
         </td>
         <td >
           <div className='flex flex-row items-center justify-center p-1'>
-            <Link href={`/specs/spirit/${enUrl(element.itemName)}?id=${element.id}`} >
-              <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c]'>
-                {element.itemName}
-              </p>
-            </Link>
+            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
+              {element.itemName}
+            </p>
+          </div>
+        </td>
+        <td >
+          <div className='flex flex-row items-center justify-center p-1'>
+            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
+              {element.email}
+            </p>
           </div>
         </td>
         <td >
           <div className='flex flex-row items-center justify-center p-1'>
 
-            <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={() => { }} />
-          </div>
-        </td>
-        <td >
-          <div className='flex flex-row items-center justify-center p-1'>
-
-            {/* <EditCircularButton onClickHandler={() => {
-                          // router.push(`/specs/spirit/${element.itemName}?id=${element.id}`);
-                          setGlobal({ ...element.data })
-                          setEdit(true)
-                      }}
-                      /> */}
+            <EditCircularButton onClickHandler={() => {
+              // router.push(`/specs/spirit/${element.itemName}?id=${element.id}`);
+              setGlobal({ ...element.data })
+              setEdit(true)
+            }}
+            />
             <div className='ml-[15px]'>
 
               <DeleteCircularButton />
@@ -179,7 +195,22 @@ function ManageUserTable() {
           onSave={(name, logo, id) => { onEdit(name, logo, id) }}
         />
       } */}
-      <TableContainerWithButtons label={'ADD CATEGORY'} buttonFunction={() => { setAdd(true); }} OuterRows={OuterRows} mockData={mockData} HeaderArray={HeaderArray} pageSize={5} />
+      <div className='admincomponents mt-[23px]'>
+        <div className='not-italic font-semibold text-[20px] font-Inter text-white mb-[20px]'>
+          <p>
+            Users
+          </p>
+        </div>
+        <TableContainerWithButtons label={'ADD USER'} buttonFunction={() => { setAdd(true); }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+      </div>
+      <div className='admincomponents mt-[23px]'>
+        <div className='not-italic font-semibold text-[20px] font-Inter text-white mb-[20px]'>
+          <p>
+            Admins
+          </p>
+        </div>
+        <TableContainerWithButtons label={'ADD ADMIN'} buttonFunction={() => { setAdd(true); }} OuterRows={OuterRows} mockData={adminList} HeaderArray={HeaderArray} pageSize={5} />
+      </div>
     </>
   )
 }

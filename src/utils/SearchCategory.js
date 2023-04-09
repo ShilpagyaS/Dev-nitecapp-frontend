@@ -1,9 +1,9 @@
-import { getBrandSearch, getBrandSearchByType, getProductSearch } from '@/store/slices/product';
+import { getCategorySearch, getProductSearch } from '@/store/slices/product';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 
-const SearchDrinkBrandDebounce = ({
+const SearchCategoryDebounce = ({
     placeholder,
     label,
     defaultvalue,
@@ -33,23 +33,13 @@ const SearchDrinkBrandDebounce = ({
     useEffect(() => {
 
         console.log(testvalue);
-        const getData = setTimeout(async () =>
-            type ?
-
-                dispatch(getBrandSearchByType(testvalue, type)).then(res => {
-                    // console.log(res);
-                    if (res) { setsearchoptions(res) }
-                    else setsearchoptions([])
-                }
-                )
-                :
-                dispatch(getBrandSearch(testvalue)).then(res => {
-                    // console.log(res);
-                    if (res) { setsearchoptions(res) }
-                    else setsearchoptions([])
-                }
-                )
-            , 100)
+        const getData = setTimeout(async () => dispatch(getCategorySearch(testvalue, type)).then(res => {
+            // console.log(res);
+            if (res) { setsearchoptions(res) }
+            else setsearchoptions([])
+        }
+        ), 100)
+        // const getData = setTimeout(async () => functiondata().then(res => { console.log(res); if (res) { setsearchoptions(res) }else setsearchoptions([]) }), 500)
         return () => clearTimeout(getData)
 
 
@@ -127,10 +117,11 @@ const SearchDrinkBrandDebounce = ({
                                     }}
                                 >
                                     {option.label}
-                                    <div className='h-[50px] w-[80px] rounded-[8px]  relative'>
+                                    <div className='h-[50px] w-[50px] rounded-full relative'>
                                         <Image
-                                            src={'/asset/brand3.svg'}
-                                            className={`rounded-[8px]`}
+                                            src={option.image}
+                                            // src={'/asset/blue-moon.svg'}
+                                            className={` rounded-full `}
                                             fill
                                             alt={'image'}
                                             priority
@@ -148,4 +139,4 @@ const SearchDrinkBrandDebounce = ({
 };
 
 
-export default SearchDrinkBrandDebounce
+export default SearchCategoryDebounce

@@ -97,7 +97,7 @@ export function CustomSelectWithAllBlackTheme({ items, optionalFunction, default
           src={'/asset/DownArrow.svg'}
           width={14}
           height={25}
-          className="bg-[#1D1D1D]"
+          className="bg-transparent"
         />
       </button>
       {isDropdownOpen && (

@@ -1,5 +1,6 @@
 import { AddCategory, EditCategory } from '@/components/modal/adminmodal';
-import { createCategory, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
+import { AddCategoryModal } from '@/components/modal/NewDminFlowModals';
+import { createCategory, createCategoryAndUpdatingList, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -30,13 +31,13 @@ function WineTable() {
         let dummy = categoryList?.map(
             (element) => {
                 return {
-                    id: element.drink_category_id,
+                    id: element.category_id,
                     itemImage: element.image,
                     itemName: element.drink_category_name,
                     showHideStatus: element.isActive,
                     data: element,
                     createdDate: element.createdAt,
-                    
+
 
                 }
 
@@ -121,12 +122,16 @@ function WineTable() {
     return (
         <>
             {AddModal &&
-                <AddCategory
+                <AddCategoryModal
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAdd(false) }}
+                    label={'Wines'}
                     type={'wine'}
-                    title={'Wine'}
-                    onSave={(name, logo) => { onSave(name, logo) }}
+                    title={'Wine Category'}
+                    onSave={(data) => {
+
+                        return dispatch(createCategoryAndUpdatingList(data.type, data))
+                    }}
                 />
             }
             {EditModal &&
@@ -140,7 +145,7 @@ function WineTable() {
                     onSave={(name, logo, id) => { onEdit(name, logo, id) }}
                 />
             }
-            <TableContainerWithButtons label={'ADD CATEGORY'} buttonFunction={() => { setAdd(true); console.log('ri');  }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD CATEGORY'} buttonFunction={() => { setAdd(true); console.log('ri'); }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
 
         </>
     )

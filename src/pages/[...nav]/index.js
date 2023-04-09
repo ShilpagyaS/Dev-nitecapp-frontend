@@ -185,6 +185,7 @@ export default function Category() {
             {category === "specs" && !subcategory && <AdminSpecs />}
             {path === `/specs/cocktail` && <AdminCocktail />}
             {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
+            {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
             {path === `/specs/cocktail/${enUrl(subcategory2)}?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
             {path === "/specs/cocktail/cocktail_ingredients" && (
               <AdminIngredients productType={"cocktail"} />
@@ -201,6 +202,7 @@ export default function Category() {
             {/* {path === `/specs/beer/brands` && <AdminBrandsBeer productType={'beer'}/>} */}
             {path === `/specs/beer/brands` && <BrandsList productType={'beer'}/>}
             {path === `/specs/beer/brands/${subcategory3}?id=${productId}` && <BrandDetailPage productType={'beer'} productId={productId}/>}
+            {path === `/specs/beer/${enUrl(subcategory2)}?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />}
 
             {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
             {subcategory === "bestselling" && <BestSellingAdminCoctails/>}
@@ -226,9 +228,11 @@ export default function Category() {
             {path === `/specs/low_no_abv/new` && <CreateBeerAndLABV subcategory={'low_no_abv'} />}
             {path === `/specs/low_no_abv/brands` && <BrandsList productType={'low_no_abv'}/>}
             {path === `/specs/low_no_abv/brands/${subcategory3}?id=${productId}` && <BrandDetailPage productType={'low_no_abv'} productId={productId}/>}
+            {/* {path === `/specs/low_no_abv/brands/${subcategory3}?id=${productId}` && <BrandDetailPage productType={'low_no_abv'} productId={productId}/>} */}
+            {path === `/specs/low_no_abv/${enUrl(subcategory2)}?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
+            {path === `/specs/low_no_abv?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
 
             {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
-            {path === `/specs/low_no_abv/${enUrl(subcategory2)}?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
             {path === `/brand` && <AdminExploreBrands />}
             {path === `/brand/explore-brands?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 

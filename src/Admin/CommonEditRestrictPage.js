@@ -12,7 +12,9 @@ import { CustomSelectForBrands } from '@/utils/CustomSelect';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-
+import { errortoast, successtoast } from "@/components/tostify";
+import { uploadimage } from "@/store/slices/ui";
+import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
 function CommonEditRestrictPage({ productId, subcategory }) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -27,6 +29,8 @@ function CommonEditRestrictPage({ productId, subcategory }) {
     const [EditModal, setEditmodal] = useState(false)
     const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
     const [drinkBrandArray, setDrinkBrandArray] = useState([])
+    const [upimage, setimage] = useState()
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getProductById(subcategory, productId))
@@ -159,14 +163,37 @@ function CommonEditRestrictPage({ productId, subcategory }) {
     function onSave() {
         console.log(isEdit);
         if (isEdit == true) {
+            if (upimage) {
+                dispatch(uploadimage(upimage)).then((imageurl) => {
+                    if (imageurl && !imageurl?.error)
+                        dispatch(putProductById(subcategory, productId,
+                            {
+                                ...productDetails,
+                                description: textAreaRef.current.value,
+                                image: imageurl
+                            }
+                        )).then((res) => {
+                            console.log(res);
+                            res.error ? errortoast({ message: res.message }) :
+                                successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+                        })
+                    else console.log("cannot upload")
+                })
+            }
+            else
+                dispatch(putProductById(subcategory, productId,
+                    {
+                        ...productDetails,
+                        description: textAreaRef.current.value,
+                    }
+                )).then((res) => {
+                    console.log(res);
+                    res.error ? errortoast({ message: res.message }) :
+                        successtoast({ message: `${nameref.current.innerText} is updated successfully` });
 
-            dispatch(putProductById(subcategory, productId,
-                {
-                    ...productDetails,
-                    description: textAreaRef.current.value || '',
-                }
-            ))
+                })
             console.log(nameref.current.innerText);
+            setimage()
             toggleEdit()
         }
         console.log(textAreaRef);
@@ -215,9 +242,9 @@ function CommonEditRestrictPage({ productId, subcategory }) {
             <div className="detail-page-container">
                 <div className="flex flex-row items-center justify-between">
 
-                  
-                            <Breadcrumb />
-                    
+
+                    <Breadcrumb />
+
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={onSave} />
@@ -228,26 +255,12 @@ function CommonEditRestrictPage({ productId, subcategory }) {
                 </div>
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
                     <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
-                        <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px] "
-                            }`}>
-                            <Image src={productDetails?.image} className="w-full" fill style={{objectFit:'cover'}} />
-                            {/* <Image src="/asset/london-dry-green.svg" className="w-full" fill /> */}
-
+                        <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
+                            <CocktailFileUpdate defaultImage={productDetails?.image}
+                                setimage={setimage}
+                                isEdit={isEdit} />
                         </div>
-                        {isEdit &&
-                            <div className="editbutton flex text-[#929292] ">
-                                <Image
-                                    src={'/asset/EditVector.svg'}
-                                    // src={'/asset/DeleteVector.svg'}
-                                    width={20}
-                                    height={20}
-                                    className=""
-                                />
-                                <div className="ml-[12px]">
-                                    Edit Image
-                                </div>
-                            </div>
-                        }
+
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">

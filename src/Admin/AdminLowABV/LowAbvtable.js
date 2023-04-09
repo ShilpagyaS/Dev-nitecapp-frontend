@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingList, deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
+import { createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -104,7 +104,7 @@ function LowAbvtable() {
                                 setElementItem({
                                     title: element.itemName,
                                     id: element.id
-                                }); setDeleteModal(true)
+                                }); setDeleteModal(true) 
                             }} />
                         </div>
                     </div>
@@ -135,7 +135,10 @@ function LowAbvtable() {
                     label={'Low / No ABV'}
                     type={'low_no_abv'}
                     title={'Low / No ABV'}
-                    onSave={(data) => { return dispatch(createProductAndUpdatingList('low_no_abv', data)) }}
+                    onSave={(data) => { 
+                        // return dispatch(createProductAndUpdatingList('low_no_abv', data)) 
+                        return dispatch(createProductAndUpdatingListNew('low_no_abv', data)) 
+                    }}
                 />
             }
             <TableContainerWithButtons label={'ADD LOW / NO ABV'} buttonFunction={() => {

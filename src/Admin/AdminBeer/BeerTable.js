@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
 import { AddItemModal } from '@/components/modal/NewDminFlowModals'
-import { createProduct, createProductAndUpdatingList, deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -135,7 +135,8 @@ function BeerTable() {
                     title={'Beer'}
                     onSave={(data) => {
 
-                        return dispatch(createProductAndUpdatingList('beer', data))
+                        // return dispatch(createProductAndUpdatingList('beer', data))
+                        return dispatch(createProductAndUpdatingListNew('beer', data))
                     }}
                 />
             }
@@ -146,5 +147,5 @@ function BeerTable() {
         </>
     )
 }
-
+ 
 export default BeerTable
