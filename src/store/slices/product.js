@@ -1,4 +1,5 @@
 import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
+import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -320,6 +321,7 @@ export const deleteProductById = (productType, productId) => {
     }).then((res) => {
       // toastify
       dispatch(getProduct(productType))
+      successtoast({ message: `Deleted Successfully` })
       return res
     }).catch((err) => {
       console.log(err)
