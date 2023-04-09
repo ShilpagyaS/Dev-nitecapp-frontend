@@ -168,6 +168,7 @@ export default function Category() {
                 {path === `/specs/brand?id=${productId}` && (
                   <BrandDetail productType={"beer"} productId={productId} />
                 )}
+                {path === "/user_profile" && <UserProfile />}
 
               </LayoutWithSidebar>
             }

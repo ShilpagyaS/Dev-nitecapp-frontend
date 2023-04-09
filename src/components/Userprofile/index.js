@@ -100,7 +100,7 @@ function OnboardingForm() {
       {(
         <form
           onSubmit={formik.handleSubmit}
-          className="mt-[24px] sm:mt-[24px] w-full grid md:grid-cols-2 grid-cols-1 max-w-[706px]">
+          className="mt-[24px] sm:mt-[24px] w-full grid md:grid-cols-2 grid-cols-1 max-w-[706px] gap-3">
           <InputField
             placeholder="First Name"
             label="First Name"
@@ -171,7 +171,7 @@ function OnboardingForm() {
             error={formik.errors.concept}
             touched={formik.touched.concept}
             showerror
-
+            fullwidth
           />
           <div className="col-span-1 md:col-span-2 w-full flex justify-center">
             <InputField

@@ -6,6 +6,7 @@ import Image from "next/image";
 import MobileSidebar from "../SIdebar/MobileSidebar";
 import { logout } from "@/store/slices/Auth";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
   const dispatch = useDispatch()
@@ -29,13 +30,13 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
           </div>
         </div>
         <div className="profile-container w-fit block m-auto mb-8">
-          <div className="profile-photo relative w-[64px] h-[64px] mb-[8px]">
+          <Link href="/user_profile" className="profile-photo relative w-[64px] h-[64px] mb-[8px]" >
             <Image
               fill
               src="/asset/how-to-drain.svg"
               className="rounded-[50%]"
             />
-          </div>
+          </Link>
           <h4 className="username ">Hi User!</h4>
         </div>
         <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer} />

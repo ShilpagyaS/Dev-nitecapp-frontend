@@ -8,19 +8,20 @@ const SelectWithSearch = ({
   options,
   error,
   touched,
-  showerror
+  showerror,
+  fullwidth
 }) => {
   const [enableOption, setEnableOption] = useState(false);
 
   const filteredOptions =
-   ( value !== "" && value)
+    (value !== "" && value)
       ? [...options].filter((option) =>
         option?.label?.toLowerCase().includes(value?.toString()?.toLowerCase())
       )
       : options;
 
   return (
-    <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+    <div className={`flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px] ${fullwidth && `w-full`}`}>
       <h5
         className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
         ${!touched && !error
@@ -34,11 +35,11 @@ const SelectWithSearch = ({
       >
         {label}
       </h5>
-      <div className="relative" onBlur={() => {
-            setEnableOption(false);
-          }}>
+      <div className={`relative ${fullwidth && `w-full`}`} onBlur={() => {
+        setEnableOption(false);
+      }}>
         <input
-          className={`box-border mt-[4px] py-[8px] pl-[16px] rounded-[9px] h-[50px] min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px] border border-solid 
+          className={`box-border mt-[4px] py-[8px] pl-[16px] rounded-[9px] h-[50px] ${fullwidth ? 'w-full' : `min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px]`} border border-solid 
           border-[#3C3C3C] text-white font-Inter not-italic font-normal text-[14px] 
                      placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none
                ${!touched && !error
