@@ -19,7 +19,7 @@ function OnboardingForm() {
   const { user, role } = useSelector((state) => state.auth);
   const [isEdit, setEdit] = useState(false)
   const [indata, setindata] = useState({})
-  const [upimage, setimage] = useState(null)
+  const [upimage, setimage] = useState(undefined)
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -249,10 +249,10 @@ function OnboardingForm() {
             />
           </div>
 
-
+          {console.log(typeof upimage)}
           <div className="col-span-1 md:col-span-2">
             <ConditionalButtons
-              condition={!formik.dirty || !upimage}
+              condition={formik.dirty || typeof upimage === "object"}
               label={"Save Changes"}
               type="submit"
             />

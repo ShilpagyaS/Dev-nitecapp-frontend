@@ -121,7 +121,7 @@ export function ConditionalButtons({ condition, label, ...rest }) {
           } text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]
           
           `}
-        disabled={condition}
+        disabled={!condition}
         {...rest}
       >
         {label}
