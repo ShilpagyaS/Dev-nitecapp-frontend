@@ -16,7 +16,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
 
   return (
     <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full  h-screen overflow-hidden ">
-      <Header handleDrawer={handleDrawer} user={true} />
+      <Header handleDrawer={handleDrawer} user={user} />
       <MobileDrawer
         category={category}
         subcategory={subcategory}

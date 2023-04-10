@@ -11,7 +11,7 @@ import Link from "next/link";
 const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
   const dispatch = useDispatch()
   return (
-    <div className={`absolute overflow-hidden w-[80%] sm:w-[40%] h-screen bg:red-500 z-10 top-0 shadow-lg shadow-slate-500
+    <div className={`absolute overflow-hidden w-[80%] sm:w-[70%] md:w-[40%] h-screen bg:red-500 z-10 top-0 shadow-lg shadow-slate-500
 
     left-0 text-white px-6 py-4 pb-[18px] flex flex-col justify-between transition duration-500 ${isSidebarVisible ? 'translate-x-0' : `-translate-x-[5000px]`}`}>
 
@@ -29,16 +29,19 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
             />
           </div>
         </div>
-        <div className="profile-container w-fit block m-auto mb-8">
-          <Link href="/user_profile" className="profile-photo relative w-[64px] h-[64px] mb-[8px]" >
-            <Image
-              fill
-              src="/asset/how-to-drain.svg"
-              className="rounded-[50%]"
-            />
-          </Link>
-          <h4 className="username ">Hi User!</h4>
-        </div>
+        <Link href="/user_profile">
+          <div className="profile-container w-fit block m-auto mb-8" onClick={handleDrawer}>
+            <div className="profile-photo relative w-[64px] h-[64px] mb-[8px]" >
+
+              <Image
+                fill
+                src="/asset/how-to-drain.svg"
+                className="rounded-[50%]"
+              />
+            </div>
+            <h4 className="username ">Hi User!</h4>
+          </div>
+        </Link>
         <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer} />
       </div>
       <div className="button-container flex justify-between w-full">

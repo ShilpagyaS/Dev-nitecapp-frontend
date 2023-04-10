@@ -48,7 +48,7 @@ function Header(props) {
             <div className="avtar-container flex justify-end items-center ">
               <Link className="cursor-pointer" href={"/user_profile"}>
                 <Image
-                  src="/asset/avatar.png"
+                  src={props?.user?.image || "/asset/avatar2.png"}
                   alt="profile-avatar"
                   width={50}
                   height={50}
