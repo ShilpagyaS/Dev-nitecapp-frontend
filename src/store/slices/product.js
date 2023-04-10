@@ -202,16 +202,16 @@ export const putProductByIdShowProduct = (data) => {
     });
   };
 };
-export const putProductByIdThenUpdateListShowProductForCategory = (data, productId) => {
+export const putProductByIdThenUpdateListShowProductForCategory = (type, data, productId) => {
   return async (dispatch, getState) => {
     const state = getState();
     return axiosInstance({
-      url: `/api/show_Produt/comman_api_for_all_product`,
+      url: `/api/show_product/common_api_for_all_product`,
       method: "PUT",
       data
     }).then((res) => {
       // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
-      dispatch(getProductByCategoryId(data.type, productId))
+      dispatch(getProductByCategoryId(type, productId))
     }).catch((err) => {
       console.log(err)
     });

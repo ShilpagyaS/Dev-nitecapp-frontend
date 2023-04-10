@@ -47,7 +47,10 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                     {outletDetails.description}
                 </p>
                 <a href={`https://${outletDetails.website}`} target={'_blank'}>
-                    <CustomButton label="Website" background="#F19B6C" />
+
+                    <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c] ml-[8px] '>
+                        {outletDetails.website}
+                    </p>
                 </a>
             </div>
         </div>

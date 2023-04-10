@@ -92,13 +92,13 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                     onClickCancel={() => { setFirstTimemodal(false) }}
                     onSave={initiateFirst}
                     title={'Values'}
-                />
+                /> 
             }
             {addIngredients && <AddIngredientModal
                 isModalOpen={addIngredients}
                 onClickCancel={() => { setAddIngredients(false) }}
                 onSave={addTngredientValues}
-                title={'Values'}
+                title={'Ingredient'}
                 type={type}
                 header={title}
 
@@ -107,20 +107,12 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                 isModalOpen={addModal}
                 onClickCancel={() => { setAddmodal(false) }}
                 onSave={addValues}
-                title={'Values'}
+                title={title}
                 type={type}
                 header={title}
 
             />}
-            {addModal && <AddNewDataModal
-                isModalOpen={addModal}
-                onClickCancel={() => { setAddmodal(false) }}
-                onSave={addValues}
-                title={'Values'}
-                type={type}
-                header={title}
-
-            />}
+         
             {EditModal &&
                 <EditNewModal
                     isModalOpen={EditModal}
@@ -140,7 +132,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                     onClickCancel={() => { setEditIngredient(false) }}
                     data={editItem}
                     onSave={editIngredientValues}
-                    title={title}
+                    title={'ingredient'}
                     index={editItem.index}
                     deleteBtn={onDelete}
                 />
