@@ -28,8 +28,8 @@ const AdminIngridientDetail = ({ productType, productId }) => {
   const textAreaRef = useRef(null)
   const [isEdit, setEdit] = useState(false)
   const [abv, setabv] = useState(false)
-  const [ingredient_Type, setIngredientType] = useState({ ingredient_id: '', ingredient_name: '' })
-  const [ingredient_TypeArray, setIngredientTypeArray] = useState([])
+  // const [ingredient_Type, setIngredientType] = useState({ ingredient_id: '', ingredient_name: '' })
+  // const [ingredient_TypeArray, setIngredientTypeArray] = useState([])
   const [upimage, setimage] = useState()
 
 
@@ -48,7 +48,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
       master_ingredient_name: nameref.current.innerText,
       short_description: taglineref.current.value,
       description: textAreaRef.current.value,
-      ingredient_type_id: ingredient_Type.ingredient_id
+      // ingredient_type_id: ingredient_Type.ingredient_id
     }
     console.log(body);
     if (isEdit == true) {
@@ -88,28 +88,28 @@ const AdminIngridientDetail = ({ productType, productId }) => {
 
     setabv(ingredientDetails.abv)
 
-    if (ingredient_TypeArray.length > 0) {
-      let body = ingredient_TypeArray.filter((e) => {
-        console.log(e); console.log(ingredientDetails.ingredient_type_id);
-        if (e.value == ingredientDetails.ingredient_type_id) {
-          console.log(e.value == ingredientDetails.ingredient_type_id);
-          return {
-            ingredient_id: e.value,
-            ingredient_name: e.label,
-          }
-        }
-      })
-      console.log(body);
-      if (body.length > 0) {
-        console.log(body[0]);
-        let d = body[0]
-        setIngredientType({ ingredient_id: d.value, ingredient_name: d.label })
-      }
-    }
+    // if (ingredient_TypeArray.length > 0) {
+    //   let body = ingredient_TypeArray.filter((e) => {
+    //     console.log(e); console.log(ingredientDetails.ingredient_type_id);
+    //     if (e.value == ingredientDetails.ingredient_type_id) {
+    //       console.log(e.value == ingredientDetails.ingredient_type_id);
+    //       return {
+    //         ingredient_id: e.value,
+    //         ingredient_name: e.label,
+    //       }
+    //     }
+    //   })
+    //   console.log(body);
+    //   if (body.length > 0) {
+    //     console.log(body[0]);
+    //     let d = body[0]
+    //     setIngredientType({ ingredient_id: d.value, ingredient_name: d.label })
+    //   }
+    // }
   }, [ingredientDetails])
-  useEffect(() => {
-    dispatch(getAllIngredientCategoryForSelect()).then((res) => { console.log(res); setIngredientTypeArray(res) })
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllIngredientCategoryForSelect()).then((res) => { console.log(res); setIngredientTypeArray(res) })
+  // }, [])
   const handleChange = event => {
     const newValue = event.target.value;
     if (/^\d*\.?\d*$/.test(newValue)) {
@@ -220,7 +220,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
                   </div>
 
                 </div>
-                {isEdit &&
+                {/* {isEdit &&
                   <div className='ml-[75px]'>
                     <h6 className="text-sm text-[#929292] mt-4 mb-2">Enter Ingredient Type</h6>
                     <div className="strength-container flex items-center text-[16px] mb-4 pb-4 ">
@@ -234,7 +234,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
                         }} />
                     </div>
                   </div>
-                }
+                } */}
               </div>
             </div>
 

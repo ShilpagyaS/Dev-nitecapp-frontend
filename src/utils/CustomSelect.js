@@ -101,7 +101,7 @@ export function CustomSelectWithAllBlackTheme({ items, optionalFunction, default
         />
       </button>
       {isDropdownOpen && (
-        <ul className="brandModal absolute z-10 bg-[#1D1D1D] rounded-md shadow-lg w-full border border-white rounded=[10px] h-[90px] overflow-y-scroll">
+        <ul className="brandModal absolute z-10 bg-[#1D1D1D] rounded-md shadow-lg w-full border border-white rounded=[10px] max-h-[90px] overflow-y-auto">
           {items.map((item) => (
             <li key={item.value}>
               <button

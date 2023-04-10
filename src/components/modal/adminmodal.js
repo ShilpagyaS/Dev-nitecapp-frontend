@@ -198,7 +198,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
                 style={customStyles}
             >
                 <div className="text-white border-none outline-none">
-                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit Ingreasdasd${title}`}</h4>
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
                 </div>
                 <div className='h-[200px] mb-[10px]'>
 

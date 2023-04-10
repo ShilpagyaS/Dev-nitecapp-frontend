@@ -79,7 +79,7 @@ function AddIngredients({ subcategory }) {
         console.log('calling');
         let data = {
             master_ingredient_name: ingredientName,
-            ingredient_type_id: ingredient_Type.ingredient_id,
+            // ingredient_type_id: ingredient_Type.ingredient_id,
             abv: abv,
             short_description: textAreaRef.current.value || '',
             description: aboutref.current.value || ''
@@ -155,7 +155,7 @@ function AddIngredients({ subcategory }) {
                 {/* image and desc */}
 
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
-                    <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
+                    <div className="imageContainer text-[#959595] flex flex-col justify-center items-center">
                     <IngredientFileUpload setimage={setimage} isClear={isSAve} isEdit={true} />
                     </div>
 
@@ -168,7 +168,7 @@ function AddIngredients({ subcategory }) {
                                     }`}
                             >
                                 <div className='input-desc flex flex-col'>
-                                    <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Item Name</h3>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Item Name</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
                                         value={ingredientName || ''} onChange={(e) => { setName(e.target.value) }} />
                                 </div>
@@ -177,10 +177,10 @@ function AddIngredients({ subcategory }) {
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]' />
 
                                 </div> */}
-                                <div className='input-desc flex flex-col ml-[25px]'>
+                                {/* <div className='input-desc flex flex-col ml-[25px]'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Ingredient Type</h3>
                                     <CustomSelectForBrands items={ingredient_TypeArray} optionalFunction={(e) => { console.log(e); setIngredientType({ ingredient_id: e.value, ingredient_name: e.label }) }} isclear={isSAve} />
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>
@@ -189,11 +189,11 @@ function AddIngredients({ subcategory }) {
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}
                         >
-                            <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Detail</h3>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Add Detail</h3>
                             <DescriptionTextArea textAreaRef={textAreaRef} isEdit={true} content={''} isSAve={isSAve} minHeight={"250px"} />
                         </p>
                         <div className='input-desc '>
-                            <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Strength</h3>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Strength</h3>
                             <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
                                 value={abv || ''} onChange={(e) => { handleChange(e.target.value) }} />
                         </div>
@@ -202,7 +202,7 @@ function AddIngredients({ subcategory }) {
 
 
                 </div>
-                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Add Description</h3>
+                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Add Description</h3>
                 <DescriptionTextArea textAreaRef={aboutref} maxheight={'200'} isEdit={true} content={''} isSAve={isSAve} minHeight={"250px"} />
 
             </div>

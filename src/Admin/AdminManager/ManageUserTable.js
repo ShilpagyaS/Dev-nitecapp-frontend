@@ -1,5 +1,5 @@
-import { AddUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
-import { emptyAllUsers, getAllUsersandAdmins } from '@/store/slices/manageusers'
+import { AddUsersAndAdmins, EditUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
+import { createUserAndUpdateList, emptyAllUsers, getAllUsersandAdmins, putUserandUpdatetheList } from '@/store/slices/manageusers'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -109,20 +109,33 @@ function ManageUserTable() {
     return (
       <>
         <td className='flex flex-row items-center justify-center p-[12px]'>
-          <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
+          <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px] rounded-full'
           >
             {/* <Image src={element.itemImage} */}
-            <Image src={'/asset/vodkaImage.jpg'}
-              alt="image"
-
-              fill
-              style={{ objectFit: 'cover' }} />
+            {/* public\asset\User avatar default.png */}
+            {element.itemImage ?
+              <Image src={element.itemImage}
+                alt="image"
+                className='rounded-full'
+                fill
+                style={{ objectFit: 'cover' }} />
+              :
+              <Image src={'/asset/User avatar default.png'}
+                alt="image"
+                className='rounded-full'
+                fill
+                style={{ objectFit: 'cover' }} />
+            }
           </div>
         </td>
         <td >
           <div className='flex flex-row items-center justify-center p-1'>
             <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-              {element.itemName}
+              {element.itemName ? element.itemName : <span className='italic text-[#959595]'>
+
+                Not Onboarded Yet
+              </span>
+              }
             </p>
           </div>
         </td>
@@ -180,21 +193,24 @@ function ManageUserTable() {
         <AddUsersAndAdmins
           isModalOpen={AddModal}
           onClickCancel={() => { setAdd(false) }}
-          onSave={() => { }}
+          onSave={(data) => {
+            return dispatch(createUserAndUpdateList(data))
+
+          }}
         />
       }
-      {/*
+
       {EditModal &&
-        <EditCategory
+        <EditUsersAndAdmins
           isModalOpen={EditModal}
           onClickCancel={() => { setEdit(false) }}
-          type={'spirit'}
-          inputone={globalData.drink_category_name}
-          inputtwo={globalData.image}
-          id={globalData.drink_category_id}
-          onSave={(name, logo, id) => { onEdit(name, logo, id) }}
+          data={globalData}
+          onSave={(data) => {
+            return dispatch(putUserandUpdatetheList(data))
+          }}
         />
-      } */}
+      }
+
       <div className='admincomponents mt-[23px]'>
         <div className='not-italic font-semibold text-[20px] font-Inter text-white mb-[20px]'>
           <p>

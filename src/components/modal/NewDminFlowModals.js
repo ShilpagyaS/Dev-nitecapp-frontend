@@ -307,13 +307,13 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         console.log(body);
         onSave(body).then((res) => {
             res.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `Product added successfully` });
+                successtoast({ message: `Brand added successfully` });
             if (!res.error)
                 clearForm()
             // onClickCancel();
         })
 
-        clearForm()
+        // clearForm()
     };
     function clearForm() {
         setSelectedItem({ label: '', value: '', image: '', body: {} })
@@ -681,7 +681,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getOutlets())
-        dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); console.log(d); setroles(d) })
+        dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setroles(d) })
         return () => dispatch(emptyAllOutlet())
 
     }, [])
@@ -696,7 +696,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     const [brandForm, setBrandForm] = useState(
         {
             email: "",
-            displayname: "",
+            displayname: null,
             phone: "",
             role: "",
             pronouns: "",
@@ -713,14 +713,47 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     };
 
     const handleSave = () => {
-        let dummytype = brandForm
-        console.log(brandForm);
-        // onSave(dummytype)
-        onClickCancel();
+        let dummydata = brandForm
+        if (brandForm.role > 4)
+            dummydata = {
+                full_name: brandForm.displayname,
+                email: brandForm.email,
+                phone: brandForm.phone,
+                password: brandForm.password,
+                role_id: brandForm.role,
+                outlet_id: brandForm.outlet,
+                hotel_id: brandForm.hotel,
+                pronouns: brandForm.pronouns
+            }
+        else
+            dummydata = {
+                full_name: brandForm.displayname,
+                email: brandForm.email,
+                phone: brandForm.phone,
+                password: brandForm.password,
+                role_id: brandForm.role,
+                pronouns: brandForm.pronouns
+            }
+        console.log(dummydata);
+        onSave(dummydata).then((res) => {
+            res.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `User added successfully` });
+            if (!res.error)
+                onClickCancel();
+        })
         setinput1("");
         setinput2("");
 
     };
+    function clearForm() {
+
+    }
+    function handlephoneNumber(e) {
+        const newValue = event.target.value;
+        if (/^\d{0,3}-?\d{0,3}-?\d{0,4}$/.test(newValue)) {
+            handleChange(e)
+        }
+    }
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -759,15 +792,19 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     name={"email"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Phone"
-                    onChangeHandler={handleChange}
+                    onChangeHandler={handlephoneNumber}
                     value={brandForm.phone}
                     name={"phone"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
@@ -775,7 +812,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
              text-[#959595]`}
                     // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                     >
-                        Role
+                        Role<sup>*</sup>
                     </h5>
                 </div>
                 <div className='mb-[8px]'>
@@ -796,24 +833,28 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+                {parseInt(brandForm.role) > 4 &&
+                    <>
+                        <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                            <h5
+                                className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
              text-[#959595]`}
-                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
-                    >
-                        Concept
-                    </h5>
-                </div>
-                <div className='mb-[8px]'>
+                            // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                            >
+                                Outlet<sup>*</sup>
+                            </h5>
+                        </div>
+                        <div className='mb-[8px]'>
 
-                    <CustomSelectWithAllBlackTheme
-                        items={outletsList}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
-                        }} />
-                </div>
+                            <CustomSelectWithAllBlackTheme
+                                items={outletsList}
+                                optionalFunction={(e) => {
+                                    console.log(e);
+                                    setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                }} />
+                        </div>
+                    </>
+                }
                 <InputFieldWirhAutoWidth
                     placeholder="Enter Password"
                     label="Password"
@@ -822,6 +863,8 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     name={"password"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
 
 
@@ -829,7 +872,16 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Add'}
+                            condition={(
+                                // brandForm.displayname != ""  &&
+                                brandForm.password != "" &&
+                                brandForm.role != "" && (
+
+                                    brandForm.role > 4 ? brandForm.outlet != "" : true
+                                ) &&
+                                brandForm.email != "") ? true : false
+                            } onClickHandler={handleSave} />
                     </div>
 
                 </div>
@@ -847,7 +899,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
         </Modal>
     )
 }
-export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type }) {
+export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBtn, title, data, type }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -878,6 +930,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
     const { outlets } = useSelector((state) => state.outlets)
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log(data);
         dispatch(getOutlets())
         dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); console.log(d); setroles(d) })
         return () => dispatch(emptyAllOutlet())
@@ -890,19 +943,18 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
         setoutles(dummy)
     }, [outlets])
 
-
     const [brandForm, setBrandForm] = useState(
         {
-            email: "",
-            displayname: "",
-            phone: "",
-            role: "",
-            pronouns: "",
-            outlet: "",
-            password: "",
-            hotel: ""
+            email: data?.email,
+            displayname: data?.full_name,
+            phone: data?.phone,
+            role: data?.role,
+            pronouns: data?.pronouns,
+            outlet: data?.outlet_id,
+            hotel: data?.hotel_id,
         }
     )
+
     const handleCancel = () => {
         onClickCancel();
         setinput1("");
@@ -911,14 +963,39 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
     };
 
     const handleSave = () => {
-        let dummytype = brandForm
-        console.log(brandForm);
-        // onSave(dummytype)
-        onClickCancel();
+        let dummydata
+        if (brandForm.role > 4)
+            dummydata = {
+                user_id: data?.id,
+                full_name: brandForm.displayname,
+                phone: brandForm.phone,
+                pronouns: brandForm.pronouns,
+                role: brandForm.role,
+                outlet_id: brandForm.outlet,
+                hotel_id: brandForm.hotel
+            }
+        else
+            dummydata = {
+                user_id: data?.id,
+                full_name: brandForm.displayname,
+                phone: brandForm.phone,
+                pronouns: brandForm.pronouns,
+                role: brandForm.role,
+            }
+        console.log(dummydata);
+        // onSave(dummydata).then((res) => {
+        //     res.error ? errortoast({ message: res.message }) :
+        //         successtoast({ message: `User Edited successfully` });
+        //     if (!res.error)
+        //         onClickCancel()
+        // })
         setinput1("");
         setinput2("");
 
     };
+    function clearForm() {
+
+    }
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -937,7 +1014,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
             style={customStyles}
         >
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add a User`}</h4>
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Edit a User`}</h4>
             </div>
             <div className='notificationModal max-h-[406px] pr-[15px]' >
                 <InputFieldWirhAutoWidth
@@ -949,7 +1026,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <InputFieldWirhAutoWidth
+                {/* <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Email"
                     onChangeHandler={handleChange}
@@ -957,7 +1034,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"email"}
                     type={"text"}
                     errorResponnse={_INITIAL}
-                />
+                /> */}
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Phone"
@@ -980,6 +1057,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
 
                     <CustomSelectWithAllBlackTheme
                         items={roles}
+                        defaultSelect={{ value: data?.role, label: data?.role_name }}
                         optionalFunction={(e) => {
                             console.log(e);
                             setBrandForm(prev => { return { ...prev, role: e.value } })
@@ -994,25 +1072,44 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
-             text-[#959595]`}
-                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
-                    >
-                        Concept
-                    </h5>
-                </div>
-                <div className='mb-[8px]'>
+                {brandForm.role > 4 &&
+                    <>
+                        <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                            <h5
+                                className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+                        text-[#959595]`}
+                            // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                            >
+                                Outlet
+                            </h5>
+                        </div>
+                        {brandForm.outlet &&
+                            <div className='mb-[8px]'>
 
-                    <CustomSelectWithAllBlackTheme
-                        items={outletsList}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
-                        }} />
-                </div>
-                <InputFieldWirhAutoWidth
+                                <CustomSelectWithAllBlackTheme
+                                    items={outletsList}
+                                    defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
+                                    optionalFunction={(e) => {
+                                        console.log(e);
+                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                    }} />
+                            </div>
+                        }
+                        {!brandForm.outlet &&
+                            <div className='mb-[8px]'>
+
+                                <CustomSelectWithAllBlackTheme
+                                    items={outletsList}
+                                    // defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
+                                    optionalFunction={(e) => {
+                                        console.log(e);
+                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                    }} />
+                            </div>
+                        }
+                    </>
+                }
+                {/* <InputFieldWirhAutoWidth
                     placeholder="Enter Password"
                     label="Password"
                     onChangeHandler={handleChange}
@@ -1020,14 +1117,14 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"password"}
                     type={"text"}
                     errorResponnse={_INITIAL}
-                />
+                /> */}
 
 
 
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
                     </div>
 
                 </div>
