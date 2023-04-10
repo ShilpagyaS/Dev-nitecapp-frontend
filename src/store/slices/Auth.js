@@ -8,7 +8,8 @@ const initialState = {
   tempUserEmail: null,
   firstTimeLogin: false,
   isOnbording: false,
-  tempcode:null
+  tempcode: null,
+
 };
 
 export const authSlice = createSlice({
@@ -30,12 +31,22 @@ export const authSlice = createSlice({
       state.tempcode = action.payload;
     },
 
+    reloadUpdateUser2: (state, action) => {
+      debugger
+      const token = localStorage.getItem("nightcpp-token");
+      state.user = action.payload;
+      state.accessToken = token;
+      state.firstTimeLogin = action.payload?.first_time_login;
+      state.role = { id: action.payload?.role, name: action.payload?.role_name };
+
+    },
     reloadUpdateUser: (state, action) => {
       const token = localStorage.getItem("nightcpp-token");
       state.user = action.payload;
       state.accessToken = token;
       state.firstTimeLogin = action.payload?.first_time_login;
-      state.role = action.payload?.role_data
+      state.role = action.payload?.role_data;
+
     },
 
     logoutUser: (state, action) => {
@@ -53,7 +64,7 @@ export const login = (data) => {
       method: "POST",
       data,
     }).catch((error) => {
-  
+
       return { error: true, message: error || "Something Went Wrong" }
 
     });
@@ -76,8 +87,8 @@ export const verifyOTP = (code) => {
         otp: code,
         email: state.auth?.tempUserEmail,
       },
-    }).catch((error)=>{
-      return { error: true, message: error || "Something Went Wrong"}
+    }).catch((error) => {
+      return { error: true, message: error || "Something Went Wrong" }
     })
   };
 };
@@ -135,6 +146,24 @@ export const updateUser = (data) => {
   };
 };
 
+export const updateUser2 = (data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: "/api/user-auth/update-user",
+      method: "PUT",
+      data,
+    }).then(async (res) => {
+      if (res.status == 200)
+        await dispatch(getuserbyid())
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+
 export const getConcept = (data) => {
   return async (dispatch, getState) => {
     const state = getState();
@@ -182,18 +211,18 @@ export const verifyforgotOTP = (code) => {
       },
     });
   };
- };
+};
 
- export const changeForgotPassword = (data) => {
+export const changeForgotPassword = (data) => {
   return async (dispatch, getState) => {
     const state = getState();
     return axiosInstance({
       url: "/api/user-auth/forgot-password",
       method: "POST",
-      data:{
+      data: {
         ...data,
         email: state.auth?.tempUserEmail,
-        otp:state.auth?.tempcode
+        otp: state.auth?.tempcode
       },
     }).catch((err) => {
       console.log(err);
@@ -201,7 +230,27 @@ export const verifyforgotOTP = (code) => {
   };
 };
 
- 
+export const getuserbyid = () => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const { auth: { user } } = state
+    console.log(user)
+    return axiosInstance({
+      url: `/api/user-auth/get-user-by-id/${user?.id || user?.user_id}`,
+      method: "GET",
+    })
+      .then((res) => {
+        if (res?.data?.resCode === 200) {
+          dispatch(authSlice.actions.reloadUpdateUser2(res.data?.data));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
+
+
 
 
 
