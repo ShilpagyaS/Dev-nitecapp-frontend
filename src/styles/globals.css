@@ -19,11 +19,11 @@ body {
 }
 
 :root {
-  --toastify-icon-color-success: #ee854d !important;
-  --toastify-color-progress-success: #ee854d !important;
+  /* --toastify-icon-color-success: #ee854d !important; */
+  /* --toastify-color-progress-success: #ee854d !important; */
 }
 .Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--success{
-  border: #ee854d 1px solid  !important;
+  /* border: #ee854d 1px solid  !important; */
   background: black !important;
 }
 .Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--error{

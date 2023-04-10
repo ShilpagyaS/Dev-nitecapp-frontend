@@ -109,20 +109,33 @@ function ManageUserTable() {
     return (
       <>
         <td className='flex flex-row items-center justify-center p-[12px]'>
-          <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
+          <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px] rounded-full'
           >
             {/* <Image src={element.itemImage} */}
-            <Image src={'/asset/vodkaImage.jpg'}
-              alt="image"
-
-              fill
-              style={{ objectFit: 'cover' }} />
+            {/* public\asset\User avatar default.png */}
+            {element.itemImage ?
+              <Image src={element.itemImage}
+                alt="image"
+                className='rounded-full'
+                fill
+                style={{ objectFit: 'cover' }} />
+              :
+              <Image src={'/asset/User avatar default.png'}
+                alt="image"
+                className='rounded-full'
+                fill
+                style={{ objectFit: 'cover' }} />
+            }
           </div>
         </td>
         <td >
           <div className='flex flex-row items-center justify-center p-1'>
             <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-              {element.itemName}
+              {element.itemName ? element.itemName : <span className='italic text-[#959595]'>
+
+                Not Onboarded Yet
+              </span>
+              }
             </p>
           </div>
         </td>

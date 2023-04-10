@@ -696,7 +696,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     const [brandForm, setBrandForm] = useState(
         {
             email: "",
-            displayname: "",
+            displayname: null,
             phone: "",
             role: "",
             pronouns: "",
@@ -714,16 +714,26 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
 
     const handleSave = () => {
         let dummydata = brandForm
-        dummydata = {
-            full_name: brandForm.displayname,
-            email: brandForm.email,
-            phone: brandForm.phone,
-            password: brandForm.password,
-            role_id: brandForm.role,
-            outlet_id: brandForm.outlet,
-            hotel_id: brandForm.hotel,
-            pronouns: brandForm.pronouns
-        }
+        if (brandForm.role > 4)
+            dummydata = {
+                full_name: brandForm.displayname,
+                email: brandForm.email,
+                phone: brandForm.phone,
+                password: brandForm.password,
+                role_id: brandForm.role,
+                outlet_id: brandForm.outlet,
+                hotel_id: brandForm.hotel,
+                pronouns: brandForm.pronouns
+            }
+        else
+            dummydata = {
+                full_name: brandForm.displayname,
+                email: brandForm.email,
+                phone: brandForm.phone,
+                password: brandForm.password,
+                role_id: brandForm.role,
+                pronouns: brandForm.pronouns
+            }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
             res.error ? errortoast({ message: res.message }) :
@@ -773,7 +783,6 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
-                    required={true}
                 />
                 <InputFieldWirhAutoWidth
                     placeholder=""
@@ -824,24 +833,28 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+                {parseInt(brandForm.role) > 4 &&
+                    <>
+                        <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                            <h5
+                                className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
              text-[#959595]`}
-                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
-                    >
-                        Outlet<sup>*</sup>
-                    </h5>
-                </div>
-                <div className='mb-[8px]'>
+                            // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                            >
+                                Outlet<sup>*</sup>
+                            </h5>
+                        </div>
+                        <div className='mb-[8px]'>
 
-                    <CustomSelectWithAllBlackTheme
-                        items={outletsList}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
-                        }} />
-                </div>
+                            <CustomSelectWithAllBlackTheme
+                                items={outletsList}
+                                optionalFunction={(e) => {
+                                    console.log(e);
+                                    setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                }} />
+                        </div>
+                    </>
+                }
                 <InputFieldWirhAutoWidth
                     placeholder="Enter Password"
                     label="Password"
@@ -860,10 +873,13 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
                         <ConditionalButton label={'Add'}
-                            condition={(brandForm.displayname != "" &&
+                            condition={(
+                                // brandForm.displayname != ""  &&
                                 brandForm.password != "" &&
-                                brandForm.role != "" &&
-                                brandForm.outlet != "" &&
+                                brandForm.role != "" && (
+
+                                    brandForm.role > 4 ? brandForm.outlet != "" : true
+                                ) &&
                                 brandForm.email != "") ? true : false
                             } onClickHandler={handleSave} />
                     </div>
@@ -947,23 +963,32 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
     };
 
     const handleSave = () => {
-        let dummydata = {
-            user_id: data?.id,
-            full_name: brandForm.displayname,
-            phone: brandForm.phone,
-            pronouns: brandForm.pronouns,
-            role: brandForm.role,
-            outlet_id: brandForm.outlet,
-            hotel_id: brandForm.hotel
-        }
-
-        console.log(brandForm);
-        onSave(dummydata).then((res) => {
-            res.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `User Edited successfully` });
-            if (!res.error)
-                onClickCancel()
-        })
+        let dummydata
+        if (brandForm.role > 4)
+            dummydata = {
+                user_id: data?.id,
+                full_name: brandForm.displayname,
+                phone: brandForm.phone,
+                pronouns: brandForm.pronouns,
+                role: brandForm.role,
+                outlet_id: brandForm.outlet,
+                hotel_id: brandForm.hotel
+            }
+        else
+            dummydata = {
+                user_id: data?.id,
+                full_name: brandForm.displayname,
+                phone: brandForm.phone,
+                pronouns: brandForm.pronouns,
+                role: brandForm.role,
+            }
+        console.log(dummydata);
+        // onSave(dummydata).then((res) => {
+        //     res.error ? errortoast({ message: res.message }) :
+        //         successtoast({ message: `User Edited successfully` });
+        //     if (!res.error)
+        //         onClickCancel()
+        // })
         setinput1("");
         setinput2("");
 
@@ -1047,25 +1072,43 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
-             text-[#959595]`}
-                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
-                    >
-                        Outlet
-                    </h5>
-                </div>
-                <div className='mb-[8px]'>
+                {brandForm.role > 4 &&
+                    <>
+                        <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                            <h5
+                                className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+                        text-[#959595]`}
+                            // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                            >
+                                Outlet
+                            </h5>
+                        </div>
+                        {brandForm.outlet &&
+                            <div className='mb-[8px]'>
 
-                    <CustomSelectWithAllBlackTheme
-                        items={outletsList}
-                        defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
-                        }} />
-                </div>
+                                <CustomSelectWithAllBlackTheme
+                                    items={outletsList}
+                                    defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
+                                    optionalFunction={(e) => {
+                                        console.log(e);
+                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                    }} />
+                            </div>
+                        }
+                        {!brandForm.outlet &&
+                            <div className='mb-[8px]'>
+
+                                <CustomSelectWithAllBlackTheme
+                                    items={outletsList}
+                                    // defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
+                                    optionalFunction={(e) => {
+                                        console.log(e);
+                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                    }} />
+                            </div>
+                        }
+                    </>
+                }
                 {/* <InputFieldWirhAutoWidth
                     placeholder="Enter Password"
                     label="Password"
