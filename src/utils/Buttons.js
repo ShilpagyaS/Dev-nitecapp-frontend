@@ -119,9 +119,9 @@ export function ConditionalButtons({ condition, label, ...rest }) {
             ? "hover:bg-[#ee854d]"
             : "disabled:hover:bg-[#ee854d] cursor-no-drop "
           } text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]
-          disabled:hover:bg-slate-400 cursor-no-drop "
+          
           `}
-
+        disabled
         {...rest}
       >
         {label}

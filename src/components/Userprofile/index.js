@@ -11,8 +11,6 @@ import { useFormik } from "formik";
 import * as Yup from 'yup'
 import ProfileFileUpdate from "./profileupload";
 import TextAreaField from "@/utils/textArea";
-import { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
-import ConditionalButton from "../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
 import { uploadimage } from "@/store/slices/ui";
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -27,10 +25,6 @@ function OnboardingForm() {
 
   useEffect(() => {
     dispatch(getuserbyid())
-    dispatch(getConcept()).then((res) => {
-      setconcept(res);
-    });
-
   }, []);
 
   const toggleEdit = () => {
@@ -49,14 +43,15 @@ function OnboardingForm() {
         if (imageurl)
           dispatch(updateUser2({
             full_name: values.full_name,
-            display: values.display_name,
+            display_name: values.display_name,
             email: values.email,
             phone: values.phone,
             country: values.country,
             state: values.state,
             address: values.address,
             description: values.description,
-            image: imageurl
+            image: imageurl,
+            user_id: user.id
           })).then((res) => {
             if (res?.data?.resCode === 200) router.push("/specs");
           });
@@ -66,13 +61,14 @@ function OnboardingForm() {
     else {
       dispatch(updateUser2({
         full_name: values.full_name,
-        display: values.display_name,
+        display_name: values.display_name,
         email: values.email,
         phone: values.phone,
         country: values.country,
         state: values.state,
         address: values.address,
         description: values.description,
+        user_id: user.id
       })).then((res) => {
         if (res?.data?.resCode === 200) router.push("/specs");
       });
@@ -118,7 +114,7 @@ function OnboardingForm() {
           </div>
         </div> */}
       </div>
-      <ProfileFileUpdate setimage={setimage} upimage={upimage} />
+      <ProfileFileUpdate setimage={setimage} upimage={upimage} defaultImage={user.image || null} />
       {(
         <form
           onSubmit={formik.handleSubmit}
