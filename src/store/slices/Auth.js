@@ -1,4 +1,5 @@
 import axiosInstance from "@/components/Auth/axios";
+import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -32,7 +33,6 @@ export const authSlice = createSlice({
     },
 
     reloadUpdateUser2: (state, action) => {
-      debugger
       const token = localStorage.getItem("nightcpp-token");
       state.user = action.payload;
       state.accessToken = token;
@@ -154,8 +154,11 @@ export const updateUser2 = (data) => {
       method: "PUT",
       data,
     }).then(async (res) => {
-      if (res.status == 200)
+      if (res.status == 200) {
         await dispatch(getuserbyid())
+        successtoast({ message: "Profile Update Successfully" })
+      }
+
     })
       .catch((err) => {
         console.log(err);

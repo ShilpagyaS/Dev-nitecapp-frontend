@@ -6,7 +6,7 @@ import { logout } from "@/store/slices/Auth";
 import { useDispatch } from "react-redux";
 
 export default function ProfileDropdown(props) {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   return (
     <div className=" w-fit h-fit">
       <Menu as="div" className="relative inline-block">
@@ -30,9 +30,10 @@ export default function ProfileDropdown(props) {
         >
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-2 py-2 ">
-              <Menu.Item  onClick={()=>{;  dispatch(logout())}}>
+              <Menu.Item onClick={() => { ; dispatch(logout()) }}>
+
                 <CustomButton
-                 
+
                   label="Logout"
                   background="#F19B6C"
                 />

@@ -12,6 +12,7 @@ import * as Yup from 'yup'
 import ProfileFileUpdate from "./profileupload";
 import TextAreaField from "@/utils/textArea";
 import { uploadimage } from "@/store/slices/ui";
+import { errortoast } from "../tostify";
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
@@ -40,7 +41,7 @@ function OnboardingForm() {
 
     if (upimage) {
       dispatch(uploadimage(upimage)).then((imageurl) => {
-        if (imageurl)
+        if (imageurl && !imageurl.error) {
           dispatch(updateUser2({
             full_name: values.full_name,
             display_name: values.display_name,
@@ -51,11 +52,15 @@ function OnboardingForm() {
             address: values.address,
             description: values.description,
             image: imageurl,
-            user_id: user.id
+            user_id: user.id,
+            country: values.country,
+            state: values.state,
           })).then((res) => {
             if (res?.data?.resCode === 200) router.push("/specs");
-          });
-        else console.log("cannot upload")
+          })
+        } else {
+          errortoast({ message: "Upload Failed" })
+        }
       })
     }
     else {
@@ -68,7 +73,9 @@ function OnboardingForm() {
         state: values.state,
         address: values.address,
         description: values.description,
-        user_id: user.id
+        user_id: user.id,
+        country: values.country,
+        state: values.state,
       })).then((res) => {
         if (res?.data?.resCode === 200) router.push("/specs");
       });
@@ -88,7 +95,6 @@ function OnboardingForm() {
     validationSchema: Yup.object().shape({
       full_name: Yup.string().required('Full name is required'),
       phone: Yup.string(),
-      full_name: Yup.string().required('Full name is required'),
       pronouns: Yup.string().required(),
       // role: Yup.string().required(),
     }),
@@ -169,29 +175,32 @@ function OnboardingForm() {
             showerror
             fullwidth
           />
-          <SelectWithSearch
-            label={"Country"}
-            placeholder={"Country"}
-            options={[]}
-            value={formik.values.country}
+          <InputField
+            placeholder=""
+            label="Country"
             onChangeHandler={formik.handleChange}
+            value={formik.values.country}
+            name={"country"}
+            type={"text"}
             error={formik.errors.country}
             touched={formik.touched.country}
             showerror
             fullwidth
           />
-
-          <SelectWithSearch
-            label={"State"}
-            placeholder={"State"}
-            options={[]}
-            value={formik.values.state}
+          <InputField
+            placeholder=""
+            label="State"
             onChangeHandler={formik.handleChange}
+            value={formik.values.state}
+            name={"state"}
+            type={"text"}
             error={formik.errors.state}
             touched={formik.touched.state}
             showerror
             fullwidth
           />
+
+
           <InputField
             placeholder=""
             label="Role"
@@ -243,8 +252,7 @@ function OnboardingForm() {
 
           <div className="col-span-1 md:col-span-2">
             <ConditionalButtons
-              condition={true}
-              disabled={!formik.dirty}
+              condition={!formik.dirty || !upimage}
               label={"Save Changes"}
               type="submit"
             />
