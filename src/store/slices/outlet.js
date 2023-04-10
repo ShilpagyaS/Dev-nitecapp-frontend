@@ -30,7 +30,8 @@ export const getOutlets = (productType, id) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/hotel_outlet/get-all-hotel_outlet`,
+            // url: `/api/hotel_outlet/get-all-hotel_outlet`,
+            url: `/api/hotel_outlet/outlet_list/based_on_login_user_hotel_id`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);

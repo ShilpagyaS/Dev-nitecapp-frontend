@@ -26,6 +26,7 @@ export const manageUsersSlice = createSlice({
         emptyAlling: (state) => {
             state.userList = []
             state.adminsList = []
+            state.allUsers = []
             state.userDetails = {}
         }
     },
@@ -64,7 +65,7 @@ export const getAllUsersandAdmins = () => {
         }).catch((err) => {
             console.log(err)
         });
-    };
+    }; 
 };
 export const getAllusers = () => {
     return async (dispatch, getState) => {
@@ -75,10 +76,7 @@ export const getAllusers = () => {
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
-            const admins = res?.data?.data.filter((user) => user.role >= 2 && user.role <= 5)
-            const users = res?.data?.data.filter((user) => user.role > 5)
-            console.log(admins);
-            console.log(users);
+         
             dispatch(
                 manageUsersSlice.actions.getAllUserList({
                     data: res?.data?.data
@@ -111,7 +109,41 @@ export const getRoles = () => {
         });
     };
 };
+export const createUserAndUpdateList = (data) => {
+    return async (dispatch) => {
 
+        return await axiosInstance({
+            url: `/api/user-auth/signup`,
+            method: "POST",
+            data
+        }).then((res) => {
+            // dispatch(getAllusers())
+            dispatch(getAllUsersandAdmins())
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putUserandUpdatetheList = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/user-auth/update-user`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            // dispatch(getAllusers())
+            debugger
+            dispatch(getAllUsersandAdmins())
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const emptyAllUsers = (productType) => {
 
     return async (dispatch, getState) => {

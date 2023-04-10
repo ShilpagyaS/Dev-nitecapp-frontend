@@ -1,5 +1,5 @@
-import { AddUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
-import { emptyAllUsers, getAllUsersandAdmins } from '@/store/slices/manageusers'
+import { AddUsersAndAdmins, EditUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
+import { createUserAndUpdateList, emptyAllUsers, getAllUsersandAdmins, putUserandUpdatetheList } from '@/store/slices/manageusers'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -180,21 +180,24 @@ function ManageUserTable() {
         <AddUsersAndAdmins
           isModalOpen={AddModal}
           onClickCancel={() => { setAdd(false) }}
-          onSave={() => { }}
+          onSave={(data) => {
+            return dispatch(createUserAndUpdateList(data))
+
+          }}
         />
       }
-      {/*
+
       {EditModal &&
-        <EditCategory
+        <EditUsersAndAdmins
           isModalOpen={EditModal}
           onClickCancel={() => { setEdit(false) }}
-          type={'spirit'}
-          inputone={globalData.drink_category_name}
-          inputtwo={globalData.image}
-          id={globalData.drink_category_id}
-          onSave={(name, logo, id) => { onEdit(name, logo, id) }}
+          data={globalData}
+          onSave={(data) => {
+            return dispatch(putUserandUpdatetheList(data))
+          }}
         />
-      } */}
+      }
+
       <div className='admincomponents mt-[23px]'>
         <div className='not-italic font-semibold text-[20px] font-Inter text-white mb-[20px]'>
           <p>

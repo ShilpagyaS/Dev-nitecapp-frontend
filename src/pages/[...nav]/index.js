@@ -202,22 +202,24 @@ export default function Category() {
                 {path === `/specs/beer?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />}
                 {/* {path === `/specs/beer/brands` && <AdminBrandsBeer productType={'beer'}/>} */}
                 {path === `/specs/beer/brands` && <BrandsList productType={'beer'} />}
-                {path === `/specs/beer/brands/${subcategory3}?id=${productId}` && <BrandDetailPage productType={'beer'} productId={productId} />}
+                {path === `/specs/beer/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetailPage productType={'beer'} productId={productId} />}
                 {path === `/specs/beer/${enUrl(subcategory2)}?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />}
 
                 {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
                 {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
                 {path === `/specs/spirit` && <AdminSpirit />}
-                {path === `/specs/spirit/brands?id=${productId}` && <BrandsList productType={'spirit'} />}
+                {path === `/specs/spirit/brands` && <BrandsList productType={'spirit'} />}
+                {path === `/specs/spirit/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetailPage productType={'spirit'} productId={productId} />}
                 {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <AdminSpiritCategory productId={productId} subcategory={subcategory2} />}
-
                 {path === `/specs/spirit/${enUrl(subcategory2)}/new/newspirit?id=${productId}` && <AddSpirit productId={productId} subcategory={'spirit'} />}
                 {/* {path === `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'spirit'} />} */}
                 {path === `/specs/spirit/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <CommonEditRestrictPage productId={productId} subcategory={'spirit'} />}
                 {path === `/specs/spirit?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'spirit'} />}
 
                 {path === `/specs/wine` && <AdminWine />}
+                {path === `/specs/wine/brands` && <BrandsList productType={'wine'} />}
+                {path === `/specs/wine/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetailPage productType={'wine'} productId={productId} />}
                 {path === `/specs/wine/${enUrl(subcategory2)}/new/newwine?id=${productId}` && <AddSpirit productId={productId} subcategory={'wine'} />}
                 {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <AdminWineCategory productId={productId} subcategory={subcategory2} />}
                 {/* {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <EditById productId={productId} subcategory={'wine'} />} */}

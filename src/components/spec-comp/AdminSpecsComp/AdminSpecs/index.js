@@ -1,12 +1,14 @@
 import CocktailTable from '@/Admin/AdminDashboard-comp/CocktailTable'
 import SpecsTable from '@/Admin/specsTable'
 import { AddDrinkBrandsModal } from '@/components/modal/NewDminFlowModals'
+import { createBrandAndUpdatingList } from '@/store/slices/brands'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 function AdminSpecs() {
     const [AddModal, setAddModal] = useState(false)
-
+    const dispatch=useDispatch()
     return (
         <>
             {AddModal &&
@@ -16,8 +18,8 @@ function AdminSpecs() {
                     label={'Brands'}
                     title={'Drink Brand'}
                     onSave={(data) => {
-
-                        // return dispatch(createProductAndUpdatingList('beer', data))
+                        console.log(data);
+                        return dispatch(createBrandAndUpdatingList(data.type, data))
                     }}
                 />
             }
@@ -27,7 +29,7 @@ function AdminSpecs() {
                         Specs
                     </h1>
                 </div>
-                <ChipWithLeftButton condition={true} label={'ADD A DRINK BRAND'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => {setAddModal(true)}} />
+                <ChipWithLeftButton condition={true} label={'ADD A DRINK BRAND'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddModal(true) }} />
             </div>
 
             <SpecsTable />

@@ -8,6 +8,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { enUrl } from '@/utils/encoderfunc'
+
 
 function BrandsList({ productType }) {
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -57,7 +59,7 @@ function BrandsList({ productType }) {
                 </div>
                 <div className="cards-container flex lg:justify-start justify-center items-center flex-wrap gap-x-[81px] gap-y-[50px]">
                     {brandsList.map((element) =>
-                        <Link href={`${category}/${subcategory}/brands/bluemoon?id=${element.brand_id}`}>
+                        <Link href={`${category}/${subcategory}/brands/${enUrl(element.drink_brand_name)}?id=${element.drink_brand_id}`}>
                             <div className=" bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] max-w-[397px] lg:min-w[325px] md:min-w-[397px] sm:min-w-[289px]  h-[137.44px]">
                                 <Image src={element.image != "" ? element.image : "/asset/brand3.svg"} fill style={{ objectFit: 'cover' }} className='rounded-[8px]' />
                             </div>
