@@ -11,6 +11,7 @@ import { createProduct } from '@/store/slices/product';
 import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
+import Link from 'next/link';
 
 
 function EmptyUSerLayout() {
@@ -258,6 +259,12 @@ function EmptyUSerLayout() {
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={checkVals()} onClickHandler={() => { createdrink() }} />
+                        <Link href={`specs/cocktail`}>
+                            <div className=' ml-[10px] '>
+
+                                <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 {/* image and desc */}
