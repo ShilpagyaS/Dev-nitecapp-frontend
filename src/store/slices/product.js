@@ -267,6 +267,23 @@ export const createProductAndUpdatingListNew = (productType, data) => {
     });
   };
 };
+export const createProductAndUpdatingCAtegoryListNew = (productType, data , categoryId) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+
+      url: `/api/${productType}/add_new_${productType}_to_hotel`,
+      method: "POST",
+      data
+    }).then((res) => {
+      dispatch(getProductByCategoryId(productType, categoryId))
+      return res
+    }).catch((err) => {
+      console.log(err)
+      return { error: true, message: err }
+    });
+  };
+};
 export const createCategoryAndUpdatingList = (productType, data) => {
   return async (dispatch) => {
 

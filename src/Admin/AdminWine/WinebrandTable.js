@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -139,7 +139,7 @@ function WinebrandTable({ productId, subcategory }) {
                         let body = {}
                         body = { ...data, category_id: productId, }
                         // return dispatch(createProductAndUpdatingList('wine', body))
-                        return dispatch(createProductAndUpdatingListNew('wine', body))
+                        return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body ,productId))
                     }}
                 />
             }
