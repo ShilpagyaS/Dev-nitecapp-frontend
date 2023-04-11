@@ -38,6 +38,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     store.dispatch(setloader(false))
+    errortoast({ message: error?.response?.data?.message || "Something Went Wrong" })
     return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
   }
 );
@@ -50,6 +51,7 @@ export default axiosInstance;
 
 export const axiosDebounceInstance = axios.create({
   baseURL: baseurl,
+});
 });
 
 //token injection for local storage on protected routes
@@ -69,6 +71,7 @@ axiosDebounceInstance.interceptors.response.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
     return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
   }
 );

@@ -76,7 +76,7 @@ function BrandDetailPage({ productType, productId }) {
                     <EditCard editContent={brandsDetails.drink_brand_name} isEdit={isEdit} />
                 </div>
                 <div className="banner-container w-full h-[269px] bg-no-repeat bg-cover bg-center mb-8 p-[44px] relative">
-                    <Image src={brandsDetails.image} fill style={{objectFit:'cover'}}/>
+                    <Image src={brandsDetails.image} fill style={{ objectFit: 'cover' }} />
                     {/* <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
                      
                     </div> */}
@@ -108,7 +108,7 @@ function BrandDetailPage({ productType, productId }) {
                         <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
                             <p className="mr-6">Founding Year</p>
                             <p className="font-medium">
-                               {brandsDetails.founding_date}
+                                {brandsDetails.founding_date}
                             </p>
                         </div>
                     </div>
@@ -171,7 +171,13 @@ function BrandDetailPage({ productType, productId }) {
                         Website
                     </h2>
                     <div className="status-text text-[18px]">
-                        <DescriptionTextArea textAreaRef={websiteRef} isEdit={isEdit} content={brandsDetails.website} />
+                        <a href={`https://${brandsDetails.website}`} target={'_blank'}>
+
+                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c] ml-[8px] '>
+                                {brandsDetails.website}
+                            </p>
+                        </a>
+                        {/* <DescriptionTextArea textAreaRef={websiteRef} isEdit={isEdit} content={brandsDetails.website} /> */}
                     </div>
                 </div>
 

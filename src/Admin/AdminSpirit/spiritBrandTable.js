@@ -51,7 +51,7 @@ function SpiritBrandTable({ productId, subcategory }) {
     }, [productsByCategory])
     function toggleSwitch(e, element) {
         let data = { type: 'spirit', id: element.id, showProduct: e }
-        dispatch(putProductByIdThenUpdateListShowProductForCategory(data, productId))
+        dispatch(putProductByIdThenUpdateListShowProductForCategory('spirit', data, productId))
     }
 
     const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]

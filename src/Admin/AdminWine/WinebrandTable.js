@@ -51,7 +51,7 @@ function WinebrandTable({ productId, subcategory }) {
     }, [productsByCategory])
     function toggleSwitch(e, element) {
         let data = { type: 'wine', id: element.id, showProduct: e }
-        dispatch(putProductByIdThenUpdateListShowProductForCategory(data, productId))
+        dispatch(putProductByIdThenUpdateListShowProductForCategory('wine', data, productId))
     }
 
     const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
