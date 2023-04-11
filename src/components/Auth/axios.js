@@ -75,3 +75,33 @@ axiosDebounceInstance.interceptors.response.use(
 
   }
 );
+
+
+
+const axiosAuthInstance = axios.create({
+  baseURL: baseurl,
+});
+
+//token injection for local storage on protected routes
+
+axiosAuthInstance.interceptors.request.use(async (config) => {
+  store.dispatch(setloader(true))
+  let token = localStorage.getItem("nightcpp-token");
+  if (token && !unprotectedRoutes.includes(config.url)) {
+    config.headers.authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+//error handling on api response
+
+axiosAuthInstance.interceptors.response.use(
+  async (config) => {
+    store.dispatch(setloader(false))
+    return config;
+  },
+  (error) => {
+    store.dispatch(setloader(false))
+    return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
+  }
+);

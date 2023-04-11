@@ -4,7 +4,7 @@ export function Buttons({ onClickHandler, label, ...rest }) {
   return (
     <div className="pt-[26px]">
       <button
-        className="bg-[#F19B6C] py-[12px] px-[24px] h-[54px] w-[288px] max-w-[288px] sm:w-[302px] sm:max-w-[302px] rounded-full hover:bg-[#ee854d] text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]"
+        className="bg-primary-base py-[12px] px-[24px] h-[54px] w-[288px] max-w-[288px] sm:w-[302px] sm:max-w-[302px] rounded-full hover:bg-primary-hoverbase text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]"
         onClick={onClickHandler}
         {...rest}
       >
@@ -29,7 +29,7 @@ export function CustomButton({
     <button
       className={` h-fit p-3
      ${background ? `py-[8px] px-[32px] bg-[${background}]` : `bg-transparent`}
-      h-[54px] rounded-[10px] ${hover && `hover:bg-[#ee854d]`
+      h-[54px] rounded-[10px] ${hover && `hover:bg-primary-hoverbase`
         } hover:text-white 
       ${`text-[${color || "black"}]`}
       gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px] flex items-center justify-center ${className}`}
@@ -56,7 +56,7 @@ export function CustomButtonRound({
     <button
       className={` h-fit p-3
      ${background ? `py-[8px] px-[32px] bg-[${background}]` : `bg-transparent`}
-      h-[54px]  ${hover && `hover:bg-[#ee854d]`
+      h-[54px]  ${hover && `hover:bg-primary-hoverbase`
         } hover:text-white 
       ${`text-[${color || "black"}]`}
       gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px] flex items-center justify-center ${className}`}
@@ -99,8 +99,8 @@ export function GrayButton({ onClickHandler, label, color, icon }) {
 export function LongButton({ onClickHandler, label }) {
   return (
     <button
-      className={`w-full max-w-[407px] py-[8px] px-[32px] bg-[#F19B6C]
-      h-[54px] rounded-[27px] hover:bg-[#ee854d] hover:text-white 
+      className={`w-full max-w-[407px] py-[8px] px-[32px] bg-primary-base
+      h-[54px] rounded-[27px] hover:bg-primary-hoverbase hover:text-white 
       text-black underline
       gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]`}
       onClick={onClickHandler}
@@ -114,10 +114,10 @@ export function ConditionalButtons({ condition, label, ...rest }) {
   return (
     <div className="pt-[26px]">
       <button
-        className={` ${condition == true ? "bg-[#F19B6C]" : "bg-[#3E3E3E]"
+        className={` ${condition == true ? "bg-primary-base" : "bg-[#3E3E3E]"
           } py-[12px] px-[24px] h-[54px] w-[288px] max-w-[288px] sm:w-[302px] sm:max-w-[302px] rounded-full ${condition == true
-            ? "hover:bg-[#ee854d]"
-            : "disabled:hover:bg-[#ee854d] cursor-no-drop "
+            ? "hover:bg-primary-hoverbase"
+            : "disabled:hover:bg-primary-hoverbase cursor-no-drop "
           } text-black gap-1 font-semibold font-Inter leading-[30px] tracking-[0.42px] text-[16px]
           
           `}
@@ -134,7 +134,7 @@ export function OrangeButtons({ onClickHandler, label, noPadding, width }) {
   return (
     <div className={`${!noPadding && "pt-[26px]"}`}>
       <button
-        className={`border border-[#F19B6C] text-[#F19B6C]  py-[6px] px-[12px] w-[${width ? width : '111'}px] rounded-full hover:bg-[#ee854d] hover:text-black not-italic font-medium text-base leading-6 font-Inter`}
+        className={`border border-primary-base text-primary-base  py-[6px] px-[12px] w-[${width ? width : '111'}px] rounded-full hover:bg-primary-hoverbase hover:text-black not-italic font-medium text-base leading-6 font-Inter`}
         onClick={onClickHandler}
       >
         {label}

@@ -173,7 +173,7 @@ function BrandDetailPage({ productType, productId }) {
                     <div className="status-text text-[18px]">
                         <a href={`https://${brandsDetails.website}`} target={'_blank'}>
 
-                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c] ml-[8px] '>
+                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-primary-base ml-[8px] '>
                                 {brandsDetails.website}
                             </p>
                         </a>

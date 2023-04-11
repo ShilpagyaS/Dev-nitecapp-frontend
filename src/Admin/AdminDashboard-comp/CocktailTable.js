@@ -58,18 +58,22 @@ function CocktailTable() {
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]'
+                    <div className='flex flex-row items-center 
+                    justify-center p-1 bg-[#0C0C0C] border relative
+                     border-[#3C3C3C] md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
-                            width={106}
-                            height={106} />
+                            fill
+                            className='object-cover'
+
+                        />
                     </div>
                 </td>
-                <td >
+                <td className='min-w-[150px]'>
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
+                        <p className='not-italic font-semibold md:text-[13px] text-base leading-7 tracking-[-0.624px] text-white'>
                             {element.itemName}
                         </p>
                     </div>

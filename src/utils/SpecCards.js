@@ -11,7 +11,7 @@ export function CoctailCard({ image, title, isNew }) {
       >
         <Image src={image} alt="slider-image" fill />
         {isNew && (
-          <p className="text-[#F19B6C] text-[14px] absolute top-0 left-3 ">
+          <p className="text-primary-base text-[14px] absolute top-0 left-3 ">
             New
           </p>
         )}
@@ -83,7 +83,7 @@ export function CoctailCard2({ image, title, isNew, sequence }) {
       <div className={`relative image-container ${"w-[137px] h-[137px]"} `}>
         <Image src={image} alt="slider-image" fill />
         {(isNew || sequence) && (
-          <p className="text-[#F19B6C] text-[14px] absolute top-0 left-3 ">
+          <p className="text-primary-base text-[14px] absolute top-0 left-3 ">
             {isNew ? "New" : `No. ${sequence}`}
           </p>
         )}

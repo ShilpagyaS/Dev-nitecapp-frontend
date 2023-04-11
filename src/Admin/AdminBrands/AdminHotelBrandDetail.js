@@ -105,6 +105,7 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                     {!isEdit &&
                         <div className="properties-container text-white mb-8">
 
+
                             <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
                                 <p className="mr-6">Address</p>
                                 <p className="font-medium">
@@ -167,6 +168,7 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                     }
 
                 </div>
+
             </div>
         </>
     );

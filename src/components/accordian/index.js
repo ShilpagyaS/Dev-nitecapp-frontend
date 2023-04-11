@@ -18,12 +18,12 @@ export default function Accordian({ category, subcategory, handleClose }) {
               <Disclosure key={option.id}>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-[18px] font-semibold focus:outline-none focus:text-[#F19B6C]">
+                    <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-[18px] font-semibold focus:outline-none focus:text-primary-base">
                       <Link
                         href={`/${option.id}/`}
                         onClick={handleClose}
                         className={`${option.id == category
-                          ? "text-[#F19B6C]"
+                          ? "text-primary-base"
                           : "text-[#959595]"
                           } text-[18px] leading-6 font-semibold `}
                       >
@@ -51,7 +51,7 @@ export default function Accordian({ category, subcategory, handleClose }) {
                                     href={`/${option.id}/${subOption.id}`}
                                     onClick={handleClose}
                                     className={`${subOption.id == subcategory
-                                      ? "text-[#F19B6C]"
+                                      ? "text-primary-base"
                                       : "text-[#959595]"
                                       } text-[16px] leading-none ml-2`}
                                   >
