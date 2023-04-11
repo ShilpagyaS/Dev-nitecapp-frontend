@@ -52,7 +52,7 @@ export default axiosInstance;
 export const axiosDebounceInstance = axios.create({
   baseURL: baseurl,
 });
-});
+
 
 //token injection for local storage on protected routes
 
