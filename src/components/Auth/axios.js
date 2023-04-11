@@ -72,6 +72,6 @@ axiosDebounceInstance.interceptors.response.use(
   },
   (error) => {
     return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
-    return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
+
   }
 );
