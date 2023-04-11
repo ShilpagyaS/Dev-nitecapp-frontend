@@ -43,7 +43,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
         return ListData.slice(start, end)?.map((element, index) => (
-            <tr key={index} className='h-[111px]'>
+            <tr key={index} className='md:h-[111px]'>
                 <td className='p-[25px] text-white'>{index + 1}</td>
 
                 <OuterRows element={element} />
@@ -55,9 +55,9 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         const start = (currentPage - 1) * pageSize;
         const end = start + pageSize;
         return <>
-            <th className='bg-[#171717] w-[54px] not-italic font-normal text-base leading-6 text-[#959595] font-Inter'>#</th>
+            <th className='bg-[#171717] w-[54px] not-italic font-normal text-[13px] md:text-base leading-6 text-[#959595] font-Inter'>#</th>
             {HeaderArray?.map((element, index) => (
-                <th className='bg-[#171717] not-italic font-normal text-base leading-6 text-[#959595] font-Inter'>{element}</th>
+                <th className='bg-[#171717] not-italic font-normal md:text-base text-[13px] leading-6 text-[#959595] font-Inter'>{element}</th>
             )
             )
             }

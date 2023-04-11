@@ -59,8 +59,9 @@ function BeerTable() {
 
         return (
             <>
-                <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
+                <td className='flex flex-row items-center justify-center  p-[6px] md:p-[12px]'>
+                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C]
+                     md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
                         <Image src={element.itemImage}
                             alt="image"
@@ -69,10 +70,10 @@ function BeerTable() {
                         />
                     </div>
                 </td>
-                <td >
+                <td className="min-w-[150px]" >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
+                        <p className='not-italic font-semibold  text-[13px] md:text-base leading-7 tracking-[-0.624px] text-white'>
                             {element.itemName}
                         </p>
                     </div>
