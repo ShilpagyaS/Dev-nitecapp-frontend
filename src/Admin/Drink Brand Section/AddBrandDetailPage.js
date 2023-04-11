@@ -3,7 +3,7 @@ import React from 'react'
 
 function AddBrandDetailPage({ categorytype }) {
     const [isEdit, setEdit] = useState(false)
-    const [tagline, setTagline] = useState("the tag line info")
+    const [tagline, setTagline] = useState()
     const textAreaRef = useRef()
     const aboutreaRef = useRef()
     const toggleEdit = () => {

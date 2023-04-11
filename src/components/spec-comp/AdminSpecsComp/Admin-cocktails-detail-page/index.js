@@ -21,6 +21,7 @@ import ProfileFileUpdate from "@/components/Userprofile/profileupload";
 import CocktailFileUpdate from "./CocktailFileUpdate";
 import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
+import Link from "next/link";
 
 const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -321,6 +322,12 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
             <div className="ml-[15px]">
               <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
             </div>
+            <Link href={`specs/cocktail`}>
+              <div className=' ml-[10px] '>
+
+                <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />
+              </div>
+            </Link>
           </div>
         </div>
         <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
