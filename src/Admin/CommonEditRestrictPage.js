@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { errortoast, successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
+import Link from 'next/link';
 function CommonEditRestrictPage({ productId, subcategory }) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -251,6 +252,12 @@ function CommonEditRestrictPage({ productId, subcategory }) {
                         <div className="ml-[15px]">
                             <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
                         </div>
+                        <Link href={`specs/${subcategory}`}>
+                            <div className=' ml-[10px] '>
+
+                                <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">

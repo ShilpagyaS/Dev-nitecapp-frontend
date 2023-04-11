@@ -7,15 +7,15 @@ import ManageUserTable from './ManageUserTable'
 
 function ManageUsers() {
   const [AddModal, setAddModal] = useState(false)
-  const { allUsers } = useSelector((state) => state.manageusers)
+  // const { allUsers } = useSelector((state) => state.manageusers)
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    dispatch(getAllusers())
+  //   dispatch(getAllusers())
 
-  }, [])
+  // }, [])
 
   return (<>
     {AddModal &&
@@ -23,7 +23,7 @@ function ManageUsers() {
         isModalOpen={AddModal}
         onClickCancel={() => { setAddModal(false) }}
         title={'Notification'}
-        list={allUsers}
+        // list={allUsers}
         onSave={(data) => {
 
           // return dispatch(createProductAndUpdatingList('beer', data))

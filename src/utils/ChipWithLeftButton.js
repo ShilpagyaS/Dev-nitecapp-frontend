@@ -21,7 +21,9 @@ function ChipWithLeftButton({ label, condition, srcPath, onClickHandler }) {
 export default ChipWithLeftButton
 export function CustomChipWithLeftButton({ label, condition, srcPath, onClickHandler }) {
     return (
+
         <div className={`h-[41.1px] cursor-pointer rounded-full ${condition ? 'bg-primary-base' : 'bg-[#3E3E3E]'} flex flex-row items-center px-[24px] py-[7px] justify-center`}
+
             onClick={onClickHandler} >
 
             <Image
@@ -30,7 +32,7 @@ export function CustomChipWithLeftButton({ label, condition, srcPath, onClickHan
                 height={11}
                 className="bg-transparent"
             />
-            <p className='not-italic font-semibold text-sm leading-6 text-black bg-transparent tracking-[-0.374932px] ml-[15px]'>{label}</p>
+            <p className='not-italic font-semibold text-sm leading-6 text-black bg-transparent tracking-[-0.374932px] ml-[7px]'>{label}</p>
         </div>
     )
 }

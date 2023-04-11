@@ -1,4 +1,4 @@
-import { getRoles } from '@/store/slices/manageusers';
+import { getAllusers, getRoles } from '@/store/slices/manageusers';
 import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
 import { _INITIAL } from '@/utils/Constants';
@@ -394,7 +394,7 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         </Modal>
     )
 }
-export function NotificationModal({ isModalOpen, onClickCancel, list, onSave, deleteBtn, title, desc, type, label }) {
+export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteBtn, title, desc, type, label }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -406,7 +406,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, list, onSave, de
             border: "none",
             background: "black",
             padding: "24px",
-            paddingRight: "0px",
+            paddingRight: "10px",
             maxWidth: "480px",
             width: "90%",
         },
@@ -418,10 +418,21 @@ export function NotificationModal({ isModalOpen, onClickCancel, list, onSave, de
     const [isClear, SetClear] = useState(false)
     const [EditModal, setEdit] = useState(false)
     const [users, setUsers] = useState([]);
+    const [list, SetList] = useState()
+    const { allUsers } = useSelector((state) => state.manageusers)
+
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        setUsers([...list])
+
+        dispatch(getAllusers())
+
+    }, [])
+    useEffect(() => {
+        if (allUsers)
+            setUsers(allUsers)
         console.log(list);
-    }, [list])
+    }, [allUsers])
 
     // const [users, setUsers] = useState([
     //     { id: 1, name: 'John Luis' },
