@@ -4,8 +4,8 @@ import { store } from "@/store/store"
 import { errortoast, successtoast } from "../tostify";
 
 
-export const baseurl = "https://server.nitecapp.io"
- // "http://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
+export const baseurl = process.env.NEXT_PUBLIC_BECKEND_URL
+// "http://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
 
 
 
@@ -16,7 +16,7 @@ const unprotectedRoutes = ["/user-auth/login", "/api/user-auth/verify-otp"];
 
 const axiosInstance = axios.create({
   baseURL: baseurl,
-}); 
+});
 
 //token injection for local storage on protected routes
 
@@ -38,7 +38,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     store.dispatch(setloader(false))
-   return Promise.reject(error?.response?.data?.message || "Something Went Wrong" )
+    return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
   }
 );
 
@@ -50,7 +50,7 @@ export default axiosInstance;
 
 export const axiosDebounceInstance = axios.create({
   baseURL: baseurl,
-}); 
+});
 
 //token injection for local storage on protected routes
 
@@ -69,6 +69,6 @@ axiosDebounceInstance.interceptors.response.use(
     return config;
   },
   (error) => {
-   return Promise.reject(error?.response?.data?.message || "Something Went Wrong" )
+    return Promise.reject(error?.response?.data?.message || "Something Went Wrong")
   }
 );
