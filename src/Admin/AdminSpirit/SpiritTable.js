@@ -108,7 +108,7 @@ function SpiritTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
                         <Link href={`/specs/spirit/${enUrl(element.itemName)}?id=${element.id}`} >
-                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c]'>
+                            <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-primary-base'>
                                 {element.itemName}
                             </p>
                         </Link>

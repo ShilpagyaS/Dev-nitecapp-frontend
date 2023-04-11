@@ -35,7 +35,7 @@ function SpecComp() {
           Cocktails
         </h3>
         <Link href="/specs/cocktail">
-          <p className="text-[#F19B6C] cursor-pointer">See All</p>
+          <p className="text-primary-base cursor-pointer">See All</p>
         </Link>
 
       </div>

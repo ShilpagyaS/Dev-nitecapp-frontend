@@ -18,14 +18,18 @@ function ManageUserTable() {
   const [EditModal, setEdit] = useState(false)
   const [globalData, setGlobal] = useState({})
   const dispatch = useDispatch()
-  useEffect(() => {
 
-    dispatch(getAllUsersandAdmins())
 
-    return () => {
-      dispatch(emptyAllUsers())
-    }
-  }, [])
+  // useEffect(() => {
+
+  //   dispatch(getAllUsersandAdmins())
+
+  //   return () => {
+  //     dispatch(emptyAllUsers())
+  //   }
+  // }, [])
+
+
   useEffect(() => {
     let dummy = userList?.map(
       (element) => {

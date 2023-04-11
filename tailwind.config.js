@@ -14,6 +14,13 @@ module.exports = {
         Inter: ["Inter", "sans-serif"],
       },
 
+      colors: {
+        primary: {
+          base: '#967126',
+          hoverbase: '#967126'
+        }
+      }
+
     },
     screens: {
       'sm': '414px',
@@ -32,3 +39,6 @@ module.exports = {
   },
   plugins: [],
 }
+
+
+//orange:#F19B6C

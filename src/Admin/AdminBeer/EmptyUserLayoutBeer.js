@@ -136,7 +136,7 @@ function EmptyUserLayoutBeer({ subcategory }) {
             <div className='outer-container'>
                 <div className="flex flex-row items-center justify-between">
 
-                   <Breadcrumb/>
+                    <Breadcrumb />
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={isEdit ? true : false} onClickHandler={() => { createdrink() }} />
@@ -185,7 +185,7 @@ function EmptyUserLayoutBeer({ subcategory }) {
                                                 onChange={handleOptionChange}
                                                 className='appearance-none'
                                             />
-                                            <label htmlFor='bottle' className={`ml-[10px] ${selectedOption === 'bottle' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Bottle</label>
+                                            <label htmlFor='bottle' className={`ml-[10px] ${selectedOption === 'bottle' ? 'text-primary-hoverbase' : 'text-gray-600'}`}>Bottle</label>
                                         </div>
                                         <div className='flex justify-center items-center ml-[10px] h-[50px]'>
 
@@ -198,7 +198,7 @@ function EmptyUserLayoutBeer({ subcategory }) {
                                                 className='appearance-none'
 
                                             />
-                                            <label htmlFor='can' className={`ml-[10px] ${selectedOption === 'can' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Can</label>
+                                            <label htmlFor='can' className={`ml-[10px] ${selectedOption === 'can' ? 'text-primary-hoverbase' : 'text-gray-600'}`}>Can</label>
                                         </div>
                                         <div className='flex justify-center items-center ml-[10px] h-[50px]'>
 
@@ -211,7 +211,7 @@ function EmptyUserLayoutBeer({ subcategory }) {
                                                 className='appearance-none'
 
                                             />
-                                            <label htmlFor='draft' className={`ml-[10px] ${selectedOption === 'draft' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Draft</label>
+                                            <label htmlFor='draft' className={`ml-[10px] ${selectedOption === 'draft' ? 'text-primary-hoverbase' : 'text-gray-600'}`}>Draft</label>
                                         </div>
                                     </div>
                                 </div>

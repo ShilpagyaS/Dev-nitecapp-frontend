@@ -106,7 +106,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
                 </div>
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
                 </div>
@@ -243,7 +243,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
                     </div >
                     <div className='flex items-center'>
 
-                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
                             <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
                         </div>
@@ -309,7 +309,7 @@ export function AddMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn, 
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={(input1 != "") ? true : false} onClickHandler={handleSave} />
                 </div>
@@ -378,7 +378,7 @@ export function EditMethodModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={(input1 != "") ? true : false} onClickHandler={handleSave} />
                 </div>
@@ -444,7 +444,7 @@ export function AddTitle({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
                 </div>
@@ -537,7 +537,7 @@ export function AddGeneric({ isModalOpen, onClickCancel, onSave, data, title }) 
             </div>
 
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'}
                         condition={true}
@@ -605,7 +605,7 @@ export function AddNewTitle({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
                 </div>
@@ -673,7 +673,7 @@ export function AddNewFirstItem({ isModalOpen, onClickCancel, onSave, deleteBtn,
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
                 </div>
@@ -742,7 +742,7 @@ export function AddNewDataModal({ isModalOpen, onClickCancel, onSave, deleteBtn,
                 </div>
             }
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={
                         true
@@ -846,7 +846,7 @@ export function EditNewModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                     </div >
                     <div className='flex items-center'>
 
-                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
                             <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
                         </div>
@@ -919,7 +919,7 @@ export function Delete({ isModalOpen, onClickCancel, onSave, deleteBtn, title, t
             <div className='btncontainers flex items-center justify-between mt-[18px] '>
 
 
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>No </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
                 </div>
@@ -990,7 +990,7 @@ export function DeleteSection({ isModalOpen, onClickCancel, onSave, deleteBtn, t
             <div className='btncontainers flex items-center justify-between mt-[18px] '>
 
 
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>No </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
                 </div>
@@ -1092,7 +1092,7 @@ export function EditDualValue({ isModalOpen, onClickCancel, onSave, deleteBtn, t
                     </div >
                     <div className='flex items-center'>
 
-                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
                             <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
                         </div>
@@ -1191,7 +1191,7 @@ export function EditKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                     </div >
                     <div className='flex items-center'>
 
-                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
                             <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
                         </div>
@@ -1291,7 +1291,7 @@ export function AddKeyValue({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
                     </div >
                     <div className='flex items-center'>
 
-                        <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
                             <ConditionalButton label={'Save'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
                         </div>
@@ -1381,7 +1381,7 @@ export function AddCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
 
 
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
-                    <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
                         <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
                     </div>
@@ -1463,7 +1463,7 @@ export function EditCategory({ isModalOpen, onClickCancel, onSave, inputone, inp
 
 
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
-                    <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
                         <ConditionalButton label={'Save'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
                     </div>
@@ -1534,7 +1534,7 @@ export function DeleteProduct({ isModalOpen, onClickCancel, onSave, deleteBtn, t
             <div className='btncontainers flex items-center justify-between mt-[18px] '>
 
 
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-[#F19B6C] cursor-pointer' onClick={handleCancel}>No </p>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
                 </div>

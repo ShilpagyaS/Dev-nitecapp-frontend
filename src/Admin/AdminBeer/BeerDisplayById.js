@@ -333,7 +333,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                                             onChange={handleOptionChange}
                                             className='appearance-none'
                                         />
-                                        <label htmlFor='bottle' className={`ml-[10px] ${selectedOption === 'bottle' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Bottle</label>
+                                        <label htmlFor='bottle' className={`ml-[10px] ${selectedOption === 'bottle' ? 'text-primary-hoverbase' : 'text-gray-600'}`}>Bottle</label>
                                     </div>
                                     <div className='flex justify-center items-center ml-[10px]'>
 
@@ -346,7 +346,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                                             className='appearance-none'
 
                                         />
-                                        <label htmlFor='can' className={`ml-[10px] ${selectedOption === 'can' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Can</label>
+                                        <label htmlFor='can' className={`ml-[10px] ${selectedOption === 'can' ? 'text-primary-hoverbase' : 'text-gray-600'}`}>Can</label>
                                     </div>
                                     <div className='flex justify-center items-center ml-[10px]'>
 
@@ -359,7 +359,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                                             className='appearance-none'
 
                                         />
-                                        <label htmlFor='draft' className={`ml-[10px] ${selectedOption === 'draft' ? 'text-[#ee854d]' : 'text-gray-600'}`}>Draft</label>
+                                        <label htmlFor='draft' className={`ml-[10px] ${selectedOption === 'draft' ? 'text-primary-hoverbase' : 'text-gray-600'}`}>Draft</label>
                                     </div>
                                 </div>
                             }
@@ -367,7 +367,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                                 <div className='flex items-center justify-evenly'>
 
                                     <div className='flex justify-center items-center'>
-                                        <p className=" capitalize text-[#ee854d]"> {selectedOption}</p>
+                                        <p className=" capitalize text-primary-hoverbase"> {selectedOption}</p>
                                     </div>
                                 </div>
                             }

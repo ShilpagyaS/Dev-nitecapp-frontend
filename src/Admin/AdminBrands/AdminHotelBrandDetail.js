@@ -48,7 +48,7 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                 </p>
                 <a href={`https://${outletDetails.website}`} target={'_blank'}>
 
-                    <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-[#f19b6c] ml-[8px] '>
+                    <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-primary-base ml-[8px] '>
                         {outletDetails.website}
                     </p>
                 </a>

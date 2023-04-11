@@ -28,7 +28,7 @@ export default function CustomSelect({ items, optionalFunction, defaultSelect })
   return (
     <div className="relative md:w-[201px] w-full h-[40px]">
       <button
-        className="w-full py-[8px] pl-[28px] pr-[28px] text-[#767676] bg-[#1D1D1D] border border-[#1D1D1D] rounded-[10px] shadow-sm outline-none appearance-none focus:border-[#F19B6C] not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
+        className="w-full py-[8px] pl-[28px] pr-[28px] text-[#767676] bg-[#1D1D1D] border border-[#1D1D1D] rounded-[10px] shadow-sm outline-none appearance-none focus:border-primary-base not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
         onClick={handleToggleDropdown}
       >
         {selectedItem ? selectedItem.label : 'Select an option'}

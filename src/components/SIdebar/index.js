@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { MenuIcon } from "./MenuIcons";
 
-function SideBar({ category, subcategory ,menuOptions }) {
+function SideBar({ category, subcategory, menuOptions }) {
   const router = useRouter();
 
   return (
@@ -16,7 +16,7 @@ function SideBar({ category, subcategory ,menuOptions }) {
                 {MenuIcon(option.name, option.id === category)}
                 <Link
                   href={`/${option.id}/`}
-                  className={`${option.id == category ? "text-[#F19B6C]" : "text-[#959595]"
+                  className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
                     } text-[18px] leading-6 font-semibold `}
                 >
                   {option.name}
@@ -47,7 +47,7 @@ function SideBar({ category, subcategory ,menuOptions }) {
                       <Link
                         href={`/${option.id}/${subOption.id}`}
                         className={`${subOption.id == subcategory
-                          ? "text-[#F19B6C]"
+                          ? "text-primary-base"
                           : "text-[#959595]"
                           } text-[16px] leading-none ml-5 py-[1px]  `}
                       >

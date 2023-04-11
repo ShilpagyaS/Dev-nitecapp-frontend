@@ -70,7 +70,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
             pageLinks.push(
                 <li key={i}>
                     <button
-                        className={`${i === currentPage ? "bg-[#F19B6C]" : "bg-white"
+                        className={`${i === currentPage ? "bg-primary-base" : "bg-white"
                             } rounded-full h-[7.50px] w-[7.50px] m-[3.5px]`}
                         onClick={() => handleClick(i)}
                     >
@@ -187,7 +187,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                 <div className=' w-full flex flex-row mt-[20px] items-center'>
                     {renderPagination()}
                     <div className='h-[33px] flex items-center justify-center'>
-                        <button className='mr-[8px] w-[37px] h-[33px] bg-[#F19B6C] flex items-center justify-center rounded-[5px]'
+                        <button className='mr-[8px] w-[37px] h-[33px] bg-primary-base flex items-center justify-center rounded-[5px]'
                             onClick={() => { if (currentPage > 1) handleClick(currentPage - 1) }}>
                             <Image
                                 src="/asset/LeftArrow.svg"
@@ -196,7 +196,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                                 className="bg-transparent"
                             />
                         </button >
-                        <button className='w-[37px] h-[33px] bg-[#F19B6C] flex items-center justify-center rotate-180 rounded-[5px]'
+                        <button className='w-[37px] h-[33px] bg-primary-base flex items-center justify-center rotate-180 rounded-[5px]'
                             onClick={() => { if (currentPage < totalPages) handleClick(currentPage + 1) }}>
                             <Image
                                 src="/asset/LeftArrow.svg"
