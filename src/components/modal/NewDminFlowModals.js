@@ -1168,3 +1168,74 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
         </Modal>
     )
 }
+export function DeleteUserorAdmin({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave()
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
+            </div>
+            <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                    {`Deleting this will permanantly remove all the data of the User .Do You Want To Delete ${title} ?"`}
+                </h3>
+
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}

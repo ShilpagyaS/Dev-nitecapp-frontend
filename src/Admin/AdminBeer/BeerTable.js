@@ -38,7 +38,7 @@ function BeerTable() {
                     itemImage: element.image,
                     itemName: element.beer_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -54,7 +54,7 @@ function BeerTable() {
         let data = { type: 'beer', id: element.id, showProduct: e }
         dispatch(putProductByIdThenUpdateListShowProduct(data))
     }
-    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
@@ -100,7 +100,7 @@ function BeerTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-                            {element.popularity}
+                            {element?.outlet}
                         </p>
                     </div>
                 </td>

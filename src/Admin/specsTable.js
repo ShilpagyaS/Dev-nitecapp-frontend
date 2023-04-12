@@ -39,7 +39,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.cocktail_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'cocktail'
@@ -58,7 +58,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.beer_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'beer'
@@ -77,7 +77,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.spirit_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'spirit'
@@ -96,7 +96,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.wine_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'wine'
@@ -115,7 +115,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.low_no_abv_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'low_no_abv'
@@ -136,7 +136,7 @@ function SpecsTable() {
     //     dispatch(putProductByIdThenUpdateList(element.type, element.id, data))
     //         .then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
     // }
-    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
     function OuterRowsnormal({ element }) {
 
         return (
@@ -172,7 +172,7 @@ function SpecsTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-                            {element.popularity}
+                            {element.outlet}
                         </p>
                     </div>
                 </td>
@@ -230,7 +230,7 @@ function SpecsTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-                            {element.popularity}
+                            {element.outlet}
                         </p>
                     </div>
                 </td>

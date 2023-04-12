@@ -1,5 +1,5 @@
-import { AddUsersAndAdmins, EditUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
-import { createUserAndUpdateList, emptyAllUsers, getAllUsersandAdmins, putUserandUpdatetheList } from '@/store/slices/manageusers'
+import { AddUsersAndAdmins, DeleteUserorAdmin, EditUsersAndAdmins } from '@/components/modal/NewDminFlowModals'
+import { createUserAndUpdateList, deleteUser, emptyAllUsers, getAllUsersandAdmins, putUserandUpdatetheList } from '@/store/slices/manageusers'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -18,6 +18,12 @@ function ManageUserTable() {
   const [AddModal, setAdd] = useState(false)
   const [EditModal, setEdit] = useState(false)
   const [globalData, setGlobal] = useState({})
+  const [elementItem, setElementItem] = useState({
+    title: '',
+    id: ''
+  })
+  const [DeleteModal, setDeleteModal] = useState(false)
+
   const dispatch = useDispatch()
 
 
@@ -66,48 +72,6 @@ function ManageUserTable() {
 
   }, [adminsList])
 
-  const mockData = [
-    {
-      id: 1,
-      itemImage: '',
-      itemName: 'Old Fashioned',
-      showHideStatus: true,
-      popularity: 'New',
-
-    },
-    {
-      id: 2,
-      itemImage: '',
-      itemName: 'Darusi',
-      showHideStatus: true,
-      popularity: 'New',
-
-    },
-    {
-      id: 3,
-      itemImage: '',
-      itemName: 'SouthSide',
-      showHideStatus: false,
-      popularity: 'None',
-
-    },
-    {
-      id: 4,
-      itemImage: '',
-      itemName: 'Old Monk',
-      showHideStatus: false,
-      popularity: 'None',
-
-    },
-    {
-      id: 5,
-      itemImage: '',
-      itemName: 'Old Fashioned2',
-      showHideStatus: true,
-      popularity: 'None',
-
-    },
-  ]
   const HeaderArray = ["Profile Image", "Name", "Email", "Action"]
   function OuterRows({ element }) {
 
@@ -164,7 +128,12 @@ function ManageUserTable() {
 
               < div className='ml-[15px]'>
 
-                <DeleteCircularButton />
+                <DeleteCircularButton onClickHandler={() => {
+                  setElementItem({
+                    title: element.itemName,
+                    id: element.id
+                  }); setDeleteModal(true)
+                }} />
               </div>
             }
           </div>
@@ -195,6 +164,12 @@ function ManageUserTable() {
     // dispatch(putCategory('spirit', id, data))
 
   }
+  function deleteProduct() {
+    console.log('deleteing');
+    console.log(elementItem);
+
+    dispatch(deleteUser(elementItem.id))
+  }
   return (
     <>
       {AddModal &&
@@ -218,6 +193,13 @@ function ManageUserTable() {
           }}
         />
       }
+      {DeleteModal &&
+        <DeleteUserorAdmin
+          isModalOpen={DeleteModal}
+          onClickCancel={() => { setDeleteModal(false) }}
+          title={elementItem.title}
+          onSave={deleteProduct}
+        />}
 
       <div className='admincomponents mt-[23px]'>
         <div className='not-italic font-semibold text-[20px] font-Inter text-white mb-[20px]'>
