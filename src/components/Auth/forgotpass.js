@@ -99,7 +99,7 @@ function ForgotPassword() {
                       setstep(3);
                   } else {
 
-                    if (res.error) {
+                    if (res?.error) {
                       setotperror(res.message)
                     }
                   }

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 function ManageUserTable() {
   // const router = useRouter();
   const { adminsList, userList } = useSelector((state) => state.manageusers)
+  const { user } = useSelector((state) => state.auth)
   const [newList, setList] = useState([])
   const [adminList, setAdminList] = useState([])
   const [AddModal, setAdd] = useState(false)
@@ -20,14 +21,14 @@ function ManageUserTable() {
   const dispatch = useDispatch()
 
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   dispatch(getAllUsersandAdmins())
+    dispatch(getAllUsersandAdmins())
 
-  //   return () => {
-  //     dispatch(emptyAllUsers())
-  //   }
-  // }, [])
+    return () => {
+      dispatch(emptyAllUsers())
+    }
+  }, [])
 
 
   useEffect(() => {
@@ -159,10 +160,13 @@ function ManageUserTable() {
               setEdit(true)
             }}
             />
-            <div className='ml-[15px]'>
+            {element.id != user.id &&
 
-              <DeleteCircularButton />
-            </div>
+              < div className='ml-[15px]'>
+
+                <DeleteCircularButton />
+              </div>
+            }
           </div>
         </td>
       </>

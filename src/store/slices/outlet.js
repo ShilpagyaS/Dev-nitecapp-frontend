@@ -1,5 +1,6 @@
 
 import axiosInstance from "@/components/Auth/axios";
+import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -56,6 +57,24 @@ export const getOutletDetail = (id) => {
             );
         }).catch((err) => {
             console.log(err)
+        });
+    };
+}
+export const putOutletDetail = (data, id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            url: `/api/hotel_outlet/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(getOutletDetail(id));
+            successtoast({ message: 'Updated Successfully' })
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
         });
     };
 }

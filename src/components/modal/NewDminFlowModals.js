@@ -55,9 +55,9 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
         console.log(body);
         onSave(selectedItem.body).then((res) => {
             console.log(res);
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `Product added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 clearForm()
             // onClickCancel();
         })
@@ -186,9 +186,9 @@ export function AddCategoryModal({ isModalOpen, onClickCancel, onSave, deleteBtn
 
         onSave(body).then((res) => {
             console.log(res);
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `Product added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 clearForm()
             // onClickCancel();
         })
@@ -306,9 +306,9 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         }
         console.log(body);
         onSave(body).then((res) => {
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `Brand added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 clearForm()
             // onClickCancel();
         })
@@ -394,7 +394,7 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         </Modal>
     )
 }
-export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteBtn, title, desc, type, label }) {
+export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -747,9 +747,9 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
             }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `User added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 onClickCancel();
         })
         setinput1("");
@@ -794,6 +794,8 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 <InputFieldWirhAutoWidth
                     placeholder=""
@@ -844,7 +846,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                {parseInt(brandForm.role) > 4 &&
+                {parseInt(brandForm.role) >= 5 &&
                     <>
                         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                             <h5
@@ -885,11 +887,11 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     <div className='ml-[24px]'>
                         <ConditionalButton label={'Add'}
                             condition={(
-                                // brandForm.displayname != ""  &&
+                                brandForm.displayname != "" &&
                                 brandForm.password != "" &&
                                 brandForm.role != "" && (
 
-                                    brandForm.role > 4 ? brandForm.outlet != "" : true
+                                    brandForm.role >= 5 ? brandForm.outlet != "" : true
                                 ) &&
                                 brandForm.email != "") ? true : false
                             } onClickHandler={handleSave} />
@@ -995,9 +997,9 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
             }
         console.log(dummydata);
         // onSave(dummydata).then((res) => {
-        //     res.error ? errortoast({ message: res.message }) :
+        //     res?.error ? errortoast({ message: res.message }) :
         //         successtoast({ message: `User Edited successfully` });
-        //     if (!res.error)
+        //     if (!res?.error)
         //         onClickCancel()
         // })
         setinput1("");
@@ -1036,6 +1038,8 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 {/* <InputFieldWirhAutoWidth
                     placeholder=""
@@ -1054,6 +1058,8 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"phone"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
@@ -1061,7 +1067,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
              text-[#959595]`}
                     // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                     >
-                        Role
+                        Role<sup>*</sup>
                     </h5>
                 </div>
                 <div className='mb-[8px]'>
@@ -1083,7 +1089,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                {brandForm.role > 4 &&
+                {brandForm.role >= 5 &&
                     <>
                         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                             <h5
@@ -1091,7 +1097,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                         text-[#959595]`}
                             // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                             >
-                                Outlet
+                                Outlet<sup>*</sup>
                             </h5>
                         </div>
                         {brandForm.outlet &&
@@ -1135,7 +1141,16 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Edit'}
+                            condition={(
+                                brandForm.displayname != "" &&
+                                brandForm.password != "" &&
+                                brandForm.role != "" && (
+
+                                    brandForm.role >= 5 ? brandForm.outlet != "" : true
+                                ) &&
+                                brandForm.email != "") ? true : false
+                            } onClickHandler={handleSave} />
                     </div>
 
                 </div>

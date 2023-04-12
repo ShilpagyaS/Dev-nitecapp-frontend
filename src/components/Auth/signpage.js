@@ -127,7 +127,7 @@ function Signin() {
                     }
                   } else {
 
-                    if (res.error) {
+                    if (res?.error) {
                       setotperror(res.message)
                     }
                   }

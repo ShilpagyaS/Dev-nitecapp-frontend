@@ -90,7 +90,7 @@ function SpiritTable() {
 
         },
     ]
-    const HeaderArray = ["Category Image", "Category Name", "Show / Hide", "Action"]
+    const HeaderArray = ["Category Image", "Category Name", "Show / Hide"]
     function OuterRows({ element }) {
 
         return (
@@ -98,11 +98,20 @@ function SpiritTable() {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            style={{ objectFit: 'contain' }}
-                        />
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                            />
+                        }
                     </div>
                 </td>
                 <td >
@@ -120,21 +129,21 @@ function SpiritTable() {
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={() => { }} />
                     </div>
                 </td>
-                <td >
+                {/* <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        {/* <EditCircularButton onClickHandler={() => {
+                      <EditCircularButton onClickHandler={() => {
                             // router.push(`/specs/spirit/${element.itemName}?id=${element.id}`);
                             setGlobal({ ...element.data })
                             setEdit(true)
                         }}
-                        /> */}
+                        /> 
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton />
                         </div>
                     </div>
-                </td>
+                </td> */}
             </>
         )
     }

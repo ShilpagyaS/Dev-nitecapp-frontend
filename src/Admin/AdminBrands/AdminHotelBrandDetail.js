@@ -3,11 +3,14 @@ import { EditKeyValue } from "@/components/modal/adminmodal";
 import BrandFileUpload from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/BrandFileUpdate";
 import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
 import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
+import { errortoast, successtoast } from "@/components/tostify";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { emptyBrandsList } from "@/store/slices/brands";
-import { getOutletDetail } from "@/store/slices/outlet";
+import { getOutletDetail, putOutletDetail } from "@/store/slices/outlet";
+import { uploadimage } from "@/store/slices/ui";
 import { CustomButton } from "@/utils/Buttons";
 import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
+import EditCard from "@/utils/Cards/Text card/EditCard";
 import SplitCard from "@/utils/Cards/Text card/SplitCard";
 import { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
 import Image from "next/image";
@@ -20,6 +23,7 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
     const { outletDetails } = useSelector((state) => state.outlets)
     const textAreaRef = useRef()
     const taglineref = useRef()
+    const nameref = useRef()
     const [tagline, setTagline] = useState()
     const [newMockData, setNewMockData] = useState({
 
@@ -37,15 +41,47 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
         dispatch(getOutletDetail(productId))
         return () => dispatch(emptyBrandsList())
     }, [])
+    useEffect(() => {
+        setNewMockData({ address: outletDetails?.address })
+    }, [outletDetails])
     const isTablet = useMediaQuery("(max-width: 786px)");
     const toggleEdit = () => {
         setEdit(prev => !prev)
         // console.log(textAreaRef.current.innerText);
     }
     function onSave() {
-        setTagline(tagline.current.value)
+        console.log(newMockData);
+        console.log(textAreaRef.current.value);
+        console.log(taglineref.current.value);
+        console.log(nameref.current.innerText);
+        let data = {
+            ...outletDetails,
+            outlet_name: nameref.current.innerText ? nameref.current.innerText : outletDetails.outlet_name,
+            address: newMockData.address,
+            description: textAreaRef.current.value,
+            website: taglineref.current.value
+        }
+        if (isEdit == true) {
+            if (upimage) {
+                dispatch(uploadimage(upimage)).then((imageurl) => {
+                    if (imageurl && !imageurl?.error)
+                        dispatch(putOutletDetail({ ...data, image:imageurl }, productId)).then((res) => {
+                            console.log(res);
+                        })
+                    else console.log("cannot upload")
+                })
+            }
+            else
+                dispatch(putOutletDetail(data, productId)).then((res) => {
+                    console.log(res);
+                })
+            setimage()
+        }
         toggleEdit()
+
+
     }
+
     function editValues(title, data) {
 
         setNewMockData(((prev) => {
@@ -84,6 +120,19 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                         </div>
                     </div>
                 </div>
+                {!isEdit &&
+                    <>
+                        <h3 className="title text-[24px] font-bold mr-[16px] mb-[10px]" >
+
+                            <EditCard editContent={outletDetails?.outlet_name} isEdit={false} />
+                        </h3>
+                    </>
+                }
+                {isEdit &&
+                    <h3 className="title text-[24px] font-bold mr-[16px] mb-[10px]" >
+                        <EditCard editContent={outletDetails?.outlet_name} isEdit={isEdit} divref={nameref} />
+                    </h3>
+                }
                 {/* <div className=" w-full relative mb-8 h-[298px]" >
 
                     <Image

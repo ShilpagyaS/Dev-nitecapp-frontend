@@ -62,12 +62,20 @@ function CocktailTable() {
                     justify-center p-1 bg-[#0C0C0C] border relative
                      border-[#3C3C3C] md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            className='object-cover'
-
-                        />
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                            />
+                        }
                     </div>
                 </td>
                 <td className='min-w-[150px]'>

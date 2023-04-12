@@ -62,10 +62,20 @@ function WinebrandTable({ productId, subcategory }) {
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='relative h-[106px] w-[106px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            style={{ objectFit: 'contain' }} />
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                            />
+                        }
                     </div>
                 </td>
                 <td >
@@ -139,7 +149,7 @@ function WinebrandTable({ productId, subcategory }) {
                         let body = {}
                         body = { ...data, category_id: productId, }
                         // return dispatch(createProductAndUpdatingList('wine', body))
-                        return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body ,productId))
+                        return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body, productId))
                     }}
                 />
             }

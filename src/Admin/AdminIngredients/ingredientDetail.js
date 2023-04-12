@@ -58,7 +58,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
             dispatch(putIngredientById(productId, { ...body, image: imageurl })
             ).then((res) => {
               console.log(res);
-              res.error ? errortoast({ message: res.message }) :
+              res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `${body.master_ingredient_name} updated successfully` });
             })
           else console.log("cannot upload")
@@ -67,7 +67,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
       else
         dispatch(putIngredientById(productId, body)).then((res) => {
           console.log(res);
-          res.error ? errortoast({ message: res.message }) :
+          res?.error ? errortoast({ message: res.message }) :
             successtoast({ message: `${body.master_ingredient_name} updated successfully` });
         })
       toggleEdit()
