@@ -6,8 +6,8 @@ import SwitchComp from './SwitchComp'
 function TableComponent({ renderRows, renderHeader }) {
 
     return (
-        <div className='TableComponent w-auto overflow-x-auto md:overflow-hidden md:w-full'>
-            <table class="table-fixed  border border-b-[#3C3C3C] border-r-0 border-t-0 border-l-0 md:w-full">
+        <div className='TableComponent w-auto overflow-x-auto sm:overflow-hidden sm:w-full'>
+            <table class="table-fixed  border border-b-[#3C3C3C] border-r-0 border-t-0 border-l-0 sm:w-full">
                 <thead className='h-[56px]'>
                     <tr >
                         {renderHeader()}

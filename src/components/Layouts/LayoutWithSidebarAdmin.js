@@ -14,7 +14,7 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
     };
 
     return (
-        <div className="relative lg:max-w-[1440px] px-4 w-full h-screen overflow-hidden">
+        <div className="relative lg:max-w-[1440px] px-4 w-full h-screen overflow-hidden mx-auto">
             <Header handleDrawer={handleDrawer} user={user} />
             <MobileDrawer
                 category={category}
