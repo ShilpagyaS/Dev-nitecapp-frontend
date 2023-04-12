@@ -395,7 +395,7 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         </Modal>
     )
 }
-export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label }) {
+export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, roles }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -421,7 +421,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
     const [users, setUsers] = useState([]);
     const [list, SetList] = useState()
     const { allUsers } = useSelector((state) => state.manageusers)
-
+    const [selectOption, setoptions] = useState()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -434,7 +434,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
             setUsers(allUsers)
         console.log(list);
     }, [allUsers])
-
+    console.log(roles);
     // const [users, setUsers] = useState([
     //     { id: 1, name: 'John Luis' },
     //     { id: 2, name: 'John Luis' },
@@ -490,7 +490,16 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
             SetClear(false)
         }, 500);
     }
-
+    function chooseOption(e) {
+        if (e.value == 0) {
+            setUsers(allUsers)
+        }
+        else {
+            let dummy = allUsers.filter((element) => e.value == parseInt(element.role))
+            console.log(dummy);
+            setUsers(dummy)
+        }
+    }
     return (
         <>{EditModal &&
             <AddMessageTitle
@@ -518,7 +527,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
 
                 <div className='notificationModal h-[250px] mb-[10px]'>
 
-                    <div>
+                    <div className='flex items-center justify-between pr-[10px]'>
                         <label className='text-white m-[5px] flex items-center'>
                             <input
                                 type="checkbox"
@@ -530,6 +539,13 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                                 Select All
                             </p>
                         </label>
+                        <div className='w-[200px]'>
+
+                            <CustomSelect items={[{ value: 0, label: 'All' }, ...roles]}
+                                optionalFunction={(e) => { console.log(e); chooseOption(e); setoptions(e.value) }}
+                            />
+                        </div>
+
                     </div>
                     {users.map((user) => (
                         <div key={user.id}
