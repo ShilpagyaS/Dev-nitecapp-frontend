@@ -6,9 +6,10 @@ import { errortoast, successtoast } from "../tostify";
 
 export const baseurl = process.env.NEXT_PUBLIC_BECKEND_URL
 // "http://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
+// "https://server.nitecapp.io"
+// "https://server-prod.nitecapp.io"
 
-
-
+ 
 //routes declairation
 const unprotectedRoutes = ["/user-auth/login", "/api/user-auth/verify-otp"];
 
