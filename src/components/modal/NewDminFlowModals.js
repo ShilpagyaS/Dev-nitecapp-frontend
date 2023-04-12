@@ -1,6 +1,7 @@
-import { getAllusers, getRoles } from '@/store/slices/manageusers';
+import { getAllusers, getRoles, sendEmail } from '@/store/slices/manageusers';
 import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
+import NotificationCard from '@/utils/Cards/NotificationCard';
 import { _INITIAL } from '@/utils/Constants';
 import CustomSelect, { CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
 import SelectWithDebounce from '@/utils/DebounceSelect';
@@ -445,6 +446,9 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
     // ]);
 
     const [selectedUsers, setSelectedUsers] = useState([]);
+    function setlocal(value) {
+        setSelectedUsers(value)
+    }
 
     const handleSelectUser = (user) => {
         if (selectedUsers.includes(user)) {
@@ -476,7 +480,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
         // })
         setEdit(true)
         console.log(selectedUsers);
-        clearForm()
+        // onClickCancel();
 
     };
     function clearForm() {
@@ -492,8 +496,14 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
             <AddMessageTitle
                 isModalOpen={EditModal}
                 onClickCancel={() => { setEdit(false) }}
-                onSave={() => { }}
-                closeMain={() => { onClickCancel() }}
+                onSave={(data) => {
+
+                    // return dispatch(createProductAndUpdatingList('beer', data))
+                    return dispatch(sendEmail(data))
+                }}
+                closeMain={() => { onClickCancel(); clearForm() }}
+                setLocal={setlocal}
+                list={selectedUsers}
             />
         }
             <Modal
@@ -555,7 +565,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                 <div className='btncontainers flex items-center justify-end mt-[10px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Next'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Next'} condition={selectedUsers.length > 0} onClickHandler={handleSave} />
                     </div>
 
                 </div>
@@ -564,7 +574,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
         </>
     )
 }
-export function AddMessageTitle({ isModalOpen, onClickCancel, onSave, id, closeMain }) {
+export function AddMessageTitle({ isModalOpen, onClickCancel, onSave, id, closeMain, list, setLocal }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -587,77 +597,252 @@ export function AddMessageTitle({ isModalOpen, onClickCancel, onSave, id, closeM
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
     const [isfocused, setisFocused] = useState(false);
-
+    const [EditModal, setEdit] = useState(false)
+    const constantlist = list;
+    const [selectedUsers, setSelectedUsers] = useState(list);
     const handleCancel = () => {
+        console.log('text cancel');
+        setLocal(selectedUsers)
         onClickCancel();
         setinput1("");
         setinput2("");
+
+    };
+    function settinglocal(value) {
+        console.log(value);
+        setSelectedUsers(value)
+        setEdit(false)
+    }
+    const handleSave = () => {
+        console.log(selectedUsers);
+        let dummyArray = selectedUsers.map((e) => { return { email: e.email } })
+
+        let body
+        body = {
+            title: input1,
+            message: input2,
+            userList: dummyArray,
+        }
+        console.log(body);
+        onSave(body).then((res) => {
+            res?.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `Notification Sent` });
+            if (!res?.error) {
+
+                onClickCancel();
+                closeMain()
+                setinput1("");
+                setinput2("");
+            }
+        })
+
+    };
+    return (
+        <>{
+
+            EditModal &&
+            <SelectedUsers
+                isModalOpen={EditModal}
+                onClickCancel={() => { setEdit(false) }}
+                title={'Selected Users'}
+                onSave={() => { }}
+                setLocal={(e) => { settinglocal(e) }}
+                list={selectedUsers}
+
+            />
+        }
+
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                    <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Notification`}</h4>
+                </div>
+                <div className='max-h-[456px]' >
+                    {/* <NotificationCard /> */}
+                    <div className='flex items-center justify-end w-full cursor-pointer' onClick={() => { setEdit(true) }}>
+                        <p className='italic font-semibold bg-transparent text-left text-[13px] text-primary-base '>You have added {selectedUsers?.length} users for notification click here to see all</p>
+
+                    </div>
+                    <InputFieldWirhAutoWidth
+                        placeholder=""
+                        label="Title"
+                        onChangeHandler={(e) => { setinput1(e.target.value) }}
+                        value={input1}
+                        name={"title"}
+                        type={"text"}
+                        errorResponnse={_INITIAL}
+                    />
+                    <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
+
+                                }`}
+                        >
+                            Message
+                        </h5>
+
+                        <textarea className={`notificationModal h-[200px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
+                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
+                     appearance-none`}
+                            value={input2}
+                            onChange={(e) => { setinput2(e.target.value) }} style={{ resize: 'none' }}
+                            onFocus={(e) => {
+                                setisFocused(true);
+                            }}
+                            onBlur={(e) => {
+                                setisFocused(false);
+                            }}
+                        />
+                    </div>
+                    <div className='btncontainers flex items-center justify-between mt-[20px] '>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <div className='ml-[24px]'>
+                            <ConditionalButton label={'Send'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+                        </div>
+
+                    </div>
+                </div>
+            </Modal>
+        </>
+    )
+}
+export function SelectedUsers({ isModalOpen, onClickCancel, list, deleteBtn, setLocal, desc, type, label }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            paddingRight: "10px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [isClear, SetClear] = useState(false)
+    const [EditModal, setEdit] = useState(false)
+    // const [list, SetList] = useState()
+    const [users, setUsers] = useState(list);
+    const [selectedUsers, setSelectedUsers] = useState(list);
+    const handleSelectUser = (user) => {
+        if (selectedUsers.includes(user)) {
+            setSelectedUsers(selectedUsers.filter((u) => u !== user));
+        } else {
+            setSelectedUsers([...selectedUsers, user]);
+        }
+    };
+    console.log('enteres');
+    const handleSelectAllUsers = () => {
+        if (selectedUsers.length === users.length) {
+            setSelectedUsers([]);
+        } else {
+            setSelectedUsers(users);
+        }
+    };
+
+    const handleCancel = () => {
+        console.log('clicking cancel');
+        onClickCancel();
+
 
     };
 
     const handleSave = () => {
 
-        onSave(input1, input2, id)
-        onClickCancel();
-        closeMain()
-        setinput1("");
-        setinput2("");
+        // onSave(selectedItem.body).then(() => {
+
+        //     // onClickCancel();
+        // })
+        setEdit(true)
+        setLocal(selectedUsers)
+        console.log(selectedUsers);
 
     };
+    function clearForm() {
+        SetClear(true)
+        setSelectedUsers([])
+        setTimeout(() => {
+            SetClear(false)
+        }, 500);
+    }
 
     return (
-        <Modal
-            isOpen={isModalOpen}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-            style={customStyles}
-        >
-            <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Notification`}</h4>
-            </div>
-            <div className='max-h-[456px]' >
-                <InputFieldWirhAutoWidth
-                    placeholder=""
-                    label="Title"
-                    onChangeHandler={(e) => { setinput1(e.target.value) }}
-                    value={input1}
-                    name={"title"}
-                    type={"text"}
-                    errorResponnse={_INITIAL}
-                />
-                <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
-                            ? "text-[#959595]"
-                            : "text-white"
-
-                            }`}
-                    >
-                        Message
-                    </h5>
-
-                    <textarea className={`notificationModal h-[200px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
-                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
-                     appearance-none`}
-                        value={input2}
-                        onChange={(e) => { setinput2(e.target.value) }} style={{ resize: 'none' }}
-                        onFocus={(e) => {
-                            setisFocused(true);
-                        }}
-                        onBlur={(e) => {
-                            setisFocused(false);
-                        }}
-                    />
+        <>{EditModal &&
+            <AddMessageTitle
+                isModalOpen={EditModal}
+                onClickCancel={() => { setEdit(false) }}
+                onSave={() => { }}
+                closeMain={() => { onClickCancel() }}
+                list={selectedUsers}
+            />
+        }
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none flex items-center justify-center">
+                    <h4 className="text-[24px] leading-9 font-semibold font-Prata mb-4">{`View All`}</h4>
                 </div>
-                <div className='btncontainers flex items-center justify-between mt-[20px] '>
+
+                <div className='notificationModal max-h-[456px] mb-[10px]'>
+
+                    {users.map((user) => (
+                        <div key={user.id}
+                        >
+                            <label className='text-white flex items-center cursor-pointer m-[5px]'>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedUsers.includes(user)}
+                                    onChange={() => handleSelectUser(user)}
+                                />
+                                <div className='h-[54px] w-[64px] bg-gray-400 ml-[18px] rounded-full relative'>
+                                    <Image
+                                        src={'/asset/Byron.jpeg'}
+                                        width={64}
+                                        height={54}
+                                        className="text-[#A8A8A8] bg-[#2C2C2C] rounded-full"
+                                    />
+                                </div>
+                                <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
+                                    <h5 className='not-italic font-semibold text-[18px] leading-7 font-Inter'>{user.full_name}</h5>
+                                    <p className='not-italic font-semibold text-[14px] text-[#8E8E8E] leading-7'>{user.email}</p>
+                                </div>
+                            </label>
+                            <div className='w-full flex justify-center'>
+                                <div className='bg-[#393636] w-[95%] h-[0.5px]'></div>
+                            </div>
+                        </div>
+                    ))}
+
+
+
+                </div>
+                <div className='btncontainers flex items-center justify-end mt-[10px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Send'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Next'} condition={true} onClickHandler={handleSave} />
                     </div>
 
                 </div>
-            </div>
-        </Modal>
+
+            </Modal>
+        </>
     )
 }
 export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type }) {
@@ -996,12 +1181,12 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                 role: brandForm.role,
             }
         console.log(dummydata);
-        // onSave(dummydata).then((res) => {
-        //     res?.error ? errortoast({ message: res.message }) :
-        //         successtoast({ message: `User Edited successfully` });
-        //     if (!res?.error)
-        //         onClickCancel()
-        // })
+        onSave(dummydata).then((res) => {
+            res?.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `User Edited successfully` });
+            if (!res?.error)
+                onClickCancel()
+        })
         setinput1("");
         setinput2("");
 
@@ -1100,30 +1285,33 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                                 Outlet<sup>*</sup>
                             </h5>
                         </div>
-                        {brandForm.outlet &&
-                            <div className='mb-[8px]'>
 
+                        <div className='mb-[8px]'>
+                            {console.log('outlet')}
+
+                            <CustomSelectWithAllBlackTheme
+                                items={outletsList}
+                                defaultSelect={data.outlet_id ? { value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id } : null}
+                                optionalFunction={(e) => {
+                                    console.log(e);
+                                    setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                }} />
+                        </div>
+
+                        {/* {!data.outlet_id &&
+                            <div className='mb-[8px]'>
+                                {console.log('nooutlet')}
                                 <CustomSelectWithAllBlackTheme
                                     items={outletsList}
-                                    defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
                                     optionalFunction={(e) => {
                                         console.log(e);
-                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                        console.log('selecting ');
+                                        setBrandForm(prev => {
+                                            return { ...prev, outlet: e.value, hotel: e.hotel_id }
+                                        })
                                     }} />
                             </div>
-                        }
-                        {!brandForm.outlet &&
-                            <div className='mb-[8px]'>
-
-                                <CustomSelectWithAllBlackTheme
-                                    items={outletsList}
-                                    // defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
-                                    optionalFunction={(e) => {
-                                        console.log(e);
-                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
-                                    }} />
-                            </div>
-                        }
+                        } */}
                     </>
                 }
                 {/* <InputFieldWirhAutoWidth

@@ -127,6 +127,21 @@ export const createUserAndUpdateList = (data) => {
         });
     };
 };
+export const sendEmail = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/user-auth/send_mail_to_multiple_admin`,
+            method: "POST",
+            data
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const putUserandUpdatetheList = (data) => {
     return async (dispatch) => {
 
@@ -136,7 +151,6 @@ export const putUserandUpdatetheList = (data) => {
             data
         }).then((res) => {
             // dispatch(getAllusers())
-            debugger
             dispatch(getAllUsersandAdmins())
             return res
         }).catch((err) => {
