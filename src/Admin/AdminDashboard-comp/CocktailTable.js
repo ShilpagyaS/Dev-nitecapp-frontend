@@ -59,7 +59,7 @@ function CocktailTable() {
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center 
-                    justify-center p-1 bg-[#0C0C0C] border relative
+                    justify-center p-1 bg-[#0C0C0C] border relative rounded-[10px]
                      border-[#3C3C3C] md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
                         {!element.itemImage &&
@@ -67,6 +67,7 @@ function CocktailTable() {
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
                             />
                         }
                         {element.itemImage &&
@@ -74,6 +75,8 @@ function CocktailTable() {
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
                             />
                         }
                     </div>

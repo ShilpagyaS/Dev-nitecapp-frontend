@@ -1,6 +1,6 @@
 import { AddCategory, EditCategory } from '@/components/modal/adminmodal';
 import { AddCategoryModal } from '@/components/modal/NewDminFlowModals';
-import { createCategory, createCategoryAndUpdatingList, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
+import { createCategory, createCategoryAndUpdatingList, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory, putCategoryThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -48,61 +48,67 @@ function SpiritTable() {
 
     }, [categoryList])
 
-    const mockData = [
-        {
-            id: 1,
-            itemImage: '',
-            itemName: 'Old Fashioned',
-            showHideStatus: true,
-            popularity: 'New',
+    // const mockData = [
+    //     {
+    //         id: 1,
+    //         itemImage: '',
+    //         itemName: 'Old Fashioned',
+    //         showHideStatus: true,
+    //         popularity: 'New',
 
-        },
-        {
-            id: 2,
-            itemImage: '',
-            itemName: 'Darusi',
-            showHideStatus: true,
-            popularity: 'New',
+    //     },
+    //     {
+    //         id: 2,
+    //         itemImage: '',
+    //         itemName: 'Darusi',
+    //         showHideStatus: true,
+    //         popularity: 'New',
 
-        },
-        {
-            id: 3,
-            itemImage: '',
-            itemName: 'SouthSide',
-            showHideStatus: false,
-            popularity: 'None',
+    //     },
+    //     {
+    //         id: 3,
+    //         itemImage: '',
+    //         itemName: 'SouthSide',
+    //         showHideStatus: false,
+    //         popularity: 'None',
 
-        },
-        {
-            id: 4,
-            itemImage: '',
-            itemName: 'Old Monk',
-            showHideStatus: false,
-            popularity: 'None',
+    //     },
+    //     {
+    //         id: 4,
+    //         itemImage: '',
+    //         itemName: 'Old Monk',
+    //         showHideStatus: false,
+    //         popularity: 'None',
 
-        },
-        {
-            id: 5,
-            itemImage: '',
-            itemName: 'Old Fashioned2',
-            showHideStatus: true,
-            popularity: 'None',
+    //     },
+    //     {
+    //         id: 5,
+    //         itemImage: '',
+    //         itemName: 'Old Fashioned2',
+    //         showHideStatus: true,
+    //         popularity: 'None',
 
-        },
-    ]
+    //     },
+    // ]
+    function toggleSwitch(e, id) {
+        let data = { type: 'spirit', category_id: id, showProduct: e }
+        dispatch(putCategoryThenUpdateListShowProductForCategory('spirit', data))
+    }
     const HeaderArray = ["Category Image", "Category Name", "Show / Hide"]
     function OuterRows({ element }) {
 
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
+                    <div className='relative rounded-[10px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/noimagedrinkeditsquare.jpg'}
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
                             />
                         }
                         {element.itemImage &&
@@ -110,6 +116,8 @@ function SpiritTable() {
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
                             />
                         }
                     </div>
@@ -126,7 +134,10 @@ function SpiritTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={() => { }} />
+                        <SwitchComp showHideStatus={element.showHideStatus}
+                            onChangeHandler={(e) => {
+                                toggleSwitch(e, element.id)
+                            }} />
                     </div>
                 </td>
                 {/* <td >

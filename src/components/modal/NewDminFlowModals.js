@@ -557,12 +557,19 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                                     onChange={() => handleSelectUser(user)}
                                 />
                                 <div className='h-[54px] w-[64px] bg-gray-400 ml-[18px] rounded-full relative'>
-                                    <Image
-                                        src={'/asset/Byron.jpeg'}
-                                        width={64}
-                                        height={54}
-                                        className="text-[#A8A8A8] bg-[#2C2C2C] rounded-full"
-                                    />
+                                    {user.image ?
+                                        <Image src={user.image}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                        :
+                                        <Image src={'/asset/User avatar default.png'}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                    }
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
                                     <h5 className='not-italic font-semibold text-[18px] leading-7 font-Inter'>{user.full_name}</h5>
@@ -828,12 +835,19 @@ export function SelectedUsers({ isModalOpen, onClickCancel, list, deleteBtn, set
                                     onChange={() => handleSelectUser(user)}
                                 />
                                 <div className='h-[54px] w-[64px] bg-gray-400 ml-[18px] rounded-full relative'>
-                                    <Image
-                                        src={'/asset/Byron.jpeg'}
-                                        width={64}
-                                        height={54}
-                                        className="text-[#A8A8A8] bg-[#2C2C2C] rounded-full"
-                                    />
+                                    {user.image ?
+                                        <Image src={user.image}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                        :
+                                        <Image src={'/asset/User avatar default.png'}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                    }
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
                                     <h5 className='not-italic font-semibold text-[18px] leading-7 font-Inter'>{user.full_name}</h5>

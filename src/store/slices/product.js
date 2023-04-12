@@ -217,6 +217,21 @@ export const putProductByIdThenUpdateListShowProductForCategory = (type, data, p
     });
   };
 };
+export const putCategoryThenUpdateListShowProductForCategory = (type, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/drink_brand/show_drink_category_and_its_product`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      dispatch(getCategoryListByType(type))
+
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const createProduct = (productType, data) => {
   return async (dispatch) => {
 
@@ -267,7 +282,7 @@ export const createProductAndUpdatingListNew = (productType, data) => {
     });
   };
 };
-export const createProductAndUpdatingCAtegoryListNew = (productType, data , categoryId) => {
+export const createProductAndUpdatingCAtegoryListNew = (productType, data, categoryId) => {
   return async (dispatch) => {
 
     return await axiosInstance({
