@@ -73,6 +73,26 @@ export function TrendingCard({ image, title }) {
   );
 }
 
+export function TrendingCardDash({ image, title }) {
+  return (
+    <div className="image-container w-fit ">
+      <div className="h-[160px] lg:h-[188px]  w-full md:w-[300px] relative mb-2">
+        <Image
+          className="object-cover rounded-[5.48718px]"
+          src={image}
+          alt="slider-image"
+          fill
+        />
+      </div>
+      <div className="bg-transparent ">
+        <h2 className=" text-white text-[18px] leading-[27px] font-semibold bg-transparent">
+          {title}
+        </h2>
+      </div>
+    </div>
+  );
+}
+
 export function CoctailCard2({ image, title, isNew, sequence }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (

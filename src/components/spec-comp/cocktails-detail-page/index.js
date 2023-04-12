@@ -12,6 +12,10 @@ import { emptyProductList, getProductById } from "@/store/slices/product";
 import HeartLogo from "@/components/CustomHeart";
 import Breadcrumb from "@/components/Breadcrumb";
 import Notes from "../notesComp/notes";
+import { enUrl } from "@/utils/encoderfunc";
+import Link from "next/link";
+import VideoModal from "@/components/modal/videoModal";
+import ReactPlayer from "react-player";
 
 const CocktailDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -49,11 +53,13 @@ const CocktailDetailPage = ({ id }) => {
   };
   const { category, subcategory, productId } = useNavDetails()
   const [filledHeart, setfilledHeart] = useState(false)
+
+  const [openvideo, setopenvideo] = useState(false)
   return (
     <div className="detail-page-container">
 
       <div className="text-container ">
-        <Breadcrumb last={productDetails?.cocktail_name} />
+        <Breadcrumb />
       </div>
       <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
         <div
@@ -129,13 +135,29 @@ const CocktailDetailPage = ({ id }) => {
           </div>
         </div>
       }
+      <VideoModal isModalOpen={openvideo} onClickCancel={() => { setopenvideo(false) }}>
+
+        <div className="relative mt-6 w-full max-w-full h-  justify-center flex">
+          <ReactPlayer
+
+            className="rounded-lg h-[150px]"
+            url="https://www.youtube.com/watch?v=PRAXMALQQZw&ab_channel=beautifullplaces%26.." />
+        </div>
+
+
+      </VideoModal  >
       {productDetails?.methods?.values?.length > 0 &&
         <div className="method-container mb-[32px]">
           <div className="sub-heading-container flex justify-between items-center mb-[21px]">
             <h4 className="text-white text-[20px] leading-[32px] font-semibold">
               Method
             </h4>
-            <OrangeButtons label="Video" noPadding={true} />
+
+            <OrangeButtons label="Video" noPadding={true} onClickHandler={() => setopenvideo(true)} />
+
+
+
+
           </div>
           <div className="method-details-container">
             {productDetails?.methods?.values?.map((method, i) => {

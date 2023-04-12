@@ -77,7 +77,7 @@ import AdminHotelBrandDetail from "@/Admin/AdminBrands/AdminHotelBrandDetail";
 import BrandsList from "@/Admin/BrandsList";
 
 import UserProfile from "@/components/Userprofile";
-
+import NewUserDashboard from "@/components/spec-comp/newDash";
 
 
 
@@ -110,9 +110,11 @@ export default function Category() {
               <LayoutWithSidebar category={category} subcategory={subcategory}>
                 {path === "/specs" && <SpecComp />}
                 {path === "/specs/cocktail" && <Coctails />}
-                {path === `/specs/cocktail?id=${productId}` && (
+                {path === `/specs/cocktail/${enUrl(subcategory2)}?id=${productId}` && (
                   <CocktailDetailPage id={productId} />
                 )}
+
+
                 {path === "/specs/cocktail/cocktail_ingredients" && (
                   <Ingridients productType={"cocktail"} />
                 )}
@@ -161,7 +163,7 @@ export default function Category() {
 
                 {path === "/specs/bestselling" && <BestSellingCoctails />}
 
-                {path === "/dashboard" && <UserDashboard />}
+                {path === "/dashboard" && <NewUserDashboard />}
                 {path === "/brand" && <Brands />}
                 {path === "/brand/explore-brands" && <ExploreBrands />}
                 {path === `/brand/explore-brands?id=${productId}` && <HotelBrandDetail productId={productId} />}

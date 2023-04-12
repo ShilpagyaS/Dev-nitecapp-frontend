@@ -5,16 +5,16 @@ import { TrendingCard } from "@/utils/SpecCards";
 
 import TrendingMock from "../mock/TrendingMock.json";
 
-function Trending() {
+function Trending({ data }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const isPhone = useMediaQuery("(max-width: 414px)");
-  const TrendingData = TrendingMock.trendingCardsMock;
+
 
   return (
     <div className=" mt-5 w-full">
       <h3 className="text-white text-[20px] leading-8 mb-4">Trending</h3>
       <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true}>
-        {TrendingData?.map((slide, i) => {
+        {data?.map((slide, i) => {
           return (
             <SwiperSlide
               style={{
@@ -27,7 +27,7 @@ function Trending() {
             >
               <TrendingCard
                 title={slide.title}
-                image={"/asset/trendingImg1.png"}
+                image={slide.image}
                 isNew={false}
               />
             </SwiperSlide>
