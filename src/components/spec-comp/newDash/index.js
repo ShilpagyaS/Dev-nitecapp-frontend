@@ -41,7 +41,7 @@ function NewUserDashboard() {
             </div>
             <TrendingDash data={data1} title={"Specs"} isBig={false} />
 
-            <TrendingDash data={data2} title={"Specs"} isBig={true} />
+            <TrendingDash data={data2} title={"Outlets"} isBig={true} />
 
         </>
     )

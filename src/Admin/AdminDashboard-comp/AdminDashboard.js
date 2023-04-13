@@ -1,4 +1,5 @@
 import { NotificationModal } from '@/components/modal/NewDminFlowModals'
+import NewUserDashboard from '@/components/spec-comp/newDash'
 import { CustomButton } from '@/utils/Buttons'
 import FileUpdate from '@/utils/Cards/FileUpdate'
 import MethodCard from '@/utils/Cards/Text card/MethodCard'
@@ -20,7 +21,8 @@ function AdminDashboard() {
     return (
         <>
 
-            <Empty componentName={'Items'} />
+            {/* <Empty componentName={'Items'} /> */}
+            <NewUserDashboard />
 
         </>
     )

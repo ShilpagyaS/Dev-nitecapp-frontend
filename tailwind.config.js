@@ -16,8 +16,8 @@ module.exports = {
 
       colors: {
         primary: {
-          base: '#967126',
-          hoverbase: '#967126'
+          base: '#CBAF69',
+          hoverbase: '#CBAF69'
         }
       }
 
@@ -43,3 +43,5 @@ module.exports = {
 
 //orange:#F19B6C
 //grew header text color #959595
+// delphi     base: '#967126',
+// hoverbase: '#967126'
