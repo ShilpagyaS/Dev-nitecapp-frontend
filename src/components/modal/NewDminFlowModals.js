@@ -56,7 +56,10 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
         console.log(body);
         onSave(selectedItem.body).then((res) => {
             console.log(res);
-            res?.error ? errortoast({ message: res.message }) :
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                :
                 successtoast({ message: `Product added successfully` });
             if (!res?.error)
                 clearForm()
@@ -187,8 +190,10 @@ export function AddCategoryModal({ isModalOpen, onClickCancel, onSave, deleteBtn
 
         onSave(body).then((res) => {
             console.log(res);
-            res?.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `Product added successfully` });
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: `Product added successfully` });
             if (!res?.error)
                 clearForm()
             // onClickCancel();
@@ -307,7 +312,10 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         }
         console.log(body);
         onSave(body).then((res) => {
-            res?.error ? errortoast({ message: res.message }) :
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                :
                 successtoast({ message: `Brand added successfully` });
             if (!res?.error)
                 clearForm()
@@ -648,8 +656,10 @@ export function AddMessageTitle({ isModalOpen, onClickCancel, onSave, id, closeM
         }
         console.log(body);
         onSave(body).then((res) => {
-            res?.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `Notification Sent` });
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: `Notification Sent` });
             if (!res?.error) {
 
                 onClickCancel();
@@ -962,8 +972,10 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
             }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
-            res?.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `User added successfully` });
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: `User added successfully` });
             if (!res?.error)
                 onClickCancel();
         })
@@ -1212,8 +1224,10 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
             }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
-            res?.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `User Edited successfully` });
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: `User Edited successfully` });
             if (!res?.error)
                 onClickCancel()
         })

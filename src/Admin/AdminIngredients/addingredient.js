@@ -89,8 +89,10 @@ function AddIngredients({ subcategory }) {
                 if (imageurl && !imageurl?.error)
                     dispatch(createMasterIngredient({ ...data, image: imageurl })).then((res) => {
                         console.log(res);
-                        res?.error ? errortoast({ message: res.message }) :
-                            successtoast({ message: `${ingredientName} is created successfully` });
+                        res?.error ?
+                            // errortoast({ message: res.message }) 
+                            ''
+                            : successtoast({ message: `${ingredientName} is created successfully` });
                         if (!res?.error)
                             clearForm()
                     })
@@ -100,8 +102,10 @@ function AddIngredients({ subcategory }) {
         else
             dispatch(createMasterIngredient(data)).then((res) => {
                 console.log(res);
-                res?.error ? errortoast({ message: res.message }) :
-                    successtoast({ message: `${ingredientName} is created successfully` });
+                res?.error ?
+                    // errortoast({ message: res.message }) 
+                    ''
+                    : successtoast({ message: `${ingredientName} is created successfully` });
                 if (!res?.error)
                     clearForm()
             })
@@ -156,7 +160,7 @@ function AddIngredients({ subcategory }) {
 
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
                     <div className="imageContainer text-[#959595] flex flex-col justify-center items-center">
-                    <IngredientFileUpload setimage={setimage} isClear={isSAve} isEdit={true} />
+                        <IngredientFileUpload setimage={setimage} isClear={isSAve} isEdit={true} />
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">

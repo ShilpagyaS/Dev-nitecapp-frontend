@@ -221,8 +221,8 @@ export const putCategoryThenUpdateListShowProductForCategory = (type, data) => {
   return async (dispatch, getState) => {
     const state = getState();
     return axiosInstance({
-      url: `/api/drink_brand/show_drink_category_and_its_product`,
-      method: "PUT",
+      url: `/api/drink_category/show_drink_category_and_its_product`,
+      method: "POST",
       data
     }).then((res) => {
       dispatch(getCategoryListByType(type))

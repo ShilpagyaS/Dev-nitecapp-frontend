@@ -253,8 +253,10 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
               }
             )).then((res) => {
               console.log(res);
-              res?.error ? errortoast({ message: res.message }) :
-                successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+              res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
             })
           else console.log("cannot upload")
         })
@@ -276,8 +278,10 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
           }
         )).then((res) => {
           console.log(res);
-          res?.error ? errortoast({ message: res.message }) :
-            successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+          res?.error ?
+            // errortoast({ message: res.message }) 
+            ''
+            : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
         })
       console.log(nameref.current.innerText);
       toggleEdit()

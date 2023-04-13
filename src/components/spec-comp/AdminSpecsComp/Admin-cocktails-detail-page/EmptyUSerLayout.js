@@ -174,8 +174,10 @@ function EmptyUSerLayout() {
                 if (imageurl && !imageurl?.error)
                     dispatch(createProduct(subcategory, { ...data, image: imageurl })).then((res) => {
                         console.log(res);
-                        res?.error ? errortoast({ message: res.message }) :
-                            successtoast({ message: `${drinkName} is created successfully` });
+                        res?.error ?
+                            // errortoast({ message: res.message }) 
+                            ''
+                            : successtoast({ message: `${drinkName} is created successfully` });
                         if (!res?.error)
                             clearForm()
                     })
@@ -184,8 +186,10 @@ function EmptyUSerLayout() {
         }
         else
             dispatch(createProduct(subcategory, data)).then((res) => {
-                res?.error ? errortoast({ message: res.message }) :
-                    successtoast({ message: `${drinkName} is created successfully` });
+                res?.error ?
+                    // errortoast({ message: res.message }) 
+                    ''
+                    : successtoast({ message: `${drinkName} is created successfully` });
                 if (!res?.error)
                     clearForm()
             })
