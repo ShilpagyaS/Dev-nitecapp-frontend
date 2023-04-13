@@ -139,6 +139,7 @@ const CocktailDetailPage = ({ id }) => {
 
         <div className="relative mt-6 w-full max-w-full h-  justify-center flex">
           <ReactPlayer
+            controls
 
             className="rounded-lg h-[150px]"
             url="https://www.youtube.com/watch?v=PRAXMALQQZw&ab_channel=beautifullplaces%26.." />
