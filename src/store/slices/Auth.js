@@ -124,12 +124,12 @@ export const getLogo = () => {
   console.log(domainname);
   return async (dispatch) => {
     await axiosAuthInstance({
-      url: `/api/brand/brand_logo/${domainname || ''}`,
+      url: `/api/brand/brand_logo/${'testing'}`,
       method: "GET",
     })
       .then((res) => {
-        dispatch(authSlice.actions.updateLogo(res.data.logo));
-
+        dispatch(authSlice.actions.updateLogo(res?.data?.data?.logo));
+        console.log(res);
       })
       .catch((err) => {
       });
