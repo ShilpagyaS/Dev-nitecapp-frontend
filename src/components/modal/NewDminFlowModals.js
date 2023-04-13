@@ -1,6 +1,7 @@
-import { getAllusers, getRoles } from '@/store/slices/manageusers';
+import { getAllusers, getRoles, sendEmail } from '@/store/slices/manageusers';
 import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
+import NotificationCard from '@/utils/Cards/NotificationCard';
 import { _INITIAL } from '@/utils/Constants';
 import CustomSelect, { CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
 import SelectWithDebounce from '@/utils/DebounceSelect';
@@ -55,9 +56,9 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
         console.log(body);
         onSave(selectedItem.body).then((res) => {
             console.log(res);
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `Product added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 clearForm()
             // onClickCancel();
         })
@@ -186,9 +187,9 @@ export function AddCategoryModal({ isModalOpen, onClickCancel, onSave, deleteBtn
 
         onSave(body).then((res) => {
             console.log(res);
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `Product added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 clearForm()
             // onClickCancel();
         })
@@ -306,9 +307,9 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         }
         console.log(body);
         onSave(body).then((res) => {
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `Brand added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 clearForm()
             // onClickCancel();
         })
@@ -394,7 +395,7 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
         </Modal>
     )
 }
-export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteBtn, title, desc, type, label }) {
+export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, roles }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -420,7 +421,7 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
     const [users, setUsers] = useState([]);
     const [list, SetList] = useState()
     const { allUsers } = useSelector((state) => state.manageusers)
-
+    const [selectOption, setoptions] = useState()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -433,7 +434,7 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
             setUsers(allUsers)
         console.log(list);
     }, [allUsers])
-
+    console.log(roles);
     // const [users, setUsers] = useState([
     //     { id: 1, name: 'John Luis' },
     //     { id: 2, name: 'John Luis' },
@@ -445,6 +446,9 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
     // ]);
 
     const [selectedUsers, setSelectedUsers] = useState([]);
+    function setlocal(value) {
+        setSelectedUsers(value)
+    }
 
     const handleSelectUser = (user) => {
         if (selectedUsers.includes(user)) {
@@ -476,7 +480,319 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
         // })
         setEdit(true)
         console.log(selectedUsers);
-        clearForm()
+        // onClickCancel();
+
+    };
+    function clearForm() {
+        SetClear(true)
+        setSelectedUsers([])
+        setTimeout(() => {
+            SetClear(false)
+        }, 500);
+    }
+    function chooseOption(e) {
+        if (e.value == 0) {
+            setUsers(allUsers)
+        }
+        else {
+            let dummy = allUsers.filter((element) => e.value == parseInt(element.role))
+            console.log(dummy);
+            setUsers(dummy)
+        }
+    }
+    return (
+        <>{EditModal &&
+            <AddMessageTitle
+                isModalOpen={EditModal}
+                onClickCancel={() => { setEdit(false) }}
+                onSave={(data) => {
+
+                    // return dispatch(createProductAndUpdatingList('beer', data))
+                    return dispatch(sendEmail(data))
+                }}
+                closeMain={() => { onClickCancel(); clearForm() }}
+                setLocal={setlocal}
+                list={selectedUsers}
+            />
+        }
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none flex items-center justify-center">
+                    <h4 className="text-[24px] leading-9 font-semibold font-Prata mb-4">{`Select Users`}</h4>
+                </div>
+
+                <div className='notificationModal h-[250px] mb-[10px]'>
+
+                    <div className='flex items-center justify-between pr-[10px]'>
+                        <label className='text-white m-[5px] flex items-center'>
+                            <input
+                                type="checkbox"
+                                checked={selectedUsers.length === users.length}
+                                onChange={handleSelectAllUsers}
+                            />
+                            <p className='ml-[18px] not-italic font-semibold text-[14px] text-[#8E8E8E] leading-7'>
+
+                                Select All
+                            </p>
+                        </label>
+                        <div className='w-[200px]'>
+
+                            <CustomSelect items={[{ value: 0, label: 'All' }, ...roles]}
+                                optionalFunction={(e) => { console.log(e); chooseOption(e); setoptions(e.value) }}
+                            />
+                        </div>
+
+                    </div>
+                    {users.map((user) => (
+                        <div key={user.id}
+                        >
+                            <label className='text-white flex items-center cursor-pointer m-[5px]'>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedUsers.includes(user)}
+                                    onChange={() => handleSelectUser(user)}
+                                />
+                                <div className='h-[54px] w-[64px] bg-gray-400 ml-[18px] rounded-full relative'>
+                                    {user.image ?
+                                        <Image src={user.image}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                        :
+                                        <Image src={'/asset/User avatar default.png'}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                    }
+                                </div>
+                                <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
+                                    <h5 className='not-italic font-semibold text-[18px] leading-7 font-Inter'>{user.full_name}</h5>
+                                    <p className='not-italic font-semibold text-[14px] text-[#8E8E8E] leading-7'>{user.email}</p>
+                                </div>
+                            </label>
+                            <div className='w-full flex justify-center'>
+                                <div className='bg-[#393636] w-[95%] h-[0.5px]'></div>
+                            </div>
+                        </div>
+                    ))}
+
+
+
+                </div>
+                <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Next'} condition={selectedUsers.length > 0} onClickHandler={handleSave} />
+                    </div>
+
+                </div>
+
+            </Modal>
+        </>
+    )
+}
+export function AddMessageTitle({ isModalOpen, onClickCancel, onSave, id, closeMain, list, setLocal }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [isfocused, setisFocused] = useState(false);
+    const [EditModal, setEdit] = useState(false)
+    const constantlist = list;
+    const [selectedUsers, setSelectedUsers] = useState(list);
+    const handleCancel = () => {
+        console.log('text cancel');
+        setLocal(selectedUsers)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    function settinglocal(value) {
+        console.log(value);
+        setSelectedUsers(value)
+        setEdit(false)
+    }
+    const handleSave = () => {
+        console.log(selectedUsers);
+        let dummyArray = selectedUsers.map((e) => { return { email: e.email } })
+
+        let body
+        body = {
+            title: input1,
+            message: input2,
+            userList: dummyArray,
+        }
+        console.log(body);
+        onSave(body).then((res) => {
+            res?.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `Notification Sent` });
+            if (!res?.error) {
+
+                onClickCancel();
+                closeMain()
+                setinput1("");
+                setinput2("");
+            }
+        })
+
+    };
+    return (
+        <>{
+
+            EditModal &&
+            <SelectedUsers
+                isModalOpen={EditModal}
+                onClickCancel={() => { setEdit(false) }}
+                title={'Selected Users'}
+                onSave={() => { }}
+                setLocal={(e) => { settinglocal(e) }}
+                list={selectedUsers}
+
+            />
+        }
+
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                    <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Notification`}</h4>
+                </div>
+                <div className='max-h-[456px]' >
+                    {/* <NotificationCard /> */}
+                    <div className='flex items-center justify-end w-full cursor-pointer' onClick={() => { setEdit(true) }}>
+                        <p className='italic font-semibold bg-transparent text-left text-[13px] text-primary-base '>You have added {selectedUsers?.length} users for notification click here to see all</p>
+
+                    </div>
+                    <InputFieldWirhAutoWidth
+                        placeholder=""
+                        label="Title"
+                        onChangeHandler={(e) => { setinput1(e.target.value) }}
+                        value={input1}
+                        name={"title"}
+                        type={"text"}
+                        errorResponnse={_INITIAL}
+                    />
+                    <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
+
+                                }`}
+                        >
+                            Message
+                        </h5>
+
+                        <textarea className={`notificationModal h-[200px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
+                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
+                     appearance-none`}
+                            value={input2}
+                            onChange={(e) => { setinput2(e.target.value) }} style={{ resize: 'none' }}
+                            onFocus={(e) => {
+                                setisFocused(true);
+                            }}
+                            onBlur={(e) => {
+                                setisFocused(false);
+                            }}
+                        />
+                    </div>
+                    <div className='btncontainers flex items-center justify-between mt-[20px] '>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <div className='ml-[24px]'>
+                            <ConditionalButton label={'Send'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+                        </div>
+
+                    </div>
+                </div>
+            </Modal>
+        </>
+    )
+}
+export function SelectedUsers({ isModalOpen, onClickCancel, list, deleteBtn, setLocal, desc, type, label }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            paddingRight: "10px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [isClear, SetClear] = useState(false)
+    const [EditModal, setEdit] = useState(false)
+    // const [list, SetList] = useState()
+    const [users, setUsers] = useState(list);
+    const [selectedUsers, setSelectedUsers] = useState(list);
+    const handleSelectUser = (user) => {
+        if (selectedUsers.includes(user)) {
+            setSelectedUsers(selectedUsers.filter((u) => u !== user));
+        } else {
+            setSelectedUsers([...selectedUsers, user]);
+        }
+    };
+    console.log('enteres');
+    const handleSelectAllUsers = () => {
+        if (selectedUsers.length === users.length) {
+            setSelectedUsers([]);
+        } else {
+            setSelectedUsers(users);
+        }
+    };
+
+    const handleCancel = () => {
+        console.log('clicking cancel');
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        // onSave(selectedItem.body).then(() => {
+
+        //     // onClickCancel();
+        // })
+        setEdit(true)
+        setLocal(selectedUsers)
+        console.log(selectedUsers);
 
     };
     function clearForm() {
@@ -494,6 +810,7 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
                 onClickCancel={() => { setEdit(false) }}
                 onSave={() => { }}
                 closeMain={() => { onClickCancel() }}
+                list={selectedUsers}
             />
         }
             <Modal
@@ -503,24 +820,11 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
                 style={customStyles}
             >
                 <div className="text-white border-none outline-none flex items-center justify-center">
-                    <h4 className="text-[24px] leading-9 font-semibold font-Prata mb-4">{`Select Users`}</h4>
+                    <h4 className="text-[24px] leading-9 font-semibold font-Prata mb-4">{`View All`}</h4>
                 </div>
 
-                <div className='notificationModal h-[250px] mb-[10px]'>
+                <div className='notificationModal max-h-[456px] mb-[10px]'>
 
-                    <div>
-                        <label className='text-white m-[5px] flex items-center'>
-                            <input
-                                type="checkbox"
-                                checked={selectedUsers.length === users.length}
-                                onChange={handleSelectAllUsers}
-                            />
-                            <p className='ml-[18px] not-italic font-semibold text-[14px] text-[#8E8E8E] leading-7'>
-
-                                Select All
-                            </p>
-                        </label>
-                    </div>
                     {users.map((user) => (
                         <div key={user.id}
                         >
@@ -531,12 +835,19 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
                                     onChange={() => handleSelectUser(user)}
                                 />
                                 <div className='h-[54px] w-[64px] bg-gray-400 ml-[18px] rounded-full relative'>
-                                    <Image
-                                        src={'/asset/Byron.jpeg'}
-                                        width={64}
-                                        height={54}
-                                        className="text-[#A8A8A8] bg-[#2C2C2C] rounded-full"
-                                    />
+                                    {user.image ?
+                                        <Image src={user.image}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                        :
+                                        <Image src={'/asset/User avatar default.png'}
+                                            alt="image"
+                                            className='rounded-full'
+                                            fill
+                                            style={{ objectFit: 'cover' }} />
+                                    }
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
                                     <h5 className='not-italic font-semibold text-[18px] leading-7 font-Inter'>{user.full_name}</h5>
@@ -562,102 +873,6 @@ export function NotificationModal({ isModalOpen, onClickCancel,  onSave, deleteB
 
             </Modal>
         </>
-    )
-}
-export function AddMessageTitle({ isModalOpen, onClickCancel, onSave, id, closeMain }) {
-    const customStyles = {
-        content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "8px",
-            border: "none",
-            background: "black",
-            padding: "24px",
-            maxWidth: "480px",
-            width: "90%",
-        },
-        overlay: {
-            background: "rgba(255, 255, 255, 0.1)",
-            backdropFilter: "blur(2.5px)",
-        },
-    };
-    const [input1, setinput1] = useState("")
-    const [input2, setinput2] = useState("")
-    const [isfocused, setisFocused] = useState(false);
-
-    const handleCancel = () => {
-        onClickCancel();
-        setinput1("");
-        setinput2("");
-
-    };
-
-    const handleSave = () => {
-
-        onSave(input1, input2, id)
-        onClickCancel();
-        closeMain()
-        setinput1("");
-        setinput2("");
-
-    };
-
-    return (
-        <Modal
-            isOpen={isModalOpen}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-            style={customStyles}
-        >
-            <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Notification`}</h4>
-            </div>
-            <div className='max-h-[456px]' >
-                <InputFieldWirhAutoWidth
-                    placeholder=""
-                    label="Title"
-                    onChangeHandler={(e) => { setinput1(e.target.value) }}
-                    value={input1}
-                    name={"title"}
-                    type={"text"}
-                    errorResponnse={_INITIAL}
-                />
-                <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
-                            ? "text-[#959595]"
-                            : "text-white"
-
-                            }`}
-                    >
-                        Message
-                    </h5>
-
-                    <textarea className={`notificationModal h-[200px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
-                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
-                     appearance-none`}
-                        value={input2}
-                        onChange={(e) => { setinput2(e.target.value) }} style={{ resize: 'none' }}
-                        onFocus={(e) => {
-                            setisFocused(true);
-                        }}
-                        onBlur={(e) => {
-                            setisFocused(false);
-                        }}
-                    />
-                </div>
-                <div className='btncontainers flex items-center justify-between mt-[20px] '>
-                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
-                    <div className='ml-[24px]'>
-                        <ConditionalButton label={'Send'} condition={input1 != "" ? true : false} onClickHandler={handleSave} />
-                    </div>
-
-                </div>
-            </div>
-        </Modal>
     )
 }
 export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type }) {
@@ -747,9 +962,9 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
             }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
-            res.error ? errortoast({ message: res.message }) :
+            res?.error ? errortoast({ message: res.message }) :
                 successtoast({ message: `User added successfully` });
-            if (!res.error)
+            if (!res?.error)
                 onClickCancel();
         })
         setinput1("");
@@ -794,6 +1009,8 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 <InputFieldWirhAutoWidth
                     placeholder=""
@@ -844,7 +1061,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                {parseInt(brandForm.role) > 4 &&
+                {parseInt(brandForm.role) >= 5 &&
                     <>
                         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                             <h5
@@ -885,11 +1102,11 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     <div className='ml-[24px]'>
                         <ConditionalButton label={'Add'}
                             condition={(
-                                // brandForm.displayname != ""  &&
+                                brandForm.displayname != "" &&
                                 brandForm.password != "" &&
                                 brandForm.role != "" && (
 
-                                    brandForm.role > 4 ? brandForm.outlet != "" : true
+                                    brandForm.role >= 5 ? brandForm.outlet != "" : true
                                 ) &&
                                 brandForm.email != "") ? true : false
                             } onClickHandler={handleSave} />
@@ -994,12 +1211,12 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                 role: brandForm.role,
             }
         console.log(dummydata);
-        // onSave(dummydata).then((res) => {
-        //     res.error ? errortoast({ message: res.message }) :
-        //         successtoast({ message: `User Edited successfully` });
-        //     if (!res.error)
-        //         onClickCancel()
-        // })
+        onSave(dummydata).then((res) => {
+            res?.error ? errortoast({ message: res.message }) :
+                successtoast({ message: `User Edited successfully` });
+            if (!res?.error)
+                onClickCancel()
+        })
         setinput1("");
         setinput2("");
 
@@ -1036,6 +1253,8 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"displayname"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 {/* <InputFieldWirhAutoWidth
                     placeholder=""
@@ -1054,6 +1273,8 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"phone"}
                     type={"text"}
                     errorResponnse={_INITIAL}
+                    required={true}
+
                 />
                 <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
@@ -1061,7 +1282,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
              text-[#959595]`}
                     // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                     >
-                        Role
+                        Role<sup>*</sup>
                     </h5>
                 </div>
                 <div className='mb-[8px]'>
@@ -1083,7 +1304,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                {brandForm.role > 4 &&
+                {brandForm.role >= 5 &&
                     <>
                         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                             <h5
@@ -1091,33 +1312,36 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                         text-[#959595]`}
                             // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                             >
-                                Outlet
+                                Outlet<sup>*</sup>
                             </h5>
                         </div>
-                        {brandForm.outlet &&
-                            <div className='mb-[8px]'>
 
+                        <div className='mb-[8px]'>
+                            {console.log('outlet')}
+
+                            <CustomSelectWithAllBlackTheme
+                                items={outletsList}
+                                defaultSelect={data.outlet_id ? { value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id } : null}
+                                optionalFunction={(e) => {
+                                    console.log(e);
+                                    setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                }} />
+                        </div>
+
+                        {/* {!data.outlet_id &&
+                            <div className='mb-[8px]'>
+                                {console.log('nooutlet')}
                                 <CustomSelectWithAllBlackTheme
                                     items={outletsList}
-                                    defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
                                     optionalFunction={(e) => {
                                         console.log(e);
-                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
+                                        console.log('selecting ');
+                                        setBrandForm(prev => {
+                                            return { ...prev, outlet: e.value, hotel: e.hotel_id }
+                                        })
                                     }} />
                             </div>
-                        }
-                        {!brandForm.outlet &&
-                            <div className='mb-[8px]'>
-
-                                <CustomSelectWithAllBlackTheme
-                                    items={outletsList}
-                                    // defaultSelect={{ value: data?.outlet_id, label: data?.outlet_name, hotel_id: data?.hotel_id }}
-                                    optionalFunction={(e) => {
-                                        console.log(e);
-                                        setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
-                                    }} />
-                            </div>
-                        }
+                        } */}
                     </>
                 }
                 {/* <InputFieldWirhAutoWidth
@@ -1135,7 +1359,16 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                 <div className='btncontainers flex items-center justify-between mt-[20px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Edit'}
+                            condition={(
+                                brandForm.displayname != "" &&
+                                brandForm.password != "" &&
+                                brandForm.role != "" && (
+
+                                    brandForm.role >= 5 ? brandForm.outlet != "" : true
+                                ) &&
+                                brandForm.email != "") ? true : false
+                            } onClickHandler={handleSave} />
                     </div>
 
                 </div>
@@ -1149,6 +1382,77 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                 <input value={input2} onChange={(e) => { setinput2(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
 
+
+        </Modal>
+    )
+}
+export function DeleteUserorAdmin({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave()
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
+            </div>
+            <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                    {`Deleting this will permanantly remove all the data of the User .Do You Want To Delete ${title} ?"`}
+                </h3>
+
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
 
         </Modal>
     )

@@ -1,4 +1,5 @@
 import axiosInstance from "@/components/Auth/axios";
+import { errortoast, successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -65,7 +66,7 @@ export const getAllUsersandAdmins = () => {
         }).catch((err) => {
             console.log(err)
         });
-    }; 
+    };
 };
 export const getAllusers = () => {
     return async (dispatch, getState) => {
@@ -76,7 +77,7 @@ export const getAllusers = () => {
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
-         
+
             dispatch(
                 manageUsersSlice.actions.getAllUserList({
                     data: res?.data?.data
@@ -126,6 +127,21 @@ export const createUserAndUpdateList = (data) => {
         });
     };
 };
+export const sendEmail = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/user-auth/send_mail_to_multiple_admin`,
+            method: "POST",
+            data
+        }).then((res) => {
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const putUserandUpdatetheList = (data) => {
     return async (dispatch) => {
 
@@ -135,12 +151,27 @@ export const putUserandUpdatetheList = (data) => {
             data
         }).then((res) => {
             // dispatch(getAllusers())
-            debugger
             dispatch(getAllUsersandAdmins())
             return res
         }).catch((err) => {
             console.log(err)
             return { error: true, message: err }
+        });
+    };
+};
+export const deleteUser = (id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/user-auth/delete_account/${id}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getAllUsersandAdmins())
+            successtoast({ message: 'User Deleted' })
+            return res
+        }).catch((err) => {
+            errortoast({ message: err })
         });
     };
 };

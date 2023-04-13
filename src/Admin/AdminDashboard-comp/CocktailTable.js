@@ -36,7 +36,7 @@ function CocktailTable() {
                     itemImage: element.image,
                     itemName: element.cocktail_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -52,22 +52,33 @@ function CocktailTable() {
         let data = { type: 'cocktail', id: element.id, showProduct: e }
         dispatch(putProductByIdThenUpdateListShowProduct(data))
     }
-    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
                     <div className='flex flex-row items-center 
-                    justify-center p-1 bg-[#0C0C0C] border relative
+                    justify-center p-1 bg-[#0C0C0C] border relative rounded-[10px]
                      border-[#3C3C3C] md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            className='object-cover'
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
 
-                        />
+                            />
+                        }
                     </div>
                 </td>
                 <td className='min-w-[150px]'>
@@ -90,7 +101,7 @@ function CocktailTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-                            {element.popularity}
+                            {element.outlet}
                         </p>
                     </div>
                 </td>

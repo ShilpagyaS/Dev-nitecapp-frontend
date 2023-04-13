@@ -42,3 +42,4 @@ module.exports = {
 
 
 //orange:#F19B6C
+//grew header text color #959595

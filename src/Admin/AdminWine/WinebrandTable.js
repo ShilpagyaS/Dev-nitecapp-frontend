@@ -38,7 +38,7 @@ function WinebrandTable({ productId, subcategory }) {
                     itemImage: element.image,
                     itemName: element.wine_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -54,18 +54,32 @@ function WinebrandTable({ productId, subcategory }) {
         dispatch(putProductByIdThenUpdateListShowProductForCategory('wine', data, productId))
     }
 
-    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='relative h-[106px] w-[106px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
+                    <div className='relative rounded-[10px] h-[106px] w-[106px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            style={{ objectFit: 'contain' }} />
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
+                            />
+                        }
                     </div>
                 </td>
                 <td >
@@ -89,7 +103,7 @@ function WinebrandTable({ productId, subcategory }) {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-                            {element.popularity}
+                            {element.outlet}
                         </p>
                     </div>
                 </td>
@@ -139,7 +153,7 @@ function WinebrandTable({ productId, subcategory }) {
                         let body = {}
                         body = { ...data, category_id: productId, }
                         // return dispatch(createProductAndUpdatingList('wine', body))
-                        return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body ,productId))
+                        return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body, productId))
                     }}
                 />
             }

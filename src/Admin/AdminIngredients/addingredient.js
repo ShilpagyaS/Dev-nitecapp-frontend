@@ -89,9 +89,9 @@ function AddIngredients({ subcategory }) {
                 if (imageurl && !imageurl?.error)
                     dispatch(createMasterIngredient({ ...data, image: imageurl })).then((res) => {
                         console.log(res);
-                        res.error ? errortoast({ message: res.message }) :
+                        res?.error ? errortoast({ message: res.message }) :
                             successtoast({ message: `${ingredientName} is created successfully` });
-                        if (!res.error)
+                        if (!res?.error)
                             clearForm()
                     })
                 else console.log("cannot upload")
@@ -100,9 +100,9 @@ function AddIngredients({ subcategory }) {
         else
             dispatch(createMasterIngredient(data)).then((res) => {
                 console.log(res);
-                res.error ? errortoast({ message: res.message }) :
+                res?.error ? errortoast({ message: res.message }) :
                     successtoast({ message: `${ingredientName} is created successfully` });
-                if (!res.error)
+                if (!res?.error)
                     clearForm()
             })
 

@@ -183,7 +183,7 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                             }
                         )).then((res) => {
                             console.log(res);
-                            res.error ? errortoast({ message: res.message }) :
+                            res?.error ? errortoast({ message: res.message }) :
                                 successtoast({ message: `${nameref.current.innerText} is updated successfully` });
                         })
                     else console.log("cannot upload")
@@ -197,7 +197,7 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                     }
                 )).then((res) => {
                     console.log(res);
-                    res.error ? errortoast({ message: res.message }) :
+                    res?.error ? errortoast({ message: res.message }) :
                         successtoast({ message: `${nameref.current.innerText} is updated successfully` });
 
                 })

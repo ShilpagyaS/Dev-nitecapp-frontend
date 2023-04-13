@@ -1,6 +1,6 @@
 import { NotificationModal } from '@/components/modal/NewDminFlowModals'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
-import { getAllusers } from '@/store/slices/manageusers'
+import { getAllusers, getRoles } from '@/store/slices/manageusers'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ManageUserTable from './ManageUserTable'
@@ -9,13 +9,13 @@ function ManageUsers() {
   const [AddModal, setAddModal] = useState(false)
   // const { allUsers } = useSelector((state) => state.manageusers)
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const [roles, setroles] = useState([])
+  useEffect(() => {
 
-  // useEffect(() => {
+    dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setroles(d) })
 
-  //   dispatch(getAllusers())
-
-  // }, [])
+  }, [])
 
   return (<>
     {AddModal &&
@@ -23,6 +23,7 @@ function ManageUsers() {
         isModalOpen={AddModal}
         onClickCancel={() => { setAddModal(false) }}
         title={'Notification'}
+        roles={roles}
         // list={allUsers}
         onSave={(data) => {
 

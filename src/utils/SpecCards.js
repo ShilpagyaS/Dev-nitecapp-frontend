@@ -128,14 +128,27 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
         className={`relative image-container mr-[16px] ${circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px] rounded-lg"
           }`}
       >
-        <Image
-          src={image}
-          className={`${circularImg ? " rounded-full " : "rounded-lg"}`}
-          fill
-          alt={title}
-          priority
-          style={{ objectFit: "cover" }}
-        />
+        {image &&
+          <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+            alt={title}
+            fill
+            priority
+            style={{ objectFit: 'contain' }}
+            className={`${circularImg ? " rounded-full " : "rounded-lg"}`}
+
+          />
+        }
+        {image &&
+          <Image
+            src={image}
+            className={`${circularImg ? " rounded-full " : "rounded-lg"}`}
+            fill
+            alt={title}
+            priority
+            style={{ objectFit: "cover" }}
+          />
+        }
+
       </div>
       <div className="text-container">
         <h2 className="text-white text-[18px] leading-[24px] mb-2 font-semibold">

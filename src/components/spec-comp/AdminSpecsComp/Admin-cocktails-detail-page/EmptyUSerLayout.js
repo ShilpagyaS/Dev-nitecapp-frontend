@@ -174,9 +174,9 @@ function EmptyUSerLayout() {
                 if (imageurl && !imageurl?.error)
                     dispatch(createProduct(subcategory, { ...data, image: imageurl })).then((res) => {
                         console.log(res);
-                        res.error ? errortoast({ message: res.message }) :
+                        res?.error ? errortoast({ message: res.message }) :
                             successtoast({ message: `${drinkName} is created successfully` });
-                        if (!res.error)
+                        if (!res?.error)
                             clearForm()
                     })
                 else console.log("cannot upload")
@@ -184,9 +184,9 @@ function EmptyUSerLayout() {
         }
         else
             dispatch(createProduct(subcategory, data)).then((res) => {
-                res.error ? errortoast({ message: res.message }) :
+                res?.error ? errortoast({ message: res.message }) :
                     successtoast({ message: `${drinkName} is created successfully` });
-                if (!res.error)
+                if (!res?.error)
                     clearForm()
             })
 

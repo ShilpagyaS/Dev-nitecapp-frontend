@@ -38,7 +38,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     itemImage: element.image,
                     itemName: element.spirit_name,
                     showHideStatus: element.showProduct,
-                    popularity: 'New',
+                    outlet: element.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -54,19 +54,33 @@ function SpiritBrandTable({ productId, subcategory }) {
         dispatch(putProductByIdThenUpdateListShowProductForCategory('spirit', data, productId))
     }
 
-    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Popularity", "Edit / Delete"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
+                    <div className='relative rounded-[10px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            style={{ objectFit: 'contain' }}
-                        />
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
+                                
+                            />
+                        }
                     </div>
                 </td>
                 <td >
@@ -90,7 +104,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
-                            {element.popularity}
+                            {element?.outlet}
                         </p>
                     </div>
                 </td>
@@ -141,7 +155,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                         let body = {}
                         body = { ...data, category_id: productId, }
                         // return dispatch(createProductAndUpdatingList('spirit', body))
-                        return dispatch(createProductAndUpdatingCAtegoryListNew('spirit', body ,productId))
+                        return dispatch(createProductAndUpdatingCAtegoryListNew('spirit', body, productId))
 
                     }}
                 />

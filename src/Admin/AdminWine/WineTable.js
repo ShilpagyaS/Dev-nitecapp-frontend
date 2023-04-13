@@ -1,6 +1,6 @@
 import { AddCategory, EditCategory } from '@/components/modal/adminmodal';
 import { AddCategoryModal } from '@/components/modal/NewDminFlowModals';
-import { createCategory, createCategoryAndUpdatingList, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory } from '@/store/slices/product';
+import { createCategory, createCategoryAndUpdatingList, emptyProductList, getCategoryList, getCategoryListByType, getProduct, putCategory, putCategoryThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -47,20 +47,37 @@ function WineTable() {
         setList([...dummy])
 
     }, [categoryList])
-
-    const HeaderArray = ["Category Image", "Category Name", "Show / Hide", "Action"]
+    function toggleSwitch(e, id) {
+        let data = { type: 'wine', category_id: id, showProduct: e }
+        dispatch(putCategoryThenUpdateListShowProductForCategory('wine', data))
+    }
+    const HeaderArray = ["Category Image", "Category Name", "Show / Hide"]
     function OuterRows({ element }) {
 
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='relative flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
+                    <div className='relative rounded-[10px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
-                        <Image src={element.itemImage}
-                            alt="image"
-                            fill
-                            style={{ objectFit: 'contain' }}
-                        />
+                        {!element.itemImage &&
+                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
+                                
+                            />
+                        }
+                        {element.itemImage &&
+                            <Image src={element.itemImage}
+                                alt="image"
+                                fill
+                                style={{ objectFit: 'contain' }}
+                                className="rounded-[10px]"
+
+                            />
+                        }
                     </div>
                 </td>
                 <td >
@@ -76,24 +93,26 @@ function WineTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={() => { }} />
+                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                            toggleSwitch(e,element.id)
+                         }} />
                     </div>
                 </td>
-                <td >
+                {/* <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        {/* <EditCircularButton onClickHandler={() => {
+                       <EditCircularButton onClickHandler={() => {
                             // router.push(`/specs/wine/${element.itemName}?id=${element.id}`);
                             setGlobal({ ...element.data })
                             setEdit(true)
                         }}
-                        /> */}
+                        /> 
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton />
                         </div>
                     </div>
-                </td>
+                </td> */}
             </>
         )
     }
