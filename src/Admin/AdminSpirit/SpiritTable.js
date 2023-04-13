@@ -35,7 +35,7 @@ function SpiritTable() {
                     id: element.category_id,
                     itemImage: element.image,
                     itemName: element.drink_category_name,
-                    showHideStatus: element.isActive,
+                    showHideStatus: element.showProduct,
                     data: element,
                     createdDate: element.createdAt,
 

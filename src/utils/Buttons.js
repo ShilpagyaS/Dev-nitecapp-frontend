@@ -28,7 +28,7 @@ export function CustomButton({
   return (
     <button
       className={` h-fit p-3
-     ${background ? `py-[8px] px-[32px] bg-[${background}]` : `bg-transparent`}
+     ${background ? `py-[8px] px-[32px] bg-primary-base` : `bg-transparent`}
       h-[54px] rounded-[10px] ${hover && `hover:bg-primary-hoverbase`
         } hover:text-white 
       ${`text-[${color || "black"}]`}

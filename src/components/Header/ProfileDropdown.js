@@ -35,7 +35,7 @@ export default function ProfileDropdown(props) {
                 <CustomButton
 
                   label="Logout"
-                  background="#F19B6C"
+                  background="#CBAF69"
                 />
               </Menu.Item>
             </div>
