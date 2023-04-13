@@ -79,7 +79,7 @@ axiosDebounceInstance.interceptors.response.use(
 
 
 
-const axiosAuthInstance = axios.create({
+export const axiosAuthInstance = axios.create({
   baseURL: baseurl,
 });
 

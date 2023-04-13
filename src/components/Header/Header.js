@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoNotifications } from "react-icons/io5";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { AiFillAppstore } from "react-icons/ai";
@@ -14,7 +14,7 @@ import { logout } from "@/store/slices/Auth";
 function Header(props) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const dispatch = useDispatch();
-
+  const { logo } = useSelector((state) => state.auth)
   useEffect(() => {
     //for logo url
   }, []);
@@ -33,7 +33,7 @@ function Header(props) {
     >
       <Image
         className="sm:w-[115px] sm:h-[60px] lg:w-[120px] lg:h-[57px] object-cover"
-        src="/asset/nitecapp_logo.png"
+        src={logo || '/asset/nitecapp_logo.png'}
         width="100"
         height="51"
         alt="logo"

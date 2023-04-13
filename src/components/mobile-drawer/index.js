@@ -5,11 +5,12 @@ import { CustomButton } from "@/utils/Buttons";
 import Image from "next/image";
 import MobileSidebar from "../SIdebar/MobileSidebar";
 import { logout } from "@/store/slices/Auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
 const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
   const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
   return (
     <div className={`absolute overflow-hidden w-[80%] sm:w-[70%] md:w-[40%] h-screen bg:red-500 z-10 top-0 shadow-lg shadow-slate-500
 
@@ -30,16 +31,16 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
           </div>
         </div>
         <Link href="/user_profile">
-          <div className="profile-container w-fit block m-auto mb-8" onClick={handleDrawer}>
+          <div className="profile-container w-fit m-auto mb-8 flex flex-col items-center justify-center" onClick={handleDrawer}>
             <div className="profile-photo relative w-[64px] h-[64px] mb-[8px]" >
 
               <Image
                 fill
-                src="/asset/how-to-drain.svg"
+                src={user?.image || "/asset/avatar2.png"}
                 className="rounded-[50%]"
               />
             </div>
-            <h4 className="username ">Hi User!</h4>
+            <h4 className="username ">Hi {user.display_name}!</h4>
           </div>
         </Link>
         <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer} />

@@ -1,4 +1,4 @@
-import axiosInstance from "@/components/Auth/axios";
+import axiosInstance, { axiosAuthInstance } from "@/components/Auth/axios";
 import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -10,6 +10,7 @@ const initialState = {
   firstTimeLogin: false,
   isOnbording: false,
   tempcode: null,
+  logo: null
 
 };
 
@@ -30,6 +31,9 @@ export const authSlice = createSlice({
 
     updateTempCode: (state, action) => {
       state.tempcode = action.payload;
+    },
+    updateLogo: (state, action) => {
+      state.logo = action.payload;
     },
 
     reloadUpdateUser2: (state, action) => {
@@ -101,7 +105,7 @@ export const setLoggedInUser = (data) => {
 
 export const setUserRelogin = () => {
   return async (dispatch) => {
-    await axiosInstance({
+    await axiosAuthInstance({
       url: "/api/user-auth/verify-token",
       method: "GET",
     })
@@ -112,6 +116,22 @@ export const setUserRelogin = () => {
       })
       .catch((err) => {
         localStorage.removeItem("nightcpp-token");
+      });
+  };
+};
+export const getLogo = () => {
+  let domainname = window.location.host.split('.')[1]
+  console.log(domainname);
+  return async (dispatch) => {
+    await axiosAuthInstance({
+      url: `/api/brand/brand_logo/${domainname || ''}`,
+      method: "GET",
+    })
+      .then((res) => {
+        dispatch(authSlice.actions.updateLogo(res.data.logo));
+
+      })
+      .catch((err) => {
       });
   };
 };
