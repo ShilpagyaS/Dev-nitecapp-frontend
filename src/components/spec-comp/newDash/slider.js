@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { TrendingCard, TrendingCardDash } from "@/utils/SpecCards";
+import { Navigation, Pagination } from "swiper";
 
 
 
@@ -13,7 +14,7 @@ function TrendingDash({ data, title, isBig }) {
     return (
         <div className=" mt-5 w-full">
             <h3 className="text-white text-[20px] leading-8 mb-4">{title}</h3>
-            <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true}>
+            <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true} modules={[Pagination ,Navigation]}>
                 {data?.map((slide, i) => {
                     return (
                         <SwiperSlide

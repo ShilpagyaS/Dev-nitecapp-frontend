@@ -85,7 +85,7 @@ export function TrendingCardDash({ image, title }) {
         />
       </div>
       <div className="bg-transparent ">
-        <h2 className=" text-white text-[18px] leading-[27px] font-semibold bg-transparent">
+        <h2 className=" text-white text-[18px] text-center leading-[27px] font-semibold bg-transparent">
           {title}
         </h2>
       </div>
