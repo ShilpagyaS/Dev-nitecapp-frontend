@@ -120,7 +120,7 @@ const SearchProductByCategoryId = ({
                                     {option.label}
                                     <div className='h-[50px] w-[50px] rounded-full relative'>
                                         <Image
-                                            src={option.image}
+                                            src={option.image || '/asset/noimagedrinkeditsquare.jpg'}
                                             // src={'/asset/blue-moon.svg'}
                                             className={` rounded-full `}
                                             fill

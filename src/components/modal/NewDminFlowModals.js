@@ -122,7 +122,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                         </h3>
                         <div className='h-[70px] w-[70px] rounded-full relative'>
                             <Image
-                                src={selectedItem.image}
+                                src={selectedItem.image || '/asset/noimagedrinkeditsquare.jpg'}
                                 // src={'/asset/blue-moon.svg'}
                                 className={` rounded-full `}
                                 fill
@@ -246,7 +246,7 @@ export function AddCategoryModal({ isModalOpen, onClickCancel, onSave, deleteBtn
                         </h3>
                         <div className='h-[70px] w-[70px] rounded-full relative'>
                             <Image
-                                src={selectedItem.image}
+                                src={selectedItem.image || '/asset/noimagedrinkeditsquare.jpg'}
                                 // src={'/asset/blue-moon.svg'}
                                 className={` rounded-full `}
                                 fill
@@ -378,7 +378,7 @@ export function AddDrinkBrandsModal({ isModalOpen, onClickCancel, onSave, delete
                         </h3>
                         <div className='h-[70px] w-[90px] rounded-[8px]  relative'>
                             <Image
-                                src={'/asset/brand3.svg'}
+                                src={selectedItem.image || '/asset/noimagedrinkeditsquare.jpg'}
                                 className={`rounded-[8px]`}
                                 fill
                                 alt={'image'}

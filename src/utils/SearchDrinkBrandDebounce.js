@@ -129,7 +129,7 @@ const SearchDrinkBrandDebounce = ({
                                     {option.label}
                                     <div className='h-[50px] w-[80px] rounded-[8px]  relative'>
                                         <Image
-                                            src={'/asset/brand3.svg'}
+                                            src={option.image || '/asset/noimagedrinkeditsquare.jpg'}
                                             className={`rounded-[8px]`}
                                             fill
                                             alt={'image'}
