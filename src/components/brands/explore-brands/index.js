@@ -8,6 +8,7 @@ import SwitchComp from "@/utils/SwitchComp";
 import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { enUrl } from "@/utils/encoderfunc";
 
 const ExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
@@ -159,7 +160,7 @@ const ExploreBrands = ({ admin }) => {
       <div className="cards-container mb-6 grid  md:grid-cols-3 grid-cols-2 gap-4 ">
         {outlets.map((card, i) => {
           return (
-            <Link href={`/brand/explore-brands?id=${card.outlet_id}`}>
+            <Link href={`/brand/all_Brands/${enUrl(card.outlet_name)}?id=${card.outlet_id}`}>
               <div className="flex flex-col items-center justify-center mb-[30px]">
                 <div className=" relative w-full rounded-[10px] min-h-[250px] ">
                   <Image src={card.image} fill className="rounded-md object-cover" />

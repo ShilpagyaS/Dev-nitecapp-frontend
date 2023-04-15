@@ -6,6 +6,7 @@ import BannerSlider from '@/components/brands/explore-brands/BannerSlider'
 import TrendingDash from './slider'
 import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet'
 import Link from 'next/link'
+import { enUrl } from '@/utils/encoderfunc'
 
 function NewUserDashboard() {
     const { user } = useSelector((state) => state.auth)
@@ -16,13 +17,13 @@ function NewUserDashboard() {
         return () => dispatch(emptyAllOutlet())
     }, [])
 
-    const data1 = [{ image: '/dash/ck1.png', title: 'Cocktails' },
-    { image: '/dash/ck2.png', title: 'Wine' },
-    { image: '/dash/ck3.png', title: 'Spirits' },
-    { image: '/dash/ck4.png', title: 'Beer/Seltzer' },
-    { image: '/dash/ck1.png', title: 'Low / No ABV' }
+    const data1 = [{ image: '/dash/ck1.png', title: 'Cocktails', link: '/specs/cocktail' },
+    { image: '/dash/ck2.png', title: 'Wine', link: '/specs/wine' },
+    { image: '/dash/ck3.png', title: 'Spirits', link: '/specs/spirit' },
+    { image: '/dash/ck4.png', title: 'Beer/Seltzer', link: '/specs/beer' },
+    { image: '/dash/ck1.png', title: 'Low / No ABV', link: '/specs/low_no_abv' }
     ]
-    const data2 = outlets?.map((i) => { return { title: i.outlet_name, image: i.image } })
+    const data2 = outlets?.map((i) => { return { title: i.outlet_name, image: i.image, link: `/brand/all_Brands/${enUrl(i.outlet_name)}?id=${i.outlet_id}` } })
     return (
         <>
             <div className="Header-container flex-col flex justify-between lg:items-center md:items-center mb-8 w-full ">

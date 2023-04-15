@@ -119,7 +119,7 @@ export default function Category() {
                   <Ingridients productType={"cocktail"} />
                 )}
 
-                {path === `/specs/cocktail/cocktail_ingredients?id=${productId}` && (
+                {path === `/specs/cocktail/cocktail_ingredients/${enUrl(subcategory3)}?id=${productId}` && (
                   <IngridientDetail productType={"cocktail"} productId={productId} />
                 )}
 
@@ -165,8 +165,8 @@ export default function Category() {
 
                 {path === "/dashboard" && <NewUserDashboard />}
                 {path === "/brand" && <Brands />}
-                {path === "/brand/explore-brands" && <ExploreBrands />}
-                {path === `/brand/explore-brands?id=${productId}` && <HotelBrandDetail productId={productId} />}
+                {path === "/brand/all_Brands" && <ExploreBrands />}
+                {path === `/brand/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <HotelBrandDetail productId={productId} />}
                 {path === `/specs/brand?id=${productId}` && (
                   <BrandDetail productType={"beer"} productId={productId} />
                 )}

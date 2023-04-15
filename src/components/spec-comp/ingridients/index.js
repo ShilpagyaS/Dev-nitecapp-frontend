@@ -11,12 +11,13 @@ import { emptyIngredientsList, getIngredientsList } from "@/store/slices/ingredi
 import Breadcrumb from "@/components/Breadcrumb";
 import useFilteredData from "@/Hooks/useFilteredData";
 import Search from "@/utils/Search";
+import { enUrl } from "@/utils/encoderfunc";
 
 function Ingridients({ productType }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const IngridientsData = IngridientsMock.ingridientsMock;
 
- 
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,29 +28,29 @@ function Ingridients({ productType }) {
   }, []);
 
   const { ingredients } = useSelector((state) => state.ingredients);
-  const [finaldata,setfinaldata]=useState([])
-  const [searchTerm,setSearch]=useState("")
+  const [finaldata, setfinaldata] = useState([])
+  const [searchTerm, setSearch] = useState("")
   useEffect(() => {
-    let temp=[]
-    if(searchTerm==""){
-      temp=[...ingredients]
+    let temp = []
+    if (searchTerm == "") {
+      temp = [...ingredients]
     } else {
-      const info=ingredients.filter((i)=>i.master_ingredient_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) 
-      temp=[...info]
+      const info = ingredients.filter((i) => i.master_ingredient_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
+      temp = [...info]
     }
     setfinaldata([...temp])
-  }, [ingredients,searchTerm]);
+  }, [ingredients, searchTerm]);
 
   const filteredData = useFilteredData(finaldata, true, "cocktails", "ingredient_type_name")
   return (
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <Breadcrumb  />
-          {!isTablet &&     <Search search={searchTerm} setSearch={(e) => {
-                setSearch(e);
-                //  filterData(e) 
-              }} />}
+          <Breadcrumb />
+          {!isTablet && <Search search={searchTerm} setSearch={(e) => {
+            setSearch(e);
+            //  filterData(e) 
+          }} />}
         </div>
         <div className="heading-container lg:mb-8 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
@@ -75,7 +76,7 @@ function Ingridients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients?id=${card.master_ingredient_id}`}
+                          href={`/specs/cocktail/cocktail_ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}

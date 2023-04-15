@@ -13,19 +13,19 @@ const BannerSlider = (props) => {
   const sliderData = [
     {
       title: "Get Certified for Training",
-      img: "/asset/3.png",
+      img: "/dash/delphi1.png",
     },
     {
       title: "Work From Beautiful Concepts",
-      img: "/asset/4.png",
+      img: "/dash/delphi2.png",
     },
     {
       title: "Claim Rewards for Your Progress",
-      img: "/asset/5.png",
+      img: "/dash/delphi3.png",
     },
     {
       title: "Claim Rewards for Your Progress",
-      img: "/asset/2.png",
+      img: "/dash/delphi4.png",
     },
   ];
   const [swipperInstance, setswipperInstance] = useState("");
