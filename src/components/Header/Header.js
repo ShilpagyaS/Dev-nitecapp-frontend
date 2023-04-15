@@ -31,13 +31,15 @@ function Header(props) {
         : "flex-col justify-center items-start"
         } flex left-0 h-20 w-full sm:py-[12px]  py-[10px]  bg-black `}
     >
-      <Image
-        className="sm:w-[115px] sm:h-[60px] lg:w-[120px] lg:h-[57px] object-cover"
-        src={logo || '/asset/nitecapp_logo.png'}
-        width="100"
-        height="51"
-        alt="logo"
-      />
+      <div className="sm:w-[115px] sm:h-[60px] lg:w-[120px] lg:h-[57px] object-cover relative">
+        <Image
+          className=""
+          src={logo || "/dash/didlogo.svg" || '/asset/nitecapp_logo.png'}
+          fill
+          alt="logo"
+        />
+      </div>
+
       {props.user &&
         <>
           <div className="avtar-container justify-between items-center w-[145px] hidden lg:flex">
