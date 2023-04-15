@@ -141,7 +141,7 @@ const CocktailDetailPage = ({ id }) => {
           <ReactPlayer
             controls
 
-            className="rounded-lg h-[150px]"
+            className="rounded-lg "
             url="https://www.youtube.com/watch?v=PRAXMALQQZw&ab_channel=beautifullplaces%26.." />
         </div>
 
@@ -176,7 +176,7 @@ const CocktailDetailPage = ({ id }) => {
           </div>
         </div>
       }
-      <div className="lessons-container mb-[32px]">
+      {/* <div className="lessons-container mb-[32px]">
         <div className="sub-heading-container mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold">
             Lessons
@@ -195,7 +195,7 @@ const CocktailDetailPage = ({ id }) => {
             );
           })}
         </div>
-      </div>
+      </div> */}
       <Notes id={id} subcategory={subcategory} />
     </div>
   );

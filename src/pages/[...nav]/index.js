@@ -239,7 +239,7 @@ export default function Category() {
 
                 {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
                 {path === `/brand` && <AdminExploreBrands />}
-                {path === `/brand/explore-brands?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
+                {path === `/brand/${enUrl(subcategory)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}
