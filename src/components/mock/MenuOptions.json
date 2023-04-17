@@ -43,6 +43,12 @@
           "id": "all_Brands"
         }
       ]
+    },
+    {
+        "name": "Guests",
+        "id": "guests",
+        "menuIcon": "AiFillAppstore",
+        "subOptions": []
     }
   ]
 }
