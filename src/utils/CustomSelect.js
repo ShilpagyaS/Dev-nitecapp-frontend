@@ -2,7 +2,7 @@ import useMediaQuery from '@/Hooks/useMediaQuery';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-export default function CustomSelect({ items, optionalFunction, defaultSelect }) {
+export default function CustomSelect({ customDropdowncss, items, optionalFunction, defaultSelect }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const isTablet = useMediaQuery("(max-width: 768px)");
@@ -42,7 +42,7 @@ export default function CustomSelect({ items, optionalFunction, defaultSelect })
         }
       </button>
       {isDropdownOpen && (
-        <ul className="absolute z-10 bg-[#1D1D1D] rounded-md shadow-lg pb-[10px]">
+        <ul className={`absolute z-10 bg-[#1D1D1D] rounded-md shadow-lg pb-[10px] ${customDropdowncss ? customDropdowncss : ''}`}>
           {items.map((item) => (
             <li key={item.value}>
               <button

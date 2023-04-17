@@ -60,13 +60,13 @@ function WineTable() {
                     <div className='relative rounded-[10px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         {!element.itemImage &&
-                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                            <Image src={'/asset/nodrinkinverted.webp'}
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
 
-                                
+
                             />
                         }
                         {element.itemImage &&
@@ -94,8 +94,8 @@ function WineTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
 
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            toggleSwitch(e,element.id)
-                         }} />
+                            toggleSwitch(e, element.id)
+                        }} />
                     </div>
                 </td>
                 {/* <td >

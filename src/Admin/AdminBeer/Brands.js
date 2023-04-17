@@ -3,10 +3,8 @@ import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-d
 import useMediaQuery from '@/Hooks/useMediaQuery';
 import useNavDetails from '@/Hooks/useNavDetails';
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton';
-import Search from '@/utils/Search';
 import Link from 'next/link';
 import React, { useEffect } from 'react'
-import { CiSearch } from 'react-icons/ci';
 import { successtoast, errortoast } from '@/components/tostify';
 import { useDispatch, useSelector } from 'react-redux';
 import { emptyBrandsList, getBrandsList } from '@/store/slices/brands';

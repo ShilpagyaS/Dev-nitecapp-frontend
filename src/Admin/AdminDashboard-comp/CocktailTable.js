@@ -63,8 +63,8 @@ function CocktailTable() {
                      border-[#3C3C3C] md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
                         {!element.itemImage &&
-                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
-                                alt="image"
+                            <Image src={'/asset/nodrinkinverted.webp'}
+                            alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"

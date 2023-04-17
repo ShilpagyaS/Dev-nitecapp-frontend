@@ -78,6 +78,10 @@ import BrandsList from "@/Admin/BrandsList";
 
 import UserProfile from "@/components/Userprofile";
 import NewUserDashboard from "@/components/spec-comp/newDash";
+import AllGuests from "@/Admin/AdminGuests/AllGuests";
+import GuestDetailsPage from "@/Admin/AdminGuests/GuestDetailsPage";
+import GuestsList from "@/components/guests/GuestsList";
+import GuestInfo from "@/components/guests/GuestInfo";
 
 
 
@@ -171,6 +175,9 @@ export default function Category() {
                   <BrandDetail productType={"beer"} productId={productId} />
                 )}
                 {path === "/user_profile" && <UserProfile />}
+                {path === `/guests` && <GuestsList />}
+                {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestInfo guestID={productId} />}
+
 
               </LayoutWithSidebar>
             }
@@ -244,6 +251,8 @@ export default function Category() {
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}
                 {path === `/manageusers` && <ManageUsers />}
+                {path === `/guests` && <AllGuests />}
+                {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestDetailsPage guestID={productId} />}
               </LayoutWithSidebarAdmin>
             }
           </>

@@ -64,7 +64,8 @@ function BeerTable() {
                      md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
                         {!element.itemImage &&
-                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                            <Image src={'/asset/nodrinkinverted.webp'}
+                            // <Image src={'/asset/noimagedrinkeditsquare.jpg'}
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
