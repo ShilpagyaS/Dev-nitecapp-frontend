@@ -44,6 +44,12 @@
             "id": "manageusers",
             "menuIcon": "AiFillAppstore",
             "subOptions": []
+        },
+        {
+            "name": "Guests",
+            "id": "guests",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": []
         }
         
     ]
