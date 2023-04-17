@@ -10,6 +10,7 @@ import ChangePasswordComponent from "@/components/Auth/ChangePasswordComponent";
 import Slider from "@/components/slider";
 import {
   changePassword,
+  getuserbyid,
   login,
   setLoggedInUser,
   verifyOTP,
@@ -64,7 +65,7 @@ function Signin() {
 
   })
   const [opterror, setotperror] = useState()
-  
+
   return (
     <>
       <AuthWrapper>
@@ -100,10 +101,10 @@ function Signin() {
                   error={formik.errors.password}
                   showerror
                 />
-                <Link href="/forgotpassword" className=" w-full text-right max-w-[300px]"> 
-                <p className="text-sm  text-[#959598]  cursor-pointer">
-                  Forgot Password ?
-                </p>
+                <Link href="/forgotpassword" className=" w-full text-right max-w-[300px]">
+                  <p className="text-sm  text-[#959598]  cursor-pointer">
+                    Forgot Password ?
+                  </p>
                 </Link>
                 <Buttons label={"Sign in"}
                   type="submit"
@@ -119,7 +120,7 @@ function Signin() {
               authHandler={async (code) => {
                 await dispatch(verifyOTP(code)).then((res) => {
                   if (res?.status === 200) {
-                    dispatch(setLoggedInUser(res?.data));
+                    dispatch(setLoggedInUser(res?.data))
                     if (res?.data?.data?.first_time_login) {
                       setstep(3);
                     } else {
