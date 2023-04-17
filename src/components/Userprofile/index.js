@@ -16,7 +16,7 @@ import { errortoast } from "../tostify";
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
-  const { user, role } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [isEdit, setEdit] = useState(false)
   const [indata, setindata] = useState({})
   const [upimage, setimage] = useState(undefined)
@@ -102,10 +102,12 @@ function OnboardingForm() {
   console.log("error", formik.errors)
   useEffect(() => {
     if (user) {
-      setindata({ ...user, user_id: user.id, role: role?.name })
+      setindata({
+        ...user, user_id: user.id, role: user.role_name
+      })
     }
 
-  }, [user, role]);
+  }, [user]);
 
   return (
     <div className="grid place-items-center">

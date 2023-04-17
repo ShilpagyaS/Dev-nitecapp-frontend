@@ -12,10 +12,10 @@ import * as Yup from 'yup'
 function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
-  const { user,role } = useSelector((state) => state.auth);
-  
-const [indata,setindata]=useState({})
-  ;
+  const { user } = useSelector((state) => state.auth);
+
+  const [indata, setindata] = useState({})
+    ;
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -30,8 +30,11 @@ const [indata,setindata]=useState({})
 
 
   const handlesubmitdata = (values) => {
-    
-    dispatch(updateUser(values)).then((res) => {
+    const local = { ...values }
+    local.user_id = user.id
+    delete local.role
+    delete local.role_name
+    dispatch(updateUser(local)).then((res) => {
       if (res?.data?.resCode === 200) router.push("/specs");
     });
   }
@@ -46,16 +49,17 @@ const [indata,setindata]=useState({})
       pronouns: Yup.string().required(),
       role: Yup.string().required(),
       concept: Yup.string().required(),
-      user_id: Yup.string().required()
     }),
   })
-  console.log("error",formik.errors)
+  console.log("error", formik.errors)
   useEffect(() => {
     if (user) {
-      setindata({...user,user_id:user.id,role:role?.name})
+      setindata({
+        ...user, user_id: user.id, role: user.role_name
+      })
     }
 
-  }, [user,role]);
+  }, [user]);
 
   return (
     <>

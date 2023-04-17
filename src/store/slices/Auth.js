@@ -23,7 +23,7 @@ export const authSlice = createSlice({
       state.user = action.payload?.data;
       state.accessToken = action.payload?.token;
       state.firstTimeLogin = action.payload?.data?.first_time_login;
-      state.role = action.payload?.data?.role_data
+
     },
     updateTempUser: (state, action) => {
       state.tempUserEmail = action.payload;
@@ -41,7 +41,7 @@ export const authSlice = createSlice({
       state.user = action.payload;
       state.accessToken = token;
       state.firstTimeLogin = action.payload?.first_time_login;
-      state.role = { id: action.payload?.role, name: action.payload?.role_name };
+
 
     },
     reloadUpdateUser: (state, action) => {
@@ -111,6 +111,7 @@ export const setUserRelogin = () => {
     })
       .then((res) => {
         if (res?.data?.resCode === 200) {
+          dispatch(getuserbyid(res.data.user.id))
           dispatch(authSlice.actions.reloadUpdateUser(res.data.user));
         }
       })
@@ -253,13 +254,13 @@ export const changeForgotPassword = (data) => {
   };
 };
 
-export const getuserbyid = () => {
+export const getuserbyid = (id) => {
   return async (dispatch, getState) => {
     const state = getState();
     const { auth: { user } } = state
     console.log(user)
     return axiosInstance({
-      url: `/api/user-auth/get-user-by-id/${user?.id || user?.user_id}`,
+      url: `/api/user-auth/get-user-by-id/${id || user?.id}`,
       method: "GET",
     })
       .then((res) => {

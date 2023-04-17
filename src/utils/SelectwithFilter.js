@@ -36,7 +36,7 @@ const SelectWithSearch = ({
         {label}
       </h5>
       <div className={`relative ${fullwidth && `w-full`}`} onBlur={() => {
-        setEnableOption(false);
+
       }}>
         <input
           className={`box-border mt-[4px] py-[8px] pl-[16px] rounded-[9px] h-[50px] ${fullwidth ? 'w-full' : `min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px]`} border border-solid 

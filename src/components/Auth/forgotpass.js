@@ -9,13 +9,12 @@ import OnboardingForm from "@/components/Auth/OnboardingForm";
 import ChangePasswordComponent from "@/components/Auth/ChangePasswordComponent";
 import Slider from "@/components/slider";
 import {
-    changeForgotPassword,
+  changeForgotPassword,
   changePassword,
   login,
   sendForgotOTP,
   setLoggedInUser,
   verifyforgotOTP,
-  verifyOTP,
 } from "@/store/slices/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -37,11 +36,11 @@ function ForgotPassword() {
 
   const handleSubmitForm = async (values) => {
     await dispatch(sendForgotOTP(values.email)).then((res) => {
-        if (res?.status === 200) {
+      if (res?.status === 200) {
         setstep(2);
       } else if (res?.error) {
         formik.setFieldError('email', res.message)
-    }
+      }
     })
 
   };
@@ -81,7 +80,7 @@ function ForgotPassword() {
                   error={formik.errors.email}
                   showerror
                 />
-               
+
                 <Buttons label={"Send Code"}
                   type="submit"
                 />
@@ -96,7 +95,7 @@ function ForgotPassword() {
               authHandler={async (code) => {
                 await dispatch(verifyforgotOTP(code)).then((res) => {
                   if (res?.status === 200) {
-                      setstep(3);
+                    setstep(3);
                   } else {
 
                     if (res?.error) {
@@ -112,7 +111,7 @@ function ForgotPassword() {
             <ChangePasswordComponent
               confirmationfunction={async (new_password, confirm_password) => {
                 await dispatch(
-                    changeForgotPassword({ new_password, confirm_password })
+                  changeForgotPassword({ new_password, confirm_password })
                 ).then((res) => {
                   if (res?.status === 200) {
                     router.push('/signin')
@@ -122,9 +121,9 @@ function ForgotPassword() {
             />
           )}
 
-       
 
-         
+
+
         </LayoutWithHeader>
       </AuthWrapper>
     </>
