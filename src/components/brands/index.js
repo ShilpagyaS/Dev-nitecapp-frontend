@@ -80,7 +80,7 @@ function Brands() {
             title="Explore Our Outlets"
             desc="Discover Classic brands, time-honored hospitality for the modern traveller. We offer our family of Distinctive brands."
             btnLabel="Explore All"
-            onClickHandler={() => { router.push("/brand/explore-brands") }}
+            onClickHandler={() => { router.push("/brands/all_Brands") }}
           />
         </div>
       </div>
