@@ -1,10 +1,10 @@
 import React from 'react'
 
-export function ConditionalButton({ onClickHandler, condition, label }) {
+export function ConditionalButton({ onClickHandler, condition, label, type }) {
     return (
         <div className="">
             <button
-
+                type={type || 'button'}
                 className={` ${condition == true ? "bg-primary-base" : "bg-[#3E3E3E]"
                     } py-[7px] px-[24px] h-[41px] rounded-full ${condition == true
                         ? "hover:bg-primary-hoverbase "
@@ -12,6 +12,7 @@ export function ConditionalButton({ onClickHandler, condition, label }) {
 
                     } text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
                 onClick={() => { if (condition == true) onClickHandler() }}
+
             >
                 {label}
             </button>

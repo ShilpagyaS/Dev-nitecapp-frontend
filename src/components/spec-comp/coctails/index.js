@@ -52,7 +52,7 @@ function Coctails({ headerHidden }) {
         </div>
 
 
-        <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
+        <div className="heading-container flex items-center justify-between lg:mb-4 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
             Cocktail
           </h2>
@@ -64,7 +64,7 @@ function Coctails({ headerHidden }) {
           setSearch(e);
           //  filterData(e) 
         }} />}
-        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-4 ">
+        <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-[10px] ">
           {finaldata?.map((card, i) => {
             return (
               <div className=" col-span-1 ">

@@ -106,7 +106,7 @@ const CocktailDetailPage = ({ id }) => {
               <>
                 <div className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
                   <p className=" bg-transparent ">{ingridient?.name}</p>
-                  <p className=" bg-transparent ">{`${ingridient?.measure_name} ${ingridient?.quantity}`}</p>
+                  <p className=" bg-transparent ">{`${ingridient?.quantity} ${ingridient?.measure_name}`}</p>
                 </div>
               </>
             );
@@ -143,7 +143,7 @@ const CocktailDetailPage = ({ id }) => {
             controls
 
             className="rounded-lg "
-            url="https://www.youtube.com/watch?v=PRAXMALQQZw&ab_channel=beautifullplaces%26.." />
+            url="https://www.youtube.com/watch?v=jCGMoNCtPx0&feature=youtu.be" />
         </div>
 
 

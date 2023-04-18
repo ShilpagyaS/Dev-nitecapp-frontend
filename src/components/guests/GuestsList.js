@@ -6,18 +6,19 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { enUrl } from '@/utils/encoderfunc'
 const guests = [
-    { name: 'Aaron' },
-    { name: 'Seth' },
-    { name: 'Roman' },
-    { name: 'Jake' },
-    { name: 'Snake' },
-    { name: 'Harry' },
-    { name: 'Uno' },
-    { name: 'Aaron' },
-    { name: 'Aasta' },
-    { name: 'AronStoneColdasasdasdasdasdasdasd' },
-    { name: 'Smith' },
-];
+    { image: '/asset/Kulbir.jpeg', name: 'Aaron' },
+    { image: '/asset/Vanessa.jpeg', name: 'Seth' },
+    { image: '/asset/Byron.jpeg', name: 'Roman' },
+    { image: '/asset/Emily.jpeg', name: 'Jake' },
+    { image: '/asset/Monique.jpeg', name: 'Snake' },
+    { image: '/asset/Jonathon.jpeg', name: 'Harry' },
+    { image: '/asset/Cafe Negroni.png', name: 'Uno' },
+    { image: '/asset/Cafe Negroni (2).png', name: 'Aaron' },
+    { image: '/asset/Cafe Negroni (3).png', name: 'Aasta' },
+    { image: '/asset/Cafe Negroni (4).png', name: 'Steve' },
+    { image: '/asset/Cafe Negroni (5).png', name: 'Smith' },
+    { image: '', name: 'Smith' },
+]
 const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 function GuestsList() {
@@ -55,13 +56,11 @@ function GuestsList() {
     return (
         <div>
             {/* <Breadcrumb /> */}
-            <h2 className="text-white text-[24px] leading-9 font-bold ">
-                Guests
-            </h2>
-            <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between mb-[15px]'>
-                <h2 className="text-white text-[24px] leading-9 font-bold ">
+
+            <div className='buttonRow flex pt-[18px] pb-[12.5px] pr-[18px] items-center justify-between mb-[15px]'>
+                <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
                     Guests
-                </h2>
+                </h1>
                 <Search search={searchTerm} setSearch={(e) => {
                     setSearch(e);
                     filterData(e)
@@ -79,7 +78,7 @@ function GuestsList() {
             </h2>
             <div className='grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4'>
                 {filteredusers.map((e) =>
-                    <GuestCard name={e.name} onClickHandler={() => {
+                    <GuestCard image={e.image} name={e.name} onClickHandler={() => {
                         router.push(`/guests/${enUrl(e.name)}?id=${1}`);
 
                     }} />

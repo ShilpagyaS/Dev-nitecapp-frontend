@@ -13,9 +13,8 @@ function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
   const { user } = useSelector((state) => state.auth);
-
-  const [indata, setindata] = useState({})
-    ;
+ 
+  const [indata, setindata] = useState({});
 
   const router = useRouter();
   const dispatch = useDispatch();

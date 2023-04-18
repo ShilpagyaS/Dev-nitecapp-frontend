@@ -2,6 +2,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { ProfileFileUpdatewithoptionalisEdit } from '@/components/Userprofile/profileupload'
+import { DummyNotes } from '../spec-comp/notesComp/notes'
 
 function GuestInfo({ guestId }) {
 
@@ -54,6 +55,32 @@ function GuestInfo({ guestId }) {
             Lemon in his water, Old Fashioned with 3 cherries
           </p>
         </div>
+        <DummyNotes />
+        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+          <p className=" bg-transparent mr-24px">{"Note 1"}</p>
+
+          <button
+            onClick={() => { }}
+            className="hover:text-primary-base font-bold"
+          >Edit</button>
+        </div>
+        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+          <p className=" bg-transparent mr-24px">{"Note 2"}</p>
+
+          <button
+            onClick={() => { }}
+            className="hover:text-primary-base font-bold"
+          >Edit</button>
+        </div>
+        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+          <p className=" bg-transparent mr-24px">{"Note 3"}</p>
+
+          <button
+            onClick={() => { }}
+            className="hover:text-primary-base font-bold"
+          >Edit</button>
+        </div>
+
       </div>
     </div>
   )

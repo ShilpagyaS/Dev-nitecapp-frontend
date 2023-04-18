@@ -31,9 +31,9 @@ function DescriptionTextArea({ content, textAreaRef, isEdit, maxheight, isSAve, 
     //   {content}
     // </div>
     <div>
-      <textarea ref={textAreaRef} className={`choice-container ${isEdit ? 'bg-[#2C2C2C]' : ''} w-full ${maxheight ? `max-h-[${maxheight}px]` : infiniteHeight ? '' : `max-h-[90px]`} py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`}
+      <textarea ref={textAreaRef} className={`notificationModal choice-container ${isEdit ? 'bg-[#2C2C2C]' : ''} w-full ${maxheight ? `max-h-[${maxheight}px]` : infiniteHeight ? '' : `max-h-[90px]`} py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`}
         value={val}
-        onChange={onChange} rows={1} style={{ resize: 'none', overflowY: 'hidden' }} disabled={!isEdit ? true : false} />
+        onChange={onChange} rows={1} style={{ resize: 'none', overflowY: 'auto' }} disabled={!isEdit ? true : false} />
     </div>
 
 

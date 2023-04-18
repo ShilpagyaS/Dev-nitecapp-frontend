@@ -64,7 +64,7 @@ function WineCategory() {
                         }} />
                     )}
                 </div>
-                <div className="heading-container lg:mb-8 mb-3 flex justify-between">
+                <div className="heading-container lg:mb-4  mb-3 flex justify-between">
                     <h2 className="text-white text-[24px] leading-9 font-bold ">   {'Wine (Category)'}</h2>
                     <Link href={`/specs/wine/brands`} >
                         <OrangeButtons label="Brands" noPadding={true} />

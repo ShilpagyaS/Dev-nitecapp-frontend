@@ -168,9 +168,9 @@ export default function Category() {
                 {path === "/specs/bestselling" && <BestSellingCoctails />}
 
                 {path === "/dashboard" && <NewUserDashboard />}
-                {path === "/brand" && <Brands />}
-                {path === "/brand/all_Brands" && <ExploreBrands />}
-                {path === `/brand/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <HotelBrandDetail productId={productId} />}
+                {path === "/brands" && <Brands />}
+                {path === "/brands/all_Brands" && <ExploreBrands />}
+                {path === `/brands/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <HotelBrandDetail productId={productId} />}
                 {path === `/specs/brand?id=${productId}` && (
                   <BrandDetail productType={"beer"} productId={productId} />
                 )}
@@ -245,8 +245,8 @@ export default function Category() {
                 {path === `/specs/low_no_abv?id=${productId}` && <CommonEditRestrictPage productId={productId} subcategory={'low_no_abv'} />}
 
                 {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
-                {path === `/brand` && <AdminExploreBrands />}
-                {path === `/brand/${enUrl(subcategory)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
+                {path === `/brands` && <AdminExploreBrands />}
+                {path === `/brands/${enUrl(subcategory)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}

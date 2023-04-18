@@ -1,10 +1,12 @@
 import Image from "next/image";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 
-export function CoctailCard({ image, title, isNew }) {
+export function CoctailCard({ image, title, isNew, onclickHandler }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
-    <div className=" w-[161px] h-[195px] md:w-[197px] md:h-[242px] px-[11px] py-[15px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]">
+    <div className=" cursor-pointer w-[161px] h-[195px] md:w-[197px] md:h-[242px] px-[11px] py-[15px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]"
+      onClick={onclickHandler}
+    >
       <div
         className={`relative image-container ${isTablet ? "w-[137px] h-[137px]" : "w-[171px] h-[171px]"
           } `}

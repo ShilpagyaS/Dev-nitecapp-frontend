@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AdminHotelBrandDetail = ({ productType, productId }) => {
-
+ 
     const { outletDetails } = useSelector((state) => state.outlets)
     const textAreaRef = useRef()
     const taglineref = useRef()

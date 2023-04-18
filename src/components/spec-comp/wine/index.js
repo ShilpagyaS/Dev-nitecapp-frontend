@@ -49,7 +49,7 @@ function Wine({ id, categoryName }) {
             //  filterData(e) 
           }} />)}
         </div>
-        <div className="heading-container lg:mb-8 mb-3 flex w-full justify-between">
+        <div className="heading-container lg:mb-4  mb-3 flex w-full justify-between">
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {categoryName}
           </h2>
