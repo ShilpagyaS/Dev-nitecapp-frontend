@@ -55,13 +55,11 @@ function GuestsList() {
     return (
         <div>
             {/* <Breadcrumb /> */}
-            <h2 className="text-white text-[24px] leading-9 font-bold ">
-                Guests
-            </h2>
-            <div className='buttonRow flex pt-[18px] pb-[12.5px] px-[18px] items-center justify-between mb-[15px]'>
-                <h2 className="text-white text-[24px] leading-9 font-bold ">
+
+            <div className='buttonRow flex pt-[18px] pb-[12.5px] pr-[18px] items-center justify-between mb-[15px]'>
+                <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
                     Guests
-                </h2>
+                </h1>
                 <Search search={searchTerm} setSearch={(e) => {
                     setSearch(e);
                     filterData(e)

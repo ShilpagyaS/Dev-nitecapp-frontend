@@ -142,7 +142,7 @@ const CocktailDetailPage = ({ id }) => {
             controls
 
             className="rounded-lg "
-            url="https://www.youtube.com/watch?v=PRAXMALQQZw&ab_channel=beautifullplaces%26.." />
+            url="https://www.youtube.com/watch?v=jCGMoNCtPx0&feature=youtu.be" />
         </div>
 
 

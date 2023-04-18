@@ -13,7 +13,7 @@ function CoctailSlider({data}) {
   const coctailData = coctailMock.coctailData;
 
   return (
-    <div className=" mt-5 w-full">
+    <div className=" mt-[0px] w-full">
       <Swiper
         slidesPerView={"auto"}
         spaceBetween={20}

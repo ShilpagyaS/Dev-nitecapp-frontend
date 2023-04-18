@@ -35,22 +35,23 @@
         },
         {
             "name": "Brands",
-            "id": "brand",
+            "id": "brands",
             "menuIcon": "AiFillAppstore",
             "subOptions": [  ]
-        },
-        {
-            "name": "Manage Users",
-            "id": "manageusers",
-            "menuIcon": "AiFillAppstore",
-            "subOptions": []
         },
         {
             "name": "Guests",
             "id": "guests",
             "menuIcon": "AiFillAppstore",
             "subOptions": []
+        },
+        {
+            "name": "Manage Users",
+            "id": "manageusers",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": []
         }
+      
         
     ]
 }

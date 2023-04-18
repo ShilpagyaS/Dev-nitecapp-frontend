@@ -11,12 +11,15 @@ import SearchDrinkBrandDebounce from '@/utils/SearchDrinkBrandDebounce';
 import SearchProductByCategoryId from '@/utils/SearchProductByCategoryId';
 import SearchProductDebounce from '@/utils/SearchProductDebounce';
 import UploadBrandLogoInput from '@/utils/uploadBrandInput';
+import { useFormik } from "formik";
+import * as Yup from 'yup'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import Modal from "react-modal";
 import { useDispatch, useSelector } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import { errortoast, successtoast } from '../tostify';
+import InputField from '@/utils/InputField';
 
 export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, productId }) {
     const customStyles = {
@@ -1492,20 +1495,9 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             backdropFilter: "blur(2.5px)",
         },
     };
-
-
-
-
-
-    const handleCancel = () => {
-        onClickCancel();
-
-
-    };
-
     const handleSave = () => {
 
-
+        formik.handleSubmit()
         // onSave(dummydata).then((res) => {
         //     res?.error ?
         //         // errortoast({ message: res.message }) 
@@ -1514,10 +1506,33 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
         //     if (!res?.error)
         //         onClickCancel();
         // })
-        setinput1("");
-        setinput2("");
 
     };
+    const [initalData, setInitail] = useState({})
+    const formik = useFormik({
+        initialValues: initalData,
+        enableReinitialize: true,
+        onSubmit: handleSave,
+        validationSchema: Yup.object().shape({
+            firstName: Yup.string().required('First name is required'),
+            lastName: Yup.string(),
+            phone: Yup.number(),
+            email: Yup.string().email(),
+            bio: Yup.string(),
+            allergies: Yup.string(),
+            preferences: Yup.string(),
+        }),
+    })
+    console.log("error", formik.errors)
+
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+
     function clearForm() {
 
     }
@@ -1545,10 +1560,72 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             style={customStyles}
         >
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
-                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add a Guest`}</h4>
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add Guest`}</h4>
             </div>
             <div className='notificationModal max-h-[406px] pr-[15px]' >
-            
+                <form
+                    onSubmit={formik.handleSubmit}
+                >
+                    <InputField
+                        fullwidth={true}
+                        placeholder=""
+                        label="First Name"
+                        onChangeHandler={formik.handleChange}
+                        value={formik.values.firstName}
+                        name={"firstName"}
+                        type={"text"}
+                        error={formik.errors.firstName}
+                        touched={formik.touched.firstName}
+                        showerror
+                    />
+                    <InputField
+                        fullwidth={true}
+                        placeholder=""
+                        label="Last Name"
+                        onChangeHandler={formik.handleChange}
+                        value={formik.values.lastName}
+                        name={"lastName"}
+                        type={"text"}
+                        error={formik.errors.lastName}
+                        touched={formik.touched.lastName}
+                        showerror
+                    />
+                    <InputField
+                        fullwidth={true}
+                        placeholder=""
+                        label="Phone"
+                        onChangeHandler={formik.handleChange}
+                        value={formik.values.phone}
+                        name={"phone"}
+                        type={"text"}
+                        error={formik.errors.phone}
+                        touched={formik.touched.phone}
+                        showerror
+                    />
+
+                    <InputField
+                        fullwidth={true}
+                        placeholder=""
+                        label="Email"
+                        onChangeHandler={formik.handleChange}
+                        value={formik.values.email}
+                        name={"email"}
+                        type={"text"}
+                        error={formik.errors.email}
+                        touched={formik.touched.email}
+                        showerror
+                    />
+
+                </form>
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                </div>
+
             </div>
         </Modal>
     )

@@ -10,6 +10,7 @@ import useNavDetails from "@/Hooks/useNavDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { whatsthestrength } from "@/utils/abvfinder";
 import Search from "@/utils/Search";
+import Breadcrumb from "@/components/Breadcrumb";
 
 function LowABV() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -42,15 +43,13 @@ function LowABV() {
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
-          <p className="text-white text-[14px]">
-            <span className="text-[#CCCCCC]">Specs</span> / Low/No ABV
-          </p>
+          <Breadcrumb />
           {!isTablet && <Search search={searchTerm} setSearch={(e) => {
             setSearch(e);
             //  filterData(e) 
           }} />}
         </div>
-        <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
+        <div className="heading-container flex items-center justify-between lg:mb-4  mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
             Low / No ABV
           </h2>
