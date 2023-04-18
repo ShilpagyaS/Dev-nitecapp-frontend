@@ -18,6 +18,14 @@ function SpecComp() {
       dispatch(emptyProductList());
     };
   }, []);
+
+  const filterbydate = (list) => {
+    const sortedItems = [...list].sort((a, b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt)
+    })
+    return sortedItems
+  }
+
   return (
     <>
       <div className="Header-container md:flex-row lg:flex-row flex-col flex justify-between lg:items-center md:items-center mb-6  ">
@@ -39,7 +47,7 @@ function SpecComp() {
         </Link>
 
       </div>
-      <CoctailSlider data={productList?.length <= 10 ? productList : productList?.slice(0, 10)} />
+      <CoctailSlider data={productList?.length <= 10 ? filterbydate(productList) : filterbydate(productList)?.slice(0, 10)} />
       <CoreBeverage />
       {/* <Trending /> */}
     </>
