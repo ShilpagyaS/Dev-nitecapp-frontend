@@ -20,7 +20,7 @@ const guests = [
     { image: '/asset/Cafe Negroni (4).png', name: 'Steve' },
     { image: '/asset/Cafe Negroni (5).png', name: 'Smith' },
     { image: '', name: 'Smith' },
-];
+]; 
 const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 function AllGuests() {
     const [users, setUsers] = useState(guests);

@@ -19,7 +19,7 @@ import Modal from "react-modal";
 import { useDispatch, useSelector } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import { errortoast, successtoast } from '../tostify';
-import InputField from '@/utils/InputField';
+import InputField, { InputField2 } from '@/utils/InputField';
 
 export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, productId }) {
     const customStyles = {
@@ -1496,8 +1496,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
         },
     };
     const handleSave = () => {
-
-        formik.handleSubmit()
+        console.log('done');
         // onSave(dummydata).then((res) => {
         //     res?.error ?
         //         // errortoast({ message: res.message }) 
@@ -1516,7 +1515,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
         validationSchema: Yup.object().shape({
             firstName: Yup.string().required('First name is required'),
             lastName: Yup.string(),
-            phone: Yup.number(),
+            phone: Yup.number().typeError('Please Enter Number'),
             email: Yup.string().email(),
             bio: Yup.string(),
             allergies: Yup.string(),
@@ -1552,6 +1551,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             };
         });
     }
+    console.log(formik.errors);
     return (
         <Modal
             isOpen={isModalOpen}
@@ -1562,11 +1562,12 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             <div className="text-white border-none outline-none w-full flex items-center justify-center ">
                 <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add Guest`}</h4>
             </div>
-            <div className='notificationModal max-h-[406px] pr-[15px]' >
-                <form
-                    onSubmit={formik.handleSubmit}
-                >
-                    <InputField
+            <form
+                onSubmit={formik.handleSubmit}
+            >
+                <div className='notificationModal max-h-[406px] pr-[15px]' >
+
+                    <InputField2
                         fullwidth={true}
                         placeholder=""
                         label="First Name"
@@ -1575,7 +1576,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                         name={"firstName"}
                         type={"text"}
                         error={formik.errors.firstName}
-                        touched={formik.touched.firstName}
+                        touched={true}
                         showerror
                     />
                     <InputField
@@ -1615,18 +1616,60 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                         touched={formik.touched.email}
                         showerror
                     />
+                    <div>
 
-                </form>
-            </div>
-            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+                        <h5
+                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]
+`}
+                        >
+                            Bio
+                        </h5>
+                        <textarea className={`notificationModal mt-[4px] min-h-[90px] choice-container w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none  border border-solid border-[#3C3C3C] focus:border-[#959595]  focus:ring-offset-white focus:ring-1 `}
+                            value={formik.values.bio}
+                            name={'bio'}
+                            onChange={formik.handleChange} rows={1} style={{ resize: 'none' }} />
 
+                    </div>
+                    <div>
 
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
-                <div className='ml-[24px]'>
-                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                        <h5
+                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]
+                        `}
+                        >
+                            Allergies
+                        </h5>
+                        <textarea className={`notificationModal mt-[4px] min-h-[90px] choice-container w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none  border border-solid border-[#3C3C3C] focus:border-[#959595]  focus:ring-offset-white focus:ring-1 `}
+                            value={formik.values.allergies}
+                            name={'bio'}
+                            onChange={formik.handleChange} rows={1} style={{ resize: 'none' }} />
+
+                    </div>
+                    <div>
+
+                        <h5
+                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]
+                        `}
+                        >
+                            Preferences
+                        </h5>
+                        <textarea className={`notificationModal mt-[4px] min-h-[90px] choice-container w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none  border border-solid border-[#3C3C3C] focus:border-[#959595]  focus:ring-offset-white focus:ring-1 `}
+                            value={formik.values.preferences}
+                            name={'bio'}
+                            onChange={formik.handleChange} rows={1} style={{ resize: 'none' }} />
+
+                    </div>
+
                 </div>
+                <div className='btncontainers flex items-center justify-between mt-[18px] '>
 
-            </div>
-        </Modal>
+
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Yes'} condition={true} onClickHandler={() => { }} type="submit" />
+                    </div>
+
+                </div>
+            </form>
+        </Modal >
     )
 }

@@ -8,7 +8,7 @@ import { ImGlass2 } from "react-icons/im";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import Link from "next/link";
-import ProfileDropdown from "./ProfileDropdown";
+import ProfileDropdown, { NotificationDropdown } from "./ProfileDropdown";
 import { logout } from "@/store/slices/Auth";
 
 function Header(props) {
@@ -43,10 +43,11 @@ function Header(props) {
       {props.user &&
         <>
           <div className="avtar-container justify-between items-center w-[145px] hidden lg:flex">
-            <IoNotifications
+            {/* <IoNotifications
               color="#fff"
-              className="lg:text-[25px] text-[29px]"
-            />
+              className="lg:text-[25px] text-[29px] cursor-pointer"
+            /> */}
+            <NotificationDropdown />
             <div className="avtar-container flex justify-end items-center ">
               <Link className="cursor-pointer" href={"/user_profile"}>
                 <Image
