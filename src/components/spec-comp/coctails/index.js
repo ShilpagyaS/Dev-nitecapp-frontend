@@ -35,9 +35,16 @@ function Coctails({ headerHidden }) {
       const info = productList.filter((i) => i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
       temp = [...info]
     }
-    setfinaldata([...temp])
+    filterbydate
+    setfinaldata([...(filterbydate(temp) || [])])
   }, [productList, searchTerm]);
 
+  const filterbydate = (list) => {
+    const sortedItems = [...list].sort((a, b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt)
+    })
+    return sortedItems
+  }
   return (
     <>
       <div className="coctail-container">

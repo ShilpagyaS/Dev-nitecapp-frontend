@@ -94,7 +94,7 @@ const CocktailDetailPage = ({ id }) => {
           </p>
         </div>
       </div>
-      {productDetails?.ingredients?.values?.length > 0 && <div className="ingridients-container mb-[16px] ">
+      {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">
         <div className="sub-heading-container  mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
             Ingredients
@@ -113,7 +113,7 @@ const CocktailDetailPage = ({ id }) => {
           })}
         </div>
       </div>}
-      {productDetails?.presentations?.values?.length > 0 &&
+      {(productDetails?.presentations?.values?.length > 0 && productDetails?.showPresentations) &&
         <div className="presentation-container  mb-[16px]">
           <div className="sub-heading-container mb-[21px]">
             <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
@@ -148,7 +148,7 @@ const CocktailDetailPage = ({ id }) => {
 
 
       </VideoModal  >
-      {productDetails?.methods?.values?.length > 0 &&
+      {productDetails?.methods?.values?.length > 0 && productDetails?.showMethods &&
         <div className="method-container mb-[32px]">
           <div className="sub-heading-container flex justify-between items-center mb-[21px]">
             <h4 className="text-white text-[20px] leading-[32px] font-semibold">
