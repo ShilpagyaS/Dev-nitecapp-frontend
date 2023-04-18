@@ -225,10 +225,11 @@ function EmptyUSerLayout() {
     function checkVals() {
         if (
 
-            drinkName != "" &&
-            newMockData.ingredients.values.length > 0 &&
-            newMockData.methods.values.length > 0 &&
-            newMockData.presentations.values.length > 0
+            drinkName != "" 
+            // &&
+            // newMockData.ingredients.values.length > 0 &&
+            // newMockData.methods.values.length > 0 &&
+            // newMockData.presentations.values.length > 0
         )
             return true
         return false

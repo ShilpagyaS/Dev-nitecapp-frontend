@@ -70,7 +70,9 @@ const Notes = ({ subcategory, id }) => {
     {(noteDetails?.user_notes && noteDetails?.user_notes !== "") &&
       <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
         {/* <p className=" bg-transparent mr-24px">{noteDetails?.user_notes || ""}</p> */}
-        <textarea className={`overflow-hidden bg-[#2C2C2C] choice-container  w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`} value={noteDetails?.user_notes || ""} disabled />
+        <textarea className={`hidescrollbar min-h-[90px] bg-[#2C2C2C] choice-container  w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`} value={noteDetails?.user_notes || ""}
+          style={{ resize: 'none' }}
+          disabled />
         <button
           onClick={handleEditModalOpen}
           className="hover:text-primary-base font-bold"
