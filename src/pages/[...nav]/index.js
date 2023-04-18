@@ -155,7 +155,7 @@ export default function Category() {
 
 
                 {path === "/specs/low_no_abv" && <LowABV />}
-                {path === `/specs/low_no_abv?id=${productId}` && (
+                {path === `/specs/low_no_abv/${enUrl(subcategory2)}?id=${productId}` && (
                   <SpecsDetailPage id={productId} subcategory={"low_no_abv"} />
                 )}
                 {path === "/specs/low_no_abv/brands" && (

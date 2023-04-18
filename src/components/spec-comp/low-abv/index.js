@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { whatsthestrength } from "@/utils/abvfinder";
 import Search from "@/utils/Search";
 import Breadcrumb from "@/components/Breadcrumb";
+import { enUrl } from "@/utils/encoderfunc";
 
 function LowABV() {
   const isTablet = useMediaQuery("(max-width: 786px)");
@@ -65,7 +66,7 @@ function LowABV() {
           {finaldata.map((card, i) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`/specs/low_no_abv?id=${card.low_no_abv_id}`}>
+                <Link href={`/specs/low_no_abv/${enUrl(card.low_no_abv_name)}?id=${card.low_no_abv_id}`}>
                   <RectangularCard
                     title={card.low_no_abv_name}
                     image={card.image}
