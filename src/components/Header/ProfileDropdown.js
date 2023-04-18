@@ -29,8 +29,8 @@ export default function ProfileDropdown(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-2 py-2 border border-[#959595] rounded-lg">
+          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y  rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="px-2 py-2 border  border-gray-600 rounded-lg">
               <Menu.Item onClick={() => { ; dispatch(logout()) }}>
 
                 <CustomButton
@@ -69,8 +69,8 @@ export function NotificationDropdown(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-2 py-2 border border-[#959595] rounded-lg">
+          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y  rounded-md  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="px-2 py-2 border border-gray-600 rounded-[10px]">
               <Menu.Item onClick={() => { }}>
                 <h3 className='italic font-normal text-[14px] leading-6 text-primary-base font-Inter mb-[7px]'>
                   {`No Notitfication Present`}
