@@ -16,6 +16,7 @@ import { enUrl } from "@/utils/encoderfunc";
 import Link from "next/link";
 import VideoModal from "@/components/modal/videoModal";
 import ReactPlayer from "react-player";
+import { whatsthestrength } from "@/utils/abvfinder";
 
 const CocktailDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -81,7 +82,7 @@ const CocktailDetailPage = ({ id }) => {
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.cocktail_name}
               </h3>
-              <p className="status-text text-[18px]">Medium(12%)</p>
+              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p>
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>

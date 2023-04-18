@@ -15,7 +15,7 @@ const SelectWithSearch = ({
 
   const filteredOptions =
     (value !== "" && value)
-      ? [...options].filter((option) =>
+      ? [...options]?.filter((option) =>
         option?.label?.toLowerCase().includes(value?.toString()?.toLowerCase())
       )
       : options;
@@ -91,7 +91,7 @@ const SelectWithSearch = ({
             />
           </svg>
         </div>
-        {enableOption && filteredOptions.length > 0 && (
+        {enableOption && filteredOptions?.length > 0 && (
           <div className="relative">
             <div className="absolute z-10  max-h-[200px] scrollbar overflow-y-scroll  w-full px-1 bg-black border border-white rounded-lg shadow-md mt-1">
               {filteredOptions.map((option, i) => (
