@@ -145,7 +145,7 @@ function SpecsTable() {
                     <div className='relative rounded-[10px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         {!element.itemImage &&
-                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                            <Image src={'/asset/nodrinkinverted.webp'}
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
@@ -216,7 +216,7 @@ function SpecsTable() {
                     <div className='relative rounded-[10px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] h-[106px] w-[106px]'
                     >
                         {!element.itemImage &&
-                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                            <Image src={'/asset/nodrinkinverted.webp'}
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}

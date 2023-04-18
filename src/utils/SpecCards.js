@@ -129,7 +129,7 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
           }`}
       >
         {image &&
-          <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+          <Image src={'/asset/nodrinkinverted.webp'}
             alt={title}
             fill
             priority

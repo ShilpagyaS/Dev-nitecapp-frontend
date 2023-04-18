@@ -63,8 +63,8 @@ function WinebrandTable({ productId, subcategory }) {
                     <div className='relative rounded-[10px] h-[106px] w-[106px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
                     >
                         {!element.itemImage &&
-                            <Image src={'/asset/noimagedrinkeditsquare.jpg'}
-                                alt="image"
+                            <Image src={'/asset/nodrinkinverted.webp'}
+                            alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"

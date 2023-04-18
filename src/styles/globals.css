@@ -24,16 +24,20 @@ body {
   /* --toastify-color-progress-success: #ee854d !important; */
 
 }
-.Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--success{
+
+.Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--success {
   /* border: #ee854d 1px solid  !important; */
   background: black !important;
 }
-.Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--error{
+
+.Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--error {
   background: black !important;
 }
-.Toastify__toast-container.Toastify__toast-container--top-right{
+
+.Toastify__toast-container.Toastify__toast-container--top-right {
   background: transparent;
 }
+
 .swiper-pagination {
   line-height: 0 !important;
   bottom: 0 !important;
@@ -97,7 +101,7 @@ body {
 }
 
 .brandModal::-webkit-scrollbar-thumb {
-  background: #F19B6C;
+  background: #CBAF69;
   border-radius: 10px;
 }
 
@@ -118,7 +122,7 @@ body {
 }
 
 .notificationModal::-webkit-scrollbar-thumb {
-  background: #F19B6C;
+  background: #CBAF69;
   border-radius: 5px;
 }
 
@@ -133,4 +137,25 @@ body {
 
 .hidescrollbar::-webkit-scrollbar {
   width: 0px;
+}
+
+.alphabetscroll {
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  /* Firefox */
+}
+
+.alphabetscroll::-webkit-scrollbar {
+  height: 1px;
+}
+
+.alphabetscroll::-webkit-scrollbar-thumb {
+  background: #CBAF69;
+  border-radius: 5px;
+}
+
+.alphabetscroll::-webkit-scrollbar-track {
+  background: #2B2828;
+  border-radius: 5px;
 }

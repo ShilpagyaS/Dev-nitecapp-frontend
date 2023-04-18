@@ -549,7 +549,7 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                         </label>
                         <div className='w-[200px]'>
 
-                            <CustomSelect items={[{ value: 0, label: 'All' }, ...roles]}
+                            <CustomSelect customDropdowncss={'notificationModal max-h-[150px]'} items={[{ value: 0, label: 'All' }, ...roles]}
                                 optionalFunction={(e) => { console.log(e); chooseOption(e); setoptions(e.value) }}
                             />
                         </div>
@@ -1468,6 +1468,88 @@ export function DeleteUserorAdmin({ isModalOpen, onClickCancel, onSave, deleteBt
 
             </div>
 
+        </Modal>
+    )
+}
+export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            paddingRight: "2px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+
+
+
+
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+
+        // onSave(dummydata).then((res) => {
+        //     res?.error ?
+        //         // errortoast({ message: res.message }) 
+        //         ''
+        //         : successtoast({ message: `User added successfully` });
+        //     if (!res?.error)
+        //         onClickCancel();
+        // })
+        setinput1("");
+        setinput2("");
+
+    };
+    function clearForm() {
+
+    }
+    function handlephoneNumber(e) {
+        const newValue = event.target.value;
+        if (/^\d{0,3}-?\d{0,3}-?\d{0,4}$/.test(newValue)) {
+            handleChange(e)
+        }
+    }
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setBrandForm((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Add a Guest`}</h4>
+            </div>
+            <div className='notificationModal max-h-[406px] pr-[15px]' >
+            
+            </div>
         </Modal>
     )
 }

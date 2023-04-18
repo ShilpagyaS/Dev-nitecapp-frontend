@@ -268,20 +268,7 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                         <CocktailFileUpdate defaultImage={productDetails?.image}
                             setimage={setimage}
                             isEdit={isEdit} />
-                        {/* {isEdit &&
-                            <div className="editbutton flex text-[#929292] ">
-                                <Image
-                                    src={'/asset/EditVector.svg'}
-                                    // src={'/asset/DeleteVector.svg'}
-                                    width={20}
-                                    height={20}
-                                    className=""
-                                />
-                                <div className="ml-[12px]">
-                                    Edit Image
-                                </div>
-                            </div>
-                        } */}
+                      
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">
