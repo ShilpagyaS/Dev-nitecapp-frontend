@@ -136,7 +136,7 @@ function SpecsTable() {
     //     dispatch(putProductByIdThenUpdateList(element.type, element.id, data))
     //         .then(dispatch(getAllProduct(['cocktail', 'spirit', 'beer', 'low_no_abv', 'wine'])))
     // }
-    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
+    const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit "]
     function OuterRowsnormal({ element }) {
 
         return (

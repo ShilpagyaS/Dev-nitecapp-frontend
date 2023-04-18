@@ -150,7 +150,7 @@ function GuestDetailsPage({ guestID }) {
                     </div>
                 }
             </div>
-            <DummyNotes />
+            {/* <DummyNotes /> */}
             <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
                 <p className=" bg-transparent mr-24px">{"Note 1"}</p>
 
