@@ -31,7 +31,7 @@ function Header(props) {
         : "flex-col justify-center items-start"
         } flex left-0 h-20 w-full sm:py-[12px]  py-[10px]  bg-black `}
     >
-      <div className="sm:w-[60px] sm:h-[40px] lg:w-[70px] lg:h-[50px] object-cover relative">
+      <div className="w-[60px] h-[40px] lg:w-[70px] lg:h-[50px] object-cover relative">
         <Image
           className=""
           src={logo || "/dash/didlogo.svg" || '/asset/nitecapp_logo.png'}
