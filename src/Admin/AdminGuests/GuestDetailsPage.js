@@ -6,6 +6,7 @@ import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cockt
 import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton'
 import EditCard from '@/utils/Cards/Text card/EditCard'
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea'
+import { DummyNotes } from '@/components/spec-comp/notesComp/notes'
 function GuestDetailsPage({ guestID }) {
     const [upimage, setimage] = useState(undefined)
     const [isEdit, setEdit] = useState(false)
@@ -104,7 +105,7 @@ function GuestDetailsPage({ guestID }) {
                         <p className="font-medium">
                             March 31st 1983
                         </p> :
-                        <input type='date' className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'/>
+                        <input type='date' className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' />
                     }
                 </div>
 
@@ -149,6 +150,32 @@ function GuestDetailsPage({ guestID }) {
                     </div>
                 }
             </div>
+            <DummyNotes />
+            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+                <p className=" bg-transparent mr-24px">{"Note 1"}</p>
+
+                <button
+                    onClick={() => { }}
+                    className="hover:text-primary-base font-bold"
+                >Edit</button>
+            </div>
+            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+                <p className=" bg-transparent mr-24px">{"Note 2"}</p>
+
+                <button
+                    onClick={() => { }}
+                    className="hover:text-primary-base font-bold"
+                >Edit</button>
+            </div>
+            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+                <p className=" bg-transparent mr-24px">{"Note 3"}</p>
+
+                <button
+                    onClick={() => { }}
+                    className="hover:text-primary-base font-bold"
+                >Edit</button>
+            </div>
+
         </div>
     )
 }
