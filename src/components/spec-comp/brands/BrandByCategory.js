@@ -42,7 +42,7 @@ const BrandsByCategory = ({ productType, productId, subcategory }) => {
                 {brandsList?.map((i) => {
                     return <Link href={`/specs/${productType}/brands?id=${i?.brand_id || i?.drink_brand_id}`}>
                         <div className=" bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] max-w-[397px] lg:min-w[325px] md:min-w-[397px] sm:min-w-[289px]  h-[137.44px]">
-                            <Image src={i.image} fill className="rounded-md"
+                            <Image src={i.image || ''} fill className="rounded-md"
                                 style={{ objectFit: "cover" }}
                             />
                         </div>{" "}

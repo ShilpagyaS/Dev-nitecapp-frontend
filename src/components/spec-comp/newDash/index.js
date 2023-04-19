@@ -23,7 +23,7 @@ function NewUserDashboard() {
     { image: '/dash/ck4.png', title: 'Beer/Seltzer', link: '/specs/beer' },
     { image: '/dash/ck1.png', title: 'Low / No ABV', link: '/specs/low_no_abv' }
     ]
-    const data2 = outlets?.map((i) => { return { title: i.outlet_name, image: i.image, link: `/brand/all_Brands/${enUrl(i.outlet_name)}?id=${i.outlet_id}` } })
+    const data2 = outlets?.map((i) => { return { title: i.outlet_name, image: i.image, link: `/brands/all_Brands/${enUrl(i.outlet_name)}?id=${i.outlet_id}` } })
     return (
         <>
             <div className="Header-container flex-col flex justify-between lg:items-center md:items-center mb-8 w-full ">

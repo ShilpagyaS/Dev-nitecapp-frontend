@@ -135,13 +135,8 @@ export default function Category() {
                     <SpecsDetailPage id={productId} subcategory={"spirit"} />
                   )}
 
-                {path === `/specs/spirit/brands` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
-
-
-
-
-                {path === "/specs/wine" && <WineCategory />}
-
+                {path === `/specs/spirit/brands` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}               
+                {path === "/specs/wine" && <WineCategory />}                
                 {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
                 {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
                 {path === `/specs/wine/brands` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
@@ -247,6 +242,7 @@ export default function Category() {
                 {/* {path === `/specs/low_no_abv?id=${productId}` && <EditById productId={productId} subcategory={'low_no_abv'} />} */}
                 {path === `/brands` && <AdminExploreBrands />}
                 {path === `/brands/${enUrl(subcategory)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
+                {path === `/brands/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}
