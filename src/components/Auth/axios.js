@@ -15,9 +15,9 @@ const unprotectedRoutes = ["/user-auth/login", "/api/user-auth/verify-otp"];
 
 //axios instence creation
 
-const axiosInstance = setupCache(axios.create({
+const axiosInstance = axios.create({
   baseURL: baseurl,
-}));
+});
 
 //token injection for local storage on protected routes
 

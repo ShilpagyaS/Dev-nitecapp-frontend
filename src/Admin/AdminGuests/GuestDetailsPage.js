@@ -1,26 +1,80 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import Image from 'next/image'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ProfileFileUpdatewithoptionalisEdit } from '@/components/Userprofile/profileupload'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
 import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton'
 import EditCard from '@/utils/Cards/Text card/EditCard'
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea'
 import { DummyNotes } from '@/components/spec-comp/notesComp/notes'
+import { useDispatch, useSelector } from 'react-redux'
+import { emptyAllGuests, getGuestDetail, putGuestDetail } from '@/store/slices/guests'
+import moment from 'moment/moment'
+import { uploadimage } from '@/store/slices/ui'
 function GuestDetailsPage({ guestID }) {
     const [upimage, setimage] = useState(undefined)
     const [isEdit, setEdit] = useState(false)
     const bioref = useRef()
     const allergiesref = useRef()
     const preferencesref = useRef()
-    const nameref = useRef()
-    const [phone, setphone] = useState('123456798')
-    const [email, setemail] = useState('johndoe@gmail.com')
-    const [EditModal, setEditmodal] = useState(false)
-    const [editItem, setEditItem] = useState({})
+    const [firstName, setFirstName] = useState()
+    const [lastName, setLastName] = useState()
+    const [phone, setphone] = useState('')
+    const [email, setemail] = useState('')
+    const [birthday, setbirthday] = useState()
+    const { guestDetails } = useSelector(state => state.guests)
+    const dispatch = useDispatch()
+    useEffect(() => {
 
+        dispatch(getGuestDetail(guestID))
+        return () => {
+            dispatch(emptyAllGuests())
+        }
+    }, [])
+    useEffect(() => {
+        if (guestDetails) {
+            setFirstName(guestDetails.first_name)
+            setLastName(guestDetails.last_name)
+            setphone(guestDetails.phone)
+            setemail(guestDetails.email)
+            setbirthday(moment(guestDetails.birthday).format('YYYY-MM-DD'))
+        } 
+    }, [guestDetails])
 
     function onSave() {
+        let dummydata = {
+            ...guestDetails,
+            first_name: firstName,
+            last_name: lastName,
+            description: bioref.current.value,
+            birthday: birthday,
+            allergies: allergiesref.current.value,
+            preferences: preferencesref.current.value,
+            email: email,
+            phone: phone
+
+        }
+        if (isEdit == true) {
+            if (upimage) {
+                dispatch(uploadimage(upimage)).then((imageurl) => {
+                    if (imageurl && !imageurl?.error)
+                        dispatch(putGuestDetail({ ...dummydata, image: imageurl }, guestID)).then((res) => {
+                            console.log(res);
+                        })
+                    else console.log("cannot upload")
+                })
+            }
+            else
+                dispatch(putGuestDetail(dummydata, guestID)).then((res) => {
+                    console.log(res);
+
+
+                })
+            setimage()
+            toggleEdit()
+        }
+
+
 
     }
     const toggleEdit = () => {
@@ -47,31 +101,47 @@ function GuestDetailsPage({ guestID }) {
             </div>
             <div className='img-and-desc-container mt-[10px] flex items-center '>
                 <div className='imagecontainer mr-[15px]'>
-                    <ProfileFileUpdatewithoptionalisEdit isedit={isEdit} setimage={setimage} upimage={upimage} defaultImage={'/asset/Byron.jpeg'} />
+                    <ProfileFileUpdatewithoptionalisEdit isedit={isEdit} setimage={setimage} upimage={upimage} defaultImage={guestDetails.image} />
                 </div>
                 <div className='nameDesc flex flex-col items-start w-full'>
                     {!isEdit &&
                         <>
                             <h3 className="title text-[24px] font-bold mr-[16px] mb-[10px]" >
 
-                                <EditCard editContent={'John Doe'} isEdit={false} />
+                                <EditCard editContent={`${guestDetails.first_name} ${guestDetails.last_name}`} isEdit={false} />
                             </h3>
                         </>
                     }
                     {isEdit &&
-                        <h3 className="title text-[24px] font-bold mr-[16px] mb-[10px]" >
-                            <EditCard editContent={'John Doe'} isEdit={isEdit} divref={nameref} />
-                        </h3>
+                        <div className='flex mb-[10px]'>
+
+                            <div className='input-desc flex flex-col'>
+                                {/* <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter First Name</h3> */}
+                                <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic '
+                                    value={firstName || ''} onChange={(e) => { setFirstName(e.target.value) }}
+                                    placeholder={'Enter First Name'}
+                                />
+                            </div>
+                            <div className='input-val flex flex-col ml-[25px]'>
+                                {/* <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Last Name</h3> */}
+                                <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                                    value={lastName || ''} onChange={(e) => { setLastName(e.target.value) }}
+                                    placeholder='Enter Last Name'
+                                />
+
+                            </div>
+
+                        </div>
                     }
 
                     {!isEdit ?
                         <div className='desc text-white'>
-                            John has black hair and is always dressed in a gray suit. He works at City National bank across the street and often comes in after he’s off work!
+                            {guestDetails.description}
                         </div>
                         :
                         <div className='w-full'>
 
-                            <DescriptionTextArea textAreaRef={bioref} isEdit={isEdit} content={`John has black hair and is always dressed in a gray suit. He works at City National bank across the street and often comes in after he’s off work!`} />
+                            <DescriptionTextArea textAreaRef={bioref} isEdit={isEdit} content={guestDetails.description} />
 
                         </div>
                     }
@@ -84,7 +154,7 @@ function GuestDetailsPage({ guestID }) {
                 <div className="strength-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
                     <p className="mr-6">Phone</p>
                     {!isEdit ?
-                        <p className="font-medium"> 123456798</p>
+                        <p className="font-medium"> {guestDetails.phone || "No Contact"}</p>
                         :
                         <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
                             value={phone || ''} onChange={(e) => { setphone(e.target.value) }} />
@@ -93,7 +163,7 @@ function GuestDetailsPage({ guestID }) {
                 <div className="origin-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
                     <p className="mr-6">Email</p>
                     {!isEdit ?
-                        <p className="font-medium"> johndoe@gmail.com</p>
+                        <p className="font-medium"> {guestDetails.email || 'Email not present'}</p>
                         :
                         <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none'
                             value={email || ''} onChange={(e) => { setemail(e.target.value) }} />
@@ -103,26 +173,29 @@ function GuestDetailsPage({ guestID }) {
                     <p className="mr-6">Birthday</p>
                     {!isEdit ?
                         <p className="font-medium">
-                            March 31st 1983
+                            {moment(guestDetails.birthday).format("MMM Do YYYY")}
                         </p> :
-                        <input type='date' className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' />
+                        <input type='date' value={birthday} onChange={(e) => { console.log(e.target.value); setbirthday(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' />
                     }
                 </div>
 
 
                 {!isEdit ?
-                    <div className="tastes-container flex justify-between items-center text-[16px] mb-4 pb-4 border-b border-[#222222]">
-                        <p className="mr-6">Alergies</p>
-                        <p className="font-medium">
-                            Shellfish, Gluten sensitive
-                        </p>
-                    </div>
+                    <>
+                        {guestDetails.allergies &&
+                            <div className="tastes-container  text-[16px] mb-4 pb-4 border-b border-[#222222]">
+                                <p className="mr-6 mb-[10px]">Alergies</p>
+                                <DescriptionTextArea textAreaRef={allergiesref} isEdit={false} content={guestDetails.allergies} />
+
+                            </div>
+                        }
+                    </>
                     :
                     <div className='w-full border-b border-[#222222] mb-4 '>
                         <p className="mr-6 mb-[10px]">
                             Alergies
                         </p>
-                        <DescriptionTextArea textAreaRef={allergiesref} isEdit={isEdit} content={` Shellfish, Gluten sensitive`} />
+                        <DescriptionTextArea textAreaRef={allergiesref} isEdit={isEdit} content={guestDetails.allergies} />
 
                     </div>
                 }
@@ -133,19 +206,24 @@ function GuestDetailsPage({ guestID }) {
                     </p>
                 </div> */}
                 {!isEdit ?
-                    <div className='w-full border-b border-[#222222] mb-4 '>
-                        <p className="mr-6 mb-[10px]">
-                            Preferences
-                        </p>
-                        <DescriptionTextArea textAreaRef={allergiesref} isEdit={false} content={`Lemon in his water, Old Fashioned with 3 cherries`} />
+                    <>
+                        {guestDetails.preferences &&
+                            <div className='w-full border-b border-[#222222] mb-4 '>
+                                <p className="mr-6 mb-[10px]">
+                                    Preferences
+                                </p>
+                                <DescriptionTextArea textAreaRef={preferencesref} isEdit={false} content={guestDetails.preferences} />
 
-                    </div>
+                            </div>
+
+                        }
+                    </>
                     :
                     <div className='w-full border-b border-[#222222] mb-4 '>
                         <p className="mr-6 mb-[10px]">
                             Preferences
                         </p>
-                        <DescriptionTextArea textAreaRef={allergiesref} isEdit={isEdit} content={`Lemon in his water, Old Fashioned with 3 cherries`} />
+                        <DescriptionTextArea textAreaRef={preferencesref} isEdit={isEdit} content={guestDetails.preferences} />
 
                     </div>
                 }

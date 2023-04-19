@@ -14,12 +14,15 @@ import UploadBrandLogoInput from '@/utils/uploadBrandInput';
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Modal from "react-modal";
 import { useDispatch, useSelector } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import { errortoast, successtoast } from '../tostify';
 import InputField, { InputField2 } from '@/utils/InputField';
+import ProfileFileUpdate, { ProfileFileUpdateSmaller } from '../Userprofile/profileupload';
+import { createGuest, createGuestupdateList, getGuests } from '@/store/slices/guests';
+import { uploadimage } from '@/store/slices/ui';
 
 export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, type, label, productId }) {
     const customStyles = {
@@ -1495,9 +1498,56 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             backdropFilter: "blur(2.5px)",
         },
     };
-    const handleSave = () => {
+    const dispatch = useDispatch()
+    const handleSave = (value) => {
         console.log('done');
-        // onSave(dummydata).then((res) => {
+        console.log(value);
+        let dummydata = {
+            first_name: value.firstName,
+            last_name: value.lastName,
+            description: value.bio,
+            preferences: value.preferences,
+            allergies: value.allergies,
+            phone: value.phone,
+            email: value.email,
+            birthday: value.birthday
+        }
+        console.log(dummydata);
+        if (upimage) {
+            dispatch(uploadimage(upimage)).then((imageurl) => {
+                if (imageurl && !imageurl?.error)
+                    dispatch(createGuestupdateList({ ...dummydata, image: imageurl })).then((res) => {
+                        console.log(res);
+                        res?.error ?
+                            // errortoast({ message: res.message }) 
+                            ''
+                            :
+                            onClickCancel()
+                        console.log('if');
+
+
+                    })
+                else console.log("cannot upload")
+            })
+        }
+        else {
+
+            console.log('else block');
+            dispatch(createGuestupdateList(dummydata)).then((res) => {
+                console.log(res);
+                console.log('else');
+                res?.error ?
+                    // errortoast({ message: res.message }) 
+                    ''
+                    : onClickCancel()
+
+            })
+
+
+
+        }
+
+        // onSave(dummydata, upimage).then((res) => {
         //     res?.error ?
         //         // errortoast({ message: res.message }) 
         //         ''
@@ -1507,7 +1557,18 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
         // })
 
     };
-    const [initalData, setInitail] = useState({})
+    const [initalData, setInitail] = useState({
+        firstName: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        birthday: '',
+        bio: '',
+        allergies: '',
+        preferences: '',
+    })
+    const [upimage, setimage] = useState(undefined)
+    const cref = useRef()
     const formik = useFormik({
         initialValues: initalData,
         enableReinitialize: true,
@@ -1517,6 +1578,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
             lastName: Yup.string(),
             phone: Yup.number().typeError('Please Enter Number'),
             email: Yup.string().email(),
+            birthday: Yup.date(),
             bio: Yup.string(),
             allergies: Yup.string(),
             preferences: Yup.string(),
@@ -1566,7 +1628,16 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                 onSubmit={formik.handleSubmit}
             >
                 <div className='notificationModal max-h-[406px] pr-[15px]' >
-
+                    <div className='flex items-center justify-center'>
+                        {/* <h5
+                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]`}
+                        >
+                            Profile Image
+                        </h5> */}
+                        <ProfileFileUpdateSmaller
+                            setimage={setimage} upimage={upimage}
+                        />
+                    </div>
                     <InputField2
                         fullwidth={true}
                         placeholder=""
@@ -1619,8 +1690,22 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                     <div>
 
                         <h5
-                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]
-`}
+                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]`}
+                        >
+                            Birthday
+                        </h5>
+                        <input type={'date'} ref={cref}
+                            className={` mt-[4px] h-[50px] w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none  border border-solid border-[#3C3C3C] focus:border-[#959595]  focus:ring-offset-white focus:ring-1 `}
+                            value={formik.values.birthday}
+                            name={'birthday'}
+                            onChange={formik.handleChange} rows={1}
+                            onClick={(e) => { cref.current.showPicker() }}
+                        />
+                    </div>
+                    <div>
+
+                        <h5
+                            className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight text-[#959595]`}
                         >
                             Bio
                         </h5>
@@ -1640,7 +1725,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                         </h5>
                         <textarea className={`notificationModal mt-[4px] min-h-[90px] choice-container w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none  border border-solid border-[#3C3C3C] focus:border-[#959595]  focus:ring-offset-white focus:ring-1 `}
                             value={formik.values.allergies}
-                            name={'bio'}
+                            name={'allergies'}
                             onChange={formik.handleChange} rows={1} style={{ resize: 'none' }} />
 
                     </div>
@@ -1654,7 +1739,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                         </h5>
                         <textarea className={`notificationModal mt-[4px] min-h-[90px] choice-container w-full max-h-[90px] py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none  border border-solid border-[#3C3C3C] focus:border-[#959595]  focus:ring-offset-white focus:ring-1 `}
                             value={formik.values.preferences}
-                            name={'bio'}
+                            name={'preferences'}
                             onChange={formik.handleChange} rows={1} style={{ resize: 'none' }} />
 
                     </div>
