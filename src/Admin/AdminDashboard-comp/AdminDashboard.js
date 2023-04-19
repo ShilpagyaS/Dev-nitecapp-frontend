@@ -15,6 +15,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import CocktailDetailPage from '../../components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page'
 import EmptyUSerLayout from '../../components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/EmptyUSerLayout'
+import AdminDashboardNew from './AdminDashboardNew'
 
 
 function AdminDashboard() {
@@ -22,7 +23,7 @@ function AdminDashboard() {
         <>
 
             {/* <Empty componentName={'Items'} /> */}
-            <NewUserDashboard />
+            <AdminDashboardNew />
 
         </>
     )
