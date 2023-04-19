@@ -2,22 +2,22 @@ import { setloader } from "@/store/slices/ui";
 import axios from "axios";
 import { store } from "@/store/store"
 import { errortoast, successtoast } from "../tostify";
-
+import { setupCache } from 'axios-cache-interceptor';
 
 export const baseurl = process.env.NEXT_PUBLIC_BECKEND_URL
 // "http://nitecapp-env.eba-8ciezhud.us-east-1.elasticbeanstalk.com/";
 // "https://server.nitecapp.io"
 // "https://server-prod.nitecapp.io"
 
- 
+
 //routes declairation
 const unprotectedRoutes = ["/user-auth/login", "/api/user-auth/verify-otp"];
 
 //axios instence creation
 
-const axiosInstance = axios.create({
+const axiosInstance = setupCache(axios.create({
   baseURL: baseurl,
-});
+}));
 
 //token injection for local storage on protected routes
 
