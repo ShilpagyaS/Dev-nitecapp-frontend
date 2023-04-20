@@ -33,7 +33,10 @@ function GuestInfo({ guestID }) {
     const inx = guestDetails?.notes?.find((i) => i.user_id === user.id)
     if (inx) {
       setIsNotesAdded(true)
+    } else {
+      setIsNotesAdded(false)
     }
+
   }, [guestDetails])
   const handleCloseModal = () => {
     setIsAddModalOpen(false);
@@ -123,7 +126,10 @@ function GuestInfo({ guestID }) {
           return <MultipleNotes noteDetails={i} onUpdate={(note) => {
             dispatch(updateGuestNoteDetails('guest', guestID, note, i.guest_notes_id))
           }}
-            onDelete={() => { dispatch(deleteGuestNoteDetails('guest', guestID, i.guest_notes_id)) }}
+            onDelete={() => {
+              dispatch(deleteGuestNoteDetails('guest', guestID, i.guest_notes_id))
+
+            }}
           />
         })}
 
