@@ -1,5 +1,6 @@
 import axiosInstance from "@/components/Auth/axios";
 import { createSlice } from "@reduxjs/toolkit";
+import { getGuestDetail } from "./guests";
 
 const initialState = {
     noteDetails: {},
@@ -27,7 +28,9 @@ export const getNoteDetails = (productType, id) => {
         console.log(state?.auth?.user?.id)
         axiosInstance({
             url: `/api/getUserNote`,
+            id: 'get_guest_details',
             method: "POST",
+            revalidate: true,
             data: {
                 type: productType,
                 product_id: id,
@@ -66,12 +69,36 @@ export const addNoteDetails = (productType, id, note) => {
     };
 };
 
-export const updateNoteDetails = (productType, id, note, noteid) => {
+
+export const addGuestNoteDetails = (productType, id, note) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
+            url: `/api/createUserNote`,
+            method: "POST",
+            data: {
+                type: productType,
+                guest_id: id,
+                user_id: state?.auth?.user?.id,
+                user_notes: note
+            }
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(getGuestDetail(id));
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+
+export const updateNoteDetails = (productType, id, note, noteid) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+
+        axiosInstance({
             url: `/api/updateUserNote/${noteid}`,
             method: "PUT",
+
             data: {
                 type: productType,
                 product_id: id,
@@ -80,7 +107,35 @@ export const updateNoteDetails = (productType, id, note, noteid) => {
             }
         }).then((res) => {
             console.log("response in product,js 47", res);
+            debugger
             dispatch(getNoteDetails(productType, id));
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+
+export const updateGuestNoteDetails = (productType, id, note, noteid) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+
+        axiosInstance({
+            url: `/api/updateUserNote/${noteid}`,
+            method: "PUT",
+            cache: {
+                update: {
+                    get_guest_details: "delete"
+                }
+            },
+            data: {
+                type: productType,
+                guest_id: id,
+                user_id: state?.auth?.user?.id,
+                user_notes: note
+            }
+        }).then((res) => {
+
+            dispatch(getGuestDetail(id));
         }).catch((err) => {
             console.log(err)
         });
@@ -108,6 +163,26 @@ export const deleteNoteDetails = (productType, id, note, noteid) => {
     };
 };
 
+export const deleteGuestNoteDetails = (productType, id, noteid) => {
+    return async (dispatch, getState) => {
+        debugger
+        const state = getState();
+        axiosInstance({
+            url: `/api/deleteUserNote/${noteid}`,
+            method: "DELETE",
+            data: {
+                type: productType,
+                guest_id: id,
+                user_id: state?.auth?.user?.id,
+            }
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(getGuestDetail(id));
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const emptyNotesList = (productType) => {
 
     return async (dispatch, getState) => {

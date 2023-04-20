@@ -6,13 +6,21 @@ import { emptyAllGuests, getGuestDetail } from '@/store/slices/guests'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea'
+import Notes from '../spec-comp/notesComp/notes'
+import MultipleNotes from '../spec-comp/notesComp/multiplenotes'
+import { OrangeButtons } from '@/utils/Buttons'
+import { addGuestNoteDetails, addNoteDetails, deleteGuestNoteDetails, updateGuestNoteDetails } from '@/store/slices/notes'
+import NotesModal from '../modal/Modal'
 
 function GuestInfo({ guestID }) {
   const { guestDetails } = useSelector(state => state.guests)
   const dispatch = useDispatch()
+  const { user } = useSelector(state => state.auth)
   const [upimage, setimage] = useState(undefined)
+  const [isNotesAdded, setIsNotesAdded] = useState(false)
   const allergiesref = useRef()
   const preferencesref = useRef()
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   useEffect(() => {
 
     dispatch(getGuestDetail(guestID))
@@ -20,6 +28,17 @@ function GuestInfo({ guestID }) {
       dispatch(emptyAllGuests())
     }
   }, [])
+
+  useEffect(() => {
+    const inx = guestDetails?.notes?.find((i) => i.user_id === user.id)
+    if (inx) {
+      setIsNotesAdded(true)
+    }
+  }, [guestDetails])
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false);
+  };
+
   return (
     <div>
       <Breadcrumb />
@@ -28,7 +47,7 @@ function GuestInfo({ guestID }) {
           <div className={`img-container relative max-w-[186px] min-w-[186px]  rounded-full h-[186px] mr-[31px] `}>
             {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-            <Image src={guestDetails.image || '/asset/avatar2.png'} className="w-full rounded-full border-2 border-[#484848]" fill priority/>
+            <Image src={guestDetails.image || '/asset/avatar2.png'} className="w-full rounded-full border-2 border-[#484848]" fill priority />
 
           </div>        </div>
         <div className='nameDesc flex flex-col items-start'>
@@ -77,30 +96,36 @@ function GuestInfo({ guestID }) {
 
         }
         {/* <DummyNotes /> */}
-        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-          <p className=" bg-transparent mr-24px">{"Note 1"}</p>
 
-          <button
-            onClick={() => { }}
-            className="hover:text-primary-base font-bold"
-          >Edit</button>
-        </div>
-        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-          <p className=" bg-transparent mr-24px">{"Note 2"}</p>
+        <NotesModal
+          title="New Notes"
+          desc="Enter Note here: |"
+          isModalOpen={isAddModalOpen}
+          onSave={(note) => {
+            dispatch(addGuestNoteDetails('guest', guestID, note))
+            handleCloseModal()
 
-          <button
-            onClick={() => { }}
-            className="hover:text-primary-base font-bold"
-          >Edit</button>
-        </div>
-        <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-          <p className=" bg-transparent mr-24px">{"Note 3"}</p>
+          }}
+          onClickCancel={handleCloseModal}
+        />
 
-          <button
-            onClick={() => { }}
-            className="hover:text-primary-base font-bold"
-          >Edit</button>
+        <div className="sub-heading-container flex justify-between items-center mb-[21px]">
+          <h4 className="text-white text-[20px] leading-[32px] font-semibold">
+            Notes
+          </h4>
+          {!isNotesAdded && <OrangeButtons
+            onClickHandler={() => { setIsAddModalOpen(true) }}
+            label="Add Notes"
+            noPadding={true}
+          />}
         </div>
+        {guestDetails?.notes?.map((i) => {
+          return <MultipleNotes noteDetails={i} onUpdate={(note) => {
+            dispatch(updateGuestNoteDetails('guest', guestID, note, i.guest_notes_id))
+          }}
+            onDelete={() => { dispatch(deleteGuestNoteDetails('guest', guestID, i.guest_notes_id)) }}
+          />
+        })}
 
       </div>
     </div>
