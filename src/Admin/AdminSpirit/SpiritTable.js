@@ -108,6 +108,7 @@ function SpiritTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }
@@ -117,6 +118,7 @@ function SpiritTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }

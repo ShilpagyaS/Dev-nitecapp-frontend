@@ -150,6 +150,7 @@ function SpecsTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }
@@ -159,6 +160,7 @@ function SpecsTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }
@@ -221,6 +223,7 @@ function SpecsTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }
@@ -230,6 +233,7 @@ function SpecsTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }

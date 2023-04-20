@@ -26,6 +26,7 @@ const BrandDetail = ({ productType, productId }) => {
           src={brandsDetails.image}
           fill
           style={{ objectFit: 'cover' }}
+          priority
 
         />
         <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%]  bg-[transparent]">

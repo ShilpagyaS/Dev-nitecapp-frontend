@@ -68,6 +68,7 @@ function CocktailTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
                             />
                         }
                         {element.itemImage &&
@@ -76,6 +77,7 @@ function CocktailTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }

@@ -11,7 +11,7 @@ export function CoctailCard({ image, title, isNew, onclickHandler }) {
         className={`relative image-container ${isTablet ? "w-[137px] h-[137px]" : "w-[171px] h-[171px]"
           } `}
       >
-        <Image src={image} alt="slider-image" fill />
+        <Image src={image} alt="slider-image" fill priority/>
         {isNew && (
           <p className="text-primary-base text-[14px] absolute top-0 left-3 ">
             New
@@ -37,6 +37,7 @@ export function BeverageCard({ image, title }) {
           src={image}
           alt="slider-image"
           fill
+          priority
         />
       ) : (
         <Image
@@ -44,6 +45,7 @@ export function BeverageCard({ image, title }) {
           src={image}
           alt="slider-image"
           fill
+          priority
         />
       )}
       <div className="mt-2 absolute top-[24px] left-[30px] bg-transparent ">
@@ -64,6 +66,7 @@ export function TrendingCard({ image, title }) {
           src={image}
           alt="slider-image"
           fill
+          priority
         />
       </div>
       <div className="bg-transparent ">
@@ -84,6 +87,7 @@ export function TrendingCardDash({ image, title }) {
           src={image}
           alt="slider-image"
           fill
+          priority
         />
       </div>
       <div className="bg-transparent ">
@@ -103,7 +107,7 @@ export function CoctailCard2({ image, title, isNew, sequence }) {
      border-[#3C3C3C] rounded-[21.3665px]"
     >
       <div className={`relative image-container ${"w-[137px] h-[137px]"} `}>
-        <Image src={image} alt="slider-image" fill />
+        <Image src={image} alt="slider-image" fill priority/>
         {(isNew || sequence) && (
           <p className="text-primary-base text-[14px] absolute top-0 left-3 ">
             {isNew ? "New" : `No. ${sequence}`}
@@ -137,6 +141,7 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
             priority
             style={{ objectFit: 'contain' }}
             className={`${circularImg ? " rounded-full " : "rounded-lg"}`}
+            
 
           />
         }
@@ -180,6 +185,7 @@ export function RectangularCard2({ image, title, subtitle, circularImg }) {
           alt="slider-image"
           className={`${circularImg && " rounded-full "}`}
           fill
+          priority
         />
       </div>
       <div className="text-container">

@@ -68,7 +68,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
-
+                                priority
                             />
                         }
                         {element.itemImage &&
@@ -77,6 +77,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                                 
                             />

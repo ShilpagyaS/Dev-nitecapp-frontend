@@ -24,6 +24,7 @@ function LeaderShipTableCards({ img, name, number, star, thunder }) {
               width={13}
               height={13}
               className="text-[#A8A8A8] bg-[#2C2C2C]"
+              priority
             />
             <p className='not-italic font-light text-base  pl-[8px] text-gray-500 font-Inter tracking-[-0.41px] bg-[#2C2C2C]'>
               {star}
@@ -35,6 +36,7 @@ function LeaderShipTableCards({ img, name, number, star, thunder }) {
               width={13}
               height={13}
               className="fill-[#A8A8A8] bg-[#2C2C2C]"
+              priority
             />
             <p className='not-italic font-light text-base pl-[8px] text-gray-500 font-Inter tracking-[-0.41px] bg-[#2C2C2C]'>
               {thunder}
@@ -46,6 +48,7 @@ function LeaderShipTableCards({ img, name, number, star, thunder }) {
               width={13}
               height={13}
               className="fill-[#A8A8A8] bg-[#2C2C2C]"
+              priority
             />
             <p className='not-italic font-light text-base  pl-[8px] text-gray-500 font-Inter tracking-[-0.41px] bg-[#2C2C2C]'>
               14

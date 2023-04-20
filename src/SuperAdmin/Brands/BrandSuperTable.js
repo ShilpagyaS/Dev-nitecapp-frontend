@@ -116,7 +116,8 @@ function BrandSuperTable() {
                         <Image src={'/asset/Sayaji.jpg'}
                             alt="image"
                             width={106}
-                            height={106} />
+                            height={106} 
+                            priority/>
                     </div>
                 </td>
                 <td >

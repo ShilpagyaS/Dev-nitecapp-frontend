@@ -33,7 +33,7 @@ export default function FileUpdate() {
                 <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] mr-[31px]`}>
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} className="w-full" fill />
+                    <Image src={image.preview} className="w-full" fill priority/>
 
                 </div>
                 <label htmlFor="upload-button">
@@ -45,6 +45,7 @@ export default function FileUpdate() {
                             width={20}
                             height={20}
                             className=""
+                            priority
                         />
                         <div className="ml-[12px]" >
                             Edit Image
@@ -63,6 +64,7 @@ export default function FileUpdate() {
                                 width={20}
                                 height={20}
                                 className="bg-[#171717]"
+                                priority
                             />
 
                             <h5 className="not-italic font-normal text-base leading-6 text-gray-600 font-Inter bg-transparent mt-[20px]">Upload Image</h5>

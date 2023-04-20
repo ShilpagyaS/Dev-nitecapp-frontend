@@ -149,7 +149,7 @@ const AdminIngridientDetail = ({ productType, productId }) => {
             </p>
           </div>
           <div className="img-container relative w-[136px] h-[154px]">
-            <Image src={ingredientDetails?.image} fill className="rounded-lg" />
+            <Image src={ingredientDetails?.image} fill className="rounded-lg" priority/>
             {/* <Image src="/asset/london-dry-green.svg" fill /> */}
           </div>
         </div>

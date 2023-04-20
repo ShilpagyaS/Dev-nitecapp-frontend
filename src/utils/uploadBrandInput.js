@@ -58,7 +58,7 @@ function UploadBrandLogoInput({
                         <div className={`img-container relative mr-[31px]`}>
                             {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                            <Image src={image.preview} className="w-full" fill />
+                            <Image src={image.preview} className="w-full" fill priority/>
 
                         </div>
                         <label htmlFor="upload-button">
@@ -70,6 +70,7 @@ function UploadBrandLogoInput({
                                     width={20}
                                     height={20}
                                     className=""
+                                    priority
                                 />
                                 <div className="ml-[12px]" >
                                     Edit Image

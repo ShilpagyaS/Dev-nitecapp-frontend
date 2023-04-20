@@ -163,7 +163,7 @@ const ExploreBrands = ({ admin }) => {
             <Link href={`/brands/all_Brands/${enUrl(card.outlet_name)}?id=${card.outlet_id}`}>
               <div className="flex flex-col items-center justify-center mb-[30px]">
                 <div className=" relative w-full rounded-[10px] min-h-[250px] ">
-                  <Image src={card.image} fill className="rounded-md object-cover" />
+                  <Image src={card.image} fill className="rounded-md object-cover" priority/>
                 </div>
                 <h3 className="not-italic font-semibold  text-md lg:text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
               </div>

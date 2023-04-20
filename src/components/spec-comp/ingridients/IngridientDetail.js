@@ -42,7 +42,7 @@ const IngridientDetail = ({ productType, productId }) => {
         </div>
         <div className="img-container relative w-[136px] h-[154px]">
           {/* src="/asset/london-dry-green.svg" */}
-          <Image src={ingredientDetails?.image} fill className="rounded-lg" />
+          <Image src={ingredientDetails?.image} fill className="rounded-lg" priority/>
         </div>
       </div>
       <div className="description-container text-white mb-8 border-t border-[#222222] pt-2">

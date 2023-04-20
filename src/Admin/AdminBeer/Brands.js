@@ -43,7 +43,7 @@ function AdminBrandsBeer({ productType }) {
                 {brandsList.map((element) =>
                     <Link href={`${category}/${subcategory}/brands/bluemoon?id=${element.brand_id}`}>
                         <div className=" bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] max-w-[397px] lg:min-w[325px] md:min-w-[397px] sm:min-w-[289px]  h-[137.44px]">
-                            <Image src={element.image != "" ? element.image : "/asset/brand3.svg"} fill style={{ objectFit: 'cover' }} className='rounded-[8px]' />
+                            <Image src={element.image != "" ? element.image : "/asset/brand3.svg"} fill style={{ objectFit: 'cover' }} className='rounded-[8px]' priority/>
                         </div>
                     </Link>
                 )}

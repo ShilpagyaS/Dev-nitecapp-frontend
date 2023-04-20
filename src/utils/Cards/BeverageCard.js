@@ -11,6 +11,7 @@ function BeverageCard({ imageSrc, beverageName, alcoholLevel }) {
           alt="bevreage-image"
           width={81}
           height={81}
+          priority
         />
       </div>
       <div className="pl-4 items-center ">

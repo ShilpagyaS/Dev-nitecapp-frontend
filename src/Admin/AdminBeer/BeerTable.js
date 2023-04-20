@@ -70,6 +70,7 @@ function BeerTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }
@@ -79,6 +80,7 @@ function BeerTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }

@@ -60,6 +60,7 @@ function Slider({ skipTo }) {
                   alt="slider-image"
                   width={isMobile ? 350 : 397}
                   height={isMobile ? 351 : 221}
+                  
                 />
               </div>
             </SwiperSlide>

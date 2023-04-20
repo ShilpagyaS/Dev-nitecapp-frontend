@@ -43,7 +43,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
         >
           {/* src="/asset/london-dry-green.svg" */}
           <Image src={productDetails?.image} className="object-cover rounded-lg"
-            fill alt={productDetails?.[`${subcategory}_name`]} />
+            fill alt={productDetails?.[`${subcategory}_name`]} priority/>
         </div>
         <div className="desc-container inline-block w-full  text-white mt-4 ">
           <div

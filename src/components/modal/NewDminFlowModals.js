@@ -576,13 +576,15 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                                             alt="image"
                                             className='rounded-full'
                                             fill
-                                            style={{ objectFit: 'cover' }} />
+                                            style={{ objectFit: 'cover' }} 
+                                            priority/>
                                         :
                                         <Image src={'/asset/User avatar default.png'}
                                             alt="image"
                                             className='rounded-full'
                                             fill
-                                            style={{ objectFit: 'cover' }} />
+                                            style={{ objectFit: 'cover' }} 
+                                            priority/>
                                     }
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>
@@ -856,13 +858,15 @@ export function SelectedUsers({ isModalOpen, onClickCancel, list, deleteBtn, set
                                             alt="image"
                                             className='rounded-full'
                                             fill
-                                            style={{ objectFit: 'cover' }} />
+                                            style={{ objectFit: 'cover' }}
+                                            priority />
                                         :
                                         <Image src={'/asset/User avatar default.png'}
                                             alt="image"
                                             className='rounded-full'
                                             fill
-                                            style={{ objectFit: 'cover' }} />
+                                            style={{ objectFit: 'cover' }}
+                                            priority />
                                     }
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>

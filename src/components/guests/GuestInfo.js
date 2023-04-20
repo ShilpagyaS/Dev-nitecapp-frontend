@@ -28,7 +28,7 @@ function GuestInfo({ guestID }) {
           <div className={`img-container relative max-w-[186px] min-w-[186px]  rounded-full h-[186px] mr-[31px] `}>
             {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-            <Image src={guestDetails.image || '/asset/avatar2.png'} className="w-full rounded-full border-2 border-[#484848]" fill />
+            <Image src={guestDetails.image || '/asset/avatar2.png'} className="w-full rounded-full border-2 border-[#484848]" fill priority/>
 
           </div>        </div>
         <div className='nameDesc flex flex-col items-start'>

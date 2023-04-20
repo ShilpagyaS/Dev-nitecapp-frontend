@@ -53,6 +53,7 @@ export default function BrandFileUpload({ setimage, defaultImage, isClear, isEdi
                             src={image.preview}
                             fill
                             style={{ objectFit: 'cover' }}
+                            priority
 
                         />
 
@@ -87,6 +88,7 @@ export default function BrandFileUpload({ setimage, defaultImage, isClear, isEdi
                                 width={20}
                                 height={20}
                                 className="bg-transparent"
+                                
                             />
 
                             <h5 className="not-italic font-normal text-base leading-6 text-[#959595] font-Inter bg-transparent mt-[20px]">Upload Image</h5>

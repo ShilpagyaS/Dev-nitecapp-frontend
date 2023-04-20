@@ -10,6 +10,7 @@ function Search({ search, setSearch }) {
                 width={14}
                 height={25}
                 className="bg-[#1D1D1D] "
+                priority
             />
             <input
                 className="bg-[#1D1D1D] text-[16px] ml-[10px] leading-6 h-full rounded-[10.9744px] focus:outline-none placeholder:font-Inter placeholder:text-[14px] placeholder-[#959595] text-white pr-[10px] "

@@ -65,6 +65,7 @@ function WineTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
 
                             />
@@ -75,6 +76,7 @@ function WineTable() {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }

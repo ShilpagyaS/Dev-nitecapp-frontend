@@ -17,7 +17,7 @@ const BrandsBrandDetail = () => {
         <h4 className="heading mb-6 text-[20px] leading-8">Culture</h4>
         <div className="img-description-container grid grid-cols-1 lg:grid-cols-2 gap-x-[42px] mb-8">
           <div className="img-container col-span-1 relative w-full h-[286px]">
-            <Image src="/asset/hotel.svg" fill />
+            <Image src="/asset/hotel.svg" fill priority/>
           </div>
           <div className="description-container col-span-1">
             <div className="flex flex-col justify-between h-full py-2 lg:text-left text-center">
@@ -42,7 +42,7 @@ const BrandsBrandDetail = () => {
         </h4>
         <div className="img-description-container grid grid-cols-1 lg:grid-cols-2 gap-x-[42px] mb-8">
           <div className="img-container col-span-1 relative w-full h-[286px]">
-            <Image src="/asset/hotel2.svg" fill />
+            <Image src="/asset/hotel2.svg" fill priority />
           </div>
           <div className="description-container col-span-1 lg:text-left text-center">
             <div className="">

@@ -8,7 +8,7 @@ function GuestCard({ image, name, onClickHandler }) {
         >
             <div className='relative sm:w-[93px] sm:h-[93px] rounded-full'>
                 <Image src={image || '/asset/User avatar default.png'}
-                    alt='userImage' fill className='object-contain rounded-full' />
+                    alt='userImage' fill className='object-contain rounded-full' priority/>
             </div>
             <div className='w-full text-center'>
 

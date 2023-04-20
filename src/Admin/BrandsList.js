@@ -63,7 +63,7 @@ function BrandsList({ productType }) {
                             <div className='flex flex-col items-start justify-center'>
 
                                 <div className=" bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] max-w-[397px] lg:min-w[325px] md:min-w-[397px] sm:min-w-[289px]  h-[137.44px]">
-                                    <Image src={element.image != "" ? element.image : "/asset/brand3.svg"} fill style={{ objectFit: 'cover' }} className='rounded-[8px]' />
+                                    <Image src={element.image != "" ? element.image : "/asset/brand3.svg"} fill style={{ objectFit: 'cover' }} className='rounded-[8px]' priority />
                                 </div>
                                 <h3 className="not-italic font-semibold text-white text-md lg:text-xl font-Inter mt-[10px]">{element.drink_brand_name}</h3>
 

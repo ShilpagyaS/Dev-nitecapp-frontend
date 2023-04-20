@@ -68,6 +68,7 @@ function WinebrandTable({ productId, subcategory }) {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }
@@ -77,6 +78,7 @@ function WinebrandTable({ productId, subcategory }) {
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
+                                priority
 
                             />
                         }

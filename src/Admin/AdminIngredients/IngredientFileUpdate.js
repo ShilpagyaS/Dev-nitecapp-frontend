@@ -48,7 +48,7 @@ export default function IngredientFileUpload({ setimage, defaultImage, isClear, 
 
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} fill className="rounded-lg object-contain" />
+                    <Image src={image.preview} fill className="rounded-lg object-contain" priority/>
 
                 </div>
                 <label htmlFor="upload-button">

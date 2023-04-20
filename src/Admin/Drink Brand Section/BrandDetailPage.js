@@ -76,7 +76,7 @@ function BrandDetailPage({ productType, productId }) {
                     <EditCard editContent={brandsDetails.drink_brand_name} isEdit={isEdit} />
                 </div>
                 <div className="banner-container w-full h-[269px] bg-no-repeat bg-cover bg-center mb-8 p-[44px] relative">
-                    <Image src={brandsDetails.image} fill style={{ objectFit: 'cover' }} />
+                    <Image src={brandsDetails.image} fill style={{ objectFit: 'cover' }} priority/>
                     {/* <div className="relative w-[235px] h-[74px] bg-[transparent] block m-auto">
                      
                     </div> */}

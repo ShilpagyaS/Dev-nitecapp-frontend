@@ -43,7 +43,7 @@ export default function ProfileFileUpdate({ setimage, upimage, defaultImage }) {
                     }`}>
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill />
+                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill priority />
 
                 </div>
                 <label htmlFor="upload-button">
@@ -126,7 +126,7 @@ export function ProfileFileUpdateSmaller({ setimage, upimage, defaultImage }) {
                     }`}>
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill />
+                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill priority/>
 
                 </div>
                 <label htmlFor="upload-button">
@@ -209,7 +209,7 @@ export function ProfileFileUpdatewithoptionalisEdit({ setimage, upimage, default
                     }`}>
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill />
+                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill priority />
 
                 </div>
                 {isedit &&

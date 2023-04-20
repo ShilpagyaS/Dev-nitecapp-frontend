@@ -87,13 +87,15 @@ function ManageUserTable() {
                 alt="image"
                 className='rounded-full'
                 fill
-                style={{ objectFit: 'cover' }} />
+                style={{ objectFit: 'cover' }} 
+                priority/>
               :
               <Image src={'/asset/User avatar default.png'}
                 alt="image"
                 className='rounded-full'
                 fill
-                style={{ objectFit: 'cover' }} />
+                style={{ objectFit: 'cover' }} 
+                priority/>
             }
           </div>
         </td>

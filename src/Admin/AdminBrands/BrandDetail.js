@@ -57,7 +57,7 @@ const AdminBrandDetail = () => {
         <div className="img-description-container grid grid-cols-1 lg:grid-cols-2 gap-x-[42px] mb-8">
           <div>
             <div className="img-container col-span-1 relative w-full h-[286px]">
-              <Image src="/asset/hotel.svg" fill />
+              <Image src="/asset/hotel.svg" fill priority/>
             </div>
             <div className="edit-image-container flex justify-end ">
               <TextButton
@@ -91,7 +91,7 @@ const AdminBrandDetail = () => {
         <div className="img-description-container grid grid-cols-1 lg:grid-cols-2 gap-x-[42px] mb-8">
           <div>
             <div className="img-container col-span-1 relative w-full h-[286px]">
-              <Image src="/asset/hotel2.svg" fill />
+              <Image src="/asset/hotel2.svg" fill priority/>
             </div>
             <div className="edit-image-container flex justify-end ">
               <TextButton

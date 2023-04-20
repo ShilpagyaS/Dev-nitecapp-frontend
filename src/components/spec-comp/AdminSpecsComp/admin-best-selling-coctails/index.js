@@ -22,6 +22,7 @@ function BestSellingAdminCoctails() {
               width={20}
               height={20}
               className=""
+              priority
             />
             <div className="ml-[12px]">
               Edit Image
@@ -46,6 +47,7 @@ function BestSellingAdminCoctails() {
               width={20}
               height={20}
               className=""
+              priority
             />
           </div>
           <TableContainerWithButtons />

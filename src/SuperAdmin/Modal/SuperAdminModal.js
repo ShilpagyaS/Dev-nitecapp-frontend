@@ -306,6 +306,7 @@ export function SuperBrandDelete({ isModalOpen, onClickCancel, onSave, deleteBtn
                     src={'/asset/Sayaji.jpg'}
                     width={179}
                     height={154}
+                    priority
                 />
             </div>
             <div className="text-white flex items-center justify-center border-none outline-none">

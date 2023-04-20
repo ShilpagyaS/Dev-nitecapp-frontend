@@ -175,6 +175,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                             width={302}
                             height={186}
                             alt="Empty"
+                            priority
                         />
                         <p className='not-italic font-bold text-xl font-Inter text-white mt-[54px]'>You have not added, any items</p>
                         <p className='not-italic font-semibold text-base leading-6 text-[#959595] mt-[10px] mb-[17px]'>Please add Item to Show</p>
@@ -194,6 +195,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                                 width={11}
                                 height={6}
                                 className="bg-transparent"
+                                priority
                             />
                         </button >
                         <button className='w-[37px] h-[33px] bg-primary-base flex items-center justify-center rotate-180 rounded-[5px]'
@@ -203,6 +205,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                                 width={11}
                                 height={6}
                                 className="bg-transparent"
+                                priority
                             />
                         </button>
                     </div>

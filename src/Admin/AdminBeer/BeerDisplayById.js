@@ -264,7 +264,7 @@ const BeerDisplayById = ({ productId, subcategory }) => {
                     <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
                         <div className={`img-container relative max-w-[186px] min-w-[186px] h-[186px] ${isMobile ? "block m-auto" : "mr-[31px] "
                             }`}>
-                            <Image src="/asset/london-dry-green.svg" className="w-full" fill />
+                            <Image src="/asset/london-dry-green.svg" className="w-full" fill priority/>
 
                         </div>
                         {isEdit &&

@@ -26,7 +26,7 @@ function BrandsSlider({ sliderData, sliderData2 }) {
               <div
                 className={`bg-no-repeat bg-cover bg-center  brand-img-container rounded-[8px] w-[188px]  h-[102px]`}
               >
-                <Image src={slide.img} fill className="object-cover" />
+                <Image src={slide.img} fill className="object-cover" priority/>
               </div>
             </SwiperSlide>
           );
@@ -44,7 +44,7 @@ function BrandsSlider({ sliderData, sliderData2 }) {
               <div
                 className={`bg-no-repeat bg-cover bg-center  brand-img-container relative rounded-[8px] w-[188px] h-[102px]`}
               >
-                <Image src={slide.img} fill className="object-cover" />
+                <Image src={slide.img} fill className="object-cover" priority/>
               </div>
             </SwiperSlide>
           );
