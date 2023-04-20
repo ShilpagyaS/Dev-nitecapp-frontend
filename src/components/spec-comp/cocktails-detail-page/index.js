@@ -168,7 +168,7 @@ const CocktailDetailPage = ({ id }) => {
                   <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
                     <p className=" bg-transparent ">
                       <span className="mr-6 bg-transparent">{i + 1}.</span>
-                      {method?.name}`
+                      {method?.name}
                     </p>
                   </div>
                 </>
