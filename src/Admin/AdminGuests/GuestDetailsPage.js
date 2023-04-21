@@ -11,6 +11,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { emptyAllGuests, getGuestDetail, putGuestDetail } from '@/store/slices/guests'
 import moment from 'moment/moment'
 import { uploadimage } from '@/store/slices/ui'
+import NotesModal from '@/components/modal/Modal'
+import { addGuestNoteDetails, deleteGuestNoteDetails, updateGuestNoteDetails } from '@/store/slices/notes'
+import { OrangeButtons } from '@/utils/Buttons'
+import MultipleNotes from '@/components/spec-comp/notesComp/multiplenotes'
+
 function GuestDetailsPage({ guestID }) {
     const [upimage, setimage] = useState(undefined)
     const [isEdit, setEdit] = useState(false)
@@ -23,6 +28,10 @@ function GuestDetailsPage({ guestID }) {
     const [email, setemail] = useState('')
     const [birthday, setbirthday] = useState()
     const { guestDetails } = useSelector(state => state.guests)
+    const [isNotesAdded, setIsNotesAdded] = useState(false)
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+
     const dispatch = useDispatch()
     useEffect(() => {
 
@@ -38,7 +47,7 @@ function GuestDetailsPage({ guestID }) {
             setphone(guestDetails.phone)
             setemail(guestDetails.email)
             setbirthday(moment(guestDetails.birthday).format('YYYY-MM-DD'))
-        } 
+        }
     }, [guestDetails])
 
     function onSave() {
@@ -81,6 +90,9 @@ function GuestDetailsPage({ guestID }) {
         setEdit(prev => !prev)
         // console.log(textAreaRef.current.innerText);
     }
+    const handleCloseModal = () => {
+        setIsAddModalOpen(false);
+    };
     return (
         <div>
             <div className="flex flex-row items-center justify-between mb-[10px]">
@@ -101,7 +113,21 @@ function GuestDetailsPage({ guestID }) {
             </div>
             <div className='img-and-desc-container mt-[10px] flex items-center '>
                 <div className='imagecontainer mr-[15px]'>
-                    <ProfileFileUpdatewithoptionalisEdit isedit={isEdit} setimage={setimage} upimage={upimage} defaultImage={guestDetails.image} />
+                    {!isEdit && !guestDetails.image ?
+                        <div className={`img-container relative max-w-[186px] min-w-[186px]  rounded-full h-[186px] mr-[31px] `}>
+
+                            < Image src={'/asset/User avatar default.png'}
+                                alt="image"
+                                className='rounded-full'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                                priority />
+                        </div>
+                        :
+
+
+                        <ProfileFileUpdatewithoptionalisEdit isedit={isEdit} setimage={setimage} upimage={upimage} defaultImage={guestDetails.image} />
+                    }
                 </div>
                 <div className='nameDesc flex flex-col items-start w-full'>
                     {!isEdit &&
@@ -229,31 +255,37 @@ function GuestDetailsPage({ guestID }) {
                 }
             </div>
             {/* <DummyNotes /> */}
-            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-                <p className=" bg-transparent mr-24px">{"Note 1"}</p>
+            <NotesModal
+                title="New Notes"
+                desc="Enter Note here: |"
+                isModalOpen={isAddModalOpen}
+                onSave={(note) => {
+                    dispatch(addGuestNoteDetails('guest', guestID, note))
+                    handleCloseModal()
 
-                <button
-                    onClick={() => { }}
-                    className="hover:text-primary-base font-bold"
-                >Edit</button>
+                }}
+                onClickCancel={handleCloseModal}
+            />
+            <div className="sub-heading-container flex justify-between items-center mb-[21px]">
+                <h4 className="text-white text-[20px] leading-[32px] font-semibold">
+                    Notes
+                </h4>
+                {!isNotesAdded && <OrangeButtons
+                    onClickHandler={() => { setIsAddModalOpen(true) }}
+                    label="Add Notes"
+                    noPadding={true}
+                />}
             </div>
-            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-                <p className=" bg-transparent mr-24px">{"Note 2"}</p>
+            {guestDetails?.notes?.map((i) => {
+                return <MultipleNotes noteDetails={i} onUpdate={(note) => {
+                    dispatch(updateGuestNoteDetails('guest', guestID, note, i.guest_notes_id))
+                }}
+                    onDelete={() => {
+                        dispatch(deleteGuestNoteDetails('guest', guestID, i.guest_notes_id))
 
-                <button
-                    onClick={() => { }}
-                    className="hover:text-primary-base font-bold"
-                >Edit</button>
-            </div>
-            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-                <p className=" bg-transparent mr-24px">{"Note 3"}</p>
-
-                <button
-                    onClick={() => { }}
-                    className="hover:text-primary-base font-bold"
-                >Edit</button>
-            </div>
-
+                    }}
+                />
+            })}
         </div>
     )
 }

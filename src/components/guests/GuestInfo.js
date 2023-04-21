@@ -96,7 +96,7 @@ function GuestInfo({ guestID }) {
             <DescriptionTextArea textAreaRef={preferencesref} isEdit={false} content={guestDetails.preferences} />
 
           </div>
-
+ 
         }
         {/* <DummyNotes /> */}
 
