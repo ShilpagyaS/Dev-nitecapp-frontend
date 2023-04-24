@@ -108,7 +108,12 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Save'} condition={
+                        (ingredient.ingredient_id != '' &&
+                            quantity != '' &&
+                            measure.measure_name != '') ? true : false
+
+                    } onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -245,7 +250,14 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
 
                         <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                         <div className='ml-[24px]'>
-                            <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
+                            <ConditionalButton label={'Save'} condition={
+
+                                (ingredient.ingredient_id != '' &&
+                                    quantity != '' &&
+                                    measure.measure_name != '') ? true : false
+
+
+                            } onClickHandler={handleSave} />
                         </div>
                     </div>
 

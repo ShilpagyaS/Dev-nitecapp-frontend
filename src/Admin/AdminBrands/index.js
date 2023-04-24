@@ -89,10 +89,9 @@ const AdminExploreBrands = ({ admin }) => {
 
   return (
     <div className="explore-brands-container text-white w-full flex justify-center flex-col">
-      <div className="breadcrumb-container flex justify-between items-center">
-        <Breadcrumb />
-
-      </div>
+      <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+        Brands
+      </h1>
       <div className="explore-brands-banner-contaiiner mb-8">
         <BannerSlider pagination={false} height="250px" />
 
@@ -166,7 +165,7 @@ const AdminExploreBrands = ({ admin }) => {
             <Link href={`/brands/${enUrl(card.outlet_name)}?id=${card.outlet_id}`}>
               <div className="flex flex-col items-center justify-center mb-[30px]">
                 <div className=" relative w-full rounded-[10px] min-h-[250px] ">
-                  <Image src={card.image} fill className="rounded-md object-cover" priority/>
+                  <Image src={card.image} fill className="rounded-md object-cover" priority />
                 </div>
                 <h3 className="not-italic font-semibold  text-md lg:text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
               </div>
