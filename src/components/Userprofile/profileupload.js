@@ -2,6 +2,7 @@ import useMediaQuery from "@/Hooks/useMediaQuery";
 import { getuserbyid } from "@/store/slices/Auth";
 import { uploadimage } from "@/store/slices/ui";
 import { AddCircularButton } from "@/utils/CircularButton";
+import { handleFileChange } from "@/utils/webpfunction";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -109,11 +110,12 @@ export function ProfileFileUpdateSmaller({ setimage, upimage, defaultImage }) {
         if (e.target.files.length) {
             console.log(e.target.files)
             console.log(URL.createObjectURL(e.target.files[0]))
-            setImage({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: e.target.files[0]
-            });
-            setimage(e.target.files[0])
+            // setImage({
+            //     preview: URL.createObjectURL(e.target.files[0]),
+            //     raw: e.target.files[0]
+            // });
+            // setimage(e.target.files[0])
+            handleFileChange(e, e.target.files[0], setImage, setimage)
         }
     };
 
@@ -126,7 +128,7 @@ export function ProfileFileUpdateSmaller({ setimage, upimage, defaultImage }) {
                     }`}>
                     {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
 
-                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill priority/>
+                    <Image src={image.preview} className="w-full rounded-full border-2 border-[#484848]" fill priority />
 
                 </div>
                 <label htmlFor="upload-button">
