@@ -16,7 +16,7 @@ const nextConfig = withPWA({
         hostname: "**",
       },
     ],
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 0,
   },
   async redirects() {
     return [

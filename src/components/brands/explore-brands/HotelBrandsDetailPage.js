@@ -30,6 +30,14 @@ const HotelBrandDetail = ({ productType, productId }) => {
 
                 />
 
+                {/* <img
+                    className=" h-full w-full object-cover"
+                    src={outletDetails.image}
+
+                    // style={{ objectFit: 'cover' }}
+
+                /> */}
+
             </div>
 
             <div className="properties-container text-white mb-8">
