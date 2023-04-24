@@ -27,11 +27,13 @@ export default function ProfileFileUpdate({ setimage, upimage, defaultImage }) {
         if (e.target.files.length) {
             console.log(e.target.files)
             console.log(URL.createObjectURL(e.target.files[0]))
-            setImage({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: e.target.files[0]
-            });
-            setimage(e.target.files[0])
+            // setImage({
+            //     preview: URL.createObjectURL(e.target.files[0]),
+            //     raw: e.target.files[0]
+            // });
+            // setimage(e.target.files[0])
+            handleFileChange(e, e.target.files[0], setImage, setimage)
+
         }
     };
 
@@ -194,11 +196,13 @@ export function ProfileFileUpdatewithoptionalisEdit({ setimage, upimage, default
         if (e.target.files.length) {
             console.log(e.target.files)
             console.log(URL.createObjectURL(e.target.files[0]))
-            setImage({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: e.target.files[0]
-            });
-            setimage(e.target.files[0])
+            // setImage({
+            //     preview: URL.createObjectURL(e.target.files[0]),
+            //     raw: e.target.files[0]
+            // });
+            // setimage(e.target.files[0])
+            handleFileChange(e, e.target.files[0], setImage, setimage)
+
         }
     };
 
