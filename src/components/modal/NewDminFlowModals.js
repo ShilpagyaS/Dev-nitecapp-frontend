@@ -1074,7 +1074,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                             setBrandForm(prev => { return { ...prev, role: e.value } })
                         }} />
                 </div>
-                <InputFieldWirhAutoWidth
+                {/* <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Pronouns"
                     onChangeHandler={handleChange}
@@ -1082,7 +1082,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                     name={"pronouns"}
                     type={"text"}
                     errorResponnse={_INITIAL}
-                />
+                /> */}
                 {parseInt(brandForm.role) >= 5 &&
                     <>
                         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
@@ -1319,7 +1319,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                             setBrandForm(prev => { return { ...prev, role: e.value } })
                         }} />
                 </div>
-                <InputFieldWirhAutoWidth
+                {/* <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Pronouns"
                     onChangeHandler={handleChange}
@@ -1327,7 +1327,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                     name={"pronouns"}
                     type={"text"}
                     errorResponnse={_INITIAL}
-                />
+                /> */}
                 {brandForm.role >= 5 &&
                     <>
                         <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
@@ -1754,7 +1754,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
 
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Yes'} condition={true} onClickHandler={() => { }} type="submit" />
+                        <ConditionalButton label={'Save'} condition={true} onClickHandler={() => { }} type="submit" />
                     </div>
 
                 </div>
