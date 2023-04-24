@@ -22,21 +22,21 @@ const HotelBrandDetail = ({ productType, productId }) => {
             <Breadcrumb />
             <div className=" w-full relative mb-8 h-[298px]" >
 
-                <Image
+                {/* <Image
                     className=" w-full "
                     src={outletDetails.image}
                     fill
                     style={{ objectFit: 'cover' }}
 
-                />
+                /> */}
 
-                {/* <img
+                <img
                     className=" h-full w-full object-cover"
                     src={outletDetails.image}
 
                     // style={{ objectFit: 'cover' }}
 
-                /> */}
+                />
 
             </div>
 
