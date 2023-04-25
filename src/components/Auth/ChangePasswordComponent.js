@@ -35,7 +35,7 @@ function ChangePasswordComponent({ confirmationfunction }) {
     },
     {
       id: "4",
-      message: "Contains atleast onw special character , e.g, ! @ # ? ]",
+      message: "Contains atleast one special character , e.g, ! @ # ? ]",
       response: _INITIAL,
     },
     { id: "5", message: "Password must match.", response: _INITIAL },
