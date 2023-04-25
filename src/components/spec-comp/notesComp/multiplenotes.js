@@ -2,6 +2,7 @@ import NotesModal from "@/components/modal/Modal"
 import { addNoteDetails, deleteNoteDetails, emptyNotesList, getNoteDetails, updateNoteDetails } from "@/store/slices/notes"
 import { OrangeButtons } from "@/utils/Buttons"
 import { DescriptionTextAreaGray } from "@/utils/Cards/Text card/DescriptionTextArea"
+import moment from "moment"
 import Image from "next/image"
 import { useRef, useState } from "react"
 import { useEffect } from "react"
@@ -64,30 +65,32 @@ const MultipleNotes = ({ subcategory, id, noteDetails, onUpdate, onDelete }) => 
         />
 
         {(noteDetails?.user_notes && noteDetails?.user_notes !== "") &&
-            <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
-                <div className="bg-transparent flex flex-col w-full">
+            <div className="note-text-container flex flex-col bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
+                <div className="bg-transparent flex items-center justify-between">
+                    <div className="bg-transparent flex items-center">
 
-                    <div className="bg-transparent flex items-center mb-[2px]">
                         <div className="relative h-[34px] w-[34px] rounded-full">
                             <Image src={noteDetails?.image || '/asset/avatar2.png'} className="w-full rounded-full border-2 border-[#484848] object-contain" fill priority />
 
                         </div>
                         <h5 className="text-[16px] font-Inter text-[#959595] italic font-normal ml-[10px] bg-transparent capitalize">{noteDetails?.user_full_name}</h5>
                     </div>
-                    <div className="w-full bg-transparent">
+                    <h5 className="text-[16px] font-Inter text-[#959595] not-italic font-[500px] ml-[10px] bg-transparent capitalize">{`Last Update : ${moment(noteDetails?.lastUpdate).format("DD-MM-YYYY")}`}</h5>
 
-                        <div className="w-full">
-
-                            <DescriptionTextAreaGray textAreaRef={textarea} disabled={true} content={noteDetails?.user_notes || ""} />
-                        </div>
-                    </div>
                 </div>
-                {noteDetails?.user_id === user.id &&
-                    <button
-                        onClick={handleEditModalOpen}
-                        className="hover:text-primary-base font-bold"
-                    >Edit
-                    </button>}
+                <div className="flex justify-between items-center w-full bg-transparent">
+
+                    <div className="w-full">
+
+                        <DescriptionTextAreaGray textAreaRef={textarea} disabled={true} content={noteDetails?.user_notes || ""} />
+                    </div>
+                    {noteDetails?.user_id === user.id &&
+                        <button
+                            onClick={handleEditModalOpen}
+                            className="hover:text-primary-base font-bold"
+                        >Edit
+                        </button>}
+                </div>
             </div>
         }
     </div>
