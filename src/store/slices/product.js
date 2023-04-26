@@ -360,6 +360,42 @@ export const deleteProductById = (productType, productId) => {
     });
   };
 };
+export const delinkProductById = (data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/delete_product_to_hotel/common_api_for_all_product`,
+      method: "POST",
+      data
+    }).then((res) => {
+      // toastify
+      console.log(res);
+      dispatch(getProduct(data.type))
+      successtoast({ message: `Deleted Successfully` })
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const delinkProductByIdwithCAtegory = (data, categoryId) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/delete_product_to_hotel/common_api_for_all_product`,
+      method: "POST",
+      data
+    }).then((res) => {
+      // toastify
+      console.log(res);
+      dispatch(getProductByCategoryId(data.type, categoryId))
+      successtoast({ message: `Deleted Successfully` })
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 export const deleteProductbyIdWithCategory = (productType, productId, categoryId) => {
   return async (dispatch) => {
 
@@ -369,6 +405,7 @@ export const deleteProductbyIdWithCategory = (productType, productId, categoryId
     }).then((res) => {
       // toastify
       dispatch(getProductByCategoryId(productType, categoryId))
+      successtoast({ message: `Deleted Successfully` })
       return res
     })
   };

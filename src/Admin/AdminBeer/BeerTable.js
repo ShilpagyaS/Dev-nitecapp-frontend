@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
 import { AddItemModal } from '@/components/modal/NewDminFlowModals'
-import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, delinkProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -65,7 +65,7 @@ function BeerTable() {
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/nodrinkinverted.webp'}
-                            // <Image src={'/asset/noimagedrinkeditsquare.jpg'}
+                                // <Image src={'/asset/noimagedrinkeditsquare.jpg'}
                                 alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
@@ -134,7 +134,12 @@ function BeerTable() {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductById('beer', elementItem.id))
+        // dispatch(deleteProductById('beer', elementItem.id))
+        let data = {
+            type: 'beer',
+            id: elementItem.id,
+        }
+        dispatch(delinkProductById(data))
     }
     return (
         <>   {DeleteModal &&

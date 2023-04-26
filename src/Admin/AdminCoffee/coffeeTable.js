@@ -1,42 +1,40 @@
-import { DeleteProduct } from '@/components/modal/adminmodal';
-import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
-import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
-import { enUrl } from '@/utils/encoderfunc';
-import SwitchComp from '@/utils/SwitchComp';
-import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { DeleteProduct } from '@/components/modal/adminmodal'
+import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
+import { enUrl } from '@/utils/encoderfunc'
+import SwitchComp from '@/utils/SwitchComp'
+import TableContainerWithButtons from '@/utils/TableContainerWithButtons'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 
-function WinebrandTable({ productId, subcategory }) {
+function CoffeeTable() {
     const router = useRouter();
-    const { productsByCategory } = useSelector((state) => state.product)
+    const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
-    const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
     })
     useEffect(() => {
 
-        dispatch(getProductByCategoryId('wine', productId))
+        dispatch(getProduct('coffee'))
 
         return () => {
             dispatch(emptyProductList())
         }
     }, [])
-    console.log(productsByCategory);
+    console.log(productList);
     useEffect(() => {
-        let dummy = productsByCategory?.map(
+        let dummy = productList?.map(
             (element) => {
                 return {
-                    id: element.wine_id,
+                    id: element.coffee_id,
                     itemImage: element.image,
-                    itemName: element.wine_name,
+                    itemName: element.coffee_name,
                     showHideStatus: element.showProduct,
                     outlet: element.outlet_name,
                     data: element,
@@ -48,28 +46,29 @@ function WinebrandTable({ productId, subcategory }) {
         console.log(dummy);
         setList([...dummy])
 
-    }, [productsByCategory])
-    function toggleSwitch(e, element) {
-        let data = { type: 'wine', id: element.id, showProduct: e }
-        dispatch(putProductByIdThenUpdateListShowProductForCategory('wine', data, productId))
-    }
+    }, [productList])
 
+    function toggleSwitch(e, element) {
+        let data = { type: 'coffee', id: element.id, showProduct: e }
+        dispatch(putProductByIdThenUpdateListShowProduct(data))
+    }
     const HeaderArray = ["Drink Image", "Drink Name", "Show / Hide", "Outlet", "Edit / Delete"]
     function OuterRows({ element }) {
 
         return (
             <>
                 <td className='flex flex-row items-center justify-center p-[12px]'>
-                    <div className='relative rounded-[10px] h-[106px] w-[106px] flex flex-row items-center justify-center p-1 bg-[#0C0C0C] border border-[#3C3C3C] '
+                    <div className='flex flex-row items-center 
+                    justify-center p-1 bg-[#0C0C0C] border relative rounded-[10px]
+                     border-[#3C3C3C] md:h-[106px] md:w-[106px] w-[80px] h-[80px]'
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/nodrinkinverted.webp'}
-                                alt="image"
+                            alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
                                 priority
-
                             />
                         }
                         {element.itemImage &&
@@ -84,19 +83,18 @@ function WinebrandTable({ productId, subcategory }) {
                         }
                     </div>
                 </td>
-                <td >
+                <td className='min-w-[150px]'>
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
+                        <p className='not-italic font-semibold md:text-[13px] text-base leading-7 tracking-[-0.624px] text-white'>
                             {element.itemName}
                         </p>
                     </div>
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
-
+                        {console.log(element.showHideStatus)}
                         <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            console.log(e);
                             toggleSwitch(e, element)
                         }} />
                     </div>
@@ -111,9 +109,11 @@ function WinebrandTable({ productId, subcategory }) {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
+                        <div>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/wine/${enUrl(subcategory)}/${enUrl(element.itemName)}?id=${element.id}&typeid=${productId}`); }}
-                        />
+                            <EditCircularButton onClickHandler={() => { router.push(`/specs/coffee/${enUrl(element.itemName)}?id=${element.id}`); }}
+                            />
+                        </div>
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
@@ -132,12 +132,7 @@ function WinebrandTable({ productId, subcategory }) {
         console.log('deleteing');
         console.log(elementItem);
 
-        // dispatch(deleteProductbyIdWithCategory('wine', elementItem.id, productId))
-        let data = {
-            type: 'wine',
-            id: elementItem.id,
-        }
-        dispatch(delinkProductByIdwithCAtegory(data, productId))
+        dispatch(deleteProductById('coffee', elementItem.id))
     }
     return (
         <>
@@ -149,29 +144,9 @@ function WinebrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
-            {AddModal &&
-                <AddItemModal
-                    isModalOpen={AddModal}
-                    onClickCancel={() => { setAddModal(false) }}
-                    label={'Wines'}
-                    type={'wine'}
-                    title={'Wine'}
-                    productId={productId}
-                    onSave={(data) => {
-                        let body = {}
-                        body = { ...data, category_id: productId, }
-                        // return dispatch(createProductAndUpdatingList('wine', body))
-                        return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body, productId))
-                    }}
-                />
-            }
-            <TableContainerWithButtons label={'ADD WINE'} buttonFunction={() => {
-                //  router.push(`/specs/wine/${subcategory}/new/newwine?id=${productId}`) 
-                setAddModal(true)
-
-            }} OuterRows={OuterRows} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD COFFEE'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/coffee/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }
 
-export default WinebrandTable
+export default CoffeeTable

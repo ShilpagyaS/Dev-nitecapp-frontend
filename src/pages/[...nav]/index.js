@@ -82,6 +82,9 @@ import AllGuests from "@/Admin/AdminGuests/AllGuests";
 import GuestDetailsPage from "@/Admin/AdminGuests/GuestDetailsPage";
 import GuestsList from "@/components/guests/GuestsList";
 import GuestInfo from "@/components/guests/GuestInfo";
+import AdminCoffee from "@/Admin/AdminCoffee";
+import AddCoffee from "@/Admin/AdminCoffee/AddCoffee";
+import EditCoffee from "@/Admin/AdminCoffee/EditCoffee";
 
 
 
@@ -135,8 +138,8 @@ export default function Category() {
                     <SpecsDetailPage id={productId} subcategory={"spirit"} />
                   )}
 
-                {path === `/specs/spirit/brands` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}               
-                {path === "/specs/wine" && <WineCategory />}                
+                {path === `/specs/spirit/brands` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
+                {path === "/specs/wine" && <WineCategory />}
                 {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
                 {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
                 {path === `/specs/wine/brands` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
@@ -199,6 +202,11 @@ export default function Category() {
                 {path === `/specs/cocktail/cocktail_ingredients/${enUrl(subcategory3)}?id=${productId}` && (
                   <AdminIngridientDetail productType={"cocktail"} productId={productId} />
                 )}
+                {path === `/specs/coffee` && <AdminCoffee />}
+                {path === `/specs/coffee/new` && <AddCoffee subcategory={'coffee'} />}
+                {path === `/specs/coffee/${enUrl(subcategory2)}?id=${productId}` && <EditCoffee productId={productId} subcategory={'coffee'} />}
+
+
                 {path === `/specs/beer` && <AdminBeer />}
                 {path === `/specs/beer/new` && <EmptyUserLayoutBeer subcategory={'beer'} />}
                 {/* {path === `/specs/beer?id=${productId}` && <BeerDisplayById productId={productId} subcategory={'beer'} />}  */}

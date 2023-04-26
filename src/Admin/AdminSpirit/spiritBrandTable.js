@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -64,7 +64,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/nodrinkinverted.webp'}
-                            alt="image"
+                                alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
@@ -79,7 +79,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                                 className="rounded-[10px]"
                                 priority
 
-                                
+
                             />
                         }
                     </div>
@@ -132,7 +132,12 @@ function SpiritBrandTable({ productId, subcategory }) {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductbyIdWithCategory('spirit', elementItem.id, productId))
+        // dispatch(deleteProductbyIdWithCategory('spirit', elementItem.id, productId))
+        let data = {
+            type: 'spirit',
+            id: elementItem.id,
+        }
+        dispatch(delinkProductByIdwithCAtegory(data, productId))
     }
     return (
         <>
