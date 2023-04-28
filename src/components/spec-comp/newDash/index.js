@@ -18,6 +18,7 @@ function NewUserDashboard() {
     }, [])
 
     const data1 = [{ image: '/dash/ck1.png', title: 'Cocktails', link: '/specs/cocktail' },
+    { image: '/asset/coffee.jpg', title: 'Coffee', link: '/specs/coffee' },
     { image: '/dash/ck2.png', title: 'Wine', link: '/specs/wine' },
     { image: '/dash/ck3.png', title: 'Spirits', link: '/specs/spirit' },
     { image: '/dash/ck4.png', title: 'Beer/Seltzer', link: '/specs/beer' },
