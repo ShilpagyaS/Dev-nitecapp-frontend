@@ -134,7 +134,7 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
         className={`relative image-container mr-[16px] ${circularImg ? "w-[57px] h-[57px]" : "w-[81px] h-[81px] rounded-lg"
           }`}
       >
-        {image &&
+        {!image &&
           <Image src={'/asset/nodrinkinverted.webp'}
             alt={title}
             fill

@@ -76,7 +76,7 @@ function Ingridients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
+                          href={`/specs/${productType}/ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}

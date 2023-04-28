@@ -13,7 +13,7 @@ import { whatsthestrength } from "@/utils/abvfinder";
 import Search from "@/utils/Search";
 import { enUrl } from "@/utils/encoderfunc";
 
-function Coctails({ headerHidden }) {
+function Coffees({ headerHidden }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const coctailData = coctailMock.coctailData;
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function Coctails({ headerHidden }) {
   const { productList } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getProduct("cocktail"));
+    dispatch(getProduct("coffee"));
     return () => {
       dispatch(emptyProductList());
     };
@@ -61,9 +61,9 @@ function Coctails({ headerHidden }) {
 
         <div className="heading-container flex items-center justify-between lg:mb-4 mb-3">
           <h2 className="text-white text-[24px] leading-9 font-bold ">
-            Cocktail
+            Coffee
           </h2>
-          <Link href={`/specs/cocktail/ingredients`}>
+          <Link href={`/specs/coffee/ingredients`}>
             <OrangeButtons label="Ingredients" noPadding={true} />
           </Link>
         </div>
@@ -75,9 +75,9 @@ function Coctails({ headerHidden }) {
           {finaldata?.map((card, i) => {
             return (
               <div className=" col-span-1 ">
-                <Link href={`/specs/cocktail/${enUrl(card.cocktail_name)}?id=${card.cocktail_id}`}>
+                <Link href={`/specs/coffee/${enUrl(card.coffee_name)}?id=${card.coffee_id}`}>
                   <RectangularCard
-                    title={card.cocktail_name}
+                    title={card.coffee_name}
                     image={card.image}
                     subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
                   />
@@ -91,4 +91,4 @@ function Coctails({ headerHidden }) {
   );
 }
 
-export default Coctails;
+export default Coffees;

@@ -85,6 +85,8 @@ import GuestInfo from "@/components/guests/GuestInfo";
 import AdminCoffee from "@/Admin/AdminCoffee";
 import AddCoffee from "@/Admin/AdminCoffee/AddCoffee";
 import EditCoffee from "@/Admin/AdminCoffee/EditCoffee";
+import Coffees from "@/components/spec-comp/Coffee";
+import CoffeeDetailPage from "@/components/spec-comp/Coffee/CoffeeDetailPage";
 
 
 
@@ -122,14 +124,27 @@ export default function Category() {
                 )}
 
 
-                {path === "/specs/cocktail/cocktail_ingredients" && (
+                {path === "/specs/cocktail/ingredients" && (
                   <Ingridients productType={"cocktail"} />
                 )}
 
-                {path === `/specs/cocktail/cocktail_ingredients/${enUrl(subcategory3)}?id=${productId}` && (
+                {path === `/specs/cocktail/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
                   <IngridientDetail productType={"cocktail"} productId={productId} />
                 )}
 
+                {path === "/specs/coffee" && <Coffees />}
+                {path === `/specs/coffee/${enUrl(subcategory2)}?id=${productId}` && (
+                  <CoffeeDetailPage id={productId} />
+                )}
+
+
+                {path === "/specs/coffee/ingredients" && (
+                  <Ingridients productType={"coffee"} />
+                )}
+
+                {path === `/specs/coffee/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
+                  <IngridientDetail productType={"cocktail"} productId={productId} />
+                )}
 
                 {path === `/specs/spirit` && <SpiritsCategory />}
                 {path === `/specs/spirit/${enUrl(subcategory2)}?id=${productId}` && <Spirits id={productId} categoryName={subcategory2} />}
@@ -195,17 +210,23 @@ export default function Category() {
                 {path === `/specs/cocktail/new` && <EmptyUSerLayout />}
                 {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
                 {path === `/specs/cocktail/${enUrl(subcategory2)}?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
-                {path === "/specs/cocktail/cocktail_ingredients" && (
+                {path === "/specs/cocktail/ingredients" && (
                   <AdminIngredients productType={"cocktail"} />
                 )}
-                {path === `/specs/cocktail/cocktail_ingredients/new` && <AddIngredients subcategory={'cocktail'} />}
-                {path === `/specs/cocktail/cocktail_ingredients/${enUrl(subcategory3)}?id=${productId}` && (
+                {path === `/specs/cocktail/ingredients/new` && <AddIngredients subcategory={'cocktail'} />}
+                {path === `/specs/cocktail/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
                   <AdminIngridientDetail productType={"cocktail"} productId={productId} />
                 )}
                 {path === `/specs/coffee` && <AdminCoffee />}
                 {path === `/specs/coffee/new` && <AddCoffee subcategory={'coffee'} />}
                 {path === `/specs/coffee/${enUrl(subcategory2)}?id=${productId}` && <EditCoffee productId={productId} subcategory={'coffee'} />}
-
+                {path === "/specs/coffee/ingredients" && (
+                  <AdminIngredients productType={"coffee"} />
+                )}
+                {path === `/specs/coffee/ingredients/new` && <AddIngredients subcategory={'cocktail'} />}
+                {path === `/specs/coffee/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
+                  <AdminIngridientDetail productType={"cocktail"} productId={productId} />
+                )}
 
                 {path === `/specs/beer` && <AdminBeer />}
                 {path === `/specs/beer/new` && <EmptyUserLayoutBeer subcategory={'beer'} />}
