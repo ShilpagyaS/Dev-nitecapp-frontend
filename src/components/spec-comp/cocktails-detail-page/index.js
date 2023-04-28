@@ -68,7 +68,7 @@ const CocktailDetailPage = ({ id }) => {
             }`}
         >
           {/* <Image src="/asset/coctail1.png" fill /> */}
-          <Image src={productDetails?.image} fill className="object-cover" priority/>
+          <Image src={productDetails?.image} fill className="object-cover" priority />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
@@ -94,6 +94,18 @@ const CocktailDetailPage = ({ id }) => {
           </p>
         </div>
       </div>
+      <ul className="divide-x divide-white flex">
+        <li className="min-w-[100px]">
+          <div className="text-white">
+            Price
+          </div>
+        </li>
+        <li className="min-w-[100px]">
+          <div className="ml-[10px] text-white">
+            Price
+          </div>
+        </li>
+      </ul>
       {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">
         <div className="sub-heading-container  mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
