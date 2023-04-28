@@ -86,6 +86,39 @@ const CocktailDetailPage = ({ id }) => {
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>
+          <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+            {productDetails?.price &&
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center pr-[10px]">
+                  {`Price: $ ${productDetails.price}`}
+                </div>
+              </li>
+            }
+            {productDetails?.gluten_free &&
+
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center">
+                  GF
+                </div>
+              </li>
+            }
+            {productDetails?.vegan &&
+
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center">
+                  V
+                </div>
+              </li>
+            }
+            {productDetails?.calories &&
+
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center ">
+                  {`${productDetails?.calories} cal`}
+                </div>
+              </li>
+            }
+          </ul>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
               }`}
@@ -94,18 +127,6 @@ const CocktailDetailPage = ({ id }) => {
           </p>
         </div>
       </div>
-      <ul className="divide-x divide-white flex">
-        <li className="min-w-[100px]">
-          <div className="text-white">
-            Price
-          </div>
-        </li>
-        <li className="min-w-[100px]">
-          <div className="ml-[10px] text-white">
-            Price
-          </div>
-        </li>
-      </ul>
       {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">
         <div className="sub-heading-container  mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
