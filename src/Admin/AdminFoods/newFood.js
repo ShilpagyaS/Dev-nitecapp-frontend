@@ -13,7 +13,7 @@ import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
 
 
-function AddCoffee({ subcategory }) {
+function AddFood({ subcategory }) {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -268,7 +268,7 @@ function AddCoffee({ subcategory }) {
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={checkVals()} onClickHandler={() => { createdrink() }} />
-                        <Link href={`specs/coffee`}>
+                        <Link href={`foods`}>
                             <div className=' ml-[10px] '>
 
                                 <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />
@@ -359,4 +359,4 @@ function AddCoffee({ subcategory }) {
     )
 }
 
-export default AddCoffee
+export default AddFood
