@@ -11,7 +11,7 @@ export function CoctailCard({ image, title, isNew, onclickHandler }) {
         className={`relative image-container ${isTablet ? "w-[137px] h-[137px]" : "w-[171px] h-[171px]"
           } `}
       >
-        <Image src={image} alt="slider-image" fill priority/>
+        <Image src={image || '/asset/nodrinkinverted.webp'} alt="slider-image" fill priority />
         {isNew && (
           <p className="text-primary-base text-[14px] absolute top-0 left-3 ">
             New
@@ -20,6 +20,31 @@ export function CoctailCard({ image, title, isNew, onclickHandler }) {
       </div>
       <div className="mt-2">
         <h2 className=" text-white text-[16px] leading-[24px] font-semibold text-center">
+          {title}
+        </h2>
+      </div>
+    </div>
+  );
+}
+export function FoodCard({ image, title, no, onclickHandler }) {
+  const isTablet = useMediaQuery("(max-width: 786px)");
+  return (
+    <div className=" relative cursor-pointer w-[161px] h-[195px] px-[11px] py-[15px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]"
+      onClick={onclickHandler}
+    >
+      <div
+        className={`relative image-container ${isTablet ? "w-[137px] h-[137px]" : "w-[131px] h-[131px]"
+          } `}
+      >
+        <Image src={image || '/asset/nodrinkinverted.webp'} alt="slider-image" fill priority />
+
+
+      </div>
+      <p className="text-primary-base text-[14px] absolute top-2 left-3 ">
+        {`No. ${no}`}
+      </p>
+      <div className="mt-2 w-full">
+        <h2 className=" text-white text-[16px] leading-[24px] font-semibold text-center truncate">
           {title}
         </h2>
       </div>
@@ -107,7 +132,7 @@ export function CoctailCard2({ image, title, isNew, sequence }) {
      border-[#3C3C3C] rounded-[21.3665px]"
     >
       <div className={`relative image-container ${"w-[137px] h-[137px]"} `}>
-        <Image src={image} alt="slider-image" fill priority/>
+        <Image src={image} alt="slider-image" fill priority />
         {(isNew || sequence) && (
           <p className="text-primary-base text-[14px] absolute top-0 left-3 ">
             {isNew ? "New" : `No. ${sequence}`}
@@ -141,7 +166,7 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
             priority
             style={{ objectFit: 'contain' }}
             className={`${circularImg ? " rounded-full " : "rounded-lg"}`}
-            
+
 
           />
         }

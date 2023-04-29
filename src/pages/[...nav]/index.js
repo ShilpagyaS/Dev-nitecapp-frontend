@@ -87,6 +87,8 @@ import AddCoffee from "@/Admin/AdminCoffee/AddCoffee";
 import EditCoffee from "@/Admin/AdminCoffee/EditCoffee";
 import Coffees from "@/components/spec-comp/Coffee";
 import CoffeeDetailPage from "@/components/spec-comp/Coffee/CoffeeDetailPage";
+import FoodList from "@/components/Foods";
+import FoodDetail from "@/components/Foods/FoodDetail";
 
 
 
@@ -186,6 +188,12 @@ export default function Category() {
                 {path === `/brands/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <HotelBrandDetail productId={productId} />}
                 {path === `/specs/brand?id=${productId}` && (
                   <BrandDetail productType={"beer"} productId={productId} />
+                )}
+
+                {path === `/foods` && <FoodList />}
+                {path === `/foods/food` && <FoodList />}
+                {path === `/foods/food/${enUrl(subcategory2)}?id=${productId}` && (
+                  <FoodDetail id={productId} />
                 )}
                 {path === "/user_profile" && <UserProfile />}
                 {path === `/guests` && <GuestsList />}

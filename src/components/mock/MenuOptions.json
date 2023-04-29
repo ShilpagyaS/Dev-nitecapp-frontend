@@ -38,6 +38,17 @@
       ]
     },
     {
+      "name": "Foods",
+      "id": "foods",
+      "menuIcon": "AiFillAppstore",
+      "subOptions": [
+        {
+          "name": "Food",
+          "id": "food"
+        }
+      ]
+    },
+    {
       "name": "Brands",
       "id": "brands",
       "menuIcon": "AiFillAppstore",
@@ -49,10 +60,10 @@
       ]
     },
     {
-        "name": "Guests",
-        "id": "guests",
-        "menuIcon": "AiFillAppstore",
-        "subOptions": []
+      "name": "Guests",
+      "id": "guests",
+      "menuIcon": "AiFillAppstore",
+      "subOptions": []
     }
   ]
 }
