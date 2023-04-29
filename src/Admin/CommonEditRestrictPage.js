@@ -31,6 +31,10 @@ function CommonEditRestrictPage({ productId, subcategory }) {
     const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
     const [drinkBrandArray, setDrinkBrandArray] = useState([])
     const [upimage, setimage] = useState()
+    const [gf, setgf] = useState(null)
+    const [vegan, setVegan] = useState(null)
+    const [calories, setCal] = useState(null)
+    const [price, setPrice] = useState(null)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -66,6 +70,10 @@ function CommonEditRestrictPage({ productId, subcategory }) {
         })
         let body = { brand_id: productDetails?.brand_id || '', brand_name: productDetails?.brand_name || '' }
         setDrinkBrand(body)
+        setPrice(productDetails?.price)
+        setgf(productDetails?.gluten_free)
+        setCal(productDetails?.calories)
+        setVegan(productDetails?.vegan)
     }, [productDetails])
 
 
@@ -303,7 +311,39 @@ function CommonEditRestrictPage({ productId, subcategory }) {
                                 } */}
                             </div>
                         </div>
+                        <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+                            {productDetails?.price &&
+                                <li className="min-w-[100px]">
+                                    <div className="text-white w-full text-center pr-[10px]">
+                                        {`Price: $ ${productDetails.price}`}
+                                    </div>
+                                </li>
+                            }
+                            {productDetails?.gluten_free &&
 
+                                <li className="min-w-[100px]">
+                                    <div className="text-white w-full text-center">
+                                        GF
+                                    </div>
+                                </li>
+                            }
+                            {productDetails?.vegan &&
+
+                                <li className="min-w-[100px]">
+                                    <div className="text-white w-full text-center">
+                                        V
+                                    </div>
+                                </li>
+                            }
+                            {productDetails?.calories &&
+
+                                <li className="min-w-[100px]">
+                                    <div className="text-white w-full text-center ">
+                                        {`${productDetails?.calories} cal`}
+                                    </div>
+                                </li>
+                            }
+                        </ul>
                         <p
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}

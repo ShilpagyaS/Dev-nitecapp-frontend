@@ -1,6 +1,6 @@
 import useMediaQuery from '@/Hooks/useMediaQuery';
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import ConditionalButton from './ConditionalButton'
 import CocktailFileUpdate from './CocktailFileUpdate';
 import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
@@ -19,6 +19,10 @@ function EmptyUSerLayout() {
     const subcategory = 'cocktail'
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
+    const [gf, setgf] = useState(null)
+    const [vegan, setVegan] = useState(null)
+    const [calories, setCal] = useState(null)
+    const [price, setPrice] = useState(null)
     const [newMockData, setNewMockData] = useState({
         ingredients: {
             values: [],
@@ -40,8 +44,6 @@ function EmptyUSerLayout() {
     const [isSAve, setSaved] = useState(false)
     const [upimage, setimage] = useState()
     const dispatch = useDispatch()
-
-
     const toggleEdit = () => {
         setEdit(prev => !prev)
         console.log(textAreaRef.current.innerText);
@@ -164,6 +166,10 @@ function EmptyUSerLayout() {
             ingredients: newMockData.ingredients,
             methods: newMockData.methods,
             presentations: newMockData.presentations,
+            price: price,
+            gluten_free: gf,
+            vegan: vegan,
+            calories: calories
 
 
         }
@@ -216,6 +222,10 @@ function EmptyUSerLayout() {
             }
         });
         setimage()
+        setPrice(null)
+        setgf(null)
+        setVegan(null)
+        setCal(null)
         setSaved(true)
         setTimeout(() => {
 
@@ -225,7 +235,7 @@ function EmptyUSerLayout() {
     function checkVals() {
         if (
 
-            drinkName != "" 
+            drinkName != ""
             // &&
             // newMockData.ingredients.values.length > 0 &&
             // newMockData.methods.values.length > 0 &&
@@ -234,10 +244,10 @@ function EmptyUSerLayout() {
             return true
         return false
     }
-    const handleChange = event => {
+    const handleChange = (event, setval) => {
         const newValue = event.target.value;
         if (/^\d*\.?\d*$/.test(newValue)) {
-            setabv(newValue);
+            setval(newValue);
         }
     };
     return (
@@ -295,9 +305,39 @@ function EmptyUSerLayout() {
                                 <div className='input-val flex flex-col ml-[25px]'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Alcohol percentage</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]'
-                                        value={abv || ''} onChange={(e) => { handleChange(e) }} />
+                                        value={abv || ''} onChange={(e) => { handleChange(e, setabv) }} />
 
                                 </div>
+                            </div>
+
+                        </div>
+                        <div className='flex items-center justify-between my-[7px]'>
+                            <div className='flex items-center'>
+
+                                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mr-[7px]'>$</h3>
+                                <div className='input-desc flex flex-col max-w-[150px]'>
+                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                                        value={price || ''} onChange={(e) => { handleChange(e, setPrice) }}
+                                        placeholder={'Enter Price'} />
+                                </div>
+                            </div>
+                            <label className='text-[#959595] cursor-pointer'>
+                                <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                            </label>
+                            <label className='text-[#959595] cursor-pointer'>
+                                <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                            </label>
+                            <div className='flex items-center'>
+
+                                <div className='input-desc flex flex-col max-w-[150px]'>
+                                    {/* <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Calories</h3> */}
+                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                                        value={calories || ''} onChange={(e) => { handleChange(e, setCal) }}
+                                        placeholder={'Enter Calories'} />
+
+                                </div>
+                                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter ml-[7px]'>cal</h3>
+
                             </div>
                         </div>
 

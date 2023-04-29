@@ -25,6 +25,10 @@ const EditCoffee = ({ productId, subcategory }) => {
     }
   }, [])
   const { productDetails } = useSelector((state) => state.product)
+  const [gf, setgf] = useState(null)
+  const [vegan, setVegan] = useState(null)
+  const [calories, setCal] = useState(null)
+  const [price, setPrice] = useState(null)
   const [newMockData, setNewMockData] = useState({
     ingredients: {
       values: [],
@@ -89,6 +93,10 @@ const EditCoffee = ({ productId, subcategory }) => {
     setShowIngredient(productDetails?.showIngredients)
     setShowMethod(productDetails?.showMethods)
     setShowPresentation(productDetails?.showPresentations)
+    setPrice(productDetails?.price)
+    setgf(productDetails?.gluten_free)
+    setCal(productDetails?.calories)
+    setVegan(productDetails?.vegan)
 
   }, [productDetails])
 
@@ -104,6 +112,12 @@ const EditCoffee = ({ productId, subcategory }) => {
     }))
 
   }
+  const handleChange = (event, setval) => {
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setval(newValue);
+    }
+  };
   function setType(title, type, desc, quantity) {
     let firstval = {}
     if (type == 0)
@@ -219,7 +233,11 @@ const EditCoffee = ({ productId, subcategory }) => {
                 showIngredients: showIngredients,
                 showMethods: showMethods,
                 showPresentations: showPresentations,
-                image: imageurl
+                image: imageurl,
+                price: price,
+                gluten_free: gf,
+                vegan: vegan,
+                calories: calories
 
               }
             )).then((res) => {
@@ -245,6 +263,10 @@ const EditCoffee = ({ productId, subcategory }) => {
             showIngredients: showIngredients,
             showMethods: showMethods,
             showPresentations: showPresentations,
+            price: price,
+            gluten_free: gf,
+            vegan: vegan,
+            calories: calories
 
           }
         )).then((res) => {
@@ -331,7 +353,74 @@ const EditCoffee = ({ productId, subcategory }) => {
                 </div> */}
               </div>
             </div>
+            {!isEdit &&
 
+              <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+                {productDetails?.price &&
+                  <li className="min-w-[100px]">
+                    <div className="text-white w-full text-center pr-[10px]">
+                      {`Price: $ ${productDetails.price}`}
+                    </div>
+                  </li>
+                }
+                {productDetails?.gluten_free &&
+
+                  <li className="min-w-[100px]">
+                    <div className="text-white w-full text-center">
+                      GF
+                    </div>
+                  </li>
+                }
+                {productDetails?.vegan &&
+
+                  <li className="min-w-[100px]">
+                    <div className="text-white w-full text-center">
+                      V
+                    </div>
+                  </li>
+                }
+                {productDetails?.calories &&
+
+                  <li className="min-w-[100px]">
+                    <div className="text-white w-full text-center ">
+                      {`${productDetails?.calories} cal`}
+                    </div>
+                  </li>
+                }
+              </ul>
+            }
+            {isEdit &&
+
+              <div className='flex items-center justify-between my-[7px]'>
+                <div className='flex items-center'>
+
+                  <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mr-[7px]'>$</h3>
+                  <div className='input-desc flex flex-col max-w-[150px]'>
+                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                      value={price || ''} onChange={(e) => { handleChange(e, setPrice) }}
+                      placeholder={'Enter Price'} />
+                  </div>
+                </div>
+                <label className='text-[#959595] cursor-pointer'>
+                  <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                </label>
+                <label className='text-[#959595] cursor-pointer'>
+                  <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                </label>
+                <div className='flex items-center'>
+
+                  <div className='input-desc flex flex-col max-w-[150px]'>
+                    {/* <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Calories</h3> */}
+                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                      value={calories || ''} onChange={(e) => { handleChange(e, setCal) }}
+                      placeholder={'Enter Calories'} />
+
+                  </div>
+                  <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter ml-[7px]'>cal</h3>
+
+                </div>
+              </div>
+            }
             <p
               className={`description text-[16px] leading-6 ${isMobile && "text-center"
                 }`}
@@ -341,7 +430,7 @@ const EditCoffee = ({ productId, subcategory }) => {
           </div>
         </div>
         <div className="titleContainer">
-    
+
           {isEdit &&
             <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
               onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''} m-[8px]`}>
@@ -359,7 +448,7 @@ const EditCoffee = ({ productId, subcategory }) => {
           )}
 
         </div>
-    
+
       </div>
     </>
   );

@@ -13,7 +13,7 @@ import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
 
 
-function AddCoffee({subcategory}) {
+function AddCoffee({ subcategory }) {
     const isEdit = true;
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -37,6 +37,10 @@ function AddCoffee({subcategory}) {
     const [abv, setabv] = useState('')
     const [isSAve, setSaved] = useState(false)
     const [upimage, setimage] = useState()
+    const [gf, setgf] = useState(null)
+    const [vegan, setVegan] = useState(null)
+    const [calories, setCal] = useState(null)
+    const [price, setPrice] = useState(null)
     const dispatch = useDispatch()
 
     // new generic approach
@@ -156,6 +160,10 @@ function AddCoffee({subcategory}) {
             ingredients: newMockData.ingredients,
             methods: newMockData.methods,
             presentations: newMockData.presentations,
+            price: price,
+            gluten_free: gf,
+            vegan: vegan,
+            calories: calories
 
 
         }
@@ -209,6 +217,10 @@ function AddCoffee({subcategory}) {
         });
         setimage()
         setSaved(true)
+        setPrice(null)
+        setgf(null)
+        setVegan(null)
+        setCal(null)
         setTimeout(() => {
 
             setSaved(false)
@@ -217,7 +229,7 @@ function AddCoffee({subcategory}) {
     function checkVals() {
         if (
 
-            drinkName != "" 
+            drinkName != ""
             // &&
             // newMockData.ingredients.values.length > 0 &&
             // newMockData.methods.values.length > 0 &&
@@ -226,10 +238,10 @@ function AddCoffee({subcategory}) {
             return true
         return false
     }
-    const handleChange = event => {
+    const handleChange = (event, setval) => {
         const newValue = event.target.value;
         if (/^\d*\.?\d*$/.test(newValue)) {
-            setabv(newValue);
+            setval(newValue);
         }
     };
     return (
@@ -292,7 +304,35 @@ function AddCoffee({subcategory}) {
                                 </div> */}
                             </div>
                         </div>
+                        <div className='flex items-center justify-between my-[7px]'>
+                            <div className='flex items-center'>
 
+                                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mr-[7px]'>$</h3>
+                                <div className='input-desc flex flex-col max-w-[150px]'>
+                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                                        value={price || ''} onChange={(e) => { handleChange(e, setPrice) }}
+                                        placeholder={'Enter Price'} />
+                                </div>
+                            </div>
+                            <label className='text-[#959595] cursor-pointer'>
+                                <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                            </label>
+                            <label className='text-[#959595] cursor-pointer'>
+                                <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                            </label>
+                            <div className='flex items-center'>
+
+                                <div className='input-desc flex flex-col max-w-[150px]'>
+                                    {/* <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Calories</h3> */}
+                                    <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                                        value={calories || ''} onChange={(e) => { handleChange(e, setCal) }}
+                                        placeholder={'Enter Calories'} />
+
+                                </div>
+                                <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter ml-[7px]'>cal</h3>
+
+                            </div>
+                        </div>
                         <p
                             className={`description text-[16px] leading-6 ${isMobile && "text-center"
                                 }`}
