@@ -286,7 +286,7 @@ export default function Category() {
 
                 {path === `/foods` && <AdminFood />}
                 {path === `/foods/new` && <AddFood subcategory={'food'} />}
-                {path === `/foods/${enUrl(subcategory)}?id=${productId}` && <FoodEdits productId={productId} subcategory={'coffee'} />}
+                {path === `/foods/${enUrl(subcategory)}?id=${productId}` && <FoodEdits productId={productId} subcategory={'food'} />}
 
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}

@@ -79,7 +79,7 @@ function Coffees({ headerHidden }) {
                   <RectangularCard
                     title={card.coffee_name}
                     image={card.image}
-                    subtitle={`${whatsthestrength(card.abv)} (${card.abv}%)`}
+                    subtitle={``}
                   />
                 </Link>
               </div>

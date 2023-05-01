@@ -41,12 +41,7 @@
             "name": "Foods",
             "id": "foods",
             "menuIcon": "AiFillAppstore",
-            "subOptions": [
-                {
-                    "name": "Food",
-                    "id": "food"
-                }
-            ]
+            "subOptions": []
         },
         {
             "name": "Brands",

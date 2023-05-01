@@ -82,7 +82,7 @@ const CoffeeDetailPage = ({ id }) => {
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.coffee_name}
               </h3>
-              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p>
+              {/* <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p> */}
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>

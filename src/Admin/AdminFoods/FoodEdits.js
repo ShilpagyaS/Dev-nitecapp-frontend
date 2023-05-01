@@ -431,14 +431,14 @@ const FoodEdits = ({ productId, subcategory }) => {
         </div>
         <div className="titleContainer">
 
-          {isEdit &&
+          {/* {isEdit &&
             <div onDoubleClick={() => { setEditItem({ index: 0, desc: 'strength', quantity: abv }); if (foucsed == 0) setAsfocus(null); if (isEdit) setEditmodal(true) }}
               onClick={() => { setAsfocus(0); if (foucsed == 0) setAsfocus(null) }} className={`${foucsed == 0 ? 'outline-none ring ring-violet-300' : ''} m-[8px]`}>
 
               <SplitCard desc={"Strength"} quantity={`${abv}%`} />
 
             </div>
-          }
+          } */}
 
           {Object.keys(newMockData).map((e) =>
             <GenericCard title={e} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}

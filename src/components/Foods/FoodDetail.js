@@ -24,7 +24,7 @@ const FoodDetail = ({ id }) => {
   const [isRecipie, setRecipie] = useState(false)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getProductById('cocktail', id))
+    dispatch(getProductById('food', id))
     return () => {
       dispatch(emptyProductList())
     }
@@ -73,9 +73,9 @@ const FoodDetail = ({ id }) => {
                 }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
-                {productDetails?.cocktail_name}
+                {productDetails?.food_name}
               </h3>
-              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p>
+              {/* <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p> */}
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
             {!isRecipie &&
@@ -157,9 +157,9 @@ const FoodDetail = ({ id }) => {
                 return (
                   <>
                     <div className="choice-container bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
-                      <p className=" bg-transparent ">{presentation.step}</p>
+                      <p className=" bg-transparent ">{presentation?.step}</p>
                       <p className=" bg-transparent ">
-                        {presentation.detail}
+                        {presentation?.detail}
                       </p>
                     </div>
                   </>

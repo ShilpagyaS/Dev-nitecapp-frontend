@@ -21,7 +21,7 @@ function FoodTable() {
     })
     useEffect(() => {
 
-        dispatch(getProduct('coffee'))
+        dispatch(getProduct('food'))
 
         return () => {
             dispatch(emptyProductList())
@@ -32,9 +32,9 @@ function FoodTable() {
         let dummy = productList?.map(
             (element) => {
                 return {
-                    id: element.coffee_id,
+                    id: element.food_id,
                     itemImage: element.image,
-                    itemName: element.coffee_name,
+                    itemName: element.food_name,
                     showHideStatus: element.showProduct,
                     outlet: element.outlet_name,
                     data: element,
@@ -49,7 +49,7 @@ function FoodTable() {
     }, [productList])
 
     function toggleSwitch(e, element) {
-        let data = { type: 'coffee', id: element.id, showProduct: e }
+        let data = { type: 'food', id: element.id, showProduct: e }
         dispatch(putProductByIdThenUpdateListShowProduct(data))
     }
     const HeaderArray = ["Food Image", "Food Name", "Show / Hide", "Outlet", "Edit / Delete"]
@@ -132,7 +132,7 @@ function FoodTable() {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductById('coffee', elementItem.id))
+        dispatch(deleteProductById('food', elementItem.id))
     }
     return (
         <>

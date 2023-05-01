@@ -21,7 +21,7 @@ function FoodList() {
     const { productList } = useSelector((state) => state.product);
 
     useEffect(() => {
-        dispatch(getProduct("cocktail"));
+        dispatch(getProduct("food"));
         return () => {
             dispatch(emptyProductList());
         };
@@ -32,7 +32,7 @@ function FoodList() {
         if (searchTerm == "") {
             temp = [...productList]
         } else {
-            const info = productList.filter((i) => i.cocktail_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
+            const info = productList.filter((i) => i.food_name?.toLowerCase()?.includes(searchTerm?.toLowerCase()))
             temp = [...info]
         }
         filterbydate
@@ -75,8 +75,8 @@ function FoodList() {
                     {finaldata?.map((card, i) => {
                         return (
                             <div className=" col-span-1 ">
-                                <Link href={`/foods/food/${enUrl(card.cocktail_name)}?id=${card.cocktail_id}`}>
-                                    <FoodCard image={'/asset/coctail1.png'} title={card.cocktail_name} no={i+1} />
+                                <Link href={`/foods/food/${enUrl(card.food_name)}?id=${card.food_id}`}>
+                                    <FoodCard image={card.image} title={card.food_name} no={i+1} />
                                 </Link>
                             </div>
                         );
