@@ -5,13 +5,13 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function CocktailFileUpdate({ setimage, defaultImage, isClear, isEdit }) {
+export default function CocktailFileUpdate({ setimage, defaultImage, isClear, isEdit, id }) {
     const [image, setImage] = useState({ preview: "", raw: "" });
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
     const dispatch = useDispatch()
 
- 
+
     useEffect(() => {
         if (defaultImage) {
             setImage({
@@ -54,7 +54,7 @@ export default function CocktailFileUpdate({ setimage, defaultImage, isClear, is
                     <Image src={image.preview} className="w-full object-contain" fill priority />
 
                 </div>
-                <label htmlFor="upload-button">
+                <label htmlFor={id}>
 
                     {isEdit && <div className="editbutton flex items-center justify-center text-[#929292] ">
                         <Image
@@ -72,7 +72,7 @@ export default function CocktailFileUpdate({ setimage, defaultImage, isClear, is
                 </label>
             </>
             ) : (
-                <label htmlFor="upload-button">
+                <label htmlFor={id}>
                     <div className="bg-[#1D1D1D] rounded-[8px] border border-[#787878] flex items-center cursor-pointer justify-center h-[191px] w-[132px] mr-[31px]">
                         <div className="flex flex-col bg-transparent justify-center items-center">
 
@@ -93,7 +93,7 @@ export default function CocktailFileUpdate({ setimage, defaultImage, isClear, is
             )}
             <input
                 type="file"
-                id="upload-button"
+                id={id}
                 style={{ display: "none" }}
                 onChange={handleChange}
             />

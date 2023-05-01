@@ -363,7 +363,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
             {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
             <CocktailFileUpdate defaultImage={productDetails?.image}
               setimage={setimage}
-              isEdit={isEdit} />
+              isEdit={isEdit} id="cocktaildetailpage" />
 
 
             {/* <div className="editbutton flex text-[#929292] ">

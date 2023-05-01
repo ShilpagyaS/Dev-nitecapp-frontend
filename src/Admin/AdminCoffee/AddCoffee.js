@@ -37,6 +37,7 @@ function AddCoffee({ subcategory }) {
     const [abv, setabv] = useState('')
     const [isSAve, setSaved] = useState(false)
     const [upimage, setimage] = useState()
+    const [upimageCoffe, setimageCoffe] = useState()
     const [gf, setgf] = useState(null)
     const [vegan, setVegan] = useState(null)
     const [calories, setCal] = useState(null)
@@ -280,7 +281,7 @@ function AddCoffee({ subcategory }) {
 
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
                     <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
-                        <CocktailFileUpdate setimage={setimage} isClear={isSAve} isEdit={true} />
+                        <CocktailFileUpdate setimage={setimage} isClear={isSAve} isEdit={true} id="main" />
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">
@@ -347,7 +348,7 @@ function AddCoffee({ subcategory }) {
                     {/* <div className="flex items-center justify-between p-[10px]">
                         <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
                     </div> */}
-
+                    <CocktailFileUpdate setimage={setimageCoffe} isClear={isSAve} isEdit={true} id={"coffee"} />
                     {Object.keys(newMockData).map((e) =>
                         <GenericCard title={e} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
                             addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />

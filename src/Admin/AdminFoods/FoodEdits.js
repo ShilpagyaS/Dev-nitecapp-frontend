@@ -332,7 +332,7 @@ const FoodEdits = ({ productId, subcategory }) => {
 
             <CocktailFileUpdate defaultImage={productDetails?.image}
               setimage={setimage}
-              isEdit={isEdit} />
+              isEdit={isEdit} id="foodedits" />
 
           </div>
 

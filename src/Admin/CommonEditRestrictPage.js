@@ -279,7 +279,7 @@ function CommonEditRestrictPage({ productId, subcategory }) {
                         <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
                             <CocktailFileUpdate defaultImage={productDetails?.image}
                                 setimage={setimage}
-                                isEdit={isEdit} />
+                                isEdit={isEdit} id="productdetails" />
                         </div>
 
                     </div>

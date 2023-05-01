@@ -286,7 +286,7 @@ function EmptyUSerLayout() {
 
                 <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
                     <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
-                        <CocktailFileUpdate setimage={setimage} isClear={isSAve} isEdit={true} />
+                        <CocktailFileUpdate setimage={setimage} isClear={isSAve} isEdit={true} id="emptyuserlayout" />
                     </div>
 
                     <div className="desc-container inline-block w-full  text-white">
