@@ -61,6 +61,39 @@ const SpecsDetailPage = ({ id, subcategory }) => {
             </div>
             {/* {!isMobile && <AiOutlineHeart size="25px" color="#fff" />} */}
           </div>
+          <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+            {productDetails?.price &&
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center pr-[10px]">
+                  {`Price: $ ${productDetails.price}`}
+                </div>
+              </li>
+            }
+            {productDetails?.gluten_free &&
+
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center">
+                  GF
+                </div>
+              </li>
+            }
+            {productDetails?.vegan &&
+
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center">
+                  V
+                </div>
+              </li>
+            }
+            {productDetails?.calories &&
+
+              <li className="min-w-[100px]">
+                <div className="text-white w-full text-center ">
+                  {`${productDetails?.calories} cal`}
+                </div>
+              </li>
+            }
+          </ul>
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
               }`}

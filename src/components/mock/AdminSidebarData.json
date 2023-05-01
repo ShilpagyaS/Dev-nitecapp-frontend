@@ -16,6 +16,10 @@
                     "id": "cocktail"
                 },
                 {
+                    "name": "Coffee",
+                    "id": "coffee"
+                },
+                {
                     "name": "Spirits",
                     "id": "spirit"
                 },
@@ -31,13 +35,19 @@
                     "name": "Low / No ABV",
                     "id": "low_no_abv"
                 }
-            ] 
+            ]
+        },
+        {
+            "name": "Foods",
+            "id": "foods",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": []
         },
         {
             "name": "Brands",
             "id": "brands",
             "menuIcon": "AiFillAppstore",
-            "subOptions": [  ]
+            "subOptions": []
         },
         {
             "name": "Guests",
@@ -51,7 +61,5 @@
             "menuIcon": "AiFillAppstore",
             "subOptions": []
         }
-      
-        
     ]
 }

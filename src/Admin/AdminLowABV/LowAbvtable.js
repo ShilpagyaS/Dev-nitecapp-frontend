@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
+import { createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, delinkProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -132,7 +132,12 @@ function LowAbvtable() {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductById('low_no_abv', elementItem.id))
+        // dispatch(deleteProductById('low_no_abv', elementItem.id))
+        let data = {
+            type: 'low_no_abv',
+            id: elementItem.id,
+        }
+        dispatch(delinkProductById(data))
     }
     return (
         <>

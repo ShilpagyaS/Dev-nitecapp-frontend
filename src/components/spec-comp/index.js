@@ -34,7 +34,7 @@ function SpecComp() {
             Specs
           </h1>
         </div>
-        {/* <Link href={`/specs/cocktail/cocktail_ingredients`}>
+        {/* <Link href={`/specs/cocktail/ingredients`}>
           <OrangeButtons label="Drink Brands" noPadding={true} width={'200'}/>
         </Link> */}
       </div>

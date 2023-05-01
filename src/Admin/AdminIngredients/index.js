@@ -86,7 +86,7 @@ function AdminIngredients({ productType }) {
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {`${productType} Ingredients`}
           </h2>
-          <ChipWithLeftButton condition={true} label={'Add Ingredients'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { router.push("/specs/cocktail/cocktail_ingredients/new") }} />
+          <ChipWithLeftButton condition={true} label={'Add Ingredients'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { router.push("/specs/cocktail/ingredients/new") }} />
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
@@ -111,7 +111,7 @@ function AdminIngredients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/cocktail/cocktail_ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
+                          href={`/specs/${productType}/ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}

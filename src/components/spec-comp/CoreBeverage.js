@@ -4,6 +4,16 @@ import Link from "next/link";
 function CoreBeverage() {
   const CoreBeverage = [
     {
+      title: "Cocktails",
+      img: "/asset/cocktailspecs.svg",
+      href:"/specs/beer"
+    },
+    {
+      title: "Coffee",
+      img: "/asset/coffespecs.svg",
+      href:"/specs/beer"
+    },
+    {
       title: "Beer / Seltzer",
       img: "/asset/beverage1.svg",
       href:"/specs/beer"

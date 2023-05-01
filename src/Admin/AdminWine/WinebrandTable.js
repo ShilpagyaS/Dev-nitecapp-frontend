@@ -1,6 +1,6 @@
 import { DeleteProduct } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -64,7 +64,7 @@ function WinebrandTable({ productId, subcategory }) {
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/nodrinkinverted.webp'}
-                            alt="image"
+                                alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
@@ -132,7 +132,12 @@ function WinebrandTable({ productId, subcategory }) {
         console.log('deleteing');
         console.log(elementItem);
 
-        dispatch(deleteProductbyIdWithCategory('wine', elementItem.id, productId))
+        // dispatch(deleteProductbyIdWithCategory('wine', elementItem.id, productId))
+        let data = {
+            type: 'wine',
+            id: elementItem.id,
+        }
+        dispatch(delinkProductByIdwithCAtegory(data, productId))
     }
     return (
         <>
@@ -151,6 +156,7 @@ function WinebrandTable({ productId, subcategory }) {
                     label={'Wines'}
                     type={'wine'}
                     title={'Wine'}
+                    productId={productId}
                     onSave={(data) => {
                         let body = {}
                         body = { ...data, category_id: productId, }
