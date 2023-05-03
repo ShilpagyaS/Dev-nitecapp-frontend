@@ -38,14 +38,11 @@
       ]
     },
     {
-      "name": "Foods",
-      "id": "foods",
+      "name": "Food",
+      "id": "food",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        {
-          "name": "Food",
-          "id": "food"
-        }
+    
       ]
     },
     {

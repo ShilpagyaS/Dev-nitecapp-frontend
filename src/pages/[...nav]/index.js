@@ -193,9 +193,9 @@ export default function Category() {
                   <BrandDetail productType={"beer"} productId={productId} />
                 )}
 
-                {path === `/foods` && <FoodList />}
-                {path === `/foods/food` && <FoodList />}
-                {path === `/foods/food/${enUrl(subcategory2)}?id=${productId}` && (
+                {path === `/food` && <FoodList />}
+                {path === `/food/food` && <FoodList />}
+                {path === `/food/food/${enUrl(subcategory2)}?id=${productId}` && (
                   <FoodDetail id={productId} />
                 )}
                 {path === "/user_profile" && <UserProfile />}
@@ -284,9 +284,9 @@ export default function Category() {
                 {path === `/brands/${enUrl(subcategory)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
                 {path === `/brands/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <AdminHotelBrandDetail productId={productId} />}
 
-                {path === `/foods` && <AdminFood />}
-                {path === `/foods/new` && <AddFood subcategory={'food'} />}
-                {path === `/foods/${enUrl(subcategory)}?id=${productId}` && <FoodEdits productId={productId} subcategory={'food'} />}
+                {path === `/food` && <AdminFood />}
+                {path === `/food/new` && <AddFood subcategory={'food'} />}
+                {path === `/food/${enUrl(subcategory)}?id=${productId}` && <FoodEdits productId={productId} subcategory={'food'} />}
 
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}

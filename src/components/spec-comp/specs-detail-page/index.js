@@ -42,13 +42,13 @@ const SpecsDetailPage = ({ id, subcategory }) => {
             }`}
         >
           {/* src="/asset/london-dry-green.svg" */}
-          <Image src={productDetails?.image} className="object-cover rounded-lg"
+          <Image src={productDetails?.image || '/asset/nodrinkinverted.webp'} className="object-cover rounded-lg"
             fill alt={productDetails?.[`${subcategory}_name`]} priority/>
         </div>
         <div className="desc-container inline-block w-full  text-white mt-4 ">
           <div
             className={`heading-container mb-8 flex justify-between font-[600] text-[24px] leading-[36px] items-center ${isMobile && "text-center"
-              }`}
+              }`} 
           >
             <div
               className={`w-full flex items-center  ${isMobile && "justify-around"

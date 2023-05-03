@@ -49,20 +49,20 @@ function FoodList() {
         <>
             <div className="coctail-container">
 
-                <div className="search-container flex justify-between items-center lg:mb-5 mb-1 flex-wrap">
+                {/* <div className="search-container flex justify-between items-center lg:mb-5 mb-1 flex-wrap">
                     <Breadcrumb />
                     {!isTablet && <Search search={searchTerm} setSearch={(e) => {
                         setSearch(e);
                         //  filterData(e) 
                     }} />}
 
-                </div>
+                </div> */}
 
 
                 <div className="heading-container flex items-center justify-between lg:mb-4 mb-3">
-                    <h2 className="text-white text-[24px] leading-9 font-bold ">
-                        Foods 
-                    </h2>
+                    <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+                        Food
+                    </h1>
                     {/* <Link href={`/specs/cocktail/ingredients`}>
                         <OrangeButtons label="Ingredients" noPadding={true} />
                     </Link> */}
@@ -75,8 +75,8 @@ function FoodList() {
                     {finaldata?.map((card, i) => {
                         return (
                             <div className=" col-span-1 ">
-                                <Link href={`/foods/food/${enUrl(card.food_name)}?id=${card.food_id}`}>
-                                    <FoodCard image={card.image} title={card.food_name} no={i+1} />
+                                <Link href={`/food/food/${enUrl(card.food_name)}?id=${card.food_id}`}>
+                                    <FoodCard image={card.image} title={card.food_name} no={i + 1} />
                                 </Link>
                             </div>
                         );

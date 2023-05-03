@@ -68,7 +68,7 @@ const CoffeeDetailPage = ({ id }) => {
             }`}
         >
           {/* <Image src="/asset/coctail1.png" fill /> */}
-          <Image src={productDetails?.image} fill className="object-cover" priority />
+          <Image src={productDetails?.image || '/asset/nodrinkinverted.webp'} fill className="object-cover" priority />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div

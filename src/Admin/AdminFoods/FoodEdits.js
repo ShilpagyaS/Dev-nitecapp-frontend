@@ -319,7 +319,7 @@ const FoodEdits = ({ productId, subcategory }) => {
             <div className="ml-[15px]">
               <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
             </div>
-            <Link href={`foods`}>
+            <Link href={`food`}>
               <div className=' ml-[10px] '>
 
                 <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />

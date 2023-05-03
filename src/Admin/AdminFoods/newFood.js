@@ -268,7 +268,7 @@ function AddFood({ subcategory }) {
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={checkVals()} onClickHandler={() => { createdrink() }} />
-                        <Link href={`foods`}>
+                        <Link href={`food`}>
                             <div className=' ml-[10px] '>
 
                                 <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />

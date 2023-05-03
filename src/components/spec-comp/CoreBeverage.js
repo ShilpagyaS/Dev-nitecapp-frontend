@@ -6,12 +6,12 @@ function CoreBeverage() {
     {
       title: "Cocktails",
       img: "/asset/cocktailspecs.svg",
-      href:"/specs/beer"
+      href:"/specs/cocktail"
     },
     {
       title: "Coffee",
       img: "/asset/coffespecs.svg",
-      href:"/specs/beer"
+      href:"/specs/coffee"
     },
     {
       title: "Beer / Seltzer",

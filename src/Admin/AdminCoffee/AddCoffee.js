@@ -348,11 +348,14 @@ function AddCoffee({ subcategory }) {
                     {/* <div className="flex items-center justify-between p-[10px]">
                         <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
                     </div> */}
-                    <CocktailFileUpdate setimage={setimageCoffe} isClear={isSAve} isEdit={true} id={"coffee"} />
                     {Object.keys(newMockData).map((e) =>
                         <GenericCard title={e} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
                             addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
                     )}
+                    {/* <div className='flex w-full items-center justify-between'>
+                        <h3 className='text-white'> Ratio and Quantity</h3>
+                    <CocktailFileUpdate setimage={setimageCoffe} isClear={isSAve} isEdit={true} id={"coffee"} />
+                    </div> */}
 
                 </div>
             </div>
