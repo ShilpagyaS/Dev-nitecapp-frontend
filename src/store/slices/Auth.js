@@ -10,7 +10,8 @@ const initialState = {
   firstTimeLogin: false,
   isOnbording: false,
   tempcode: null,
-  logo: null
+  logo: null,
+  brandid: null
 
 };
 
@@ -34,6 +35,9 @@ export const authSlice = createSlice({
     },
     updateLogo: (state, action) => {
       state.logo = action.payload;
+    },
+    updateBrandid: (state, action) => {
+      state.brandid = action.payload;
     },
 
     reloadUpdateUser2: (state, action) => {
@@ -61,12 +65,14 @@ export const authSlice = createSlice({
 });
 
 export const login = (data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    let dummydata = {...data,brand_id:state.auth.brandid}
     dispatch(authSlice.actions.updateTempUser(data.email));
     return axiosInstance({
       url: "/api/user-auth/login",
       method: "POST",
-      data,
+      data:dummydata,
     }).catch((error) => {
 
       return { error: true, message: error || "Something Went Wrong" }
@@ -130,6 +136,24 @@ export const getLogo = () => {
     })
       .then((res) => {
         dispatch(authSlice.actions.updateLogo(res?.data?.data?.logo));
+
+      })
+      .catch((err) => {
+      });
+  };
+};
+export const gethoteldetails = () => {
+  let domainname = window.location.host.split('.')[1]
+  console.log(domainname);
+  return async (dispatch) => {
+    await axiosAuthInstance({
+      // url: `/api/brand/brand_logo/testig`,
+      url: `/api/brand/brand_logo/${domainname || ''}`,
+      method: "GET",
+    })
+      .then((res) => {
+        dispatch(authSlice.actions.updateLogo(res?.data?.data?.logo));
+        dispatch(authSlice.actions.updateBrandid(res?.data?.data?.brand_id));
 
       })
       .catch((err) => {
