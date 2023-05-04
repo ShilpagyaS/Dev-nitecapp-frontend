@@ -213,6 +213,11 @@ const CoffeeDetailPage = ({ id }) => {
           </div>
         </div>
       }
+      {productDetails?.method_image &&
+        <div className="relative w-1/2 h-[200px]">
+          <Image src={productDetails?.method_image} fill className="object-contain rounded-[10px]" />
+        </div>
+      }
       {/* <div className="lessons-container mb-[32px]">
         <div className="sub-heading-container mb-[21px]">
           <h4 className="text-white text-[20px] leading-[32px] font-semibold">

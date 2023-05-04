@@ -14,6 +14,7 @@ import CocktailFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cock
 import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
+import CoffeeFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate";
 
 const EditCoffee = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -33,14 +34,15 @@ const EditCoffee = ({ productId, subcategory }) => {
     ingredients: {
       values: [],
     },
+
+    presentations: {
+      values: [],
+
+    },
     methods: {
       values: [],
 
     },
-    presentations: {
-      values: [],
-
-    }
   });
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -54,6 +56,7 @@ const EditCoffee = ({ productId, subcategory }) => {
   const [showMethods, setShowMethod] = useState(false)
   const [showPresentations, setShowPresentation] = useState(false)
   const [upimage, setimage] = useState()
+  const [methodImage, setMethodImage] = useState()
 
 
 
@@ -83,10 +86,10 @@ const EditCoffee = ({ productId, subcategory }) => {
       ingredients: (productDetails?.ingredients?.values.length && productDetails?.ingredients) || {
         values: [],
       },
-      methods: (productDetails?.methods?.values.length && productDetails?.methods) || {
+      presentations: (productDetails?.presentations?.values.length && productDetails?.presentations) || {
         values: [],
       },
-      presentations: (productDetails?.presentations?.values.length && productDetails?.presentations) || {
+      methods: (productDetails?.methods?.values.length && productDetails?.methods) || {
         values: [],
       },
     })
@@ -215,39 +218,45 @@ const EditCoffee = ({ productId, subcategory }) => {
     console.log(name);
     setabv(value)
   }
-  function onSave() {
+  async function onSave() {
     console.log(isEdit);
     if (isEdit == true) {
-      if (upimage) {
-        dispatch(uploadimage(upimage)).then((imageurl) => {
-          if (imageurl && !imageurl?.error)
-            dispatch(putProductById(subcategory, productId,
-              {
-                ...productDetails,
-                [`${subcategory}_name`]: nameref.current.innerText,
-                description: textAreaRef.current.value,
-                abv: abv,
-                ingredients: newMockData.ingredients,
-                presentations: newMockData.presentations,
-                methods: newMockData.methods,
-                showIngredients: showIngredients,
-                showMethods: showMethods,
-                showPresentations: showPresentations,
-                image: imageurl,
-                price: price,
-                gluten_free: gf,
-                vegan: vegan,
-                calories: calories
 
-              }
-            )).then((res) => {
+      if (upimage || methodImage) {
+        let imageUrl, coffeurl
+        if (upimage)
+          imageUrl = dispatch(uploadimage(upimage))
+        if (methodImage)
+          coffeurl = dispatch(uploadimage(methodImage))
+
+        Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
+          debugger
+          dispatch(putProductById(subcategory, productId,
+            {
+              ...productDetails,
+              [`${subcategory}_name`]: nameref.current.innerText,
+              description: textAreaRef.current.value,
+              abv: abv,
+              ingredients: newMockData.ingredients,
+              presentations: newMockData.presentations,
+              methods: newMockData.methods,
+              showIngredients: showIngredients,
+              showMethods: showMethods,
+              showPresentations: showPresentations,
+              ...(imageUrl && !imageUrl.error ? { image: imageUrlres } : {}),
+              ...(coffeurl && !coffeurl.error ? { method_image: coffeurlres } : {}),
+              price: price,
+              gluten_free: gf,
+              vegan: vegan,
+              calories: calories
+
+            })).then((res) => {
               console.log(res);
               res?.error ?
                 // errortoast({ message: res.message }) 
                 ''
                 : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
             })
-          else console.log("cannot upload")
         })
       }
       else
@@ -278,6 +287,7 @@ const EditCoffee = ({ productId, subcategory }) => {
         })
       console.log(nameref.current.innerText);
       toggleEdit()
+      setimage();setMethodImage()
     }
     console.log(textAreaRef);
   }
@@ -447,6 +457,12 @@ const EditCoffee = ({ productId, subcategory }) => {
               setActive={setActive} fromeditnigscreen={true} />
           )}
 
+        </div>
+        <div className="w-1/2 h-[200px] m-[8px]">
+          <CoffeeFileUpdate
+            defaultImage={productDetails?.method_image}
+            setimage={setMethodImage}
+            isEdit={isEdit} id="coffemethodimage" />
         </div>
 
       </div>
