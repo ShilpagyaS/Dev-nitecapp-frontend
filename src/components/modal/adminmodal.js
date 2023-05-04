@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { useDispatch } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
-export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, }) {
+export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -82,6 +82,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
             <div className='h-[200px] mb-[10px]'>
 
                 <SelectWithDebounce
+                    ingredientType={ingredientType}
                     label={"Ingredients"}
                     placeholder={"search here"}
                     onChangeHandler={(e) => { onIngredientSelect(e) }}
@@ -121,7 +122,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
         </Modal>
     )
 }
-export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, data, index }) {
+export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, ingredientType, data, index }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -208,6 +209,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
                 <div className='h-[200px] mb-[10px]'>
 
                     <SelectWithDebounce
+                        ingredientType={ingredientType}
                         label={"Ingredients"}
                         placeholder={"search here"}
                         defaultvalue={data}

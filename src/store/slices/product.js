@@ -420,13 +420,13 @@ export const emptyProductList = (productType) => {
   };
 };
 
-export const getIngredientSearch = (query) => {
+export const getIngredientSearch = (query, type) => {
   return async (dispatch, getState) => {
     const state = getState();
 
     if (query.label !== "" && query.value === "") {
       return await axiosDebounceInstance({
-        url: `/api/ingredient/search/${query.label}`,
+        url: `/api/ingredient/search/${type}/${query.label}`,
         method: "GET",
       }).then((res) => {
 

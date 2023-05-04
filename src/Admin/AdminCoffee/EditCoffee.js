@@ -441,7 +441,7 @@ const EditCoffee = ({ productId, subcategory }) => {
           } */}
 
           {Object.keys(newMockData).map((e) =>
-            <GenericCard title={e} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+            <GenericCard title={e} type={'notype'} ingredientType={'coffee'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
               addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection}
               isActive={e == 'ingredients' ? showIngredients : e == 'methods' ? showMethods : showPresentations}
               setActive={setActive} fromeditnigscreen={true} />

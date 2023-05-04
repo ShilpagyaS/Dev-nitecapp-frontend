@@ -17,6 +17,7 @@ import Link from "next/link";
 import VideoModal from "@/components/modal/videoModal";
 import ReactPlayer from "react-player";
 import { whatsthestrength } from "@/utils/abvfinder";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
 const CoffeeDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -86,7 +87,7 @@ const CoffeeDetailPage = ({ id }) => {
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>
-          <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+          {/* <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
             {productDetails?.price &&
               <li className="min-w-[100px]">
                 <div className="text-white w-full text-center pr-[10px]">
@@ -118,7 +119,9 @@ const CoffeeDetailPage = ({ id }) => {
                 </div>
               </li>
             }
-          </ul>
+          </ul> */}
+          <PriceGFVeganCAlContainer productDetails={productDetails} />
+
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
               }`}

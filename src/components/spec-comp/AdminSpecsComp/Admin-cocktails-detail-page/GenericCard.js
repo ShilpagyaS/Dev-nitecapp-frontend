@@ -6,7 +6,7 @@ import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import React, { useState } from 'react'
 import ButtonCombo from './ButtonCombo';
 
-function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive, fromeditnigscreen }) {
+function GenericCard({ title, type, arr, isEdit, setTypeFunction, ingredientType, addValuesOnData, editValuesat, deleteItem, deleteSection, isActive, setActive, fromeditnigscreen }) {
     console.log(title, type, arr, isActive);
     if (title == 'ingredients') type = 1
     if (title == 'presentations') type = 1
@@ -92,7 +92,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                     onClickCancel={() => { setFirstTimemodal(false) }}
                     onSave={initiateFirst}
                     title={'Values'}
-                /> 
+                />
             }
             {addIngredients && <AddIngredientModal
                 isModalOpen={addIngredients}
@@ -101,6 +101,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                 title={'Ingredient'}
                 type={type}
                 header={title}
+                ingredientType={ingredientType}
 
             />}
             {addModal && <AddNewDataModal
@@ -112,7 +113,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                 header={title}
 
             />}
-         
+
             {EditModal &&
                 <EditNewModal
                     isModalOpen={EditModal}
@@ -135,6 +136,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, addValuesOnDat
                     title={'ingredient'}
                     index={editItem.index}
                     deleteBtn={onDelete}
+                    ingredientType={ingredientType}
                 />
             }
             {isDeleteModalOpen && <DeleteSection

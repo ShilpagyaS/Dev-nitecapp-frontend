@@ -15,6 +15,8 @@ import Link from "next/link";
 import VideoModal from "@/components/modal/videoModal";
 import ReactPlayer from "react-player";
 import { whatsthestrength } from "@/utils/abvfinder";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
+import IngredientSwitch from "@/utils/IngredientSwitch";
 
 const FoodDetail = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -78,13 +80,21 @@ const FoodDetail = ({ id }) => {
               {/* <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p> */}
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
-            {!isRecipie &&
-              <div className="w-full flex justify-end">
-                <OrangeButtons label="View Recipie" noPadding={true} onClickHandler={() => setRecipie(true)} />
+
+            <div className="w-full flex justify-end">
+              <div className="flex items-center justify-center">
+
+                <p className={`not-italic ${isRecipie ? '' : 'text-primary-base '} font-semibold text-base font-Inter`}>Information</p>
+                <div className="flex justify-center items-center mx-[10px]">
+
+                  <IngredientSwitch showHideStatus={isRecipie} onChangeHandler={setRecipie} />
+                </div>
+                <p className={`not-italic ${isRecipie ? 'text-primary-base ' : ''} font-semibold text-base font-Inter`}>Recipe</p>
               </div>
-            }
+            </div>
+
           </div>
-          <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+          {/* <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
             {productDetails?.price &&
               <li className="min-w-[100px]">
                 <div className="text-white w-full text-center pr-[10px]">
@@ -116,7 +126,9 @@ const FoodDetail = ({ id }) => {
                 </div>
               </li>
             }
-          </ul>
+          </ul> */}
+          <PriceGFVeganCAlContainer productDetails={productDetails} />
+
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
               }`}
