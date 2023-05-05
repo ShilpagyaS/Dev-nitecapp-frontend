@@ -17,6 +17,7 @@ import ReactPlayer from "react-player";
 import { whatsthestrength } from "@/utils/abvfinder";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 import IngredientSwitch from "@/utils/IngredientSwitch";
+import Customswitch from "@/utils/customswitch";
 
 const FoodDetail = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -81,7 +82,7 @@ const FoodDetail = ({ id }) => {
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
 
-            <div className="w-full flex justify-end">
+            {/* <div className="w-full flex justify-end">
               <div className="flex items-center justify-center">
 
                 <p className={`not-italic ${isRecipie ? '' : 'text-primary-base '} font-semibold text-base font-Inter`}>Information</p>
@@ -91,7 +92,8 @@ const FoodDetail = ({ id }) => {
                 </div>
                 <p className={`not-italic ${isRecipie ? 'text-primary-base ' : ''} font-semibold text-base font-Inter`}>Recipe</p>
               </div>
-            </div>
+            </div> */}
+            <Customswitch first={isRecipie} setfirst={setRecipie} />
 
           </div>
           {/* <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
@@ -222,7 +224,7 @@ const FoodDetail = ({ id }) => {
           </div>
         }
       </>}
-      <Notes id={id} subcategory={subcategory} />
+      <Notes id={id} subcategory={'food'} />
     </div>
   );
 };

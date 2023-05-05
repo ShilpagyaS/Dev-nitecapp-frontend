@@ -7,13 +7,13 @@ import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "@/store/slices/product";
 import Link from "next/link";
-import { emptyIngredientsList, getIngredientsList } from "@/store/slices/ingredients";
+import { emptyIngredientsList, getIngredientsList, getIngredientsListBytype } from "@/store/slices/ingredients";
 import Breadcrumb from "@/components/Breadcrumb";
 import useFilteredData from "@/Hooks/useFilteredData";
 import Search from "@/utils/Search";
 import { enUrl } from "@/utils/encoderfunc";
 
-function Ingridients({ productType }) {
+function Ingridients({ productType, routeto }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const IngridientsData = IngridientsMock.ingridientsMock;
 
@@ -21,7 +21,7 @@ function Ingridients({ productType }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredientsList(productType));
+    dispatch(getIngredientsListBytype(productType));
     return () => {
       dispatch(emptyIngredientsList())
     }
@@ -76,7 +76,7 @@ function Ingridients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/${productType}/ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
+                          href={`${routeto}/ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}

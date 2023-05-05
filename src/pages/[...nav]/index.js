@@ -92,6 +92,7 @@ import FoodDetail from "@/components/Foods/FoodDetail";
 import AdminFood from "@/Admin/AdminFoods";
 import AddFood from "@/Admin/AdminFoods/newFood";
 import FoodEdits from "@/Admin/AdminFoods/FoodEdits";
+import FoodListTry from "@/components/Foods/FoodListTry";
 
 
 
@@ -130,7 +131,7 @@ export default function Category() {
 
 
                 {path === "/specs/cocktail/ingredients" && (
-                  <Ingridients productType={"cocktail"} />
+                  <Ingridients productType={"cocktail"} routeto={'/specs/cocktail'} />
                 )}
 
                 {path === `/specs/cocktail/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
@@ -144,7 +145,7 @@ export default function Category() {
 
 
                 {path === "/specs/coffee/ingredients" && (
-                  <Ingridients productType={"coffee"} />
+                  <Ingridients productType={"coffee"} routeto={'/specs/coffee'}/>
                 )}
 
                 {path === `/specs/coffee/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
@@ -193,9 +194,16 @@ export default function Category() {
                   <BrandDetail productType={"beer"} productId={productId} />
                 )}
 
-                {path === `/food` && <FoodList />}
-                {path === `/food/food` && <FoodList />}
-                {path === `/food/food/${enUrl(subcategory2)}?id=${productId}` && (
+                {path === `/food` && <FoodListTry />}
+                {/* {path === `/food/food` && <FoodList />} */}
+                {path === "/food/ingredients" && (
+                  <Ingridients productType={"food"} routeto={'/food'}/>
+                )}
+                 {path === `/food/ingredients/${enUrl(subcategory2)}?id=${productId}` && (
+                  <IngridientDetail productType={"food"} productId={productId} />
+                )}
+
+                {path === `/food/${enUrl(subcategory)}?id=${productId}` && (
                   <FoodDetail id={productId} />
                 )}
                 {path === "/user_profile" && <UserProfile />}

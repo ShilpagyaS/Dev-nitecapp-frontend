@@ -621,6 +621,28 @@ export const getUnitOFMeasure = () => {
 
   };
 };
+export const getcategoriesbytype = (type) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+
+    return await axiosInstance({
+      url: `/api/category/get_all_category_by_type/${type}`,
+      method: "GET",
+    }).then((res) => {
+      const finaldata = res?.data?.data?.map((i) => {
+        return {
+          value: i.drink_category_id,
+          label: i.drink_category_name
+        }
+      })
+      return finaldata
+    }).catch((err) => {
+      console.log(err)
+    });
+
+  };
+};
 export const getAllDrinkBrands = () => {
   return async (dispatch, getState) => {
     const state = getState();

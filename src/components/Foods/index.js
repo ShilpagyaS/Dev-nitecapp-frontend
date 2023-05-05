@@ -49,20 +49,22 @@ function FoodList() {
         <>
             <div className="coctail-container">
 
-                {/* <div className="search-container flex justify-between items-center lg:mb-5 mb-1 flex-wrap">
-                    <Breadcrumb />
+                <div className="search-container flex justify-between items-center lg:mb-5 mb-1 flex-wrap">
+                    <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+                        Food
+                    </h1>
                     {!isTablet && <Search search={searchTerm} setSearch={(e) => {
                         setSearch(e);
                         //  filterData(e) 
                     }} />}
 
-                </div> */}
+                </div>
 
 
                 <div className="heading-container flex items-center justify-between lg:mb-4 mb-3">
-                    <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+                    {/* <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
                         Food
-                    </h1>
+                    </h1> */}
                     {/* <Link href={`/specs/cocktail/ingredients`}>
                         <OrangeButtons label="Ingredients" noPadding={true} />
                     </Link> */}
