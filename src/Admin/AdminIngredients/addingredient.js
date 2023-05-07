@@ -82,7 +82,8 @@ function AddIngredients({ subcategory }) {
             // ingredient_type_id: ingredient_Type.ingredient_id,
             abv: abv,
             short_description: textAreaRef.current.value || '',
-            description: aboutref.current.value || ''
+            description: aboutref.current.value || '',
+            type: subcategory,
         }
         if (upimage) {
             dispatch(uploadimage(upimage)).then((imageurl) => {

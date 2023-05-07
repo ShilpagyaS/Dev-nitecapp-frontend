@@ -145,7 +145,7 @@ export default function Category() {
 
 
                 {path === "/specs/coffee/ingredients" && (
-                  <Ingridients productType={"coffee"} routeto={'/specs/coffee'}/>
+                  <Ingridients productType={"coffee"} routeto={'/specs/coffee'} />
                 )}
 
                 {path === `/specs/coffee/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
@@ -197,9 +197,9 @@ export default function Category() {
                 {path === `/food` && <FoodListTry />}
                 {/* {path === `/food/food` && <FoodList />} */}
                 {path === "/food/ingredients" && (
-                  <Ingridients productType={"food"} routeto={'/food'}/>
+                  <Ingridients productType={"food"} routeto={'/food'} />
                 )}
-                 {path === `/food/ingredients/${enUrl(subcategory2)}?id=${productId}` && (
+                {path === `/food/ingredients/${enUrl(subcategory2)}?id=${productId}` && (
                   <IngridientDetail productType={"food"} productId={productId} />
                 )}
 
@@ -230,9 +230,9 @@ export default function Category() {
                 {path === `/specs/cocktail?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
                 {path === `/specs/cocktail/${enUrl(subcategory2)}?id=${productId}` && <CocktailAdminDetailPage productId={productId} subcategory={'cocktail'} />}
                 {path === "/specs/cocktail/ingredients" && (
-                  <AdminIngredients productType={"cocktail"} />
+                  <AdminIngredients productType={"cocktail"} routeto={'/specs/cocktail'} />
                 )}
-                {path === `/specs/cocktail/ingredients/new` && <AddIngredients subcategory={'cocktail'} />}
+                {path === `/specs/cocktail/ingredients/new` && <AddIngredients subcategory={'cocktail'} routeto={'/specs/cocktail'} />}
                 {path === `/specs/cocktail/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
                   <AdminIngridientDetail productType={"cocktail"} productId={productId} />
                 )}
@@ -240,11 +240,11 @@ export default function Category() {
                 {path === `/specs/coffee/new` && <AddCoffee subcategory={'coffee'} />}
                 {path === `/specs/coffee/${enUrl(subcategory2)}?id=${productId}` && <EditCoffee productId={productId} subcategory={'coffee'} />}
                 {path === "/specs/coffee/ingredients" && (
-                  <AdminIngredients productType={"coffee"} />
+                  <AdminIngredients productType={"coffee"} routeto={'/specs/coffee'} />
                 )}
-                {path === `/specs/coffee/ingredients/new` && <AddIngredients subcategory={'cocktail'} />}
+                {path === `/specs/coffee/ingredients/new` && <AddIngredients subcategory={'coffee'} routeto={'/specs/coffee'} />}
                 {path === `/specs/coffee/ingredients/${enUrl(subcategory3)}?id=${productId}` && (
-                  <AdminIngridientDetail productType={"cocktail"} productId={productId} />
+                  <AdminIngridientDetail productType={"coffee"} productId={productId} />
                 )}
 
                 {path === `/specs/beer` && <AdminBeer />}
@@ -295,7 +295,13 @@ export default function Category() {
                 {path === `/food` && <AdminFood />}
                 {path === `/food/new` && <AddFood subcategory={'food'} />}
                 {path === `/food/${enUrl(subcategory)}?id=${productId}` && <FoodEdits productId={productId} subcategory={'food'} />}
-
+                {path === "/food/ingredients" && (
+                  <AdminIngredients productType={"food"} routeto={'/food'} />
+                )}
+                {path === `/food/ingredients/new` && <AddIngredients subcategory={'food'} routeto={'/food'} />}
+                {path === `/food/ingredients/${enUrl(subcategory2)}?id=${productId}` && (
+                  <AdminIngridientDetail productType={"food"} productId={productId} />
+                )}
                 {category === "dashboard" && <AdminDashboard />}
                 {path === "/user_profile" && <UserProfile />}
                 {path === `/manageusers` && <ManageUsers />}

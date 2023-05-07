@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
-import { CiSearch } from "react-icons/ci";
-
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "@/store/slices/product";
 import Link from "next/link";
-import { emptyIngredientsList, getIngredientsList } from "@/store/slices/ingredients";
+import { emptyIngredientsList, getIngredientsListBytype } from "@/store/slices/ingredients";
 import Breadcrumb from "@/components/Breadcrumb";
 import useFilteredData from "@/Hooks/useFilteredData";
-import { Buttons, CustomButton, OrangeButtons } from "@/utils/Buttons";
 import ChipWithLeftButton from "@/utils/ChipWithLeftButton";
 import { useRouter } from "next/router";
 import Search from "@/utils/Search";
 import { enUrl } from "@/utils/encoderfunc";
 
-function AdminIngredients({ productType }) {
+function AdminIngredients({ productType, routeto }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   const [finaldata, setfinalDate] = useState([])
   const [searchTerm, setSearch] = useState("")
@@ -27,7 +23,7 @@ function AdminIngredients({ productType }) {
 
 
   useEffect(() => {
-    dispatch(getIngredientsList(productType));
+    dispatch(getIngredientsListBytype(productType));
     return () => {
       dispatch(emptyIngredientsList())
     }
@@ -71,7 +67,7 @@ function AdminIngredients({ productType }) {
     <>
       <div className="coctail-container">
         <div className="search-container flex justify-between items-center lg:mb-5 mb-2 ">
-          <Breadcrumb  />
+          <Breadcrumb />
           {!isTablet && (
             <div className="search-container flex items-center bg-[#1D1D1D] md:w-[358px] h-[40px] rounded-[10.9744px] px-[26px]">
 
@@ -86,7 +82,7 @@ function AdminIngredients({ productType }) {
           <h2 className="text-white text-[24px] leading-9 font-bold capitalize ">
             {`${productType} Ingredients`}
           </h2>
-          <ChipWithLeftButton condition={true} label={'Add Ingredients'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { router.push("/specs/cocktail/ingredients/new") }} />
+          <ChipWithLeftButton condition={true} label={'Add Ingredients'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { router.push(`${routeto}/ingredients/new`) }} />
         </div>
         {isTablet && (
           <div className="search-container flex items-center bg-[#1D1D1D] w-full h-[40px] rounded-[10.9744px] px-[26px] mb-7">
@@ -111,7 +107,7 @@ function AdminIngredients({ productType }) {
                     return (
                       <div className=" col-span-1 ">
                         <Link
-                          href={`/specs/${productType}/ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
+                          href={`${routeto}/ingredients/${enUrl(card.master_ingredient_name)}?id=${card.master_ingredient_id}`}
                         >
                           <RectangularCard
                             title={card.master_ingredient_name}

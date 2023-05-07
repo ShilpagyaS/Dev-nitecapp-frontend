@@ -17,9 +17,9 @@ function AdminFood() {
                 <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
                     Food
                 </h1>
-                {/* <Link href={`/specs/coffee/ingredients`}>
+                <Link href={`/food/ingredients`}>
                     <OrangeButtons label="Ingredients" noPadding={true} />
-                </Link> */}
+                </Link>
             </div>
             <FoodTable />
         </div>
