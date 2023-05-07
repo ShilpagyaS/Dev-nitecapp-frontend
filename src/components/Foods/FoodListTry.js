@@ -87,12 +87,12 @@ function FoodListTry() {
             //  filterData(e) 
           }} />
         )}
-        <div className='alphabetscroll overflow-x-auto flex items-center mb-[26px] cursor-pointer  pb-[15px]' >
+        <div className='alphabetscroll overflow-x-auto flex items-center mb-[26px] mt-[15px] cursor-pointer  pb-[15px]' >
           {[{ value: 'all', label: 'All' }, ...categoryArray].map((e) =>
             <div className={`not-italic font-medium text-base font-Inter ${selectedcategory == e.value ? 'border text-primary-base border-primary-base' : 'text-white border border-white'} rounded-full px-2 py-[1px] capitalize mr-[12px]`} onClick={() => { onCatClick(e.value) }}>{e.label}</div>
           )}
         </div>
-        <div className='relative w-full'>
+        <div className='relative h-[50px] md:h-0 w-full'>
           <div className='absolute right-0'>
             <Link href={`/food/ingredients`}>
               <OrangeButtons label="Ingredients" noPadding={true} />
@@ -105,12 +105,12 @@ function FoodListTry() {
             return (
               <div className="mb-8">
                 <p className="text-white text-[20px] font-semibold mb-5 capitalize">
-                  {section.type}
+                  {section.type || " "}
                 </p>
-                <div className="cards-container grid sm:grid-cols-5 grid-cols-2 gap-x-[73px] gap-y-[12px] mt-[10px]  ">
+                <div className="cards-container grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-2 mt-[10px]  ">
                   {section.data.map((card, i) => {
                     return (
-                      <div className=" col-span-1 ">
+                      <div className=" ">
                         <Link href={`/food/${enUrl(card.food_name)}?id=${card.food_id}`}>
                           <FoodCard image={card.image} title={card.food_name} no={i + 1} />
                         </Link>

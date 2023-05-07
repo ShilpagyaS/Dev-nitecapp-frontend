@@ -6,11 +6,12 @@ import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cock
 import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
 import GenericCard from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard';
 import { useDispatch } from 'react-redux';
-import { createProduct } from '@/store/slices/product';
+import { createProduct, getcategoriesbytype } from '@/store/slices/product';
 import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
+import { CustomSelectForBrands } from '@/utils/CustomSelect';
 
 
 function AddFood({ subcategory }) {
@@ -41,9 +42,17 @@ function AddFood({ subcategory }) {
     const [vegan, setVegan] = useState(null)
     const [calories, setCal] = useState(null)
     const [price, setPrice] = useState(null)
+    const [categoryArray, setcatarray] = useState([])
+    const [category, setCategory] = useState({ category_id: '', category_name: '' })
+
     const dispatch = useDispatch()
 
     // new generic approach
+    useEffect(() => {
+        dispatch(getcategoriesbytype('food')).then((res) => { console.log(res); setcatarray(res) })
+
+    }, [])
+
     useEffect(() => {
         console.log(newMockData);
 
@@ -163,7 +172,8 @@ function AddFood({ subcategory }) {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            category_id: category.category_id,
 
 
         }
@@ -302,6 +312,10 @@ function AddFood({ subcategory }) {
                                         value={abv || ''} onChange={(e) => { handleChange(e) }} />
 
                                 </div> */}
+                                <div className='input-desc flex flex-col ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Food Category</h3>
+                                    <CustomSelectForBrands items={[{ value: '', label: 'none' }, ...categoryArray]} optionalFunction={(e) => { console.log(e); setCategory({ category_id: e.value, category_name: e.label }) }} isclear={isSAve} />
+                                </div>
                             </div>
                         </div>
                         <div className='flex items-center justify-between my-[7px]'>

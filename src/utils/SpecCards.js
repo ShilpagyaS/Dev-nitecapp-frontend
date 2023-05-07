@@ -29,12 +29,11 @@ export function CoctailCard({ image, title, isNew, onclickHandler }) {
 export function FoodCard({ image, title, no, onclickHandler }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
-    <div className=" relative cursor-pointer w-[161px] h-[195px] px-[11px] py-[15px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]"
+    <div className=" relative cursor-pointer md:w-[161px] md:h-[195px] h=[180px] w-full max-w-[161px] px-[11px] py-[15px] lg:py-[18px]  border-[1.3354px] border-[#3C3C3C] rounded-[21.3665px]"
       onClick={onclickHandler}
     >
       <div
-        className={`relative image-container ${isTablet ? "w-[137px] h-[137px]" : "w-[131px] h-[131px]"
-          } `}
+        className={`relative image-container md:w-[137px] h-[137px] w-full   `}
       >
         <Image src={image || '/asset/nodrinkinverted.webp'} alt="slider-image" fill priority />
 

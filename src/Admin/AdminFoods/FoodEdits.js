@@ -8,12 +8,13 @@ import { AddGeneric, AddNewTitle, AddTitle, DeleteSection, EditKeyValue } from "
 import GenericCard from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard";
 import SplitCard from "@/utils/Cards/Text card/SplitCard";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
+import { emptyProductList, getcategoriesbytype, getProductById, putProductById } from "@/store/slices/product";
 import Breadcrumb from "@/components/Breadcrumb";
 import CocktailFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate";
 import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
+import { CustomSelectForBrands } from "@/utils/CustomSelect";
 
 const FoodEdits = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -54,6 +55,9 @@ const FoodEdits = ({ productId, subcategory }) => {
   const [showMethods, setShowMethod] = useState(false)
   const [showPresentations, setShowPresentation] = useState(false)
   const [upimage, setimage] = useState()
+  const [categoryArray, setcatarray] = useState([])
+  const [category, setCategory] = useState({ category_id: '', category_name: '' })
+
 
 
 
@@ -66,6 +70,10 @@ const FoodEdits = ({ productId, subcategory }) => {
     setEdit(prev => !prev)
     console.log(textAreaRef.current.innerText);
   }
+  useEffect(() => {
+    dispatch(getcategoriesbytype('food')).then((res) => { console.log(res); setcatarray(res) })
+
+  }, [])
 
   // new generic approach
   useEffect(() => {
@@ -97,7 +105,7 @@ const FoodEdits = ({ productId, subcategory }) => {
     setgf(productDetails?.gluten_free)
     setCal(productDetails?.calories)
     setVegan(productDetails?.vegan)
-
+    setCategory({ category_id: productDetails?.category_id || '', category_name: productDetails?.category_name || '' })
   }, [productDetails])
 
   function addNewTitle(name) {
@@ -237,7 +245,11 @@ const FoodEdits = ({ productId, subcategory }) => {
                 price: price,
                 gluten_free: gf,
                 vegan: vegan,
-                calories: calories
+                calories: calories,
+                category_id: category.category_id,
+                category_name: category.category_name
+
+
 
               }
             )).then((res) => {
@@ -266,7 +278,9 @@ const FoodEdits = ({ productId, subcategory }) => {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            category_id: category.category_id,
+            category_name: category.category_name
 
           }
         )).then((res) => {
@@ -351,6 +365,22 @@ const FoodEdits = ({ productId, subcategory }) => {
                 {/* <div className="status-text text-[18px]">
                   <EditCard editContent={`${whatsthestrength(abv)} (${abv})%`} isEdit={false} />
                 </div> */}
+                {isEdit &&
+                  <div className='ml-[75px]'>
+                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Enter Ingredient Type</h6>
+                    <div className="strength-container flex items-center text-[16px] mb-4 pb-4 ">
+                      <CustomSelectForBrands
+                        items={[{ value: '', label: 'none' }, ...categoryArray]}
+                        defaultSelect={productDetails?.category_id != "" || 0 ? { label: productDetails?.category_name, value: productDetails?.category_id } : null}
+                        optionalFunction={(e) => {
+                          console.log(e);
+                          setCategory({
+                            category_id: e.value, category_name: e.label
+                          })
+                        }} />
+                    </div>
+                  </div>
+                }
               </div>
             </div>
             {!isEdit &&
