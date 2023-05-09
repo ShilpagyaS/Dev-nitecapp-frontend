@@ -17,7 +17,8 @@ module.exports = {
       colors: {
         primary: {
           base: '#CBAF69',
-          hoverbase: '#CBAF69'
+          hoverbase: '#CBAF69',
+          switchCustom: '#cbaf695e'
         }
       }
 

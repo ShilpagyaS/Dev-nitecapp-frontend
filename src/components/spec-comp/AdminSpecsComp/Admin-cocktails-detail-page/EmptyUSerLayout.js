@@ -12,6 +12,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 function EmptyUSerLayout() {
@@ -27,14 +28,14 @@ function EmptyUSerLayout() {
         ingredients: {
             values: [],
         },
+        presentations: {
+            values: [],
+
+        },
         methods: {
             values: [],
 
         },
-        presentations: {
-            values: [],
-
-        }
     });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -210,16 +211,16 @@ function EmptyUSerLayout() {
                 values: [],
                 // isActive: false
             },
+            presentations: {
+                values: [],
+                // isActive: false
+
+            },
             methods: {
                 values: [],
                 // isActive: false
 
             },
-            presentations: {
-                values: [],
-                // isActive: false
-
-            }
         });
         setimage()
         setPrice(null)
@@ -322,10 +323,22 @@ function EmptyUSerLayout() {
                                 </div>
                             </div>
                             <label className='text-[#959595] cursor-pointer'>
-                                <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                                <div className='flex items-center'>
+
+                                    <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                                        <Image src={'/asset/gluten-free.png'} fill className="object-contain" />
+                                    </div>
+                                </div>
                             </label>
                             <label className='text-[#959595] cursor-pointer'>
-                                <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                                <div className='flex items-center'>
+
+                                    <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                                        <Image src={'/asset/vegan.png'} fill className="object-contain" />
+                                    </div>
+                                </div>
                             </label>
                             <div className='flex items-center'>
 
@@ -357,7 +370,7 @@ function EmptyUSerLayout() {
                     </div> */}
 
                     {Object.keys(newMockData).map((e) =>
-                        <GenericCard title={e} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+                        <GenericCard title={e} ingredientType={'cocktail'} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
                             addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
                     )}
 

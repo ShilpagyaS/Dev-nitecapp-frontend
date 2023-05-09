@@ -13,6 +13,7 @@ import { emptyProductList, getProductById } from "@/store/slices/product";
 import { whatsthestrength } from "@/utils/abvfinder";
 import { addNoteDetails, emptyNotesList, getNoteDetails, updateNoteDetails } from "@/store/slices/notes";
 import Notes from "../notesComp/notes";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
 const SpecsDetailPage = ({ id, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -42,8 +43,8 @@ const SpecsDetailPage = ({ id, subcategory }) => {
             }`}
         >
           {/* src="/asset/london-dry-green.svg" */}
-          <Image src={productDetails?.image} className="object-cover rounded-lg"
-            fill alt={productDetails?.[`${subcategory}_name`]} priority/>
+          <Image src={productDetails?.image || '/asset/nodrinkinverted.webp'} className="object-cover rounded-lg"
+            fill alt={productDetails?.[`${subcategory}_name`]} priority />
         </div>
         <div className="desc-container inline-block w-full  text-white mt-4 ">
           <div
@@ -61,7 +62,7 @@ const SpecsDetailPage = ({ id, subcategory }) => {
             </div>
             {/* {!isMobile && <AiOutlineHeart size="25px" color="#fff" />} */}
           </div>
-          <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+          {/* <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
             {productDetails?.price &&
               <li className="min-w-[100px]">
                 <div className="text-white w-full text-center pr-[10px]">
@@ -93,7 +94,9 @@ const SpecsDetailPage = ({ id, subcategory }) => {
                 </div>
               </li>
             }
-          </ul>
+          </ul> */}
+          <PriceGFVeganCAlContainer productDetails={productDetails} />
+
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
               }`}

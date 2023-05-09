@@ -8,12 +8,15 @@ import { AddGeneric, AddNewTitle, AddTitle, DeleteSection, EditKeyValue } from "
 import GenericCard from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard";
 import SplitCard from "@/utils/Cards/Text card/SplitCard";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyProductList, getProductById, putProductById } from "@/store/slices/product";
+import { emptyProductList, getcategoriesbytype, getProductById, putProductById } from "@/store/slices/product";
 import Breadcrumb from "@/components/Breadcrumb";
 import CocktailFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate";
 import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
+import { CustomSelectForBrands } from "@/utils/CustomSelect";
+import Image from "next/image";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
 const FoodEdits = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -54,6 +57,9 @@ const FoodEdits = ({ productId, subcategory }) => {
   const [showMethods, setShowMethod] = useState(false)
   const [showPresentations, setShowPresentation] = useState(false)
   const [upimage, setimage] = useState()
+  const [categoryArray, setcatarray] = useState([])
+  const [category, setCategory] = useState({ category_id: '', category_name: '' })
+
 
 
 
@@ -66,6 +72,10 @@ const FoodEdits = ({ productId, subcategory }) => {
     setEdit(prev => !prev)
     console.log(textAreaRef.current.innerText);
   }
+  useEffect(() => {
+    dispatch(getcategoriesbytype('food')).then((res) => { console.log(res); setcatarray(res) })
+
+  }, [])
 
   // new generic approach
   useEffect(() => {
@@ -97,7 +107,7 @@ const FoodEdits = ({ productId, subcategory }) => {
     setgf(productDetails?.gluten_free)
     setCal(productDetails?.calories)
     setVegan(productDetails?.vegan)
-
+    setCategory({ category_id: productDetails?.category_id || '', category_name: productDetails?.category_name || '' })
   }, [productDetails])
 
   function addNewTitle(name) {
@@ -237,7 +247,11 @@ const FoodEdits = ({ productId, subcategory }) => {
                 price: price,
                 gluten_free: gf,
                 vegan: vegan,
-                calories: calories
+                calories: calories,
+                category_id: category.category_id,
+                category_name: category.category_name
+
+
 
               }
             )).then((res) => {
@@ -266,7 +280,9 @@ const FoodEdits = ({ productId, subcategory }) => {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            category_id: category.category_id,
+            category_name: category.category_name
 
           }
         )).then((res) => {
@@ -319,7 +335,7 @@ const FoodEdits = ({ productId, subcategory }) => {
             <div className="ml-[15px]">
               <CustomChipWithLeftButton label={'Edit'} srcPath={'/asset/BlackEdit.svg'} onClickHandler={toggleEdit} condition={!isEdit} />
             </div>
-            <Link href={`foods`}>
+            <Link href={`food`}>
               <div className=' ml-[10px] '>
 
                 <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />
@@ -351,43 +367,61 @@ const FoodEdits = ({ productId, subcategory }) => {
                 {/* <div className="status-text text-[18px]">
                   <EditCard editContent={`${whatsthestrength(abv)} (${abv})%`} isEdit={false} />
                 </div> */}
+                {isEdit &&
+                  <div className='ml-[75px]'>
+                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Enter Food Category</h6>
+                    <div className="strength-container flex items-center text-[16px] mb-4 pb-4 ">
+                      <CustomSelectForBrands
+                        items={[{ value: '', label: 'none' }, ...categoryArray]}
+                        defaultSelect={productDetails?.category_id != "" || 0 ? { label: productDetails?.category_name, value: productDetails?.category_id } : null}
+                        optionalFunction={(e) => {
+                          console.log(e);
+                          setCategory({
+                            category_id: e.value, category_name: e.label
+                          })
+                        }} />
+                    </div>
+                  </div>
+                }
               </div>
             </div>
             {!isEdit &&
 
-              <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
-                {productDetails?.price &&
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center pr-[10px]">
-                      {`Price: $ ${productDetails.price}`}
-                    </div>
-                  </li>
-                }
-                {productDetails?.gluten_free &&
+              // <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+              //   {productDetails?.price &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center pr-[10px]">
+              //         {`Price: $ ${productDetails.price}`}
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.gluten_free &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center">
-                      GF
-                    </div>
-                  </li>
-                }
-                {productDetails?.vegan &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center">
+              //         GF
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.vegan &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center">
-                      V
-                    </div>
-                  </li>
-                }
-                {productDetails?.calories &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center">
+              //         V
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.calories &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center ">
-                      {`${productDetails?.calories} cal`}
-                    </div>
-                  </li>
-                }
-              </ul>
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center ">
+              //         {`${productDetails?.calories} cal`}
+              //       </div>
+              //     </li>
+              //   }
+              // </ul>
+              <PriceGFVeganCAlContainer productDetails={productDetails} />
+
             }
             {isEdit &&
 
@@ -402,10 +436,22 @@ const FoodEdits = ({ productId, subcategory }) => {
                   </div>
                 </div>
                 <label className='text-[#959595] cursor-pointer'>
-                  <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                  <div className='flex items-center'>
+
+                    <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                      <Image src={'/asset/gluten-free.png'} fill className="object-contain" />
+                    </div>
+                  </div>
                 </label>
                 <label className='text-[#959595] cursor-pointer'>
-                  <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                  <div className='flex items-center'>
+
+                    <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                      <Image src={'/asset/vegan.png'} fill className="object-contain" />
+                    </div>
+                  </div>
                 </label>
                 <div className='flex items-center'>
 
@@ -441,7 +487,7 @@ const FoodEdits = ({ productId, subcategory }) => {
           } */}
 
           {Object.keys(newMockData).map((e) =>
-            <GenericCard title={e} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+            <GenericCard title={e} ingredientType={'food'} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
               addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection}
               isActive={e == 'ingredients' ? showIngredients : e == 'methods' ? showMethods : showPresentations}
               setActive={setActive} fromeditnigscreen={true} />

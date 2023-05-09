@@ -420,13 +420,13 @@ export const emptyProductList = (productType) => {
   };
 };
 
-export const getIngredientSearch = (query) => {
+export const getIngredientSearch = (query, type) => {
   return async (dispatch, getState) => {
     const state = getState();
 
     if (query.label !== "" && query.value === "") {
       return await axiosDebounceInstance({
-        url: `/api/ingredient/search/${query.label}`,
+        url: `/api/ingredient/search/${type}/${query.label}`,
         method: "GET",
       }).then((res) => {
 
@@ -612,6 +612,28 @@ export const getUnitOFMeasure = () => {
         return {
           value: i.measure_id,
           label: i.measure_name
+        }
+      })
+      return finaldata
+    }).catch((err) => {
+      console.log(err)
+    });
+
+  };
+};
+export const getcategoriesbytype = (type) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+
+    return await axiosInstance({
+      url: `/api/category/get_all_category_by_type/${type}`,
+      method: "GET",
+    }).then((res) => {
+      const finaldata = res?.data?.data?.map((i) => {
+        return {
+          value: i.drink_category_id,
+          label: i.drink_category_name
         }
       })
       return finaldata

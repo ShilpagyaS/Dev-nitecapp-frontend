@@ -11,6 +11,8 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
+import CoffeeFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate';
+import Image from 'next/image';
 
 
 function AddCoffee({ subcategory }) {
@@ -21,14 +23,14 @@ function AddCoffee({ subcategory }) {
         ingredients: {
             values: [],
         },
+        presentations: {
+            values: [],
+
+        },
         methods: {
             values: [],
 
         },
-        presentations: {
-            values: [],
-
-        }
     });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -37,7 +39,7 @@ function AddCoffee({ subcategory }) {
     const [abv, setabv] = useState('')
     const [isSAve, setSaved] = useState(false)
     const [upimage, setimage] = useState()
-    const [upimageCoffe, setimageCoffe] = useState()
+    const [methodImage, setMethodImage] = useState()
     const [gf, setgf] = useState(null)
     const [vegan, setVegan] = useState(null)
     const [calories, setCal] = useState(null)
@@ -169,11 +171,21 @@ function AddCoffee({ subcategory }) {
 
         }
 
+        if (upimage || methodImage) {
+            let imageUrl, coffeurl
+            if (upimage)
+                imageUrl = dispatch(uploadimage(upimage))
+            if (methodImage)
+                coffeurl = dispatch(uploadimage(methodImage))
 
-        if (upimage) {
-            dispatch(uploadimage(upimage)).then((imageurl) => {
-                if (imageurl && !imageurl?.error)
-                    dispatch(createProduct(subcategory, { ...data, image: imageurl })).then((res) => {
+            Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
+                debugger
+                dispatch(createProduct(subcategory,
+                    {
+                        ...data,
+                        ...(imageUrl && !imageUrl.error ? { image: imageUrlres } : {}),
+                        ...(coffeurl && !coffeurl.error ? { method_image: coffeurlres } : {}),
+                    })).then((res) => {
                         console.log(res);
                         res?.error ?
                             // errortoast({ message: res.message }) 
@@ -182,7 +194,6 @@ function AddCoffee({ subcategory }) {
                         if (!res?.error)
                             clearForm()
                     })
-                else console.log("cannot upload")
             })
         }
         else
@@ -194,6 +205,7 @@ function AddCoffee({ subcategory }) {
                 if (!res?.error)
                     clearForm()
             })
+        clearForm()
 
     }
     function clearForm() {
@@ -205,17 +217,19 @@ function AddCoffee({ subcategory }) {
                 values: [],
                 // isActive: false
             },
+
+            presentations: {
+                values: [],
+                // isActive: false
+
+            },
             methods: {
                 values: [],
                 // isActive: false
 
             },
-            presentations: {
-                values: [],
-                // isActive: false
-
-            }
         });
+        setMethodImage()
         setimage()
         setSaved(true)
         setPrice(null)
@@ -316,10 +330,23 @@ function AddCoffee({ subcategory }) {
                                 </div>
                             </div>
                             <label className='text-[#959595] cursor-pointer'>
-                                <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                                <div className='flex items-center'>
+
+                                    <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+
+                                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                                        <Image src={'/asset/gluten-free.png'} fill className="object-contain" />
+                                    </div>
+                                </div>
                             </label>
                             <label className='text-[#959595] cursor-pointer'>
-                                <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                                <div className='flex items-center'>
+
+                                    <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                                        <Image src={'/asset/vegan.png'} fill className="object-contain" />
+                                    </div>
+                                </div>
                             </label>
                             <div className='flex items-center'>
 
@@ -348,12 +375,22 @@ function AddCoffee({ subcategory }) {
                     {/* <div className="flex items-center justify-between p-[10px]">
                         <ChipWithLeftButton label={'ADD ITEM'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setIsAddModalOpen(true) }} />
                     </div> */}
-                    <CocktailFileUpdate setimage={setimageCoffe} isClear={isSAve} isEdit={true} id={"coffee"} />
                     {Object.keys(newMockData).map((e) =>
-                        <GenericCard title={e} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+                        <GenericCard title={e} type={"notype"} ingredientType={'coffee'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
                             addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
                     )}
+                    {/* <div className='flex w-full items-center justify-between'>
+                        <h3 className='text-white'> Ratio and Quantity</h3>
+                    <CocktailFileUpdate setimage={setimageCoffe} isClear={isSAve} isEdit={true} id={"coffee"} />
+                    </div> */}
 
+
+                </div>
+                <div className="w-1/2 h-[200px] m-[8px]">
+                    <CoffeeFileUpdate
+                        isClear={isSAve}
+                        setimage={setMethodImage}
+                        isEdit={isEdit} id="coffemethodimage" />
                 </div>
             </div>
         </>

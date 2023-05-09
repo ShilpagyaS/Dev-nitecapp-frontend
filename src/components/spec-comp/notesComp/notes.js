@@ -1,11 +1,13 @@
 import NotesModal from "@/components/modal/Modal"
 import { addNoteDetails, deleteNoteDetails, emptyNotesList, getNoteDetails, updateNoteDetails } from "@/store/slices/notes"
 import { OrangeButtons } from "@/utils/Buttons"
-import { useState } from "react"
+import { DescriptionTextAreaGray } from "@/utils/Cards/Text card/DescriptionTextArea"
+import { useRef, useState } from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 const Notes = ({ subcategory, id }) => {
+  const textarea = useRef()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getNoteDetails(subcategory, id))
@@ -70,9 +72,14 @@ const Notes = ({ subcategory, id }) => {
     {(noteDetails?.user_notes && noteDetails?.user_notes !== "") &&
       <div className="note-text-container flex justify-between items-center bg-[#2C2C2C] w-full py-2 px-4 rounded-[5px] text-white mb-[16px]">
         {/* <p className=" bg-transparent mr-24px">{noteDetails?.user_notes || ""}</p> */}
-        <textarea className={`hidescrollbar min-h-[90px] bg-[#2C2C2C] choice-container  w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`} value={noteDetails?.user_notes || ""}
+        {/* <textarea className={`hidescrollbar min-h-[90px] bg-[#2C2C2C] choice-container  w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none`}
+         value={noteDetails?.user_notes || ""}
           style={{ resize: 'none' }}
-          disabled />
+          disabled /> */}
+        <div className="w-full">
+
+          <DescriptionTextAreaGray textAreaRef={textarea} disabled={true} content={noteDetails?.user_notes || ""} />
+        </div>
         <button
           onClick={handleEditModalOpen}
           className="hover:text-primary-base font-bold"

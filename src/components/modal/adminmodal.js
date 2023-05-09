@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { useDispatch } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
-export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, }) {
+export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -82,6 +82,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
             <div className='h-[200px] mb-[10px]'>
 
                 <SelectWithDebounce
+                    ingredientType={ingredientType}
                     label={"Ingredients"}
                     placeholder={"search here"}
                     onChangeHandler={(e) => { onIngredientSelect(e) }}
@@ -100,8 +101,8 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
                         <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Unit</h3>
 
                         <CustomSelectWithAllBlackTheme
-                            items={measureArray}
-                            optionalFunction={(e) => { console.log(e); setmeasure({ measure_id: e.value, measure_name: e.label }) }} />
+                            items={[{ value: 'none', label: 'None' }, ...measureArray]}
+                            optionalFunction={(e) => { console.log(e); e.value != 'none' ? setmeasure({ measure_id: e.value, measure_name: e.label }) : setmeasure({ measure_id: '', measure_name: '' }) }} />
                     </div>
                 </div>
             </div>
@@ -109,9 +110,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={
-                        (ingredient.ingredient_id != '' &&
-                            quantity != '' &&
-                            measure.measure_name != '') ? true : false
+                        ingredient.ingredient_id != '' ? true : false
 
                     } onClickHandler={handleSave} />
                 </div>
@@ -121,7 +120,7 @@ export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteB
         </Modal>
     )
 }
-export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, data, index }) {
+export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, desc, ingredientType, data, index }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -208,6 +207,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
                 <div className='h-[200px] mb-[10px]'>
 
                     <SelectWithDebounce
+                        ingredientType={ingredientType}
                         label={"Ingredients"}
                         placeholder={"search here"}
                         defaultvalue={data}
@@ -227,9 +227,9 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
                             <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Unit</h3>
 
                             <CustomSelectWithAllBlackTheme
-                                items={measureArray}
-                                defaultSelect={{ value: data.measure_id, label: data.measure_name }}
-                                optionalFunction={(e) => { console.log(e); setmeasure({ measure_id: e.value, measure_name: e.label }) }} />
+                                items={[{ value: 'none', label: 'None' }, ...measureArray]}
+                                defaultSelect={data.measure_id != '' ? { value: data.measure_id, label: data.measure_name } : { value: 'none', label: 'None' }}
+                                optionalFunction={(e) => { console.log(e); e.value != 'none' ? setmeasure({ measure_id: e.value, measure_name: e.label }) : setmeasure({ measure_id: '', measure_name: '' }) }} />
                         </div>
                     </div>
                 </div>
@@ -252,9 +252,7 @@ export function EditIngredientModal({ isModalOpen, onClickCancel, onSave, delete
                         <div className='ml-[24px]'>
                             <ConditionalButton label={'Save'} condition={
 
-                                (ingredient.ingredient_id != '' &&
-                                    quantity != '' &&
-                                    measure.measure_name != '') ? true : false
+                                ingredient.ingredient_id != '' ? true : false
 
 
                             } onClickHandler={handleSave} />

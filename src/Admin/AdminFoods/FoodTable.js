@@ -111,7 +111,7 @@ function FoodTable() {
                     <div className='flex flex-row items-center justify-center p-1'>
                         <div>
 
-                            <EditCircularButton onClickHandler={() => { router.push(`/foods/${enUrl(element.itemName)}?id=${element.id}`); }}
+                            <EditCircularButton onClickHandler={() => { router.push(`/food/${enUrl(element.itemName)}?id=${element.id}`); }}
                             />
                         </div>
                         <div className='ml-[15px]'>
@@ -144,7 +144,7 @@ function FoodTable() {
                     onSave={deleteProduct}
                 />
             }
-            <TableContainerWithButtons label={'ADD FOOD'} OuterRows={OuterRows} buttonFunction={() => { router.push("/foods/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
+            <TableContainerWithButtons label={'ADD FOOD'} OuterRows={OuterRows} buttonFunction={() => { router.push("/food/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />
         </>
     )
 }

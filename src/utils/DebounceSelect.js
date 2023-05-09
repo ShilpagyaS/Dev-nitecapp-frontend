@@ -7,6 +7,7 @@ const SelectWithDebounce = ({
     label,
     defaultvalue,
     onChangeHandler,
+    ingredientType,
     // searchoptions,
     functiondata
 }) => {
@@ -25,7 +26,7 @@ const SelectWithDebounce = ({
     useEffect(() => {
 
         console.log(testvalue);
-        const getData = setTimeout(async () => dispatch(getIngredientSearch(testvalue)).then(res => { console.log(res); if (res) { setsearchoptions(res) } else setsearchoptions([]) }), 100)
+        const getData = setTimeout(async () => dispatch(getIngredientSearch(testvalue,ingredientType)).then(res => { console.log(res); if (res) { setsearchoptions(res) } else setsearchoptions([]) }), 100)
         // const getData = setTimeout(async () => functiondata().then(res => { console.log(res); if (res) { setsearchoptions(res) }else setsearchoptions([]) }), 500)
         return () => clearTimeout(getData)
 

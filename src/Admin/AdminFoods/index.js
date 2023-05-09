@@ -9,17 +9,17 @@ function AdminFood() {
 
     return (
         <div className="coctail-container">
-            <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
+            {/* <div className="search-container flex justify-between items-center lg:mb-5 mb-1 ">
                 <Breadcrumb />
-            </div>
+            </div> */}
 
             <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
-                <h2 className="text-white text-[24px] leading-9 font-bold ">
-                    Foods
-                </h2>
-                {/* <Link href={`/specs/coffee/ingredients`}>
+                <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+                    Food
+                </h1>
+                <Link href={`/food/ingredients`}>
                     <OrangeButtons label="Ingredients" noPadding={true} />
-                </Link> */}
+                </Link>
             </div>
             <FoodTable />
         </div>

@@ -45,6 +45,26 @@ export const getIngredientsList = (productType) => {
         });
     };
 };
+export const getIngredientsListBytype = (productType) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/master_ingredients/get_all_master_ingredients_by_type/${productType}`,
+            // url: `/api/${productType}_ingredient_type/get_all_${productType}_ingredient_type`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                ingredientsSlice.actions.getIngredients({
+                    data: res?.data?.data,
+                    type: productType,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 
 
 export const getIngredientsDetails = (productType, id) => {

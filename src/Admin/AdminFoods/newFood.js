@@ -6,11 +6,13 @@ import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cock
 import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
 import GenericCard from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard';
 import { useDispatch } from 'react-redux';
-import { createProduct } from '@/store/slices/product';
+import { createProduct, getcategoriesbytype } from '@/store/slices/product';
 import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
+import { CustomSelectForBrands } from '@/utils/CustomSelect';
+import Image from 'next/image';
 
 
 function AddFood({ subcategory }) {
@@ -41,9 +43,17 @@ function AddFood({ subcategory }) {
     const [vegan, setVegan] = useState(null)
     const [calories, setCal] = useState(null)
     const [price, setPrice] = useState(null)
+    const [categoryArray, setcatarray] = useState([])
+    const [category, setCategory] = useState({ category_id: '', category_name: '' })
+
     const dispatch = useDispatch()
 
     // new generic approach
+    useEffect(() => {
+        dispatch(getcategoriesbytype('food')).then((res) => { console.log(res); setcatarray(res) })
+
+    }, [])
+
     useEffect(() => {
         console.log(newMockData);
 
@@ -163,7 +173,8 @@ function AddFood({ subcategory }) {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            category_id: category.category_id,
 
 
         }
@@ -268,7 +279,7 @@ function AddFood({ subcategory }) {
                     <div className="flex items-center justify-center">
 
                         <ConditionalButton label={'Save'} condition={checkVals()} onClickHandler={() => { createdrink() }} />
-                        <Link href={`foods`}>
+                        <Link href={`food`}>
                             <div className=' ml-[10px] '>
 
                                 <ConditionalButton label={'Cancel'} condition={true} onClickHandler={() => { }} />
@@ -302,6 +313,10 @@ function AddFood({ subcategory }) {
                                         value={abv || ''} onChange={(e) => { handleChange(e) }} />
 
                                 </div> */}
+                                <div className='input-desc flex flex-col ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Food Category</h3>
+                                    <CustomSelectForBrands items={[{ value: '', label: 'none' }, ...categoryArray]} optionalFunction={(e) => { console.log(e); setCategory({ category_id: e.value, category_name: e.label }) }} isclear={isSAve} />
+                                </div>
                             </div>
                         </div>
                         <div className='flex items-center justify-between my-[7px]'>
@@ -315,10 +330,21 @@ function AddFood({ subcategory }) {
                                 </div>
                             </div>
                             <label className='text-[#959595] cursor-pointer'>
-                                <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                                <div className='flex items-center'>
+                                    <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                                        <Image src={'/asset/gluten-free.png'} fill className="object-contain" />
+                                    </div>
+                                </div>
                             </label>
                             <label className='text-[#959595] cursor-pointer'>
-                                <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                                <div className='flex items-center'>
+
+                                    <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                                        <Image src={'/asset/vegan.png'} fill className="object-contain" />
+                                    </div>
+                                </div>
                             </label>
                             <div className='flex items-center'>
 
@@ -349,7 +375,7 @@ function AddFood({ subcategory }) {
                     </div> */}
 
                     {Object.keys(newMockData).map((e) =>
-                        <GenericCard title={e} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+                        <GenericCard title={e} ingredientType={'food'} type={"notype"} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
                             addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection} isActive={newMockData[e].isActive} setActive={setActive} />
                     )}
 

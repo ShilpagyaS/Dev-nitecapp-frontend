@@ -25,8 +25,8 @@ const useFilteredData = (productList, typechecking, defauttype, findname) => {
       temp = [{ type: defauttype, data: productList }];
      
     }
-    
-    return temp
+    const nocategory=temp.filter((i)=>!i.type)
+    return [...nocategory,...temp.filter((i)=>i.type),]
   };
 
 

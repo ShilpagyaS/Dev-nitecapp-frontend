@@ -17,6 +17,7 @@ import Link from "next/link";
 import VideoModal from "@/components/modal/videoModal";
 import ReactPlayer from "react-player";
 import { whatsthestrength } from "@/utils/abvfinder";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
 const CocktailDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -68,7 +69,7 @@ const CocktailDetailPage = ({ id }) => {
             }`}
         >
           {/* <Image src="/asset/coctail1.png" fill /> */}
-          <Image src={productDetails?.image} fill className="object-cover" priority />
+          <Image src={productDetails?.image || '/asset/nodrinkinverted.webp'} fill className="object-cover" priority />
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
@@ -86,7 +87,7 @@ const CocktailDetailPage = ({ id }) => {
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>
-          <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+          {/* <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
             {productDetails?.price &&
               <li className="min-w-[100px]">
                 <div className="text-white w-full text-center pr-[10px]">
@@ -118,7 +119,9 @@ const CocktailDetailPage = ({ id }) => {
                 </div>
               </li>
             }
-          </ul>
+          </ul> */}
+          <PriceGFVeganCAlContainer productDetails={productDetails} />
+
           <p
             className={`description text-[16px] leading-6 ${isMobile && "text-center"
               }`}
@@ -139,7 +142,7 @@ const CocktailDetailPage = ({ id }) => {
               <>
                 <div className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
                   <p className=" bg-transparent ">{ingridient?.name}</p>
-                  <p className=" bg-transparent ">{`${ingridient?.quantity} ${ingridient?.measure_name}`}</p>
+                  <p className=" bg-transparent ">{`${(ingridient?.quantity && ingridient?.quantity != 0) ? ingridient?.quantity : ''} ${ingridient?.measure_name}`}</p>
                 </div>
               </>
             );

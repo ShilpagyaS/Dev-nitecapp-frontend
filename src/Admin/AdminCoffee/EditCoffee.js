@@ -14,6 +14,9 @@ import CocktailFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cock
 import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
+import CoffeeFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate";
+import Image from "next/image";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
 const EditCoffee = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -33,14 +36,15 @@ const EditCoffee = ({ productId, subcategory }) => {
     ingredients: {
       values: [],
     },
+
+    presentations: {
+      values: [],
+
+    },
     methods: {
       values: [],
 
     },
-    presentations: {
-      values: [],
-
-    }
   });
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -54,6 +58,7 @@ const EditCoffee = ({ productId, subcategory }) => {
   const [showMethods, setShowMethod] = useState(false)
   const [showPresentations, setShowPresentation] = useState(false)
   const [upimage, setimage] = useState()
+  const [methodImage, setMethodImage] = useState()
 
 
 
@@ -83,10 +88,10 @@ const EditCoffee = ({ productId, subcategory }) => {
       ingredients: (productDetails?.ingredients?.values.length && productDetails?.ingredients) || {
         values: [],
       },
-      methods: (productDetails?.methods?.values.length && productDetails?.methods) || {
+      presentations: (productDetails?.presentations?.values.length && productDetails?.presentations) || {
         values: [],
       },
-      presentations: (productDetails?.presentations?.values.length && productDetails?.presentations) || {
+      methods: (productDetails?.methods?.values.length && productDetails?.methods) || {
         values: [],
       },
     })
@@ -215,39 +220,45 @@ const EditCoffee = ({ productId, subcategory }) => {
     console.log(name);
     setabv(value)
   }
-  function onSave() {
+  async function onSave() {
     console.log(isEdit);
     if (isEdit == true) {
-      if (upimage) {
-        dispatch(uploadimage(upimage)).then((imageurl) => {
-          if (imageurl && !imageurl?.error)
-            dispatch(putProductById(subcategory, productId,
-              {
-                ...productDetails,
-                [`${subcategory}_name`]: nameref.current.innerText,
-                description: textAreaRef.current.value,
-                abv: abv,
-                ingredients: newMockData.ingredients,
-                presentations: newMockData.presentations,
-                methods: newMockData.methods,
-                showIngredients: showIngredients,
-                showMethods: showMethods,
-                showPresentations: showPresentations,
-                image: imageurl,
-                price: price,
-                gluten_free: gf,
-                vegan: vegan,
-                calories: calories
 
-              }
-            )).then((res) => {
+      if (upimage || methodImage) {
+        let imageUrl, coffeurl
+        if (upimage)
+          imageUrl = dispatch(uploadimage(upimage))
+        if (methodImage)
+          coffeurl = dispatch(uploadimage(methodImage))
+
+        Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
+          debugger
+          dispatch(putProductById(subcategory, productId,
+            {
+              ...productDetails,
+              [`${subcategory}_name`]: nameref.current.innerText,
+              description: textAreaRef.current.value,
+              abv: abv,
+              ingredients: newMockData.ingredients,
+              presentations: newMockData.presentations,
+              methods: newMockData.methods,
+              showIngredients: showIngredients,
+              showMethods: showMethods,
+              showPresentations: showPresentations,
+              ...(imageUrl && !imageUrl.error ? { image: imageUrlres } : {}),
+              ...(coffeurl && !coffeurl.error ? { method_image: coffeurlres } : {}),
+              price: price,
+              gluten_free: gf,
+              vegan: vegan,
+              calories: calories
+
+            })).then((res) => {
               console.log(res);
               res?.error ?
                 // errortoast({ message: res.message }) 
                 ''
                 : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
             })
-          else console.log("cannot upload")
         })
       }
       else
@@ -278,6 +289,7 @@ const EditCoffee = ({ productId, subcategory }) => {
         })
       console.log(nameref.current.innerText);
       toggleEdit()
+      setimage(); setMethodImage()
     }
     console.log(textAreaRef);
   }
@@ -355,39 +367,41 @@ const EditCoffee = ({ productId, subcategory }) => {
             </div>
             {!isEdit &&
 
-              <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
-                {productDetails?.price &&
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center pr-[10px]">
-                      {`Price: $ ${productDetails.price}`}
-                    </div>
-                  </li>
-                }
-                {productDetails?.gluten_free &&
+              // <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+              //   {productDetails?.price &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center pr-[10px]">
+              //         {`Price: $ ${productDetails.price}`}
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.gluten_free &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center">
-                      GF
-                    </div>
-                  </li>
-                }
-                {productDetails?.vegan &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center">
+              //         GF
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.vegan &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center">
-                      V
-                    </div>
-                  </li>
-                }
-                {productDetails?.calories &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center">
+              //         V
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.calories &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center ">
-                      {`${productDetails?.calories} cal`}
-                    </div>
-                  </li>
-                }
-              </ul>
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center ">
+              //         {`${productDetails?.calories} cal`}
+              //       </div>
+              //     </li>
+              //   }
+              // </ul>
+              <PriceGFVeganCAlContainer productDetails={productDetails} />
+
             }
             {isEdit &&
 
@@ -402,10 +416,22 @@ const EditCoffee = ({ productId, subcategory }) => {
                   </div>
                 </div>
                 <label className='text-[#959595] cursor-pointer'>
-                  <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                  <div className='flex items-center'>
+
+                    <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                      <Image src={'/asset/gluten-free.png'} fill className="object-contain" />
+                    </div>
+                  </div>
                 </label>
                 <label className='text-[#959595] cursor-pointer'>
-                  <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                  <div className='flex items-center'>
+
+                    <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                      <Image src={'/asset/vegan.png'} fill className="object-contain" />
+                    </div>
+                  </div>
                 </label>
                 <div className='flex items-center'>
 
@@ -441,12 +467,18 @@ const EditCoffee = ({ productId, subcategory }) => {
           } */}
 
           {Object.keys(newMockData).map((e) =>
-            <GenericCard title={e} type={'notype'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
+            <GenericCard title={e} type={'notype'} ingredientType={'coffee'} arr={newMockData[e].values} isEdit={isEdit} setTypeFunction={(title, type, input1, input2) => { setType(title, type, input1, input2) }}
               addValuesOnData={addValues} editValuesat={editValues} deleteItem={deleteItems} deleteSection={deleteSection}
               isActive={e == 'ingredients' ? showIngredients : e == 'methods' ? showMethods : showPresentations}
               setActive={setActive} fromeditnigscreen={true} />
           )}
 
+        </div>
+        <div className="w-1/2 h-[200px] m-[8px]">
+          <CoffeeFileUpdate
+            defaultImage={productDetails?.method_image}
+            setimage={setMethodImage}
+            isEdit={isEdit} id="coffemethodimage" />
         </div>
 
       </div>
