@@ -142,7 +142,7 @@ const CoffeeDetailPage = ({ id }) => {
               <>
                 <div className="choice-container bg-[#2C2C2C] w-full  py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px]">
                   <p className=" bg-transparent ">{ingridient?.name}</p>
-                  <p className=" bg-transparent ">{`${ingridient?.quantity} ${ingridient?.measure_name}`}</p>
+                  <p className=" bg-transparent ">{`${(ingridient?.quantity && ingridient?.quantity != 0) ? ingridient?.quantity : ''} ${ingridient?.measure_name}`}</p>
                 </div>
               </>
             );
@@ -215,7 +215,7 @@ const CoffeeDetailPage = ({ id }) => {
       }
       {productDetails?.method_image &&
         <div className="relative w-1/2 h-[200px]">
-          <Image src={productDetails?.method_image} fill className="object-contain rounded-[10px]" />
+          <Image src={productDetails?.method_image} fill className="object-cover rounded-[10px]" />
         </div>
       }
       {/* <div className="lessons-container mb-[32px]">

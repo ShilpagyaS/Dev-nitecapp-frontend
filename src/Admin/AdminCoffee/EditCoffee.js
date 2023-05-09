@@ -15,6 +15,8 @@ import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
 import CoffeeFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate";
+import Image from "next/image";
+import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
 const EditCoffee = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -287,7 +289,7 @@ const EditCoffee = ({ productId, subcategory }) => {
         })
       console.log(nameref.current.innerText);
       toggleEdit()
-      setimage();setMethodImage()
+      setimage(); setMethodImage()
     }
     console.log(textAreaRef);
   }
@@ -365,39 +367,41 @@ const EditCoffee = ({ productId, subcategory }) => {
             </div>
             {!isEdit &&
 
-              <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
-                {productDetails?.price &&
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center pr-[10px]">
-                      {`Price: $ ${productDetails.price}`}
-                    </div>
-                  </li>
-                }
-                {productDetails?.gluten_free &&
+              // <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+              //   {productDetails?.price &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center pr-[10px]">
+              //         {`Price: $ ${productDetails.price}`}
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.gluten_free &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center">
-                      GF
-                    </div>
-                  </li>
-                }
-                {productDetails?.vegan &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center">
+              //         GF
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.vegan &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center">
-                      V
-                    </div>
-                  </li>
-                }
-                {productDetails?.calories &&
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center">
+              //         V
+              //       </div>
+              //     </li>
+              //   }
+              //   {productDetails?.calories &&
 
-                  <li className="min-w-[100px]">
-                    <div className="text-white w-full text-center ">
-                      {`${productDetails?.calories} cal`}
-                    </div>
-                  </li>
-                }
-              </ul>
+              //     <li className="min-w-[100px]">
+              //       <div className="text-white w-full text-center ">
+              //         {`${productDetails?.calories} cal`}
+              //       </div>
+              //     </li>
+              //   }
+              // </ul>
+              <PriceGFVeganCAlContainer productDetails={productDetails} />
+
             }
             {isEdit &&
 
@@ -412,10 +416,22 @@ const EditCoffee = ({ productId, subcategory }) => {
                   </div>
                 </div>
                 <label className='text-[#959595] cursor-pointer'>
-                  <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                  <div className='flex items-center'>
+
+                    <input type="checkbox" class="accent-primary-base" checked={gf} onChange={(e) => { console.log(e); setgf(prev => !prev) }} /> GF
+                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                      <Image src={'/asset/gluten-free.png'} fill className="object-contain" />
+                    </div>
+                  </div>
                 </label>
                 <label className='text-[#959595] cursor-pointer'>
-                  <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                  <div className='flex items-center'>
+
+                    <input type="checkbox" class="accent-primary-base" checked={vegan} onChange={(e) => { console.log(e); setVegan(prev => !prev) }} /> V
+                    <div className='relative w-[20px] h-[20px] ml-[5px]'>
+                      <Image src={'/asset/vegan.png'} fill className="object-contain" />
+                    </div>
+                  </div>
                 </label>
                 <div className='flex items-center'>
 

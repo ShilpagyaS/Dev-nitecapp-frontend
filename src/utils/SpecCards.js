@@ -39,9 +39,9 @@ export function FoodCard({ image, title, no, onclickHandler }) {
 
 
       </div>
-      <p className="text-primary-base text-[14px] bg-transparent absolute top-2 left-3 ">
+      {/* <p className="text-primary-base text-[14px] bg-transparent absolute top-2 left-3 ">
         {`No. ${no}`}
-      </p>
+      </p> */}
       <div className="mt-2 w-full">
         <h2 className=" text-white text-[16px] leading-[24px] font-semibold text-center truncate">
           {title}

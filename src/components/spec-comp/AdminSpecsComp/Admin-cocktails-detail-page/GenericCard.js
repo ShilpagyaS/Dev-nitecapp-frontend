@@ -203,7 +203,7 @@ function GenericCard({ title, type, arr, isEdit, setTypeFunction, ingredientType
 
                                             onClick={() => { setAsfocus(i); if (foucsed == i) setAsfocus(null) }} className={`${foucsed == i ? 'outline-none ring ring-violet-300' : ''}`}>
 
-                                            <SplitCard desc={title == 'ingredients' ? e.name : e.step} quantity={title == 'ingredients' ? `${e.quantity} ${e.measure_name}` : e.detail} />
+                                            <SplitCard desc={title == 'ingredients' ? e.name : e.step} quantity={title == 'ingredients' ? `${(e.quantity && e.quantity != 0) ? e.quantity : ''} ${e.measure_name}` : e.detail} />
                                         </div>
                                     )
                                 }
