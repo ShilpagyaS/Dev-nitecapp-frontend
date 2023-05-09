@@ -1,5 +1,5 @@
 import useNavDetails from "@/Hooks/useNavDetails";
-import { getLogo, setUserRelogin } from "@/store/slices/Auth";
+import { gethoteldetails, getLogo, setUserRelogin } from "@/store/slices/Auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ export default function UserAuthWrapper({ children }) {
     const dispatch = useDispatch();
     const isguestroute = onlyUnAuthpages.includes(path)
     useEffect(() => {
-        dispatch(getLogo())
+        dispatch(gethoteldetails())
 
     }, [])
 
