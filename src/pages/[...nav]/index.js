@@ -160,29 +160,30 @@ export default function Category() {
                   )}
 
                 {path === `/specs/spirit/brands` && <BrandsByCategory productType={"spirit"} productId={productId} subcategory={subcategory2} />}
+                {path === `/specs/spirit/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetail productType={"spirit"} productId={productId} />}
                 {path === "/specs/wine" && <WineCategory />}
                 {path === `/specs/wine/${enUrl(subcategory2)}?id=${productId}` && <Wine id={productId} categoryName={subcategory2} />}
                 {path === `/specs/wine/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <SpecsDetailPage id={productId} subcategory={'wine'} />}
                 {path === `/specs/wine/brands` && <BrandsByCategory productType={"wine"} productId={productId} subcategory={subcategory2} />}
+                {path === `/specs/wine/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetail productType={"wine"} productId={productId} />}
 
 
                 {path === "/specs/beer" && <BeerSeltzer />}
                 {path === `/specs/beer/${enUrl(subcategory2)}?id=${productId}` && (
                   <SpecsDetailPage id={productId} subcategory={"beer"} />
                 )}
-                {path === "/specs/beer/brands" && <SpecBrands productType={"beer"} />}
+                {path === "/specs/beer/brands" && <BrandsByCategory productType={"beer"} productId={productId} subcategory={subcategory2} />}
+                {path === `/specs/beer/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetail productType={"beer"} productId={productId} />}
 
 
                 {path === "/specs/low_no_abv" && <LowABV />}
                 {path === `/specs/low_no_abv/${enUrl(subcategory2)}?id=${productId}` && (
                   <SpecsDetailPage id={productId} subcategory={"low_no_abv"} />
                 )}
-                {path === "/specs/low_no_abv/brands" && (
-                  <SpecBrands productType={"low_no_abv"} />
+                {path === "/specs/low_no_abv/brands" && (<BrandsByCategory productType={"low_no_abv"} productId={productId} subcategory={subcategory2} />
                 )}
-                {path === `/specs/low_no_abv/brand?id=${productId}` && (
-                  <BrandDetail productType={"low_no_abv"} productId={productId} />
-                )}
+                {path === `/specs/low_no_abv/brands/${enUrl(subcategory3)}?id=${productId}` && <BrandDetail productType={"low_no_abv"} productId={productId} />}
+
 
                 {path === "/specs/bestselling" && <BestSellingCoctails />}
 
