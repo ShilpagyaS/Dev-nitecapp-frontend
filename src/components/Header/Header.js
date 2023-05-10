@@ -36,8 +36,10 @@ function Header(props) {
         <div className="w-[60px] h-[40px] lg:w-[70px] lg:h-[50px] object-cover relative cursor-pointer">
           <Image
             className=""
-            src={logo || "/dash/didlogo.svg" || '/asset/nitecapp_logo.png'}
+            src={logo || '/asset/nitecapp_logo.png'}
             fill
+            priority
+            loading="lazy"
             alt="logo"
           />
         </div>
