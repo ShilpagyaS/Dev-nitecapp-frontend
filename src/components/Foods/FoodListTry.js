@@ -87,18 +87,18 @@ function FoodListTry() {
             //  filterData(e) 
           }} />
         )}
-        <div className='alphabetscroll overflow-x-auto flex items-center mb-[26px] mt-[15px] cursor-pointer  pb-[15px]' >
+        <div className='alphabetscroll overflow-x-auto flex items-center mb-[26px] mt-[15px]  pb-[15px]' >
           {[{ value: 'all', label: 'All' }, ...categoryArray].map((e) =>
-            <div className={`not-italic font-medium text-base font-Inter ${selectedcategory == e.value ? 'border text-primary-base border-primary-base' : 'text-white border border-white'} rounded-full px-2 py-[1px] capitalize mr-[12px]`} onClick={() => { onCatClick(e.value) }}>{e.label}</div>
+            <div className={`not-italic font-medium cursor-pointer text-base font-Inter ${selectedcategory == e.value ? 'border text-primary-base border-primary-base' : 'text-white border border-white'} rounded-full px-2 py-[1px] capitalize mr-[12px]`} onClick={() => { onCatClick(e.value) }}>{e.label}</div>
           )}
         </div>
-        <div className='relative h-[50px] md:h-0 w-full'>
+        {/* <div className='relative h-[50px] w-full'>
           <div className='absolute right-0'>
             <Link href={`/food/ingredients`}>
               <OrangeButtons label="Ingredients" noPadding={true} />
             </Link>
           </div>
-        </div>
+        </div> */}
         <div className="bottle-cards-container mb-8">
           {filteredData.map((section, i) => {
 

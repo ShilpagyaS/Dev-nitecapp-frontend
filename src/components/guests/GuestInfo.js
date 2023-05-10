@@ -101,7 +101,7 @@ function GuestInfo({ guestID }) {
         {/* <DummyNotes /> */}
 
         <NotesModal
-          title="New Notes"
+          title="Add Notes"
           desc="Enter Note here: |"
           isModalOpen={isAddModalOpen}
           onSave={(note) => {

@@ -37,7 +37,7 @@ const MultipleNotes = ({ subcategory, id, noteDetails, onUpdate, onDelete }) => 
     };
     return <div className="notes-container ">
         <NotesModal
-            title="New Notes"
+            title="Add Notes"
             desc="Enter Note here: |"
             isModalOpen={isAddModalOpen}
             onSave={(note) => {

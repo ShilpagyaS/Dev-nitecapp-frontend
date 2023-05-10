@@ -14,8 +14,8 @@ function AdminDashboardNew() {
         dispatch(getOutlets())
         return () => dispatch(emptyAllOutlet())
     }, [])
-
-    const data1 = [{ image: '/dash/ck1.png', title: 'Cocktails', link: '/specs/cocktail' },
+ 
+    const data1 = [{ image: '/asset/cocktailnew.png', title: 'Cocktails', link: '/specs/cocktail' },
     { image: '/asset/coffee.jpg', title: 'Coffee', link: '/specs/coffee' },
     { image: '/dash/ck2.png', title: 'Wine', link: '/specs/wine' },
     { image: '/dash/ck3.png', title: 'Spirits', link: '/specs/spirit' },

@@ -5,12 +5,12 @@ function CoreBeverage() {
   const CoreBeverage = [
     {
       title: "Cocktails",
-      img: "/asset/cocktailspecs.svg",
+      img: "/asset/cocktailnewspec.png",
       href:"/specs/cocktail"
-    },
+    }, 
     {
       title: "Coffee",
-      img: "/asset/coffespecs.svg",
+      img: "/asset/coffeenewspec.png",
       href:"/specs/coffee"
     },
     {
