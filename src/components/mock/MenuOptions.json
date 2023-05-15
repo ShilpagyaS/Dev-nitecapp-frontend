@@ -46,6 +46,25 @@
       ]
     },
     {
+      "name": "Learn",
+      "id": "learn",
+      "menuIcon": "AiFillAppstore",
+      "subOptions": [
+        {
+          "name": "Liberary",
+          "id": "liberary"
+        },
+        {
+          "name": "Flashcards",
+          "id": "flashcards"
+        },
+        {
+          "name": "Quiz",
+          "id": "quiz"
+        }
+      ]
+    },
+    {
       "name": "Brands",
       "id": "brands",
       "menuIcon": "AiFillAppstore",

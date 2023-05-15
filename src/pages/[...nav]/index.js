@@ -93,6 +93,8 @@ import AdminFood from "@/Admin/AdminFoods";
 import AddFood from "@/Admin/AdminFoods/newFood";
 import FoodEdits from "@/Admin/AdminFoods/FoodEdits";
 import FoodListTry from "@/components/Foods/FoodListTry";
+import Learn from "@/components/Learn";
+import LiberaryAll from "@/components/Learn/LiberaryAll";
 
 
 
@@ -211,6 +213,8 @@ export default function Category() {
                 {path === `/guests` && <GuestsList />}
                 {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestInfo guestID={productId} />}
 
+                {path === `/learn` && <Learn />}
+                {path === `/learn/liberary` && <LiberaryAll />}
 
               </LayoutWithSidebar>
             }

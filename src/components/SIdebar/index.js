@@ -8,7 +8,7 @@ function SideBar({ category, subcategory, menuOptions }) {
 
   return (
     <>
-      <div className="sidebar-container w-auto h-full">
+      <div className="sidebar-container w-auto h-full hidescrollbar overflow-y-auto ">
         {menuOptions?.map((option, ik) => {
           return (
             <>
