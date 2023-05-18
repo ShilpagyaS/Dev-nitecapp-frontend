@@ -146,7 +146,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Add'} condition={selectedItem.value ? true : false} onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -576,15 +576,15 @@ export function NotificationModal({ isModalOpen, onClickCancel, onSave, deleteBt
                                             alt="image"
                                             className='rounded-full'
                                             fill
-                                            style={{ objectFit: 'cover' }} 
-                                            priority/>
+                                            style={{ objectFit: 'cover' }}
+                                            priority />
                                         :
                                         <Image src={'/asset/User avatar default.png'}
                                             alt="image"
                                             className='rounded-full'
                                             fill
-                                            style={{ objectFit: 'cover' }} 
-                                            priority/>
+                                            style={{ objectFit: 'cover' }}
+                                            priority />
                                     }
                                 </div>
                                 <div className='w-full flex flex-col p-[5px] pl-[19px] justify-between'>

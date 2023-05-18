@@ -38,7 +38,6 @@ function Header(props) {
             className=""
             src={logo || '/asset/nitecapp_logo.png'}
             fill
-            priority
             loading="lazy"
             alt="logo"
           />
