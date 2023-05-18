@@ -51,8 +51,8 @@
       "menuIcon": "AiFillAppstore",
       "subOptions": [
         {
-          "name": "Liberary",
-          "id": "liberary"
+          "name": "Library",
+          "id": "library"
         },
         {
           "name": "Flashcards",

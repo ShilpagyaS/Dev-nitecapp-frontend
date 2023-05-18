@@ -95,6 +95,9 @@ import FoodEdits from "@/Admin/AdminFoods/FoodEdits";
 import FoodListTry from "@/components/Foods/FoodListTry";
 import Learn from "@/components/Learn";
 import LiberaryAll from "@/components/Learn/LiberaryAll";
+import FlashcardAllSection from "@/components/Learn/FlashcardAllSection";
+import FlashcardDetailPage from "@/components/Learn/FlashcardDetailPage";
+import LibraryDetailPage from "@/components/Learn/LibraryDetailPage";
 
 
 
@@ -214,7 +217,10 @@ export default function Category() {
                 {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestInfo guestID={productId} />}
 
                 {path === `/learn` && <Learn />}
-                {path === `/learn/liberary` && <LiberaryAll />}
+                {path === `/learn/library` && <LiberaryAll />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage />}
+                {path === `/learn/flashcards` && <FlashcardAllSection />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />}
 
               </LayoutWithSidebar>
             }

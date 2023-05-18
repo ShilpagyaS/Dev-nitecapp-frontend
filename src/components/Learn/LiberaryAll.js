@@ -9,7 +9,7 @@ function LiberaryAll() {
             <div className="flex items-center mb-[33px]">
 
                 <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[2px]'>
-                    {`Liberary`}
+                    {`Library`}
                 </h5>
             </div>
             <LIberaryComponents />

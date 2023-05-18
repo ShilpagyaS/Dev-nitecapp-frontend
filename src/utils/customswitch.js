@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React, { useState } from 'react'
 
 function Customswitch({ first, setfirst }) {
@@ -11,3 +12,25 @@ function Customswitch({ first, setfirst }) {
 }
 
 export default Customswitch
+export function Customswitch2() {
+    const [first, setfirst] = useState(false)
+    return (
+        <div className='cursor-pointer relative flex rounded-full border border-[#3C3C3C] w-[220px] px-[1px] py-[2px]'>
+            <div className='bg-transparent z-10 flex px-[20px] py-[8px] items-center rounded-full w-[110px] ' onClick={() => { setfirst(false) }} >
+                <div className='relative h-[26px] w-[26px] bg-transparent'>
+                    <Image src={'/asset/notesvg.svg'} fill className='object-contain bg-transparent' />
+                </div>
+                <p className='not-italic font-normal text-[16px] font-Inter ml-[8px] text-white bg-transparent'>Read</p>
+            </div>
+            <div className='bg-transparent z-10 flex px-[10px] py-[2px] items-center w-[100px] rounded-full' onClick={() => { setfirst(true) }}>
+                <div className='relative h-[26px] w-[26px] bg-transparent'>
+                    <Image src={'/asset/videocircle.png'} fill className='object-contain bg-transparent' />
+                </div>
+                <p className='not-italic font-normal text-[16px] font-Inter ml-[8px] text-white bg-transparent'>Watch</p>
+            </div>
+            <div className={`bg-[#3C3C3C] w-[110px] absolute h-[90%] rounded-full ${first ? ' translate-x-[106px]' : 'translate-x-0'} transition duration-200 ease-in-out transform`}>
+
+            </div>
+        </div>
+    )
+}

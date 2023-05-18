@@ -12,8 +12,8 @@ function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc })
     }, [])
 
     return (
-        <div className='w-[373px] h-[293px] border border-[#3C3C3C] rounded-[13px] px-[6px] py-[8px] '>
-            <div className='imagecontainer relative w-[360px] h-[152px]'>
+        <div className='max-w-[373px] w-full h-[293px] border border-[#3C3C3C] rounded-[13px] px-[6px] py-[8px] cursor-pointer'>
+            <div className='imagecontainer relative max-w-[360px] w-[100%] h-[152px]'>
                 <Image src={image} fill className='rounded-[8px] object-cover' />
                 <div className='absolute h-full w-full bg-[#00000087] flex items-center justify-center'>
 
