@@ -5,7 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     outlets: [],
-    outletDetails: {}
+    outletDetails: {},
+    outletType: ''
 };
 
 export const outletSlice = createSlice({
@@ -17,6 +18,9 @@ export const outletSlice = createSlice({
         },
         getOutletDetail: (state, action) => {
             state.outletDetails = action.payload
+        },
+        getOutletType: (state, action) => {
+            state.outletType = action.payload
         },
 
         emptyAllOutlet: (state) => {
@@ -38,6 +42,9 @@ export const getOutlets = (productType, id) => {
             console.log("response in product,js 47", res);
             dispatch(
                 outletSlice.actions.getOutlets(res.data?.data)
+            );
+            dispatch(
+                outletSlice.actions.getOutletType(res.data?.outlet_type)
             );
         }).catch((err) => {
             console.log(err)

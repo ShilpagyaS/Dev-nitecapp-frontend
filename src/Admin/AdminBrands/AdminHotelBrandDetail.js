@@ -65,74 +65,6 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
             website: taglineref.current.value
         }
         if (isEdit == true) {
-
-            if (upimage || methodImage) {
-                let imageUrl, coffeurl
-                if (upimage)
-                    imageUrl = dispatch(uploadimage(upimage))
-                if (methodImage)
-                    coffeurl = dispatch(uploadimage(methodImage))
-
-                Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
-                    dispatch(putProductById(subcategory, productId,
-                        {
-                            ...productDetails,
-                            [`${subcategory}_name`]: nameref.current.innerText,
-                            description: textAreaRef.current.value,
-                            abv: abv,
-                            ingredients: newMockData.ingredients,
-                            presentations: newMockData.presentations,
-                            methods: newMockData.methods,
-                            showIngredients: showIngredients,
-                            showMethods: showMethods,
-                            showPresentations: showPresentations,
-                            ...(imageUrl && !imageUrl.error ? { image: imageUrlres } : {}),
-                            ...(coffeurl && !coffeurl.error ? { method_image: coffeurlres } : {}),
-                            price: price,
-                            gluten_free: gf,
-                            vegan: vegan,
-                            calories: calories
-
-                        })).then((res) => {
-                            console.log(res);
-                            res?.error ?
-                                // errortoast({ message: res.message }) 
-                                ''
-                                : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
-                        })
-                })
-            }
-            else
-                dispatch(putProductById(subcategory, productId,
-                    {
-                        ...productDetails,
-                        [`${subcategory}_name`]: nameref.current.innerText,
-                        description: textAreaRef.current.value,
-                        abv: abv,
-                        ingredients: newMockData.ingredients,
-                        presentations: newMockData.presentations,
-                        methods: newMockData.methods,
-                        showIngredients: showIngredients,
-                        showMethods: showMethods,
-                        showPresentations: showPresentations,
-                        price: price,
-                        gluten_free: gf,
-                        vegan: vegan,
-                        calories: calories
-
-                    }
-                )).then((res) => {
-                    console.log(res);
-                    res?.error ?
-                        // errortoast({ message: res.message }) 
-                        ''
-                        : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
-                })
-            console.log(nameref.current.innerText);
-            toggleEdit()
-            setimage(); setMethodImage()
-        }
-        if (isEdit == true) {
             if (upimage || methodImage) {
                 let imageUrl, coffeurl
                 if (upimage)
@@ -148,10 +80,10 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                             ...(imageUrl && !imageUrl.error ? { image: imageUrlres } : {}),
                             ...(coffeurl && !coffeurl.error ? { floor_image: coffeurlres } : {}),
                         }, productId)).then((res) => {
-                            res?.error ?
-                                // errortoast({ message: res.message }) 
-                                ''
-                                : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+                            // res?.error ?
+                            //     // errortoast({ message: res.message }) 
+                            //     ''
+                            //     : successtoast({ message: `Updated successfully` });
 
                         })
                 })
@@ -302,17 +234,17 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                     }
 
                 </div>
-                {/* {(outletDetails?.floor_image || isEdit) && */}
-                <div className="w-full flex justify-end">
+                {(outletDetails?.floor_image || isEdit) &&
+                    <div className="w-full flex justify-end">
 
-                    <div className="w-1/2 h-[200px] m-[8px] ">
-                        <CoffeeFileUpdate
-                            // defaultImage={productDetails?.floor_image}
-                            setimage={setMethodImage}
-                            isEdit={isEdit} id="coffemethodimage" />
+                        <div className="w-1/2 h-[200px] m-[8px] ">
+                            <CoffeeFileUpdate
+                                defaultImage={outletDetails?.floor_image}
+                                setimage={setMethodImage}
+                                isEdit={isEdit} id="coffemethodimage" />
+                        </div>
                     </div>
-                </div>
-                {/* } */}
+                }
 
             </div>
         </>
