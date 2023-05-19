@@ -5,17 +5,18 @@ import BrandsMock from "../../mock/BrandsMock.json";
 import Link from "next/link";
 import { CustomButton, GrayButton, TextButton } from "@/utils/Buttons";
 import SwitchComp from "@/utils/SwitchComp";
-import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
+import { emptyAllOutlet, getBrandsImages, getOutlets } from "@/store/slices/outlet";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { enUrl } from "@/utils/encoderfunc";
 
 const ExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
-  const { outlets, outletType } = useSelector((state) => state.outlets)
+  const { outlets, outletType, brandsImages } = useSelector((state) => state.outlets)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getOutlets())
+    dispatch(getBrandsImages())
     return () => dispatch(emptyAllOutlet())
   }, [])
 
@@ -91,7 +92,7 @@ const ExploreBrands = ({ admin }) => {
 
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
-        <BannerSlider pagination={false} height="250px" />
+        <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
       </div>
       {outlets.length &&

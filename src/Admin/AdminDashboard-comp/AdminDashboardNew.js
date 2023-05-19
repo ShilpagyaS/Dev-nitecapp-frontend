@@ -1,6 +1,6 @@
 import BannerSlider from '@/components/brands/explore-brands/BannerSlider'
 import TrendingDash from '@/components/spec-comp/newDash/slider'
-import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet'
+import { emptyAllOutlet, getBrandsImages, getOutlets } from '@/store/slices/outlet'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { enUrl } from '@/utils/encoderfunc'
@@ -8,10 +8,12 @@ import { enUrl } from '@/utils/encoderfunc'
 
 function AdminDashboardNew() {
     const { user } = useSelector((state) => state.auth)
-    const { outlets } = useSelector((state) => state.outlets)
+    const { outlets,  brandsImages } = useSelector((state) => state.outlets)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getOutlets())
+        dispatch(getBrandsImages())
+
         return () => dispatch(emptyAllOutlet())
     }, [])
  
@@ -36,7 +38,7 @@ function AdminDashboardNew() {
                 </div>
             </div>
             <div className="explore-brands-banner-contaiiner mb-8">
-                <BannerSlider pagination={false} height="250px" />
+            <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
             </div>
             <TrendingDash data={data1} title={"Specs"} isBig={false} />

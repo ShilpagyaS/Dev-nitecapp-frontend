@@ -4,16 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import Trending from '../Trending'
 import BannerSlider from '@/components/brands/explore-brands/BannerSlider'
 import TrendingDash from './slider'
-import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet'
+import { emptyAllOutlet, getBrandsImages, getOutlets } from '@/store/slices/outlet'
 import Link from 'next/link'
 import { enUrl } from '@/utils/encoderfunc'
 
 function NewUserDashboard() {
     const { user } = useSelector((state) => state.auth)
-    const { outlets } = useSelector((state) => state.outlets)
+    const { outlets, brandsImages } = useSelector((state) => state.outlets)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getOutlets())
+        dispatch(getBrandsImages())
+
         return () => dispatch(emptyAllOutlet())
     }, [])
 
@@ -38,7 +40,7 @@ function NewUserDashboard() {
                 </div>
             </div>
             <div className="explore-brands-banner-contaiiner mb-8">
-                <BannerSlider pagination={false} height="250px" />
+                <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
             </div>
             <TrendingDash data={data1} title={"Specs"} isBig={false} />
