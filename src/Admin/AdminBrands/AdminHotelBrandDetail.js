@@ -2,6 +2,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { EditKeyValue } from "@/components/modal/adminmodal";
 import BrandFileUpload from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/BrandFileUpdate";
 import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
+import CoffeeFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate";
 import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
 import { errortoast, successtoast } from "@/components/tostify";
 import useMediaQuery from "@/Hooks/useMediaQuery";
@@ -19,7 +20,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AdminHotelBrandDetail = ({ productType, productId }) => {
- 
+
     const { outletDetails } = useSelector((state) => state.outlets)
     const textAreaRef = useRef()
     const taglineref = useRef()
@@ -34,6 +35,8 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
     const [isEdit, setEdit] = useState(false)
     const [editItem, setEditItem] = useState({})
     const [upimage, setimage] = useState()
+    const [methodImage, setMethodImage] = useState()
+
 
 
     const dispatch = useDispatch()
@@ -62,13 +65,27 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
             website: taglineref.current.value
         }
         if (isEdit == true) {
-            if (upimage) {
-                dispatch(uploadimage(upimage)).then((imageurl) => {
-                    if (imageurl && !imageurl?.error)
-                        dispatch(putOutletDetail({ ...data, image:imageurl }, productId)).then((res) => {
-                            console.log(res);
+            if (upimage || methodImage) {
+                let imageUrl, coffeurl
+                if (upimage)
+                    imageUrl = dispatch(uploadimage(upimage))
+                if (methodImage)
+                    coffeurl = dispatch(uploadimage(methodImage))
+
+                Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
+
+                    dispatch(putOutletDetail(
+                        {
+                            ...data,
+                            ...(imageUrl && !imageUrl.error ? { image: imageUrlres } : {}),
+                            ...(coffeurl && !coffeurl.error ? { floor_image: coffeurlres } : {}),
+                        }, productId)).then((res) => {
+                            // res?.error ?
+                            //     // errortoast({ message: res.message }) 
+                            //     ''
+                            //     : successtoast({ message: `Updated successfully` });
+
                         })
-                    else console.log("cannot upload")
                 })
             }
             else
@@ -217,6 +234,17 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                     }
 
                 </div>
+                {(outletDetails?.floor_image || isEdit) &&
+                    <div className="w-full flex justify-end">
+
+                        <div className="w-1/2 h-[200px] m-[8px] ">
+                            <CoffeeFileUpdate
+                                defaultImage={outletDetails?.floor_image}
+                                setimage={setMethodImage}
+                                isEdit={isEdit} id="coffemethodimage" />
+                        </div>
+                    </div>
+                }
 
             </div>
         </>

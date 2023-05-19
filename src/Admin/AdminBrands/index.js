@@ -15,7 +15,7 @@ import { enUrl } from "@/utils/encoderfunc";
 
 const AdminExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
-  const { outlets } = useSelector((state) => state.outlets)
+  const { outlets, outletType } = useSelector((state) => state.outlets)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getOutlets())
@@ -96,9 +96,11 @@ const AdminExploreBrands = ({ admin }) => {
         <BannerSlider pagination={false} height="250px" />
 
       </div>
-      <div className="brands-container">
-        <h1 className="mb-[20px] text-[24px] font-bold">All Outlets</h1>
-      </div>
+      {outlets.length &&
+        <div className="brands-container">
+          <h1 className="mb-[20px] text-[24px] font-bold">All <span className='capitalize'>{outletType}</span></h1>
+        </div>
+      }
       {/* {brandsData?.map((brand, i) => {
         return (
           <>
