@@ -334,7 +334,7 @@ export default function Category() {
               {path === "/forgotpassword" && <ForgotPassword />}</> :
               <LayoutWithSidebar category={category} subcategory={subcategory}>
                 {category === "dashboard" && <AdminDashboard />}
-                {category === "brand" && <SuperAdminBrand />}
+                {category === "brands" && <SuperAdminBrand />}
 
               </LayoutWithSidebar>
 

@@ -123,7 +123,7 @@ function BrandSuperTable() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px]'>
+                        <p className='not-italic font-semibold text-base leading-7 tracking-[-0.624px] text-white'>
                             {element.itemName}
                         </p>
                     </div>

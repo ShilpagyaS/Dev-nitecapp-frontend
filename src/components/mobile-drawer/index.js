@@ -40,7 +40,7 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
                 className="rounded-[50%]"
               />
             </div>
-            <h4 className="username ">Hi {user.display_name}!</h4>
+            <h4 className="username ">Hi {user?.display_name}!</h4>
           </div>
         </Link>
         <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer} />
