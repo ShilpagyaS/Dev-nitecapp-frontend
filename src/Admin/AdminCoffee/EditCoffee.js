@@ -474,12 +474,14 @@ const EditCoffee = ({ productId, subcategory }) => {
           )}
 
         </div>
-        <div className="w-1/2 h-[200px] m-[8px]">
-          <CoffeeFileUpdate
-            defaultImage={productDetails?.method_image}
-            setimage={setMethodImage}
-            isEdit={isEdit} id="coffemethodimage" />
-        </div>
+        {(productDetails?.method_image || isEdit) &&
+          <div className="w-1/2 h-[200px] m-[8px]">
+            <CoffeeFileUpdate
+              defaultImage={productDetails?.method_image}
+              setimage={setMethodImage}
+              isEdit={isEdit} id="coffemethodimage" />
+          </div>
+        }
 
       </div>
     </>
