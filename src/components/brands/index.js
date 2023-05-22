@@ -1,4 +1,4 @@
-import { getOutlets } from "@/store/slices/outlet";
+import { getBrandsDetails, getOutlets } from "@/store/slices/outlet";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,7 +63,14 @@ const sliderData4 = [
 ];
 function Brands() {
   const router = useRouter();
+
   const { brand_display } = useSelector((state) => state.auth)
+  const { hotelBrandDetails } = useSelector((state) => state.outlets)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getBrandsDetails())
+  }, [])
+
 
   return (
     <>
@@ -93,7 +100,7 @@ function Brands() {
             title={`Explore ${brand_display}`}
             desc="In Ancient Greece, Delphi was considered the center of the world. A few thousand years later, that essence now resides at 550 Flower Street: a staple of downtown Los Angeles’ silhouette. Once the headquarters of Superior Oil, and then, the focal point of the city’s early 2000’s revitalization, our address is once again rewriting the script for creativity, culture, and hospitality."
             btnLabel={`View ${brand_display} Website`}
-            onClickHandler={() => { window.open('https://www.thedelphihotel.com/') }}
+            onClickHandler={() => { if (hotelBrandDetails?.website) { window.open(hotelBrandDetails?.website) } }}
           />
         </div>
         <div className=" lg:col-span-1 col-span-1 lg:mb-0 mb-6">

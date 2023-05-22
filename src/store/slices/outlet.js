@@ -8,7 +8,7 @@ const initialState = {
     outletDetails: {},
     outletType: '',
     brandsImages: [],
-    hotelBrandWebsite: '',
+    hotelBrandDetails: {},
 };
 
 export const outletSlice = createSlice({
@@ -27,8 +27,8 @@ export const outletSlice = createSlice({
         getBrandsData: (state, action) => {
             state.brandsImages = action.payload
         },
-        getBrandsWebsite: (state, action) => {
-            state.hotelBrandWebsite = action.payload
+        getBrandsDetails: (state, action) => {
+            state.hotelBrandDetails = action.payload
         },
         emptyAllOutlet: (state) => {
             state.outlets = []
@@ -48,6 +48,22 @@ export const getBrandsImages = () => {
         }).then((res) => {
             dispatch(
                 outletSlice.actions.getBrandsData(res.data?.data)
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+}
+export const getBrandsDetails = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            // url: `/api/hotel_outlet/get-all-hotel_outlet`,
+            url: `/api/brand/login-user-brand-id`,
+            method: "GET",
+        }).then((res) => {
+            dispatch(
+                outletSlice.actions.getBrandsDetails(res.data?.data)
             );
         }).catch((err) => {
             console.log(err)
