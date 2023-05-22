@@ -15,7 +15,7 @@ function LibraryDetailcard() {
     }, [show])
 
     return (
-        <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px]'>
+        <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px] mb-[10px]'>
 
             <div className={`h-[180px] flex justify-between ${show ? 'opacity-[0.4]' : ' '}`}>
                 <div className='flex'>

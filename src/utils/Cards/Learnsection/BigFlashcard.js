@@ -6,7 +6,7 @@ function BigFlashcard() {
     return (
         <div className={`w-[626px] h-[430px] border border-[#3C3C3C] p-[15px] rounded-[16px] flex flex-col `}>
          {/* <div className={`w-full h-[430px] border border-[#3C3C3C] p-[15px] rounded-[16px] flex flex-col `}> */}
-            <div className={`w-[594px] h-[300px] bg-[#383838] rounded-[13px] p-[31px] flex items-center justify-between transition-all duration-500 ease-in-out ${slide ? 'translate-y-1/3' : 'translate-y-0'}`}>
+            <div className={`w-[594px] h-[300px] bg-[#383838] rounded-[13px] p-[31px] flex items-center justify-between transition-all duration-500 ease-in-out cursor-pointer ${slide ? 'translate-y-1/3' : 'translate-y-0'}`} onClick={() => setslide(prev => !prev)}>
             {/* <div className={`w-full h-[300px] bg-[#383838] rounded-[13px] p-[31px] flex items-center justify-between transition-all duration-500 ease-in-out ${slide ? 'translate-y-1/3' : 'translate-y-0'}`}> */}
                 <div className={`h-[200px] bg-[#D9D9D9] rounded-[13px] transition-all duration-500 ease-in-out ${slide ? 'opacity-0 w-0' : 'opacity-1 w-[200px]'}`}>
 
