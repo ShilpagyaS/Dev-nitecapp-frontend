@@ -98,6 +98,7 @@ import LiberaryAll from "@/components/Learn/LiberaryAll";
 import FlashcardAllSection from "@/components/Learn/FlashcardAllSection";
 import FlashcardDetailPage from "@/components/Learn/FlashcardDetailPage";
 import LibraryDetailPage from "@/components/Learn/LibraryDetailPage";
+import LearnModuleContentCard from "@/utils/Cards/Learnsection/LearnModuleContentCard";
 
 
 
@@ -219,6 +220,7 @@ export default function Category() {
                 {path === `/learn` && <Learn />}
                 {path === `/learn/library` && <LiberaryAll />}
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage />}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentCard />}
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />}
 

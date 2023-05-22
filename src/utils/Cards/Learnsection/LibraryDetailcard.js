@@ -1,4 +1,6 @@
+import { enUrl } from '@/utils/encoderfunc'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Moduleinititalcard from './moduleinititalcard'
@@ -15,7 +17,8 @@ function LibraryDetailcard() {
     }, [show])
 
     return (
-        <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px] mb-[10px] cursor-pointer'>
+        <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px] mb-[10px] cursor-pointer' >
+            {/* <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px] mb-[10px] cursor-pointer' onClick={() => { route.pusp(`/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}`)}}> */}
 
             <div className={`h-[180px] flex justify-between ${show ? 'opacity-[0.4]' : ' '}`}>
                 <div className='flex'>
