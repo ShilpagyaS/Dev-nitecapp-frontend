@@ -95,7 +95,7 @@ const ExploreBrands = ({ admin }) => {
         <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
       </div>
-      {outlets.length &&
+      {outlets.length > 0 &&
         <div className="brands-container">
           <h1 className="mb-[20px] text-[24px] font-bold">All <span className='capitalize'>{outletType}</span></h1>
         </div>

@@ -97,9 +97,9 @@ function Brands() {
       <div className="grid lg:grid-cols-2 order-last space-y-reverse grid-cols-1 gap-x-[58px] mb-[48px]">
         <div className=" col-span-1 ">
           <Paragraph
-            title={`Explore ${brand_display}`}
+            title={`Explore ${hotelBrandDetails?.brand_display_name}`}
             desc="In Ancient Greece, Delphi was considered the center of the world. A few thousand years later, that essence now resides at 550 Flower Street: a staple of downtown Los Angeles’ silhouette. Once the headquarters of Superior Oil, and then, the focal point of the city’s early 2000’s revitalization, our address is once again rewriting the script for creativity, culture, and hospitality."
-            btnLabel={`View ${brand_display} Website`}
+            btnLabel={`View ${hotelBrandDetails?.brand_display_name} Website`}
             onClickHandler={() => { if (hotelBrandDetails?.website) { window.open(hotelBrandDetails?.website) } }}
           />
         </div>

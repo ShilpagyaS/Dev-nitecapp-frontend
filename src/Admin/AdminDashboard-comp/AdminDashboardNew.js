@@ -44,8 +44,10 @@ function AdminDashboardNew() {
             </div>
             <TrendingDash data={data1} title={"Specs"} isBig={false} />
 
-            <TrendingDash data={data2} title={"Outlets"} isBig={true} />
+            {outlets.length > 0 &&
 
+                < TrendingDash data={data2} title={"Outlets"} isBig={true} />
+            }
         </>
     )
 }

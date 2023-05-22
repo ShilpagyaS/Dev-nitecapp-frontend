@@ -159,7 +159,7 @@ export const gethoteldetails = () => {
         dispatch(authSlice.actions.updateLogo(res?.data?.data?.logo));
         dispatch(authSlice.actions.updateBrandid(res?.data?.data?.brand_id));
         dispatch(authSlice.actions.updateBrandName(res?.data?.data?.brand_display_name));
-
+        console.log('rrr',res.data);
       })
       .catch((err) => {
       });
