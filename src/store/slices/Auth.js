@@ -12,7 +12,7 @@ const initialState = {
   tempcode: null,
   logo: null,
   brandid: null,
-  brand_display: null,
+  brand_display: '',
 
 };
 
