@@ -63,6 +63,8 @@ const sliderData4 = [
 ];
 function Brands() {
   const router = useRouter();
+  const { brand_display } = useSelector((state) => state.auth)
+
   return (
     <>
       <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px] py-6">
@@ -88,9 +90,9 @@ function Brands() {
       <div className="grid lg:grid-cols-2 order-last space-y-reverse grid-cols-1 gap-x-[58px] mb-[48px]">
         <div className=" col-span-1 ">
           <Paragraph
-            title="Explore The Delphi"
+            title={`Explore ${brand_display}`}
             desc="In Ancient Greece, Delphi was considered the center of the world. A few thousand years later, that essence now resides at 550 Flower Street: a staple of downtown Los Angeles’ silhouette. Once the headquarters of Superior Oil, and then, the focal point of the city’s early 2000’s revitalization, our address is once again rewriting the script for creativity, culture, and hospitality."
-            btnLabel="View The Delphi Website"
+            btnLabel={`View ${brand_display} Website`}
             onClickHandler={() => { window.open('https://www.thedelphihotel.com/') }}
           />
         </div>

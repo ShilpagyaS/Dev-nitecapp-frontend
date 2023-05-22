@@ -7,7 +7,8 @@ const initialState = {
     outlets: [],
     outletDetails: {},
     outletType: '',
-    brandsImages: []
+    brandsImages: [],
+    hotelBrandWebsite: '',
 };
 
 export const outletSlice = createSlice({
@@ -25,6 +26,9 @@ export const outletSlice = createSlice({
         },
         getBrandsData: (state, action) => {
             state.brandsImages = action.payload
+        },
+        getBrandsWebsite: (state, action) => {
+            state.hotelBrandWebsite = action.payload
         },
         emptyAllOutlet: (state) => {
             state.outlets = []

@@ -8,7 +8,8 @@ import { enUrl } from '@/utils/encoderfunc'
 
 function AdminDashboardNew() {
     const { user } = useSelector((state) => state.auth)
-    const { outlets,  brandsImages } = useSelector((state) => state.outlets)
+    const { outlets, brandsImages } = useSelector((state) => state.outlets)
+    const { brand_display } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getOutlets())
@@ -16,7 +17,7 @@ function AdminDashboardNew() {
 
         return () => dispatch(emptyAllOutlet())
     }, [])
- 
+
     const data1 = [{ image: '/asset/cocktailnew.png', title: 'Cocktails', link: '/specs/cocktail' },
     { image: '/asset/coffee.jpg', title: 'Coffee', link: '/specs/coffee' },
     { image: '/dash/ck2.png', title: 'Wine', link: '/specs/wine' },
@@ -34,11 +35,11 @@ function AdminDashboardNew() {
                     </h1>
                 </div>
                 <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px]">
-                    <h5 className='text-white not-italic font-normal text-base font-Inter'>Welcome back, {user?.display_name || ""}! We are grateful to have you on The Delphi team.</h5>
+                    <h5 className='text-white not-italic font-normal text-base font-Inter'>Welcome back, {user?.display_name || ""}! We are grateful to have you on {brand_display} team.</h5>
                 </div>
             </div>
             <div className="explore-brands-banner-contaiiner mb-8">
-            <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
+                <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
             </div>
             <TrendingDash data={data1} title={"Specs"} isBig={false} />

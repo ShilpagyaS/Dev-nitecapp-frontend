@@ -11,7 +11,8 @@ const initialState = {
   isOnbording: false,
   tempcode: null,
   logo: null,
-  brandid: null
+  brandid: null,
+  brand_display: null,
 
 };
 
@@ -38,6 +39,9 @@ export const authSlice = createSlice({
     },
     updateBrandid: (state, action) => {
       state.brandid = action.payload;
+    },
+    updateBrandName: (state, action) => {
+      state.brand_display = action.payload;
     },
 
     reloadUpdateUser2: (state, action) => {
@@ -67,12 +71,12 @@ export const authSlice = createSlice({
 export const login = (data) => {
   return async (dispatch, getState) => {
     const state = getState()
-    let dummydata = {...data,brand_id:state.auth.brandid}
+    let dummydata = { ...data, brand_id: state.auth.brandid }
     dispatch(authSlice.actions.updateTempUser(data.email));
     return axiosInstance({
       url: "/api/user-auth/login",
       method: "POST",
-      data:dummydata,
+      data: dummydata,
     }).catch((error) => {
 
       return { error: true, message: error || "Something Went Wrong" }
@@ -154,6 +158,7 @@ export const gethoteldetails = () => {
       .then((res) => {
         dispatch(authSlice.actions.updateLogo(res?.data?.data?.logo));
         dispatch(authSlice.actions.updateBrandid(res?.data?.data?.brand_id));
+        dispatch(authSlice.actions.updateBrandName(res?.data?.data?.brand_display_name));
 
       })
       .catch((err) => {
