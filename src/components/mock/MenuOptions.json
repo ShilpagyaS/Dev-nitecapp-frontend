@@ -47,13 +47,10 @@
     },
     {
       "name": "Brands",
-      "id": "brands",
+      "id": "all_Brands",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
-        {
-          "name": "Brands",
-          "id": "all_Brands"
-        }
+       
       ]
     },
     {

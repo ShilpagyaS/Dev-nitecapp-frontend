@@ -4,6 +4,7 @@ import BrandFileUpload from "@/components/spec-comp/AdminSpecsComp/Admin-cocktai
 import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
 import CoffeeFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate";
 import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton";
+import FloorFlieUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/FloorFileUPdate";
 import { errortoast, successtoast } from "@/components/tostify";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { emptyBrandsList } from "@/store/slices/brands";
@@ -237,8 +238,8 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                 {(outletDetails?.floor_image || isEdit) &&
                     <div className="w-full flex justify-end">
 
-                        <div className="w-1/2 h-[200px] m-[8px] ">
-                            <CoffeeFileUpdate
+                        <div className="w-full h-[200px] m-[8px] ">
+                            <FloorFlieUpdate
                                 defaultImage={outletDetails?.floor_image}
                                 setimage={setMethodImage}
                                 isEdit={isEdit} id="coffemethodimage" />
