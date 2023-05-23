@@ -238,7 +238,7 @@ const AdminHotelBrandDetail = ({ productType, productId }) => {
                 {(outletDetails?.floor_image || isEdit) &&
                     <div className="w-full flex justify-end">
 
-                        <div className="w-full h-[200px] m-[8px] ">
+                        <div className="w-full m-[8px] ">
                             <FloorFlieUpdate
                                 defaultImage={outletDetails?.floor_image}
                                 setimage={setMethodImage}
