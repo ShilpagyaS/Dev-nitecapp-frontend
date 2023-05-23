@@ -36,7 +36,7 @@ function NewUserDashboard() {
                     </h1>
                 </div>
                 <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px]">
-                    <h5 className='text-white not-italic font-normal text-base font-Inter'>Welcome back, {user?.display_name || ""}! We are grateful to have you on {brand_display} team.</h5>
+                    <h5 className='text-white not-italic font-normal text-base font-Inter'>Welcome back, {user?.display_name || ""}! We are grateful to have you on the team.</h5>
                 </div>
             </div>
             <div className="explore-brands-banner-contaiiner mb-8">
