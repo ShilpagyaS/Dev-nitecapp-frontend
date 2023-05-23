@@ -99,6 +99,10 @@ import FlashcardAllSection from "@/components/Learn/FlashcardAllSection";
 import FlashcardDetailPage from "@/components/Learn/FlashcardDetailPage";
 import LibraryDetailPage from "@/components/Learn/LibraryDetailPage";
 import LearnModuleContentCard from "@/utils/Cards/Learnsection/LearnModuleContentCard";
+import LearnPage from "@/Admin/AdminLearn/LearnPage";
+import LiberaryPage from "@/Admin/AdminLearn/LiberaryPage";
+import LiberaryDetailPageAdmin from "@/Admin/AdminLearn/LiberaryDetailPageAdmin";
+import LearnModuleContentAdmin from "@/Admin/AdminLearn/LearnModuleContentAdmin";
 
 
 
@@ -320,6 +324,15 @@ export default function Category() {
                 {path === `/manageusers` && <ManageUsers />}
                 {path === `/guests` && <AllGuests />}
                 {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestDetailsPage guestID={productId} />}
+
+                {path === `/learn` && <LearnPage />}
+                {path === `/learn/library` && <LiberaryPage />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin />}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />}
+
+
+
+
               </LayoutWithSidebarAdmin>
             }
           </>

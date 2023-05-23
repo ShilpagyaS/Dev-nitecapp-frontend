@@ -1,10 +1,11 @@
+import Breadcrumb from '@/components/Breadcrumb'
 import LibraryDetailcard from '@/utils/Cards/Learnsection/LibraryDetailcard'
+import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import { Customswitch2 } from '@/utils/customswitch'
 import Image from 'next/image'
 import React from 'react'
-import Breadcrumb from '../Breadcrumb'
 
-function LibraryDetailPage() {
+function LiberaryDetailPageAdmin() {
     return (
         <div>
             <Breadcrumb />
@@ -16,9 +17,11 @@ function LibraryDetailPage() {
 
 
             </div>
-            <div className='my-[24px]'>
+            <div className='my-[24px] flex items-center justify-between'>
 
                 <Customswitch2 />
+                <ChipWithLeftButton condition={true} label={'Add Chapter'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { }} />
+
             </div>
             <LibraryDetailcard />
             <LibraryDetailcard />
@@ -26,4 +29,4 @@ function LibraryDetailPage() {
     )
 }
 
-export default LibraryDetailPage
+export default LiberaryDetailPageAdmin
