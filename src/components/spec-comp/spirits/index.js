@@ -61,15 +61,20 @@ function Spirits({ id, categoryName }) {
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1  gap-x-[73px] gap-y-[12px] mt-4">
           {finaldata?.map((card, inx) => {
             return (
-              <div className=" col-span-1 ">
-                <Link href={`specs/spirit/${enUrl(categoryName)}/${enUrl(card.spirit_name)}/?id=${card.spirit_id}&typeid=${id}`}>
-                  <RectangularCard
-                    title={card.spirit_name}
-                    image={card.image}
-                    circularImg={true}
-                  />
-                </Link>
-              </div>
+              <>
+                {
+                  card.showProduct &&
+                  <div className=" col-span-1 ">
+                    <Link href={`specs/spirit/${enUrl(categoryName)}/${enUrl(card.spirit_name)}/?id=${card.spirit_id}&typeid=${id}`}>
+                      <RectangularCard
+                        title={card.spirit_name}
+                        image={card.image}
+                        circularImg={true}
+                      />
+                    </Link>
+                  </div>
+                }
+              </>
             );
           })}
         </div>
