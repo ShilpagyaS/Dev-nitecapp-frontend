@@ -1,4 +1,5 @@
 import LIberaryComponents from '@/components/Learn/LIberaryComponents'
+import ModuleAdminCard from '@/utils/Cards/Learnsection/ModuleAdminCard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import Image from 'next/image'
 import React from 'react'
@@ -17,6 +18,7 @@ function LearnPage() {
                 <ChipWithLeftButton condition={true} label={'Add Course'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { }} />
             </div>
             <LIberaryComponents />
+            <ModuleAdminCard />
         </div>
     )
 }

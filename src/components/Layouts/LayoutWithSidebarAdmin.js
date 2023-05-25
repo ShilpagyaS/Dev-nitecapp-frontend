@@ -24,10 +24,10 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-[175px_auto] w-full mt-[26px] ">
-                <div className="lg:block hidden ">
+                <div className="lg:flex hidden h-[80vh]  ">
                     <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} />
                 </div>
-                <div className=" mb-3 overflow-y-auto h-[80vh] pb-10 hidescrollbar">
+                <div className=" mb-3 overflow-y-auto h-[80vh] pb-10 hidescrollbar ">
                     <Layout>{children}</Layout>
                 </div>
             </div>
