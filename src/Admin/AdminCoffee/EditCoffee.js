@@ -341,10 +341,28 @@ const EditCoffee = ({ productId, subcategory }) => {
         </div>
         <div className="img-description-container md:flex md:items-center lg:flex lg:items-center mb-8">
           <div className="imageContainer text-[#929292] flex flex-col justify-center items-center">
+            {productDetails?.image ?
 
-            <CocktailFileUpdate defaultImage={productDetails?.image}
-              setimage={setimage}
-              isEdit={isEdit} id="editcoffe" />
+              <CocktailFileUpdate defaultImage={productDetails?.image}
+                setimage={setimage}
+                isEdit={isEdit} id="editcoffe" />
+              :
+              isEdit ?
+                <CocktailFileUpdate defaultImage={productDetails?.image}
+                  setimage={setimage}
+                  isEdit={isEdit} id="editcoffe" />
+                :
+                <div className="relative w-[150px]  h-[186px] mr-[31px]">
+                  <Image src={'/asset/nodrinkinverted.webp'}
+                    alt="image"
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    className="rounded-[10px]"
+                    priority
+
+                  />
+                </div>
+            }
 
           </div>
 
