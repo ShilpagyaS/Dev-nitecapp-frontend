@@ -14,7 +14,7 @@ function LiberaryDetailPageAdmin() {
                 <AddChapter
                     isModalOpen={addCourseButton}
                     onClickCancel={() => { setAddCourse(false) }}
-                    title={'Course'}
+                    title={'Chapter'}
                     onSave={() => { }}
                 />
             }
