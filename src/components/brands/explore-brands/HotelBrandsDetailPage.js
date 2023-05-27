@@ -34,7 +34,7 @@ const HotelBrandDetail = ({ productType, productId }) => {
                     className=" h-full w-full object-cover"
                     src={outletDetails.image}
 
-                    // style={{ objectFit: 'cover' }}
+                // style={{ objectFit: 'cover' }}
 
                 />
 
@@ -58,6 +58,13 @@ const HotelBrandDetail = ({ productType, productId }) => {
                     <CustomButton label="Website" background="#F19B6C" />
                 </a>
             </div>
+            {outletDetails?.floor_image &&
+                <div className="w-full flex justify-end">
+                    <div className="relative w-full aspect-[16/9]">
+                        <Image src={outletDetails?.floor_image} fill className="object-cover rounded-[10px]" />
+                    </div>
+                </div>
+            }
         </div>
     );
 };

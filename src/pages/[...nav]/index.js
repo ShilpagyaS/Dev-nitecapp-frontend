@@ -199,7 +199,8 @@ export default function Category() {
                 {path === "/specs/bestselling" && <BestSellingCoctails />}
 
                 {path === "/dashboard" && <NewUserDashboard />}
-                {path === "/brands" && <Brands />}
+                {/* {path === "/brands" && <Brands />} */}
+                {path === "/all_Brands" && <ExploreBrands />}
                 {path === "/brands/all_Brands" && <ExploreBrands />}
                 {path === `/brands/all_Brands/${enUrl(subcategory2)}?id=${productId}` && <HotelBrandDetail productId={productId} />}
                 {path === `/specs/brand?id=${productId}` && (

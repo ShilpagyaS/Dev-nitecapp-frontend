@@ -5,17 +5,18 @@ import BrandsMock from "../../mock/BrandsMock.json";
 import Link from "next/link";
 import { CustomButton, GrayButton, TextButton } from "@/utils/Buttons";
 import SwitchComp from "@/utils/SwitchComp";
-import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
+import { emptyAllOutlet, getBrandsImages, getOutlets } from "@/store/slices/outlet";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { enUrl } from "@/utils/encoderfunc";
 
 const ExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
-  const { outlets } = useSelector((state) => state.outlets)
+  const { outlets, outletType, brandsImages } = useSelector((state) => state.outlets)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getOutlets())
+    dispatch(getBrandsImages())
     return () => dispatch(emptyAllOutlet())
   }, [])
 
@@ -91,12 +92,14 @@ const ExploreBrands = ({ admin }) => {
 
       </div>
       <div className="explore-brands-banner-contaiiner mb-8">
-        <BannerSlider pagination={false} height="250px" />
+        <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
       </div>
-      <div className="brands-container">
-        <h1 className="mb-[20px] mt-[1px] text-[24px] font-bold">All Outlets</h1>
-      </div>
+      {outlets.length > 0 &&
+        <div className="brands-container">
+          <h1 className="mb-[20px] text-[24px] font-bold">All <span className='capitalize'>{outletType}</span></h1>
+        </div>
+      }
       {/* {brandsData?.map((brand, i) => {
         return (
           <>
@@ -163,7 +166,7 @@ const ExploreBrands = ({ admin }) => {
             <Link href={`/brands/all_Brands/${enUrl(card.outlet_name)}?id=${card.outlet_id}`}>
               <div className="flex flex-col items-center justify-center mb-[30px]">
                 <div className=" relative w-full rounded-[10px] min-h-[250px] ">
-                  <Image src={card.image} fill className="rounded-md object-cover" priority/>
+                  <Image src={card.image} fill className="rounded-md object-cover" priority />
                 </div>
                 <h3 className="not-italic font-semibold  text-md lg:text-xl font-Inter mt-[10px]">{card.outlet_name}</h3>
               </div>

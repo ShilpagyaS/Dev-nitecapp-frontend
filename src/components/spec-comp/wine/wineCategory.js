@@ -3,7 +3,7 @@ import coctailMock from "../../mock/CoctailMock.json";
 import { RectangularCard } from "@/utils/SpecCards";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { useEffect, useState } from "react";
-import { emptyProductList, getCategoryList, getProduct } from "@/store/slices/product";
+import { emptyProductList, getCategoryList, getCategoryListByType, getProduct } from "@/store/slices/product";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumb from "@/components/Breadcrumb";
 import Link from "next/link";
@@ -19,7 +19,9 @@ function WineCategory() {
 
 
     useEffect(() => {
-        dispatch(getCategoryList("wine"));
+        // dispatch(getCategoryList("wine"));
+        dispatch(getCategoryListByType("wine"))
+
         return () => {
             dispatch(emptyProductList());
         };
@@ -79,16 +81,22 @@ function WineCategory() {
                 <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-4">
                     {finaldata?.map((card, inx) => {
                         return (
-                            <div className=" col-span-1 " key={inx}>
-                                <Link href={`specs/wine/${enUrl(card.drink_category_name)}?id=${card.drink_category_id}`}>
-                                    <RectangularCard
-                                        title={card.drink_category_name}
-                                        // image={'/asset/vodka.svg'}
-                                        image={card.image}
-                                        circularImg={true}
-                                    />
-                                </Link>
-                            </div>
+                            <>
+                                {
+                                    card.showProduct &&
+
+                                    <div className=" col-span-1 " key={inx}>
+                                        <Link href={`specs/wine/${enUrl(card.drink_category_name)}?id=${card.category_id}`}>
+                                            <RectangularCard
+                                                title={card.drink_category_name}
+                                                // image={'/asset/vodka.svg'}
+                                                image={card.image}
+                                                circularImg={true}
+                                            />
+                                        </Link>
+                                    </div>
+                                }
+                            </>
                         );
                     })}
                 </div>

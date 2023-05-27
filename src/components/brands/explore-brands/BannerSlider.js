@@ -10,24 +10,29 @@ import { CustomButton } from "@/utils/Buttons";
 const BannerSlider = (props) => {
   const { pagination, height } = props;
   const isMobile = useMediaQuery("(max-width: 414px)");
-  const sliderData = [
-    {
-      title: "Get Certified for Training",
-      img: "/dash/delphi1.png",
-    },
-    {
-      title: "Work From Beautiful Concepts",
-      img: "/dash/delphi2.png",
-    },
-    {
-      title: "Claim Rewards for Your Progress",
-      img: "/dash/delphi3.png",
-    },
-    {
-      title: "Claim Rewards for Your Progress",
-      img: "/dash/delphi4.png",
-    },
-  ];
+  const [sliderData, setSliderData] = useState([])
+  useEffect(() => {
+    setSliderData(props.data)
+  }, [props.data])
+
+  // const sliderData = [
+  //   {
+  //     title: "Get Certified for Training",
+  //     img: "/dash/delphi1.png",
+  //   },
+  //   {
+  //     title: "Work From Beautiful Concepts",
+  //     img: "/dash/delphi2.png",
+  //   },
+  //   {
+  //     title: "Claim Rewards for Your Progress",
+  //     img: "/dash/delphi3.png",
+  //   },
+  //   {
+  //     title: "Claim Rewards for Your Progress",
+  //     img: "/dash/delphi4.png",
+  //   },
+  // ];
   const [swipperInstance, setswipperInstance] = useState("");
 
   function next() {
@@ -105,7 +110,7 @@ const BannerSlider = (props) => {
                 <div className=" h-full w-full relative ">
 
                   <Image
-                    src={slide.img}
+                    src={slide.image}
                     className="w-full object-cover sm:rounded-lg" fill
 
                   />

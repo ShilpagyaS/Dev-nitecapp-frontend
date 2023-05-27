@@ -362,9 +362,29 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
 
             {/* <Image src={productDetails?.image} className="w-full" fill /> */}
             {/* <Image src="/asset/coctail1.png" className="w-full" fill /> */}
-            <CocktailFileUpdate defaultImage={productDetails?.image}
-              setimage={setimage}
-              isEdit={isEdit} id="cocktaildetailpage" />
+
+            {productDetails?.image ?
+
+              <CocktailFileUpdate defaultImage={productDetails?.image}
+                setimage={setimage}
+                isEdit={isEdit} id="cocktaildetailpage" />
+              :
+              isEdit ?
+                <CocktailFileUpdate defaultImage={productDetails?.image}
+                  setimage={setimage}
+                  isEdit={isEdit} id="cocktaildetailpage" />
+                :
+                <div className="relative w-[150px]  h-[186px] mr-[31px]">
+                  <Image src={'/asset/nodrinkinverted.webp'}
+                    alt="image"
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    className="rounded-[10px]"
+                    priority
+
+                  />
+                </div>
+            }
 
 
             {/* <div className="editbutton flex text-[#929292] ">

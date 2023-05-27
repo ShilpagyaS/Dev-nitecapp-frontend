@@ -64,15 +64,21 @@ function Wine({ id, categoryName }) {
         <div className="cards-container grid lg:grid-cols-2 grid-cols-1 gap-x-[73px] gap-y-[12px] mt-4 ">
           {finaldata?.map((card, inx) => {
             return (
-              <div className=" col-span-1 " key={inx}>
-                <Link href={`specs/wine/${enUrl(categoryName)}/${enUrl(card.wine_name)}/?id=${card.wine_id}&typeid=${id}`}>
-                  <RectangularCard
-                    title={card.wine_name}
-                    image={card.image}
-                    circularImg={true}
-                  />
-                </Link>
-              </div>
+              <>
+                {
+                  card.showProduct &&
+
+                  <div className=" col-span-1 " key={inx}>
+                    <Link href={`specs/wine/${enUrl(categoryName)}/${enUrl(card.wine_name)}/?id=${card.wine_id}&typeid=${id}`}>
+                      <RectangularCard
+                        title={card.wine_name}
+                        image={card.image}
+                        circularImg={true}
+                      />
+                    </Link>
+                  </div>
+                }
+              </>
             );
           })}
         </div>

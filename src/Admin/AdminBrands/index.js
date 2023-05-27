@@ -9,16 +9,18 @@ import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cockt
 import { CustomChipWithLeftButton } from "@/utils/ChipWithLeftButton";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
+import { emptyAllOutlet, getBrandsImages, getOutlets } from "@/store/slices/outlet";
 import BannerSlider from "@/components/brands/explore-brands/BannerSlider";
 import { enUrl } from "@/utils/encoderfunc";
 
 const AdminExploreBrands = ({ admin }) => {
   const brandsData = BrandsMock.Brandsdata;
-  const { outlets } = useSelector((state) => state.outlets)
+  const { outlets, outletType, brandsImages } = useSelector((state) => state.outlets)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getOutlets())
+    dispatch(getBrandsImages())
+
     return () => dispatch(emptyAllOutlet())
   }, [])
 
@@ -93,12 +95,14 @@ const AdminExploreBrands = ({ admin }) => {
         Brands
       </h1>
       <div className="explore-brands-banner-contaiiner mb-8">
-        <BannerSlider pagination={false} height="250px" />
+        <BannerSlider pagination={false} height="250px" data={brandsImages || []} />
 
       </div>
-      <div className="brands-container">
-        <h1 className="mb-[20px] text-[24px] font-bold">All Outlets</h1>
-      </div>
+      {outlets.length > 0 &&
+        <div className="brands-container">
+          <h1 className="mb-[20px] text-[24px] font-bold">All <span className='capitalize'>{outletType}</span></h1>
+        </div>
+      }
       {/* {brandsData?.map((brand, i) => {
         return (
           <>
