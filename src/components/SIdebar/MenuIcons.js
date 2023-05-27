@@ -34,9 +34,9 @@ export function MenuIcon(menuOption, active) {
         width="18"
         height="15"
         viewBox="0 0 10 10"
-        fill={active ? "#F19B6C" : "#959595"}
+        // fill={active ? "bg-primary" : "#959595"}
         xmlns="http://www.w3.org/2000/svg"
-        className="mr-2"
+        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
       >
         <path
           d="M1.00083 8.24551V9.19077C1.00083 9.19077 1.01848 9.20546 1.02439 9.19077C1.1716 8.84628 1.52498 8.71078 2.09341 8.71078L10.445 8.68426H10.5952V0H2.02575C1.45741 0 0.998047 0.444676 0.998047 0.992386"

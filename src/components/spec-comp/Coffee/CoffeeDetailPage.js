@@ -22,12 +22,7 @@ import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 const CoffeeDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
-  const ingridients = DetailsMock.ingridients;
-  const presentation = DetailsMock.presentation;
-  const method = DetailsMock.method;
-  const lesson = DetailsMock.lesson;
-  const notes = DetailsMock.notes;
-
+ 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const dispatch = useDispatch()

@@ -93,6 +93,17 @@ import AdminFood from "@/Admin/AdminFoods";
 import AddFood from "@/Admin/AdminFoods/newFood";
 import FoodEdits from "@/Admin/AdminFoods/FoodEdits";
 import FoodListTry from "@/components/Foods/FoodListTry";
+import Learn from "@/components/Learn";
+import LiberaryAll from "@/components/Learn/LiberaryAll";
+import FlashcardAllSection from "@/components/Learn/FlashcardAllSection";
+import FlashcardDetailPage from "@/components/Learn/FlashcardDetailPage";
+import LibraryDetailPage from "@/components/Learn/LibraryDetailPage";
+import LearnModuleContentCard from "@/utils/Cards/Learnsection/LearnModuleContentCard";
+import LearnPage from "@/Admin/AdminLearn/LearnPage";
+import LiberaryPage from "@/Admin/AdminLearn/LiberaryPage";
+import LiberaryDetailPageAdmin from "@/Admin/AdminLearn/LiberaryDetailPageAdmin";
+import LearnModuleContentAdmin from "@/Admin/AdminLearn/LearnModuleContentAdmin";
+import LiberaryModulContentList from "@/Admin/AdminLearn/LiberaryModulContentList";
 
 
 
@@ -212,6 +223,12 @@ export default function Category() {
                 {path === `/guests` && <GuestsList />}
                 {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestInfo guestID={productId} />}
 
+                {path === `/learn` && <Learn />}
+                {path === `/learn/library` && <LiberaryAll />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage />}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentCard />}
+                {path === `/learn/flashcards` && <FlashcardAllSection />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />}
 
               </LayoutWithSidebar>
             }
@@ -309,6 +326,16 @@ export default function Category() {
                 {path === `/manageusers` && <ManageUsers />}
                 {path === `/guests` && <AllGuests />}
                 {path === `/guests/${enUrl(subcategory)}?id=${productId}` && <GuestDetailsPage guestID={productId} />}
+
+                {path === `/learn` && <LearnPage />}
+                {path === `/learn/library` && <LiberaryPage />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin />}
+                {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LiberaryModulContentList />}
+
+
+
+
               </LayoutWithSidebarAdmin>
             }
           </>
@@ -325,7 +352,7 @@ export default function Category() {
               {path === "/forgotpassword" && <ForgotPassword />}</> :
               <LayoutWithSidebar category={category} subcategory={subcategory}>
                 {category === "dashboard" && <AdminDashboard />}
-                {category === "brand" && <SuperAdminBrand />}
+                {category === "brands" && <SuperAdminBrand />}
 
               </LayoutWithSidebar>
 

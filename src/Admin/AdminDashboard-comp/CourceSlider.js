@@ -2,13 +2,12 @@ import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import useMediaQuery from "@/Hooks/useMediaQuery";
-import coctailMock from "../mock/CoctailMock.json";
 import ResumeCourseCard from "@/utils/Cards/cruosalcards/ResumeCourseCard";
 function CourceSlider() {
     {
         const isTablet = useMediaQuery("(max-width: 786px)");
         const isPhone = useMediaQuery("(max-width: 414px)");
-        const coctailData = coctailMock.coctailData;
+        const coctailData = [1,2,34,4,5,6,,8,9,0,1,2,3,4,5]
 
         return (
             <div className=" mt-5 w-full">
@@ -29,7 +28,7 @@ function CourceSlider() {
                                 }}
                                 className="mb-8 w-[15px]"
                             >
-                                <ResumeCourseCard completionPercentage={i*10}/>
+                                <ResumeCourseCard completionPercentageOuter={i*10}/>
                             </SwiperSlide>
                         );
                     })}

@@ -2,7 +2,7 @@ import React from 'react'
 
 export function ConditionalButton({ onClickHandler, condition, label, type }) {
     return (
-        <div className="">
+        <div className="bg-transparent">
             <button
                 type={type || 'button'}
                 className={` ${condition == true ? "bg-primary-base" : "bg-[#3E3E3E]"
