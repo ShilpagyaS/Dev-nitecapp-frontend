@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Moduleinititalcard from './moduleinititalcard'
 
-function LibraryDetailcard() {
+function LibraryDetailcard({ isAdmin }) {
     const [show, setShow] = useState(false)
     const [completionPercentage, setcompletepercentage] = useState(null)
     useEffect(() => {
@@ -33,7 +33,24 @@ function LibraryDetailcard() {
                 </div>
                 <div className='h-full flex flex-col justify-between items-center'>
 
-                    <AiOutlineHeart size="25px" color="#fff" />
+                    {!isAdmin &&
+
+                        <AiOutlineHeart size="25px" color="#fff" />
+                    }
+                    {
+                        isAdmin &&
+                        <div className='flex items-center'>
+                            <Image
+                                src={'/asset/AddButtonVector.svg'}
+                                // src={'/asset/DeleteVector.svg'}
+                                width={20}
+                                height={20}
+                                className="bg-primary-base rounded-full mr-[20px]"
+                            />
+                            <Image src={'/asset/EditVector.svg'} height={20} width={20} className='cursor-pointer' onClick={() => { console.log('Hahah'); }} />
+
+                        </div>
+                    }
                     <div className='cursor-pointer' onClick={() => { setShow(prev => !prev) }}>
 
                         <Image src={'/asset/Vector 5.svg'} height={20} width={10} className={`${show ? 'rotate-[270deg]' : 'rotate-90'} transition-all duration-300 ease-in-out`} />

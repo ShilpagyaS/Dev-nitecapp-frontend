@@ -9,7 +9,7 @@ function ModuleAdminCard() {
             </div>
             <div className='flex flex-col w-[75%] h-full'>
                 <div className='w-full flex items-center justify-end '>
-                    <Image src={'/asset/EditVector.svg'} height={20} width={20} onClick={() => { console.log('Hahah'); }} />
+                    <Image src={'/asset/EditVector.svg'} height={20} width={20} className='cursor-pointer' onClick={() => { console.log('Hahah'); }} />
                 </div>
                 <div className='flex flex-col pl-[20px] h-[80%] justify-center'>
                     <h1 className='not-italic font-Inter text-[18px] font-[700] text-white'>Heading</h1>
@@ -17,7 +17,7 @@ function ModuleAdminCard() {
 
                 </div>
                 <div className='w-full flex items-center justify-end '>
-                    <Image src={'/asset/DeleteVector.svg'} height={20} width={20} onClick={() => { console.log('Hahah'); }} />
+                    <Image src={'/asset/DeleteVector.svg'} height={20} width={20} className='cursor-pointer' onClick={() => { console.log('Hahah'); }} />
 
                 </div>
             </div>

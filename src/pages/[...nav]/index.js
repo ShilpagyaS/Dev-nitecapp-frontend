@@ -103,6 +103,7 @@ import LearnPage from "@/Admin/AdminLearn/LearnPage";
 import LiberaryPage from "@/Admin/AdminLearn/LiberaryPage";
 import LiberaryDetailPageAdmin from "@/Admin/AdminLearn/LiberaryDetailPageAdmin";
 import LearnModuleContentAdmin from "@/Admin/AdminLearn/LearnModuleContentAdmin";
+import LiberaryModulContentList from "@/Admin/AdminLearn/LiberaryModulContentList";
 
 
 
@@ -328,7 +329,8 @@ export default function Category() {
                 {path === `/learn` && <LearnPage />}
                 {path === `/learn/library` && <LiberaryPage />}
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin />}
-                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />}
+                {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LiberaryModulContentList />}
 
 
 
