@@ -104,6 +104,8 @@ import LiberaryPage from "@/Admin/AdminLearn/LiberaryPage";
 import LiberaryDetailPageAdmin from "@/Admin/AdminLearn/LiberaryDetailPageAdmin";
 import LearnModuleContentAdmin from "@/Admin/AdminLearn/LearnModuleContentAdmin";
 import LiberaryModulContentList from "@/Admin/AdminLearn/LiberaryModulContentList";
+import FLashCards from "@/Admin/AdminLearn/FLashCards";
+import AdminFlashCardDetailPage from "@/Admin/AdminLearn/FlashCardDetailPage";
 
 
 
@@ -332,6 +334,8 @@ export default function Category() {
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin />}
                 {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LiberaryModulContentList />}
+                {path === `/learn/flashcards` && <FLashCards />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashCardDetailPage />}
 
 
 

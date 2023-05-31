@@ -6,10 +6,9 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Moduleinititalcard from './moduleinititalcard'
 
-function LibraryDetailcard({ isAdmin }) {
+function LibraryDetailcard({ isAdmin, onEditClick, onaddmoculeclick }) {
     const [show, setShow] = useState(false)
     const [completionPercentage, setcompletepercentage] = useState(null)
-    const [addCourseButton, setAddCourse] = useState(false)
     useEffect(() => {
         if (show == true) {
             setTimeout(() => {
@@ -20,14 +19,7 @@ function LibraryDetailcard({ isAdmin }) {
 
     return (
         <>
-            {addCourseButton &&
-                <AddModule
-                    isModalOpen={addCourseButton}
-                    onClickCancel={() => { setAddCourse(false) }}
-                    title={'Module'}
-                    onSave={() => { }}
-                />
-            }
+
             <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px] mb-[10px] cursor-pointer' >
                 {/* <div className='min-h-[260px] h-full min-w-[600px] border border-[#3C3C3C] rounded-[13px] p-[30px] mb-[10px] cursor-pointer' onClick={() => { route.pusp(`/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}`)}}> */}
 
@@ -57,9 +49,9 @@ function LibraryDetailcard({ isAdmin }) {
                                     width={20}
                                     height={20}
                                     className="bg-primary-base rounded-full mr-[20px]"
-                                    onClick={() => { setAddCourse(true) }}
+                                    onClick={() => { onaddmoculeclick() }}
                                 />
-                                <Image src={'/asset/EditVector.svg'} height={20} width={20} className='cursor-pointer' onClick={() => { console.log('Hahah'); }} />
+                                <Image src={'/asset/EditVector.svg'} height={20} width={20} className='cursor-pointer' onClick={() => { onEditClick() }} />
 
                             </div>
                         }
