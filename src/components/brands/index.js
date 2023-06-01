@@ -1,6 +1,6 @@
 import { getBrandsDetails, getOutlets } from "@/store/slices/outlet";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BrandsSlider from "./BrandsSlider";
 import BrandsSlider2 from "./BrandsSlider2";
@@ -14,10 +14,10 @@ const sliderData = [
     title: "Work From Beautiful Concepts",
     img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/Denaes+Diner.jpeg",
   },
-  {
-    title: "Claim Rewards for Your Progress",
-    img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/rooftop-at-the-standard-downtown-night.jpeg",
-  },
+  // {
+  //   title: "Claim Rewards for Your Progress",
+  //   img: "https://nitecapp.s3.amazonaws.com/Hotel+Outlets/rooftop-at-the-standard-downtown-night.jpeg",
+  // },
 ];
 const sliderData2 = [
   {
@@ -66,12 +66,30 @@ function Brands() {
 
   const { brand_display } = useSelector((state) => state.auth)
   const { hotelBrandDetails } = useSelector((state) => state.outlets)
+  const [Images, setImages] = useState({
+    hotelImages: [],
+    outletImages: []
+  })
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getBrandsDetails())
   }, [])
-
-
+  useEffect(() => {
+    setImages({
+      hotelImages: repArrayFunc(hotelBrandDetails?.hotel_images),
+      outletImages: repArrayFunc(hotelBrandDetails?.outlet_images)
+    })
+  }, [hotelBrandDetails])
+  useEffect(() => {
+    console.log(Images);
+  }, [Images])
+  function repArrayFunc(originalArray) {
+    let repeatedArray = []
+    while (repeatedArray.length < 6) {
+      repeatedArray = repeatedArray.concat(originalArray);
+    }
+    return [repeatedArray.slice(0, 3), repeatedArray.slice(3)]
+  }
   return (
     <>
       <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px] py-6">
@@ -82,7 +100,7 @@ function Brands() {
 
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-x-[58px] mb-[48px]">
         <div className=" col-span-1 lg:mb-0 mb-6">
-          <BrandsSlider sliderData={sliderData} sliderData2={sliderData2} />
+          <BrandsSlider sliderData={Images.outletImages.length ? Images.outletImages[0] : []} sliderData2={Images.outletImages.length ? Images.outletImages[1] : []} />
         </div>
         <div className=" col-span-1  ">
           <Paragraph
@@ -104,7 +122,7 @@ function Brands() {
           />
         </div>
         <div className=" lg:col-span-1 col-span-1 lg:mb-0 mb-6">
-          <BrandsSlider sliderData={sliderData3} sliderData2={sliderData4} />
+          <BrandsSlider sliderData={Images.hotelImages.length ? Images.hotelImages[0] : []} sliderData2={Images.hotelImages.length ? Images.hotelImages[1] : []} />
 
         </div>
       </div>
