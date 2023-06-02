@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     course: [],
-    courseDetail: {}
+    courseDetail: {},
+    chapters: [],
+    modules: [],
 };
 
 export const learnSlice = createSlice({
@@ -12,6 +14,12 @@ export const learnSlice = createSlice({
     reducers: {
         getCourses: (state, action) => {
             state.course = action.payload.data
+        },
+        getChapters: (state, action) => {
+            state.chapters = action.payload.data
+        },
+        getModules: (state, action) => {
+            state.modules = action.payload.data
         },
         getIngredientDetails: (state, action) => {
             state.ingredientDetails = action.payload
@@ -35,6 +43,24 @@ export const getCourses = () => {
             console.log("response in product,js 47", res);
             dispatch(
                 learnSlice.actions.getCourses({
+                    data: res?.data?.data,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getChapters = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/course/get-all-course`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.getChapters({
                     data: res?.data?.data,
                 })
             );
