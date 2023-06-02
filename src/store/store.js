@@ -11,6 +11,7 @@ import ui from "./slices/ui";
 import outlets from './slices/outlet';
 import manageusers from './slices/manageusers';
 import guests from './slices/guests';
+import learn from './slices/learnslice';
 
 export const store = configureStore({
   reducer: {
@@ -24,7 +25,8 @@ export const store = configureStore({
     ui,
     outlets,
     manageusers,
-    guests
+    guests,
+    learn
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),

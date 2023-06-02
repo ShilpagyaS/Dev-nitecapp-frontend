@@ -1,11 +1,14 @@
+import { createCourse } from "@/store/slices/learnslice";
+import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
 import { CustomSelectWithAllBlackTheme } from "@/utils/CustomSelect";
 import InputFieldWirhAutoWidth from "@/utils/InputFieldWithAutoWidth";
 import { useState } from "react";
 import Modal from "react-modal";
+import { useDispatch } from "react-redux";
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
-
+import { successtoast } from '../tostify'
 export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
@@ -34,7 +37,8 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
         }
     )
     const [isfocused, setisFocused] = useState(false);
-
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -54,8 +58,46 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
 
     const handleSave = () => {
 
-        // onSave(body)
-        onClickCancel();
+        let dummydata = {
+            name: courseForm.name,
+            description: courseForm.desc,
+        }
+        if (upimage) {
+            dispatch(uploadimage(upimage)).then((imageurl) => {
+                if (imageurl && !imageurl?.error)
+                    dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
+                        console.log(res);
+                        res?.error ?
+                            // errortoast({ message: res.message }) 
+                            ''
+                            :
+                            successtoast({ message: 'Added successfully' });
+                        onClickCancel()
+                        console.log('if');
+
+
+                    })
+                else console.log("cannot upload")
+            })
+        }
+        else {
+
+            console.log('else block');
+            dispatch(createCourse(dummydata)).then((res) => {
+                console.log(res);
+                console.log('else');
+                res?.error ?
+                    // errortoast({ message: res.message }) 
+                    ''
+                    : successtoast({ message: `${nameref.current.innerText} is updated successfully` });
+
+                onClickCancel()
+
+            })
+
+
+
+        }
 
 
     };
@@ -83,7 +125,7 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
                 >
                     Course Image
                 </h5>
-                <LearnFileUpload />
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
 
                 <InputFieldWirhAutoWidth
                     placeholder=""
@@ -326,7 +368,7 @@ export function EditChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, ing
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
             </div>
             <div className='h-full mb-[10px] '>
-            <h5
+                <h5
                     className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
                         ? "text-[#959595]"
                         : "text-white"
