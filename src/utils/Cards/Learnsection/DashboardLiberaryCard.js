@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
-function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc }) {
+function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc, isAdmin }) {
     const [completionPercentage, setcompletepercentage] = useState(null)
     useEffect(() => {
         if (completionPercentageOuter) {
@@ -24,15 +24,21 @@ function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc })
             <p className='not-italic font-normal text-[16px] font-Inter text-[#959595] mt-[15px]'>
                 {desc}
             </p>
-            <div className='flex items-center justify-end not-italic font-normal text-[14px] font-Inter text-[#959595] mx-[10px] '>
-                {`${completionPercentage ? completionPercentage : 0}% Complete`}
-            </div>
-            <div className='w-full px-[10px]'>
-
-                <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
-                    <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${completionPercentage ? completionPercentage : 0}%` }}></div>
+            {
+                !isAdmin &&
+                <div className='flex items-center justify-end not-italic font-normal text-[14px] font-Inter text-[#959595] mx-[10px] '>
+                    {`${completionPercentage ? completionPercentage : 0}% Complete`}
                 </div>
-            </div>
+            }
+            {
+                !isAdmin &&
+                <div className='w-full px-[10px]'>
+
+                    <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
+                        <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${completionPercentage ? completionPercentage : 0}%` }}></div>
+                    </div>
+                </div>
+            }
 
         </div>
     )

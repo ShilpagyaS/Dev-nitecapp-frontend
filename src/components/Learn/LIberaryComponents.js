@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router';
 import React from 'react'
 
-function LIberaryComponents({ allCourses }) {
+function LIberaryComponents({ allCourses, isAdmin }) {
     const router = useRouter();
 
     const aray = [
@@ -44,7 +44,7 @@ function LIberaryComponents({ allCourses }) {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]'>
                 {allCourses.map((item) =>
                     <div className='w-full  mb-[10px]' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=5`) }}>
-                        <DashboardLiberaryCard completionPercentageOuter={item.progress} image={item.img} name={item.name} desc={item.desc} />
+                        <DashboardLiberaryCard completionPercentageOuter={item.progress} image={item.img} name={item.name} desc={item.desc} isAdmin={isAdmin} />
                     </div>
                 )
 

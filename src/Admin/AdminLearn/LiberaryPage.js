@@ -25,7 +25,7 @@ function LiberaryPage() {
                 return {
                     id: element.course_id,
                     img: element.image,
-                    name: element.name,
+                    name: element.name, 
                     progress: 30,
                     desc: element.description,
                 }
@@ -62,7 +62,7 @@ function LiberaryPage() {
                     </div>
                     <ChipWithLeftButton condition={true} label={'Add Course'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} />
                 </div>
-                <LIberaryComponents allCourses={courses} />
+                <LIberaryComponents allCourses={courses} isAdmin={true} />
             </div>
         </>
     )
