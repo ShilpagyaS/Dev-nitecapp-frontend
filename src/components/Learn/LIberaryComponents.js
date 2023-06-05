@@ -43,8 +43,8 @@ function LIberaryComponents({ allCourses, isAdmin }) {
         <div className='w-full mt-[35px]'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]'>
                 {allCourses.map((item) =>
-                    <div className='w-full  mb-[10px]' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=5`) }}>
-                        <DashboardLiberaryCard completionPercentageOuter={item.progress} image={item.img} name={item.name} desc={item.desc} isAdmin={isAdmin} />
+                    <div className='w-full  mb-[10px]' >
+                        <DashboardLiberaryCard item={item} completionPercentageOuter={item.progress} image={item.img} name={item.name} desc={item.desc} isAdmin={isAdmin} />
                     </div>
                 )
 

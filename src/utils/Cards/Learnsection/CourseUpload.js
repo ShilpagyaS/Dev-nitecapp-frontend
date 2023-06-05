@@ -45,7 +45,7 @@ export default function CourseFileUpload({ setimage, defaultImage, isClear, isEd
     };
 
     return (
-        <div>
+        <div className="h-full">
             {image.preview ? (<>
                 <div className="relative"> 
 
@@ -82,7 +82,7 @@ export default function CourseFileUpload({ setimage, defaultImage, isClear, isEd
             </>
             ) : (
                 <label htmlFor="upload-button">
-                    <div className="bg-black rounded-[8px] border border-[#787878] flex items-center cursor-pointer justify-center h-[191px] w-full mr-[31px]">
+                    <div className="bg-black rounded-[8px] border border-[#787878] flex items-center cursor-pointer justify-center min-h-[191px] h-full w-full">
                         <div className="flex flex-col bg-transparent justify-center items-center">
 
                             <Image

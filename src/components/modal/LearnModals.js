@@ -256,7 +256,7 @@ export function AddChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, ingr
 
                         }`}
                 >
-                    Course Image
+                    Chapter Image
                 </h5>
                 <LearnFileUpload />
                 <InputFieldWirhAutoWidth
@@ -375,7 +375,7 @@ export function EditChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, ing
 
                         }`}
                 >
-                    Course Image
+                    Chapter Image
                 </h5>
                 <LearnFileUpload />
                 <InputFieldWirhAutoWidth
@@ -696,7 +696,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
 
                                 }`}
                         >
-                            Course Image
+                            Module Image
                         </h5>
                         <LearnFileUpload />
                     </>
@@ -837,7 +837,7 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBt
 
                                 }`}
                         >
-                            Course Image
+                            Module Image
                         </h5>
                         <LearnFileUpload />
                     </>

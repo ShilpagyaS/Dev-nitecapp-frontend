@@ -21,8 +21,8 @@ export const learnSlice = createSlice({
         getModules: (state, action) => {
             state.modules = action.payload.data
         },
-        getIngredientDetails: (state, action) => {
-            state.ingredientDetails = action.payload
+        getCoursesDetails: (state, action) => {
+            state.courseDetail = action.payload
         },
         emptyAlling: (state) => {
             state.course = []
@@ -45,6 +45,42 @@ export const getCourses = () => {
                 learnSlice.actions.getCourses({
                     data: res?.data?.data,
                 })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getCoursesDetail = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/course/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getCoursesDetails(
+                    res?.data?.data,
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getModuleDetail = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/course/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getCoursesDetails(
+                    res?.data?.data,
+                )
             );
         }).catch((err) => {
             console.log(err)
