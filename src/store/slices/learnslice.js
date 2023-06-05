@@ -121,6 +121,69 @@ export const createCourse = (data) => {
         });
     };
 };
+export const putCourse = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCourses())
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const createChapter = (data, course_id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-chapter/add-new-courseChapter`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(course_id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putChapter = (data, Chapterid, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-chapter/${Chapterid}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const createModule = (data, course_id) => {
+    return async (dispatch) => {
+        return await axiosInstance({
+            url: `/api/course-module/add-new-courseModule`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(course_id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const getIngredientsListBytype = (productType) => {
     return async (dispatch, getState) => {
         const state = getState();

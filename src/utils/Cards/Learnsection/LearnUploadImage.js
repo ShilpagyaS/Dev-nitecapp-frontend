@@ -49,7 +49,7 @@ export default function LearnFileUpload({ setimage, defaultImage, isClear, isEdi
                         />
 
                     </div>
-                    <label htmlFor="upload-button">
+                    <label htmlFor="learnid">
 
                         {isEdit &&
                             <>
@@ -69,7 +69,7 @@ export default function LearnFileUpload({ setimage, defaultImage, isClear, isEdi
                 </div>
             </>
             ) : (
-                <label htmlFor="upload-button">
+                <label htmlFor="learnid">
                     <div className="bg-black rounded-[8px] border border-[#787878] flex items-center cursor-pointer justify-center min-h-[100px] h-full w-full mr-[31px]">
                         <div className="flex flex-col bg-transparent justify-center items-center">
 
@@ -91,7 +91,7 @@ export default function LearnFileUpload({ setimage, defaultImage, isClear, isEdi
             )}
             <input
                 type="file"
-                id="upload-button"
+                id="learnid"
                 style={{ display: "none" }}
                 onChange={handleChange}
             />

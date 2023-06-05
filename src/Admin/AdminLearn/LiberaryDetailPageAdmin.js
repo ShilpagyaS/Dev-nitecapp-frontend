@@ -13,6 +13,8 @@ function LiberaryDetailPageAdmin({ courseId }) {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditaChapter, setEditChapter] = useState(false)
     const [Addmodule, setaddmodule] = useState(false)
+    const [selectedData, setselectedData] = useState(false)
+    const [chapterId, setChapterId] = useState(null)
     const { courseDetail } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -32,6 +34,7 @@ function LiberaryDetailPageAdmin({ courseId }) {
                     isModalOpen={addCourseButton}
                     onClickCancel={() => { setAddCourse(false) }}
                     title={'Chapter'}
+                    courseId={courseId}
                     onSave={() => { }}
                 />
             }
@@ -41,12 +44,17 @@ function LiberaryDetailPageAdmin({ courseId }) {
                     onClickCancel={() => { setEditChapter(false) }}
                     title={'Chapter'}
                     onSave={() => { }}
+                    data={selectedData}
+                    courseId={courseId}
+                    chapterId={chapterId}
                 />
             }
             {Addmodule &&
                 <AddModule
                     isModalOpen={Addmodule}
                     onClickCancel={() => { setaddmodule(false) }}
+                    courseChapter_id={chapterId}
+                    courseId={courseId}
                     title={'Module'}
                     onSave={() => { }}
                 />
@@ -67,7 +75,17 @@ function LiberaryDetailPageAdmin({ courseId }) {
                 </div>
                 {
                     courseDetail?.chapters?.map((chapter) =>
-                        <LibraryDetailcard chapter={chapter} courseId={courseId} courseName={courseDetail?.name} isAdmin={true} onEditClick={() => { setEditChapter(true) }} onaddmoculeclick={() => { setaddmodule(true) }} />
+                        <LibraryDetailcard chapter={chapter} courseId={courseId} courseName={courseDetail?.name} isAdmin={true}
+                            onEditClick={() => {
+                                setselectedData({
+                                    course_id: courseId,
+                                    name: chapter.name,
+                                    description: chapter.description,
+                                    image: chapter.image,
+                                });
+                                setChapterId(chapter.courseChapter_id);
+                                setEditChapter(true)
+                            }} onaddmoculeclick={() => { setChapterId(chapter.courseChapter_id); console.log(chapter.courseChapter_id); setaddmodule(true) }} />
                     )
                 }
             </div>

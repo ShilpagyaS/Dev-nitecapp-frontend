@@ -25,9 +25,10 @@ function LiberaryPage() {
                 return {
                     id: element.course_id,
                     img: element.image,
-                    name: element.name, 
+                    name: element.name,
                     progress: 30,
                     desc: element.description,
+                    data: element,
                 }
 
             }
