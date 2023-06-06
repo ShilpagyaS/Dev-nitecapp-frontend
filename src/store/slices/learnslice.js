@@ -73,7 +73,7 @@ export const getModuleDetail = (id) => {
     return async (dispatch, getState) => {
         const state = getState();
         await axiosInstance({
-            url: `/api/course/${id}`,
+            url: `/api/course-module/${id}`,
             method: "GET",
         }).then((res) => {
             console.log("response->", res.data.data, res);
@@ -177,6 +177,38 @@ export const createModule = (data, course_id) => {
             data
         }).then((res) => {
             dispatch(getCoursesDetail(course_id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const createModulePage = (data, moduleId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-module-page/add-new-course-module-page`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getModuleDetail(moduleId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putModulePage = (data, modulepageid, moduleid) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-module-page/${modulepageid}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getModuleDetail(moduleid))
             return res
         }).catch((err) => {
             console.log(err)
