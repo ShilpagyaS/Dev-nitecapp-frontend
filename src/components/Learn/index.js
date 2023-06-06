@@ -2,13 +2,41 @@ import CourceSlider from '@/Admin/AdminDashboard-comp/CourceSlider'
 import IndicatorSlider from '@/Admin/AdminDashboard-comp/IndicatorSlider'
 import LearnSection from '@/Admin/AdminDashboard-comp/LearnSection'
 import ResumeCourseSection from '@/Admin/AdminDashboard-comp/ResumeCourseSection'
+import { emptycourses, getCourses } from '@/store/slices/learnslice'
 import BigFlashcard from '@/utils/Cards/Learnsection/BigFlashcard'
 import DashboardLiberaryCard from '@/utils/Cards/Learnsection/DashboardLiberaryCard'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import LIberaryComponents from './LIberaryComponents'
 
 function Learn() {
+    const [courses, setcourses] = useState([])
+    const { course } = useSelector((state) => state.learn)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCourses())
+        return () => {
+            dispatch(emptycourses())
+        }
+    }, [])
+    useEffect(() => {
+        console.log(course);
+        let dummy = course?.map(
+            (element) => {
+                return {
+                    id: element.course_id,
+                    img: element.image,
+                    name: element.name,
+                    progress: 30,
+                    desc: element.description,
+                }
+
+            }
+        ) || []
+        setcourses([...dummy])
+    }, [course])
     return (
         <div>
             {/* <BigFlashcard /> */}
@@ -21,7 +49,7 @@ function Learn() {
                 </h5>
                 <Image src={'/asset/Vector 5.svg'} height={15} width={8} className={'ml-[20px]'} />
             </div>
-            <LIberaryComponents />
+            <LIberaryComponents allCourses={courses}/>
             <IndicatorSlider />
         </div>
     )

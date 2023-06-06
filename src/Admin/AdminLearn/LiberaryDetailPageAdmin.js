@@ -8,7 +8,7 @@ import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
+ 
 function LiberaryDetailPageAdmin({ courseId }) {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditaChapter, setEditChapter] = useState(false)
@@ -23,10 +23,6 @@ function LiberaryDetailPageAdmin({ courseId }) {
             dispatch(emptycourses())
         }
     }, [])
-    useEffect(() => {
-        console.log(courseDetail);
-    }, [courseDetail])
-
     return (
         <>
             {addCourseButton &&

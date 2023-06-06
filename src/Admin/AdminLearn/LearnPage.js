@@ -29,7 +29,7 @@ function LearnPage() {
                     name: element.name,
                     progress: 30,
                     desc: element.description,
-                }
+                } 
 
             }
         ) || []
