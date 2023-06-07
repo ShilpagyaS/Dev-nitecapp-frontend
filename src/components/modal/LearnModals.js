@@ -61,6 +61,7 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
         let dummydata = {
             name: courseForm.name,
             description: courseForm.desc,
+            instructor_name: courseForm.instructorName
         }
         if (upimage) {
             dispatch(uploadimage(upimage)).then((imageurl) => {
@@ -358,7 +359,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, data
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -863,7 +864,7 @@ export function EditModulePage({ isModalOpen, onClickCancel, modulepageid, modul
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -1029,7 +1030,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -1274,7 +1275,11 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
 
     const handleSave = () => {
 
-        // onSave(body)
+        onSave({
+            type: contentType.value,
+            text: courseForm.textcontent,
+            image: courseForm.image,
+        })
         onClickCancel();
 
 
@@ -1306,7 +1311,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                 <div className='mb-[8px]'>
                     <CustomSelectWithAllBlackTheme
                         items={[
-                            { label: 'Image', value: 'Image' },
+                            { label: 'Image', value: 'image' },
                             { label: 'Text', value: 'text' },
                         ]}
                         optionalFunction={(e) => {
@@ -1315,7 +1320,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                         }} />
                 </div>
                 {
-                    contentType.value == 'Image' &&
+                    contentType.value == 'image' &&
                     <>
                         <h5
                             className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
@@ -1324,7 +1329,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
 
                                 }`}
                         >
-                            Module Image
+                            Content Image
                         </h5>
                         <LearnFileUpload />
                     </>
@@ -1367,7 +1372,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
         </Modal>
     )
 }
-export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn, data, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -1394,6 +1399,16 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBt
             image: null
         }
     )
+    useEffect(() => {
+        setCourse({
+
+            type: data.type,
+            textcontent: data.text || '',
+            image: data.image || ''
+
+        })
+    }, [data])
+
     const [isfocused, setisFocused] = useState(false);
     const [contentType, setContentType] = useState({ value: '', label: '' })
     function handleChange(e) {
@@ -1416,6 +1431,7 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBt
     const handleSave = () => {
 
         // onSave(body)
+        console.log(data);
         onClickCancel();
 
 
@@ -1447,16 +1463,17 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBt
                 <div className='mb-[8px]'>
                     <CustomSelectWithAllBlackTheme
                         items={[
-                            { label: 'Image', value: 'Image' },
+                            { label: 'Image', value: 'image' },
                             { label: 'Text', value: 'text' },
                         ]}
+                        defaultSelect={data.type == 'text' ? { label: 'Text', value: 'text' } : { label: 'Image', value: 'image' }}
                         optionalFunction={(e) => {
                             console.log(e);
                             setContentType({ value: e.value, label: e.label })
                         }} />
                 </div>
                 {
-                    contentType.value == 'Image' &&
+                    contentType.value == 'image' &&
                     <>
                         <h5
                             className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
@@ -1465,7 +1482,7 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBt
 
                                 }`}
                         >
-                            Module Image
+                            Content Image
                         </h5>
                         <LearnFileUpload />
                     </>
