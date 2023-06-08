@@ -6,6 +6,7 @@ const initialState = {
     courseDetail: {},
     chapters: [],
     modules: [],
+    flashcard:[],
 };
 
 export const learnSlice = createSlice({
@@ -14,6 +15,9 @@ export const learnSlice = createSlice({
     reducers: {
         getCourses: (state, action) => {
             state.course = action.payload.data
+        },
+        getFlashCard: (state, action) => {
+            state.flashcard = action.payload.data
         },
         getChapters: (state, action) => {
             state.chapters = action.payload.data
@@ -80,6 +84,24 @@ export const getModuleDetail = (id) => {
             dispatch(
                 learnSlice.actions.getCoursesDetails(
                     res?.data?.data,
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getFlashCards = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard/get_all_flashcard`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getCourses(
+                    res?.data
                 )
             );
         }).catch((err) => {

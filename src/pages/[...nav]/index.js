@@ -208,7 +208,7 @@ export default function Category() {
                 {path === `/learn` && <Learn />}
                 {path === `/learn/library` && <LiberaryAll />}
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />}
-                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId}/>}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId} />}
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />}
 
@@ -316,10 +316,6 @@ export default function Category() {
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LiberaryModulContentList moduleId={productId} />}
                 {path === `/learn/flashcards` && <FLashCards />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashCardDetailPage />}
-
-
- 
-
               </LayoutWithSidebarAdmin>
             }
           </>

@@ -6,6 +6,7 @@ import BigFlashcard from '@/utils/Cards/Learnsection/BigFlashcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import React, { useState } from 'react'
 import { RxCross1 } from 'react-icons/rx'
+import FlashCardTables from './FLashcardTable'
 
 function AdminFlashCardDetailPage() {
     const [addCourseButton, setAddCourse] = useState(false)
@@ -55,7 +56,9 @@ function AdminFlashCardDetailPage() {
                     </div>
                     :
 
-                    <AdminFlashcard onClickHandler={() => { setShowDetail(true) }} />
+                    // <AdminFlashcard onClickHandler={() => { setShowDetail(true) }} />
+                    <FlashCardTables />
+
                 }
             </div>
         </>
