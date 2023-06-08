@@ -89,7 +89,7 @@ function FoodListTry() {
         )}
         <div className='alphabetscroll overflow-x-auto flex items-center mb-[26px] mt-[15px]  pb-[15px]' >
           {[{ value: 'all', label: 'All' }, ...categoryArray].map((e) =>
-            <div className={`not-italic font-medium cursor-pointer text-base font-Inter ${selectedcategory == e.value ? 'border text-primary-base border-primary-base' : 'text-white border border-white'} rounded-full px-2 py-[1px] capitalize mr-[12px]`} onClick={() => { onCatClick(e.value) }}>{e.label}</div>
+            <div className={`not-italic flex-shrink-0 font-medium cursor-pointer text-base font-Inter ${selectedcategory == e.value ? 'border text-primary-base border-primary-base' : 'text-white border border-white'} rounded-full px-2 py-[1px] capitalize mr-[12px]`} onClick={() => { onCatClick(e.value) }}>{e.label}</div>
           )}
         </div>
         {/* <div className='relative h-[50px] w-full'>
@@ -107,7 +107,7 @@ function FoodListTry() {
                 <p className="text-white text-[20px] font-semibold mb-5 capitalize">
                   {section.type || " "}
                 </p>
-                <div className="cards-container grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-2 mt-[10px]  ">
+                <div className="cards-container grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 mt-[10px]  ">
                   {section.data.map((card, i) => {
                     return (
                       <div className=" ">

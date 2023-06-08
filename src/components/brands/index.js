@@ -104,11 +104,17 @@ function Brands() {
         </div>
         <div className=" col-span-1  ">
           <Paragraph
+            title={`Explore Our ${hotelBrandDetails?.outlet_type}`}
+            desc={hotelBrandDetails?.outlet_summary}
+            btnLabel="Explore All"
+            onClickHandler={() => { router.push("/brands/all_Brands") }}
+          />
+          {/* <Paragraph
             title="Explore Our Outlets"
             desc="Discover Classic brands, time-honored hospitality for the modern traveller. We offer our family of Distinctive brands."
             btnLabel="Explore All"
             onClickHandler={() => { router.push("/brands/all_Brands") }}
-          />
+          /> */}
         </div>
       </div>
 
@@ -116,7 +122,7 @@ function Brands() {
         <div className=" col-span-1 ">
           <Paragraph
             title={`Explore ${hotelBrandDetails?.brand_display_name}`}
-            desc="In Ancient Greece, Delphi was considered the center of the world. A few thousand years later, that essence now resides at 550 Flower Street: a staple of downtown Los Angeles’ silhouette. Once the headquarters of Superior Oil, and then, the focal point of the city’s early 2000’s revitalization, our address is once again rewriting the script for creativity, culture, and hospitality."
+            desc={hotelBrandDetails?.hotel_description}
             btnLabel={`View ${hotelBrandDetails?.brand_display_name} Website`}
             onClickHandler={() => { if (hotelBrandDetails?.website) { window.open(hotelBrandDetails?.website) } }}
           />

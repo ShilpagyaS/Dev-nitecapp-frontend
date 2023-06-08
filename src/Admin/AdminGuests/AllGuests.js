@@ -108,7 +108,7 @@ function AllGuests() {
                 <h2 className="text-white text-[18px] leading-9 font-bold ">
                     {selectedAlphabet != '' ? selectedAlphabet : 'All'}
                 </h2>
-                <div className='grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-col-2'>
+                <div className='grid lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-3 grid-col-2'>
                     {filteredusers.map((e) =>
                         <GuestCard image={e.image} name={e.first_name} onClickHandler={() => {
                             router.push(`/guests/${enUrl(e.first_name)}?id=${e.guest_id}`);
