@@ -76,8 +76,7 @@ function Brands() {
   }, [])
   useEffect(() => {
     setImages({
-      // hotelImages: repArrayFunc(hotelBrandDetails?.hotel_images),
-      hotelImages: repArrayFunc([]),
+      hotelImages: repArrayFunc(hotelBrandDetails?.hotel_images),
       outletImages: repArrayFunc(hotelBrandDetails?.outlet_images)
     })
   }, [hotelBrandDetails])
