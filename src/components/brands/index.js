@@ -76,7 +76,8 @@ function Brands() {
   }, [])
   useEffect(() => {
     setImages({
-      hotelImages: repArrayFunc(hotelBrandDetails?.hotel_images),
+      // hotelImages: repArrayFunc(hotelBrandDetails?.hotel_images),
+      hotelImages: repArrayFunc([]),
       outletImages: repArrayFunc(hotelBrandDetails?.outlet_images)
     })
   }, [hotelBrandDetails])
@@ -85,10 +86,14 @@ function Brands() {
   }, [Images])
   function repArrayFunc(originalArray) {
     let repeatedArray = []
-    while (repeatedArray.length < 6) {
-      repeatedArray = repeatedArray.concat(originalArray);
+    if (originalArray?.length) {
+
+      while (repeatedArray.length < 6) {
+        repeatedArray = repeatedArray.concat(originalArray);
+      }
+      return [repeatedArray.slice(0, 3), repeatedArray.slice(3)]
     }
-    return [repeatedArray.slice(0, 3), repeatedArray.slice(3)]
+    return [["","",""],["","",""]]
   }
   return (
     <>
@@ -118,8 +123,8 @@ function Brands() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 order-last space-y-reverse grid-cols-1 gap-x-[58px] mb-[48px]">
-        <div className=" col-span-1 ">
+      <div className="grid lg:grid-cols-2 order-last space-y-reverse grid-cols-1 lg:gap-x-[58px] lg:mb-[48px]">
+        <div >
           <Paragraph
             title={`Explore ${hotelBrandDetails?.brand_display_name}`}
             desc={hotelBrandDetails?.hotel_description}
@@ -127,7 +132,7 @@ function Brands() {
             onClickHandler={() => { if (hotelBrandDetails?.website) { window.open(hotelBrandDetails?.website) } }}
           />
         </div>
-        <div className=" lg:col-span-1 col-span-1 lg:mb-0 mb-6">
+        <div className=" mt-5 lg:pb-0 pb-6">
           <BrandsSlider sliderData={Images.hotelImages.length ? Images.hotelImages[0] : []} sliderData2={Images.hotelImages.length ? Images.hotelImages[1] : []} />
 
         </div>

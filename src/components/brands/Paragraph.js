@@ -10,7 +10,7 @@ function Paragraph({ title, desc, btnLabel, onClickHandler }) {
         <p className="heading text-[16px] text-white leading-[25px] lg:mb-8 mb-3 ">
           {desc}
         </p>
-        <div className="flex justify-start">
+        <div className="flex  justify-center lg:justify-start">
           <CustomButtonRound
             background="#CBAF69"
             rounded="27px"
