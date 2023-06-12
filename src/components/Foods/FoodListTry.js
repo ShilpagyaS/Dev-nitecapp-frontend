@@ -1,6 +1,6 @@
 import useFilteredData from '@/Hooks/useFilteredData';
 import useMediaQuery from '@/Hooks/useMediaQuery';
-import { emptyProductList, getcategoriesbytype, getProduct } from '@/store/slices/product';
+import { emptyProductList, getcategoriesbytype, getFoodCategory, getProduct } from '@/store/slices/product';
 import { enUrl } from '@/utils/encoderfunc';
 import Search from '@/utils/Search';
 import { FoodCard } from '@/utils/SpecCards';
@@ -23,7 +23,7 @@ function FoodListTry() {
 
   useEffect(() => {
     dispatch(getProduct("food"));
-    dispatch(getcategoriesbytype('food')).then((res) => { console.log(res); setCategory(res) })
+    dispatch(getFoodCategory('food')).then((res) => { console.log(res); setCategory(res) })
     return () => {
       dispatch(emptyProductList());
     };
