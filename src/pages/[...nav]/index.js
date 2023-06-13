@@ -86,6 +86,8 @@ import LiberaryDetailPageAdmin from "@/Admin/AdminLearn/LiberaryDetailPageAdmin"
 import LiberaryModulContentList from "@/Admin/AdminLearn/LiberaryModulContentList";
 import FLashCards from "@/Admin/AdminLearn/FLashCards";
 import AdminFlashCardDetailPage from "@/Admin/AdminLearn/FlashCardDetailPage";
+import AdminFlashcardChapterPage from "@/Admin/AdminLearn/AdminFlashcardChapterPage";
+import AdminFlashcardTablepage from "@/Admin/AdminLearn/AdminFlashcardTablepage";
 
 
 
@@ -93,7 +95,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
   const [testvalue, settestvalue] = useState({ label: "", value: "" })
-  const { category, subcategory, subcategory2, subcategory3, productId, typeid, path } =
+  const { category, subcategory, subcategory2, subcategory3, subcategory4, productId, typeid, path, infoid } =
     useNavDetails();
 
   return (
@@ -315,7 +317,9 @@ export default function Category() {
                 {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LiberaryModulContentList moduleId={productId} />}
                 {path === `/learn/flashcards` && <FLashCards />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashCardDetailPage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}?id=${productId}&typeid=${typeid}&infoid=${infoid}` && <AdminFlashCardDetailPage />}
               </LayoutWithSidebarAdmin>
             }
           </>

@@ -1,23 +1,72 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useState } from 'react'
 
-function AllFlashCardcard({ onclickhandle }) {
+function AllFlashCardcard({ data, onclickhandle, isAdmin, onEditCick, onDeleteClick }) {
     const router = useRouter();
+    const [isHover, setishover] = useState({
+        hover: false,
+        index: null
+    })
+
     return (
-        <div className='max-w-[382px] h-[150px] border border-[#3C3C3C] p-[12px] flex items-center justify-between rounded-[10px] cursor-pointer' onClick={() => { router.push("/learn/flashcards/Bar?id=5") }} >
+        <div className={`max-w-[382px] relative h-[150px] border ${isHover.hover ? 'border-white' : 'border-[#3C3C3C]'} p-[12px] flex items-center justify-between rounded-[10px] cursor-pointer`}
+            onMouseEnter={() => {
+                setishover({
+                    hover: true,
+                    index: '2'
+                })
+            }} onMouseLeave={() => {
+                setishover({
+                    hover: false,
+                    index: null
+                })
+            }}>
             <div className=' flex flex-col justify-center pl-[20px]'>
-                <div className='not-italic font-bold text-[18px] font-Inter text-white'>
-                    The Delphi Brand Orientation
+                <div className='not-italic font-bold text-[18px] font-Inter text-white pr-[5px] ' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.id}`) }}>
+                    {data.name}
                 </div>
+
                 <div className='not-italic font-normal text-[16px] text-[#959595]'>
-                    11 cards
+                    {`${data.noOfCards} cards`}
                 </div>
+
             </div>
             <div className=' relative h-[125px] w-[125px] rounded-[10px]'>
-                <Image src={'https://s3-alpha-sig.figma.com/img/9509/1d5e/ca0aac92c5c45f6828c548cbab321649?Expires=1685318400&Signature=cuK19Er4yBa29BNfrBwH6R~LBvmLgxQVDA2FUtvuARijNd8q3e3ORjIGlbD2Sg7F3H7przbjw0260DO~6FVttG4mMC60DdysQPeOfgqpYb4ksDHbKJVlj0AtiD8xOcdMAsxhTgkcQstxBfl~sa0idGyAaha1xZWsk8r8sfaZcyKPWeyUG8SsMP15xOBgdf42RJldAQjyqtJyv2GRnX3n7mLmrR3oonFssu0kOR06sSFsNW4FD35lwl7BRqhFiHq-UB1wlKU~AoBd8XDAUUFHcSY-Cd4ZIbM2vcqJo3jl30cS2ievylZ0nScQ1kT5Guf9CRmalP2C3NmJxYyIj9sNnA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'} fill className='rounded-[10px] object-cover' />
-            </div>
+                <Image src={data.images} fill className='rounded-[10px] object-cover' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.id}`) }} />
+                {
+                    isAdmin && isHover.hover &&
 
+                    <div className='absolute flex justify-end bg-[#00000087] h-full w-full items-start left-0 top-0 rounded-[10px] p-[5px]'>
+                        <div className='bg-transparent flex items-center '>
+
+                            {/* <div className="editbutton cursor-pointer flex items-center justify-center bg-primary-base p-2 rounded-full w-fit " onClick={() => { onclickEdit() }}>
+                        <svg width="18" height="18" viewBox="0 0 18 18" className="bg-transparent" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.47275 15.4172H17.25V17.2506H0.75V13.3611L9.825 4.28615L13.7135 8.17648L6.47183 15.4172H6.47275ZM11.1202 2.9909L13.0654 1.04573C13.2373 0.873883 13.4704 0.777344 13.7135 0.777344C13.9566 0.777344 14.1897 0.873883 14.3616 1.04573L16.9548 3.63898C17.1267 3.81088 17.2232 4.044 17.2232 4.28706C17.2232 4.53013 17.1267 4.76325 16.9548 4.93515L15.0097 6.8794L11.1212 2.9909H11.1202Z" fill="white" />
+                        </svg>
+                    </div> */}
+                            <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center mr-[5px]' onClick={() => { onEditCick() }}>
+                                <Image
+                                    src={'/asset/EditVector.svg'}
+                                    // src={'/asset/DeleteVector.svg'}
+                                    width={20}
+                                    height={20}
+                                    className="bg-[#171717]"
+                                />
+                            </button>
+                            <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center' onClick={() => { onDeleteClick() }}>
+                                <Image
+                                    src={'/asset/DeleteVector.svg'}
+                                    // src={'/asset/DeleteVector.svg'}
+                                    width={20}
+                                    height={20}
+                                    className="bg-[#171717]"
+                                />
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
 
         </div>
     )

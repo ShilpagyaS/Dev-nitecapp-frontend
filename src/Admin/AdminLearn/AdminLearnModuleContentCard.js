@@ -89,7 +89,7 @@ function AdminLearnModuleContentCard({ onCancelButton }) {
                                                 setishover({
                                                     hover: true,
                                                     index: i
-                                                })
+                                                 })
                                             }} onMouseLeave={() => {
                                                 setishover({
                                                     hover: false,

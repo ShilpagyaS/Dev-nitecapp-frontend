@@ -1,12 +1,14 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { BsShuffle } from 'react-icons/bs'
 import Bigbutton from '../Learnutils/Bigbutton'
 import BigFlashcard from './BigFlashcard'
 
-function Flashcarddetailcomponent() {
+function Flashcarddetailcomponent({ data, onNext, currentCard, totalcards }) {
+  const [reset, setReset] = useState(false)
+
   return (
     <div>
       <Breadcrumb />
@@ -18,20 +20,20 @@ function Flashcarddetailcomponent() {
       </div>
       <div className='flex justify-evenly '>
         <div className=' flex flex-col'>
-          <BigFlashcard />
+          <BigFlashcard data={data} reset={reset} setResetFalse={() => { setReset(false) }} />
           <div className=' w-full p-[20px] flex items-center justify-between'>
-            <Bigbutton text={'I don’t know this yet'} colorTrue={false} onClickHandle={() => { }} />
-            <Bigbutton text={'I know this'} colorTrue={true} onClickHandle={() => { }} />
+            <Bigbutton text={'I don’t know this yet'} colorTrue={false} onClickHandle={() => { onNext(), setReset(true) }} />
+            <Bigbutton text={'I know this'} colorTrue={true} onClickHandle={() => { onNext(), setReset(true) }} />
           </div>
         </div>
         <div className=' flex flex-col p-[20px]'>
           <div className='flex flex-col mb-[30px]'>
             <h2 className='not-italic font-semibold text-[18px] text-white font-Inter'> Total</h2>
-            <p className='not-italic font-normal text-[16px] text-white font-Inter'>12 / 52 cards</p>
+            <p className='not-italic font-normal text-[16px] text-white font-Inter'>{`${currentCard + 1} / ${totalcards} cards`}</p>
           </div>
           <div className='flex flex-col mb-[30px]'>
             <h2 className='not-italic font-semibold text-[18px] text-white font-Inter'> Learned</h2>
-            <p className='not-italic font-normal text-[16px] text-white font-Inter'>10 cards</p>
+            <p className='not-italic font-normal text-[16px] text-white font-Inter'>{`${currentCard} cards`}</p>
           </div>
           <div className='flex flex-col mb-[30px]'>
             <h2 className='not-italic font-semibold text-[18px] text-white font-Inter'> Missed</h2>

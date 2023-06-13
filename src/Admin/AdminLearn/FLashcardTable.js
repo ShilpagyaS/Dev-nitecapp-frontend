@@ -1,7 +1,7 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
-import { AddItemModal } from '@/components/modal/NewDminFlowModals'
+import { AddFlashCard } from '@/components/modal/LearnModals'
 import { getFlashCards } from '@/store/slices/learnslice'
-import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, delinkProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { delinkProductById } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -106,7 +106,9 @@ function FlashCardTables() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton onClickHandler={() => { router.push(`/specs/beer/${enUrl(element.itemName)}?id=${element.id}`); }}
+                        <EditCircularButton 
+                        onClickHandler={() => { router.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology Of Hospitality')}/${enUrl('demo')}?id=${'5'}&typeid=${'89'}&infoid=${'3'}`);
+                     }}
                         />
                         <div className='ml-[15px]'>
 
@@ -134,25 +136,20 @@ function FlashCardTables() {
         dispatch(delinkProductById(data))
     }
     return (
-        <>   {DeleteModal &&
-            <DeleteProduct
-                isModalOpen={DeleteModal}
-                onClickCancel={() => { setDeleteModal(false) }}
-                title={elementItem.title}
-                onSave={deleteProduct}
-            />}
+        <>
+            {DeleteModal &&
+                <DeleteProduct
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={elementItem.title}
+                    onSave={deleteProduct}
+                />}
             {AddModal &&
-                <AddItemModal
+                <AddFlashCard
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAddModal(false) }}
-                    label={'Beers'}
-                    type={'beer'}
-                    title={'Beer'}
-                    onSave={(data) => {
-
-                        // return dispatch(createProductAndUpdatingList('beer', data))
-                        return dispatch(createProductAndUpdatingListNew('beer', data))
-                    }}
+                    title={'Flashcard'}
+                    onSave={() => { }}
                 />
             }
             <TableContainerWithButtons label={'Add Flashcard'} buttonFunction={() => {

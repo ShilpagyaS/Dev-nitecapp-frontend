@@ -1799,7 +1799,640 @@ export function EditFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, i
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
+                    <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+// ------------------------------ FlashcardModals --------------------------------------------
+export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            name: "",
+            type: "",
+        }
+    )
+    const [isfocused, setisFocused] = useState(false);
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        // let dummydata = {
+        //     name: courseForm.name,
+        //     description: courseForm.desc,
+        //     instructor_name: courseForm.instructorName
+        // }
+        // if (upimage) {
+        //     dispatch(uploadimage(upimage)).then((imageurl) => {
+        //         if (imageurl && !imageurl?.error)
+        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
+        //                 console.log(res);
+        //                 res?.error ?
+        //                     // errortoast({ message: res.message }) 
+        //                     ''
+        //                     :
+        //                     successtoast({ message: 'Added successfully' });
+        //                 onClickCancel()
+        //                 console.log('if');
+
+
+        //             })
+        //         else console.log("cannot upload")
+        //     })
+        // }
+        // else {
+
+        //     console.log('else block');
+        //     dispatch(createCourse(dummydata)).then((res) => {
+        //         console.log(res);
+        //         console.log('else');
+        //         res?.error ?
+        //             // errortoast({ message: res.message }) 
+        //             ''
+        //             : successtoast({ message: 'Added successfully' });
+
+        //         onClickCancel()
+
+        //     })
+
+
+
+        // }
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+            </div>
+            <div className='h-[330px] mb-[10px] p-4'>
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Category Type<sup>*</sup>
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={[
+                            { value: 'courses', label: 'Courses' },
+                            { value: 'specs', label: 'Specs' },
+                            { value: 'others', label: 'Others' },
+                        ]}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            // setBrandForm(prev => { return { ...prev, role: e.value } })
+                        }} />
+                </div>
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Categoey Name"
+                    onChangeHandler={handleChange}
+                    value={courseForm.name}
+                    name={"name"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <h5
+                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                        ? "text-[#959595]"
+                        : "text-white"
+
+                        }`}
+                >
+                    Category Image
+                </h5>
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
                     <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function EditFlashcardCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            name: "",
+            type: "",
+        }
+    )
+    const [isfocused, setisFocused] = useState(false);
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        // let dummydata = {
+        //     name: courseForm.name,
+        //     description: courseForm.desc,
+        //     instructor_name: courseForm.instructorName
+        // }
+        // if (upimage) {
+        //     dispatch(uploadimage(upimage)).then((imageurl) => {
+        //         if (imageurl && !imageurl?.error)
+        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
+        //                 console.log(res);
+        //                 res?.error ?
+        //                     // errortoast({ message: res.message }) 
+        //                     ''
+        //                     :
+        //                     successtoast({ message: 'Added successfully' });
+        //                 onClickCancel()
+        //                 console.log('if');
+
+
+        //             })
+        //         else console.log("cannot upload")
+        //     })
+        // }
+        // else {
+
+        //     console.log('else block');
+        //     dispatch(createCourse(dummydata)).then((res) => {
+        //         console.log(res);
+        //         console.log('else');
+        //         res?.error ?
+        //             // errortoast({ message: res.message }) 
+        //             ''
+        //             : successtoast({ message: 'Added successfully' });
+
+        //         onClickCancel()
+
+        //     })
+
+
+
+        // }
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
+            </div>
+            <div className='h-[330px] mb-[10px] p-4'>
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Category Type<sup>*</sup>
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={[
+                            { value: 'courses', label: 'Courses' },
+                            { value: 'specs', label: 'Specs' },
+                            { value: 'others', label: 'Others' },
+                        ]}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            // setBrandForm(prev => { return { ...prev, role: e.value } })
+                        }} />
+                </div>
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Categoey Name"
+                    onChangeHandler={handleChange}
+                    value={courseForm.name}
+                    name={"name"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <h5
+                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                        ? "text-[#959595]"
+                        : "text-white"
+
+                        }`}
+                >
+                    Category Image
+                </h5>
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            name: "",
+            type: "",
+        }
+    )
+    const [isfocused, setisFocused] = useState(false);
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        // let dummydata = {
+        //     name: courseForm.name,
+        //     description: courseForm.desc,
+        //     instructor_name: courseForm.instructorName
+        // }
+        // if (upimage) {
+        //     dispatch(uploadimage(upimage)).then((imageurl) => {
+        //         if (imageurl && !imageurl?.error)
+        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
+        //                 console.log(res);
+        //                 res?.error ?
+        //                     // errortoast({ message: res.message }) 
+        //                     ''
+        //                     :
+        //                     successtoast({ message: 'Added successfully' });
+        //                 onClickCancel()
+        //                 console.log('if');
+
+
+        //             })
+        //         else console.log("cannot upload")
+        //     })
+        // }
+        // else {
+
+        //     console.log('else block');
+        //     dispatch(createCourse(dummydata)).then((res) => {
+        //         console.log(res);
+        //         console.log('else');
+        //         res?.error ?
+        //             // errortoast({ message: res.message }) 
+        //             ''
+        //             : successtoast({ message: 'Added successfully' });
+
+        //         onClickCancel()
+
+        //     })
+
+
+
+        // }
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+            </div>
+            <div className='max-h-[330px] h-full mb-[10px] p-4'>
+                {/* <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Select Category<sup>*</sup>
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={[
+                            { value: 'courses', label: 'Courses' },
+                            { value: 'specs', label: 'Specs' },
+                            { value: 'others', label: 'Others' },
+                        ]}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            // setBrandForm(prev => { return { ...prev, role: e.value } })
+                        }} />
+                </div> */}
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Subcategory Name"
+                    onChangeHandler={handleChange}
+                    value={courseForm.name}
+                    name={"name"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <h5
+                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                        ? "text-[#959595]"
+                        : "text-white"
+
+                        }`}
+                >
+                    Subcategory Image
+                </h5>
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function EditFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            name: "",
+            type: "",
+        }
+    )
+    const [isfocused, setisFocused] = useState(false);
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        // let dummydata = {
+        //     name: courseForm.name,
+        //     description: courseForm.desc,
+        //     instructor_name: courseForm.instructorName
+        // }
+        // if (upimage) {
+        //     dispatch(uploadimage(upimage)).then((imageurl) => {
+        //         if (imageurl && !imageurl?.error)
+        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
+        //                 console.log(res);
+        //                 res?.error ?
+        //                     // errortoast({ message: res.message }) 
+        //                     ''
+        //                     :
+        //                     successtoast({ message: 'Added successfully' });
+        //                 onClickCancel()
+        //                 console.log('if');
+
+
+        //             })
+        //         else console.log("cannot upload")
+        //     })
+        // }
+        // else {
+
+        //     console.log('else block');
+        //     dispatch(createCourse(dummydata)).then((res) => {
+        //         console.log(res);
+        //         console.log('else');
+        //         res?.error ?
+        //             // errortoast({ message: res.message }) 
+        //             ''
+        //             : successtoast({ message: 'Added successfully' });
+
+        //         onClickCancel()
+
+        //     })
+
+
+
+        // }
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
+            </div>
+            <div className='max-h-[330px] h-full mb-[10px] p-4'>
+                {/* <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                    >
+                        Select Category<sup>*</sup>
+                    </h5>
+                </div>
+                <div className='mb-[8px]'>
+
+                    <CustomSelectWithAllBlackTheme
+                        items={[
+                            { value: 'courses', label: 'Courses' },
+                            { value: 'specs', label: 'Specs' },
+                            { value: 'others', label: 'Others' },
+                        ]}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            // setBrandForm(prev => { return { ...prev, role: e.value } })
+                        }} />
+                </div> */}
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Subcategory Name"
+                    onChangeHandler={handleChange}
+                    value={courseForm.name}
+                    name={"name"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                <h5
+                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                        ? "text-[#959595]"
+                        : "text-white"
+
+                        }`}
+                >
+                    Subcategory Image
+                </h5>
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>
