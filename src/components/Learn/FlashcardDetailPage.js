@@ -30,9 +30,22 @@ function FlashcardDetailPage() {
         },
     ]
     const [counter, setCounter] = useState(0)
+    const [missedandLearn, setMissedAndLearn] = useState({
+        missed: 0,
+        learned: 0,
+    }
+    )
+    function setStats(key) {
+        if (missedandLearn.missed + missedandLearn.learned < arr.length - 1)
+            setMissedAndLearn((prev) => {
+                return {
+                    ...prev, [key]: prev[key] + 1
+                }
+            })
+    }
     return (
         <div>
-            <Flashcarddetailcomponent data={arr[counter]} totalcards={arr.length} currentCard={counter} onNext={() => { if (counter < arr.length - 1) setCounter(prev => prev + 1) }} />
+            <Flashcarddetailcomponent stats={missedandLearn} setStats={setStats} data={arr[counter]} totalcards={arr.length} currentCard={counter} onNext={() => { if (counter < arr.length - 1) setCounter(prev => prev + 1) }} />
         </div>)
 }
 

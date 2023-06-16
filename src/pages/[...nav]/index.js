@@ -88,6 +88,7 @@ import FLashCards from "@/Admin/AdminLearn/FLashCards";
 import AdminFlashCardDetailPage from "@/Admin/AdminLearn/FlashCardDetailPage";
 import AdminFlashcardChapterPage from "@/Admin/AdminLearn/AdminFlashcardChapterPage";
 import AdminFlashcardTablepage from "@/Admin/AdminLearn/AdminFlashcardTablepage";
+import FlashcardSubcategoryPage from "@/components/Learn/FlashcardSubcategoryPage";
 
 
 
@@ -212,7 +213,10 @@ export default function Category() {
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId} />}
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage />}
+
+                {/* {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />} */}
 
               </LayoutWithSidebar>
             }
