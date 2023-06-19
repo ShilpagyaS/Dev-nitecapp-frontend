@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 
-function AdminFlashcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
+function AdminQuizListcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
     const [isHover, setishover] = useState({
         hover: false,
         index: null
     })
     return (
-        <div className='p-[8px] w-[248px] h-[175px] flex flex-col border border-[#3C3C3C] rounded-[11px] cursor-pointer'
+        <div className='p-[8px] w-[248px] min-h-[175px] flex flex-col border border-[#3C3C3C] rounded-[11px] cursor-pointer'
 
             onMouseEnter={() => {
                 setishover({
@@ -25,12 +25,12 @@ function AdminFlashcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
 
             </div>
             <div className='flex items-center justify-between relative'>
-                <div className=''>
-                    <h2 className='not-italic font-bold text-xs font-Inter mt-[15px] text-white ml-[10px]' onClick={onClickHandler}>
+                <div className='w-full p-[5px]'>
+                    <h2 className='not-italic font-bold text-xs font-Inter mt-[15px] text-white ml-[10px] break-words w-full' onClick={onClickHandler}>
                         Psychology of Hospitality
                     </h2>
                     <p className='not-italic font-[400] text-xs font-Inter mt-[5px] text-[#959595] ml-[10px]' onClick={onClickHandler}>
-                        74 Cards
+                        74 Quizes
                     </p>
                 </div>
                 {
@@ -62,4 +62,4 @@ function AdminFlashcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
     )
 }
 
-export default AdminFlashcard
+export default AdminQuizListcard
