@@ -1,5 +1,5 @@
 import { DeleteProduct } from '@/components/modal/adminmodal'
-import { AddFlashCard } from '@/components/modal/LearnModals'
+import { AddFlashCard, DeleteLearn } from '@/components/modal/LearnModals'
 import { getFlashCards } from '@/store/slices/learnslice'
 import { delinkProductById } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
@@ -133,12 +133,12 @@ function FlashCardTables() {
             type: 'beer',
             id: elementItem.id,
         }
-        dispatch(delinkProductById(data))
+        // dispatch(delinkProductById(data))
     }
     return (
         <>
             {DeleteModal &&
-                <DeleteProduct
+                <DeleteLearn
                     isModalOpen={DeleteModal}
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}

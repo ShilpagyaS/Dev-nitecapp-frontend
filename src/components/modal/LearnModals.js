@@ -1612,7 +1612,7 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, in
 
                             }`}
                     >
-                        Question
+                        Front Text
                     </h5>
 
                     <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
@@ -1637,7 +1637,7 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, in
 
                             }`}
                     >
-                        Answer
+                        Flip text
                     </h5>
 
                     <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
@@ -1753,7 +1753,7 @@ export function EditFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, i
 
                             }`}
                     >
-                        Question
+                        Front Text
                     </h5>
 
                     <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
@@ -1778,7 +1778,7 @@ export function EditFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, i
 
                             }`}
                     >
-                        Answer
+                        Flip text
                     </h5>
 
                     <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
@@ -1834,8 +1834,49 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
             type: "",
         }
     )
+
+    const [result, setResult] = useState({})
+    const [typeOfForm, setType] = useState(null)
+    const [isNone, setINone] = useState(false)
+    const [categorySelected, setCategorySelected] = useState(null)
+    const [iscategorySelected, setIsCategorySelected] = useState(false)
+
+    const data = {
+        courses: [
+            {
+                value: 'The Delphi Orientataion',
+                name: 'The Delphi Orientataion'
+            },
+            {
+                value: 'Bar 101 ',
+                name: 'Bar 101'
+            },
+            {
+                value: null,
+                name: 'None'
+            }
+        ],
+        specs: [
+            {
+                value: 'Beer',
+                name: 'Beer'
+            },
+            {
+                value: 'Wine',
+                name: 'Wine'
+            },
+            {
+                value: null,
+                name: 'None'
+            }
+        ],
+        others: null
+    }
+    const [categoryDroptown, setDropdown] = useState([])
     const [isfocused, setisFocused] = useState(false);
+    const [reset, setReset] = useState(false);
     const [upimage, setimage] = useState(undefined);
+
     const dispatch = useDispatch()
     function handleChange(e) {
         const { name, value } = e.target;
@@ -1847,7 +1888,47 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
             };
         });
     }
+    function onTypeSelect(e) {
+        setReset(true)
+        setIsCategorySelected(false)
+        if (e.value == 'others') {
+            setDropdown(null)
+            setType(2)
+            setIsCategorySelected(false)
 
+        }
+        else {
+            console.log(data[e.value]);
+            setDropdown(() => {
+                return data[e.value].map((element) => {
+                    return {
+                        value: element.value,
+                        label: element.name,
+                        data: element
+                    }
+                })
+            }
+            )
+            setType(1)
+        }
+        setTimeout(() => {
+
+            setReset(false)
+        }, 100);
+    }
+    function oncategoruSelected(e) {
+        console.log('running category select', e);
+        setIsCategorySelected(true)
+        if (e.value) {
+            setCategorySelected(e)
+        }
+        else {
+            setCategorySelected(null)
+        }
+
+
+
+    }
     const handleCancel = () => {
         onClickCancel();
 
@@ -1910,14 +1991,14 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
             <div className="text-white border-none outline-none flex items-center justify-center">
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
-            <div className='h-[330px] mb-[10px] p-4'>
+            <div className='min-h-[200px] h-full max-h-[330px] notificationModal mb-[10px] p-4'>
                 <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
                         className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
              text-[#959595]`}
                     // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                     >
-                        Category Type<sup>*</sup>
+                        Type<sup>*</sup>
                     </h5>
                 </div>
                 <div className='mb-[8px]'>
@@ -1930,29 +2011,103 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
                         ]}
                         optionalFunction={(e) => {
                             console.log(e);
+                            onTypeSelect(e)
                             // setBrandForm(prev => { return { ...prev, role: e.value } })
                         }} />
                 </div>
-                <InputFieldWirhAutoWidth
-                    placeholder=""
-                    label="Categoey Name"
-                    onChangeHandler={handleChange}
-                    value={courseForm.name}
-                    name={"name"}
-                    type={"text"}
-                    errorResponnse={_INITIAL}
-                />
-                <h5
-                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
-                        ? "text-[#959595]"
-                        : "text-white"
+                {
+                    typeOfForm == 1 &&
+                    <>
 
-                        }`}
-                >
-                    Category Image
-                </h5>
-                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                        <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                            <h5
+                                className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+             text-[#959595]`}
+                            // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                            >
+                                Select Category<sup>*</sup>
+                            </h5>
+                        </div>
+                        <div className='mb-[8px]'>
 
+                            <CustomSelectWithAllBlackTheme
+                                // items={[
+                                //     { value: 'courses', label: 'Courses' },
+                                //     { value: 'specs', label: 'Specs' },
+                                //     { value: 'others', label: 'Others' },
+                                // ]}
+                                items={categoryDroptown}
+                                resetValue={reset}
+                                optionalFunction={(e) => {
+                                    oncategoruSelected(e)
+                                    console.log(e);
+                                    // setBrandForm(prev => { return { ...prev, role: e.value } })
+                                }} />
+                        </div>
+                        {
+                            iscategorySelected && !categorySelected && <>
+
+                                <InputFieldWirhAutoWidth
+                                    placeholder=""
+                                    label="Category Name"
+                                    onChangeHandler={handleChange}
+                                    value={courseForm.name}
+                                    name={"name"}
+                                    type={"text"}
+                                    errorResponnse={_INITIAL}
+                                />
+                                <h5
+                                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                                        ? "text-[#959595]"
+                                        : "text-white"
+
+                                        }`}
+                                >
+                                    Category Image
+                                </h5>
+                                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                            </>
+                        }
+                        {
+                            iscategorySelected && categorySelected && <>
+                                <h5
+                                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                                        ? "text-[#959595]"
+                                        : "text-white"
+
+                                        }`}
+                                >
+                                    Category Image
+                                </h5>
+                                <LearnFileUpload defaultImage={'https://s3-alpha-sig.figma.com/img/9509/1d5e/ca0aac92c5c45f6828c548cbab321649?Expires=1685318400&Signature=cuK19Er4yBa29BNfrBwH6R~LBvmLgxQVDA2FUtvuARijNd8q3e3ORjIGlbD2Sg7F3H7przbjw0260DO~6FVttG4mMC60DdysQPeOfgqpYb4ksDHbKJVlj0AtiD8xOcdMAsxhTgkcQstxBfl~sa0idGyAaha1xZWsk8r8sfaZcyKPWeyUG8SsMP15xOBgdf42RJldAQjyqtJyv2GRnX3n7mLmrR3oonFssu0kOR06sSFsNW4FD35lwl7BRqhFiHq-UB1wlKU~AoBd8XDAUUFHcSY-Cd4ZIbM2vcqJo3jl30cS2ievylZ0nScQ1kT5Guf9CRmalP2C3NmJxYyIj9sNnA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'} isEdit={false} />
+                            </>
+                        }
+                    </>
+                }
+                {
+                    typeOfForm == 2 &&
+                    <>
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label="Category Name"
+                            onChangeHandler={handleChange}
+                            value={courseForm.name}
+                            name={"name"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
+
+                                }`}
+                        >
+                            Category Image
+                        </h5>
+                        <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                    </>
+                }
 
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -2152,6 +2307,8 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
     )
     const [isfocused, setisFocused] = useState(false);
     const [upimage, setimage] = useState(undefined);
+    const [categorySelected, setCategorySelected] = useState(null)
+    const [iscategorySelected, setIsCategorySelected] = useState(false)
     const dispatch = useDispatch()
     function handleChange(e) {
         const { name, value } = e.target;
@@ -2169,6 +2326,19 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
 
 
     };
+    function oncategoruSelected(e) {
+        console.log('running category select', e);
+        setIsCategorySelected(true)
+        if (e.value) {
+            setCategorySelected(e)
+        }
+        else {
+            setCategorySelected(null)
+        }
+
+
+
+    }
 
     const handleSave = () => {
 
@@ -2227,48 +2397,68 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='max-h-[330px] h-full mb-[10px] p-4'>
-                {/* <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
                         className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
              text-[#959595]`}
                     // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
                     >
-                        Select Category<sup>*</sup>
+                        Select Flashcard Deck<sup>*</sup>
                     </h5>
                 </div>
                 <div className='mb-[8px]'>
 
                     <CustomSelectWithAllBlackTheme
                         items={[
-                            { value: 'courses', label: 'Courses' },
-                            { value: 'specs', label: 'Specs' },
-                            { value: 'others', label: 'Others' },
+                            { value: 'courses1', label: 'Course1' },
+                            { value: 'courses2', label: 'Course2' },
+                            { value: 'courses3', label: 'Course3' },
+                            { value: 'courses4', label: 'Course4' },
+                            { value: null, label: 'New' },
                         ]}
                         optionalFunction={(e) => {
                             console.log(e);
+                            oncategoruSelected(e)
                             // setBrandForm(prev => { return { ...prev, role: e.value } })
                         }} />
-                </div> */}
-                <InputFieldWirhAutoWidth
-                    placeholder=""
-                    label="Subcategory Name"
-                    onChangeHandler={handleChange}
-                    value={courseForm.name}
-                    name={"name"}
-                    type={"text"}
-                    errorResponnse={_INITIAL}
-                />
-                <h5
-                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
-                        ? "text-[#959595]"
-                        : "text-white"
+                </div>
+                {
+                    iscategorySelected && !categorySelected && <>
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label="Subcategory Name"
+                            onChangeHandler={handleChange}
+                            value={courseForm.name}
+                            name={"name"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
 
-                        }`}
-                >
-                    Subcategory Image
-                </h5>
-                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                                }`}
+                        >
+                            Subcategory Image
+                        </h5>
+                        <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                    </>
+                }
+                {
+                    iscategorySelected && categorySelected && <>
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
 
+                                }`}
+                        >
+                            Subcategory Image
+                        </h5>
+                        <LearnFileUpload defaultImage={'https://s3-alpha-sig.figma.com/img/9509/1d5e/ca0aac92c5c45f6828c548cbab321649?Expires=1685318400&Signature=cuK19Er4yBa29BNfrBwH6R~LBvmLgxQVDA2FUtvuARijNd8q3e3ORjIGlbD2Sg7F3H7przbjw0260DO~6FVttG4mMC60DdysQPeOfgqpYb4ksDHbKJVlj0AtiD8xOcdMAsxhTgkcQstxBfl~sa0idGyAaha1xZWsk8r8sfaZcyKPWeyUG8SsMP15xOBgdf42RJldAQjyqtJyv2GRnX3n7mLmrR3oonFssu0kOR06sSFsNW4FD35lwl7BRqhFiHq-UB1wlKU~AoBd8XDAUUFHcSY-Cd4ZIbM2vcqJo3jl30cS2ievylZ0nScQ1kT5Guf9CRmalP2C3NmJxYyIj9sNnA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'} isEdit={false} />
+                    </>
+                }
 
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -2433,6 +2623,77 @@ export function EditFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, d
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Save'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function DeleteLearn({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave()
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
+            </div>
+            <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                    {`Deleting this will permanantly remove all the data of the selected item .Do You Want To Delete ${title} ?"`}
+                </h3>
+
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>

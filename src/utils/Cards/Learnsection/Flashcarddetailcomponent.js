@@ -11,13 +11,6 @@ function Flashcarddetailcomponent({ data, onNext, currentCard, totalcards, stats
 
   return (
     <div>
-      <Breadcrumb />
-      <div className="flex items-center mb-[33px]">
-
-        <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[2px]'>
-          {`Bar 101`}
-        </h5>
-      </div>
       <div className='flex justify-evenly '>
         <div className=' flex flex-col'>
           <BigFlashcard data={data} reset={reset} setResetFalse={() => { setReset(false) }} />

@@ -1,5 +1,5 @@
 import Breadcrumb from '@/components/Breadcrumb'
-import { AddFlashcardCategory, EditFlashcardCategory } from '@/components/modal/LearnModals'
+import { AddFlashcardCategory, DeleteLearn, EditFlashcardCategory } from '@/components/modal/LearnModals'
 import AllFlashCardcard from '@/utils/Cards/Learnsection/AllFlashCardcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import React, { useState } from 'react'
@@ -68,8 +68,21 @@ function FLashCards() {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
     const [globaldata, getGlobaldata] = useState(null)
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [elementItem, setElementItem] = useState({
+        title: '',
+        id: ''
+    })
+
     return (
         <>
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={elementItem.title}
+                    onSave={() => { console.log(elementItem.title); }}
+                />}
             {addCourseButton &&
                 <AddFlashcardCategory
                     isModalOpen={addCourseButton}
@@ -107,7 +120,7 @@ function FLashCards() {
                                     {element.type}
                                 </h5>
                             </div>
-                            <div className='flex flex-col w-[300px] border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]'>
+                            {/* <div className='flex flex-col w-[300px] border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]'>
                                 <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
                                     {`Study All`}
                                 </h5>
@@ -115,12 +128,19 @@ function FLashCards() {
                                     {`${element.cardsCount} Cards`}
                                 </h5>
 
-                            </div>
+                            </div> */}
                             <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                                 {
                                     element.categories.map((cat) =>
 
-                                        <AllFlashCardcard data={cat} isAdmin={true} onEditCick={() => { setEditCourse(true) }} />
+                                        <AllFlashCardcard data={cat} isAdmin={true} onEditCick={() => { setEditCourse(true) }}
+                                            onDeleteClick={() => {
+                                                setElementItem({
+                                                    title: cat.name,
+                                                    id: cat.id
+                                                })
+                                                setDeleteModal(true)
+                                            }} />
                                     )
                                 }
                             </div>

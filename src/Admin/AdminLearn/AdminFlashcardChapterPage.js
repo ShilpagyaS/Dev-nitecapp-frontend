@@ -1,5 +1,5 @@
 import Breadcrumb from '@/components/Breadcrumb'
-import { AddFlashcardSubCategory, EditFlashCard, EditFlashcardSubCategory } from '@/components/modal/LearnModals'
+import { AddFlashcardSubCategory, DeleteLearn, EditFlashCard, EditFlashcardSubCategory } from '@/components/modal/LearnModals'
 import AdminFlashcard from '@/utils/Cards/Learnsection/AdminFlashcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import { enUrl } from '@/utils/encoderfunc'
@@ -10,6 +10,11 @@ function AdminFlashcardChapterPage() {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
     const [showDetail, setShowDetail] = useState(false)
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [elementItem, setElementItem] = useState({
+        title: '',
+        id: ''
+    })
     const route = useRouter()
 
     return (
@@ -18,7 +23,7 @@ function AdminFlashcardChapterPage() {
                 <AddFlashcardSubCategory
                     isModalOpen={addCourseButton}
                     onClickCancel={() => { setAddCourse(false) }}
-                    title={'Subcategory'}
+                    title={'Flashcard Deck'}
                     onSave={() => { }}
                 />
             }
@@ -26,10 +31,18 @@ function AdminFlashcardChapterPage() {
                 <EditFlashcardSubCategory
                     isModalOpen={EditCourseButton}
                     onClickCancel={() => { setEditCourse(false) }}
-                    title={'Subcategory'}
+                    title={'Flashcard Deck'}
                     onSave={() => { }}
                 />
             }
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={elementItem.title}
+                    onSave={() => { console.log(elementItem.title); }}
+                />}
+
             <div>
                 <Breadcrumb />
                 <div className='bg-transparent col-span-3 flex items-center justify-between mb-[10px]'>
@@ -38,11 +51,17 @@ function AdminFlashcardChapterPage() {
                     </h5>
 
 
-                    <ChipWithLeftButton condition={true} label={'Add Subcategories'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} />
+                    <ChipWithLeftButton condition={true} label={'Add Flashcard Deck'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} />
                 </div>
 
 
-                <AdminFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} onEditCick={() => { setEditCourse(true) }} />
+                <AdminFlashcard onDeleteClick={() => {
+                    setElementItem({
+                        title: 'cat.name',
+                        id: 'cat.id'
+                    })
+                    setDeleteModal(true)
+                }} onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} onEditCick={() => { setEditCourse(true) }} />
                 {/* <AdminFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}`) }} /> */}
 
             </div>
