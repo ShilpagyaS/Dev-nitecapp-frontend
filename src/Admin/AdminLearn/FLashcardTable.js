@@ -1,7 +1,6 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
 import { AddFlashCard, DeleteLearn } from '@/components/modal/LearnModals'
-import { getFlashCards } from '@/store/slices/learnslice'
-import { delinkProductById } from '@/store/slices/product'
+import useNavDetails from '@/Hooks/useNavDetails'
+import { emptycourses, getFlashCardsBySubcategoryId } from '@/store/slices/learnslice'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -11,11 +10,14 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-function FlashCardTables() {
+function FlashCardTables({ id }) {
     const router = useRouter();
     const { course } = useSelector((state) => state.learn)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
+    const { category, subcategory, subcategory2, subcategory3, subcategory4, productId, typeid, path, infoid } =
+    useNavDetails();
+
     const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
@@ -24,10 +26,10 @@ function FlashCardTables() {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getFlashCards())
+        dispatch(getFlashCardsBySubcategoryId(id))
 
         return () => {
-            // dispatch(emptyProductList())
+            dispatch(emptycourses())
         }
     }, [])
     console.log(course);
@@ -37,7 +39,8 @@ function FlashCardTables() {
                 return {
                     id: element.flashcard_id,
                     itemImage: element.image,
-                    itemName: element.front_text,
+                    itemName: element.name,
+                    // itemName: element.front_text,
                     showHideStatus: element.showProduct || false,
                     data: element,
                     createdDate: element.createdAt,
@@ -106,9 +109,10 @@ function FlashCardTables() {
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
 
-                        <EditCircularButton 
-                        onClickHandler={() => { router.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology Of Hospitality')}/${enUrl('demo')}?id=${'5'}&typeid=${'89'}&infoid=${'3'}`);
-                     }}
+                        <EditCircularButton
+                            onClickHandler={() => {
+                                router.push(`/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(element.itemName)}?id=${element.data.flashcard_id}&typeid=${element.data.flashcard_subcategory_id}&infoid=${element.data.flashcard_category_id}`);
+                            }}
                         />
                         <div className='ml-[15px]'>
 

@@ -7,7 +7,7 @@ import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import React, { useState } from 'react'
 import { RxCross1 } from 'react-icons/rx'
 import FlashCardTables from './FLashcardTable'
-function AdminFlashcardTablepage() {
+function AdminFlashcardTablepage({ subcategoryid, subcategory }) {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
     const [showDetail, setShowDetail] = useState(false)
@@ -33,13 +33,13 @@ function AdminFlashcardTablepage() {
             <div>
                 <Breadcrumb />
                 <div className='bg-transparent col-span-3 flex items-center justify-between'>
-                    <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[5px]'>
-                        Psychology Of Hospitality
+                    <h5 className='not-italic capitalize font-semibold text-[32px] font-Inter leading-tight text-white mb-[5px]'>
+                       {subcategory}
                     </h5>
                 </div>
 
 
-                <FlashCardTables />
+                <FlashCardTables id={subcategoryid} />
 
             </div>
         </>

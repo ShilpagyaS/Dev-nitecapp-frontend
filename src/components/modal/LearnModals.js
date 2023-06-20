@@ -1840,6 +1840,7 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
     const [isNone, setINone] = useState(false)
     const [categorySelected, setCategorySelected] = useState(null)
     const [iscategorySelected, setIsCategorySelected] = useState(false)
+    const [categoryType, seytcatType] = useState('')
 
     const data = {
         courses: [
@@ -1890,6 +1891,7 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
     }
     function onTypeSelect(e) {
         setReset(true)
+        seytcatType(e.value)
         setIsCategorySelected(false)
         if (e.value == 'others') {
             setDropdown(null)
@@ -1937,11 +1939,10 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
 
     const handleSave = () => {
 
-        // let dummydata = {
-        //     name: courseForm.name,
-        //     description: courseForm.desc,
-        //     instructor_name: courseForm.instructorName
-        // }
+        let dummydata = {
+            type: categoryType
+        }
+        console.log(dummydata);
         // if (upimage) {
         //     dispatch(uploadimage(upimage)).then((imageurl) => {
         //         if (imageurl && !imageurl?.error)

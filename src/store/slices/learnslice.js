@@ -6,7 +6,7 @@ const initialState = {
     courseDetail: {},
     chapters: [],
     modules: [],
-    flashcard:[],
+    flashcard: [],
 };
 
 export const learnSlice = createSlice({
@@ -103,6 +103,60 @@ export const getFlashCards = () => {
                 learnSlice.actions.getCourses(
                     res?.data
                 )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getFlashCardsBySubcategoryId = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard/list_by_subcategory_id/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getCourses(
+                    res?.data
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getFlashcardCoursesPage = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard_category/category_list/by_login_user_hotel_id`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.getCourses({
+                    data: res?.data?.data,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getFlashcardSubcategories = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard_subcategory/subcategory_list_by_category_id/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.getCourses({
+                    data: res?.data?.data,
+                })
             );
         }).catch((err) => {
             console.log(err)

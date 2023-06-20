@@ -23,7 +23,8 @@ function AllFlashCardcard({ data, onclickhandle, isAdmin, onEditCick, onDeleteCl
                 })
             }}>
             <div className=' flex flex-col justify-center pl-[20px]'>
-                <div className='not-italic font-bold text-[18px] font-Inter text-white pr-[5px] ' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.id}`) }}>
+                <div className='not-italic capitalize font-bold text-[18px] font-Inter text-white pr-[5px] ' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.flashcard_category_id
+}`) }}>
                     {data.name}
                 </div>
 
@@ -33,7 +34,7 @@ function AllFlashCardcard({ data, onclickhandle, isAdmin, onEditCick, onDeleteCl
 
             </div>
             <div className=' relative h-[125px] w-[125px] rounded-[10px]'>
-                <Image src={data.images} fill className='rounded-[10px] object-cover' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.id}`) }} />
+                <Image src={data.image} fill className='rounded-[10px] object-cover' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.id}`) }} />
                 {
                     isAdmin && isHover.hover &&
 

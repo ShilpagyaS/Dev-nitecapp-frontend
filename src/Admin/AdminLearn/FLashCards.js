@@ -1,8 +1,10 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import { AddFlashcardCategory, DeleteLearn, EditFlashcardCategory } from '@/components/modal/LearnModals'
+import { emptycourses, getFlashcardCoursesPage } from '@/store/slices/learnslice'
 import AllFlashCardcard from '@/utils/Cards/Learnsection/AllFlashCardcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const detail = [
     {
@@ -73,7 +75,14 @@ function FLashCards() {
         title: '',
         id: ''
     })
-
+    const { course } = useSelector((state) => state.learn)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getFlashcardCoursesPage())
+        return () => {
+            dispatch(emptycourses())
+        }
+    }, [])
     return (
         <>
             {DeleteModal &&
@@ -111,12 +120,12 @@ function FLashCards() {
 
                 </div>
                 {
-                    detail.map((element) =>
+                    course?.map((element) =>
                         <div className='mb-[30px]'>
 
                             <div className="flex items-center mb-[33px]">
 
-                                <h5 className='not-italic font-semibold text-[24px] font-Inter leading-tight text-white mb-[2px]'>
+                                <h5 className='not-italic font-semibold capitalize text-[24px] font-Inter leading-tight text-white mb-[2px]'>
                                     {element.type}
                                 </h5>
                             </div>
@@ -131,7 +140,7 @@ function FLashCards() {
                             </div> */}
                             <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                                 {
-                                    element.categories.map((cat) =>
+                                    element?.categories?.map((cat) =>
 
                                         <AllFlashCardcard data={cat} isAdmin={true} onEditCick={() => { setEditCourse(true) }}
                                             onDeleteClick={() => {

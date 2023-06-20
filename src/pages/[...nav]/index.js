@@ -322,12 +322,12 @@ export default function Category() {
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin courseId={productId} />}
                 {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LiberaryModulContentList moduleId={productId} />}
-           
+
                 {path === `/learn/flashcards` && <FLashCards />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage categoryid={productId} subcategory={subcategory2}/>}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage subcategoryid={productId} subcategory={subcategory3}/>}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}?id=${productId}&typeid=${typeid}&infoid=${infoid}` && <AdminFlashCardDetailPage />}
-  
+
                 {path === `/learn/quizzes` && <QuizPage />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}
 
