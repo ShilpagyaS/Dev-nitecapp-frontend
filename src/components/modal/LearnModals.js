@@ -1,4 +1,4 @@
-import { createChapter, createCourse, createModule, createModulePage, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
+import { createChapter, createCourse, createModule, createModulePage, emptycourses, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -1841,23 +1841,8 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
     const [categorySelected, setCategorySelected] = useState(null)
     const [iscategorySelected, setIsCategorySelected] = useState(false)
     const [categoryType, seytcatType] = useState('')
-
-    const data = {
-        courses: [
-            {
-                value: 'The Delphi Orientataion',
-                name: 'The Delphi Orientataion'
-            },
-            {
-                value: 'Bar 101 ',
-                name: 'Bar 101'
-            },
-            {
-                value: null,
-                name: 'None'
-            }
-        ],
-        specs: [
+    const [data, setdata] = useState({
+        courses: [], specs: [
             {
                 value: 'Beer',
                 name: 'Beer'
@@ -1872,13 +1857,64 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
             }
         ],
         others: null
-    }
+    })
+
+    // const data = {
+    //     courses: [
+    //         {
+    //             value: 'The Delphi Orientataion',
+    //             name: 'The Delphi Orientataion'
+    //         },
+    //         {
+    //             value: 'Bar 101 ',
+    //             name: 'Bar 101'
+    //         },
+    //         {
+    //             value: null,
+    //             name: 'None'
+    //         }
+    //     ],
+    //     specs: [
+    //         {
+    //             value: 'Beer',
+    //             name: 'Beer'
+    //         },
+    //         {
+    //             value: 'Wine',
+    //             name: 'Wine'
+    //         },
+    //         {
+    //             value: null,
+    //             name: 'None'
+    //         }
+    //     ],
+    //     others: null
+    // }
     const [categoryDroptown, setDropdown] = useState([])
     const [isfocused, setisFocused] = useState(false);
     const [reset, setReset] = useState(false);
     const [upimage, setimage] = useState(undefined);
+    const [courses, setcoursesdropdown] = useState([])
 
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getCourseDropdown()).then((res) => { console.log(res); setcoursesdropdown(res) })
+
+    }, [])
+    useEffect(() => {
+        console.log(courses);
+        setdata((prev) => {
+            return {
+                ...prev,
+                courses: [...courses, {
+                    value: null,
+                    name: 'None'
+                }],
+            }
+
+        })
+    }, [courses])
+
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -1923,6 +1959,7 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
         setIsCategorySelected(true)
         if (e.value) {
             setCategorySelected(e)
+
         }
         else {
             setCategorySelected(null)
@@ -1941,6 +1978,10 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
 
         let dummydata = {
             type: categoryType
+        }
+        console.log(dummydata, categorySelected);
+        if (categorySelected) {
+            dummydata = { ...dummydata, name: categorySelected.data.name, image: categorySelected.data.image, subcategory_id: categorySelected.data.value }
         }
         console.log(dummydata);
         // if (upimage) {
@@ -2080,7 +2121,7 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
                                 >
                                     Category Image
                                 </h5>
-                                <LearnFileUpload defaultImage={'https://s3-alpha-sig.figma.com/img/9509/1d5e/ca0aac92c5c45f6828c548cbab321649?Expires=1685318400&Signature=cuK19Er4yBa29BNfrBwH6R~LBvmLgxQVDA2FUtvuARijNd8q3e3ORjIGlbD2Sg7F3H7przbjw0260DO~6FVttG4mMC60DdysQPeOfgqpYb4ksDHbKJVlj0AtiD8xOcdMAsxhTgkcQstxBfl~sa0idGyAaha1xZWsk8r8sfaZcyKPWeyUG8SsMP15xOBgdf42RJldAQjyqtJyv2GRnX3n7mLmrR3oonFssu0kOR06sSFsNW4FD35lwl7BRqhFiHq-UB1wlKU~AoBd8XDAUUFHcSY-Cd4ZIbM2vcqJo3jl30cS2ievylZ0nScQ1kT5Guf9CRmalP2C3NmJxYyIj9sNnA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'} isEdit={false} />
+                                <LearnFileUpload defaultImage={categorySelected.data.image} isEdit={false} />
                             </>
                         }
                     </>

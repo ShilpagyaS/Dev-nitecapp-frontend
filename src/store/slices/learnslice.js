@@ -55,6 +55,27 @@ export const getCourses = () => {
         });
     };
 };
+export const getCourseDropdown = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/course/get-all-course`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i.course_id,
+                    name: i.name,
+                    image:i.image
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const getCoursesDetail = (id) => {
     return async (dispatch, getState) => {
         const state = getState();
