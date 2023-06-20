@@ -91,6 +91,8 @@ import AdminFlashcardTablepage from "@/Admin/AdminLearn/AdminFlashcardTablepage"
 import FlashcardSubcategoryPage from "@/components/Learn/FlashcardSubcategoryPage";
 import QuizPage from "@/Admin/AdminLearn/QuizPage";
 import QuizDetailPage from "@/Admin/AdminLearn/QuizDetailPage";
+import AllQuizes from "@/components/Learn/AllQuizes";
+import UserQuizDetailpage from "@/components/Learn/UserQuizDetailpage";
 
 
 
@@ -218,6 +220,9 @@ export default function Category() {
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage />}
 
+                {path === `/learn/quizzes` && <AllQuizes />}
+                {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage />}
+
                 {/* {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />} */}
 
               </LayoutWithSidebar>
@@ -324,8 +329,8 @@ export default function Category() {
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LiberaryModulContentList moduleId={productId} />}
 
                 {path === `/learn/flashcards` && <FLashCards />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage categoryid={productId} subcategory={subcategory2}/>}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage subcategoryid={productId} subcategory={subcategory3}/>}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage categoryid={productId} subcategory={subcategory2} />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage subcategoryid={productId} subcategory={subcategory3} />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}?id=${productId}&typeid=${typeid}&infoid=${infoid}` && <AdminFlashCardDetailPage />}
 
                 {path === `/learn/quizzes` && <QuizPage />}
