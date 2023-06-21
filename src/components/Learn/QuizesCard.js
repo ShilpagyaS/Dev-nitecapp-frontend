@@ -1,5 +1,6 @@
 import EndQuizCard from '@/utils/Cards/Learnsection/EndQuizCard';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { RxCross1 } from 'react-icons/rx';
 import Breadcrumb from '../Breadcrumb';
@@ -9,6 +10,7 @@ function QuizesCard() {
     const a = [1, 2, 3, 4]
     const [counter, setCounter] = useState(0);
     const [show, setisShow] = useState(false);
+    const router = useRouter()
     return (
         <div>
             <Breadcrumb />
@@ -21,7 +23,7 @@ function QuizesCard() {
                     <div className='w-full min-h-[500px] h-full bg-[#383838] rounded-t-[12px] mt-[20px] relative overflow-hidden'>
                         <div className='w-full rounded-t-[12px] bg-transparent p-[15px] grid grid-cols-5 '>
                             <div className='col-span-2 bg-transparent'>
-                                <RxCross1 size={25} color="#929292" className='bg-transparent' />
+                                <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={()=>{router.back()}} />
                             </div>
                             <div className='bg-transparent col-span-3'>
                                 <p className='font-[700] not-italic font-Inter text-white text-[18px] bg-transparent'>Quiz Heading</p>
