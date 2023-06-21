@@ -91,6 +91,8 @@ import AdminFlashcardTablepage from "@/Admin/AdminLearn/AdminFlashcardTablepage"
 import FlashcardSubcategoryPage from "@/components/Learn/FlashcardSubcategoryPage";
 import QuizPage from "@/Admin/AdminLearn/QuizPage";
 import QuizDetailPage from "@/Admin/AdminLearn/QuizDetailPage";
+import AllQuizes from "@/components/Learn/AllQuizes";
+import UserQuizDetailpage from "@/components/Learn/UserQuizDetailpage";
 
 
 
@@ -204,7 +206,7 @@ export default function Category() {
                 )}
 
                 {path === `/food/${enUrl(subcategory)}?id=${productId}` && (
-                  <FoodDetail id={productId} />
+                  <FoodDetail id={productId} /> 
                 )}
                 {path === "/user_profile" && <UserProfile />}
                 {path === `/guests` && <GuestsList />}
@@ -217,6 +219,9 @@ export default function Category() {
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage />}
+
+                {path === `/learn/quizzes` && <AllQuizes />}
+                {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage />}
 
                 {/* {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />} */}
 

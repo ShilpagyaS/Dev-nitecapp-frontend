@@ -1,9 +1,10 @@
-import { createChapter, createCourse, createModule, createModulePage, emptycourses, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
+import { createChapter, createCourse, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, emptycourses, getChaptersdropdown, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
 import { CustomSelectWithAllBlackTheme } from "@/utils/CustomSelect";
 import InputFieldWirhAutoWidth from "@/utils/InputFieldWithAutoWidth";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
@@ -1984,6 +1985,17 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
             dummydata = { ...dummydata, name: categorySelected.data.name, image: categorySelected.data.image, subcategory_id: categorySelected.data.value }
         }
         console.log(dummydata);
+        dispatch(CreateFlashcardcategory(dummydata)).then((res) => {
+            console.log(res);
+            console.log('else');
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: 'Added successfully' });
+
+            onClickCancel()
+
+        })
         // if (upimage) {
         //     dispatch(uploadimage(upimage)).then((imageurl) => {
         //         if (imageurl && !imageurl?.error)
@@ -2121,7 +2133,24 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
                                 >
                                     Category Image
                                 </h5>
-                                <LearnFileUpload defaultImage={categorySelected.data.image} isEdit={false} />
+                                {categorySelected.data.image ?
+
+                                    <LearnFileUpload defaultImage={categorySelected.data.image} isEdit={false} />
+
+                                    :
+                                    <div className=" w-full relative min-h-[100px] h-full border border-[#787878]  rounded-[8px]" >
+
+                                        <Image
+                                            className=" w-full rounded-[8px]"
+                                            src={'/asset/nodrinkinverted.webp'}
+                                            fill
+                                            style={{ objectFit: 'contain' }}
+                                            priority
+
+                                        />
+
+                                    </div>
+                                }
                             </>
                         }
                     </>
@@ -2321,7 +2350,7 @@ export function EditFlashcardCategory({ isModalOpen, onClickCancel, onSave, dele
         </Modal>
     )
 }
-export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, categoryid, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -2344,7 +2373,6 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
     const [courseForm, setCourse] = useState(
         {
             name: "",
-            type: "",
         }
     )
     const [isfocused, setisFocused] = useState(false);
@@ -2352,6 +2380,11 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
     const [categorySelected, setCategorySelected] = useState(null)
     const [iscategorySelected, setIsCategorySelected] = useState(false)
     const dispatch = useDispatch()
+    const [courses, setcoursesdropdown] = useState([])
+    useEffect(() => {
+        dispatch(getChaptersdropdown(categoryid)).then((res) => { console.log(res); setcoursesdropdown(res) })
+
+    }, [])
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -2376,6 +2409,9 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
         }
         else {
             setCategorySelected(null)
+            setCourse({
+                name: "",
+            })
         }
 
 
@@ -2384,48 +2420,62 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
 
     const handleSave = () => {
 
-        // let dummydata = {
-        //     name: courseForm.name,
-        //     description: courseForm.desc,
-        //     instructor_name: courseForm.instructorName
-        // }
-        // if (upimage) {
-        //     dispatch(uploadimage(upimage)).then((imageurl) => {
-        //         if (imageurl && !imageurl?.error)
-        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
-        //                 console.log(res);
-        //                 res?.error ?
-        //                     // errortoast({ message: res.message }) 
-        //                     ''
-        //                     :
-        //                     successtoast({ message: 'Added successfully' });
-        //                 onClickCancel()
-        //                 console.log('if');
+        let dummydata = {
+            category_id: categoryid
+        }
+        if (categorySelected) {
+            dummydata = { ...dummydata, name: categorySelected.label, image: categorySelected.image }
+            dispatch(CreateFlashcardSubcategory(dummydata, categoryid)).then((res) => {
+                console.log(res);
+                console.log('else');
+                res?.error ?
+                    // errortoast({ message: res.message }) 
+                    ''
+                    : successtoast({ message: 'Added successfully' });
+
+                onClickCancel()
+
+            })
+        }
+        else if (courseForm.name != '') {
+            dummydata = { ...dummydata, name: courseForm.name }
+
+            console.log(dummydata);
+            if (upimage) {
+                dispatch(uploadimage(upimage)).then((imageurl) => {
+                    if (imageurl && !imageurl?.error)
+                        dispatch(CreateFlashcardSubcategory({ ...dummydata, image: imageurl }, categoryid)).then((res) => {
+                            console.log(res);
+                            console.log('else');
+                            res?.error ?
+                                // errortoast({ message: res.message }) 
+                                ''
+                                : successtoast({ message: 'Added successfully' });
+
+                            onClickCancel()
+
+                        })
+                    else console.log("cannot upload")
+                })
+            }
+            else {
+
+                console.log('else block');
+                dispatch(CreateFlashcardSubcategory(dummydata, categoryid)).then((res) => {
+                    console.log(res);
+                    console.log('else');
+                    res?.error ?
+                        // errortoast({ message: res.message }) 
+                        ''
+                        : successtoast({ message: 'Added successfully' });
+
+                    onClickCancel()
+
+                })
 
 
-        //             })
-        //         else console.log("cannot upload")
-        //     })
-        // }
-        // else {
-
-        //     console.log('else block');
-        //     dispatch(createCourse(dummydata)).then((res) => {
-        //         console.log(res);
-        //         console.log('else');
-        //         res?.error ?
-        //             // errortoast({ message: res.message }) 
-        //             ''
-        //             : successtoast({ message: 'Added successfully' });
-
-        //         onClickCancel()
-
-        //     })
-
-
-
-        // }
-
+            }
+        }
 
     };
     return (
@@ -2452,10 +2502,7 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, de
 
                     <CustomSelectWithAllBlackTheme
                         items={[
-                            { value: 'courses1', label: 'Course1' },
-                            { value: 'courses2', label: 'Course2' },
-                            { value: 'courses3', label: 'Course3' },
-                            { value: 'courses4', label: 'Course4' },
+                            ...courses,
                             { value: null, label: 'New' },
                         ]}
                         optionalFunction={(e) => {

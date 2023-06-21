@@ -23,7 +23,7 @@ function AdminFlashcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
         >
             {data?.image ?
                 <div className='h-[95px] min-w-[100px] relative rounded-[12px]'>
-                    <Image src={data.image} fill className='rounded-[12px] object-contain'
+                    <Image src={data.image} fill className='rounded-[12px] object-cover'
                         onClick={() => {
                             // router.push(`/learn/flashcards/${data.name}?id=${data.id}`)
                             onClickHandler()
@@ -41,7 +41,7 @@ function AdminFlashcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
                         {data?.name}
                     </h2>
                     <p className='not-italic font-[400] text-xs font-Inter mt-[5px] text-[#959595] ml-[10px]' onClick={onClickHandler}>
-                        {` ${data?.noOfCards ? data?.noOfCards : `0`} Cards`}
+                        {` ${data?.cardCount ? data?.cardCount : `0`} Cards`}
                     </p>
                 </div>
                 {

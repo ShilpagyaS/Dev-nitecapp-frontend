@@ -67,7 +67,7 @@ export const getCourseDropdown = () => {
                 return {
                     value: i.course_id,
                     name: i.name,
-                    image:i.image
+                    image: i.image
                 }
             })
             return finaldata
@@ -179,6 +179,59 @@ export const getFlashcardSubcategories = (id) => {
                     data: res?.data?.data,
                 })
             );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const CreateFlashcardcategory = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/flashcard_category/add_new_flashcard_category`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getFlashcardCoursesPage())
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const CreateFlashcardSubcategory = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/flashcard_subcategory/add_new_flashcard_subcategory`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getFlashcardSubcategories(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const getChaptersdropdown = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/course/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.chapters?.map((i) => {
+                return {
+                    value: i.courseChapter_id,
+                    label: i.name,
+                    image: i.image
+                }
+            })
+            return finaldata
         }).catch((err) => {
             console.log(err)
         });
