@@ -27,7 +27,7 @@ function AdminQuizListcard({ data, onClickHandler, onEditCick, onDeleteClick }) 
             <div className='flex items-center justify-between relative'>
                 <div className='w-full p-[5px]'>
                     <h2 className='not-italic font-bold text-xs font-Inter mt-[15px] text-white ml-[10px] break-words w-full' onClick={onClickHandler}>
-                        Psychology of Hospitality
+                        {data?.name || "Psychology of Hospitality"}
                     </h2>
                     <p className='not-italic font-[400] text-xs font-Inter mt-[5px] text-[#959595] ml-[10px]' onClick={onClickHandler}>
                         74 Quizes

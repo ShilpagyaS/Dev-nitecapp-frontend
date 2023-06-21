@@ -77,12 +77,14 @@ function FLashCards() {
     })
     const { course } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getFlashcardCoursesPage())
         return () => {
             dispatch(emptycourses())
         }
     }, [])
+
     return (
         <>
             {DeleteModal &&
@@ -92,6 +94,7 @@ function FLashCards() {
                     title={elementItem.title}
                     onSave={() => { console.log(elementItem.title); }}
                 />}
+
             {addCourseButton &&
                 <AddFlashcardCategory
                     isModalOpen={addCourseButton}
