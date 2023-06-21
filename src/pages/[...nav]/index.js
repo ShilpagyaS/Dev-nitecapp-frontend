@@ -206,7 +206,7 @@ export default function Category() {
                 )}
 
                 {path === `/food/${enUrl(subcategory)}?id=${productId}` && (
-                  <FoodDetail id={productId} />
+                  <FoodDetail id={productId} /> 
                 )}
                 {path === "/user_profile" && <UserProfile />}
                 {path === `/guests` && <GuestsList />}

@@ -34,6 +34,7 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     isModalOpen={addCourseButton}
                     onClickCancel={() => { setAddCourse(false) }}
                     title={'Flashcard Deck'}
+                    categoryid={categoryid}
                     onSave={() => { }}
                 />
             }
