@@ -13,7 +13,7 @@ function OnboardingForm() {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const [conceptdata, setconcept] = useState([]);
   const { user } = useSelector((state) => state.auth);
- 
+
   const [indata, setindata] = useState({});
 
   const router = useRouter();
@@ -47,15 +47,15 @@ function OnboardingForm() {
       display_name: Yup.string().required('Display is required'),
       // pronouns: Yup.string().required(),
       pronouns: Yup.string(),
-      role: Yup.string().required(),
-      concept: Yup.string().required(),
+      role: Yup.string(),
+      concept: Yup.string(),
     }),
   })
   console.log("error", formik.errors)
   useEffect(() => {
     if (user) {
       setindata({
-        ...user, user_id: user.id, role: user.role_name
+        ...user, user_id: user.id, role: user.role_name, pronouns: "d", concept: 'd'
       })
     }
 
@@ -98,7 +98,7 @@ function OnboardingForm() {
             touched={formik.touched.display_name}
             showerror
           />
-          <InputField
+          {/* <InputField
             placeholder="Your Pronouns"
             label="Pronouns"
             onChangeHandler={formik.handleChange}
@@ -108,8 +108,8 @@ function OnboardingForm() {
             error={formik.errors.pronouns}
             touched={formik.touched.pronouns}
             showerror
-          />
-          <InputField
+          /> */}
+          {/* <InputField
             placeholder=""
             label="Role"
             onChangeHandler={formik.handleChange}
@@ -120,8 +120,8 @@ function OnboardingForm() {
             error={formik.errors.role}
             touched={formik.touched.role}
             showerror
-          />
-          <SelectWithSearch
+          /> */}
+          {/* <SelectWithSearch
             label={"concept"}
             placeholder={"Your Concept"}
             options={conceptdata}
@@ -130,7 +130,7 @@ function OnboardingForm() {
             error={formik.errors.concept}
             touched={formik.touched.concept}
             showerror
-          />
+          /> */}
           <ConditionalButtons
             condition={true}
             label={"Continue"}
