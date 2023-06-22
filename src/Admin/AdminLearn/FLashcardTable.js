@@ -12,11 +12,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function FlashCardTables({ id }) {
     const router = useRouter();
-    const { course } = useSelector((state) => state.learn)
+    const { flashcard } = useSelector((state) => state.learn)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
-    const { category, subcategory, subcategory2, subcategory3, subcategory4, productId, typeid, path, infoid } =
-    useNavDetails();
+    const { subcategory2, subcategory3, productId, typeid, path, infoid } =
+        useNavDetails();
 
     const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
@@ -32,9 +32,9 @@ function FlashCardTables({ id }) {
             dispatch(emptycourses())
         }
     }, [])
-    console.log(course);
+    console.log(flashcard);
     useEffect(() => {
-        let dummy = course?.map(
+        let dummy = flashcard?.map(
             (element) => {
                 return {
                     id: element.flashcard_id,
@@ -50,7 +50,7 @@ function FlashCardTables({ id }) {
         ) || []
         console.log(dummy);
         setList([...dummy])
-    }, [course])
+    }, [flashcard])
 
 
     function toggleSwitch(e, element) {
@@ -150,6 +150,8 @@ function FlashCardTables({ id }) {
                 />}
             {AddModal &&
                 <AddFlashCard
+                    categoryId={typeid}
+                    subcategoryId={productId}
                     isModalOpen={AddModal}
                     onClickCancel={() => { setAddModal(false) }}
                     title={'Flashcard'}

@@ -35,6 +35,7 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     onClickCancel={() => { setAddCourse(false) }}
                     title={'Flashcard Deck'}
                     categoryid={categoryid}
+                    type={course?.type}
                     onSave={() => { }}
                 />
             }
@@ -66,7 +67,7 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                 </div>
 
                 <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4'>
-                    {course?.map((sub) =>
+                    {course?.subCategoryList?.map((sub) =>
                         <AdminFlashcard
                             data={sub}
                             onDeleteClick={() => {

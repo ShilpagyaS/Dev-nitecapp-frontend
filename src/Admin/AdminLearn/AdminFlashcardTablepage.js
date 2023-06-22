@@ -14,14 +14,6 @@ function AdminFlashcardTablepage({ subcategoryid, subcategory }) {
 
     return (
         <>
-            {addCourseButton &&
-                <AddFlashCard
-                    isModalOpen={addCourseButton}
-                    onClickCancel={() => { setAddCourse(false) }}
-                    title={'Flashcard'}
-                    onSave={() => { }}
-                />
-            }
             {EditCourseButton &&
                 <EditFlashCard
                     isModalOpen={EditCourseButton}

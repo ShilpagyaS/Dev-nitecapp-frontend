@@ -20,21 +20,23 @@ function LiberaryPage() {
     }, [])
     useEffect(() => {
         console.log(course);
-        let dummy = course?.map(
-            (element) => {
-                return {
-                    id: element.course_id,
-                    img: element.image,
-                    name: element.name,
-                    progress: 30,
-                    desc: element.description,
-                    data: element,
-                }
+        if (course.length) {
 
-            }
-        ) || []
-        setcourses([...dummy])
-    }, [course])
+            let dummy = course?.map(
+                (element) => {
+                    return {
+                        id: element.course_id,
+                        img: element.image,
+                        name: element.name,
+                        progress: 30,
+                        desc: element.description,
+                    }
+
+                }
+            ) || []
+            setcourses([...dummy])
+        }
+    }, [course])    
 
     // {
     //     img: '/asset/learnsectoinbuilding.png',

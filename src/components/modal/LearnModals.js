@@ -1,4 +1,4 @@
-import { createChapter, createCourse, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, emptycourses, getChaptersdropdown, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
+import { createChapter, createCourse, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, emptycourses, getChaptersdropdown, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -1526,7 +1526,7 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBt
         </Modal>
     )
 }
-export function AddFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+export function AddFlashCard({ isModalOpen, onClickCancel, onSave, subcategoryId,categoryId, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -1555,7 +1555,7 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, in
     )
     const [isfocused, setisFocused] = useState(false);
     const [isfocused2, setisFocused2] = useState(false);
-
+    const dispatch = useDispatch()
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -1574,9 +1574,27 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, in
     };
 
     const handleSave = () => {
+        let dummydata={
+            flashcard_category_id:categoryId,
+            flashcard_subcategory_id:subcategoryId,
+            name:courseForm.question,
+            front_text:courseForm.question,
+            flip_text:courseForm.answer
 
+        }
+        console.log(dummydata);
         // onSave(body)
-        onClickCancel();
+        dispatch(Createflashcard(dummydata,subcategoryId)).then((res) => {
+            console.log(res);
+            console.log('else');
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: 'Added successfully' });
+
+            onClickCancel()
+
+        })
 
 
     };
@@ -1715,6 +1733,7 @@ export function EditFlashCard({ isModalOpen, onClickCancel, onSave, deleteBtn, i
     };
 
     const handleSave = () => {
+        let dummydata = {}
 
         // onSave(body)
         onClickCancel();
@@ -2350,7 +2369,7 @@ export function EditFlashcardCategory({ isModalOpen, onClickCancel, onSave, dele
         </Modal>
     )
 }
-export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, categoryid, ingredientType, title, desc, }) {
+export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSave, categoryid, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -2515,7 +2534,7 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, ca
                     iscategorySelected && !categorySelected && <>
                         <InputFieldWirhAutoWidth
                             placeholder=""
-                            label="Subcategory Name"
+                            label="Flashcard Deck Name"
                             onChangeHandler={handleChange}
                             value={courseForm.name}
                             name={"name"}
@@ -2529,7 +2548,7 @@ export function AddFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, ca
 
                                 }`}
                         >
-                            Subcategory Image
+                            Flashcard Deck Image
                         </h5>
                         <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
                     </>
@@ -2688,7 +2707,7 @@ export function EditFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, d
                 </div> */}
                 <InputFieldWirhAutoWidth
                     placeholder=""
-                    label="Subcategory Name"
+                    label="Flashcard Deck Name"
                     onChangeHandler={handleChange}
                     value={courseForm.name}
                     name={"name"}
@@ -2702,7 +2721,7 @@ export function EditFlashcardSubCategory({ isModalOpen, onClickCancel, onSave, d
 
                         }`}
                 >
-                    Subcategory Image
+                    Flashcard Deck Image
                 </h5>
                 <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
 

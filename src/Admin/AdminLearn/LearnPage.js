@@ -21,19 +21,22 @@ function LearnPage() {
     }, [])
     useEffect(() => {
         console.log(course);
-        let dummy = course?.map(
-            (element) => {
-                return {
-                    id: element.course_id,
-                    img: element.image,
-                    name: element.name,
-                    progress: 30,
-                    desc: element.description,
-                } 
+        if (course.length) {
 
-            }
-        ) || []
-        setcourses([...dummy])
+            let dummy = course?.map(
+                (element) => {
+                    return {
+                        id: element.course_id,
+                        img: element.image,
+                        name: element.name,
+                        progress: 30,
+                        desc: element.description,
+                    }
+
+                }
+            ) || []
+            setcourses([...dummy])
+        }
     }, [course])
     return (
         <>
@@ -45,7 +48,7 @@ function LearnPage() {
                     onSave={() => { }}
                 />
             }
- 
+
             <div>
                 <div className='flex items-center justify-between'>
                     <div className="flex items-center mb-[33px] mt-[35px]">
@@ -57,7 +60,7 @@ function LearnPage() {
                     </div>
                     <ChipWithLeftButton condition={true} label={'Add Course'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} />
                 </div>
-                <LIberaryComponents allCourses={courses} isAdmin={true}/>
+                <LIberaryComponents allCourses={courses} isAdmin={true} />
             </div>
         </>
     )

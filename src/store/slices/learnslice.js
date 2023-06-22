@@ -139,7 +139,7 @@ export const getFlashCardsBySubcategoryId = (id) => {
         }).then((res) => {
             console.log("response->", res.data.data, res);
             dispatch(
-                learnSlice.actions.getCourses(
+                learnSlice.actions.getFlashCard(
                     res?.data
                 )
             );
@@ -209,6 +209,22 @@ export const CreateFlashcardSubcategory = (data, id) => {
             data
         }).then((res) => {
             dispatch(getFlashcardSubcategories(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const Createflashcard = (data,id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/flashcard/add_new_flashcard`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getFlashCardsBySubcategoryId(id))
             return res
         }).catch((err) => {
             console.log(err)

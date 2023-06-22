@@ -69,6 +69,7 @@ const detail = [
 function FLashCards() {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
+    const [courseArray, setCourseArray] = useState([])
     const [globaldata, getGlobaldata] = useState(null)
     const [DeleteModal, setDeleteModal] = useState(false)
     const [elementItem, setElementItem] = useState({
@@ -84,6 +85,11 @@ function FLashCards() {
             dispatch(emptycourses())
         }
     }, [])
+    useEffect(() => {
+        if (course.length) {
+            setCourseArray(course)
+        }
+    }, [course])
 
     return (
         <>
@@ -123,7 +129,7 @@ function FLashCards() {
 
                 </div>
                 {
-                    course?.map((element) =>
+                    courseArray?.map((element) =>
                         <div className='mb-[30px]'>
 
                             <div className="flex items-center mb-[33px]">
