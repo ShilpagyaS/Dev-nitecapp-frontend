@@ -206,7 +206,7 @@ export default function Category() {
                 )}
 
                 {path === `/food/${enUrl(subcategory)}?id=${productId}` && (
-                  <FoodDetail id={productId} /> 
+                  <FoodDetail id={productId} />
                 )}
                 {path === "/user_profile" && <UserProfile />}
                 {path === `/guests` && <GuestsList />}
@@ -217,8 +217,8 @@ export default function Category() {
                 {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId} />}
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage categoryid={productId} subcategory={subcategory2} />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage subcatecodyId={productId} subcategoyName={subcategory3} />}
 
                 {path === `/learn/quizzes` && <AllQuizes />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage />}
@@ -331,7 +331,7 @@ export default function Category() {
                 {path === `/learn/flashcards` && <FLashCards />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage categoryid={productId} subcategory={subcategory2} />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage subcategoryid={productId} subcategory={subcategory3} />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}?id=${productId}&typeid=${typeid}&infoid=${infoid}` && <AdminFlashCardDetailPage />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}?id=${productId}&typeid=${typeid}&infoid=${infoid}` && <AdminFlashCardDetailPage flashcardId={productId} />}
 
                 {path === `/learn/quizzes` && <QuizPage />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}

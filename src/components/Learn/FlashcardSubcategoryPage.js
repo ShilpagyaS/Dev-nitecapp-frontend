@@ -1,21 +1,30 @@
-import AdminFlashcard from '@/utils/Cards/Learnsection/AdminFlashcard'
+import { emptycourses, getFlashcardSubcategories } from '@/store/slices/learnslice'
 import UserSubcatFlashcard from '@/utils/Cards/Learnsection/UserSubcatFlashcard'
 import { enUrl } from '@/utils/encoderfunc'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Breadcrumb from '../Breadcrumb'
 
-function FlashcardSubcategoryPage() {
+function FlashcardSubcategoryPage({ categoryid, subcategory }) {
     const route = useRouter()
     const data = {
         cardsCount: 50
     }
+    const { course } = useSelector((state) => state.learn)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getFlashcardSubcategories(categoryid))
+        return () => {
+            dispatch(emptycourses())
+        }
+    }, [])
     return (
         <div>
             <Breadcrumb />
             <div className='bg-transparent col-span-3 flex items-center justify-between mb-[10px]'>
-                <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
-                    Bar 101
+                <h5 className='not-italic capitalize font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
+                    {subcategory}
                 </h5>
             </div>
             <div className='flex flex-col w-[300px] cursor-pointer border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]' onClick={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }}>
@@ -27,13 +36,11 @@ function FlashcardSubcategoryPage() {
                 </h5>
 
             </div>
-            <div className='grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4'>
-
-                <UserSubcatFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} />
-                <UserSubcatFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} />
-                <UserSubcatFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} />
-                <UserSubcatFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} />
-                <UserSubcatFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }} />
+            <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4'>
+                {course?.subCategoryList?.map((sub) =>
+                    <UserSubcatFlashcard data={sub} onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl(sub.name)}?id=${sub.flashcard_subcategory_id}&typeid=${categoryid}`) }} />
+                )
+                }
             </div>
         </div>
     )

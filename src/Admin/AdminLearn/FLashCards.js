@@ -70,7 +70,7 @@ function FLashCards() {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
     const [courseArray, setCourseArray] = useState([])
-    const [globaldata, getGlobaldata] = useState(null)
+    const [globaldata, setGlobaldata] = useState(null)
     const [DeleteModal, setDeleteModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
@@ -112,6 +112,7 @@ function FLashCards() {
             {EditCourseButton &&
                 <EditFlashcardCategory
                     isModalOpen={EditCourseButton}
+                    data={globaldata}
                     onClickCancel={() => { setEditCourse(false) }}
                     title={'Category'}
                     onSave={() => { }}
@@ -151,7 +152,8 @@ function FLashCards() {
                                 {
                                     element?.categories?.map((cat) =>
 
-                                        <AllFlashCardcard data={cat} isAdmin={true} onEditCick={() => { setEditCourse(true) }}
+                                        <AllFlashCardcard data={cat} isAdmin={true}
+                                            onEditCick={() => { setGlobaldata({ ...cat }); setEditCourse(true) }}
                                             onDeleteClick={() => {
                                                 setElementItem({
                                                     title: cat.name,

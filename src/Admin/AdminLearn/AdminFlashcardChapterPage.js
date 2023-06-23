@@ -8,10 +8,11 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-function AdminFlashcardChapterPage({ categoryid, subcategory }) {
+function AdminFlashcardChapterPage({ categoryid, subcategory }) { 
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
     const [showDetail, setShowDetail] = useState(false)
+    const [globalData, setGlobalData] = useState({})
     const [DeleteModal, setDeleteModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
@@ -36,6 +37,7 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     title={'Flashcard Deck'}
                     categoryid={categoryid}
                     type={course?.type}
+                    specname={subcategory}
                     onSave={() => { }}
                 />
             }
@@ -44,6 +46,8 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     isModalOpen={EditCourseButton}
                     onClickCancel={() => { setEditCourse(false) }}
                     title={'Flashcard Deck'}
+                    categoryid={categoryid}
+                    data={globalData}
                     onSave={() => { }}
                 />
             }
@@ -76,7 +80,8 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                                     id: sub.flashcard_subcategory_id
                                 })
                                 setDeleteModal(true)
-                            }} onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl(sub.name)}?id=${sub.flashcard_subcategory_id}&typeid=${categoryid}`) }} onEditCick={() => { setEditCourse(true) }} />
+                            }} onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl(sub.name)}?id=${sub.flashcard_subcategory_id}&typeid=${categoryid}`) }}
+                            onEditCick={() => { setGlobalData({ ...sub }); setEditCourse(true) }} />
                     )}
 
                     {/* <AdminFlashcard onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}`) }} /> */}

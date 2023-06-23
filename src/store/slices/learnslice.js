@@ -7,6 +7,7 @@ const initialState = {
     chapters: [],
     modules: [],
     flashcard: [],
+    flashcardDetail: {}
 };
 
 export const learnSlice = createSlice({
@@ -27,6 +28,9 @@ export const learnSlice = createSlice({
         },
         getCoursesDetails: (state, action) => {
             state.courseDetail = action.payload
+        },
+        getFlashcardDetails: (state, action) => {
+            state.flashcardDetail = action.payload
         },
         emptyAlling: (state) => {
             state.course = []
@@ -76,6 +80,27 @@ export const getCourseDropdown = () => {
         });
     };
 };
+export const getSpecsDropdown = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/specs/get-all-specs`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i.id,
+                    name: i.name,
+                    image: i.image
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const getCoursesDetail = (id) => {
     return async (dispatch, getState) => {
         const state = getState();
@@ -86,6 +111,24 @@ export const getCoursesDetail = (id) => {
             console.log("response->", res.data.data, res);
             dispatch(
                 learnSlice.actions.getCoursesDetails(
+                    res?.data?.data,
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getFlashcardDetail = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getFlashcardDetails(
                     res?.data?.data,
                 )
             );
@@ -216,7 +259,7 @@ export const CreateFlashcardSubcategory = (data, id) => {
         });
     };
 };
-export const Createflashcard = (data,id) => {
+export const Createflashcard = (data, id) => {
     return async (dispatch) => {
 
         return await axiosInstance({
@@ -225,6 +268,54 @@ export const Createflashcard = (data,id) => {
             data
         }).then((res) => {
             dispatch(getFlashCardsBySubcategoryId(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putFlashcard = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/flashcard/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getFlashcardDetail(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putFlashcardsubcategory = (data, id, categoryid) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `api/flashcard_subcategory/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getFlashcardSubcategories(categoryid))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putFlashcardCategory = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `api/flashcard_category/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getFlashcardCoursesPage())
             return res
         }).catch((err) => {
             console.log(err)
@@ -253,6 +344,28 @@ export const getChaptersdropdown = (id) => {
         });
     };
 };
+export const getspecscategorydropdown = (type) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/drink_category/get_all_categories_for_hotel/${type}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i.category_id,
+                    label: i.drink_category_name,
+                    image: i.image
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+
 export const getChapters = () => {
     return async (dispatch, getState) => {
         const state = getState();

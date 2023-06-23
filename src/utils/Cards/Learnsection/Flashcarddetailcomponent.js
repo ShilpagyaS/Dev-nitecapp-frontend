@@ -8,7 +8,7 @@ import BigFlashcard from './BigFlashcard'
 
 function Flashcarddetailcomponent({ data, onNext, currentCard, totalcards, stats, setStats }) {
   const [reset, setReset] = useState(false)
-
+  console.log(data);
   return (
     <div>
       <div className='flex justify-evenly '>
