@@ -1,10 +1,21 @@
-import React from 'react'
+import { getQuizQuiestions } from '@/store/slices/learnslice'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import QuizesCard from './QuizesCard'
 
-function UserQuizDetailpage() {
+function UserQuizDetailpage({ quizid, quizName }) {
+    const { quizesQuestion } = useSelector(state => state.learn)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getQuizQuiestions(quizid))
+
+        return () => {
+        }
+    }, [])
+
     return (
         <div>
-            <QuizesCard />
+            <QuizesCard name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} />
         </div>
     )
 }

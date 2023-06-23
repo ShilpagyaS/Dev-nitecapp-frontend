@@ -1,8 +1,10 @@
-import axiosInstance from "@/components/Auth/axios";
+import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     course: [],
+    quizes: [],
+    quizesQuestion: [],
     courseDetail: {},
     chapters: [],
     modules: [],
@@ -16,6 +18,12 @@ export const learnSlice = createSlice({
     reducers: {
         getCourses: (state, action) => {
             state.course = action.payload.data
+        },
+        getQuizes: (state, action) => {
+            state.quizes = action.payload.data
+        },
+        getQuizesQuestions: (state, action) => {
+            state.quizesQuestion = action.payload.data
         },
         getFlashCard: (state, action) => {
             state.flashcard = action.payload.data
@@ -51,6 +59,42 @@ export const getCourses = () => {
             console.log("response in product,js 47", res);
             dispatch(
                 learnSlice.actions.getCourses({
+                    data: res?.data?.data,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getAllQuizesCourses = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/quiz/get_all_quiz`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.getQuizes({
+                    data: res?.data?.data,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getQuizQuiestions = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/quiz_question/get_all_quiz_question_by_quiz_id/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.getQuizesQuestions({
                     data: res?.data?.data,
                 })
             );
@@ -236,6 +280,21 @@ export const CreateFlashcardcategory = (data) => {
             data
         }).then((res) => {
             dispatch(getFlashcardCoursesPage())
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const CraeteQuizScore = (data) => {
+    return async (dispatch) => {
+
+        return await axiosDebounceInstance({
+            url: `/api/quiz_score/add_new_quiz_score`,
+            method: "POST",
+            data
+        }).then((res) => {
             return res
         }).catch((err) => {
             console.log(err)

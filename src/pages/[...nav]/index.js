@@ -221,7 +221,7 @@ export default function Category() {
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage subcatecodyId={productId} subcategoyName={subcategory3} />}
 
                 {path === `/learn/quizzes` && <AllQuizes />}
-                {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage />}
+                {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage quizid={productId} quizName={subcategory2} />}
 
                 {/* {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />} */}
 
