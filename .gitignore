@@ -35,3 +35,6 @@ yarn-error.log*
 /public/sw.js.map
 /public/workbox-327c579b.js
 /public/workbox-327c579b.js.map
+
+sw.js
+sw.js.map

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 
 function AdminQuizListcard({ data, onClickHandler, onEditCick, onDeleteClick }) {
+
     const [isHover, setishover] = useState({
         hover: false,
         index: null
@@ -21,16 +22,17 @@ function AdminQuizListcard({ data, onClickHandler, onEditCick, onDeleteClick }) 
                 })
             }}
         >
-            <div className='h-[95px] w-[230px] bg-[#D9D9D9] rounded-[12px]' onClick={onClickHandler} >
+            <div className={`h-[95px] w-[230px] bg-[#D9D9D9] rounded-[12px]`}
+                onClick={onClickHandler} >
 
             </div>
             <div className='flex items-center justify-between relative'>
                 <div className='w-full p-[5px]'>
                     <h2 className='not-italic font-bold text-xs font-Inter mt-[15px] text-white ml-[10px] break-words w-full' onClick={onClickHandler}>
-                        {data?.name || "Psychology of Hospitality"}
+                        {data?.name || ""}
                     </h2>
                     <p className='not-italic font-[400] text-xs font-Inter mt-[5px] text-[#959595] ml-[10px]' onClick={onClickHandler}>
-                        74 Quizes
+                        {data?.questionCount || 0} Quizes
                     </p>
                 </div>
                 {

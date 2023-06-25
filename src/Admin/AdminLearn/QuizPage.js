@@ -1,19 +1,31 @@
 import Breadcrumb from '@/components/Breadcrumb'
-import { AddFlashcardCategory } from '@/components/modal/LearnModals'
+import { AddFlashcardCategory, DeleteLearn } from '@/components/modal/LearnModals'
 import { AddQuiz, EditQuiz } from '@/components/modal/Quizmodal'
+import { deleteQuizById, emptyAllQuizList, getallquiz } from '@/store/slices/quiz'
 import AdminQuizListcard from '@/utils/Cards/Learnsection/AdminQuizListcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
-import EmptyQuizcomponent from '@/utils/emptyQuizcomponent'
+
 import { enUrl } from '@/utils/encoderfunc'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 function QuizPage() {
     const route = useRouter()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getallquiz())
+        return () => dispatch(emptyAllQuizList())
+    }, [])
     const [addQuizButton, setaddQuiz] = useState(false)
     const [editQuiz, setEditQuiz] = useState(null)
     const { allquiz } = useSelector((state) => state.quiz)
+    const [deletetemp, setdeletetemp] = useState(null)
+
+    const onfinaldelete = () => {
+        dispatch(deleteQuizById(deletetemp.quiz_id))
+        setdeletetemp(null)
+    }
     return (
         <>
             {addQuizButton &&
@@ -21,7 +33,7 @@ function QuizPage() {
                     isModalOpen={addQuizButton}
                     onClickCancel={() => { setaddQuiz(false) }}
                     title={'Quiz'}
-                    onSave={() => { }}
+
                 />
             }
 
@@ -31,7 +43,7 @@ function QuizPage() {
                     onClickCancel={() => { setEditQuiz(null) }}
                     title={'Quiz'}
                     data={editQuiz}
-                    onSave={() => { }}
+
                 />
             }
             <div>
@@ -44,12 +56,18 @@ function QuizPage() {
                     <ChipWithLeftButton condition={true} label={'Add Quize'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setaddQuiz(true) }} />
 
                 </div>
+
+                <DeleteLearn isModalOpen={deletetemp} title={"Quiz"}
+                    onSave={onfinaldelete}
+                    onClickCancel={() => { setdeletetemp(null) }} />
+
+
                 {/* <EmptyQuizcomponent /> */}
                 <div className='flex gap-3 flex-wrap'>
                     {allquiz.map((i) => {
-                        return <AdminQuizListcard data={i} onClickHandler={() => { route.push(`/learn/quizzes/${enUrl(i.name)}/?id=${'2'}`) }}
+                        return <AdminQuizListcard data={i} onClickHandler={() => { route.push(`/learn/quizzes/${enUrl(i.name)}/?id=${i.quiz_id}`) }}
                             onEditCick={() => setEditQuiz(i)}
-
+                            onDeleteClick={() => { setdeletetemp(i) }}
                         />
                     })
                     }

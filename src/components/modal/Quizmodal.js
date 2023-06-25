@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import { successtoast } from '../tostify'
-import { addnewQuiz } from "@/store/slices/quiz";
+import { addnewQuiz, updateQuizById } from "@/store/slices/quiz";
 export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
@@ -36,7 +36,7 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
             image: null,
         }
     )
-    const [isfocused, setisFocused] = useState(false);
+
     const [upimage, setimage] = useState(undefined);
     const dispatch = useDispatch()
     function handleChange(e) {
@@ -63,44 +63,30 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
             image: quiz.image
         }
 
-        dispatch(addnewQuiz(dummydata))
+
         onClickCancel();
-        // if (upimage) {
-        //     dispatch(uploadimage(upimage)).then((imageurl) => {
-        //         if (imageurl && !imageurl?.error)
-        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
-        //                 console.log(res);
-        //                 res?.error ?
-        //                     // errortoast({ message: res.message }) 
-        //                     ''
-        //                     :
-        //                     successtoast({ message: 'Added successfully' });
-        //                 onClickCancel()
-        //                 console.log('if');
+        if (upimage) {
+            dispatch(uploadimage(upimage)).then((imageurl) => {
+                if (imageurl && !imageurl?.error)
+                    dispatch(addnewQuiz({ ...dummydata, image: imageurl })).then((res) => {
 
-
-        //             })
-        //         else console.log("cannot upload")
-        //     })
-        // }
-        // else {
-
-        //     console.log('else block');
-        //     dispatch(createCourse(dummydata)).then((res) => {
-        //         console.log(res);
-        //         console.log('else');
-        //         res?.error ?
-        //             // errortoast({ message: res.message }) 
-        //             ''
-        //             : successtoast({ message: 'Added successfully' });
-
-        //         onClickCancel()
-
-        //     })
+                        onClickCancel()
 
 
 
-        // }
+                    })
+                else console.log("cannot upload")
+            })
+        }
+        else {
+            debugger
+            dispatch(addnewQuiz({ ...dummydata }))
+            onClickCancel()
+
+
+
+
+        }
 
 
     };
@@ -182,7 +168,7 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
             image: null,
         })
     }, [data])
-    const [isfocused, setisFocused] = useState(false);
+
     const [upimage, setimage] = useState(undefined);
     const dispatch = useDispatch()
     function handleChange(e) {
@@ -209,44 +195,36 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
             image: quiz.image
         }
 
-        dispatch(addnewQuiz(dummydata))
         onClickCancel();
-        // if (upimage) {
-        //     dispatch(uploadimage(upimage)).then((imageurl) => {
-        //         if (imageurl && !imageurl?.error)
-        //             dispatch(createCourse({ ...dummydata, image: imageurl })).then((res) => {
-        //                 console.log(res);
-        //                 res?.error ?
-        //                     // errortoast({ message: res.message }) 
-        //                     ''
-        //                     :
-        //                     successtoast({ message: 'Added successfully' });
-        //                 onClickCancel()
-        //                 console.log('if');
+        if (upimage) {
+            dispatch(uploadimage(upimage)).then((imageurl) => {
+                if (imageurl && !imageurl?.error)
+                    dispatch(updateQuizById(quiz.quiz_id, { ...dummydata, image: imageurl })).then((res) => {
+                        console.log(res);
+                        res?.error ?
+                            // errortoast({ message: res.message }) 
+                            ''
+                            :
+                            successtoast({ message: 'Added successfully' });
+                        onClickCancel()
+                        console.log('if');
 
 
-        //             })
-        //         else console.log("cannot upload")
-        //     })
-        // }
-        // else {
+                    })
+                else console.log("cannot upload")
+            })
+        }
+        else {
 
-        //     console.log('else block');
-        //     dispatch(createCourse(dummydata)).then((res) => {
-        //         console.log(res);
-        //         console.log('else');
-        //         res?.error ?
-        //             // errortoast({ message: res.message }) 
-        //             ''
-        //             : successtoast({ message: 'Added successfully' });
+            console.log('else block');
+            dispatch(updateQuizById(quiz.quiz_id, { ...dummydata })).then((res) => {
+                onClickCancel()
 
-        //         onClickCancel()
-
-        //     })
+            })
 
 
 
-        // }
+        }
 
 
     };
@@ -285,7 +263,7 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
                 />
 
                 <div className='w-full flex justify-center mt-8'>
-                    <ConditionalButton label={'Save &  Edit Questions to Quiz'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Save Quiz'} condition={true} onClickHandler={handleSave} />
                 </div>
             </div>
 

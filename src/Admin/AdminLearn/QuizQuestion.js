@@ -1,15 +1,30 @@
-import InputField from "@/utils/InputField"
+import useNavDetails from "@/Hooks/useNavDetails"
+import ConditionalButton from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton"
+import { errortoast } from "@/components/tostify"
+import { updateQuizQuestionById } from "@/store/slices/quiz"
 import SwitchComp from "@/utils/SwitchComp"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 
-const QuizQuestion = ({ index, onDeleteClick }) => {
+
+const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
     const [Correct, setcorrect] = useState(null)
-    const onCorrectChnage = (value) => {
-        if (Correct === value) setcorrect(null)
-        else setcorrect(value)
-    }
+    const [localdata, setlocaldata] = useState({})
+    const { productId } = useNavDetails()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        setlocaldata(data)
 
+    }, [data])
+
+    const onInputChange = (field, value) => {
+
+        const local = { ...localdata }
+        local[field] = value
+        setlocaldata(local)
+
+    }
 
     return (
         <div className="w-full border-2 border-gray-200 p-4 ">
@@ -17,8 +32,17 @@ const QuizQuestion = ({ index, onDeleteClick }) => {
 
                 <div className="text-white text-xl font-semibold">Question {index + 1}</div>
                 <div className="flex ">
-                    <SwitchComp />
-                    <button className='h-[40px] w-[40px] ml-2 rounded-full bg-[#171717] flex items-center justify-center' onClick={() => { onDeleteClick() }}>
+
+                    {!localdata.isEdit && <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center mx-[5px]'
+                        onClick={() => { onInputChange("isEdit", true) }}>
+                        <Image
+                            src={'/asset/EditVector.svg'}
+                            width={20}
+                            height={20}
+                            className="bg-[#171717]"
+                        />
+                    </button>}
+                    <button className='h-[40px] w-[40px] mx-2 rounded-full bg-[#171717] flex items-center justify-center' onClick={() => { onDeleteClick(localdata) }}>
                         <Image
                             src={'/asset/DeleteVector.svg'}
                             width={20}
@@ -26,11 +50,19 @@ const QuizQuestion = ({ index, onDeleteClick }) => {
                             className="bg-[#171717]"
                         />
                     </button>
+                    <SwitchComp showHideStatus={localdata?.isActive} onChangeHandler={(e) => {
+                        const local = { ...localdata }
+                        local.isActive = e
+                        dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, local))
+                        onInputChange("isActive", e)
+                    }} />
                 </div>
             </div>
 
-            <div className="mt-4">
-                <QuestionInput />
+            <div className="mt-4 text-white">
+                <QuestionInput value={localdata?.question} isEdit={localdata.isEdit}
+                    onChangeHandler={(e) => onInputChange(`question`, e.target.value)}
+                />
             </div>
 
 
@@ -38,29 +70,59 @@ const QuizQuestion = ({ index, onDeleteClick }) => {
                 <h4 className="text-[1rem] font-semibold">Options</h4>
             </div>
 
-            {["A", "B", "C", "D"].map((v) => <div className="text-white mt-4">
+            {["A", "B", "C", "D"].map((v, inx) => <div className="text-white mt-4">
                 <div className="flex items-center justify-center gap-4">
-                    <div>
+                    {localdata?.isEdit && <div>
                         {v}
-                    </div>
+                    </div>}
                     <div className="flex w-full">
-                        <QuestionInput />
+                        <QuestionInput type="option" value={localdata?.[`option${inx + 1}`]} isEdit={localdata.isEdit}
+                            onChangeHandler={(e) => onInputChange(`option${inx + 1}`, e.target.value)}
+                        />
                     </div>
-                    <div className="flex gap-2 justify-center items-center">
-                        <div className={`h-4 w-4 border-2 border-white ${Correct === v ? 'bg-white' : 'bg-black'}`}
-                            onClick={() => onCorrectChnage(v)} >
-                            {Correct === v ?
-                                <svg width="100%" height="100%" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.5 0.375H19.5C19.7984 0.375 20.0845 0.493526 20.2955 0.704505C20.5065 0.915483 20.625 1.20163 20.625 1.5V19.5C20.625 19.7984 20.5065 20.0845 20.2955 20.2955C20.0845 20.5065 19.7984 20.625 19.5 20.625H1.5C1.20163 20.625 0.915483 20.5065 0.704505 20.2955C0.493526 20.0845 0.375 19.7984 0.375 19.5V1.5C0.375 1.20163 0.493526 0.915483 0.704505 0.704505C0.915483 0.493526 1.20163 0.375 1.5 0.375ZM9.37838 15L17.3321 7.04513L15.7414 5.45437L9.37838 11.8185L6.19575 8.63588L4.605 10.2266L9.37838 15Z" fill="white" />
-                                </svg> : <></>}
+                    {localdata.isEdit && <div className="flex gap-2 justify-center items-center">
+                        <div className={`h-[27px] w-[27px] border-2 border-white ${localdata?.answer === localdata?.[`option${inx + 1}`] ? 'bg-white' : 'bg-black'}`}
+                            onClick={() => { localdata.isEdit && onInputChange('answer', localdata?.[`option${inx + 1}`]) }}
+                        >
+                            {localdata?.answer === localdata?.[`option${inx + 1}`] ?
+                                <svg width="23" height="23" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_3762_52428)">
+                                        <path d="M4.5 3.375H22.5C22.7984 3.375 23.0845 3.49353 23.2955 3.7045C23.5065 3.91548 23.625 4.20163 23.625 4.5V22.5C23.625 22.7984 23.5065 23.0845 23.2955 23.2955C23.0845 23.5065 22.7984 23.625 22.5 23.625H4.5C4.20163 23.625 3.91548 23.5065 3.7045 23.2955C3.49353 23.0845 3.375 22.7984 3.375 22.5V4.5C3.375 4.20163 3.49353 3.91548 3.7045 3.7045C3.91548 3.49353 4.20163 3.375 4.5 3.375ZM12.3784 18L20.3321 10.0451L18.7414 8.45437L12.3784 14.8185L9.19575 11.6359L7.605 13.2266L12.3784 18Z" fill="#F19B6C" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_3762_52428">
+                                            <rect width="27" height="27" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                : <></>}
 
                         </div>
-                        <div className={`${Correct === v ? 'text-white' : `text-gray-600`}`}>Correct</div>
-                    </div>
+                        <div className={`${localdata?.answer === localdata?.[`option${inx + 1}`] ? 'text-white' : `text-gray-600`}`}>Correct</div>
+                    </div>}
                 </div>
             </div>
             )}
+            {localdata.isEdit && <div className="flex justify-between items-center w-full mt-4 ">
+                <div className="text-primary-base">
+                    + Add Correct Answer Points
+                </div>
+                <div className="flex items-center" >
+                    <div><button onClick={() => {
+                        setlocaldata(data);
+                        onInputChange("isEdit", false)
+                    }} className="text-primary-base mr-2">Cancel</button></div>
 
+                    <ConditionalButton label="save" condition={true} onClickHandler={() => {
+
+                        setdata({ ...localdata, isEdit: false }, index)
+
+                    }} />
+
+                </div>
+
+            </div>
+            }
 
 
         </div>
@@ -70,6 +132,21 @@ const QuizQuestion = ({ index, onDeleteClick }) => {
 export default QuizQuestion
 
 
-const QuestionInput = () => {
-    return <input className="bg-[#2C2C2C] w-full h-10 px-2 text-white rounded-md " />
+const QuestionInput = ({ value, isEdit, onChangeHandler, type }) => {
+    return isEdit ?
+        <input
+
+            value={value}
+            onChange={onChangeHandler}
+            className="bg-[#2C2C2C] w-full h-10 px-2 text-white rounded-md " />
+        : <div className="my-2 mx-4 ">
+            <div className="flex items-center">
+                {type === "option" && <svg className="mr-3" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="4" cy="4" r="3.5" stroke="white" />
+                </svg>
+                }
+                {value}</div>
+        </div>
 }
+
+

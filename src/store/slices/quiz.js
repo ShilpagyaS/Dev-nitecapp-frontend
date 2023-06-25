@@ -1,9 +1,10 @@
 import axiosInstance from "@/components/Auth/axios";
+import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    allquiz: [{ name: "test1", image: null }],
-    quiz: {}
+    allquiz: [],
+    quiz: []
 };
 
 export const quizSlice = createSlice({
@@ -11,36 +12,154 @@ export const quizSlice = createSlice({
     initialState,
     reducers: {
         setAllQuizes: (state, action) => {
+            debugger
             state.allquiz = action.payload
         },
         setQuizDetails: (state, action) => {
             state.quiz = action.payload
         },
+        addNewQuestion: (state, action) => {
+            state.quiz = [...state.quiz, action.payload]
+        },
+
         emptyAllQuiz: (state) => {
             state.allquiz = []
-            state.quiz = {}
+            state.quiz = []
         }
     },
 });
 
 
 
-export const addnewQuiz = (newQuiz) => {
-    return async (dispatch, getState) => {
-        const state = getState()
-        const oldquizes = state.quiz.allquiz
-        dispatch(quizSlice.actions.setAllQuizes([...oldquizes, newQuiz]))
+export const addnewQuiz = (data) => {
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `api/quiz/add_new_quiz`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getallquiz())
+            successtoast({ message: "Added Successfully" })
+        })
+
+    }
+
+
+}
+
+export const updateQuizById = (id, data) => {
+    debugger
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `api/quiz/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getallquiz())
+            successtoast({ message: "Updated Successfully" })
+        })
+
+    }
+}
+
+export const deleteQuizById = (id) => {
+    debugger
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `api/quiz/${id}`,
+            method: "DELETE",
+        }).then((res) => {
+            dispatch(getallquiz())
+            successtoast({ message: "deleted succesfully" })
+        })
+
     }
 }
 
 
-export const emptyAllQuizList = (productType) => {
+export const getallquiz = () => {
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `/api/quiz/get_all_quiz`,
+            method: "GET",
+        }).then((res) => {
+            const { data } = res
+            dispatch(quizSlice.actions.setAllQuizes(data.data))
+        })
 
-    return async (dispatch, getState) => {
+    }
+}
+
+export const getQuizById = (id) => {
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `/api/quiz_question/get_all_quiz_question_by_quiz_id/${id}`,
+            method: "GET",
+        }).then((res) => {
+            const { data } = res
+            debugger
+            dispatch(quizSlice.actions.setQuizDetails(data.data))
+        })
+
+    }
+}
+
+
+export const addQuestion = (data) => {
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `/api/quiz_question/add_new_quiz_question`,
+            method: "POST",
+            data
+        }).then((res) => {
+            debugger
+            const { data } = res
+            successtoast({ message: "Question Added Succesfully" })
+            dispatch(quizSlice.actions.addNewQuestion(data.data))
+        })
+
+    }
+}
+
+
+export const deleteQuizQuestionById = (id, quiz_id) => {
+    debugger
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `api/quiz_question/${id}`,
+            method: "DELETE",
+        }).then((res) => {
+            dispatch(getQuizById(quiz_id))
+            successtoast({ message: "deleted succesfully" })
+        })
+
+    }
+}
+
+export const updateQuizQuestionById = (id, quiz_id, data) => {
+    debugger
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `api/quiz_question/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getQuizById(quiz_id))
+            successtoast({ message: "Updated Successfully" })
+        })
+
+    }
+}
+
+export const emptyAllQuizList = () => {
+
+    return async (dispatch) => {
         dispatch(
             quizSlice.actions.emptyAllQuiz()
         );
     };
 };
+
+
 
 export default quizSlice.reducer;

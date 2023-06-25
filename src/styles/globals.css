@@ -5,13 +5,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: black;
   scrollbar-gutter: stable;
-
 }
 
 * {
@@ -19,10 +22,8 @@ body {
 }
 
 :root {
-
   /* --toastify-icon-color-success: #ee854d !important; */
   /* --toastify-color-progress-success: #ee854d !important; */
-
 }
 
 .Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--success {
@@ -79,14 +80,12 @@ body {
   border-radius: 0px !important;
   color: #ffffff !important;
   height: 10px !important;
-
 }
 
 .swiper-button-prev {
   background: transparent !important;
   border-radius: 0px !important;
   color: #ffffff !important;
-
 }
 
 .brandModal {
@@ -101,12 +100,12 @@ body {
 }
 
 .brandModal::-webkit-scrollbar-thumb {
-  background: #CBAF69;
+  background: #cbaf69;
   border-radius: 10px;
 }
 
 .brandModal::-webkit-scrollbar-track {
-  background: #2B2828;
+  background: #2b2828;
   border-radius: 10px;
 }
 
@@ -122,12 +121,12 @@ body {
 }
 
 .notificationModal::-webkit-scrollbar-thumb {
-  background: #CBAF69;
+  background: #cbaf69;
   border-radius: 5px;
 }
 
 .notificationModal::-webkit-scrollbar-track {
-  background: #2B2828;
+  background: #2b2828;
   border-radius: 5px;
 }
 
@@ -151,11 +150,11 @@ body {
 }
 
 .alphabetscroll::-webkit-scrollbar-thumb {
-  background: #CBAF69;
+  background: #cbaf69;
   border-radius: 5px;
 }
 
 .alphabetscroll::-webkit-scrollbar-track {
-  background: #2B2828;
+  background: #2b2828;
   border-radius: 5px;
 }

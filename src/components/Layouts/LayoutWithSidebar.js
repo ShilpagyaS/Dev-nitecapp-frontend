@@ -28,7 +28,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
         <div className="lg:flex hidden h-[80vh] overflow-y-auto">
           <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} />
         </div>
-        <div className=" mb-3  h-[80vh]  overflow-y-auto pb-10 hidescrollbar">
+        <div className=" mb-3  h-[80vh]  overflow-y-auto pb-10 hidescrollbar scroll-smooth">
           <Layout>{children}</Layout>
         </div>
       </div>
