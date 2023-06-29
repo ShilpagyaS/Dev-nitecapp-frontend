@@ -10,6 +10,8 @@ import Modal from "react-modal";
 import { useDispatch } from "react-redux";
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import { successtoast } from '../tostify'
+import { CKEditor } from 'ckeditor4-react';
+
 export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
@@ -3064,3 +3066,72 @@ export function AddContent({ isModalOpen, onClickCancel, onSave, deleteBtn, ingr
         </Modal>
     )
 }
+
+export function AddContentEditor({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            name: "",
+            desc: "",
+            instructorName: "",
+        }
+    )
+    const [isfocused, setisFocused] = useState(false);
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
+
+
+
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+            </div>
+            {/* <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+            </div> */}
+            <div className='h-[350px] mb-[10px] notificationModal p-8'>
+                <h5
+                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                        ? "text-[#959595]"
+                        : "text-white"
+
+                        }`}
+                >
+                    Course Image
+                </h5>
+
+                <CKEditor onChange={(e) => { console.log(e.editor.getData()) }} />
+
+            </div>
+
+
+        </Modal>
+    )
+}
+
