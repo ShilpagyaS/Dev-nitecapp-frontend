@@ -14,11 +14,11 @@ export default function Breadcrumb({ last }) {
   if (subcategory4) crun.push( {label:subcategory4.replace('_'," "),link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}${typeid?`?id=${typeid}`:''}${infoid?`&typeid=${infoid}`:''}`})
   // if (subcategory5) crun.push( {label:subcategory5.replace('_'," "),link:`/${enUrl(category)}/${enUrl(subcategory)}/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}/${enUrl(subcategory5)}${typeid?`?id=${typeid}`:''}`})
   if (last) crun.push( {label:last|| "",link:""})
-  return <div className="text-container my-2 ">
-    <p className="text-white text-[14px]">
+  return <div className="text-container my-2 bg-transparent">
+    <p className="text-white text-[14px] bg-transparent">
       {crun.map((i,inx)=>{
-        return i.link!=="" && inx<crun.length-1 ?<Link href={i.link}><span>{`${inx!==0 ? " / " :"" }`}</span><span className="text-[#CCCCCC] capitalize">{i.label}</span></Link>
-        :<><span>{`${inx!==0 ? " / " :"" }`}</span><span className="text-[#CCCCCC] capitalize">{i.label}</span></>
+        return i.link!=="" && inx<crun.length-1 ?<Link href={i.link} className="bg-transparent"><span className="bg-transparent">{`${inx!==0 ? " / " :"" }`}</span><span className="text-[#CCCCCC] capitalize bg-transparent">{i.label}</span></Link>
+        :<><span className="bg-transparent">{`${inx!==0 ? " / " :"" }`}</span><span className="text-[#CCCCCC] capitalize bg-transparent">{i.label}</span></>
       })}
     </p>
   </div>

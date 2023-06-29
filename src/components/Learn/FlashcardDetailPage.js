@@ -72,7 +72,7 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
             </div>
             {
                 !ishow &&
-                <Flashcarddetailcomponent stats={missedandLearn} setStats={setStats} data={newList[counter]} totalcards={arr.length} currentCard={counter} onNext={() => { console.log('counter-> ', counter, arr.length - 1, ishow); if (counter >= arr.length - 1) setshow(true); if (counter < arr.length - 1) setCounter(prev => prev + 1); }} />
+                <Flashcarddetailcomponent stats={missedandLearn} setStats={setStats} data={newList[counter]} totalcards={newList.length} currentCard={counter} onNext={() => { console.log('counter-> ', counter, newList.length - 1, ishow); if (counter >= newList.length - 1) setshow(true); if (counter < newList.length - 1) setCounter(prev => prev + 1); }} />
             }
             {
                 ishow &&

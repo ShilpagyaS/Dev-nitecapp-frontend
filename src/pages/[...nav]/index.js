@@ -93,6 +93,7 @@ import QuizPage from "@/Admin/AdminLearn/QuizPage";
 import QuizDetailPage from "@/Admin/AdminLearn/QuizDetailPage";
 import AllQuizes from "@/components/Learn/AllQuizes";
 import UserQuizDetailpage from "@/components/Learn/UserQuizDetailpage";
+import LearnSection from "@/components/Learn/Udemy Learn Section/LearnSection";
 
 
 
@@ -214,8 +215,10 @@ export default function Category() {
 
                 {path === `/learn` && <Learn />}
                 {path === `/learn/library` && <LiberaryAll />}
-                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LearnSection />}
+                {/* {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />} */}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId} />}
+               
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage categoryid={productId} subcategory={subcategory2} />}
                 {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage subcatecodyId={productId} subcategoyName={subcategory3} />}

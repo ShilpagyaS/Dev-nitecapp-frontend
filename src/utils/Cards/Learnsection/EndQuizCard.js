@@ -45,6 +45,13 @@ function EndQuizCard({ nextClick, name, score }) {
                         <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${parseFloat((score.correct / score.total) * 100).toFixed(1)}%`} </p>
 
                     </div>
+                    <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
+       flex flex-col items-center justify-center' >
+                        <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Points</p>
+                        {/* <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${parseFloat((score.correct / score.total) * 100).toFixed(1)}%`} </p> */}
+                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`1253`} </p>
+
+                    </div>
                 </div>
             </div>
             <div className=' w-full p-[20px] flex items-center justify-center mt-[13px]'>
