@@ -90,7 +90,7 @@ function LearnSection() {
     return (
         <div className='h-full w-full'>
             {/* Banner */}
-            {
+            { 
                 !isStartLearning &&
 
                 <>

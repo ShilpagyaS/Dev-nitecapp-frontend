@@ -94,6 +94,7 @@ import QuizDetailPage from "@/Admin/AdminLearn/QuizDetailPage";
 import AllQuizes from "@/components/Learn/AllQuizes";
 import UserQuizDetailpage from "@/components/Learn/UserQuizDetailpage";
 import LearnSection from "@/components/Learn/Udemy Learn Section/LearnSection";
+import LiberaryUserUdemyDetailPage from "@/Admin/AdminLearn/AdminLiberaryUdemy/LiberaryUserUdemyDetailPage";
 
 
 
@@ -327,7 +328,8 @@ export default function Category() {
 
                 {path === `/learn` && <LearnPage />}
                 {path === `/learn/library` && <LiberaryPage />}
-                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin courseId={productId} />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryUserUdemyDetailPage courseId={productId} />}
+                {/* {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin courseId={productId} />} */}
                 {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LiberaryModulContentList moduleId={productId} />}
 
