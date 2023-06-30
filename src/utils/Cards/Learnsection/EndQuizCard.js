@@ -58,7 +58,11 @@ function EndQuizCard({ nextClick, name, score }) {
                 <Bigbutton text={'Go to Learn '} colorTrue={false} onClickHandle={() => { router.push('/learn') }} />
                 <div className='ml-[20px]'>
 
-                    <Bigbutton2 text={'Take me to next Quiz'} colorTrue={true} onClickHandle={() => { nextClick() }} />
+                    <Bigbutton2 text={'Take me to Quizes Page'} colorTrue={true}
+                        onClickHandle={() => {
+                            // nextClick()
+                            router.push('/learn/quizzes')
+                        }} />
                 </div>
             </div>
             {/* <ConditionalButton label={`Add ${componentName}`} condition={true} /> */}

@@ -51,7 +51,7 @@ function FlashcardEndScreen({ deckname, totalcards, readCards, learned, missed }
                 <Bigbutton text={'Go to Learn '} colorTrue={false} onClickHandle={() => { router.push('/learn') }} />
                 <div className='ml-[20px]'>
 
-                    <Bigbutton2 text={'Take me to next Flashcards'} colorTrue={true} onClickHandle={() => { }} />
+                    <Bigbutton2 text={'Take me to Flashcard Deck'} colorTrue={true} onClickHandle={() => { router.push('/learn/flashcards') }} />
                 </div>
             </div>
             {/* <ConditionalButton label={`Add ${componentName}`} condition={true} /> */}
