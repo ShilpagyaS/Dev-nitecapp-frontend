@@ -3238,6 +3238,9 @@ export function AddDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, titl
                         errorResponnse={_INITIAL}
                     />
                 )}
+                <div className="w-full flex items-center justify-end" onClick={() => { AddBullet() }}>
+                    <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'>Add More Info    </p>
+                </div>
 
 
             </div>
