@@ -1253,8 +1253,8 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
     const [courseForm, setCourse] = useState(
         {
             type: "",
-            textcontent: "",
-            image: null
+            name: "",
+            videoUrl: ""
         }
     )
     const [isfocused, setisFocused] = useState(false);
@@ -1277,13 +1277,14 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
     };
 
     const handleSave = () => {
+        console.log(courseForm);
+        // onSave({
+        //     type: contentType.value,
+        //     name: courseForm.name,
+        //     videoUrl: courseForm.videoUrl
 
-        onSave({
-            type: contentType.value,
-            text: courseForm.textcontent,
-            image: courseForm.image,
-        })
-        onClickCancel();
+        // })
+        // onClickCancel();
 
 
     };
@@ -1301,7 +1302,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                 <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
-            <div className='h-full mb-[10px] '>
+            <div className='min-h-[170px] h-full pr-[10px] notificationModal'>
                 <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
                         className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
@@ -1314,8 +1315,9 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                 <div className='mb-[8px]'>
                     <CustomSelectWithAllBlackTheme
                         items={[
-                            { label: 'Image', value: 'image' },
-                            { label: 'Text', value: 'text' },
+                            { label: 'Content Page', value: 'content' },
+                            { label: 'Video', value: 'video' },
+                            { label: 'Quiz', value: 'quiz' },
                         ]}
                         optionalFunction={(e) => {
                             console.log(e);
@@ -1323,45 +1325,62 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                         }} />
                 </div>
                 {
-                    contentType.value == 'image' &&
+                    contentType.value == 'content' &&
                     <>
-                        <h5
-                            className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
-                                ? "text-[#959595]"
-                                : "text-white"
-
-                                }`}
-                        >
-                            Content Image
-                        </h5>
-                        <LearnFileUpload />
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label="Title"
+                            onChangeHandler={handleChange}
+                            value={courseForm.name}
+                            name={"name"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        <div className="w-full flex items-center justify-end">
+                            <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'>Open Editor</p>
+                        </div>
                     </>
                 }
-                <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
-                            ? "text-[#959595]"
-                            : "text-white"
-
-                            }`}
-                    >
-                        Content
-                    </h5>
-
-                    <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
-                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
-                     appearance-none`}
-                        value={courseForm.textcontent}
-                        name={'textcontent'}
-                        onChange={handleChange} style={{ resize: 'none' }}
-                        onFocus={(e) => {
-                            setisFocused(true);
-                        }}
-                        onBlur={(e) => {
-                            setisFocused(false);
-                        }}
-                    />
-                </div>
+                {
+                    contentType.value == 'video' &&
+                    <>
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label="Title"
+                            onChangeHandler={handleChange}
+                            value={courseForm.name}
+                            name={"name"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        <InputFieldWirhAutoWidth
+                            placeholder="Paste your Url"
+                            label="Video Url"
+                            onChangeHandler={handleChange}
+                            value={courseForm.videoUrl}
+                            name={"videoUrl"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                    </>
+                }
+                {
+                    contentType.value == 'quiz' &&
+                    <>
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label="Title"
+                            onChangeHandler={handleChange}
+                            value={courseForm.name}
+                            name={"name"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        <div className="w-full flex items-center justify-end">
+                            <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'>Add Quiz</p>
+                        </div>
+                    </>
+                }
 
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -3079,8 +3098,9 @@ export function AddContentEditor({ isModalOpen, onClickCancel, onSave, deleteBtn
             border: "none",
             background: "black",
             padding: "24px",
-            maxWidth: "480px",
+            // maxWidth: "480px",
             width: "90%",
+            height: "90%"
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -3115,7 +3135,7 @@ export function AddContentEditor({ isModalOpen, onClickCancel, onSave, deleteBtn
                 <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
-            <div className='h-[350px] mb-[10px] notificationModal p-8'>
+            <div className='h-[450px] mb-[10px] notificationModal p-8'>
                 <h5
                     className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
                         ? "text-[#959595]"
@@ -3134,4 +3154,101 @@ export function AddContentEditor({ isModalOpen, onClickCancel, onSave, deleteBtn
         </Modal>
     )
 }
+export function AddDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, title, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState([
+        {
+            id: '',
+            name: "",
+        }
+    ]
+    )
+    const [isfocused, setisFocused] = useState(false);
+    const [contentType, setContentType] = useState({ value: '', label: '' })
+    function handleChange(e, index) {
+        const { name, value } = e.target;
+        const updatedQuestions = [...courseForm];
+        updatedQuestions[index][name] = event.target.value;
+        console.log(updatedQuestions);
+        setCourse(updatedQuestions);
+    }
+    function AddBullet(e, index) {
+        setCourse([...courseForm, { id: '', name: '' }])
+    }
+    const handleCancel = () => {
+        onClickCancel();
 
+
+    };
+
+    const handleSave = () => {
+        console.log(courseForm);
+        // onSave({
+        //     type: contentType.value,
+        //     name: courseForm.name,
+        //     videoUrl: courseForm.videoUrl
+
+        // })
+        // onClickCancel();
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+            </div>
+            {/* <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+            </div> */}
+            <div className='min-h-[170px] h-full pr-[10px] notificationModal'>
+
+                {courseForm.map((point, index) =>
+                    <InputFieldWirhAutoWidth
+                        placeholder=""
+                        label="Course Name"
+                        onChangeHandler={(e) => { handleChange(e, index) }}
+                        value={courseForm[index].name}
+                        name={"name"}
+                        type={"text"}
+                        errorResponnse={_INITIAL}
+                    />
+                )}
+
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}

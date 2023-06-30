@@ -17,7 +17,7 @@ function LiberaryDetailPageAdmin({ courseId }) {
     const [chapterId, setChapterId] = useState(null)
     const { courseDetail } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
-    useEffect(() => {
+    useEffect(() => { 
         dispatch(getCoursesDetail(courseId))
         return () => {
             dispatch(emptycourses())
