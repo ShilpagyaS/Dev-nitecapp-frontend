@@ -2,6 +2,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import FlashcardEndScreen from '@/components/Learn/FlashcardEndScreen'
 import { emptycourses, getAllFlashCardsByCategoryId, getFlashCardsByType } from '@/store/slices/learnslice'
 import Flashcarddetailcomponent from '@/utils/Cards/Learnsection/Flashcarddetailcomponent'
+import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -70,13 +71,31 @@ function StyduAllFlashcardByCategoryid({ id, categoryName }) {
                     {categoryName}
                 </h5>
             </div>
-            {
-                !ishow &&
-                <Flashcarddetailcomponent stats={missedandLearn} setStats={setStats} data={newList[counter]} totalcards={newList.length} currentCard={counter} onNext={() => { console.log('counter-> ', counter, newList.length - 1, ishow); if (counter >= newList.length - 1) setshow(true); if (counter < newList.length - 1) setCounter(prev => prev + 1); }} />
-            }
-            {
-                ishow &&
-                <FlashcardEndScreen deckname={categoryName} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
+            {newList?.length ?
+                <>
+                    {
+                        !ishow &&
+                        <Flashcarddetailcomponent stats={missedandLearn} setStats={setStats} data={newList[counter]} totalcards={newList.length} currentCard={counter} onNext={() => { console.log('counter-> ', counter, newList.length - 1, ishow); if (counter >= newList.length - 1) setshow(true); if (counter < newList.length - 1) setCounter(prev => prev + 1); }} />
+                    }
+                    {
+                        ishow &&
+                        <FlashcardEndScreen deckname={type} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
+                    }
+                </>
+                :
+                <>
+                    <div className='flex flex-col items-center justify-center h-full w-full'>
+                        <Image
+                            className="bg-transparent"
+                            src="/asset/EmptyFrame.svg"
+                            width={302}
+                            height={186}
+                            alt="Empty"
+                            priority
+                        />
+                        <p className='not-italic font-bold text-xl font-Inter text-white mt-[54px]'>There is no Data present here</p>
+                    </div>
+                </>
             }
         </div>)
 }

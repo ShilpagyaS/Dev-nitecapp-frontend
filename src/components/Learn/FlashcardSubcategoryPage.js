@@ -27,15 +27,18 @@ function FlashcardSubcategoryPage({ categoryid, subcategory }) {
                     {subcategory}
                 </h5>
             </div>
-            <div className='flex flex-col w-[300px] cursor-pointer border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]' onClick={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl('Study All')}?id=${categoryid}&typeid=${categoryid}`) }}>
-                <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
-                    {`Study All`}
-                </h5>
-                <h5 className='not-italic font-normal text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
-                    {`${data.cardsCount} Cards`}
-                </h5>
+            {data.cardsCount > 0 &&
 
-            </div>
+                <div className='flex flex-col w-[300px] cursor-pointer border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]' onClick={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl('Study All')}?id=${categoryid}&typeid=${categoryid}`) }}>
+                    <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
+                        {`Study All`}
+                    </h5>
+                    <h5 className='not-italic font-normal text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
+                        {`${data.cardsCount} Cards`}
+                    </h5>
+
+                </div>
+            }
             <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4'>
                 {course?.subCategoryList?.map((sub) =>
                     <UserSubcatFlashcard data={sub} onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl(sub.name)}?id=${sub.flashcard_subcategory_id}&typeid=${categoryid}`) }} />

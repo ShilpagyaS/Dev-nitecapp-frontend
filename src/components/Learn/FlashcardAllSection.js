@@ -102,15 +102,18 @@ function FlashcardAllSection() {
                                 {element.type}
                             </h5>
                         </div>
-                        <div className='flex flex-col w-[300px] border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px] cursor-pointer' onClick={() => { router.push(`/learn/flashcards/${enUrl('Study All')}?id=${element.type}`) }}>
-                            <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
-                                {`Study All`}
-                            </h5>
-                            <h5 className='not-italic font-normal  text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
-                                {`${element.cardsCount} Cards`}
-                            </h5>
+                        {element.cardsCount > 0 &&
 
-                        </div>
+                            < div className='flex flex-col w-[300px] border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px] cursor-pointer' onClick={() => { router.push(`/learn/flashcards/${enUrl('Study All')}?id=${element.type}`) }}>
+                                <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
+                                    {`Study All`}
+                                </h5>
+                                <h5 className='not-italic font-normal  text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
+                                    {`${element.cardsCount} Cards`}
+                                </h5>
+
+                            </div>
+                        }
                         <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                             {
                                 element?.categories?.map((cat) =>
@@ -122,7 +125,7 @@ function FlashcardAllSection() {
                     </div>
                 )
             }
-        </div>
+        </div >
     )
 }
 

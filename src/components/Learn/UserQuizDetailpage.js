@@ -2,6 +2,7 @@ import { getQuizQuiestions } from '@/store/slices/learnslice'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import QuizesCard from './QuizesCard'
+import QuizesLiberary from './QuizesForLiberaryPart'
 
 function UserQuizDetailpage({ quizid, quizName }) {
     const { quizesQuestion } = useSelector(state => state.learn)
@@ -15,7 +16,8 @@ function UserQuizDetailpage({ quizid, quizName }) {
 
     return (
         <div>
-            <QuizesCard name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} />
+            {/* <QuizesCard name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} /> */}
+            <QuizesLiberary name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} />
         </div>
     )
 }
