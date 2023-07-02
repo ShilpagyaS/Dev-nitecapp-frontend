@@ -9,6 +9,7 @@ const initialState = {
     chapters: [],
     modules: [],
     flashcard: [],
+    studyAll: [],
     flashcardDetail: {}
 };
 
@@ -27,6 +28,9 @@ export const learnSlice = createSlice({
         },
         getFlashCard: (state, action) => {
             state.flashcard = action.payload.data
+        },
+        getStudyAll: (state, action) => {
+            state.studyAll = action.payload.data
         },
         getChapters: (state, action) => {
             state.chapters = action.payload.data
@@ -227,6 +231,42 @@ export const getFlashCardsBySubcategoryId = (id) => {
             console.log("response->", res.data.data, res);
             dispatch(
                 learnSlice.actions.getFlashCard(
+                    res?.data
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getFlashCardsByType = (type) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard/list_by_type/${type}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getFlashCard(
+                    res?.data
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getAllFlashCardsByCategoryId = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard/list_by_category_id/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getStudyAll(
                     res?.data
                 )
             );

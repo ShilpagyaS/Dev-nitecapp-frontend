@@ -484,7 +484,7 @@ export function AddChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, cour
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
             <div className='h-full mb-[10px] '>
-                <h5
+                {/* <h5
                     className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
                         ? "text-[#959595]"
                         : "text-white"
@@ -493,7 +493,7 @@ export function AddChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, cour
                 >
                     Chapter Image
                 </h5>
-                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} /> */}
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Chapter Name"
@@ -503,7 +503,7 @@ export function AddChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, cour
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                {/* <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
                         className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
                             ? "text-[#959595]"
@@ -527,7 +527,7 @@ export function AddChapter({ isModalOpen, onClickCancel, onSave, deleteBtn, cour
                             setisFocused(false);
                         }}
                     />
-                </div>
+                </div> */}
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
@@ -985,7 +985,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
             </div>
             <div className='h-full mb-[10px] '>
-                <h5
+                {/* <h5
                     className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
                         ? "text-[#959595]"
                         : "text-white"
@@ -994,7 +994,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
                 >
                     Chapter Image
                 </h5>
-                <LearnFileUpload defaultImage={data.image || null} setimage={setimage} upimage={upimage} isEdit={true} />
+                <LearnFileUpload defaultImage={data.image || null} setimage={setimage} upimage={upimage} isEdit={true} /> */}
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Chapter Name"
@@ -1004,7 +1004,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
                     type={"text"}
                     errorResponnse={_INITIAL}
                 />
-                <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                {/* <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
                         className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
                             ? "text-[#959595]"
@@ -1028,7 +1028,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
                             setisFocused(false);
                         }}
                     />
-                </div>
+                </div> */}
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>

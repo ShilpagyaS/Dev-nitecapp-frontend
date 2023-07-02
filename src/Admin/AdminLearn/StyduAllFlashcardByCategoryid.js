@@ -1,11 +1,11 @@
-import { emptycourses, getFlashCardsBySubcategoryId } from '@/store/slices/learnslice'
+import Breadcrumb from '@/components/Breadcrumb'
+import FlashcardEndScreen from '@/components/Learn/FlashcardEndScreen'
+import { emptycourses, getAllFlashCardsByCategoryId, getFlashCardsByType } from '@/store/slices/learnslice'
 import Flashcarddetailcomponent from '@/utils/Cards/Learnsection/Flashcarddetailcomponent'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Breadcrumb from '../Breadcrumb'
-import FlashcardEndScreen from './FlashcardEndScreen'
 
-function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
+function StyduAllFlashcardByCategoryid({ id, categoryName }) {
 
     const arr = [
         {
@@ -41,7 +41,7 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getFlashCardsBySubcategoryId(subcatecodyId))
+        dispatch(getAllFlashCardsByCategoryId(id))
 
         return () => {
             dispatch(emptycourses())
@@ -67,7 +67,7 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
             <div className="flex items-center mb-[33px]">
 
                 <h5 className='not-italic font-semibold capitalize text-2xl font-Inter leading-tight text-white mb-[2px]'>
-                    {subcategoyName}
+                    {categoryName}
                 </h5>
             </div>
             {
@@ -76,9 +76,9 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
             }
             {
                 ishow &&
-                <FlashcardEndScreen deckname={subcategoyName} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
+                <FlashcardEndScreen deckname={categoryName} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
             }
         </div>)
 }
 
-export default FlashcardDetailPage
+export default StyduAllFlashcardByCategoryid

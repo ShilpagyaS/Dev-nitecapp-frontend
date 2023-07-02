@@ -27,7 +27,7 @@ function FlashcardSubcategoryPage({ categoryid, subcategory }) {
                     {subcategory}
                 </h5>
             </div>
-            <div className='flex flex-col w-[300px] cursor-pointer border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]' onClick={() => { route.push(`/learn/flashcards/${enUrl('Bar 101')}/${enUrl('Psychology of Hospitality')}?id=${'2'}&typeid=${'3'}`) }}>
+            <div className='flex flex-col w-[300px] cursor-pointer border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]' onClick={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl('Study All')}?id=${categoryid}&typeid=${categoryid}`) }}>
                 <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
                     {`Study All`}
                 </h5>
