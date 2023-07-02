@@ -26,13 +26,16 @@ function QuizesLiberary({ name, quizArray }) {
     useEffect(() => {
         console.log(selected);
     }, [selected])
-    function prepareQuizReport(quizId, correctAnswer, selectedAnswer) {
-        setSelected(prev => { return { ...prev, [quizId]: selectedAnswer } })
-        if (correctAnswer == selectedAnswer) [
-            setAnserSheet(prev => { return { ...prev, [quizId]: 1 } })
-        ]
-        else
-            setAnserSheet(prev => { return { ...prev, [quizId]: 0 } })
+    function prepareQuizReport(quizId, correctAnswer, selectedAnswer, condition) {
+        if (!condition) {
+
+            setSelected(prev => { return { ...prev, [quizId]: selectedAnswer } })
+            if (correctAnswer == selectedAnswer) [
+                setAnserSheet(prev => { return { ...prev, [quizId]: 1 } })
+            ]
+            else
+                setAnserSheet(prev => { return { ...prev, [quizId]: 0 } })
+        }
 
     }
     function finalreport() {
@@ -91,16 +94,46 @@ function QuizesLiberary({ name, quizArray }) {
                                                         'bg-black text-white '
                                                         : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
                                                     : 'bg-transparent text-black'}
-                                             cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1) }}>
+                                             cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
+                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1, selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option1}</p>
                                             </div>
-                                            <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option2 ? 'bg-black text-white ' : 'bg-transparent text-black'}  cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2) }}>
+                                            <div className={`rounded-full flex items-center 
+                                            ${selected[quiz.quiz_question_id] == quiz.option2 ?
+                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                                        'bg-black text-white '
+                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                    : 'bg-transparent text-black'}
+                                             cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
+                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2,selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option2}</p>
                                             </div>
-                                            <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option3 ? 'bg-black text-white ' : 'bg-transparent text-black'}  cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3) }}>
+                                            <div className={`rounded-full flex items-center 
+                                            ${selected[quiz.quiz_question_id] == quiz.option3 ?
+                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                                        'bg-black text-white '
+                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                    : 'bg-transparent text-black'}
+                                             cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
+                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3,selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option3}</p>
                                             </div>
-                                            <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option4 ? 'bg-black text-white ' : 'bg-transparent text-black'} cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4) }}>
+                                            <div className={`rounded-full flex items-center 
+                                            ${selected[quiz.quiz_question_id] == quiz.option4 ?
+                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                                        'bg-black text-white '
+                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                    : 'bg-transparent text-black'}
+                                             cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
+                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4,selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option4}</p>
                                             </div>
 
@@ -112,18 +145,6 @@ function QuizesLiberary({ name, quizArray }) {
                             <div className=' w-full flex items-center justify-end bg-transparent mb-[10px] pr-[10px]'>
 
                                 <div className='bg-transparent flex'>
-                                    {/* {counter > 0 &&
-                                        <div className="bg-transparent mr-[10px]">
-                                            <button
-                                                className={` bg-transparent
-                                py-[7px] px-[24px] h-[41px] rounded-full text-black border border-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
-                                                onClick={() => { if (counter > 0) setCounter(prev => prev - 1) }}
-
-                                            >
-                                                {`Previous`}
-                                            </button>
-                                        </div>
-                                    } */}
                                     {
                                         counter < quizArray.length - 1 &&
                                         <ConditionalButton label={'Check'} condition={true} onClickHandler={() => {
