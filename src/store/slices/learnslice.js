@@ -10,7 +10,10 @@ const initialState = {
     modules: [],
     flashcard: [],
     studyAll: [],
-    flashcardDetail: {}
+    flashcardDetail: {},
+    learnScreenCourses:[],
+    learnScreenFlashcards:[],
+    learnScreenQuizes:[]
 };
 
 export const learnSlice = createSlice({
@@ -22,6 +25,15 @@ export const learnSlice = createSlice({
         },
         getQuizes: (state, action) => {
             state.quizes = action.payload.data
+        },
+        getAllQuizes: (state, action) => {
+            state.learnScreenQuizes = action.payload.data
+        },
+        getAllLiberaryCourses: (state, action) => {
+            state.learnScreenCourses = action.payload.data
+        },
+        getAllFlashcards: (state, action) => {
+            state.learnScreenFlashcards = action.payload.data
         },
         getQuizesQuestions: (state, action) => {
             state.quizesQuestion = action.payload.data
@@ -66,6 +78,11 @@ export const getCourses = () => {
                     data: res?.data?.data,
                 })
             );
+            dispatch(
+                learnSlice.actions.getAllLiberaryCourses({
+                    data: res?.data?.data,
+                })
+            );
         }).catch((err) => {
             console.log(err)
         });
@@ -76,11 +93,16 @@ export const getAllQuizesCourses = () => {
         const state = getState();
         await axiosInstance({
             url: `/api/quiz/get_all_quiz`,
-            method: "GET",
+            method: "GET",  
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
                 learnSlice.actions.getQuizes({
+                    data: res?.data?.data,
+                })
+            );
+            dispatch(
+                learnSlice.actions.getAllQuizes({
                     data: res?.data?.data,
                 })
             );
@@ -212,7 +234,25 @@ export const getFlashCards = () => {
         }).then((res) => {
             console.log("response->", res.data.data, res);
             dispatch(
-                learnSlice.actions.getCourses(
+                learnSlice.actions.getAllFlashcards(
+                    res?.data
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const getAllFlashCardCategorys = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/flashcard_category/get_all_flashcard_category`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getAllFlashcards(
                     res?.data
                 )
             );

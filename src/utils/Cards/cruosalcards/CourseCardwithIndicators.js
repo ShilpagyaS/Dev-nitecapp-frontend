@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import React from 'react'
 
-function CourseCardwithIndicators({ data }) {
+function CourseCardwithIndicators({ data, onCardClick }) {
     return (
-        <div className='flex flex-col items-start justify-center p-2 w-[138px] h-48 border border-[#3C3C3C] rounded-[12px]'>
+        <div className='flex flex-col items-start justify-center p-2 w-[138px] h-48 border border-[#3C3C3C] cursor-pointer rounded-[12px]'
+            onClick={() => { onCardClick(data.name, data.id) }}
+        >
             <div className='w-[118px] h-24 bg-gray-400 rounded-lg relative'>
                 <Image src={data?.image} fill priority />
                 {
