@@ -19,8 +19,10 @@ function QuizesLiberary({ name, quizArray }) {
     })
     useEffect(() => {
         let dummy = {}
+        let dummy2 = {}
         quizArray.map((quiz) => { dummy = { ...dummy, [quiz.quiz_question_id]: '', [`check_${quiz.quiz_question_id}`]: false } })
-        setAnserSheet(dummy)
+        quizArray.map((quiz) => { dummy2 = { ...dummy2, [quiz.quiz_question_id]: '' } })
+        setAnserSheet(dummy2)
         setSelected(dummy)
     }, [quizArray])
     useEffect(() => {
@@ -109,7 +111,7 @@ function QuizesLiberary({ name, quizArray }) {
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
                                              ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2,selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2, selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option2}</p>
                                             </div>
                                             <div className={`rounded-full flex items-center 
@@ -121,7 +123,7 @@ function QuizesLiberary({ name, quizArray }) {
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
                                              ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3,selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3, selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option3}</p>
                                             </div>
                                             <div className={`rounded-full flex items-center 
@@ -133,7 +135,7 @@ function QuizesLiberary({ name, quizArray }) {
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
                                              ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4,selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4, selected[`check_${quiz.quiz_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option4}</p>
                                             </div>
 
@@ -146,6 +148,49 @@ function QuizesLiberary({ name, quizArray }) {
 
                                 <div className='bg-transparent flex'>
                                     {
+                                        !selected[`check_${quizArray[counter]?.quiz_question_id}`] ?
+                                            <ConditionalButton label={'Check'} condition={true} onClickHandler={() => {
+                                                // if (counter < quizArray.length - 1)
+                                                //     setCounter(prev => prev + 1)
+                                                let refid = ''
+                                                refid = quizArray[counter]?.quiz_question_id
+                                                console.log(answersheet);
+                                                if (selected[refid] != '') {
+
+                                                    if (selected[`check_${refid}`] == false) {
+
+                                                        setSelected(
+                                                            (prev) => {
+                                                                return {
+                                                                    ...prev,
+                                                                    [`check_${refid}`]: true
+                                                                }
+                                                            }
+                                                        )
+                                                    }
+                                                }
+                                            }} />
+                                            :
+                                            <>
+                                                {
+                                                    counter < quizArray.length - 1 &&
+                                                    <ConditionalButton label={'Next'} condition={true} onClickHandler={() => {
+                                                        if (counter < quizArray.length - 1)
+                                                            setCounter(prev => prev + 1)
+                                                    }} />
+                                                }
+                                                {
+                                                    counter === quizArray.length - 1 &&
+                                                    <ConditionalButton label={'Submit'} condition={true} onClickHandler={() => {
+                                                        // setCounter(1)
+                                                        finalreport()
+                                                        setisShow(true)
+
+                                                    }} />
+                                                }
+                                            </>
+                                    }
+                                    {/* {
                                         counter < quizArray.length - 1 &&
                                         <ConditionalButton label={'Check'} condition={true} onClickHandler={() => {
                                             // if (counter < quizArray.length - 1)
@@ -165,23 +210,8 @@ function QuizesLiberary({ name, quizArray }) {
                                                 )
                                             }
                                         }} />
-                                    }
-                                    {
-                                        counter < quizArray.length - 1 &&
-                                        <ConditionalButton label={'Next'} condition={true} onClickHandler={() => {
-                                            if (counter < quizArray.length - 1)
-                                                setCounter(prev => prev + 1)
-                                        }} />
-                                    }
-                                    {
-                                        counter === quizArray.length - 1 &&
-                                        <ConditionalButton label={'Submit'} condition={true} onClickHandler={() => {
-                                            // setCounter(1)
-                                            finalreport()
-                                            setisShow(true)
+                                    } */}
 
-                                        }} />
-                                    }
                                 </div>
                             </div>
                         </div>
