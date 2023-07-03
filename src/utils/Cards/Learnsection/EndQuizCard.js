@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import Bigbutton, { Bigbutton2 } from '../Learnutils/Bigbutton';
 
-function EndQuizCard({ nextClick, name, score }) {
+function EndQuizCard({ nextClick, name, score, hidebutton }) {
     const router = useRouter()
     return (
         <div className='h-full w-full'>
@@ -54,17 +54,20 @@ function EndQuizCard({ nextClick, name, score }) {
                     </div>
                 </div>
             </div>
-            <div className=' w-full p-[20px] flex items-center justify-center mt-[13px]'>
-                <Bigbutton text={'Go to Learn '} colorTrue={false} onClickHandle={() => { router.push('/learn') }} />
-                <div className='ml-[20px]'>
+            {
+                !hidebutton &&
+                <div className=' w-full p-[20px] flex items-center justify-center mt-[13px]'>
+                    <Bigbutton text={'Go to Learn '} colorTrue={false} onClickHandle={() => { router.push('/learn') }} />
+                    <div className='ml-[20px]'>
 
-                    <Bigbutton2 text={'Take me to Quizes Page'} colorTrue={true}
-                        onClickHandle={() => {
-                            // nextClick()
-                            router.push('/learn/quizzes')
-                        }} />
+                        <Bigbutton2 text={'Take me to Quizes Page'} colorTrue={true}
+                            onClickHandle={() => {
+                                // nextClick()
+                                router.push('/learn/quizzes')
+                            }} />
+                    </div>
                 </div>
-            </div>
+            }
             {/* <ConditionalButton label={`Add ${componentName}`} condition={true} /> */}
         </div>
     )
