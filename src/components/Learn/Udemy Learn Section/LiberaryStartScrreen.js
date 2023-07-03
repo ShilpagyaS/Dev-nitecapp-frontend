@@ -1,6 +1,7 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
 import React, { useState } from 'react'
+import QuizesLiberary from '../QuizesForLiberaryPart'
 import AccordianForPlayerSection from './AccordianForPlayerSection'
 
 function LiberaryStartScrreen({ itemsArray }) {
@@ -11,6 +12,52 @@ function LiberaryStartScrreen({ itemsArray }) {
         console.log(content);
         setCurrentContent(content)
     }
+    const quiss = [
+
+        {
+            answer: "testing option...1",
+            createdAt: "2023-06-23T07:57:35.000Z",
+            image: "https://nitecapp-us-east-1-598437249266.s3.amazonaws.com/1682921359757-Daiquiri.webp",
+            option1: "testing option...1",
+            option2: "testing option...2",
+            option3: "testing option...3",
+            option4: "testing option...4",
+            points: 0,
+            question: "testing quiz question...2",
+            quiz_id: 1,
+            quiz_question_id: 1,
+            updatedAt: "2023-06-25T10:33:51.000Z",
+        },
+        {
+            answer: "testing option...1",
+            createdAt: "2023-06-23T07:57:35.000Z",
+            image: "https://nitecapp-us-east-1-598437249266.s3.amazonaws.com/1682921359757-Daiquiri.webp",
+            option1: "option...1",
+            option2: "option...2",
+            option3: "option...3",
+            option4: "option...4",
+            points: 0,
+            question: "testing quiz question...2",
+            quiz_id: 1,
+            quiz_question_id: 4,
+            updatedAt: "2023-06-25T10:33:51.000Z",
+        },
+        {
+            answer: "testing option...1",
+            createdAt: "2023-06-23T07:57:35.000Z",
+            image: "https://nitecapp-us-east-1-598437249266.s3.amazonaws.com/1682921359757-Daiquiri.webp",
+            option1: "testing...1",
+            option2: "testing...2",
+            option3: "testing...3",
+            option4: "testing...4",
+            points: 0,
+            question: "testing quiz question...2",
+            quiz_id: 1,
+            quiz_question_id: 3,
+            updatedAt: "2023-06-25T10:33:51.000Z",
+        },
+
+    ]
     return (
         <div className='h-full w-full'>
             <Breadcrumb />
@@ -38,7 +85,8 @@ function LiberaryStartScrreen({ itemsArray }) {
                     }
                     {currentContent.type == 'quiz' &&
                         <>
-                            Quiz {currentContent.content}
+                            <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} />
+
                         </>
                     }
                 </div>
