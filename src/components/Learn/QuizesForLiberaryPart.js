@@ -57,7 +57,7 @@ function QuizesLiberary({ name, quizArray }) {
     }
     const router = useRouter()
     return (
-        <div>
+        <div className='w-full'>
             {/* <Breadcrumb /> */}
             {/* <h2 className="text-white text-[32px] leading-9 font-bold mb-[20px] ">
                 Bar 101
@@ -65,7 +65,7 @@ function QuizesLiberary({ name, quizArray }) {
             {
                 !show ?
 
-                    <div className='w-full min-h-[500px] h-full bg-[#383838] rounded-t-[12px] mt-[20px] relative overflow-hidden'>
+                    <div className='w-full min-h-[350px] h-full bg-[#383838] rounded-t-[12px] mt-[20px] relative overflow-hidden'>
                         <div className='w-full rounded-t-[12px] bg-transparent p-[15px] flex items-center justify-center  '>
                             {/* <div className='col-span-2 bg-transparent'>
                                 <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={() => { router.back() }} />
@@ -82,10 +82,10 @@ function QuizesLiberary({ name, quizArray }) {
                         </div>
                         <div className='flex flex-col justify-between bg-[#F4F4F4]'>
 
-                            <div className={`flex items-center bg-transparent w-full min-h-[370px] h-full transition-all duration-500 ease-in-out`} style={{ transform: `translateX(-${counter * 100}%)` }}>
+                            <div className={`flex items-center bg-transparent w-full min-h-[270px] h-full transition-all duration-500 ease-in-out`} style={{ transform: `translateX(-${counter * 100}%)` }}>
                                 {/* {a.slice(0, counter).map((a1, i) => */}
                                 {quizArray.map((quiz, i) =>
-                                    <div className={`mt-[30px] w-full shrink-0 flex flex-col items-center  px-[10%] h-full bg-transparent transition-all duration-500 ease-in-out `}  >
+                                    <div className={`w-full shrink-0 flex flex-col items-center  px-[10%] h-full bg-transparent transition-all duration-500 ease-in-out `}  >
 
                                         <p className='font-[600] text-[14px] not-italic text-black bg-transparent capitalize'>{quiz.question}</p>
                                         <div className='mt-[20px] w-[65%] bg-transparent'>
@@ -222,6 +222,7 @@ function QuizesLiberary({ name, quizArray }) {
                             {name}
                         </h2>
                         <EndQuizCard
+                            hidebutton={true}
                             score={reportCard}
                             name={name}
                             nextClick={() => {

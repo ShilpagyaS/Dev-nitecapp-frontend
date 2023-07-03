@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-function AdminFlashcardChapterPage({ categoryid, subcategory }) { 
+function AdminFlashcardChapterPage({ categoryid, subcategory }) {
     const [addCourseButton, setAddCourse] = useState(false)
     const [EditCourseButton, setEditCourse] = useState(false)
     const [showDetail, setShowDetail] = useState(false)
@@ -27,6 +27,12 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
             dispatch(emptycourses())
         }
     }, [])
+    function convertString(inputString) {
+        const lowerString = inputString.toLowerCase();
+        const removedSlashes = lowerString.replace(/[\\\/]/g, '');
+        const underscoreString = removedSlashes.replace(/ /g, '_');
+        return underscoreString;
+      }
 
     return (
         <>
@@ -36,8 +42,9 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     onClickCancel={() => { setAddCourse(false) }}
                     title={'Flashcard Deck'}
                     categoryid={categoryid}
+                    subcategoryId={course?.subcategory_id}
                     type={course?.type}
-                    specname={subcategory}
+                    specname={convertString(subcategory)}
                     onSave={() => { }}
                 />
             }

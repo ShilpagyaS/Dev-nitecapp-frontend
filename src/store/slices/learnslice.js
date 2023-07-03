@@ -11,9 +11,9 @@ const initialState = {
     flashcard: [],
     studyAll: [],
     flashcardDetail: {},
-    learnScreenCourses:[],
-    learnScreenFlashcards:[],
-    learnScreenQuizes:[]
+    learnScreenCourses: [],
+    learnScreenFlashcards: [],
+    learnScreenQuizes: []
 };
 
 export const learnSlice = createSlice({
@@ -93,7 +93,7 @@ export const getAllQuizesCourses = () => {
         const state = getState();
         await axiosInstance({
             url: `/api/quiz/get_all_quiz`,
-            method: "GET",  
+            method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
@@ -150,6 +150,42 @@ export const getCourseDropdown = () => {
         });
     };
 };
+export const getCommonDropdown = (type, specname, courseid) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/flashcard_subcategory/dropdown_list_by_type/${type}/${specname}/${courseid}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i.course_id || i.category_id,
+                    label: i.name || i.drink_category_name,
+                    image: i.image
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const putShowFlashcards = (data) => {
+    return async (dispatch, getState) => {
+      const state = getState();
+      return axiosInstance({
+        url: `/api/show_product/common_api_for_all_product`,
+        method: "PUT",
+        data
+      }).then((res) => {
+        // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+        // dispatch(getProduct(data.type))
+      }).catch((err) => {
+        console.log(err)
+      });
+    };
+  };
 export const getSpecsDropdown = () => {
     return async (dispatch, getState) => {
         const state = getState();

@@ -1,4 +1,4 @@
-import { createChapter, createCourse, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, emptycourses, getChaptersdropdown, getCourseDropdown, getCourses, getspecscategorydropdown, getSpecsDropdown, putChapter, putCourse, putFlashcard, putFlashcardCategory, putFlashcardsubcategory, putModulePage } from "@/store/slices/learnslice";
+import { createChapter, createCourse, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, emptycourses, getChaptersdropdown, getCommonDropdown, getCourseDropdown, getCourses, getspecscategorydropdown, getSpecsDropdown, putChapter, putCourse, putFlashcard, putFlashcardCategory, putFlashcardsubcategory, putModulePage } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -314,8 +314,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, data
                 >
                     Course Image
                 </h5>
-                <LearnFileUpload defaultImage={data.image || null} setimage={setimage} upimage={upimage} isEdit={true} />
-
+                <LearnFileUpload defaultImage={data?.image || null} setimage={setimage} upimage={upimage} isEdit={true} />
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Course Name"
@@ -2008,7 +2007,7 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCourseDropdown()).then((res) => { console.log(res); setcoursesdropdown(res) })
-        // dispatch(getSpecsDropdown()).then((res) => { console.log(res); setspecsdropdown(res) })
+        dispatch(getSpecsDropdown()).then((res) => { console.log(res); setspecsdropdown(res) })
 
     }, [])
     useEffect(() => {
@@ -2024,20 +2023,19 @@ export function AddFlashcardCategory({ isModalOpen, onClickCancel, onSave, delet
 
         })
     }, [courses])
-    // useEffect(() => {
-    //     console.log(courses);
-    //     setdata((prev) => {
-    //         return {
-    //             ...prev,
-    //             specs: [...specs, {
-    //                 value: null,
-    //                 name: 'None'
-    //             }],
-    //         }
+    useEffect(() => {
+        console.log(specs);
+        setdata((prev) => {
+            return {
+                ...prev,
+                specs: [...specs, {
+                    value: null,
+                    name: 'None'
+                }],
+            }
 
-    //     })
-    // }, [specs])
-
+        })
+    }, [specs])
     function handleChange(e) {
         const { name, value } = e.target;
 
@@ -2489,7 +2487,7 @@ export function EditFlashcardCategory({ isModalOpen, onClickCancel, onSave, data
         </Modal>
     )
 }
-export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSave, categoryid, specname, title, desc, }) {
+export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSave, subcategoryId, categoryid, specname, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -2509,6 +2507,7 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
             backdropFilter: "blur(2.5px)",
         },
     };
+    console.log(specname);
     const [courseForm, setCourse] = useState(
         {
             name: "",
@@ -2521,10 +2520,12 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
     const dispatch = useDispatch()
     const [courses, setcoursesdropdown] = useState([])
     useEffect(() => {
-        if (type == 'courses')
-            dispatch(getChaptersdropdown(categoryid)).then((res) => { console.log(res); setcoursesdropdown(res) })
-        if (type == 'specs')
-            dispatch(getspecscategorydropdown('spirit')).then((res) => { console.log(res); setcoursesdropdown(res) })
+        if (type != 'others')
+            dispatch(getCommonDropdown(type, specname, subcategoryId)).then((res) => { console.log(res); setcoursesdropdown(res) })
+        // if (type == 'courses')
+        //     dispatch(getChaptersdropdown(categoryid)).then((res) => { console.log(res); setcoursesdropdown(res) })
+        // if (type == 'specs')
+        //     dispatch(getspecscategorydropdown('spirit')).then((res) => { console.log(res); setcoursesdropdown(res) })
 
     }, [])
     function handleChange(e) {
@@ -2632,30 +2633,36 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
             <div className='max-h-[330px] h-full mb-[10px] p-4'>
-                <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
-                    <h5
-                        className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
-             text-[#959595]`}
-                    // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
-                    >
-                        Select Flashcard Deck<sup>*</sup>
-                    </h5>
-                </div>
-                <div className='mb-[8px]'>
-
-                    <CustomSelectWithAllBlackTheme
-                        items={[
-                            ...courses,
-                            { value: null, label: 'New' },
-                        ]}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            oncategoruSelected(e)
-                            // setBrandForm(prev => { return { ...prev, role: e.value } })
-                        }} />
-                </div>
                 {
-                    iscategorySelected && !categorySelected && <>
+                    type != 'others' &&
+                    <>
+                        <div className="flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                            <h5
+                                className={`h-[22px] w-[302px] not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  
+                        text-[#959595]`}
+                            // ${enableOption == false ? "text-[#959595]" : "text-white"}`}
+                            >
+                                Select Flashcard Deck<sup>*</sup>
+                            </h5>
+                        </div>
+                        <div className='mb-[8px]'>
+
+                            <CustomSelectWithAllBlackTheme
+                                items={[
+                                    ...courses,
+                                    { value: null, label: 'New' },
+                                ]}
+                                optionalFunction={(e) => {
+                                    console.log(e);
+                                    oncategoruSelected(e)
+                                    // setBrandForm(prev => { return { ...prev, role: e.value } })
+                                }} />
+                        </div>
+                    </>
+                }
+                {
+                    iscategorySelected && !categorySelected &&
+                    <>
                         <InputFieldWirhAutoWidth
                             placeholder=""
                             label="Flashcard Deck Name"
@@ -2689,6 +2696,31 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
                             Flashcard Deck Image
                         </h5>
                         <LearnFileUpload defaultImage={categorySelected.image || '/asset/nodrinkinverted.webp'} isEdit={false} />
+                    </>
+                }
+                {
+                    type == 'others' && <>
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label="Flashcard Deck Name"
+                            onChangeHandler={handleChange}
+                            value={courseForm.name}
+                            name={"name"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
+
+                                }`}
+                        >
+                            Flashcard Deck Image
+                        </h5>
+                        <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+
+
                     </>
                 }
 

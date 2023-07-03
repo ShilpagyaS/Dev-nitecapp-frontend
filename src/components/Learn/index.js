@@ -17,7 +17,7 @@ function Learn() {
     const [quizes, setQuizes] = useState([])
     const { learnScreenQuizes, learnScreenFlashcards, learnScreenCourses } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
-    const router = useRouter()
+    const router = useRouter() 
     useEffect(() => {
         dispatch(getCourses())
         dispatch(getAllFlashCardCategorys())
