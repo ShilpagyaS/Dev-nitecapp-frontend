@@ -51,7 +51,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                                     <Image src={'/asset/vid.svg'} height={22} width={18} className='bg-transparent' />
                                 </span>
                             }
-
+ 
                             <h3 className='text-white bg-transparent ml-[8px]'>{item.title}</h3>
                         </div>
                         {(item.type == 'chapter' || item.type == 'module' || item.type == 'video') &&
@@ -59,7 +59,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                                 {
                                     item.type == 'chapter' &&
                                     <>
-                                        <div className='flex items-center cursor-pointer' onClick={() => { onAddmodule() }}>
+                                        <div className='flex items-center cursor-pointer' onClick={(e) => { onAddmodule(e) }}>
                                             <span className={`bg-transparent mr-[3px]`}>
                                                 {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
                                                 <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='fill-primary-base'>
@@ -70,7 +70,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
 
                                             <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] '>Add Module</p>
                                         </div>
-                                        <div className='flex items-center cursor-pointer' onClick={() => { onEditChapter() }}>
+                                        <div className='flex items-center cursor-pointer' onClick={(e) => { onEditChapter(e) }}>
 
                                             <span className={`bg-transparent mr-[3px]`}>
                                                 {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -87,7 +87,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                                 {
                                     item.type == 'module' &&
                                     <>
-                                        <div className='flex items-center cursor-pointer bg-transparent' onClick={() => { onaddContent() }}>
+                                        <div className='flex items-center cursor-pointer bg-transparent' onClick={(e) => { onaddContent(e) }}>
 
                                             <span className={`bg-transparent mr-[3px]`}>
                                                 {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -99,7 +99,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
 
                                             <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] bg-transparent'>Add Content</p>
                                         </div>
-                                        <div className='flex items-center cursor-pointer bg-transparent' onClick={() => { onEditmodule() }}>
+                                        <div className='flex items-center cursor-pointer bg-transparent' onClick={(e) => { onEditmodule(e) }}>
 
                                             <span className={`bg-transparent mr-[3px]`}>
                                                 {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -116,7 +116,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                                 {
                                     item.type == 'video' &&
                                     <>
-                                        <div className='flex items-center cursor-pointer bg-transparent' onClick={() => { onEditContent() }}>
+                                        <div className='flex items-center cursor-pointer bg-transparent' onClick={(e) => { onEditContent(e) }}>
 
                                             <span className={`bg-transparent mr-[3px]`} >
                                                 {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -153,7 +153,7 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                         {
                             item.type == 'content' &&
                             <>
-                                <div className='flex items-center cursor-pointer bg-transparent'  onClick={() => { onEditContent() }}>
+                                <div className='flex items-center cursor-pointer bg-transparent'  onClick={(e) => { onEditContent(e) }}>
 
                                     <span className={`bg-transparent mr-[3px]`}>
                                         {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}

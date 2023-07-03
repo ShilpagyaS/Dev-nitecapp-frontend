@@ -58,7 +58,7 @@ function QuizesLiberary({ name, quizArray }) {
     const router = useRouter()
     return (
         <div>
-            <Breadcrumb />
+            {/* <Breadcrumb /> */}
             {/* <h2 className="text-white text-[32px] leading-9 font-bold mb-[20px] ">
                 Bar 101
             </h2> */}
