@@ -27,12 +27,12 @@ function LearnSection() {
                             title: 'Nested Video',
                             type: 'video',
                             videoTime: '06.35',
-                            content: 'Content for Module Item 1 Video',
+                            content: 'Content for Module Item 1 Video', //video url
                         },
                         {
                             title: 'Nested content',
                             type: 'content',
-                            content: 'Content for  Module Item 1 Content',
+                            content: 'Content for  Module Item 1 Content', // html string
                         },
                         {
                             title: 'Nested Content 2',
@@ -41,8 +41,8 @@ function LearnSection() {
                         },
                         {
                             title: 'Nested Quiz',
-                            type: 'Quiz',
-                            content: 'Content for Nested Nested Item 2 QUIZ',
+                            type: 'quiz',
+                            content: 'Content for Nested Nested Item 2 QUIZ', // quiz array
                         },
                     ],
                 },

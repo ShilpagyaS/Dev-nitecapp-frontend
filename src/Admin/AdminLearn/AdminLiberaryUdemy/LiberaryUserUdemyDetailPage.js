@@ -112,23 +112,28 @@ function LiberaryUserUdemyDetailPage() {
         console.log('adding chapter');
         setAddChapter(true)
     }
-    function editChapterFunction(item) {
+    function editChapterFunction(e, item) {
+        e.stopPropagation();
         console.log('editing chapter');
         seteditChapter(true)
     }
-    function addModuleFunction(item) {
+    function addModuleFunction(e, item) {
+        e.stopPropagation();
         console.log('adding Module');
         setAddModule(true)
     }
-    function editModuleFunction(item) {
+    function editModuleFunction(e, item) {
+        e.stopPropagation();
         console.log('editing Module');
         seteditModule(true)
     }
-    function AddContentFunction(item) {
+    function AddContentFunction(e, item) {
+        e.stopPropagation();
         console.log('adding Content');
         setAddContent(true)
     }
-    function EditContentFunction(item) {
+    function EditContentFunction(e, item) {
+        e.stopPropagation();
         console.log('editing Content');
     }
     return (
@@ -357,11 +362,11 @@ function LiberaryUserUdemyDetailPage() {
                     </div>
                     <div className='w-full border border-[#404040] '>
                         <AdminAcordion
-                            onEditChapter={() => { editChapterFunction() }}
-                            onaddContent={() => { AddContentFunction() }}
-                            onAddmodule={() => { addModuleFunction() }}
-                            onEditmodule={() => { editModuleFunction() }}
-                            onEditContent={() => { EditContentFunction() }}
+                            onEditChapter={(e) => { editChapterFunction(e) }}
+                            onaddContent={(e) => { AddContentFunction(e) }}
+                            onAddmodule={(e) => { addModuleFunction(e) }}
+                            onEditmodule={(e) => { editModuleFunction(e) }}
+                            onEditContent={(e) => { EditContentFunction(e) }}
                             items={items} />
                     </div>
 

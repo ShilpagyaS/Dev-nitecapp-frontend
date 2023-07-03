@@ -132,7 +132,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                             <div className='mr-[20px]'>
 
                                 <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value, ListData) }} defaultSelect={items[0]} />
-                            </div>
+               e             </div>
 
                             <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />
                         </div>

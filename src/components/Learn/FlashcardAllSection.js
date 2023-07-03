@@ -1,6 +1,8 @@
 import { emptycourses, getFlashcardCoursesPage } from '@/store/slices/learnslice'
 import AllFlashCardcard from '@/utils/Cards/Learnsection/AllFlashCardcard'
 import Flashcarddetailcomponent from '@/utils/Cards/Learnsection/Flashcarddetailcomponent'
+import { enUrl } from '@/utils/encoderfunc'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Breadcrumb from '../Breadcrumb'
@@ -67,6 +69,7 @@ function FlashcardAllSection() {
     const [courseArray, setCourseArray] = useState([])
     const { course } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
+    const router = useRouter()
 
     useEffect(() => {
         dispatch(getFlashcardCoursesPage())
@@ -99,15 +102,18 @@ function FlashcardAllSection() {
                                 {element.type}
                             </h5>
                         </div>
-                        <div className='flex flex-col w-[300px] border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px]'>
-                            <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
-                                {`Study All`}
-                            </h5>
-                            <h5 className='not-italic font-normal  text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
-                                {`${element.cardsCount} Cards`}
-                            </h5>
+                        {element.cardsCount > 0 &&
 
-                        </div>
+                            < div className='flex flex-col w-[300px] border border-[#3C3C3C] py-[12px] px-[30px] rounded-[13px] mb-[24px] cursor-pointer' onClick={() => { router.push(`/learn/flashcards/${enUrl('Study All')}?id=${element.type}`) }}>
+                                <h5 className='not-italic font-semibold text-[18px] font-Inter leading-tight text-white mb-[2px]'>
+                                    {`Study All`}
+                                </h5>
+                                <h5 className='not-italic font-normal  text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
+                                    {`${element.cardsCount} Cards`}
+                                </h5>
+
+                            </div>
+                        }
                         <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
                             {
                                 element?.categories?.map((cat) =>
@@ -119,7 +125,7 @@ function FlashcardAllSection() {
                     </div>
                 )
             }
-        </div>
+        </div >
     )
 }
 

@@ -36,7 +36,8 @@ function AllQuizes() {
                 </h5>
             </div>
             {/* <EmptyQuizcomponent /> */}
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
+            {/* <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'> */}
+            <div className='flex gap-3 flex-wrap'>
                 {
                     quizarray?.map((quiz) =>
                         <UserQuizListcard data={quiz} onClickHandler={() => { route.push(`/learn/quizzes/${enUrl(quiz.name)}/?id=${quiz.quiz_id}`) }} />

@@ -1,12 +1,12 @@
-import { emptycourses, getFlashCardsBySubcategoryId } from '@/store/slices/learnslice'
+import Breadcrumb from '@/components/Breadcrumb'
+import FlashcardEndScreen from '@/components/Learn/FlashcardEndScreen'
+import { emptycourses, getAllFlashCardsByCategoryId, getFlashCardsByType } from '@/store/slices/learnslice'
 import Flashcarddetailcomponent from '@/utils/Cards/Learnsection/Flashcarddetailcomponent'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Breadcrumb from '../Breadcrumb'
-import FlashcardEndScreen from './FlashcardEndScreen'
 
-function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
+function StyduAllFlashcardByCategoryid({ id, categoryName }) {
 
     const arr = [
         {
@@ -42,13 +42,14 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
     const dispatch = useDispatch()
     useEffect(() => {
 
-        dispatch(getFlashCardsBySubcategoryId(subcatecodyId))
+        dispatch(getAllFlashCardsByCategoryId(id))
 
         return () => {
             dispatch(emptycourses())
         }
     }, [])
     useEffect(() => {
+        console.log('falshcards-->', flashcard);
         if (flashcard.length) {
             setList([...flashcard])
         }
@@ -67,19 +68,18 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
             <div className="flex items-center mb-[33px]">
 
                 <h5 className='not-italic font-semibold capitalize text-2xl font-Inter leading-tight text-white mb-[2px]'>
-                    {subcategoyName}
+                    {categoryName}
                 </h5>
             </div>
             {newList?.length ?
                 <>
-
                     {
                         !ishow &&
                         <Flashcarddetailcomponent stats={missedandLearn} setStats={setStats} data={newList[counter]} totalcards={newList.length} currentCard={counter} onNext={() => { console.log('counter-> ', counter, newList.length - 1, ishow); if (counter >= newList.length - 1) setshow(true); if (counter < newList.length - 1) setCounter(prev => prev + 1); }} />
                     }
                     {
                         ishow &&
-                        <FlashcardEndScreen deckname={subcategoyName} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
+                        <FlashcardEndScreen deckname={type} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
                     }
                 </>
                 :
@@ -100,4 +100,4 @@ function FlashcardDetailPage({ subcatecodyId, subcategoyName }) {
         </div>)
 }
 
-export default FlashcardDetailPage
+export default StyduAllFlashcardByCategoryid
