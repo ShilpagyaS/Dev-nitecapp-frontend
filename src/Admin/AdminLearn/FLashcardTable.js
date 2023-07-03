@@ -41,7 +41,7 @@ function FlashCardTables({ id }) {
                     itemImage: element.image,
                     itemName: element.name,
                     // itemName: element.front_text,
-                    showHideStatus: element.showProduct || false,
+                    showHideStatus: element.show_flashcard || false,
                     data: element,
                     createdDate: element.createdAt,
                 }
