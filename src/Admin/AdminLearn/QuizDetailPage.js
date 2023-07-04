@@ -35,7 +35,8 @@ function QuizDetailPage() {
       option4: "",
       answer: null,
       isEdit: true,
-      quiz_id: productId
+      quiz_id: productId,
+      points: 1
     })
     setlocalQuiz(local)
   }

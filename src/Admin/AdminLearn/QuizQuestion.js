@@ -11,11 +11,12 @@ import { useDispatch } from "react-redux"
 const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
     const [Correct, setcorrect] = useState(null)
     const [localdata, setlocaldata] = useState({})
+    const [localdataprev, setlocaldataprev] = useState({})
     const { productId } = useNavDetails()
     const dispatch = useDispatch()
     useEffect(() => {
         setlocaldata(data)
-
+        setlocaldataprev(data)
     }, [data])
 
     const onInputChange = (field, value) => {
@@ -25,6 +26,8 @@ const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
         setlocaldata(local)
 
     }
+
+
 
     return (
         <div className="w-full border-2 border-gray-200 p-4 ">
@@ -103,14 +106,20 @@ const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
                 </div>
             </div>
             )}
+            {!localdata.isEdit && <div className="text-primary-base">
+                <h1>Correct Answer Points : {localdata?.points}</h1>
+            </div>}
             {localdata.isEdit && <div className="flex justify-between items-center w-full mt-4 ">
-                <div className="text-primary-base">
+                {localdata?.isEdit && <div className="text-primary-base">
                     + Add Correct Answer Points
+                    <PointsInput value={localdata?.points} isEdit={localdata?.isEdit} onChangeHandler={(e) => onInputChange(`points`, e.target.value)} />
                 </div>
+
+                }
                 <div className="flex items-center" >
                     <div><button onClick={() => {
-                        setlocaldata(data);
-                        onInputChange("isEdit", false)
+                        setlocaldata({ ...localdataprev, isEdit: false });
+
                     }} className="text-primary-base mr-2">Cancel</button></div>
 
                     <ConditionalButton label="save" condition={true} onClickHandler={() => {
@@ -149,4 +158,21 @@ const QuestionInput = ({ value, isEdit, onChangeHandler, type }) => {
         </div>
 }
 
+
+const PointsInput = ({ value, isEdit, onChangeHandler, type }) => {
+    return isEdit ?
+        <input
+
+            value={value}
+            onChange={onChangeHandler}
+            className="bg-[#2C2C2C] w-full h-10 px-2 text-white rounded-md " />
+        : <div className="my-2 mx-4 ">
+            <div className="flex items-center">
+                {type === "option" && <svg className="mr-3" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="4" cy="4" r="3.5" stroke="white" />
+                </svg>
+                }
+                {value}</div>
+        </div>
+}
 

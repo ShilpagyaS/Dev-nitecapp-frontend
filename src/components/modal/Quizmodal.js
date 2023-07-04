@@ -112,7 +112,7 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
             </div>
             <div className='h-[350px] mb-[10px] notificationModal p-8'>
 
-                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                <LearnFileUpload defaultImage={quiz.image} setimage={setimage} upimage={upimage} isEdit={true} />
 
                 <InputFieldWirhAutoWidth
                     placeholder=""
@@ -161,6 +161,7 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
     )
 
     useEffect(() => {
+        debugger
         if (data.name)
             setquiz(data)
         else setquiz({
@@ -250,7 +251,9 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
             </div>
             <div className='h-[350px] mb-[10px] notificationModal p-8'>
 
-                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
+                <LearnFileUpload setimage={setimage} upimage={upimage}
+                    defaultImage={quiz.image}
+                    isEdit={true} />
 
                 <InputFieldWirhAutoWidth
                     placeholder=""

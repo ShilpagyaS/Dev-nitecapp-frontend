@@ -31,7 +31,7 @@ export default function LearnFileUpload({ setimage, defaultImage, isClear, isEdi
 
         }
     };
-
+    debugger
     return (
         <div>
             {image.preview ? (<>
