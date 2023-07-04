@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 function LiberaryPage() {
     const [addCourseButton, setAddCourse] = useState(false)
     const [courses, setcourses] = useState([])
-    const { course } = useSelector((state) => state.learn)
+    const { liberarycourse } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -19,10 +19,10 @@ function LiberaryPage() {
         }
     }, [])
     useEffect(() => {
-        console.log(course);
-        if (course.length) {
+        console.log(liberarycourse);
+        if (liberarycourse.length) {
 
-            let dummy = course?.map(
+            let dummy = liberarycourse?.map(
                 (element) => {
                     return {
                         id: element.course_id,
@@ -36,7 +36,7 @@ function LiberaryPage() {
             ) || []
             setcourses([...dummy])
         }
-    }, [course])    
+    }, [liberarycourse])    
 
     // {
     //     img: '/asset/learnsectoinbuilding.png',

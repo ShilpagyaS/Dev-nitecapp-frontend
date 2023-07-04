@@ -6,7 +6,7 @@ import LIberaryComponents from './LIberaryComponents'
 
 function LiberaryAll() {
     const [courses, setcourses] = useState([])
-    const { course } = useSelector((state) => state.learn)
+    const { liberarycourse } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -16,21 +16,24 @@ function LiberaryAll() {
         }
     }, [])
     useEffect(() => {
-        console.log(course);
-        let dummy = course?.map(
-            (element) => {
-                return {
-                    id: element.course_id,
-                    img: element.image,
-                    name: element.name,
-                    progress: 30,
-                    desc: element.description,
-                }
+        console.log(liberarycourse);
+        if (liberarycourse) {
 
-            }
-        ) || []
-        setcourses([...dummy])
-    }, [course])
+            let dummy = liberarycourse?.map(
+                (element) => {
+                    return {
+                        id: element.course_id,
+                        img: element.image,
+                        name: element.name,
+                        progress: 30,
+                        desc: element.description,
+                    }
+
+                }
+            ) || []
+            setcourses([...dummy])
+        }
+    }, [liberarycourse])
     return (
         <div className='w-full'>
             <Breadcrumb />

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     course: [],
+    liberarycourse: [],
     quizes: [],
     quizesQuestion: [],
     courseDetail: {},
@@ -22,6 +23,9 @@ export const learnSlice = createSlice({
     reducers: {
         getCourses: (state, action) => {
             state.course = action.payload.data
+        },
+        getLiberaryCourses: (state, action) => {
+            state.liberarycourse = action.payload.data
         },
         getQuizes: (state, action) => {
             state.quizes = action.payload.data
@@ -58,7 +62,17 @@ export const learnSlice = createSlice({
         },
         emptyAlling: (state) => {
             state.course = []
+            state.quizes = []
+            state.quizesQuestion = []
             state.courseDetail = {}
+            state.chapters = []
+            state.modules = []
+            state.flashcard = []
+            state.studyAll = []
+            state.flashcardDetail = {}
+            state.learnScreenCourses = []
+            state.learnScreenFlashcards = []
+            state.learnScreenQuizes = []
         }
     },
 });
@@ -80,6 +94,11 @@ export const getCourses = () => {
             );
             dispatch(
                 learnSlice.actions.getAllLiberaryCourses({
+                    data: res?.data?.data,
+                })
+            );
+            dispatch(
+                learnSlice.actions.getLiberaryCourses({
                     data: res?.data?.data,
                 })
             );
@@ -173,19 +192,19 @@ export const getCommonDropdown = (type, specname, courseid) => {
 };
 export const putShowFlashcards = (data) => {
     return async (dispatch, getState) => {
-      const state = getState();
-      return axiosInstance({
-        url: `/api/show_product/common_api_for_all_product`,
-        method: "PUT",
-        data
-      }).then((res) => {
-        // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
-        // dispatch(getProduct(data.type))
-      }).catch((err) => {
-        console.log(err)
-      });
+        const state = getState();
+        return axiosInstance({
+            url: `/api/show_product/common_api_for_all_product`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+            // dispatch(getProduct(data.type))
+        }).catch((err) => {
+            console.log(err)
+        });
     };
-  };
+};
 export const getSpecsDropdown = () => {
     return async (dispatch, getState) => {
         const state = getState();
