@@ -759,27 +759,20 @@ export const putIngredientById = (productId, data) => {
         });
     };
 };
-export const getAllIngredientCategoryForSelect = () => {
-    return async (dispatch, getState) => {
-        const state = getState();
-
+export const deleteFlashcard = (productId, subcategoryId) => {
+    return async (dispatch) => {
 
         return await axiosInstance({
-            url: `/api/cocktail_ingredient_type/get_all_cocktail_ingredient_type`,
-            method: "GET",
+            url: `/api/flashcard/${productId}`,
+            method: "DELETE"
         }).then((res) => {
-
-            const finaldata = res?.data?.data?.map((i) => {
-                return {
-                    value: i.ingredient_type_id,
-                    label: i.ingredient_type_name
-                }
-            })
-            return finaldata
+            // toastify
+            dispatch(getFlashCardsBySubcategoryId(subcategoryId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
         }).catch((err) => {
             console.log(err)
         });
-
     };
 };
 export const emptycourses = (productType) => {

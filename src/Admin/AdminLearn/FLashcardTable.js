@@ -1,6 +1,6 @@
 import { AddFlashCard, DeleteLearn } from '@/components/modal/LearnModals'
 import useNavDetails from '@/Hooks/useNavDetails'
-import { emptycourses, getFlashCardsBySubcategoryId } from '@/store/slices/learnslice'
+import { deleteFlashcard, emptycourses, getFlashCardsBySubcategoryId } from '@/store/slices/learnslice'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -130,13 +130,10 @@ function FlashCardTables({ id }) {
     }
     function deleteProduct() {
         console.log('deleteing');
-        console.log(elementItem);
+        console.log(elementItem, 'subcar', id);
 
-        // dispatch(deleteProductById('beer', elementItem.id))
-        let data = {
-            type: 'beer',
-            id: elementItem.id,
-        }
+        dispatch(deleteFlashcard(elementItem.id, id))
+
         // dispatch(delinkProductById(data))
     }
     return (
