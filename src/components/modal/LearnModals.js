@@ -12,6 +12,7 @@ import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detai
 import { successtoast } from '../tostify'
 import { CKEditor } from 'ckeditor4-react';
 import { EditorModuleContent } from "./editorModal";
+import ReactPlayer from "react-player";
 
 export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
@@ -3288,6 +3289,106 @@ export function AddDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, titl
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
                 </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function VideoPreview({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+            minHeight: '50vh'
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            type: "",
+            name: "",
+            videoUrl: ""
+        }
+    )
+    const [isEditor, setisEditor] = useState(false);
+
+    const [contentType, setContentType] = useState({ value: '', label: '' })
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+        console.log(courseForm);
+        // onSave({
+        //     type: contentType.value,
+        //     name: courseForm.name,
+        //     videoUrl: courseForm.videoUrl
+
+        // })
+        // onClickCancel();
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+
+            {/* <EditorModuleContent
+                isModalOpen={isEditor}
+                onClickCancel={() => setisEditor(false)}
+            /> */}
+            {/* <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+            </div> */}
+            {/* <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
+                <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
+            </div> */}
+            <div className='min-h-[200px] h-full pr-[10px] notificationModal'>
+                <div className="relative  w-full max-w-full  justify-center flex">
+                    <ReactPlayer
+                        controls
+
+                        className="rounded-lg "
+                        url="https://www.youtube.com/watch?v=jCGMoNCtPx0&feature=youtu.be" />
+                </div>
+
+            </div>
+            <div className='btncontainers flex items-center justify-end mt-[10px] '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                {/* <div className='ml-[24px]'>
+                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                </div> */}
 
             </div>
 

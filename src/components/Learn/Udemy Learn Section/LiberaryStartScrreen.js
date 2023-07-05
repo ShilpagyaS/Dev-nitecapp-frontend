@@ -83,7 +83,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick }) {
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
                     {currentContent.type == 'video' &&
                         <>
-                            <div className="relative  w-full max-w-full h-  justify-center flex">
+                            <div className="relative  w-full max-w-full  justify-center flex">
                                 <ReactPlayer
                                     controls
 

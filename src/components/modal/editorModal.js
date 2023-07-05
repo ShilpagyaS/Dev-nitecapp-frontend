@@ -40,7 +40,7 @@ export function EditorModuleContent({ isModalOpen, onClickCancel, onSave, delete
                     Close
                 </button></div>
 
-            <div  >
+            <div>
                 <div className="flex  gap-3 h-[50px] justify-center my-2 text-white">
 
                     <button label="Editor View" className={`py-2 px-4 ${!isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(false)} >Editor View</button>

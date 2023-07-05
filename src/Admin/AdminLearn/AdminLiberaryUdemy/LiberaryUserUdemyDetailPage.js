@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import LiberaryStartScrreen from '@/components/Learn/Udemy Learn Section/LiberaryStartScrreen'
-import { AddChapter, AddContentEditor, AddDetails, AddModule, AddModuleContent, EditChapter, EditCourse, EditModule, EditModuleContent } from '@/components/modal/LearnModals'
+import { AddChapter, AddContentEditor, AddDetails, AddModule, AddModuleContent, EditChapter, EditCourse, EditModule, EditModuleContent, VideoPreview } from '@/components/modal/LearnModals'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
 import AdminAcordion from '@/utils/Accordian/AdminAcordion'
 import Image from 'next/image'
@@ -101,6 +101,8 @@ function LiberaryUserUdemyDetailPage({ isPreview }) {
     const [editChapter, seteditChapter] = useState(false)
     const [editModule, seteditModule] = useState(false)
     const [editContent, seteditContent] = useState(false)
+    const [videoPreview, setVideoPreviewModal] = useState(false)
+
     const [isStartLearning, setStartLearning] = useState(false)
     function addDetailssunction(item) {
         console.log('Add DEtails');
@@ -202,6 +204,16 @@ function LiberaryUserUdemyDetailPage({ isPreview }) {
                 <AddDetails
                     isModalOpen={addDetail}
                     onClickCancel={() => { setAddDetails(false) }}
+                    title={'Module Content'}
+                    onSave={() => {
+
+                    }}
+                />
+            }
+            {videoPreview &&
+                <VideoPreview
+                    isModalOpen={videoPreview}
+                    onClickCancel={() => { setVideoPreviewModal(false) }}
                     title={'Module Content'}
                     onSave={() => {
 
@@ -380,6 +392,7 @@ function LiberaryUserUdemyDetailPage({ isPreview }) {
                                     onAddmodule={(e) => { addModuleFunction(e) }}
                                     onEditmodule={(e) => { editModuleFunction(e) }}
                                     onEditContent={(e) => { EditContentFunction(e) }}
+                                    videoPreviewClick={() => { setVideoPreviewModal(true) }}
                                     items={items} />
                             </div>
 
