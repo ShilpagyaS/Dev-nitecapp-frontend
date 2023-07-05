@@ -42,7 +42,7 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     onClickCancel={() => { setAddCourse(false) }}
                     title={'Flashcard Deck'}
                     categoryid={categoryid}
-                    subcategoryId={course?.subcategory_id}
+                    subcategoryId={course?.type_subcategory_id}
                     type={course?.type}
                     specname={convertString(subcategory)}
                     onSave={() => { }}

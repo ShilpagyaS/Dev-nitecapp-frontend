@@ -270,18 +270,18 @@ body {
   font-size: 20px;
 }
 
-table {
+.blogs table {
   width: 100%;
   border-collapse: collapse;
 }
 
-table,
-td,
-th {
+.blogs table,
+.blogs td,
+.blogs th {
   border: 1px solid;
 }
 
-tr td {
+.blogs tr td {
   padding: 10px;
   word-break: break-all;
 }

@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 import QuizesLiberary from '../QuizesForLiberaryPart'
 import AccordianForPlayerSection from './AccordianForPlayerSection'
 import ReactPlayer from 'react-player'
+import { RxCross1 } from 'react-icons/rx'
 
-function LiberaryStartScrreen({ itemsArray }) {
+function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick }) {
     const [currentContent, setCurrentContent] = useState({ type: '', content: '' })
     const [Counter, setCounter] = useState(0)
     console.log("itemArray:", itemsArray);
@@ -62,9 +63,15 @@ function LiberaryStartScrreen({ itemsArray }) {
     return (
         <div className='h-full w-full'>
             <Breadcrumb />
-            <p className='text-[24px] font-Inter text-white font-semibold bg-transparent mb-[10px]'>
-                The Complete Bar Management Short Course
-            </p>
+            <div className='w-full flex items-center mb-[10px] justify-between'>
+                <p className='text-[24px] font-Inter text-white font-semibold bg-transparent ml-[20px]'>
+                    The Complete Bar Management Short Course
+                </p>
+                {
+                    isPreview &&
+                    <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={() => { onCancelClick() }} />
+                }
+            </div>
             <p className='text-[12px] text-primary-base'>19% Completed</p>
             <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
                 <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${5 ? 10 : 0}%` }}></div>

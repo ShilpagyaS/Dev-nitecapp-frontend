@@ -190,16 +190,15 @@ export const getCommonDropdown = (type, specname, courseid) => {
         });
     };
 };
-export const putShowFlashcards = (data) => {
+export const putShowFlashcards = (data, id) => {
     return async (dispatch, getState) => {
         const state = getState();
         return axiosInstance({
-            url: `/api/show_product/common_api_for_all_product`,
+            url: `/api/flashcard/show_flashcard/change_status`,
             method: "PUT",
             data
         }).then((res) => {
-            // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
-            // dispatch(getProduct(data.type))
+            dispatch(getFlashCardsBySubcategoryId(id))
         }).catch((err) => {
             console.log(err)
         });

@@ -1,6 +1,6 @@
 import { AddFlashCard, DeleteLearn } from '@/components/modal/LearnModals'
 import useNavDetails from '@/Hooks/useNavDetails'
-import { deleteFlashcard, emptycourses, getFlashCardsBySubcategoryId } from '@/store/slices/learnslice'
+import { deleteFlashcard, emptycourses, getFlashCardsBySubcategoryId, putFlashcard, putShowFlashcards } from '@/store/slices/learnslice'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -54,8 +54,9 @@ function FlashCardTables({ id }) {
 
 
     function toggleSwitch(e, element) {
-        let data = { type: 'beer', id: element.id, showProduct: e }
-        // dispatch(putProductByIdThenUpdateListShowProduct(data))
+        let data = { id: element.id, show_flashcard: e }
+        console.log(data);
+        dispatch(putShowFlashcards(data, id))
     }
     const HeaderArray = ["Card Image", "Card Questions", "Show / Hide", "Edit / Delete"]
     function OuterRows({ element }) {
