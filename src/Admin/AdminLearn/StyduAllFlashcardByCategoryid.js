@@ -79,7 +79,7 @@ function StyduAllFlashcardByCategoryid({ id, categoryName }) {
                     }
                     {
                         ishow &&
-                        <FlashcardEndScreen deckname={type} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
+                        <FlashcardEndScreen deckname={categoryName} totalcards={newList.length} learned={missedandLearn.learned} missed={missedandLearn.missed} readCards={counter + 1} />
                     }
                 </>
                 :
