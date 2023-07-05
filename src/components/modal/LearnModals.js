@@ -13,6 +13,7 @@ import { successtoast } from '../tostify'
 import { CKEditor } from 'ckeditor4-react';
 import { EditorModuleContent } from "./editorModal";
 import ReactPlayer from "react-player";
+import { AddOneQuestion } from "./Quizmodal";
 
 export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
@@ -1166,7 +1167,6 @@ export function EditModule({ isModalOpen, onClickCancel, onSave, deleteBtn, ingr
             name: "",
         }
     )
-    const [isfocused, setisFocused] = useState(false);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -1192,6 +1192,8 @@ export function EditModule({ isModalOpen, onClickCancel, onSave, deleteBtn, ingr
 
 
     };
+
+
     return (
         <Modal
             isOpen={isModalOpen}
@@ -1257,6 +1259,20 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
         }
     )
     const [isEditor, setisEditor] = useState(false);
+    const [isQuiz, setisQuiz] = useState(false);
+    const [quizdata, setQuizdata] = useState(
+        {
+            question: "",
+            isActive: true,
+            option1: "",
+            option2: "",
+            option3: "",
+            option4: "",
+            answer: null,
+            isEdit: true,
+            points: 1
+        }
+    );
 
     const [contentType, setContentType] = useState({ value: '', label: '' })
     function handleChange(e) {
@@ -1295,7 +1311,12 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
             ariaHideApp={false}
             style={customStyles}
         >
-
+            <AddOneQuestion
+                data={quizdata}
+                setdata={setQuizdata}
+                isModalOpen={isQuiz}
+                onClickCancel={() => setisQuiz(false)}
+            />
             <EditorModuleContent
                 isModalOpen={isEditor}
                 onClickCancel={() => setisEditor(false)}
@@ -1341,10 +1362,13 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                             type={"text"}
                             errorResponnse={_INITIAL}
                         />
-                        <div className="w-full flex items-center justify-end">
+                        <div className="w-full flex items-center justify-between">
                             <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'
                                 onClick={() => setisEditor(true)}
                             >Open Editor</p>
+                            <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'
+                                onClick={() => setisQuiz(true)}
+                            >Add  Quiz</p>
                         </div>
                     </>
                 }
@@ -1401,6 +1425,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
         </Modal>
     )
 }
+
 export function EditModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn, data, title, desc, }) {
     const customStyles = {
         content: {
