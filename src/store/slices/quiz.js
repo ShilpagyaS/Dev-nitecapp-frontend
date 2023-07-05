@@ -12,7 +12,7 @@ export const quizSlice = createSlice({
     initialState,
     reducers: {
         setAllQuizes: (state, action) => {
-            debugger
+
             state.allquiz = action.payload
         },
         setQuizDetails: (state, action) => {
@@ -48,7 +48,7 @@ export const addnewQuiz = (data) => {
 }
 
 export const updateQuizById = (id, data) => {
-    debugger
+
     return async (dispatch) => {
         return axiosInstance({
             url: `api/quiz/${id}`,
@@ -63,7 +63,7 @@ export const updateQuizById = (id, data) => {
 }
 
 export const deleteQuizById = (id) => {
-    debugger
+
     return async (dispatch) => {
         return axiosInstance({
             url: `api/quiz/${id}`,
@@ -97,7 +97,7 @@ export const getQuizById = (id) => {
             method: "GET",
         }).then((res) => {
             const { data } = res
-            debugger
+
             dispatch(quizSlice.actions.setQuizDetails(data.data))
         })
 
@@ -112,7 +112,7 @@ export const addQuestion = (data) => {
             method: "POST",
             data
         }).then((res) => {
-            debugger
+
             const { data } = res
             successtoast({ message: "Question Added Succesfully" })
             dispatch(quizSlice.actions.addNewQuestion(data.data))
@@ -123,7 +123,7 @@ export const addQuestion = (data) => {
 
 
 export const deleteQuizQuestionById = (id, quiz_id) => {
-    debugger
+
     return async (dispatch) => {
         return axiosInstance({
             url: `api/quiz_question/${id}`,
@@ -137,7 +137,7 @@ export const deleteQuizQuestionById = (id, quiz_id) => {
 }
 
 export const updateQuizQuestionById = (id, quiz_id, data) => {
-    debugger
+
     return async (dispatch) => {
         return axiosInstance({
             url: `api/quiz_question/${id}`,

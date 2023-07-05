@@ -3,6 +3,7 @@ import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cockt
 import React, { useState } from 'react'
 import QuizesLiberary from '../QuizesForLiberaryPart'
 import AccordianForPlayerSection from './AccordianForPlayerSection'
+import ReactPlayer from 'react-player'
 
 function LiberaryStartScrreen({ itemsArray }) {
     const [currentContent, setCurrentContent] = useState({ type: '', content: '' })
@@ -75,7 +76,13 @@ function LiberaryStartScrreen({ itemsArray }) {
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
                     {currentContent.type == 'video' &&
                         <>
-                            Video {currentContent.content}
+                            <div className="relative  w-full max-w-full h-  justify-center flex">
+                                <ReactPlayer
+                                    controls
+
+                                    className="rounded-lg "
+                                    url="https://www.youtube.com/watch?v=jCGMoNCtPx0&feature=youtu.be" />
+                            </div>
                         </>
                     }
                     {currentContent.type == 'content' &&

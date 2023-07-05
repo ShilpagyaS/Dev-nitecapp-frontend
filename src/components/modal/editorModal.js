@@ -35,28 +35,36 @@ export function EditorModuleContent({ isModalOpen, onClickCancel, onSave, delete
             ariaHideApp={false}
             style={customStyles}
         >
+            <div className="text-white mb-2 w-full flex justify-end">
+                <button onClick={() => onClickCancel()}>
+                    Close
+                </button></div>
 
-            <div className="flex-auto " style={{ height: '100%' }}>
+            <div  >
+                <div className="flex  gap-3 h-[50px] justify-center my-2 text-white">
+
+                    <button label="Editor View" className={`py-2 px-4 ${!isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(false)} >Editor View</button>
+
+                    <button label="Preview" className={`py-2 px-4 ${isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(true)} >Preview</button>
+                </div>
                 {!isEditormode ? <CKEditor
 
                     initData={data}
                     config={{
                         height: 500,
-                        addCss: '.cke_editable { background-color: black; color: white }'
 
                     }}
                     onChange={(event) => { setdata(event.editor.getData()); }} />
-                    : <div className="text-white">
-                        <div dangerouslySetInnerHTML={{ __html: data }}></div>
+                    : <div className="text-white min-h-[600px]
+                    border-2 border-white p-2 
+                    editor
+                    ">
+                        <div className="text-white blogs" dangerouslySetInnerHTML={{ __html: data }}></div>
                     </div>
                 }
             </div>
-            <div className="flex flex-1 gap-3 h-[100px] justify-center text-white">
 
-                <button label="Editor View" condition={true} onClick={() => setEditormode(false)} >Editor View</button>
 
-                <button label="Preview" condition={true} onClick={() => setEditormode(true)} >Preview</button>
-            </div>
         </Modal>
     )
 }
