@@ -240,7 +240,7 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata }) => 
                 </div>
             </div>
             )}
-            {!localdata.isEdit && <div className="text-primary-base">
+            {/* {!localdata.isEdit && <div className="text-primary-base">
                 <h1>Correct Answer Points : {localdata?.points}</h1>
             </div>}
             {localdata.isEdit && <div className="flex justify-between items-center w-full mt-4 ">
@@ -252,7 +252,7 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata }) => 
                 }
 
             </div>
-            }
+            } */}
 
             {localdata?.isEdit && <div className="text-primary flex items-center w-full mt-4 justify-end" >
                 {/* <div><button onClick={() => {

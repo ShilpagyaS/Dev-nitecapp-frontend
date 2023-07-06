@@ -1343,7 +1343,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                         items={[
                             { label: 'Content Page', value: 'content' },
                             { label: 'Video', value: 'video' },
-                            { label: 'Quiz', value: 'quiz' },
+                            // { label: 'Quiz', value: 'quiz' },
                         ]}
                         optionalFunction={(e) => {
                             console.log(e);
@@ -1362,14 +1362,11 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                             type={"text"}
                             errorResponnse={_INITIAL}
                         />
-                        <div className="w-full flex items-center justify-between">
+                        {/* <div className="w-full flex items-center justify-end">
                             <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'
                                 onClick={() => setisEditor(true)}
                             >Open Editor</p>
-                            <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'
-                                onClick={() => setisQuiz(true)}
-                            >Add  Quiz</p>
-                        </div>
+                        </div> */}
                     </>
                 }
                 {
@@ -1414,10 +1411,17 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
                 }
 
             </div>
-            <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
-                <div className='ml-[24px]'>
-                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+            <div className='btncontainers flex items-center justify-between mt-[10px] '>
+                {contentType.value == 'content' ? <>
+                    <ConditionalButton label={'Open Editor'} condition={true} onClickHandler={handleSave} />
+                </> : <div>
+                </div>
+                }
+                <div className="flex items-center ">
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    </div>
                 </div>
 
             </div>

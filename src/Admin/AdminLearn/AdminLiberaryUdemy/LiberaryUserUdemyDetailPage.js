@@ -1,6 +1,7 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import LiberaryStartScrreen from '@/components/Learn/Udemy Learn Section/LiberaryStartScrreen'
 import { AddChapter, AddContentEditor, AddDetails, AddModule, AddModuleContent, EditChapter, EditCourse, EditModule, EditModuleContent, VideoPreview } from '@/components/modal/LearnModals'
+import { AddOneQuestion } from '@/components/modal/Quizmodal'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
 import AdminAcordion from '@/utils/Accordian/AdminAcordion'
 import Image from 'next/image'
@@ -102,6 +103,20 @@ function LiberaryUserUdemyDetailPage({ isPreview }) {
     const [editModule, seteditModule] = useState(false)
     const [editContent, seteditContent] = useState(false)
     const [videoPreview, setVideoPreviewModal] = useState(false)
+    const [isQuiz, setisQuiz] = useState(false);
+    const [quizdata, setQuizdata] = useState(
+        {
+            question: "",
+            isActive: true,
+            option1: "",
+            option2: "",
+            option3: "",
+            option4: "",
+            answer: null,
+            isEdit: true,
+            points: 1
+        }
+    );
 
     const [isStartLearning, setStartLearning] = useState(false)
     function addDetailssunction(item) {
@@ -218,6 +233,15 @@ function LiberaryUserUdemyDetailPage({ isPreview }) {
                     onSave={() => {
 
                     }}
+                />
+            }
+            {
+                isQuiz &&
+                <AddOneQuestion
+                    data={quizdata}
+                    setdata={setQuizdata}
+                    isModalOpen={isQuiz}
+                    onClickCancel={() => setisQuiz(false)}
                 />
             }
             {/* {addContent &&
@@ -393,6 +417,7 @@ function LiberaryUserUdemyDetailPage({ isPreview }) {
                                     onEditmodule={(e) => { editModuleFunction(e) }}
                                     onEditContent={(e) => { EditContentFunction(e) }}
                                     videoPreviewClick={() => { setVideoPreviewModal(true) }}
+                                    addquiz={() => { setisQuiz(true) }}
                                     items={items} />
                             </div>
 

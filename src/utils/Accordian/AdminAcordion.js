@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react'
 
-function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEditContent, onaddContent ,videoPreviewClick}) {
+function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEditContent, onaddContent, videoPreviewClick, addquiz }) {
     const [activeIndexes, setActiveIndexes] = useState([]);
 
     const handleItemClick = (index) => {
@@ -118,7 +118,18 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                                     <>
                                         <div className=' flex items-center bg-transparent '>
                                             {/* eye  */}
+                                            <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { addquiz(e) }}>
 
+                                                <span className={`bg-transparent mr-[3px]`}>
+                                                    {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
+                                                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='fill-primary-base bg-transparent'>
+                                                        <path d="M8.55469 8.70312V5.53646H10.138V8.70312H13.3047V10.2865H10.138V13.4531H8.55469V10.2865H5.38802V8.70312H8.55469ZM9.34635 17.4115C4.97398 17.4115 1.42969 13.8672 1.42969 9.49479C1.42969 5.12242 4.97398 1.57812 9.34635 1.57812C13.7187 1.57812 17.263 5.12242 17.263 9.49479C17.263 13.8672 13.7187 17.4115 9.34635 17.4115ZM9.34635 15.8281C11.0261 15.8281 12.637 15.1609 13.8247 13.9731C15.0124 12.7854 15.6797 11.1745 15.6797 9.49479C15.6797 7.81509 15.0124 6.20418 13.8247 5.01645C12.637 3.82872 11.0261 3.16146 9.34635 3.16146C7.66665 3.16146 6.05574 3.82872 4.86801 5.01645C3.68028 6.20418 3.01302 7.81509 3.01302 9.49479C3.01302 11.1745 3.68028 12.7854 4.86801 13.9731C6.05574 15.1609 7.66665 15.8281 9.34635 15.8281Z" />
+                                                    </svg>
+
+                                                </span>
+
+                                                <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] bg-transparent'>Add a Question</p>
+                                            </div>
                                             <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { videoPreviewClick(e) }}>
 
                                                 <span className={`bg-transparent mr-[3px]`}>
@@ -173,7 +184,18 @@ function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEdit
                             <>
                                 <div className=' flex items-center bg-transparent '>
                                     {/* eye  */}
+                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { addquiz(e) }}>
 
+                                        <span className={`bg-transparent mr-[3px]`}>
+                                            {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
+                                            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className='fill-primary-base bg-transparent'>
+                                                <path d="M8.55469 8.70312V5.53646H10.138V8.70312H13.3047V10.2865H10.138V13.4531H8.55469V10.2865H5.38802V8.70312H8.55469ZM9.34635 17.4115C4.97398 17.4115 1.42969 13.8672 1.42969 9.49479C1.42969 5.12242 4.97398 1.57812 9.34635 1.57812C13.7187 1.57812 17.263 5.12242 17.263 9.49479C17.263 13.8672 13.7187 17.4115 9.34635 17.4115ZM9.34635 15.8281C11.0261 15.8281 12.637 15.1609 13.8247 13.9731C15.0124 12.7854 15.6797 11.1745 15.6797 9.49479C15.6797 7.81509 15.0124 6.20418 13.8247 5.01645C12.637 3.82872 11.0261 3.16146 9.34635 3.16146C7.66665 3.16146 6.05574 3.82872 4.86801 5.01645C3.68028 6.20418 3.01302 7.81509 3.01302 9.49479C3.01302 11.1745 3.68028 12.7854 4.86801 13.9731C6.05574 15.1609 7.66665 15.8281 9.34635 15.8281Z" />
+                                            </svg>
+
+                                        </span>
+
+                                        <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] bg-transparent'>Add a Question</p>
+                                    </div>
                                     <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { onEditContent(e) }}>
 
                                         <span className={`bg-transparent mr-[3px]`}>

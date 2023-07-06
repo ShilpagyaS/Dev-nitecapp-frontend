@@ -21,11 +21,11 @@ function UserQuizListcard({ data, onClickHandler }) {
             }
             <div className='flex items-center justify-between relative'>
                 <div className='w-full p-[5px]'>
-                    <h2 className='not-italic font-bold capitalize text-xs font-Inter mt-[15px] text-white ml-[10px] break-words w-full' onClick={onClickHandler}>
+                    <h2 className='not-italic font-bold capitalize text-[16px] font-Inter mt-[15px] text-white ml-[10px] break-words w-full' onClick={onClickHandler}>
                         {data.name}
                     </h2>
-                    <p className='not-italic font-[400] text-xs font-Inter mt-[5px] text-[#959595] ml-[10px]' onClick={onClickHandler}>
-                        {`${data?.questionCount} Quizes`}
+                    <p className='not-italic font-[400] text-[12px] font-Inter mt-[5px] text-[#959595] ml-[10px]' onClick={onClickHandler}>
+                        {`${data?.questionCount} Questions`}
                     </p>
                 </div>
             </div>

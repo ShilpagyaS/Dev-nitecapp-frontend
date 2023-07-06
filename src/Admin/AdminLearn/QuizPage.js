@@ -53,7 +53,7 @@ function QuizPage() {
                     <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
                         {`Quizzes`}
                     </h5>
-                    <ChipWithLeftButton condition={true} label={'Add Quize'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setaddQuiz(true) }} />
+                    <ChipWithLeftButton condition={true} label={'Add a Quiz'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setaddQuiz(true) }} />
 
                 </div>
 
