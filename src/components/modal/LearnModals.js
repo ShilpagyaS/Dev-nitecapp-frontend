@@ -1260,6 +1260,7 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
     )
     const [isEditor, setisEditor] = useState(false);
     const [isQuiz, setisQuiz] = useState(false);
+    const [editordata, seteditordata] = useState("")
     const [quizdata, setQuizdata] = useState(
         {
             question: "",
@@ -1320,6 +1321,8 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
             <EditorModuleContent
                 isModalOpen={isEditor}
                 onClickCancel={() => setisEditor(false)}
+                data={editordata}
+                setdata={seteditordata}
             />
             <div className="text-white border-none outline-none flex items-center justify-center">
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
@@ -1413,14 +1416,16 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, deleteBtn
             </div>
             <div className='btncontainers flex items-center justify-between mt-[10px] '>
                 {contentType.value == 'content' ? <>
-                    <ConditionalButton label={'Open Editor'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Open Editor'} condition={true} onClickHandler={() => setisEditor(true)} />
                 </> : <div>
                 </div>
                 }
                 <div className="flex items-center ">
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Add'} condition={
+                            contentType.value == 'content' ? editordata != '' ? true : false : true
+                        } onClickHandler={handleSave} />
                     </div>
                 </div>
 

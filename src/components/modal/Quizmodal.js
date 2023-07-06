@@ -313,7 +313,8 @@ export function AddOneQuestion({ isModalOpen,
                 <h2 className="text-white text-[25px] font-[600]">Add a Question</h2>
                 <svg width="24" className="cursor-pointer"
                     onClick={onClickCancel}
-                    height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
+                    height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                </svg>
             </div>
             <QuizQuestionOnlyOne data={data} setdata={setdata} />
         </Modal >
