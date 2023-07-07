@@ -26,20 +26,20 @@ function ChapterAccordian({ chapters }) {
                                 key={chapter.courseChapter_id}
                                 title={chapter.name}
                                 type='chapter'
-                                item={{ totaldocuments: '5', videoTime: '4' }}
+                                item={{ totaldocuments: chapter.pages_count, videoTime: chapter.video_count }}
                                 content={chapter.modules.map((module) => (
                                     <AccordianNew
                                         key={module.courseModule_id}
                                         title={module.name}
                                         type='module'
-                                        item={{ totaldocuments: '55', videoTime: '45' }}
+                                        item={{ totaldocuments: module.pages_count, videoTime: module.video_count }}
                                         content={
                                             <>
                                                 <div className='bg-[#191919] '>
                                                     {module.page_and_video_list?.length > 0 && (
                                                         <>
                                                             {module.page_and_video_list.map((pages) => (
-                                                                <div className='bg-transparent flex justify-between items-center border border-transparent border-b-[#292929] p-[15px] capitalize '
+                                                                <div className='bg-transparent flex justify-between items-center cursor-pointer border border-transparent border-b-[#292929] p-[15px] capitalize '
                                                                     onClick={() => {
                                                                         console.log(
                                                                             pages?.course_module_page_id

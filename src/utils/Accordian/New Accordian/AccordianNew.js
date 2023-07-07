@@ -20,12 +20,12 @@ function AccordianNew({ title, content, type, item, isLearn }) {
                         </span>
                     }
 
-                    <h3 className='text-white bg-transparent ml-[8px]'>{title}</h3>
+                    <h3 className='text-white bg-transparent capitalize ml-[8px]'>{title}</h3>
                 </div>
                 {!isLearn && <>
                     {(type == 'chapter' || type == 'module') &&
                         <div className='flex bg-transparent items-center'>
-                            {item?.totaldocuments &&
+                            {item?.totaldocuments > 0 &&
                                 <div className='flex items-center bg-transparent'>
 
                                     <span className={`bg-transparent mr-[5px]`}>
@@ -34,7 +34,7 @@ function AccordianNew({ title, content, type, item, isLearn }) {
                                     <p className='text-[#B3B3B3] font-thin bg-transparent text-[14px] text-center'>{item.totaldocuments} Documents</p>
                                 </div>
                             }
-                            {item?.videoTime &&
+                            {item?.videoTime > 0 &&
                                 <div className='ml-[15px] flex items-center bg-transparent'>
 
                                     <span className={`bg-transparent mr-[5px]`}>

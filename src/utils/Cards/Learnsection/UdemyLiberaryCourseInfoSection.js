@@ -11,7 +11,7 @@ function UdemyLiberaryCourseInfoSection({ content }) {
     //     'How to make perfect beer quantity of ingredients, mixture of water, soda and fruits. ',
     //     'How to make perfect beer quantity of ingredients, mixture of water, soda and fruits. ',
     // ]
-    let x
+    const [x, setx] = useState(0)
     // = Math.ceil(points.length / 2)
     console.log(points.slice(0, x), points.slice(x));
     useEffect(() => {
@@ -22,7 +22,7 @@ function UdemyLiberaryCourseInfoSection({ content }) {
         }
     }, [content])
     useEffect(() => {
-        x = Math.ceil(points.length / 2)
+        setx(Math.ceil(points.length / 2))
     }, [points])
 
 
