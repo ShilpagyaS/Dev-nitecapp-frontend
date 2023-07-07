@@ -218,7 +218,7 @@ export default function Category() {
 
                 {path === `/learn` && <Learn />}
                 {path === `/learn/library` && <LiberaryAll />}
-                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LearnSection />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LearnSection courseId={productId} />}
                 {/* {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />} */}
                 {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId} />}
 
