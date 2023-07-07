@@ -20,7 +20,7 @@ const Accordion = ({ items }) => {
     }
   };
 
-  const renderItems = (items, parentIndex = '') => {
+  const renderItems = (items, parentIndex = '') => { 
     return items.map((item, index) => {
       const itemIndex = parentIndex ? `${parentIndex}-${index}` : `${index}`;
 

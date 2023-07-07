@@ -6,7 +6,7 @@ import AccordianForPlayerSection from './AccordianForPlayerSection'
 import ReactPlayer from 'react-player'
 import { RxCross1 } from 'react-icons/rx'
 
-function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick }) {
+function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn }) {
     const [currentContent, setCurrentContent] = useState({ type: '', content: '' })
     const [Counter, setCounter] = useState(0)
     console.log("itemArray:", itemsArray);
@@ -78,7 +78,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick }) {
             </div>
             <div className='h-full w-full grid grid-cols-7 mt-[10px]'>
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
-                    <AccordianForPlayerSection ChapterArray={itemsArray[Counter]} onItemClicked={(content) => { if (content.type == 'video' || content.type == 'quiz' || content.type == 'content') currentContentFunction({ type: content.type, content: `${content.content} , ${content.type} <--TYPE` }) }} onRightClick={() => { if (Counter < itemsArray.length - 1) setCounter(prev => prev + 1) }} onLeftClick={() => { if (Counter > 0) setCounter(prev => prev - 1) }} />
+                    <AccordianForPlayerSection isLearn={isLearn} ChapterArray={itemsArray[Counter]} onItemClicked={(content) => { if (content.type == 'video' || content.type == 'quiz' || content.type == 'content') currentContentFunction({ type: content.type, content: `${content.content} , ${content.type} <--TYPE` }) }} onRightClick={() => { if (Counter < itemsArray.length - 1) setCounter(prev => prev + 1) }} onLeftClick={() => { if (Counter > 0) setCounter(prev => prev - 1) }} />
                 </div>
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
                     {currentContent.type == 'video' &&
@@ -88,7 +88,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick }) {
                                     controls
 
                                     className="rounded-lg "
-                                    url="https://www.youtube.com/watch?v=jCGMoNCtPx0&feature=youtu.be" />
+                                    url={currentContent.content} />
                             </div>
                         </>
                     }
