@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 function AdminAcordion({ items, onAddmodule, onEditmodule, onEditChapter, onEditContent, onaddContent, videoPreviewClick, addquiz }) {
     const [activeIndexes, setActiveIndexes] = useState([]);
 
-    const handleItemClick = (index) => {
+    const handleItemClick = (index) => { 
         if (activeIndexes.includes(index)) {
             setActiveIndexes(activeIndexes.filter((i) => i !== index));
         } else {
