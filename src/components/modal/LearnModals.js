@@ -874,7 +874,7 @@ export function EditModulePage({ isModalOpen, onClickCancel, modulepageid, modul
         </Modal>
     )
 }
-export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, data, title, desc, }) {
+export function EditChapter({ isModalOpen, onClickCancel, courseId, data, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -936,7 +936,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
         if (upimage) {
             dispatch(uploadimage(upimage)).then((imageurl) => {
                 if (imageurl && !imageurl?.error)
-                    dispatch(putChapter({ ...dummydata, image: imageurl }, chapterId, courseId)).then((res) => {
+                    dispatch(putChapter({ ...dummydata, image: imageurl }, data.courseChapter_id, courseId)).then((res) => {
                         console.log(res);
                         res?.error ?
                             // errortoast({ message: res.message }) 
@@ -954,7 +954,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, chapterId, d
         else {
 
             console.log('else block');
-            dispatch(putChapter(dummydata, chapterId, courseId)).then((res) => {
+            dispatch(putChapter(dummydata, data.courseChapter_id, courseId)).then((res) => {
                 console.log(res);
                 console.log('else');
                 res?.error ?
@@ -3299,7 +3299,7 @@ export function AddDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, titl
                 <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
                 <input value={input1} onChange={(e) => { setinput1(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none' />
             </div> */}
-            <div className='min-h-[170px] h-full pr-[10px] notificationModal'>
+            <div className='min-h-[170px] max-h-[350px] h-full pr-[10px] notificationModal'>
 
                 {courseForm.map((point, index) =>
                     <InputFieldWirhAutoWidth

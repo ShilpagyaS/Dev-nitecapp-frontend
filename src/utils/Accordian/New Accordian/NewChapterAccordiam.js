@@ -24,7 +24,7 @@ function NewChapterAccordiam({ chapters, onEditChapter, onAddmodule, onaddConten
                                 title={chapter.name}
                                 type='chapter'
                                 onAddmodule={(e) => { onAddmodule(e) }}
-                                onEditChapter={(e) => { onEditChapter(e) }}
+                                onEditChapter={(e) => { onEditChapter(e, { name: chapter?.name, courseChapter_id: chapter.courseChapter_id }) }}
                                 item={{ totaldocuments: chapter.pages_count, videoTime: chapter.video_count }}
                                 content={chapter.modules.map((module) => (
                                     <AdminNewAccordian
