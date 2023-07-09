@@ -55,7 +55,7 @@ const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
                     </button>
                     <SwitchComp showHideStatus={localdata?.isActive} onChangeHandler={(e) => {
                         const local = { ...localdata }
-                        debugger
+                         
                         local.isActive = e
                         dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, { isActive: e }))
                         onInputChange("isActive", e)
@@ -188,7 +188,7 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata }) => 
                     </button> */}
                     {/* <SwitchComp showHideStatus={localdata?.isActive} onChangeHandler={(e) => {
                         const local = { ...localdata }
-                        debugger
+                         
                         local.isActive = e
                         dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, { isActive: e }))
                         onInputChange("isActive", e)

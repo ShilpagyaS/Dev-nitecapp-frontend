@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import { AddFlashcardSubCategory, DeleteLearn, EditFlashCard, EditFlashcardSubCategory } from '@/components/modal/LearnModals'
-import { emptycourses, getFlashcardSubcategories } from '@/store/slices/learnslice'
+import { deleteFlashcardSubcategory, emptycourses, getFlashcardSubcategories } from '@/store/slices/learnslice'
 import AdminFlashcard from '@/utils/Cards/Learnsection/AdminFlashcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import { enUrl } from '@/utils/encoderfunc'
@@ -32,7 +32,7 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
         const removedSlashes = lowerString.replace(/[\\\/]/g, '');
         const underscoreString = removedSlashes.replace(/ /g, '_');
         return underscoreString;
-      }
+    }
 
     return (
         <>
@@ -63,7 +63,10 @@ function AdminFlashcardChapterPage({ categoryid, subcategory }) {
                     isModalOpen={DeleteModal}
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}
-                    onSave={() => { console.log(elementItem.title); }}
+                    onSave={() => {
+                        console.log(elementItem.title, elementItem);
+                        dispatch(deleteFlashcardSubcategory(elementItem.id, categoryid))
+                    }}
                 />}
 
             <div>

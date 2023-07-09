@@ -189,7 +189,7 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
         </Modal>
     )
 }
-export function EditCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, data, title, desc, }) {
+export function EditCourse({ isModalOpen, onClickCancel, onSave,  data, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -220,6 +220,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, data
     const [upimage, setimage] = useState(undefined);
     const dispatch = useDispatch()
     useEffect(() => {
+        console.log(data);
         setCourse({
             name: data?.name || "",
             desc: data?.description || "",
@@ -1615,6 +1616,7 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, subcategoryId
             answer: "",
         }
     )
+    const [upimage, setimage] = useState(null);
     const [isfocused, setisFocused] = useState(false);
     const [isfocused2, setisFocused2] = useState(false);
     const dispatch = useDispatch()
@@ -1646,17 +1648,42 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, subcategoryId
         }
         console.log(dummydata);
         // onSave(body)
-        dispatch(Createflashcard(dummydata, subcategoryId)).then((res) => {
-            console.log(res);
-            console.log('else');
-            res?.error ?
-                // errortoast({ message: res.message }) 
-                ''
-                : successtoast({ message: 'Added successfully' });
+        if (upimage) {
+            dispatch(uploadimage(upimage)).then((imageurl) => {
+                if (imageurl && !imageurl?.error)
+                    dispatch(Createflashcard({ ...dummydata, image: imageurl }, subcategoryId)).then((res) => {
+                        console.log(res);
+                        console.log('else');
+                        res?.error ?
+                            // errortoast({ message: res.message }) 
+                            ''
+                            : successtoast({ message: 'Added successfully' });
 
-            onClickCancel()
+                        onClickCancel()
 
-        })
+                    })
+
+                else console.log("cannot upload")
+            })
+        }
+        else {
+
+            console.log('else block');
+            dispatch(Createflashcard(dummydata, subcategoryId)).then((res) => {
+                console.log(res);
+                console.log('else');
+                res?.error ?
+                    // errortoast({ message: res.message }) 
+                    ''
+                    : successtoast({ message: 'Added successfully' });
+
+                onClickCancel()
+
+            })
+
+
+
+        }
 
 
     };
@@ -1684,7 +1711,7 @@ export function AddFlashCard({ isModalOpen, onClickCancel, onSave, subcategoryId
                 >
                     Flashcard Image
                 </h5>
-                <LearnFileUpload isEdit={true} />
+                <LearnFileUpload setimage={setimage} upimage={upimage} isEdit={true} />
                 <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
                         className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false

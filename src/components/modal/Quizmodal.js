@@ -80,7 +80,7 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
             })
         }
         else {
-            debugger
+             
             dispatch(addnewQuiz({ ...dummydata }))
             onClickCancel()
 
@@ -162,7 +162,7 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
     )
 
     useEffect(() => {
-        debugger
+         
         if (data.name)
             setquiz(data)
         else setquiz({

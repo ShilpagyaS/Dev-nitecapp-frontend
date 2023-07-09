@@ -232,7 +232,7 @@ const EditCoffee = ({ productId, subcategory }) => {
           coffeurl = dispatch(uploadimage(methodImage))
 
         Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
-          debugger
+           
           dispatch(putProductById(subcategory, productId,
             {
               ...productDetails,

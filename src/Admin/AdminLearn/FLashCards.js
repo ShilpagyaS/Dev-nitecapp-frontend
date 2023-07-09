@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import { AddFlashcardCategory, DeleteLearn, EditFlashcardCategory } from '@/components/modal/LearnModals'
-import { emptycourses, getFlashcardCoursesPage } from '@/store/slices/learnslice'
+import { deleteFlashcardcategory, emptycourses, getFlashcardCoursesPage } from '@/store/slices/learnslice'
 import AllFlashCardcard from '@/utils/Cards/Learnsection/AllFlashCardcard'
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton'
 import React, { useEffect, useState } from 'react'
@@ -98,7 +98,11 @@ function FLashCards() {
                     isModalOpen={DeleteModal}
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}
-                    onSave={() => { console.log(elementItem.title); }}
+                    onSave={() => {
+                        console.log(elementItem.title, elementItem);
+                        dispatch(deleteFlashcardcategory(elementItem.id))
+                    }
+                    }
                 />}
 
             {addCourseButton &&
@@ -157,7 +161,7 @@ function FLashCards() {
                                             onDeleteClick={() => {
                                                 setElementItem({
                                                     title: cat.name,
-                                                    id: cat.id
+                                                    id: cat.flashcard_category_id
                                                 })
                                                 setDeleteModal(true)
                                             }} />

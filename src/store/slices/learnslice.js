@@ -1,4 +1,5 @@
 import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
+import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -767,6 +768,54 @@ export const deleteFlashcard = (productId, subcategoryId) => {
         }).then((res) => {
             // toastify
             dispatch(getFlashCardsBySubcategoryId(subcategoryId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const deleteCourse = (productId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course/${productId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getCourses())
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const deleteFlashcardcategory = (productId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/flashcard_category/${productId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getFlashcardCoursesPage())
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const deleteFlashcardSubcategory = (productId, catId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/flashcard_subcategory/${productId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getFlashcardSubcategories(catId))
             successtoast({ message: `Deleted Successfully` })
             return res
         }).catch((err) => {
