@@ -223,7 +223,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave,  data, title, d
         console.log(data);
         setCourse({
             name: data?.name || "",
-            desc: data?.description || "",
+            desc: data?.desc || "",
             instructorName: data?.instructor_name || ""
         })
     }, [data])
@@ -256,7 +256,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave,  data, title, d
         if (upimage) {
             dispatch(uploadimage(upimage)).then((imageurl) => {
                 if (imageurl && !imageurl?.error)
-                    dispatch(putCourse({ ...dummydata, image: imageurl }, dummydata.course_id)).then((res) => {
+                    dispatch(putCourse({ ...dummydata, image: imageurl }, dummydata.id)).then((res) => {
                         console.log(res);
                         res?.error ?
                             // errortoast({ message: res.message }) 
@@ -274,7 +274,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave,  data, title, d
         else {
 
             console.log('else block');
-            dispatch(putCourse(dummydata, dummydata.course_id)).then((res) => {
+            dispatch(putCourse(dummydata, dummydata.id)).then((res) => {
                 console.log(res);
                 console.log('else');
                 res?.error ?
@@ -317,7 +317,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave,  data, title, d
                 >
                     Course Image
                 </h5>
-                <LearnFileUpload defaultImage={data?.image || null} setimage={setimage} upimage={upimage} isEdit={true} />
+                <LearnFileUpload defaultImage={data?.img || null} setimage={setimage} upimage={upimage} isEdit={true} />
                 <InputFieldWirhAutoWidth
                     placeholder=""
                     label="Course Name"

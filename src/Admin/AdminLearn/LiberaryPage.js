@@ -30,13 +30,14 @@ function LiberaryPage() {
                         name: element.name,
                         progress: 30,
                         desc: element.description,
+                        instructor_name: element?.instructor_name
                     }
 
                 }
             ) || []
             setcourses([...dummy])
         }
-    }, [liberarycourse])    
+    }, [liberarycourse])
 
     // {
     //     img: '/asset/learnsectoinbuilding.png',
