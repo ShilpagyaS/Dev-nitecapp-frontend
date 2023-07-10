@@ -702,7 +702,10 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
     }
     function EditContentFunction(e, item) {
         e.stopPropagation();
+        console.log(item);
+        setGlobalData(item)
         console.log('editing Content');
+        seteditContent(true)
     }
     function pagePreviewFunction(e, item) {
         e.stopPropagation();
@@ -778,6 +781,18 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                 <AddModuleContent
                     isModalOpen={addContent}
                     onClickCancel={() => { setAddContent(false) }}
+                    title={'Module Content'}
+                    data={globalData}
+                    courseId={courseId}
+                    onSave={() => {
+
+                    }}
+                />
+            }
+            {editContent &&
+                <EditModuleContent
+                    isModalOpen={editContent}
+                    onClickCancel={() => { seteditContent(false) }}
                     title={'Module Content'}
                     data={globalData}
                     courseId={courseId}
@@ -1036,7 +1051,7 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                                 onEditChapter={(e, data) => { editChapterFunction(e, data) }}
                                 onEditmodule={(e, data) => { editModuleFunction(e, data) }}
                                 onaddContent={(e, data) => { AddContentFunction(e, data) }}
-                                onEditContent={(e) => { EditContentFunction(e) }}
+                                onEditContent={(e, data) => { EditContentFunction(e, data) }}
                                 videoPreviewClick={(e, data) => { videoPreviewFunctoin(e, data) }}
                                 pagePreviewClick={(e, data) => { pagePreviewFunction(e, data) }}
                                 addquiz={(e, data) => { addNewQuiztoContent(e, data) }}

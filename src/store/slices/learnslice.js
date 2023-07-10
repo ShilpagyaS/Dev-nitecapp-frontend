@@ -501,6 +501,22 @@ export const putFlashcard = (data, id) => {
         });
     };
 };
+export const putContentdetails = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course_content/update`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const putFlashcardsubcategory = (data, id, categoryid) => {
     return async (dispatch) => {
 
@@ -680,6 +696,38 @@ export const putModule = (data, moduleId, courseId) => {
 
         return await axiosInstance({
             url: `/api/course-module/${moduleId}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putModulePageContent = (data, modulePageId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-module-page/${modulePageId}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putModuleVideo = (data, modulePageId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course_module_videos/update_course_module_videos/${modulePageId}`,
             method: "PUT",
             data
         }).then((res) => {
