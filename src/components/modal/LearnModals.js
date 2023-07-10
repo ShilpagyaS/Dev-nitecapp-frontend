@@ -3756,7 +3756,7 @@ export function EditDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
         </Modal>
     )
 }
-export function VideoPreview({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
+export function VideoPreview({ isModalOpen, onClickCancel, onSave, deleteBtn, data, title, desc, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -3784,6 +3784,7 @@ export function VideoPreview({ isModalOpen, onClickCancel, onSave, deleteBtn, in
             videoUrl: ""
         }
     )
+    console.log(data);
     const [isEditor, setisEditor] = useState(false);
 
     const [contentType, setContentType] = useState({ value: '', label: '' })
@@ -3841,7 +3842,7 @@ export function VideoPreview({ isModalOpen, onClickCancel, onSave, deleteBtn, in
                         controls
 
                         className="rounded-lg "
-                        url="https://www.youtube.com/watch?v=jCGMoNCtPx0&feature=youtu.be" />
+                        url={data} />
                 </div>
 
             </div>

@@ -76,7 +76,11 @@ function NewChapterAccordiam({ chapters, onEditChapter, onAddmodule, onaddConten
                                                                             <>
                                                                                 <div className=' flex items-center bg-transparent '>
                                                                                     {/* eye  */}
-                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { pages?.modules_questions.length > 0 ? editaQuiz(e, '') : addquiz(e) }}>
+                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => {
+                                                                                        pages?.modules_questions.length > 0 ?
+                                                                                        editaQuiz(e, { other: { module_id: module.courseModule_id, type: 'video', type_id: pages.course_module_videos_id }, qna: { ...pages?.modules_questions[0] } }) :
+                                                                                        addquiz(e, { module_id: module.courseModule_id, type: 'video', type_id: pages.course_module_videos_id })
+                                                                                    }}>
 
                                                                                         <span className={`bg-transparent mr-[3px]`}>
                                                                                             {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -88,7 +92,7 @@ function NewChapterAccordiam({ chapters, onEditChapter, onAddmodule, onaddConten
 
                                                                                         <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] bg-transparent'>{`${pages?.modules_questions.length > 0 ? 'Edit Question ' : 'Add a Question'}`}</p>
                                                                                     </div>
-                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { videoPreviewClick(e) }}>
+                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { videoPreviewClick(e, pages.video_url) }}>
 
                                                                                         <span className={`bg-transparent mr-[3px]`}>
                                                                                             {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -122,7 +126,7 @@ function NewChapterAccordiam({ chapters, onEditChapter, onAddmodule, onaddConten
                                                                             <>
                                                                                 <div className=' flex items-center bg-transparent '>
                                                                                     {/* eye  */}
-                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { pages?.modules_questions.length > 0 ? editaQuiz(e, '') : addquiz(e) }}>
+                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { pages?.modules_questions.length > 0 ?  editaQuiz(e, { other: { module_id: module.courseModule_id, type: 'page', type_id: pages.course_module_videos_id }, qna: { ...pages?.modules_questions[0] } }) : addquiz(e, { module_id: module.courseModule_id, type: 'page', type_id: pages.course_module_page_id }) }}>
 
                                                                                         <span className={`bg-transparent mr-[3px]`}>
                                                                                             {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}
@@ -134,7 +138,7 @@ function NewChapterAccordiam({ chapters, onEditChapter, onAddmodule, onaddConten
 
                                                                                         <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] bg-transparent'>{`${pages?.modules_questions.length > 0 ? 'Edit Question ' : 'Add a Question'}`}</p>
                                                                                     </div>
-                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { pagePreviewClick(e, '<p>ritwik&nbsp;</p>') }}>
+                                                                                    <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { pagePreviewClick(e, pages?.description) }}>
 
                                                                                         <span className={`bg-transparent mr-[3px]`}>
                                                                                             {/* <Image src={'/asset/smallplus.svg'} height={22} width={18} className='bg-transparent' /> */}

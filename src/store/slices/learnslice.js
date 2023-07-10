@@ -738,6 +738,38 @@ export const createModuleVideo = (data, courseId) => {
         });
     };
 };
+export const createModuleQuestions = (data, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/module_question/add_new_module_question`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const putModuleQuestion = (data, moduleid, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/module_question/${moduleid}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const putModulePage = (data, modulepageid, moduleid) => {
     return async (dispatch) => {
 

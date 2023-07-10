@@ -55,7 +55,7 @@ const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
                     </button>
                     <SwitchComp showHideStatus={localdata?.isActive} onChangeHandler={(e) => {
                         const local = { ...localdata }
-                         
+
                         local.isActive = e
                         dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, { isActive: e }))
                         onInputChange("isActive", e)
@@ -141,7 +141,7 @@ const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
 
 export default QuizQuestion
 
-export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata }) => {
+export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata, handleSave }) => {
     const [Correct, setcorrect] = useState(null)
     const [localdata, setlocaldata] = useState({})
     const [localdataprev, setlocaldataprev] = useState({})
@@ -178,21 +178,6 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata }) => 
                             className="bg-[#171717]"
                         />
                     </button>}
-                    {/* <button className='h-[40px] w-[40px] mx-2 rounded-full bg-[#171717] flex items-center justify-center' onClick={() => { onDeleteClick(localdata) }}>
-                        <Image
-                            src={'/asset/DeleteVector.svg'}
-                            width={20}
-                            height={20}
-                            className="bg-[#171717]"
-                        />
-                    </button> */}
-                    {/* <SwitchComp showHideStatus={localdata?.isActive} onChangeHandler={(e) => {
-                        const local = { ...localdata }
-                         
-                        local.isActive = e
-                        dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, { isActive: e }))
-                        onInputChange("isActive", e)
-                    }} /> */}
                 </div>
             </div>
 
@@ -260,9 +245,19 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata }) => 
 
                 }} className="text-primary-base mr-2">Cancel</button></div> */}
 
-                <ConditionalButton label="save" condition={true} onClickHandler={() => {
+                <ConditionalButton label="Save" condition={
+                    (localdata.option1 != '' &&
+                        localdata.option2 != '' &&
+                        localdata.option3 != '' &&
+                        localdata.option4 != '' &&
+                        localdata.answer != null &&
+                        localdata.question != '') ? true : false
 
-                    setdata({ ...localdata, isEdit: false }, index)
+                } onClickHandler={() => {
+                    console.log(localdata);
+                    handleSave(localdata)
+                    setdata({ ...localdata }, index)
+                    // setdata({ ...localdata, isEdit: false }, index)
 
                 }} />
 

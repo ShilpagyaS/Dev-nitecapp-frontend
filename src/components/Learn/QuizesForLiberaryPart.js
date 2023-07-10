@@ -1,4 +1,5 @@
 import EndQuizCard from '@/utils/Cards/Learnsection/EndQuizCard';
+import EndQuizCardLiberary from '@/utils/Cards/Learnsection/EndQuizCardLiberary';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
@@ -20,8 +21,8 @@ function QuizesLiberary({ name, quizArray }) {
     useEffect(() => {
         let dummy = {}
         let dummy2 = {}
-        quizArray.map((quiz) => { dummy = { ...dummy, [quiz.quiz_question_id]: '', [`check_${quiz.quiz_question_id}`]: false } })
-        quizArray.map((quiz) => { dummy2 = { ...dummy2, [quiz.quiz_question_id]: '' } })
+        quizArray.map((quiz) => { dummy = { ...dummy, [quiz.module_question_id]: '', [`check_${quiz.module_question_id}`]: false } })
+        quizArray.map((quiz) => { dummy2 = { ...dummy2, [quiz.module_question_id]: '' } })
         setAnserSheet(dummy2)
         setSelected(dummy)
     }, [quizArray])
@@ -57,7 +58,7 @@ function QuizesLiberary({ name, quizArray }) {
     }
     const router = useRouter()
     return (
-        <div className='w-full'>
+        <div className='w-full h-full notificationModal'>
             {/* <Breadcrumb /> */}
             {/* <h2 className="text-white text-[32px] leading-9 font-bold mb-[20px] ">
                 Bar 101
@@ -65,7 +66,7 @@ function QuizesLiberary({ name, quizArray }) {
             {
                 !show ?
 
-                    <div className='w-full min-h-[350px] h-full bg-[#383838] rounded-t-[12px] mt-[20px] relative overflow-hidden'>
+                    <div className='w-full min-h-[350px] h-full bg-[#383838] rounded-t-[12px] relative overflow-hidden'>
                         <div className='w-full rounded-t-[12px] bg-transparent p-[15px] flex items-center justify-center  '>
                             {/* <div className='col-span-2 bg-transparent'>
                                 <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={() => { router.back() }} />
@@ -91,51 +92,51 @@ function QuizesLiberary({ name, quizArray }) {
                                         <div className='mt-[20px] w-[65%] bg-transparent'>
 
                                             <div className={`rounded-full flex items-center 
-                                            ${selected[quiz.quiz_question_id] == quiz.option1 ?
-                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                            ${selected[quiz.module_question_id] == quiz.option1 ?
+                                                    selected[`check_${quiz.module_question_id}`] == false ?
                                                         'bg-black text-white '
-                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                        : answersheet[quiz.module_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
                                                     : 'bg-transparent text-black'}
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
-                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             ${selected[`check_${quiz.module_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1, selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.module_question_id, quiz.answer, quiz.option1, selected[`check_${quiz.module_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option1}</p>
                                             </div>
                                             <div className={`rounded-full flex items-center 
-                                            ${selected[quiz.quiz_question_id] == quiz.option2 ?
-                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                            ${selected[quiz.module_question_id] == quiz.option2 ?
+                                                    selected[`check_${quiz.module_question_id}`] == false ?
                                                         'bg-black text-white '
-                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                        : answersheet[quiz.module_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
                                                     : 'bg-transparent text-black'}
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
-                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             ${selected[`check_${quiz.module_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2, selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.module_question_id, quiz.answer, quiz.option2, selected[`check_${quiz.module_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option2}</p>
                                             </div>
                                             <div className={`rounded-full flex items-center 
-                                            ${selected[quiz.quiz_question_id] == quiz.option3 ?
-                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                            ${selected[quiz.module_question_id] == quiz.option3 ?
+                                                    selected[`check_${quiz.module_question_id}`] == false ?
                                                         'bg-black text-white '
-                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                        : answersheet[quiz.module_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
                                                     : 'bg-transparent text-black'}
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
-                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             ${selected[`check_${quiz.module_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3, selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.module_question_id, quiz.answer, quiz.option3, selected[`check_${quiz.module_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option3}</p>
                                             </div>
                                             <div className={`rounded-full flex items-center 
-                                            ${selected[quiz.quiz_question_id] == quiz.option4 ?
-                                                    selected[`check_${quiz.quiz_question_id}`] == false ?
+                                            ${selected[quiz.module_question_id] == quiz.option4 ?
+                                                    selected[`check_${quiz.module_question_id}`] == false ?
                                                         'bg-black text-white '
-                                                        : answersheet[quiz.quiz_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
+                                                        : answersheet[quiz.module_question_id] == 1 ? 'bg-green-400 text-white' : 'bg-red-400 text-white'
                                                     : 'bg-transparent text-black'}
                                              cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words
-                                             ${selected[`check_${quiz.quiz_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
+                                             ${selected[`check_${quiz.module_question_id}`] == false ? 'hover:text-white hover:bg-black' : ''}
                                              
-                                              `} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4, selected[`check_${quiz.quiz_question_id}`]) }}>
+                                              `} onClick={() => { prepareQuizReport(quiz.module_question_id, quiz.answer, quiz.option4, selected[`check_${quiz.module_question_id}`]) }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option4}</p>
                                             </div>
 
@@ -148,12 +149,12 @@ function QuizesLiberary({ name, quizArray }) {
 
                                 <div className='bg-transparent flex'>
                                     {
-                                        !selected[`check_${quizArray[counter]?.quiz_question_id}`] ?
+                                        !selected[`check_${quizArray[counter]?.module_question_id}`] ?
                                             <ConditionalButton label={'Check'} condition={true} onClickHandler={() => {
                                                 // if (counter < quizArray.length - 1)
                                                 //     setCounter(prev => prev + 1)
                                                 let refid = ''
-                                                refid = quizArray[counter]?.quiz_question_id
+                                                refid = quizArray[counter]?.module_question_id
                                                 console.log(answersheet);
                                                 if (selected[refid] != '') {
 
@@ -196,7 +197,7 @@ function QuizesLiberary({ name, quizArray }) {
                                             // if (counter < quizArray.length - 1)
                                             //     setCounter(prev => prev + 1)
                                             let refid = ''
-                                            refid = quizArray[counter].quiz_question_id
+                                            refid = quizArray[counter].module_question_id
                                             console.log(answersheet);
                                             if (selected[`check_${refid}`] == false) {
 
@@ -221,7 +222,7 @@ function QuizesLiberary({ name, quizArray }) {
                         <h2 className="text-white capitalize text-[32px] leading-9 font-bold mb-[20px] ">
                             {name}
                         </h2>
-                        <EndQuizCard
+                        <EndQuizCardLiberary
                             hidebutton={true}
                             score={reportCard}
                             name={name}

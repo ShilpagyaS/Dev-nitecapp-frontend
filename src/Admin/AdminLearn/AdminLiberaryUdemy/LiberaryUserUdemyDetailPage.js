@@ -635,20 +635,6 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
     const [isQuiz, setisQuiz] = useState(false);
     const [editQuizmodal, seteditQuizmodal] = useState(false);
     const [globalData, setGlobalData] = useState({})
-    const [quizdata, setQuizdata] = useState(
-        {
-            question: "",
-            isActive: true,
-            option1: "",
-            option2: "",
-            option3: "",
-            option4: "",
-            answer: null,
-            isEdit: true,
-            points: 1
-        }
-    );
-
     const [isStartLearning, setStartLearning] = useState(false)
     const { courseDetail } = useSelector((state) => state.learn)
     const [points, setpoints] = useState([])
@@ -725,13 +711,18 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
     }
     function videoPreviewFunctoin(e, item) {
         e.stopPropagation();
-        setGlobalData(item)
+        setGlobalData({ video_url: item })
         setVideoPreviewModal(true)
     }
     function editaQuiz(e, item) {
         e.stopPropagation();
-        // setGlobalData({ htmlData: item })
+        setGlobalData(item)
         seteditQuizmodal(true)
+    }
+    function addNewQuiztoContent(e, item) {
+        e.stopPropagation();
+        setGlobalData(item)
+        setisQuiz(true)
     }
     return (
         <>
@@ -823,6 +814,7 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                     isModalOpen={videoPreview}
                     onClickCancel={() => { setVideoPreviewModal(false) }}
                     title={'Module Content'}
+                    data={globalData.video_url}
                     onSave={() => {
 
                     }}
@@ -838,19 +830,21 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
             {
                 isQuiz &&
                 <AddOneQuestion
-                    data={quizdata}
-                    setdata={setQuizdata}
                     isModalOpen={isQuiz}
                     onClickCancel={() => setisQuiz(false)}
+                    otherdata={globalData}
+                    courseId={courseId}
+                    onSave={() => { }}
                 />
             }
             {
                 editQuizmodal &&
                 <EditOneQuestion
-                    data={quizdata}
-                    setdata={setQuizdata}
                     isModalOpen={editQuizmodal}
                     onClickCancel={() => seteditQuizmodal(false)}
+                    otherdata={globalData.other}
+                    qna={globalData.qna}
+                    courseId={courseId}
                 />
             }
             {/* {addContent &&
@@ -1043,9 +1037,9 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                                 onEditmodule={(e, data) => { editModuleFunction(e, data) }}
                                 onaddContent={(e, data) => { AddContentFunction(e, data) }}
                                 onEditContent={(e) => { EditContentFunction(e) }}
-                                videoPreviewClick={() => { setVideoPreviewModal(true) }}
+                                videoPreviewClick={(e, data) => { videoPreviewFunctoin(e, data) }}
                                 pagePreviewClick={(e, data) => { pagePreviewFunction(e, data) }}
-                                addquiz={() => { setisQuiz(true) }}
+                                addquiz={(e, data) => { addNewQuiztoContent(e, data) }}
                                 editaQuiz={(e, data) => { editaQuiz(e, data) }}
                             />
 

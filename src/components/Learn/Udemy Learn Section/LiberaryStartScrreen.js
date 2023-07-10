@@ -76,14 +76,14 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
             <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
                 <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${5 ? 10 : 0}%` }}></div>
             </div>
-            <div className='h-full w-full grid grid-cols-7 mt-[10px]'>
-                <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
-                    <AccordianForPlayerSection isLearn={isLearn} ChapterArray={itemsArray[Counter]} onItemClicked={(content) => { if (content.type == 'video' || content.type == 'quiz' || content.type == 'content') currentContentFunction({ type: content.type, content: `${content.content}` }) }} onRightClick={() => { if (Counter < itemsArray.length - 1) setCounter(prev => prev + 1) }} onLeftClick={() => { if (Counter > 0) setCounter(prev => prev - 1) }} />
+            <div className='h-full min-h-[300px] w-full grid grid-cols-7 mt-[10px]'>
+                <div className='h-full rounded-[8px] bg-transparent border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
+                    <AccordianForPlayerSection isLearn={isLearn} ChapterArray={itemsArray[Counter]} onItemClicked={(content) => { if (content.type == 'video' || content.type == 'quiz' || content.type == 'content') currentContentFunction({ type: content.type, content: `${content.content}`, quizes: content.quizes }) }} onRightClick={() => { if (Counter < itemsArray.length - 1) setCounter(prev => prev + 1) }} onLeftClick={() => { if (Counter > 0) setCounter(prev => prev - 1) }} />
                 </div>
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
                     {currentContent.type == 'video' &&
                         <>
-                            <div className="relative  w-full max-w-full  justify-center flex">
+                            <div className=" w-full max-w-full  justify-center flex">
                                 <ReactPlayer
                                     controls
 
@@ -93,31 +93,40 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
                         </>
                     }
                     {currentContent.type == 'content' &&
-                        <>
-                            {/* Content {currentContent.content} */}
-                            <div className="notificationModal w-full h-full">
 
-                                <div className="text-white min-h-[600px p-2 h-full editor w-full
+                        <div className='h-full w-full flex flex-col'>
+
+                            {/* Content {currentContent.content} */}
+                            {/* <div className="notificationModal w-full h-full">
+
+                                <div className="text-white p-2 h-full editor w-full
                     ">
                                     <div className="text-white blogs" dangerouslySetInnerHTML={{ __html: currentContent.content }}></div>
                                 </div>
 
-                            </div>
-                        </>
+
+                            </div> */}
+                            {currentContent.quizes.length > 0 &&
+
+                                <QuizesLiberary name={'quizName'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
+                            }
+                        </div>
+
                     }
                     {currentContent.type == 'quiz' &&
                         <>
-                            <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} />
+                            {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
+                            <QuizesLiberary name={'quizName'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
 
                         </>
                     }
                 </div>
 
             </div>
-            <div className='flex w-full items-center justify-end mt-[15px]'>
+            {/* <div className='flex w-full items-center justify-end mt-[15px]'>
                 <ConditionalButton label={'Next'} condition={true} onClickHandler={() => { }} />
 
-            </div>
+            </div> */}
         </div>
     )
 }

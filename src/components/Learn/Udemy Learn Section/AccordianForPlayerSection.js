@@ -16,7 +16,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                     <Image src={'/asset/LearnRightArrowKey.svg'} height={22} width={18} className='bg-transparent' />
                 </span>
             </div>
-            <div className='max-h-[320px] h-[320px] overflow-auto hidescrollbar'>
+            <div className='max-h-[320px] h-full min-h-[320] overflow-auto hidescrollbar bg-transparent'>
 
                 {/* <AccordianTwo items={ChapterArray.items} onClickItem={(item) => { onItemClicked(item) }} /> */}
                 {ChapterArray.modules.map((module) => (
@@ -42,10 +42,10 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                                                                     : "default"
                                                         );
                                                         if (pages?.course_module_page_id) {
-                                                            onItemClicked({ type: 'content', content: pages.description })
+                                                            onItemClicked({ type: 'content', content: pages.description, quizes: pages.modules_questions })
                                                         }
                                                         if (pages?.course_module_videos_id) {
-                                                            onItemClicked({ type: 'video', content: pages.video_url })
+                                                            onItemClicked({ type: 'video', content: pages.video_url, quizes: pages.modules_questions })
                                                         }
                                                     }}
                                                 >
@@ -78,7 +78,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
 
                                                 }}
                                             >
-                                                <div className='flex shrink-0 items-center bg-transparent'>
+                                                <div className='flex shrink-0 items-center bg-transparent cursor-pointer' onClick={() => { onItemClicked({ type: 'quiz', content: '', quizes: module.modules_questions }) }}>
 
 
                                                     {/* {pages?.course_module_page_id &&
@@ -93,7 +93,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                                                                     <Image src={'/asset/vid.svg'} height={22} width={18} className='bg-transparent' />
                                                                 </span>
                                                             } */}
-                                                    <div className='w-[22px]'></div>
+                                                    <div className='w-[22px] '></div>
 
                                                     <h3 className='text-white bg-transparent ml-[8px]'>Recape Questions</h3>
                                                 </div>

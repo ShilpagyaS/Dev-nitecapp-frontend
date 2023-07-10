@@ -1,4 +1,4 @@
-import { createChapter, createCourse, createModule, createModulePage, emptycourses, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage } from "@/store/slices/learnslice";
+import { createChapter, createCourse, createModule, createModulePage, createModuleQuestions, emptycourses, getCourseDropdown, getCourses, putChapter, putCourse, putModulePage, putModuleQuestion } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -276,9 +276,8 @@ export function EditQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingred
     )
 }
 
-export function AddOneQuestion({ isModalOpen,
-    onClickCancel, onSave, deleteBtn, ingredientType, title, desc,
-    data, setdata }) {
+export function AddOneQuestion({ isModalOpen, onClickCancel, onSave, otherdata, courseId,
+}) {
     const customStyles = {
         content: {
             top: "50%",
@@ -298,8 +297,45 @@ export function AddOneQuestion({ isModalOpen,
             backdropFilter: "blur(2.5px)",
         },
     };
+    const dispatch = useDispatch()
+    const [data, setdata] = useState(
+        {
+            question: "",
+            isActive: true,
+            option1: "",
+            option2: "",
+            option3: "",
+            option4: "",
+            answer: null,
+            isEdit: true,
+            points: 1
+        }
+    );
+    function handleSave(data) {
+        console.log(otherdata);
+        console.log(data);
+        let dummydata = {
+            ...otherdata,
+            option1: data.option1,
+            option2: data.option2,
+            option3: data.option3,
+            option4: data.option4,
+            answer: data.answer,
+            question: data.question
+        }
+        console.log(dummydata);
+        dispatch(createModuleQuestions(dummydata, courseId)).then((res) => {
+            console.log(res);
+            console.log('else');
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: 'Added successfully' });
 
+            onClickCancel()
 
+        })
+    }
 
     return (
         <Modal
@@ -316,13 +352,13 @@ export function AddOneQuestion({ isModalOpen,
                     height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                 </svg>
             </div>
-            <QuizQuestionOnlyOne data={data} setdata={setdata} />
+            <QuizQuestionOnlyOne data={data} setdata={setdata} handleSave={handleSave} />
         </Modal >
     )
 }
 export function EditOneQuestion({ isModalOpen,
-    onClickCancel, onSave, deleteBtn, ingredientType, title, desc,
-    data, setdata }) {
+    onClickCancel, onSave, courseId, qna, title, desc,
+}) {
     const customStyles = {
         content: {
             top: "50%",
@@ -342,9 +378,49 @@ export function EditOneQuestion({ isModalOpen,
             backdropFilter: "blur(2.5px)",
         },
     };
+    const dispatch = useDispatch()
+    const [data, setdata] = useState(
+        {
+            question: "",
+            isActive: true,
+            option1: "",
+            option2: "",
+            option3: "",
+            option4: "",
+            answer: '',
+            isEdit: false,
+            points: 1
+        }
+    );
+    useEffect(() => {
+        setdata({ ...qna, isEdit: false })
+    }, [qna])
 
+    function handleSave(data) {
+        console.log(data);
+        console.log(qna);
+        let dummydata = {
+            ...data,
+            option1: data.option1,
+            option2: data.option2,
+            option3: data.option3,
+            option4: data.option4,
+            answer: data.answer,
+            question: data.question
+        }
+        console.log(dummydata);
+        dispatch(putModuleQuestion(dummydata, dummydata.module_question_id, courseId)).then((res) => {
+            console.log(res);
+            console.log('else');
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : successtoast({ message: 'Updated successfully' });
 
+            onClickCancel()
 
+        })
+    }
     return (
         <Modal
             isOpen={isModalOpen}
@@ -360,7 +436,7 @@ export function EditOneQuestion({ isModalOpen,
                     height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                 </svg>
             </div>
-            <QuizQuestionOnlyOne data={data} setdata={setdata} />
+            <QuizQuestionOnlyOne data={data} setdata={setdata} handleSave={handleSave} />
         </Modal >
     )
 }

@@ -124,14 +124,14 @@ export function EditorModuleContentPreview({ isModalOpen, onClickCancel, onSave,
                 </div>
             </div>
 
-            <div className="notificationModal ">
+            <div className="notificationModal h-full w-full ">
                 {/* <div className="flex  gap-3 h-[50px] justify-center my-2 text-white">
 
                     <button label="Editor View" className={`py-2 px-4 ${!isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(false)} >Editor View</button>
 
                     <button label="Preview" className={`py-2 px-4 ${isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(true)} >Preview</button>
                 </div> */}
-                <div className="text-white min-h-[200px] h-full
+                <div className="text-white h-full
                     border-2 border-white p-2 
                     editor
                     ">
