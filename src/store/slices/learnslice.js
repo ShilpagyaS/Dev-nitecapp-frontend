@@ -422,6 +422,22 @@ export const CreateFlashcardcategory = (data) => {
         });
     };
 };
+export const CreateCourseContent = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course_content/add_new_course_content`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const CraeteQuizScore = (data) => {
     return async (dispatch) => {
 
@@ -610,6 +626,23 @@ export const putCourse = (data, id) => {
         });
     };
 };
+export const putCourseUpdateCourseDetail = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course/${id}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(id))
+
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const createChapter = (data, course_id) => {
     return async (dispatch) => {
 
@@ -642,6 +675,22 @@ export const putChapter = (data, Chapterid, courseId) => {
         });
     };
 };
+export const putModule = (data, moduleId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-module/${moduleId}`,
+            method: "PUT",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
 export const createModule = (data, course_id) => {
     return async (dispatch) => {
         return await axiosInstance({
@@ -657,7 +706,7 @@ export const createModule = (data, course_id) => {
         });
     };
 };
-export const createModulePage = (data, moduleId) => {
+export const createModulePage = (data, courseId) => {
     return async (dispatch) => {
 
         return await axiosInstance({
@@ -665,7 +714,23 @@ export const createModulePage = (data, moduleId) => {
             method: "POST",
             data
         }).then((res) => {
-            dispatch(getModuleDetail(moduleId))
+            dispatch(getCoursesDetail(courseId))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const createModuleVideo = (data, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course_module_videos/add_new_course_module_videos`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetail(courseId))
             return res
         }).catch((err) => {
             console.log(err)

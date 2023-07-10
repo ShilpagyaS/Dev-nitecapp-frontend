@@ -78,7 +78,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
             </div>
             <div className='h-full w-full grid grid-cols-7 mt-[10px]'>
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
-                    <AccordianForPlayerSection isLearn={isLearn} ChapterArray={itemsArray[Counter]} onItemClicked={(content) => { if (content.type == 'video' || content.type == 'quiz' || content.type == 'content') currentContentFunction({ type: content.type, content: `${content.content} , ${content.type} <--TYPE` }) }} onRightClick={() => { if (Counter < itemsArray.length - 1) setCounter(prev => prev + 1) }} onLeftClick={() => { if (Counter > 0) setCounter(prev => prev - 1) }} />
+                    <AccordianForPlayerSection isLearn={isLearn} ChapterArray={itemsArray[Counter]} onItemClicked={(content) => { if (content.type == 'video' || content.type == 'quiz' || content.type == 'content') currentContentFunction({ type: content.type, content: `${content.content}` }) }} onRightClick={() => { if (Counter < itemsArray.length - 1) setCounter(prev => prev + 1) }} onLeftClick={() => { if (Counter > 0) setCounter(prev => prev - 1) }} />
                 </div>
                 <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
                     {currentContent.type == 'video' &&
@@ -94,7 +94,15 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
                     }
                     {currentContent.type == 'content' &&
                         <>
-                            Content {currentContent.content}
+                            {/* Content {currentContent.content} */}
+                            <div className="notificationModal w-full h-full">
+
+                                <div className="text-white min-h-[600px p-2 h-full editor w-full
+                    ">
+                                    <div className="text-white blogs" dangerouslySetInnerHTML={{ __html: currentContent.content }}></div>
+                                </div>
+
+                            </div>
                         </>
                     }
                     {currentContent.type == 'quiz' &&
