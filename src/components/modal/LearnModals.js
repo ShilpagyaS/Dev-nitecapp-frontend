@@ -2983,7 +2983,7 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
                             <CustomSelectWithAllBlackTheme
                                 items={[
                                     ...courses,
-                                    { value: null, label: 'New' },
+                                    { value: null, label: 'Add a New Deck' },
                                 ]}
                                 optionalFunction={(e) => {
                                     console.log(e);
