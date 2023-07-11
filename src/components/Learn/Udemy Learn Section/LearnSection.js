@@ -684,7 +684,7 @@ function LearnSection({ courseId }) {
             }
             {isStartLearning &&
 
-                <LiberaryStartScrreen itemsArray={courseDetail?.chapters} isLearn={true} />
+                <LiberaryStartScrreen itemsArray={courseDetail?.chapters} isLearn={true} data={courseDetail} />
 
             }
         </div>

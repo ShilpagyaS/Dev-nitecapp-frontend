@@ -219,9 +219,9 @@ function QuizesLiberary({ name, quizArray }) {
                     </div>
                     :
                     <>
-                        <h2 className="text-white capitalize text-[32px] leading-9 font-bold mb-[20px] ">
+                        {/* <h2 className="text-white capitalize text-[32px] leading-9 font-bold mb-[20px] ">
                             {name}
-                        </h2>
+                        </h2> */}
                         <EndQuizCardLiberary
                             hidebutton={true}
                             score={reportCard}

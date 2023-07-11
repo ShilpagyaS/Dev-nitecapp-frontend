@@ -7,7 +7,7 @@ import ReactPlayer from 'react-player'
 import { RxCross1 } from 'react-icons/rx'
 import { SupriseQuizQuestion } from '@/components/modal/Quizmodal'
 
-function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn }) {
+function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, data }) {
 
     const [currentContent, setCurrentContent] = useState({ type: '', content: '' })
     const [Counter, setCounter] = useState({
@@ -137,8 +137,8 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
         <div className='h-full w-full'>
             <Breadcrumb />
             <div className='w-full flex items-center mb-[10px] justify-between'>
-                <p className='text-[24px] font-Inter text-white font-semibold bg-transparent ml-[20px]'>
-                    The Complete Bar Management Short Course
+                <p className='text-[24px] font-Inter text-white font-semibold capitalize bg-transparent ml-[20px]'>
+                    {data.name}
                 </p>
                 {
                     isPreview &&
@@ -179,7 +179,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
                     >
 
 
-                        <QuizesLiberary name={'quizName'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} />
+                        <QuizesLiberary name={'Quick Question'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} />
 
                     </SupriseQuizQuestion>
 
@@ -207,14 +207,14 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn })
                     {currentContent.type == 'quiz' &&
                         <>
                             {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
-                            <QuizesLiberary name={'quizName'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
+                            <QuizesLiberary name={'Question'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
 
                         </>
                     }
                     {currentContent.type == 'recapquiz' &&
                         <>
                             {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
-                            <QuizesLiberary name={'quizName'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
+                            <QuizesLiberary name={'Recape Questions'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
 
                         </>
                     }
