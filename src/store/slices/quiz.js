@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     allquiz: [],
-    quiz: []
+    quiz: [],
 };
 
 export const quizSlice = createSlice({
@@ -81,6 +81,18 @@ export const getallquiz = () => {
     return async (dispatch) => {
         return axiosInstance({
             url: `/api/quiz/get_all_quiz`,
+            method: "GET",
+        }).then((res) => {
+            const { data } = res
+            dispatch(quizSlice.actions.setAllQuizes(data.data))
+        })
+
+    }
+}
+export const getallquizByCat = () => {
+    return async (dispatch) => {
+        return axiosInstance({
+            url: `/api/quiz/get_all_quiz_category/get_quiz_category_list_with_quiz_list`,
             method: "GET",
         }).then((res) => {
             const { data } = res

@@ -6,7 +6,7 @@ import QuizesLiberary from './QuizesForLiberaryPart'
 
 function UserQuizDetailpage({ quizid, quizName }) {
     const { quizesQuestion } = useSelector(state => state.learn)
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getQuizQuiestions(quizid))
 
@@ -16,7 +16,7 @@ function UserQuizDetailpage({ quizid, quizName }) {
 
     return (
         <div>
-            <QuizesCard name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} />
+            <QuizesCard name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} quizId={quizid} />
             {/* <QuizesLiberary name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} /> */}
         </div>
     )

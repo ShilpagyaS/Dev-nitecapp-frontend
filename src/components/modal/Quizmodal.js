@@ -11,6 +11,7 @@ import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detai
 import { successtoast } from '../tostify'
 import { addnewQuiz, updateQuizById } from "@/store/slices/quiz";
 import QuizQuestion, { QuizQuestionOnlyOne } from "@/Admin/AdminLearn/QuizQuestion";
+import { RxCross1 } from "react-icons/rx";
 export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
@@ -22,7 +23,7 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
             borderRadius: "8px",
             border: "none",
             background: "black",
-            padding: "24px",
+            padding: "11px",
             maxWidth: "480px",
             width: "90%",
         },
@@ -100,18 +101,20 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
             ariaHideApp={false}
             style={customStyles}
         >
-            <div className='btncontainers flex items-center justify-end ' >
-
-                <svg onClick={handleCancel} className="cursor-pointer" width="63" height="51" viewBox="0 0 63 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className='btncontainers flex items-center justify-between ' >
+                <div></div>
+                <div className="text-white border-none outline-none flex items-center justify-center">
+                    <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
+                </div>
+                {/* <svg onClick={handleCancel} className="cursor-pointer" width="63" height="51" viewBox="0 0 63 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11.2798 20.239L6.62601 24.014L5.07475 22.7557L9.72853 18.9806L5.07475 15.2055L6.62601 13.9472L11.2798 17.7222L15.9336 13.9472L17.4848 15.2055L12.831 18.9806L17.4848 22.7557L15.9336 24.014L11.2798 20.239Z" fill="white" fill-opacity="0.78" />
-                </svg>
+                </svg> */}
+                <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={handleCancel} />
+
 
 
             </div>
-            <div className="text-white border-none outline-none flex items-center justify-center">
-                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
-            </div>
-            <div className='h-[350px] mb-[10px] notificationModal p-8'>
+            <div className='h-[250px] mb-[10px] notificationModal p-4'>
 
                 <LearnFileUpload defaultImage={quiz.image} setimage={setimage} upimage={upimage} isEdit={true} />
 
@@ -125,9 +128,9 @@ export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredi
                     errorResponnse={_INITIAL}
                 />
 
-                <div className='w-full flex justify-center mt-8'>
-                    <ConditionalButton label={'Save &  Add Questions to Quiz'} condition={true} onClickHandler={handleSave} />
-                </div>
+            </div>
+            <div className='w-full flex justify-center mt-2 mb-3'>
+                <ConditionalButton label={'Save &  Add Questions to Quiz'} condition={true} onClickHandler={handleSave} />
             </div>
 
         </Modal>

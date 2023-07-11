@@ -131,6 +131,29 @@ export const getAllQuizesCourses = () => {
         });
     };
 };
+export const getAllQuizesCoursesByCategory = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/quiz/get_all_quiz_category/get_quiz_category_list_with_quiz_list`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.getQuizes({
+                    data: res?.data?.data,
+                })
+            );
+            dispatch(
+                learnSlice.actions.getAllQuizes({
+                    data: res?.data?.data,
+                })
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const getQuizQuiestions = (id) => {
     return async (dispatch, getState) => {
         const state = getState();

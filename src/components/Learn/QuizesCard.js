@@ -6,7 +6,7 @@ import { RxCross1 } from 'react-icons/rx';
 import Breadcrumb from '../Breadcrumb';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
-function QuizesCard({ name, quizArray }) {
+function QuizesCard({ name, quizArray, quizId }) {
     // const a = [1, 2, 3, 4]
     const [counter, setCounter] = useState(0);
     const [show, setisShow] = useState(false);
