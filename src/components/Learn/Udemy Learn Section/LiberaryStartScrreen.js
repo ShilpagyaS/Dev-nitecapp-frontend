@@ -138,7 +138,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
             <Breadcrumb />
             <div className='w-full flex items-center mb-[10px] justify-between'>
                 <p className='text-[24px] font-Inter text-white font-semibold capitalize bg-transparent ml-[20px]'>
-                    {data.name}
+                    {data?.name}
                 </p>
                 {
                     isPreview &&

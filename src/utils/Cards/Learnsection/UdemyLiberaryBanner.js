@@ -14,7 +14,7 @@ function UdemyLiberaryBanner({ startLearncClick, data }) {
                         </div>
                     </>
                         :
-                        <Image src={'/asset/BannerLearnCourse.png'} fill className='h-full w-full object-cover' />
+                        <Image src={'/asset/nitecapmoretranparent.png'} fill className='h-full w-full object-cover' />
                 }
                 {/* <Image src={'/asset/BannerLearnCourse.png'} fill className='h-full w-full object-cover' /> */}
             </div>

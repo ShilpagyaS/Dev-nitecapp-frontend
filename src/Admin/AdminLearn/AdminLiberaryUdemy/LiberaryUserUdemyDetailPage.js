@@ -880,7 +880,16 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                     <>
                         <div className='w-full h-full flex flex-col relative '>
                             <div className=' min-h-[250px] h-full w-full relative '>
-                                <Image src={'/asset/BannerLearnCourse.png'} fill className='h-full w-full object-cover' />
+                                {
+                                    courseDetail?.image ? <>
+                                        <Image src={courseDetail?.image} fill className='h-full w-full object-cover' />
+                                        <div className='absolute w-full h-full  bg-[#00000087]'>
+
+                                        </div>
+                                    </>
+                                        :
+                                        <Image src={'/asset/nitecappdefault.png'} fill className='h-full w-full object-cover' />
+                                }                                {/* <Image src={'/asset/BannerLearnCourse.png'} fill className='h-full w-full object-cover' /> */}
                             </div>
                             <div className='absolute w-full h-full flex flex-col justify-between top-0 bg-transparent p-[20px] pt-[2px]'>
                                 <div className='bg-transparent'>
@@ -1065,7 +1074,7 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                 {isStartLearning &&
 
                     <LiberaryStartScrreen itemsArray={courseDetail?.chapters} isLearn={true} isPreview={true}
-                        onCancelClick={() => { setStartLearning(false) }} />
+                        onCancelClick={() => { setStartLearning(false) }} data={courseDetail} />
 
                 }
             </div>
