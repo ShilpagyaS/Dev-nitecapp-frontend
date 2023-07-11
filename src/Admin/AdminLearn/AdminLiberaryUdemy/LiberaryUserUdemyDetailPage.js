@@ -1064,7 +1064,8 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
                 }
                 {isStartLearning &&
 
-                    <LiberaryStartScrreen itemsArray={courseDetail?.chapters} isLearn={true} isPreview={true} onCancelClick={() => { setStartLearning(false) }} />
+                    <LiberaryStartScrreen itemsArray={courseDetail?.chapters} isLearn={true} isPreview={true}
+                        onCancelClick={() => { setStartLearning(false) }} />
 
                 }
             </div>
