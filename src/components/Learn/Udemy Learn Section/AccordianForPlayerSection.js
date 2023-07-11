@@ -82,7 +82,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                                     )}
                                     {module.modules_questions.length > 0 && (
                                         <>
-                                            <div className={`${counterindex?.modules?.content?.index === module?.page_and_video_list?.length ? `border-2 border-white` : ""} bg-transparent flex justify-between items-center border border-transparent border-b-[#292929] p-[15px] capitalize `}
+                                            <div className={`${counterindex?.modules?.content?.index === module?.page_and_video_list?.length ? `border-2 border-white` : "border border-transparent border-b-[#292929] "} bg-transparent flex justify-between items-center p-[15px] capitalize `}
                                                 onClick={() => { onItemClicked({ type: 'recapquiz', content: '', quizes: module.modules_questions }, module?.page_and_video_list?.length) }}
                                             >
                                                 <div className={` flex shrink-0 items-center bg-transparent cursor-pointer`}
