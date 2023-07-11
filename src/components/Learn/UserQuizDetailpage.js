@@ -1,4 +1,4 @@
-import { getQuizQuiestions } from '@/store/slices/learnslice'
+import { emptyScore, getQuizQuiestions } from '@/store/slices/learnslice'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import QuizesCard from './QuizesCard'
@@ -11,6 +11,7 @@ function UserQuizDetailpage({ quizid, quizName }) {
         dispatch(getQuizQuiestions(quizid))
 
         return () => {
+            dispatch(emptyScore())
         }
     }, [])
 

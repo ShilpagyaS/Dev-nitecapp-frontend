@@ -4,6 +4,7 @@ import React from 'react'
 import Bigbutton, { Bigbutton2 } from '../Learnutils/Bigbutton';
 
 function EndQuizCard({ nextClick, name, score, hidebutton }) {
+    console.log(score);
     const router = useRouter()
     return (
         <div className='h-full w-full'>
@@ -24,7 +25,7 @@ function EndQuizCard({ nextClick, name, score, hidebutton }) {
                     <div className='h-[70px] min-w-[130px]  border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Total</p>
-                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score.total} / ${score.total} Questions`}</p>
+                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score.total_question} / ${score.total_question} Questions`}</p>
 
                     </div>
                     <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
@@ -42,14 +43,15 @@ function EndQuizCard({ nextClick, name, score, hidebutton }) {
                     <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Score</p>
-                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${parseFloat((score.correct / score.total) * 100).toFixed(1)}%`} </p>
+                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score.score}%`} </p>
+                        {/* <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${parseFloat((score.correct / score.total) * 100).toFixed(1)}%`} </p> */}
 
                     </div>
                     <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Points</p>
                         {/* <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${parseFloat((score.correct / score.total) * 100).toFixed(1)}%`} </p> */}
-                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`1253`} </p>
+                        <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score?.points ? score?.points : 0}`} </p>
 
                     </div>
                 </div>

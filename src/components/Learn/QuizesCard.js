@@ -1,8 +1,10 @@
+import { CraeteQuizScore } from '@/store/slices/learnslice';
 import EndQuizCard from '@/utils/Cards/Learnsection/EndQuizCard';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { RxCross1 } from 'react-icons/rx';
+import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumb from '../Breadcrumb';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
@@ -12,6 +14,11 @@ function QuizesCard({ name, quizArray, quizId }) {
     const [show, setisShow] = useState(false);
     const [answersheet, setAnserSheet] = useState({})
     const [selected, setSelected] = useState({})
+    const { scorecard } = useSelector(state => state.learn)
+
+    const dispatch = useDispatch()
+    const [newReport, setnewReport] = useState({ quiz_id: quizId, answer_list: [] })
+    const [optimisedreportCard, setoptimised] = useState(null)
     const [reportCard, setreportCard] = useState({
         correct: 0,
         incorrect: 0
@@ -21,8 +28,38 @@ function QuizesCard({ name, quizArray, quizId }) {
         quizArray.map((quiz) => { dummy = { ...dummy, [quiz.quiz_question_id]: '' } })
         setAnserSheet(dummy)
         setSelected(dummy)
+
+        let newReportLogic = []
+        newReportLogic = quizArray.map((quiz) => { return { quiz_question_id: quiz.quiz_question_id, answer: "" } })
+        console.log(newReportLogic);
+        setnewReport((prev) => {
+            return { ...prev, answer_list: newReportLogic }
+        })
     }, [quizArray])
+    useEffect(() => {
+        console.log(scorecard);
+        if (scorecard) {
+            console.log(scorecard);
+        }
+    }, [scorecard])
+    function onNewReportClick(id, answered) {
+        let dummy = []
+        dummy = newReport.answer_list.map((quiz) => {
+            if (quiz.quiz_question_id == id) {
+                return {
+                    ...quiz, answer: answered
+                }
+            }
+            else return { ...quiz }
+
+        })
+        console.log(dummy);
+        setnewReport((prev) => {
+            return { ...prev, answer_list: dummy }
+        })
+    }
     function prepareQuizReport(quizId, correctAnswer, selectedAnswer) {
+        onNewReportClick(quizId, selectedAnswer)
         setSelected(prev => { return { ...prev, [quizId]: selectedAnswer } })
         if (correctAnswer == selectedAnswer) [
             setAnserSheet(prev => { return { ...prev, [quizId]: 1 } })
@@ -40,9 +77,10 @@ function QuizesCard({ name, quizArray, quizId }) {
             answersheet[key] == 1 ? correctCount = correctCount + 1 : incorrectCount = incorrectCount + 1
         });
         let dummy = {
-            total: total,
+            total_question: total,
             correct: correctCount,
-            incorrect: incorrectCount
+            incorrect: incorrectCount,
+            score: 40,
         }
         setreportCard({ ...dummy })
     }
@@ -81,7 +119,7 @@ function QuizesCard({ name, quizArray, quizId }) {
                                         <p className='font-[600] text-[14px] not-italic text-black bg-transparent capitalize'>{quiz.question}</p>
                                         <div className='mt-[20px] w-[65%] bg-transparent'>
 
-                                            <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option1 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1) }}>
+                                            <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option1 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1); }}>
                                                 <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option1}</p>
                                             </div>
                                             <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option2 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2) }}>
@@ -125,8 +163,11 @@ function QuizesCard({ name, quizArray, quizId }) {
                                         counter === quizArray.length - 1 &&
                                         <ConditionalButton label={'Submit'} condition={true} onClickHandler={() => {
                                             // setCounter(1)
-                                            finalreport()
-                                            setisShow(true)
+                                            dispatch(CraeteQuizScore(newReport, quizId)).then(() => {
+
+                                                // finalreport()
+                                                setisShow(true)
+                                            })
 
                                         }} />
                                     }
@@ -134,13 +175,13 @@ function QuizesCard({ name, quizArray, quizId }) {
                             </div>
                         </div>
                     </div>
-                    :
+                    : scorecard &&
                     <>
                         <h2 className="text-white capitalize text-[32px] leading-9 font-bold mb-[20px] ">
                             {name}
                         </h2>
                         <EndQuizCard
-                            score={reportCard}
+                            score={scorecard}
                             name={name}
                             nextClick={() => {
                                 setCounter(0)

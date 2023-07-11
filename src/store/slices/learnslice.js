@@ -1,5 +1,5 @@
 import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
-import { successtoast } from "@/components/tostify";
+import { errortoast, successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -15,7 +15,8 @@ const initialState = {
     flashcardDetail: {},
     learnScreenCourses: [],
     learnScreenFlashcards: [],
-    learnScreenQuizes: []
+    learnScreenQuizes: [],
+    scorecard: null,
 };
 
 export const learnSlice = createSlice({
@@ -61,6 +62,9 @@ export const learnSlice = createSlice({
         getFlashcardDetails: (state, action) => {
             state.flashcardDetail = action.payload
         },
+        setscorecard: (state, action) => {
+            state.scorecard = action.payload
+        },
         emptyAlling: (state) => {
             state.course = []
             state.quizes = []
@@ -74,6 +78,9 @@ export const learnSlice = createSlice({
             state.learnScreenCourses = []
             state.learnScreenFlashcards = []
             state.learnScreenQuizes = []
+        },
+        emptyscoreCard: (state) => {
+            state.scorecard = null
         }
     },
 });
@@ -481,7 +488,7 @@ export const CreateCourseContent = (data, id) => {
         });
     };
 };
-export const CraeteQuizScore = (data) => {
+export const CraeteQuizScore = (data, id) => {
     return async (dispatch) => {
 
         return await axiosDebounceInstance({
@@ -489,10 +496,30 @@ export const CraeteQuizScore = (data) => {
             method: "POST",
             data
         }).then((res) => {
+            dispatch(getScoreCard(id))
             return res
         }).catch((err) => {
             console.log(err)
+            errortoast({ message: err })
             return { error: true, message: err }
+        });
+    };
+};
+export const getScoreCard = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosInstance({
+            url: `/api/quiz_score/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                learnSlice.actions.setscorecard(
+                    res?.data?.data,
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
         });
     };
 };
@@ -1016,6 +1043,14 @@ export const emptycourses = (productType) => {
     return async (dispatch, getState) => {
         dispatch(
             learnSlice.actions.emptyAlling()
+        );
+    };
+};
+export const emptyScore = () => {
+
+    return async (dispatch, getState) => {
+        dispatch(
+            learnSlice.actions.emptyscoreCard()
         );
     };
 };
