@@ -32,7 +32,7 @@ function StyduAllFlashcardByCategoryid({ id, categoryName }) {
     ]
     const [counter, setCounter] = useState(0)
     const [ishow, setshow] = useState(false)
-    const { flashcard } = useSelector((state) => state.learn)
+    const { studyAll } = useSelector((state) => state.learn)
     const [newList, setList] = useState([])
     const [missedandLearn, setMissedAndLearn] = useState({
         missed: 0,
@@ -49,11 +49,11 @@ function StyduAllFlashcardByCategoryid({ id, categoryName }) {
         }
     }, [])
     useEffect(() => {
-        console.log('falshcards-->', flashcard);
-        if (flashcard.length) {
-            setList([...flashcard])
+        console.log('falshcards-->', studyAll);
+        if (studyAll.length) {
+            setList([...studyAll])
         }
-    }, [flashcard])
+    }, [studyAll])
     function setStats(key) {
         if (missedandLearn.missed + missedandLearn.learned < newList.length)
             setMissedAndLearn((prev) => {
@@ -71,7 +71,7 @@ function StyduAllFlashcardByCategoryid({ id, categoryName }) {
                     {categoryName}
                 </h5>
             </div>
-            {newList?.length ?
+            {newList?.length > 0 ?
                 <>
                     {
                         !ishow &&

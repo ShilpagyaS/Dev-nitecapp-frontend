@@ -17,6 +17,7 @@ function UserQuizDetailpage({ quizid, quizName }) {
 
     return (
         <div>
+            
             <QuizesCard name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} quizId={quizid} />
             {/* <QuizesLiberary name={quizName} quizArray={quizesQuestion.length ? quizesQuestion : []} /> */}
         </div>
