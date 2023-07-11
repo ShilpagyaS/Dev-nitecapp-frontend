@@ -1,12 +1,21 @@
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-function AccordianNew({ title, content, type, item, isLearn }) {
+function AccordianNew({ title, content, type, item, isLearn, defaultvalue, onOpenfuncObj }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
+        if (onOpenfuncObj) {
+            onOpenfuncObj.func()
+        }
     };
+
+    useEffect(() => {
+        if (defaultvalue !== undefined) {
+            setIsOpen(defaultvalue)
+        }
+    }, [])
 
     return (
         <div className="accordion text-white">

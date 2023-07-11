@@ -508,3 +508,48 @@ export function EditOneQuestion({ isModalOpen,
     )
 }
 
+
+
+export function SupriseQuizQuestion({ isModalOpen,
+    onClickCancel, onSave, courseId, qna, title, desc, children
+}) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "680px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+
+        >
+            <div className="flex justify-between mb-4">
+                <h2 className="text-white text-[25px] font-[600]">Answer Question</h2>
+                <svg width="24" className="cursor-pointer"
+                    onClick={onClickCancel}
+                    height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                </svg>
+            </div>
+            {children}
+        </Modal >
+    )
+}
+
