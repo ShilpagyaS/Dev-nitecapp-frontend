@@ -2914,7 +2914,7 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
         console.log('running category select', e);
         console.log(e);
         setIsCategorySelected(true)
-        if (e.value) {
+        if (e.value) { 
             setCategorySelected(e)
         }
         else {

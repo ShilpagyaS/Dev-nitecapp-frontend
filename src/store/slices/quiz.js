@@ -38,7 +38,7 @@ export const addnewQuiz = (data) => {
             method: "POST",
             data
         }).then((res) => {
-            dispatch(getallquiz())
+            dispatch(getallquizByCat())
             successtoast({ message: "Added Successfully" })
         })
 
@@ -55,7 +55,7 @@ export const updateQuizById = (id, data) => {
             method: "PUT",
             data
         }).then((res) => {
-            dispatch(getallquiz())
+            dispatch(getallquizByCat())
             successtoast({ message: "Updated Successfully" })
         })
 

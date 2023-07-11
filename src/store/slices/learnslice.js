@@ -214,6 +214,26 @@ export const getCommonDropdown = (type, specname, courseid) => {
         });
     };
 };
+export const getQuizCategoryDropDown = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/quiz/get_all_quiz_category`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i,
+                    label: i,
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const putShowFlashcards = (data, id) => {
     return async (dispatch, getState) => {
         const state = getState();
