@@ -35,7 +35,7 @@ function LIberaryComponents({ allCourses, isAdmin }) {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]'>
                     {allCourses.map((item) =>
                         <div className='w-full  mb-[10px]' >
-                            <DashboardLiberaryCard item={item} completionPercentageOuter={0} image={item.img} name={item.name} desc={item.desc} isAdmin={isAdmin}
+                            <DashboardLiberaryCard item={item} completionPercentageOuter={item.course_completed} image={item.img} name={item.name} desc={item.desc} isAdmin={isAdmin}
                                 onclickEdit={() => {
                                     setselectedData(item);
                                     setEditCourse(true)

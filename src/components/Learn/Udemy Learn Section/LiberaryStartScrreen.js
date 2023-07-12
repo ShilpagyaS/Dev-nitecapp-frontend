@@ -145,9 +145,9 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
                     <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={() => { onCancelClick() }} />
                 }
             </div>
-            <p className='text-[12px] text-primary-base'>19% Completed</p>
+            <p className='text-[12px] text-primary-base'>{data?.course_completed}% Completed</p>
             <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
-                <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${5 ? 10 : 0}%` }}></div>
+                <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${data?.course_completed ? data?.course_completed : 0}%` }}></div>
             </div>
             <div className='h-full min-h-[300px] w-full grid grid-cols-7 mt-[10px]'>
                 <div className='h-full rounded-[8px] bg-transparent border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
@@ -162,7 +162,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
                         onRightClick={onRightClick}
                         onLeftClick={onLeftClick} />
                 </div>
-                <div className='h-full rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
+                <div className='h-full relative rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
                     {currentContent.type == 'video' &&
                         <>
                             <div className=" w-full max-w-full  justify-center flex">
@@ -190,7 +190,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
                         <div className='h-full w-full flex flex-col'>
 
                             {/* Content {currentContent.content} */}
-                            <div className="notificationModal w-full h-full">
+                            <div className="notificationModal w-full h-full max-h-[400px]">
 
                                 <div className="text-white p-2 h-full editor w-full
                     ">

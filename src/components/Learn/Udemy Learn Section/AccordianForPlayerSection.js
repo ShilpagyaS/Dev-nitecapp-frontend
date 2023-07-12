@@ -5,7 +5,7 @@ import React from 'react'
 
 function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, onLeftClick, isLearn, counterindex, onCounterChange }) {
     return (
-        <div>
+        <div className='h-full'>
             <div className='bg-[#0F0F0F] text-white p-[5px] min-h-[50px] flex items-center justify-between'>
                 <div className={`bg-transparent flex items-center cursor-pointer`} onClick={() => { onLeftClick() }}>
                     <Image src={'/asset/LearnRightArrowKey.svg'} height={22} width={18} className='bg-transparent rotate-180  ' />
@@ -16,7 +16,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                     <Image src={'/asset/LearnRightArrowKey.svg'} height={22} width={18} className='bg-transparent' />
                 </span>
             </div>
-            <div className='max-h-[320px] h-full min-h-[320] overflow-auto hidescrollbar bg-transparent'>
+            <div className='max-h-[400px] h-full min-h-[320] overflow-auto hidescrollbar bg-transparent'>
 
                 {/* <AccordianTwo items={ChapterArray.items} onClickItem={(item) => { onItemClicked(item) }} /> */}
                 {ChapterArray.modules.map((module, index) => (
