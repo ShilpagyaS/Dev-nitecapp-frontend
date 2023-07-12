@@ -22,7 +22,7 @@ function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc, i
                 <Image src={image} fill className='rounded-[8px] object-cover' />
                 <div className='absolute h-full w-full bg-[#00000087] flex items-center justify-center'>
 
-                    <p className='not-italic font-[500] text-[24px] font-Inter text-white bg-transparent w-[200px]'>{name} </p>
+                    <p className='not-italic font-[500] text-[24px] capitalize font-Inter text-white bg-transparent w-[200px]'>{name} </p>
                 </div>
 
             </div>

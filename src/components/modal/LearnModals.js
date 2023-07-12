@@ -1,4 +1,4 @@
-import { createChapter, createCourse, CreateCourseContent, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, createModuleVideo, deleteChapter, deleteModule, deleteModulePage, emptycourses, getChaptersdropdown, getCommonDropdown, getCourseDropdown, getCourses, getspecscategorydropdown, getSpecsDropdown, putChapter, putContentdetails, putCourse, putCourseUpdateCourseDetail, putFlashcard, putFlashcardCategory, putFlashcardsubcategory, putModule, putModulePage, putModulePageContent, putModuleVideo } from "@/store/slices/learnslice";
+import { createChapter, createCourse, CreateCourseContent, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, createModuleVideo, deleteChapter, deleteModule, deleteModulePage, deleteModuleVideo, emptycourses, getChaptersdropdown, getCommonDropdown, getCourseDropdown, getCourses, getspecscategorydropdown, getSpecsDropdown, putChapter, putContentdetails, putCourse, putCourseUpdateCourseDetail, putFlashcard, putFlashcardCategory, putFlashcardsubcategory, putModule, putModulePage, putModulePageContent, putModuleVideo } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -1664,11 +1664,14 @@ export function AddModuleContent({ isModalOpen, onClickCancel, onSave, data, cou
                             type={"text"}
                             errorResponnse={_INITIAL}
                         />
-                        {/* <div className="w-full flex items-center justify-end">
-                            <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'
-                                onClick={() => setisEditor(true)}
-                            >Open Editor</p>
-                        </div> */}
+                        {
+                            editordata != "" &&
+                            <div className="w-full flex items-center justify-end">
+                                <p className='italic font-normal text-[13px] leading-6 text-[#959595] font-Inter '
+
+                                >Page Content Saved On Editor</p>
+                            </div>
+                        }
                     </>
                 }
                 {
@@ -1906,7 +1909,7 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, data, co
 
                         }
                         if (type == 'video') {
-                            dispatch(deleteModulePage(data.course_module_videos_id, courseId)).then(() => { onClickCancel() })
+                            dispatch(deleteModuleVideo(data.course_module_videos_id, courseId)).then(() => { onClickCancel() })
 
                         }
 
@@ -3806,6 +3809,12 @@ export function EditDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
     const [isfocused, setisFocused] = useState(false);
     const dispatch = useDispatch()
     const [contentType, setContentType] = useState({ value: '', label: '' })
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [currentindex, setindex] = useState(null)
+    const [isHover, setishover] = useState({
+        hover: false,
+        index: null
+    })
     function handleChange(e, index) {
         const { name, value } = e.target;
         const updatedQuestions = [...courseForm];
@@ -3842,6 +3851,12 @@ export function EditDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
 
 
     };
+    function deleteDetail() {
+        let dummy = [];
+        dummy = courseForm.filter((data, i) => i != currentindex)
+        console.log(dummy);
+        setCourse(dummy)
+    }
     return (
         <Modal
             isOpen={isModalOpen}
@@ -3849,6 +3864,18 @@ export function EditDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             ariaHideApp={false}
             style={customStyles}
         >
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={'Detail'}
+                    onSave={() => {
+                        // console.log(selectedData.name, selectedData);
+                        // dispatch(deleteModuleQuestion(data.module_question_id, courseId)).then(() => { onClickCancel() })
+                        // onClickCancel()
+                        deleteDetail()
+                    }}
+                />}
             <div className="text-white border-none outline-none flex items-center justify-center">
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
             </div>
@@ -3859,15 +3886,47 @@ export function EditDetails({ isModalOpen, onClickCancel, onSave, deleteBtn, tit
             <div className='min-h-[170px] max-h-[350px] h-full pr-[10px] notificationModal'>
 
                 {courseForm.map((point, index) =>
-                    <InputFieldWirhAutoWidth
-                        placeholder=""
-                        label=""
-                        onChangeHandler={(e) => { handleChange(e, index) }}
-                        value={courseForm[index].content}
-                        name={"content"}
-                        type={"text"}
-                        errorResponnse={_INITIAL}
-                    />
+                    <div className="relative h-full" onDoubleClick={() => { console.log('DoubleClock on ', index); }}
+                        onMouseEnter={() => {
+                            setishover({
+                                hover: true,
+                                index: index
+                            })
+                        }} onMouseLeave={() => {
+                            setishover({
+                                hover: false,
+                                index: null
+                            })
+                        }}
+                    >
+
+                        <InputFieldWirhAutoWidth
+                            placeholder=""
+                            label=""
+                            onChangeHandler={(e) => { handleChange(e, index) }}
+                            value={courseForm[index].content}
+                            name={"content"}
+                            type={"text"}
+                            errorResponnse={_INITIAL}
+                        />
+                        {
+                            isHover.hover && isHover.index == index &&
+
+                            <div className="text-white flex items-center justify-end absolute top-2 right-0 bg-transparent">
+                                <button className='h-[40px] w-[40px] rounded-full bg-transparent flex items-center justify-center mx-[5px]'
+                                    // <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center mx-[5px]'
+                                    onClick={() => { setDeleteModal(true); setindex(index) }}>
+                                    <Image
+                                        src={'/asset/DeleteVector.svg'}
+                                        width={20}
+                                        height={20}
+                                        className="bg-transparent"
+                                    // className="bg-[#171717]"
+                                    />
+                                </button>
+                            </div>
+                        }
+                    </div>
                 )}
                 <div className="w-full flex items-center justify-end" onClick={() => { AddBullet() }}>
                     <p className='text-[14px] text-primary-base not-italic font-semibold mr-[10px] cursor-pointer'>Add More Info </p>

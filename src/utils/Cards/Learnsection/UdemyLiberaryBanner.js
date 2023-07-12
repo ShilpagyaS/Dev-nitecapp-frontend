@@ -22,7 +22,7 @@ function UdemyLiberaryBanner({ startLearncClick, data }) {
                 <div className='bg-transparent'>
 
                     <Breadcrumb />
-                    <p className='text-[22px] font-Inter text-white font-semibold bg-transparent mb-[10px]'>
+                    <p className='text-[22px] font-Inter text-white capitalize font-semibold bg-transparent mb-[10px]'>
                         {data?.name}
                     </p>
                     <p className='text-[16px] text-white font-thin bg-transparent '>

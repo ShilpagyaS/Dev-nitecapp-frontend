@@ -146,6 +146,7 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata, handl
     const [localdata, setlocaldata] = useState({})
     const [localdataprev, setlocaldataprev] = useState({})
     const { productId } = useNavDetails()
+
     const dispatch = useDispatch()
     useEffect(() => {
         setlocaldata(data)
@@ -169,15 +170,28 @@ export const QuizQuestionOnlyOne = ({ index, onDeleteClick, data, setdata, handl
                 <div className="text-white text-xl font-semibold">Question </div>
                 <div className="flex ">
 
-                    {!localdata.isEdit && <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center mx-[5px]'
-                        onClick={() => { onInputChange("isEdit", true) }}>
-                        <Image
-                            src={'/asset/EditVector.svg'}
-                            width={20}
-                            height={20}
-                            className="bg-[#171717]"
-                        />
-                    </button>}
+                    {!localdata.isEdit &&
+                        <div className='flex items-center '>
+                            <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center mx-[5px]'
+                                onClick={() => { onInputChange("isEdit", true) }}>
+                                <Image
+                                    src={'/asset/EditVector.svg'}
+                                    width={20}
+                                    height={20}
+                                    className="bg-[#171717]"
+                                />
+                            </button>
+                            <button className='h-[40px] w-[40px] rounded-full bg-[#171717] flex items-center justify-center mx-[5px]'
+                                onClick={() => { onDeleteClick() }}>
+                                <Image
+                                    src={'/asset/DeleteVector.svg'}
+                                    width={20}
+                                    height={20}
+                                    className="bg-[#171717]"
+                                />
+                            </button>
+                        </div>
+                    }
                 </div>
             </div>
 

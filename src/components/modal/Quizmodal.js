@@ -1,4 +1,4 @@
-import { createChapter, createCourse, createModule, createModulePage, createModuleQuestions, emptycourses, getCourseDropdown, getCourses, getQuizCategoryDropDown, putChapter, putCourse, putModulePage, putModuleQuestion } from "@/store/slices/learnslice";
+import { createChapter, createCourse, createModule, createModulePage, createModuleQuestions, deleteModuleQuestion, emptycourses, getCourseDropdown, getCourses, getQuizCategoryDropDown, putChapter, putCourse, putModulePage, putModuleQuestion } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -12,6 +12,7 @@ import { successtoast } from '../tostify'
 import { addnewQuiz, updateQuizById } from "@/store/slices/quiz";
 import QuizQuestion, { QuizQuestionOnlyOne } from "@/Admin/AdminLearn/QuizQuestion";
 import { RxCross1 } from "react-icons/rx";
+import { DeleteLearn } from "./LearnModals";
 export function AddQuiz({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
         content: {
@@ -446,6 +447,8 @@ export function EditOneQuestion({ isModalOpen,
         },
     };
     const dispatch = useDispatch()
+    const [DeleteModal, setDeleteModal] = useState(false)
+
     const [data, setdata] = useState(
         {
             question: "",
@@ -496,6 +499,17 @@ export function EditOneQuestion({ isModalOpen,
             style={customStyles}
 
         >
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={'Question'}
+                    onSave={() => {
+                        // console.log(selectedData.name, selectedData);
+                        dispatch(deleteModuleQuestion(data.module_question_id, courseId)).then(() => { onClickCancel() })
+                        // onClickCancel()
+                    }}
+                />}
             <div className="flex justify-between mb-4">
                 <h2 className="text-white text-[25px] font-[600]">Edit Question</h2>
                 <svg width="24" className="cursor-pointer"
@@ -503,7 +517,7 @@ export function EditOneQuestion({ isModalOpen,
                     height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
                 </svg>
             </div>
-            <QuizQuestionOnlyOne data={data} setdata={setdata} handleSave={handleSave} />
+            <QuizQuestionOnlyOne data={data} setdata={setdata} handleSave={handleSave} onDeleteClick={() => { setDeleteModal(true) }} />
         </Modal >
     )
 }

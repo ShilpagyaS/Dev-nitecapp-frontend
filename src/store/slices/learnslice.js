@@ -1070,6 +1070,22 @@ export const deleteModuleVideo = (moduleId, courseId) => {
         });
     };
 };
+export const deleteModuleQuestion = (moduleId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/module_question/${moduleId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getCoursesDetail(courseId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const deleteFlashcardcategory = (productId) => {
     return async (dispatch) => {
 
