@@ -1,4 +1,4 @@
-import { createChapter, createCourse, CreateCourseContent, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, createModuleVideo, emptycourses, getChaptersdropdown, getCommonDropdown, getCourseDropdown, getCourses, getspecscategorydropdown, getSpecsDropdown, putChapter, putContentdetails, putCourse, putCourseUpdateCourseDetail, putFlashcard, putFlashcardCategory, putFlashcardsubcategory, putModule, putModulePage, putModulePageContent, putModuleVideo } from "@/store/slices/learnslice";
+import { createChapter, createCourse, CreateCourseContent, Createflashcard, CreateFlashcardcategory, CreateFlashcardSubcategory, createModule, createModulePage, createModuleVideo, deleteChapter, deleteModule, deleteModulePage, emptycourses, getChaptersdropdown, getCommonDropdown, getCourseDropdown, getCourses, getspecscategorydropdown, getSpecsDropdown, putChapter, putContentdetails, putCourse, putCourseUpdateCourseDetail, putFlashcard, putFlashcardCategory, putFlashcardsubcategory, putModule, putModulePage, putModulePageContent, putModuleVideo } from "@/store/slices/learnslice";
 import { uploadimage } from "@/store/slices/ui";
 import LearnFileUpload from "@/utils/Cards/Learnsection/LearnUploadImage";
 import { _INITIAL } from "@/utils/Constants";
@@ -1092,6 +1092,7 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, data, title,
         })
     }, [data])
     const [isfocused, setisFocused] = useState(false);
+    const [DeleteModal, setDeleteModal] = useState(false)
     const [upimage, setimage] = useState(undefined);
     const dispatch = useDispatch()
 
@@ -1165,6 +1166,17 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, data, title,
             ariaHideApp={false}
             style={customStyles}
         >
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={courseForm.name}
+                    onSave={() => {
+                        // console.log(selectedData.name, selectedData);
+                        dispatch(deleteChapter(data.courseChapter_id, courseId)).then(() => { onClickCancel() })
+                        // onClickCancel()
+                    }}
+                />}
             <div className="text-white border-none outline-none flex items-center justify-center">
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
             </div>
@@ -1214,10 +1226,22 @@ export function EditChapter({ isModalOpen, onClickCancel, courseId, data, title,
                     />
                 </div> */}
             </div>
-            <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
-                <div className='ml-[24px]'>
-                    <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
+            <div className='btncontainers flex items-center justify-between mt-[10px] '>
+                <button
+                    className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                           
+                        
+                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                    onClick={() => { setDeleteModal(true) }}
+                >
+                    Delete
+                </button>
+                <div className="flex items-center justify-end">
+
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
+                    </div>
                 </div>
 
             </div>
@@ -1352,6 +1376,7 @@ export function EditModule({ isModalOpen, onClickCancel, onSave, deleteBtn, data
             name: "",
         }
     )
+    const [DeleteModal, setDeleteModal] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
         console.log(data);
@@ -1408,6 +1433,17 @@ export function EditModule({ isModalOpen, onClickCancel, onSave, deleteBtn, data
             ariaHideApp={false}
             style={customStyles}
         >
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={courseForm.name}
+                    onSave={() => {
+                        // console.log(selectedData.name, selectedData);
+                        dispatch(deleteModule(data.courseModule_id, data.course_id)).then(() => { onClickCancel() })
+                        // onClickCancel()
+                    }}
+                />}
             <div className="text-white border-none outline-none flex items-center justify-center">
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
             </div>
@@ -1426,10 +1462,22 @@ export function EditModule({ isModalOpen, onClickCancel, onSave, deleteBtn, data
                     errorResponnse={_INITIAL}
                 />
             </div>
-            <div className='btncontainers flex items-center justify-end mt-[10px] '>
-                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
-                <div className='ml-[24px]'>
-                    <ConditionalButton label={'Update'} condition={true} onClickHandler={handleSave} />
+            <div className='btncontainers flex items-center justify-between mt-[10px] '>
+                <button
+                    className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                           
+                        
+                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                    onClick={() => { setDeleteModal(true) }}
+                >
+                    Delete
+                </button>
+                <div className="flex items-center justify-end">
+
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Update'} condition={true} onClickHandler={handleSave} />
+                    </div>
                 </div>
 
             </div>
@@ -1737,6 +1785,8 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, data, co
     )
     const [isEditor, setisEditor] = useState(false);
     const [editordata, seteditordata] = useState("")
+    const [DeleteModal, setDeleteModal] = useState(false)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -1842,8 +1892,44 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, data, co
                 data={editordata}
                 setdata={seteditordata}
             />
-            <div className="text-white border-none outline-none flex items-center justify-center">
+            {DeleteModal &&
+                <DeleteLearn
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={courseForm.name}
+                    onSave={() => {
+                        // console.log(selectedData.name, selectedData);
+                        // dispatch(deleteChapter(data.courseChapter_id, courseId)).then(() => { onClickCancel() })
+                        // onClickCancel()
+                        if (type == 'content') {
+                            dispatch(deleteModulePage(data.course_module_page_id, courseId)).then(() => { onClickCancel() })
+
+                        }
+                        if (type == 'video') {
+                            dispatch(deleteModulePage(data.course_module_videos_id, courseId)).then(() => { onClickCancel() })
+
+                        }
+
+                    }}
+                />}
+            <div className="text-white border-none outline-none flex items-center justify-between">
+                <div></div>
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
+                {type == 'content' ?
+                    <button className='h-[35px] w-[35px] mb-[5px] rounded-full bg-transparent flex items-center justify-center' onClick={() => { setDeleteModal(true) }}>
+                        {/* <button className='h-[35px] w-[35px] mr-[5px] rounded-full bg-[#171717] flex items-center justify-center' onClick={() => { }}> */}
+                        <Image
+                            src={'/asset/DeleteVector.svg'}
+                            width={18}
+                            height={18}
+                            className="bg-transparent"
+                        />
+                    </button>
+                    :
+                    <div>
+
+                    </div>
+                }
             </div>
             {/* <div className='flex flex-col w-full mb-[26px]'>
                 <h3 className='not-italic font-normal text-base leading-6 text-gray-600 font-Inter mb-[7px]'>Enter Description</h3>
@@ -1877,8 +1963,16 @@ export function EditModuleContent({ isModalOpen, onClickCancel, onSave, data, co
             <div className='btncontainers flex items-center justify-between mt-[10px] '>
                 {type == 'content' ? <>
                     <ConditionalButton label={'Open Editor'} condition={true} onClickHandler={() => setisEditor(true)} />
-                </> : <div>
-                </div>
+                </> :
+                    <button
+                        className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                    
+                    
+                    text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                        onClick={() => { setDeleteModal(true) }}
+                    >
+                        Delete
+                    </button>
                 }
                 <div className="flex items-center ">
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
@@ -2914,7 +3008,7 @@ export function AddFlashcardSubCategory({ isModalOpen, type, onClickCancel, onSa
         console.log('running category select', e);
         console.log(e);
         setIsCategorySelected(true)
-        if (e.value) { 
+        if (e.value) {
             setCategorySelected(e)
         }
         else {

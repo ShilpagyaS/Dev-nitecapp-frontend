@@ -96,7 +96,7 @@ function ChapterAccordian({ chapters }) {
                                                             } */}
                                                                     <div className='w-[22px]'></div>
 
-                                                                    <h3 className='text-white bg-transparent ml-[8px]'>Recape Questions</h3>
+                                                                    <h3 className='text-white bg-transparent ml-[8px]'> Questions</h3>
                                                                 </div>
                                                             </div>
                                                         </>

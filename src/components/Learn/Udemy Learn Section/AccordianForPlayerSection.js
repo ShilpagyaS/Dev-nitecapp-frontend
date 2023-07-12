@@ -103,7 +103,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                                                             } */}
                                                     <div className='w-[22px] '></div>
 
-                                                    <h3 className='text-white bg-transparent ml-[8px]'>Recape Questions</h3>
+                                                    <h3 className='text-white bg-transparent ml-[8px]'>Recap Questions</h3>
                                                 </div>
                                             </div>
                                         </>

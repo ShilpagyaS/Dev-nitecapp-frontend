@@ -1006,6 +1006,70 @@ export const deleteCourse = (productId) => {
         });
     };
 };
+export const deleteChapter = (chapterId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-chapter/${chapterId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getCoursesDetail(courseId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const deleteModule = (moduleId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-module/${moduleId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getCoursesDetail(courseId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const deleteModulePage = (moduleId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course-module-page/${moduleId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getCoursesDetail(courseId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
+export const deleteModuleVideo = (moduleId, courseId) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/course_module_videos/${moduleId}`,
+            method: "DELETE"
+        }).then((res) => {
+            // toastify
+            dispatch(getCoursesDetail(courseId))
+            successtoast({ message: `Deleted Successfully` })
+            return res
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const deleteFlashcardcategory = (productId) => {
     return async (dispatch) => {
 

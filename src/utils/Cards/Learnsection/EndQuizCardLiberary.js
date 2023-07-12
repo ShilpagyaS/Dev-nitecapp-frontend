@@ -59,7 +59,7 @@ function EndQuizCardLiberary({ nextClick, name, score, hidebutton }) {
                     <Bigbutton text={'Go to Learn '} colorTrue={false} onClickHandle={() => { router.push('/learn') }} />
                     <div className='ml-[20px]'>
 
-                        <Bigbutton2 text={'Take me to Quizes Page'} colorTrue={true}
+                        <Bigbutton2 text={'Take me to Quizzes'} colorTrue={true}
                             onClickHandle={() => {
                                 // nextClick()
                                 router.push('/learn/quizzes')

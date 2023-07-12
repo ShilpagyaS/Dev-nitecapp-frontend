@@ -7,7 +7,7 @@ import { RxCross1 } from 'react-icons/rx';
 import Breadcrumb from '../Breadcrumb';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 
-function QuizesLiberary({ name, quizArray }) {
+function QuizesLiberary({ name, quizArray, noEditScreen, optionalFunction }) {
     // const a = [1, 2, 3, 4]
 
     const [counter, setCounter] = useState(0);
@@ -184,6 +184,9 @@ function QuizesLiberary({ name, quizArray }) {
                                                     counter === quizArray.length - 1 &&
                                                     <ConditionalButton label={'Submit'} condition={true} onClickHandler={() => {
                                                         // setCounter(1)
+                                                        if (optionalFunction) {
+                                                            optionalFunction()
+                                                        }
                                                         finalreport()
                                                         setisShow(true)
 
@@ -222,14 +225,17 @@ function QuizesLiberary({ name, quizArray }) {
                         {/* <h2 className="text-white capitalize text-[32px] leading-9 font-bold mb-[20px] ">
                             {name}
                         </h2> */}
-                        <EndQuizCardLiberary
-                            hidebutton={true}
-                            score={reportCard}
-                            name={name}
-                            nextClick={() => {
-                                setCounter(0)
-                                setisShow(false)
-                            }} />
+                        {
+                            !noEditScreen &&
+                            <EndQuizCardLiberary
+                                hidebutton={true}
+                                score={reportCard}
+                                name={name}
+                                nextClick={() => {
+                                    setCounter(0)
+                                    setisShow(false)
+                                }} />
+                        }
                     </>
             }
         </div >

@@ -40,7 +40,7 @@ function AccordianNew({ title, content, type, item, isLearn, defaultvalue, onOpe
                                     <span className={`bg-transparent mr-[5px]`}>
                                         <Image src={'/asset/doc.svg'} height={22} width={18} className='bg-transparent' />
                                     </span>
-                                    <p className='text-[#B3B3B3] font-thin bg-transparent text-[14px] text-center'>{item.totaldocuments} Documents</p>
+                                    <p className='text-[#B3B3B3] font-thin bg-transparent text-[14px] text-center'>{item.totaldocuments}</p>
                                 </div>
                             }
                             {item?.videoTime > 0 &&

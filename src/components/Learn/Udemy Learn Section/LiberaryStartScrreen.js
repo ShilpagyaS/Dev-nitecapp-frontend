@@ -179,7 +179,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
                     >
 
 
-                        <QuizesLiberary name={'Quick Question'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} />
+                        <QuizesLiberary noEditScreen={true} name={'Quick Question'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} optionalFunction={() => { onNextclick(false); setquizmodal(false) }} />
 
                     </SupriseQuizQuestion>
 
@@ -214,7 +214,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
                     {currentContent.type == 'recapquiz' &&
                         <>
                             {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
-                            <QuizesLiberary name={'Recape Questions'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
+                            <QuizesLiberary name={'Recap Questions'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
 
                         </>
                     }
