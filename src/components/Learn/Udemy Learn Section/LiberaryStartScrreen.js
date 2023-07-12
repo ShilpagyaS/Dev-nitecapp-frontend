@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import QuizesLiberary from '../QuizesForLiberaryPart'
 import AccordianForPlayerSection from './AccordianForPlayerSection'
 import ReactPlayer from 'react-player'
@@ -15,14 +15,37 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
         modules: {
             index: 0,
             length: itemsArray[0].modules.length,
-            content: { index: 0, length: itemsArray[0]?.modules[0]?.length || 0 }
+            content: { index: 0, length: itemsArray[0]?.modules[0]?.page_and_video_list?.length || 0 }
         }
     })
+
 
     function currentContentFunction(content, cindex) {
         onModuleChnage(Counter.index, Counter.modules.index, cindex)
         setCurrentContent(content)
     }
+
+    useEffect(() => {
+        debugger
+        if (Counter.modules.content.length > 0) {
+            const pages = itemsArray[Counter.index].modules[Counter.modules.index]?.page_and_video_list[Counter.modules.content.index]
+            if (pages) {
+                if (pages?.course_module_page_id) {
+                    setCurrentContent({ type: 'content', content: pages.description, quizes: pages.modules_questions })
+
+                }
+                if (pages?.course_module_videos_id) {
+                    setCurrentContent({ type: 'video', content: pages.video_url, quizes: pages.modules_questions })
+                }
+            }
+            else {
+
+                setCurrentContent({ type: 'none', content: "", quizes: [] })
+            }
+            debugger
+        }
+
+    }, [itemsArray])
 
     const [quizmodal, setquizmodal] = useState(false)
 
@@ -48,6 +71,8 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
 
                 setCurrentContent({ type: 'none', content: "", quizes: [] })
             }
+
+            debugger
             setCounter(data)
         }
     }
@@ -120,7 +145,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
 
             return
         }
-        if (Counter.modules.length > 0 && Counter.modules.index < Counter.modules.length - 1) {
+        if (Counter.modules.length > 0 && Counter.modules.index < Counter.modules.length - 1 && itemsArray[Counter.index]?.modules[Counter.modules.index + 1]?.page_and_video_list?.length > 0) {
             onModuleChnage(Counter.index, Counter.modules.index + 1, 0)
 
             return
@@ -131,7 +156,28 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
             return
         }
     }
+    const onPrevclick = () => {
 
+        if (Counter.modules.content.length > 0 && Counter.modules.content.index - 1 >= 0) {
+            onModuleChnage(Counter.index, Counter.modules.index, Counter.modules.content.index - 1)
+            debugger
+            return
+        }
+
+        if (Counter.modules.length > 0 && Counter.modules.index - 1 >= 0) {
+            onModuleChnage(Counter.index, Counter.modules.index - 1 || 0, Counter.modules.content.length - 1 || 0)
+            debugger
+            return
+        }
+        if (Counter.length > 0 && Counter.index - 1 >= 0) {
+            const chapterindex = Counter.index - 1
+            const moduleindex = itemsArray[chapterindex].modules.length - 1
+            const contentindex = itemsArray[chapterindex].modules[moduleindex].page_and_video_list?.length - 1
+            onModuleChnage(chapterindex, moduleindex, contentindex)
+            debugger
+            return
+        }
+    }
 
     return (
         <div className='h-full w-full'>
@@ -223,7 +269,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
             </div>
             <div className='flex w-full items-center justify-end mt-[15px]'>
                 <ConditionalButton label={'Next'} condition={true} onClickHandler={() => { onNextclick(true) }} />
-
+                <ConditionalButton label={'Previous'} condition={true} onClickHandler={() => { onPrevclick() }} />
             </div>
         </div>
     )

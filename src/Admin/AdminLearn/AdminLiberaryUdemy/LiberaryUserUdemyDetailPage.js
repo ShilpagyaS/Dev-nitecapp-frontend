@@ -629,7 +629,7 @@ function LiberaryUserUdemyDetailPage({ courseId }) {
     const [editCourse, seteditCourse] = useState(false)
     const [editChapter, seteditChapter] = useState(false)
     const [editModule, seteditModule] = useState(false)
-    const [editContent, seteditContent] = useState(false) 
+    const [editContent, seteditContent] = useState(false)
     const [videoPreview, setVideoPreviewModal] = useState(false)
     const [pagePreview, setPagePreview] = useState(false)
     const [isQuiz, setisQuiz] = useState(false);
