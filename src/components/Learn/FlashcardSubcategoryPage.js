@@ -34,7 +34,7 @@ function FlashcardSubcategoryPage({ categoryid, subcategory }) {
                         {`Study All`}
                     </h5>
                     <h5 className='not-italic font-normal text-[16px] font-Inter leading-tight text-[#959595] mb-[2px]'>
-                        {`${data.cardsCount} Cards`}
+                        {`${course.cardsCount} Cards`}
                     </h5>
 
                 </div>
