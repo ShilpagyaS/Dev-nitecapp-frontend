@@ -6,6 +6,8 @@ import AccordianForPlayerSection from './AccordianForPlayerSection'
 import ReactPlayer from 'react-player'
 import { RxCross1 } from 'react-icons/rx'
 import { SupriseQuizQuestion } from '@/components/modal/Quizmodal'
+import { useDispatch } from 'react-redux'
+import { CraetHistoryTracking } from '@/store/slices/learnslice'
 
 function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, data }) {
 
@@ -48,6 +50,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
     }, [itemsArray])
 
     const [quizmodal, setquizmodal] = useState(false)
+    const dispatch = useDispatch()
 
     const onRightClick = () => {
         if (Counter.index < itemsArray.length - 1) {
@@ -141,17 +144,19 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
             return
         }
         if (Counter.modules.content.length > 0 && Counter.modules.content.index < Counter.modules.content.length - 1) {
+            constructTrackingStructure()
             onModuleChnage(Counter.index, Counter.modules.index, Counter.modules.content.index + 1)
 
             return
         }
         if (Counter.modules.length > 0 && Counter.modules.index < Counter.modules.length - 1 && itemsArray[Counter.index]?.modules[Counter.modules.index + 1]?.page_and_video_list?.length > 0) {
+            constructTrackingStructure()
             onModuleChnage(Counter.index, Counter.modules.index + 1, 0)
 
             return
         }
         if (Counter.length > 0 && Counter.index < Counter.length - 1) {
-
+            constructTrackingStructure()
             onModuleChnage(Counter.index + 1, 0, 0)
             return
         }
@@ -172,13 +177,59 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
         if (Counter.length > 0 && Counter.index - 1 >= 0) {
             const chapterindex = Counter.index - 1
             const moduleindex = itemsArray[chapterindex].modules.length - 1
-            const contentindex = itemsArray[chapterindex].modules[moduleindex].page_and_video_list?.length - 1
+            const contentindex = itemsArray[chapterindex].modules[moduleindex]?.page_and_video_list?.length - 1
             onModuleChnage(chapterindex, moduleindex, contentindex)
-            debugger
+
             return
         }
     }
+    function constructTrackingStructure() {
+        if (!isPreview) {
 
+            let typestruct = {}
+            if (itemsArray[Counter.index]?.modules[Counter.modules.index]?.page_and_video_list[Counter.modules.content.index]?.course_module_videos_id) {
+                typestruct = {
+                    type: 'video',
+                    type_id: itemsArray[Counter.index].modules[Counter.modules.index].page_and_video_list[Counter.modules.content.index]?.course_module_videos_id,
+                    type_count: data.count.videos
+                }
+            }
+            if (itemsArray[Counter.index]?.modules[Counter.modules.index]?.page_and_video_list[Counter.modules.content.index]?.course_module_page_id) {
+                typestruct = {
+                    type: 'page',
+                    type_id: itemsArray[Counter.index].modules[Counter.modules.index].page_and_video_list[Counter.modules.content.index]?.course_module_page_id,
+                    type_count: data.count.pages
+                }
+            }
+            let structure = {
+                // type: '',
+                // type_id: itemsArray[Counter.index].modules[Counter.modules.index].page_and_video_list[Counter.modules.content.index]?.course_module_videos_id ? itemsArray[Counter.index].modules[Counter.modules.index].page_and_video_list[Counter.modules.content.index]?.course_module_videos_id : itemsArray[Counter.index].modules[Counter.modules.index].page_and_video_list[Counter.modules.content.index]?.course_module_page_id,
+                // type_count: '',
+                ...typestruct,
+                course_id: data.course_id,
+                chapter_id: itemsArray[Counter.index]?.courseChapter_id,
+                module_id: itemsArray[Counter.index]?.modules[Counter.modules.index]?.courseModule_id,
+                last_seen_video_time: '',
+                isCompleted: true,
+            }
+            console.log(structure);
+            if (structure.type) {
+
+                dispatch(CraetHistoryTracking(structure, data.course_id))
+            }
+            // let structure = {
+            //     type:'',
+            //     type_id:'',
+            //     type_count:'',
+            //     course_id:'',
+            //     chapter_id:'',
+            //     module_id:'',
+            //     last_seen_video_time:'',
+            //     isCompleted:true,
+            // }
+
+        }
+    }
     return (
         <div className='h-full w-full'>
             <Breadcrumb />
@@ -191,7 +242,9 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
                     <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={() => { onCancelClick() }} />
                 }
             </div>
-            <p className='text-[12px] text-primary-base'>{data?.course_completed}% Completed</p>
+
+            <p className='text-[12px] text-primary-base'>{`${data?.course_completed > 0 ? parseFloat(data?.course_completed).toFixed(1) : 0}% Completed`}</p>
+            {/* <p className='text-[12px] text-primary-base'>{data?.course_completed}% Completed</p> */}
             <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
                 <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${data?.course_completed ? data?.course_completed : 0}%` }}></div>
             </div>

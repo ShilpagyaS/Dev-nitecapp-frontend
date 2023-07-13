@@ -294,6 +294,24 @@ export const getCoursesDetail = (id) => {
         });
     };
 };
+export const getCoursesDetailsWithoutLoad = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        await axiosDebounceInstance({
+            url: `/api/course/${id}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response->", res.data.data, res);
+            dispatch(
+                learnSlice.actions.getCoursesDetails(
+                    res?.data?.data,
+                )
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const getFlashcardDetail = (id) => {
     return async (dispatch, getState) => {
         const state = getState();
@@ -497,6 +515,23 @@ export const CraeteQuizScore = (data, id) => {
             data
         }).then((res) => {
             dispatch(getScoreCard(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            errortoast({ message: err })
+            return { error: true, message: err }
+        });
+    };
+};
+export const CraetHistoryTracking = (data, id) => {
+    return async (dispatch) => {
+
+        return await axiosDebounceInstance({
+            url: `/api/course_user_tracking/add_new_course_user_tracking`,
+            method: "POST",
+            data
+        }).then((res) => {
+            dispatch(getCoursesDetailsWithoutLoad(id))
             return res
         }).catch((err) => {
             console.log(err)
