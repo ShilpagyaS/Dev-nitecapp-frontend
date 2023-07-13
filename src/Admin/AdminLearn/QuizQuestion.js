@@ -53,12 +53,12 @@ const QuizQuestion = ({ index, onDeleteClick, data, setdata }) => {
                             className="bg-[#171717]"
                         />
                     </button>
-                    <SwitchComp showHideStatus={localdata?.isActive} onChangeHandler={(e) => {
+                    <SwitchComp showHideStatus={localdata?.show_question} onChangeHandler={(e) => {
                         const local = { ...localdata }
 
-                        local.isActive = e
-                        dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, { isActive: e }))
-                        onInputChange("isActive", e)
+                        local.show_question = e
+                        dispatch(updateQuizQuestionById(localdata.quiz_question_id, productId, { show_question: e }))
+                        onInputChange("show_question", e)
                     }} />
                 </div>
             </div>

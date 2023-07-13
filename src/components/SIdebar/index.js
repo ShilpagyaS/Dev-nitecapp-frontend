@@ -9,24 +9,44 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) 
   return (
     <>
 
-      <div className="sidebar-container w-auto h-full hidescrollbar overflow-y-auto ">
-        <div className={`w-full h-[24px] cursor-pointer flex justify-center`} onClick={() => setCollapse(!Collapse)} >
-          <svg class="gb_h" focusable="false" viewBox="0 0 24 24" fill="white" width="24" height="24">
-            <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" /></svg>
-        </div>
+      <div className="sidebar-container w-full h-full hidescrollbar overflow-y-auto mr-[10px]">
+        {Collapse &&
+          <div className={`w-full h-[24px] cursor-pointer flex justify-center py-[12px]`} onClick={() => setCollapse(!Collapse)} >
+            <svg class="gb_h" focusable="false" viewBox="0 0 24 24" fill="white" width="24" height="24">
+              <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" />
+            </svg>
+          </div>
+          // <div className={`w-full h-[24px] cursor-pointer flex justify-center py-[12px]`} onClick={() => setCollapse(!Collapse)} >
+          //   <svg class="gb_h" focusable="false" viewBox="0 0 24 24" fill="white" width="24" height="24">
+          //     <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" />
+          //   </svg>
+          // </div>
+        }
         {!Collapse && <>
           {menuOptions?.map((option, ik) => {
             return (
               <>
-                <div className="flex items-center py-[12px]" key={ik}>
-                  {MenuIcon(option.name, option.id === category)}
-                  <Link
-                    href={`/${option.id}/`}
-                    className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
-                      } text-[18px] leading-6 font-semibold `}
-                  >
-                    {option.name}
-                  </Link>
+                <div className="flex items-center justify-between py-[12px]" key={ik}>
+                  <div className="flex items-center">
+                    {MenuIcon(option.name, option.id === category)}
+
+                    <Link
+                      href={`/${option.id}/`}
+                      className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
+                        } text-[18px] leading-6 font-semibold `}
+                    >
+                      {option.name}
+                    </Link>
+                  </div>
+                  {
+                    ik == 0 &&
+                    <div className={`h-[24px] w-[24px] cursor-pointer flex justify-center items-center border border-primary-base rounded-full`} onClick={() => setCollapse(!Collapse)} >
+                      <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.70964 6.0965L7.45313 10.84L6.09784 12.1953L-0.00100178 6.0965L6.09784 -0.00223744L7.45313 1.35304L2.70964 6.0965Z" className="fill-primary-base" />
+                      </svg>
+
+                    </div>
+                  }
                 </div>
                 <div className="ml-[6px]">
                   {option.subOptions?.map((subOption, i) => {

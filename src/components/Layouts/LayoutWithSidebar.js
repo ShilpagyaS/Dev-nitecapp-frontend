@@ -13,7 +13,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
   const handleDrawer = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
-  const [Collapse, setCollapse] = useState(true);
+  const [Collapse, setCollapse] = useState(false);
 
   return (
     <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full  h-screen overflow-hidden ">
