@@ -15,11 +15,12 @@ function AccordianNew({ title, content, type, item, isLearn, defaultvalue, onOpe
         if (defaultvalue !== undefined) {
             setIsOpen(defaultvalue)
         }
-    }, [])
+    }, [defaultvalue])
 
     return (
         <div className="accordion text-white">
-            <div className={`w-full flex justify-between cursor-pointer items-center ${type == 'chapter' ? 'bg-[#040404]' : type == 'module' ? 'bg-[#272727]' : 'bg-[#191919] border border-transparent border-b-[#292929]'} p-[15px]`} onClick={toggleAccordion}>
+            <div className={`w-full flex justify-between cursor-pointer items-center ${type == 'chapter' ? 'bg-[#040404]' : type == 'module' ? 'bg-[#272727]' : 'bg-[#191919] border border-transparent border-b-[#292929]'} p-[15px]`}
+                onClick={toggleAccordion}>
                 <div className='flex shrink-0 items-center bg-transparent'>
 
                     {(type == 'chapter' || type == 'module') &&
