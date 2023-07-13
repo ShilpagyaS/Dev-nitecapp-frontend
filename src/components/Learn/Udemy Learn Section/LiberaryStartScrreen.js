@@ -268,8 +268,18 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
 
             </div>
             <div className='flex w-full items-center justify-end mt-[15px]'>
+                <div className='mr-[15px]'>
+                    {/* <ConditionalButton label={'Previous'} condition={true} onClickHandler={() => { onPrevclick() }} /> */}
+                    <button
+                        className={` bg-transparent
+                                py-[7px] px-[24px] h-[41px] rounded-full text-primary-base border border-primary-base gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                        onClick={() => { onPrevclick() }}
+
+                    >
+                        {`Previous`}
+                    </button>
+                </div>
                 <ConditionalButton label={'Next'} condition={true} onClickHandler={() => { onNextclick(true) }} />
-                <ConditionalButton label={'Previous'} condition={true} onClickHandler={() => { onPrevclick() }} />
             </div>
         </div>
     )

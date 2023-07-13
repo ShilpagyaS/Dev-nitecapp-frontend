@@ -39,7 +39,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                                     {module.page_and_video_list?.length > 0 && (
                                         <>
                                             {module.page_and_video_list.map((pages, cindex) => (
-                                                <div className={`${counterindex?.modules?.content?.index === cindex && counterindex?.modules.index === index ? `border-2 border-white` : ""} bg-transparent `}>
+                                                <div className={`${counterindex?.modules?.content?.index === cindex && counterindex?.modules.index === index ? `border border-primary-base` : ""} bg-transparent `}>
 
                                                     <div className='bg-transparent flex justify-between items-center border border-transparent border-b-[#292929] p-[15px] capitalize cursor-pointer'
                                                         onClick={() => {
