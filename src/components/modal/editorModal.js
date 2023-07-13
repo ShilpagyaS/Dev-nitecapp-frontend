@@ -2,9 +2,11 @@ import Modal from "react-modal";
 import { CKEditor } from 'ckeditor4-react';
 import { ConditionalButtons } from "@/utils/Buttons";
 import { useState } from "react";
+import MediaLibModal from "./uploadMediacomp/imageuploadmodal";
 export function EditorModuleContent({ isModalOpen, onClickCancel, onSave, data, setdata, title, desc, }) {
 
     const [isEditormode, setEditormode] = useState(false)
+    const [isMediaOpen, setMediaOpen] = useState(false)
     const customStyles = {
         content: {
             top: "50%",
@@ -35,6 +37,7 @@ export function EditorModuleContent({ isModalOpen, onClickCancel, onSave, data, 
             ariaHideApp={false}
             style={customStyles}
         >
+            <MediaLibModal isModalOpen={isMediaOpen} onClickCancel={() => setMediaOpen(false)} />
             <div className="text-white mb-2 w-full flex justify-between items-center">
                 <div></div>
                 <div className="flex  gap-3 h-[50px] justify-center my-2 text-white">
@@ -42,6 +45,7 @@ export function EditorModuleContent({ isModalOpen, onClickCancel, onSave, data, 
                     <button label="Editor View" className={`py-2 px-4 ${!isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(false)} >Editor View</button>
 
                     <button label="Preview" className={`py-2 px-4 ${isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => { setEditormode(true); console.log(data); }} >Preview</button>
+                    <button label="Preview" className={`py-2 px-4 ${isMediaOpen ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => { setMediaOpen(true); console.log(data); }} >Upload Media </button>
                 </div>
                 <div className="cursor-pointer">
 
