@@ -16,10 +16,6 @@
           "id": "cocktail"
         },
         {
-          "name": "Coffee",
-          "id": "coffee"
-        },
-        {
           "name": "Spirits",
           "id": "spirit"
         },
@@ -34,6 +30,10 @@
         {
           "name": "Low / No ABV",
           "id": "low_no_abv"
+        },
+        {
+          "name": "Coffee",
+          "id": "coffee"
         }
       ]
     },
@@ -41,16 +41,15 @@
       "name": "Food",
       "id": "food",
       "menuIcon": "AiFillAppstore",
-      "subOptions": [
-    
-      ]
+      "subOptions": []
     },
     {
-      "name": "Learn",
-      "id": "learn",
+      "name": "Brands",
+      "id": "brands",
       "menuIcon": "AiFillAppstore",
       "subOptions": [
         {
+
           "name": "Library",
           "id": "library"
         },
@@ -61,15 +60,11 @@
         {
           "name": "Quizzes",
           "id": "quizzes"
+
+          "name": "Brand",
+          "id": "all_Brands"
+
         }
-      ]
-    },
-    {
-      "name": "Brands",
-      "id": "all_Brands",
-      "menuIcon": "AiFillAppstore",
-      "subOptions": [
-       
       ]
     },
     {

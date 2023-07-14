@@ -643,6 +643,28 @@ export const getcategoriesbytype = (type) => {
 
   };
 };
+export const getFoodCategory = () => {
+  return async (dispatch, getState) => {
+    const state = getState();
+
+
+    return await axiosInstance({
+      url: `/api/food/category/get_food_category_by_hotel`,
+      method: "GET",
+    }).then((res) => {
+      const finaldata = res?.data?.data?.map((i) => {
+        return {
+          value: i.category_id,
+          label: i.drink_category_name
+        }
+      })
+      return finaldata
+    }).catch((err) => {
+      console.log(err)
+    });
+
+  };
+};
 export const getAllDrinkBrands = () => {
   return async (dispatch, getState) => {
     const state = getState();

@@ -19,11 +19,12 @@ function AdminDashboardNew() {
     }, [])
 
     const data1 = [{ image: '/asset/cocktailnew.png', title: 'Cocktails', link: '/specs/cocktail' },
-    { image: '/asset/coffee.jpg', title: 'Coffee', link: '/specs/coffee' },
     { image: '/dash/ck2.png', title: 'Wine', link: '/specs/wine' },
     { image: '/dash/ck3.png', title: 'Spirits', link: '/specs/spirit' },
     { image: '/dash/ck4.png', title: 'Beer/Seltzer', link: '/specs/beer' },
-    { image: '/dash/ck1.png', title: 'Low / No ABV', link: '/specs/low_no_abv' }
+    { image: '/dash/ck1.png', title: 'Low / No ABV', link: '/specs/low_no_abv' },
+    { image: '/asset/coffee.jpg', title: 'Coffee', link: '/specs/coffee' },
+
     ]
     const data2 = outlets?.map((i) => { return { title: i.outlet_name, image: i.image, link: `/brands/${enUrl(i.outlet_name)}?id=${i.outlet_id}` } })
     return (
