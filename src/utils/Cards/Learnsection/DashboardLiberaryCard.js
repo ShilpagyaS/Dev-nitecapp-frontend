@@ -32,7 +32,8 @@ function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc, i
             {
                 !isAdmin &&
                 <div className='flex items-center justify-end not-italic font-normal text-[14px] font-Inter text-[#959595] mx-[10px] ' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
-                    {`${completionPercentage ? completionPercentage : 0}% Complete`}
+                    {`${completionPercentage > 0 ? parseFloat(completionPercentage).toFixed(1) : 0}% Complete`}
+
                 </div>
             }
             {

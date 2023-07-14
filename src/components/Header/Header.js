@@ -136,6 +136,31 @@ function Header(props) {
               </Link>
             </div>
             <div className="p-[15px]  md:p-[20px]">
+              <Link href={"/learn"} legacyBehavior>
+                <a>
+                  <div className="relative w-[20px] h-[20px]">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 10 10"
+                      // fill={active ? "bg-primary" : "#959595"}
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`mr-2 fill-white`}
+                    >
+                      <path
+                        d="M1.00083 8.24551V9.19077C1.00083 9.19077 1.01848 9.20546 1.02439 9.19077C1.1716 8.84628 1.52498 8.71078 2.09341 8.71078L10.445 8.68426H10.5952V0H2.02575C1.45741 0 0.998047 0.444676 0.998047 0.992386"
+
+                      />
+                      <path
+                        d="M10.5961 9.02541H2.09157C1.4908 9.02541 1.00195 9.55253 1.00195 10.1327C1.00195 10.7128 1.49375 11.1869 2.09157 11.1869H10.5961V9.02246V9.02541Z"
+
+                      />
+                    </svg>
+                  </div>
+                </a>
+              </Link>
+            </div>
+            <div className="p-[15px]  md:p-[20px]">
               <Link href={"/brands"} legacyBehavior>
                 <a>
                   <div className="relative w-[20px] h-[20px]">

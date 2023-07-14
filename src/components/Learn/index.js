@@ -34,7 +34,7 @@ function Learn() {
                     id: element.course_id,
                     img: element.image,
                     name: element.name,
-                    progress: 30,
+                    progress: element.course_completed,
                     desc: element.description,
                 }
 
