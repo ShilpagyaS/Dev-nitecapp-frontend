@@ -1,8 +1,39 @@
-import React from 'react'
+import { emptycourses, getCourses } from '@/store/slices/learnslice'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Breadcrumb from '../Breadcrumb'
 import LIberaryComponents from './LIberaryComponents'
 
 function LiberaryAll() {
+    const [courses, setcourses] = useState([])
+    const { liberarycourse } = useSelector((state) => state.learn)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCourses())
+        return () => {
+            dispatch(emptycourses())
+        }
+    }, [])
+    useEffect(() => {
+        console.log(liberarycourse);
+        if (liberarycourse) {
+
+            let dummy = liberarycourse?.map(
+                (element) => {
+                    return {
+                        id: element.course_id,
+                        img: element.image,
+                        name: element.name,
+                        progress: element.course_completed,
+                        desc: element.description,
+                    }
+
+                }
+            ) || []
+            setcourses([...dummy])
+        }
+    }, [liberarycourse])
     return (
         <div className='w-full'>
             <Breadcrumb />
@@ -12,7 +43,7 @@ function LiberaryAll() {
                     {`Library`}
                 </h5>
             </div>
-            <LIberaryComponents />
+            <LIberaryComponents allCourses={courses} />
         </div>
     )
 }

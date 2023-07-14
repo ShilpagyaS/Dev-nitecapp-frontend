@@ -1,7 +1,5 @@
 import Head from "next/head";
-
 import { Inter } from "@next/font/google";
-
 import LayoutWithSidebar from "@/components/Layouts/LayoutWithSidebar";
 import SpecComp from "@/components/spec-comp";
 import Coctails from "@/components/spec-comp/coctails";
@@ -15,48 +13,32 @@ import CocktailDetailPage from "@/components/spec-comp/cocktails-detail-page";
 import Ingridients from "@/components/spec-comp/ingridients";
 import IngridientDetail from "@/components/spec-comp/ingridients/IngridientDetail";
 import SpecsDetailPage from "@/components/spec-comp/specs-detail-page";
-import SpecBrands from "@/components/spec-comp/brands";
 import BrandDetail from "@/components/spec-comp/brands/BrandDetail";
-import UserDashboard from "@/components/userDashboard-comp/UserDashboard";
-import { useEffect, useState } from "react";
-import { getIngredientSearch, getProduct, getProductById } from "@/store/slices/product";
+import { useState } from "react";
 import useNavDetails from "@/Hooks/useNavDetails";
 import AdminSpecs from "@/components/spec-comp/AdminSpecsComp/AdminSpecs";
 import CocktailAdminDetailPage from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page";
 import EmptyUSerLayout from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/EmptyUSerLayout";
 import BestSellingAdminCoctails from "@/components/spec-comp/AdminSpecsComp/admin-best-selling-coctails";
 import AdminDashboard from "@/Admin/AdminDashboard-comp/AdminDashboard";
-
 import AdminCocktail from "@/Admin/AdminCoctail.js/Index";
 import AdminBeer from "@/Admin/AdminBeer";
-import BeerDisplayById from "@/Admin/AdminBeer/BeerDisplayById";
 import SuperAdminBrand from "@/SuperAdmin/Brands";
-
 import WineCategory from "@/components/spec-comp/wine/wineCategory";
 import SpiritsCategory from "@/components/spec-comp/spirits/spiritscategory";
-
 import EmptyUserLayoutBeer from "@/Admin/AdminBeer/EmptyUserLayoutBeer";
-import AdminBrandsBeer from "@/Admin/AdminBeer/Brands";
 import AdminLowAbv from "@/Admin/AdminLowABV";
-import EditById from "@/Admin/EditById";
 import AdminSpirit from "@/Admin/AdminSpirit";
 import AdminWine from "@/Admin/AdminWine";
 import AdminSpiritCategory from "@/Admin/AdminSpirit/AdminSpiritCategory";
 import AdminWineCategory from "@/Admin/AdminWine/AdminWineCategory";
 import BrandDetailPage from "@/Admin/Drink Brand Section/BrandDetailPage";
-import AddLowAbv from "@/Admin/AdminLowABV/AddLowAbv";
 import AddSpirit from "@/Admin/AdminSpirit/AddSpirit";
 import CreateBeerAndLABV from "@/Admin/CreateBeerAndLABV";
-import { ToastContainer, toast } from 'react-toastify';
-import Brands from "@/components/brands";
+import { ToastContainer } from 'react-toastify';
 import ExploreBrands from "@/components/brands/explore-brands";
-import BrandsBrandDetail from "@/components/brands/explore-brands/BrandDetail";
-import AdminBrandDetail from "@/Admin/AdminBrands/BrandDetail";
 import AdminExploreBrands from "@/Admin/AdminBrands";
 import BrandsByCategory from "@/components/spec-comp/brands/BrandByCategory";
-import { getAllProduct } from "@/store/slices/allproducts";
-import SelectWithDebounce from "@/utils/DebounceSelect";
-import InputNumber from "@/utils/InputNumber";
 import AddBrandDetailPage from "@/Admin/Drink Brand Section/AddBrandDetailPage";
 
 import { enUrl } from "@/utils/encoderfunc";
@@ -87,7 +69,6 @@ import AddCoffee from "@/Admin/AdminCoffee/AddCoffee";
 import EditCoffee from "@/Admin/AdminCoffee/EditCoffee";
 import Coffees from "@/components/spec-comp/Coffee";
 import CoffeeDetailPage from "@/components/spec-comp/Coffee/CoffeeDetailPage";
-import FoodList from "@/components/Foods";
 import FoodDetail from "@/components/Foods/FoodDetail";
 import AdminFood from "@/Admin/AdminFoods";
 import AddFood from "@/Admin/AdminFoods/newFood";
@@ -102,8 +83,20 @@ import LearnModuleContentCard from "@/utils/Cards/Learnsection/LearnModuleConten
 import LearnPage from "@/Admin/AdminLearn/LearnPage";
 import LiberaryPage from "@/Admin/AdminLearn/LiberaryPage";
 import LiberaryDetailPageAdmin from "@/Admin/AdminLearn/LiberaryDetailPageAdmin";
-import LearnModuleContentAdmin from "@/Admin/AdminLearn/LearnModuleContentAdmin";
 import LiberaryModulContentList from "@/Admin/AdminLearn/LiberaryModulContentList";
+import FLashCards from "@/Admin/AdminLearn/FLashCards";
+import AdminFlashCardDetailPage from "@/Admin/AdminLearn/FlashCardDetailPage";
+import AdminFlashcardChapterPage from "@/Admin/AdminLearn/AdminFlashcardChapterPage";
+import AdminFlashcardTablepage from "@/Admin/AdminLearn/AdminFlashcardTablepage";
+import FlashcardSubcategoryPage from "@/components/Learn/FlashcardSubcategoryPage";
+import QuizPage from "@/Admin/AdminLearn/QuizPage";
+import QuizDetailPage from "@/Admin/AdminLearn/QuizDetailPage";
+import AllQuizes from "@/components/Learn/AllQuizes";
+import UserQuizDetailpage from "@/components/Learn/UserQuizDetailpage";
+import LearnSection from "@/components/Learn/Udemy Learn Section/LearnSection";
+import LiberaryUserUdemyDetailPage from "@/Admin/AdminLearn/AdminLiberaryUdemy/LiberaryUserUdemyDetailPage";
+import StudyAllFlashcardDetailPage from "@/Admin/AdminLearn/StudyAllFlashcardDetailPage";
+import StyduAllFlashcardByCategoryid from "@/Admin/AdminLearn/StyduAllFlashcardByCategoryid";
 
 
 
@@ -111,7 +104,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Category() {
   const [testvalue, settestvalue] = useState({ label: "", value: "" })
-  const { category, subcategory, subcategory2, subcategory3, productId, typeid, path } =
+  const { category, subcategory, subcategory2, subcategory3, subcategory4, productId, typeid, path, infoid } =
     useNavDetails();
 
   return (
@@ -225,10 +218,28 @@ export default function Category() {
 
                 {path === `/learn` && <Learn />}
                 {path === `/learn/library` && <LiberaryAll />}
-                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage />}
-                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentCard />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LearnSection courseId={productId} />}
+                {/* {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LibraryDetailPage courseId={productId} />} */}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LearnModuleContentCard moduleId={productId} />}
+
                 {path === `/learn/flashcards` && <FlashcardAllSection />}
-                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />}
+                {path === `/learn/flashcards/${enUrl('Study All')}?id=${productId}` ? <StudyAllFlashcardDetailPage type={productId} />
+                  :
+                  <>
+                    {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardSubcategoryPage categoryid={productId} subcategory={subcategory2} />}
+                  </>
+                }
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl('Study All')}?id=${productId}&typeid=${typeid}` ? <StyduAllFlashcardByCategoryid categoryName={subcategory2} id={productId} />
+                  :
+                  <>
+                    {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <FlashcardDetailPage subcatecodyId={productId} subcategoyName={subcategory3} />}
+                  </>
+                }
+
+                {path === `/learn/quizzes` && <AllQuizes />}
+                {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage quizid={productId} quizName={subcategory2} />}
+
+                {/* {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />} */}
 
               </LayoutWithSidebar>
             }
@@ -329,11 +340,18 @@ export default function Category() {
 
                 {path === `/learn` && <LearnPage />}
                 {path === `/learn/library` && <LiberaryPage />}
-                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin />}
+                {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryUserUdemyDetailPage courseId={productId} />}
+                {/* {path === `/learn/library/${enUrl(subcategory2)}?id=${productId}` && <LiberaryDetailPageAdmin courseId={productId} />} */}
                 {/* {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LearnModuleContentAdmin />} */}
-                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}` && <LiberaryModulContentList />}
+                {path === `/learn/library/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <LiberaryModulContentList moduleId={productId} />}
 
+                {path === `/learn/flashcards` && <FLashCards />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <AdminFlashcardChapterPage categoryid={productId} subcategory={subcategory2} />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}?id=${productId}&typeid=${typeid}` && <AdminFlashcardTablepage subcategoryid={productId} subcategory={subcategory3} />}
+                {path === `/learn/flashcards/${enUrl(subcategory2)}/${enUrl(subcategory3)}/${enUrl(subcategory4)}?id=${productId}&typeid=${typeid}&infoid=${infoid}` && <AdminFlashCardDetailPage flashcardId={productId} />}
 
+                {path === `/learn/quizzes` && <QuizPage />}
+                {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}
 
 
               </LayoutWithSidebarAdmin>

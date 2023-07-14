@@ -49,8 +49,21 @@
       "menuIcon": "AiFillAppstore",
       "subOptions": [
         {
+
+          "name": "Library",
+          "id": "library"
+        },
+        {
+          "name": "Flashcards",
+          "id": "flashcards"
+        },
+        {
+          "name": "Quizzes",
+          "id": "quizzes"
+
           "name": "Brand",
           "id": "all_Brands"
+
         }
       ]
     },

@@ -5,13 +5,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Prata&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: black;
   scrollbar-gutter: stable;
-
 }
 
 * {
@@ -19,10 +22,8 @@ body {
 }
 
 :root {
-
   /* --toastify-icon-color-success: #ee854d !important; */
   /* --toastify-color-progress-success: #ee854d !important; */
-
 }
 
 .Toastify__toast.Toastify__toast-theme--dark.Toastify__toast--success {
@@ -79,14 +80,12 @@ body {
   border-radius: 0px !important;
   color: #ffffff !important;
   height: 10px !important;
-
 }
 
 .swiper-button-prev {
   background: transparent !important;
   border-radius: 0px !important;
   color: #ffffff !important;
-
 }
 
 .brandModal {
@@ -101,12 +100,12 @@ body {
 }
 
 .brandModal::-webkit-scrollbar-thumb {
-  background: #CBAF69;
+  background: #cbaf69;
   border-radius: 10px;
 }
 
 .brandModal::-webkit-scrollbar-track {
-  background: #2B2828;
+  background: #2b2828;
   border-radius: 10px;
 }
 
@@ -122,12 +121,12 @@ body {
 }
 
 .notificationModal::-webkit-scrollbar-thumb {
-  background: #CBAF69;
+  background: #cbaf69;
   border-radius: 5px;
 }
 
 .notificationModal::-webkit-scrollbar-track {
-  background: #2B2828;
+  background: #2b2828;
   border-radius: 5px;
 }
 
@@ -151,11 +150,138 @@ body {
 }
 
 .alphabetscroll::-webkit-scrollbar-thumb {
-  background: #CBAF69;
+  background: #cbaf69;
   border-radius: 5px;
 }
 
 .alphabetscroll::-webkit-scrollbar-track {
-  background: #2B2828;
+  background: #2b2828;
   border-radius: 5px;
+}
+
+#cke_1_contents {
+  height: 300px;
+  background-color: black; /* Set the desired height */
+}
+
+.blogs {
+  word-break: break-all;
+  max-width: 99vw;
+  padding: 0px 10px;
+}
+
+.blogs p {
+  font-size: 20px;
+  margin: 8px 0px;
+  font-family: "satoshi";
+}
+
+.blogs h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 8px 0px;
+  font-family: "satoshi";
+}
+
+.blogs2 h1 {
+  font-weight: 700;
+  margin: 8px 0px;
+  font-family: "satoshi";
+}
+
+.blogs h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 8px 0px;
+  font-family: "satoshi";
+}
+
+.blogs a {
+  font-size: 20px;
+  margin: 8px 0px;
+  color: #47838a;
+  font-family: "satoshi";
+  word-break: break-all;
+}
+
+.dark .blogs a {
+  color: #66bcc6;
+}
+
+.blogs code {
+  background-color: rgba(242, 242, 242, 1);
+  font-weight: 400;
+  font-size: 15px;
+  padding: 2px 4px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  word-wrap: break-word;
+}
+
+.dark .blogs code {
+  background-color: #1e1e1e;
+}
+
+.blogs pre {
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  padding: 32px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  overflow-x: auto;
+}
+
+.dark .blogs pre {
+  background-color: #1e1e1e;
+  border: 1px solid #333333;
+}
+
+.blogs pre code {
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 15px;
+  padding: 2px 4px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  word-wrap: break-word;
+}
+
+.dark .blogs pre code {
+  background-color: #1e1e1e;
+}
+
+.blogs code strong {
+  background-color: #f2f2f2;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 2px 0px;
+}
+
+.dark .blogs code strong {
+  background-color: #1e1e1e;
+}
+
+.blogs ul li {
+  list-style: disc;
+  margin-left: 25px;
+  font-size: 20px;
+}
+
+.blogs ol li {
+  margin-left: 25px;
+  font-size: 20px;
+}
+
+.blogs table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.blogs table,
+.blogs td,
+.blogs th {
+  border: 1px solid;
+}
+
+.blogs tr td {
+  padding: 10px;
+  word-break: break-all;
 }

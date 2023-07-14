@@ -44,6 +44,26 @@
             "subOptions": []
         },
         {
+
+            "name": "Learn",
+            "id": "learn",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": [
+              {
+                "name": "Library",
+                "id": "library"
+              },
+              {
+                "name": "Flashcards",
+                "id": "flashcards"
+              },
+              {
+                "name": "Quizzes",
+                "id": "quizzes"
+              }
+            ]
+          },
+        {
             "name": "Brands",
             "id": "brands",
             "menuIcon": "AiFillAppstore",

@@ -61,13 +61,18 @@ export default function CustomSelect({ customDropdowncss, items, optionalFunctio
     </div>
   );
 }
-export function CustomSelectWithAllBlackTheme({ items, optionalFunction, defaultSelect }) {
+export function CustomSelectWithAllBlackTheme({ items, optionalFunction, defaultSelect, resetValue }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   useEffect(() => {
     if (defaultSelect)
       handleSelectItem(defaultSelect)
   }, [])
+  useEffect(() => {
+    console.log(resetValue);
+    if (resetValue)
+      setSelectedItem(null);
+  }, [resetValue])
 
   const handleToggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);

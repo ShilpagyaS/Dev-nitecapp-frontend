@@ -7,5 +7,12 @@ function Bigbutton({ colorTrue, onClickHandle, text }) {
         </div>
     )
 }
+export function Bigbutton2({ colorTrue, onClickHandle, text }) {
+    return (
+        <div className={`w-[350px] flex rounded-full items-center justify-center not-italic font-semibold text-[20px] font-Inter py-[15px] cursor-pointer ${colorTrue ? 'bg-primary-base' : 'bg-[#2E2E2E] text-white'}`} onClick={onClickHandle}>
+            {text}
+        </div>
+    )
+}
 
 export default Bigbutton

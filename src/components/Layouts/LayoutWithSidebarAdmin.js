@@ -12,7 +12,7 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
     const handleDrawer = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
-
+    const [Collapse, setCollapse] = useState(false);
     return (
         <div className="relative lg:max-w-[1440px] px-4 w-full h-screen overflow-hidden mx-auto">
             <Header handleDrawer={handleDrawer} user={user} />
@@ -23,9 +23,11 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
                 isSidebarVisible={isSidebarVisible}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-[175px_auto] w-full mt-[26px] ">
-                <div className="lg:flex hidden h-[80vh]  ">
-                    <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} />
+            <div className={`grid grid-cols-1  transition-all ${Collapse ? 'lg:grid-cols-[34px_auto]' : 'lg:grid-cols-[175px_auto]'} w-full mt-[26px] `}>
+                <div className={`lg:flex hidden h-[80vh]`}>
+
+                    <SideBar category={category} subcategory={subcategory}
+                        menuOptions={menuOptions} setCollapse={setCollapse} Collapse={Collapse} />
                 </div>
                 <div className=" mb-3 overflow-y-auto h-[80vh] pb-10 hidescrollbar ">
                     <Layout>{children}</Layout>

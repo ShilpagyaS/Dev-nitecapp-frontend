@@ -179,7 +179,7 @@ function AddCoffee({ subcategory }) {
                 coffeurl = dispatch(uploadimage(methodImage))
 
             Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
-                debugger
+                 
                 dispatch(createProduct(subcategory,
                     {
                         ...data,

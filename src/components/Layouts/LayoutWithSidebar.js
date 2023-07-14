@@ -13,6 +13,7 @@ function LayoutWithSidebar({ children, category, subcategory }) {
   const handleDrawer = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
+  const [Collapse, setCollapse] = useState(false);
 
   return (
     <div className="relative lg:max-w-[1440px] xl:px-9 lg:px-5 px-4 mx-auto w-full  h-screen overflow-hidden ">
@@ -24,11 +25,11 @@ function LayoutWithSidebar({ children, category, subcategory }) {
         isSidebarVisible={isSidebarVisible}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[175px_auto] w-full mt-[26px] ">
-        <div className="lg:flex hidden h-[80vh] overflow-y-auto">
-          <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} />
+      <div className={`grid grid-cols-1 ${Collapse ? 'lg:grid-cols-[30px_auto]' : 'lg:grid-cols-[175px_auto]'}  w-full mt-[26px] transition-all `}>
+        <div className={`lg:flex hidden h-[80vh] overflow-y-auto `}>
+          <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} Collapse={Collapse} setCollapse={setCollapse} />
         </div>
-        <div className=" mb-3  h-[80vh]  overflow-y-auto pb-10 hidescrollbar">
+        <div className=" mb-3  h-[80vh]  overflow-y-auto pb-10 hidescrollbar scroll-smooth">
           <Layout>{children}</Layout>
         </div>
       </div>

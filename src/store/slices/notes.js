@@ -107,7 +107,7 @@ export const updateNoteDetails = (productType, id, note, noteid) => {
             }
         }).then((res) => {
             console.log("response in product,js 47", res);
-            debugger
+             
             dispatch(getNoteDetails(productType, id));
         }).catch((err) => {
             console.log(err)
@@ -165,7 +165,7 @@ export const deleteNoteDetails = (productType, id, note, noteid) => {
 
 export const deleteGuestNoteDetails = (productType, id, noteid) => {
     return async (dispatch, getState) => {
-        debugger
+         
         const state = getState();
         axiosInstance({
             url: `/api/deleteUserNote/${noteid}`,
