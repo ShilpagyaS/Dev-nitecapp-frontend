@@ -16,6 +16,10 @@
                     "id": "cocktail"
                 },
                 {
+                    "name": "Coffee",
+                    "id": "coffee"
+                },
+                {
                     "name": "Spirits",
                     "id": "spirit"
                 },
@@ -30,10 +34,6 @@
                 {
                     "name": "Low / No ABV",
                     "id": "low_no_abv"
-                },
-                {
-                  "name": "Coffee",
-                  "id": "coffee"
                 }
             ]
         },
@@ -44,7 +44,6 @@
             "subOptions": []
         },
         {
-
             "name": "Learn",
             "id": "learn",
             "menuIcon": "AiFillAppstore",
