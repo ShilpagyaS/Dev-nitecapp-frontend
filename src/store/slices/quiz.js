@@ -69,7 +69,7 @@ export const deleteQuizById = (id) => {
             url: `api/quiz/${id}`,
             method: "DELETE",
         }).then((res) => {
-            dispatch(getallquiz())
+            dispatch(getallquizByCat())
             successtoast({ message: "deleted succesfully" })
         })
 
