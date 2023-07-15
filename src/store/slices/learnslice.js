@@ -266,7 +266,7 @@ export const getSpecsDropdown = () => {
             const finaldata = res?.data?.data?.map((i) => {
                 return {
                     value: i.id,
-                    name: i.name,
+                    name: i.label,
                     image: i.image
                 }
             })

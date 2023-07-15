@@ -10,7 +10,7 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
                 <div className={`bg-transparent flex items-center cursor-pointer`} onClick={() => { onLeftClick() }}>
                     <Image src={'/asset/LearnRightArrowKey.svg'} height={22} width={18} className='bg-transparent rotate-180  ' />
                 </div>
-                <p className='text-white bg-transparent px-[10px]'>{`Chapter: ${ChapterArray.name}`} </p>
+                <p className='text-white bg-transparent px-[10px]'>{`Chapter: ${ChapterArray?.name ? ChapterArray?.name :'No Chapter' }`} </p>
 
                 <span className={`bg-transparent flex items-center justify-center cursor-pointer`} onClick={() => { onRightClick() }}>
                     <Image src={'/asset/LearnRightArrowKey.svg'} height={22} width={18} className='bg-transparent' />
@@ -19,10 +19,10 @@ function AccordianForPlayerSection({ ChapterArray, onItemClicked, onRightClick, 
             <div className='max-h-[400px] h-full min-h-[320] overflow-auto hidescrollbar bg-transparent'>
 
                 {/* <AccordianTwo items={ChapterArray.items} onClickItem={(item) => { onItemClicked(item) }} /> */}
-                {ChapterArray.modules.map((module, index) => (
+                {ChapterArray?.modules.map((module, index) => (
                     <AccordianNew
-                        key={module.courseModule_id}
-                        title={module.name}
+                        key={module?.courseModule_id}
+                        title={module?.name}
                         type='module'
 
                         isLearn={isLearn}

@@ -13,10 +13,10 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
 
     const [currentContent, setCurrentContent] = useState({ type: '', content: '' })
     const [Counter, setCounter] = useState({
-        index: 0, length: itemsArray.length,
+        index: 0, length: itemsArray?.length,
         modules: {
             index: 0,
-            length: itemsArray[0].modules.length,
+            length: itemsArray[0]?.modules?.length,
             content: { index: 0, length: itemsArray[0]?.modules[0]?.page_and_video_list?.length || 0 }
         }
     })
@@ -137,6 +137,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
         if (Counter.modules.content.length > 0 && Counter.modules.content.index === Counter.modules.content.length - 1
             && itemsArray[Counter.index]?.modules?.[Counter.modules.index]?.modules_questions?.length > 0 &&
             currentContent.type !== "recapquiz") {
+            constructTrackingStructure()
             setCurrentContent({ type: 'recapquiz', content: '', quizes: itemsArray[Counter.index]?.modules[Counter.modules.index].modules_questions })
             const data = structuredClone(Counter)
             data.modules.content.index = data.modules.content.length
