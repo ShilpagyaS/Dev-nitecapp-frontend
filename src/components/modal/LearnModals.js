@@ -55,6 +55,17 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
             };
         });
     }
+    function handelDesc(e) {
+        const { name, value } = e.target;
+        if (value.length <= 150) {
+            setCourse((prev) => {
+                return {
+                    ...prev,
+                    [name]: value,
+                };
+            });
+        }
+    }
 
     const handleCancel = () => {
         onClickCancel();
@@ -168,7 +179,7 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
                      appearance-none`}
                         value={courseForm.desc}
                         name={'desc'}
-                        onChange={handleChange} style={{ resize: 'none' }}
+                        onChange={handelDesc} style={{ resize: 'none' }}
                         onFocus={(e) => {
                             setisFocused(true);
                         }}
@@ -176,6 +187,11 @@ export function AddCourse({ isModalOpen, onClickCancel, onSave, deleteBtn, ingre
                             setisFocused(false);
                         }}
                     />
+                </div>
+                <div className="w-full flex items-center justify-end">
+                    <p className='italic font-normal text-[13px] leading-6 text-[#959595] font-Inter '
+
+                    >Max Character : 150</p>
                 </div>
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -238,7 +254,17 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave, data, title, de
             };
         });
     }
-
+    function handelDesc(e) {
+        const { name, value } = e.target;
+        if (value.length <= 150) {
+            setCourse((prev) => {
+                return {
+                    ...prev,
+                    [name]: value,
+                };
+            });
+        }
+    }
     const handleCancel = () => {
         onClickCancel();
 
@@ -352,7 +378,7 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave, data, title, de
                      appearance-none`}
                         value={courseForm.desc}
                         name={'desc'}
-                        onChange={handleChange} style={{ resize: 'none' }}
+                        onChange={handelDesc} style={{ resize: 'none' }}
                         onFocus={(e) => {
                             setisFocused(true);
                         }}
@@ -360,6 +386,11 @@ export function EditCourse({ isModalOpen, onClickCancel, onSave, data, title, de
                             setisFocused(false);
                         }}
                     />
+                </div>
+                <div className="w-full flex items-center justify-end">
+                    <p className='italic font-normal text-[13px] leading-6 text-[#959595] font-Inter '
+
+                    >Max Character : 150</p>
                 </div>
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>
@@ -428,6 +459,17 @@ export function EditCourseUploadCourseDetail({ isModalOpen, onClickCancel, onSav
 
 
     };
+    function handelDesc(e) {
+        const { name, value } = e.target;
+        if (value.length <= 150) {
+            setCourse((prev) => {
+                return {
+                    ...prev,
+                    [name]: value,
+                };
+            });
+        }
+    }
 
     const handleSave = () => {
 
@@ -536,7 +578,7 @@ export function EditCourseUploadCourseDetail({ isModalOpen, onClickCancel, onSav
                      appearance-none`}
                         value={courseForm.desc}
                         name={'desc'}
-                        onChange={handleChange} style={{ resize: 'none' }}
+                        onChange={handelDesc} style={{ resize: 'none' }}
                         onFocus={(e) => {
                             setisFocused(true);
                         }}
@@ -544,6 +586,11 @@ export function EditCourseUploadCourseDetail({ isModalOpen, onClickCancel, onSav
                             setisFocused(false);
                         }}
                     />
+                </div>
+                <div className="w-full flex items-center justify-end">
+                    <p className='italic font-normal text-[13px] leading-6 text-[#959595] font-Inter '
+
+                    >Max Character : 150</p>
                 </div>
             </div>
             <div className='btncontainers flex items-center justify-end mt-[10px] '>

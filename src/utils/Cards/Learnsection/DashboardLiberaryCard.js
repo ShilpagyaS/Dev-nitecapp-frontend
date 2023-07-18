@@ -17,7 +17,7 @@ function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc, i
     }, [])
 
     return (
-        <div className='max-w-[373px] w-full h-[293px] border border-[#3C3C3C] rounded-[13px] px-[6px] py-[8px] cursor-pointer relative' onMouseEnter={() => { setishover(true) }} onMouseLeave={() => { setishover(false) }}>
+        <div className='max-w-[373px] w-full min-h-[293px] h-full border border-[#3C3C3C] rounded-[13px] px-[6px] py-[8px] cursor-pointer relative' onMouseEnter={() => { setishover(true) }} onMouseLeave={() => { setishover(false) }}>
             <div className='imagecontainer relative max-w-[360px] w-[100%] h-[152px]' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
                 <Image src={image} fill className='rounded-[8px] object-cover' />
                 <div className='absolute h-full w-full bg-[#00000087] flex items-center justify-center'>

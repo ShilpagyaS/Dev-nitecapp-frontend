@@ -27,6 +27,7 @@ function UdemyLiberaryBanner({ startLearncClick, data }) {
                     </p>
                     <p className='text-[16px] text-white font-thin bg-transparent '>
                         {data?.description}
+                        
                     </p>
                 </div>
                 <p className='text-[14px] font-Inter text-white font-normal bg-transparent my-[10px]'>
