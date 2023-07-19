@@ -31,7 +31,8 @@ function LIberaryComponents({ allCourses, isAdmin }) {
                     }}
                 />}
 
-            <div className='w-full mt-[35px]'>
+            <div className='w-full'>
+            {/* <div className='w-full mt-[15px]'> */}
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]'>
                     {allCourses.map((item) =>
                         <div className='w-full  mb-[10px]' >

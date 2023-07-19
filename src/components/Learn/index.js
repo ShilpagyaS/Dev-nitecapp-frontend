@@ -17,7 +17,7 @@ function Learn() {
     const [quizes, setQuizes] = useState([])
     const { learnScreenQuizes, learnScreenFlashcards, learnScreenCourses } = useSelector((state) => state.learn)
     const dispatch = useDispatch()
-    const router = useRouter() 
+    const router = useRouter()
     useEffect(() => {
         dispatch(getCourses())
         dispatch(getAllFlashCardCategorys())
@@ -85,6 +85,11 @@ function Learn() {
         <div>
 
             {/* <ResumeCourseSection /> */}
+            <div className="heading-text lg:mb-0 md:mb-0 mb-[20px]">
+                <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+                    Learn
+                </h1>
+            </div>
             <div className="flex items-center mb-[33px] mt-[35px]">
 
                 <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[2px]'>
@@ -94,7 +99,7 @@ function Learn() {
             </div>
             <LIberaryComponents allCourses={courses} />
             <IndicatorSlider data={flashcards} name={`Flashcards`} onCardClick={(name, id) => { routeToFlashcard(name, id) }} />
-            <IndicatorSlider data={quizes} name={`Quizes`} onCardClick={(name, id) => { routeToQuizes(name, id) }}/>
+            <IndicatorSlider data={quizes} name={`Quizzes`} onCardClick={(name, id) => { routeToQuizes(name, id) }} />
         </div>
     )
 }

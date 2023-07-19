@@ -27,15 +27,15 @@ function IndicatorSlider({ data, name, onCardClick }) {
 
         // ]
         return (
-            <div className='mt-[35px]'>
-                <div className="flex items-center mb-[33px]">
+            <div className='mt-[20px]'>
+                <div className="flex items-center mb-[10px]">
 
                     <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[2px]'>
                         {name}
                     </h5>
                     <Image src={'/asset/Vector 5.svg'} height={15} width={8} className={'ml-[20px]'} />
                 </div>
-                <div className=" mt-5 w-full">
+                <div className=" mt-[10px] w-full">
                     <Swiper
                         slidesPerView={"auto"}
                         spaceBetween={20}

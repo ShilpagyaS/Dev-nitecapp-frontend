@@ -93,6 +93,11 @@ function LearnPage() {
             }
 
             <div>
+                <div className="heading-text lg:mb-0 md:mb-0 mb-[10px]">
+                    <h1 className="heading text-white text-[32px] leading-[48px] font-bold">
+                        Learn
+                    </h1>
+                </div>
                 <div className='flex items-center justify-between'>
                     <div className="flex items-center mb-[33px] mt-[35px]">
 
@@ -105,7 +110,7 @@ function LearnPage() {
                 </div>
                 <LIberaryComponents allCourses={courses} isAdmin={true} />
                 <IndicatorSlider data={flashcards} name={`Flashcards`} onCardClick={(name, id) => { routeToFlashcard(name, id) }} />
-                <IndicatorSlider data={quizes} name={`Quizes`} onCardClick={(name, id) => { routeToQuizes(name, id) }} />
+                <IndicatorSlider data={quizes} name={`Quizzes`} onCardClick={(name, id) => { routeToQuizes(name, id) }} />
 
             </div>
         </>
