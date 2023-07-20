@@ -98,6 +98,7 @@ import LiberaryUserUdemyDetailPage from "@/Admin/AdminLearn/AdminLiberaryUdemy/L
 import StudyAllFlashcardDetailPage from "@/Admin/AdminLearn/StudyAllFlashcardDetailPage";
 import StyduAllFlashcardByCategoryid from "@/Admin/AdminLearn/StyduAllFlashcardByCategoryid";
 import Brands from "@/components/brands";
+import CheckboxComp from "@/components/Checkbox/CheckboxComp";
 
 
 
@@ -240,8 +241,7 @@ export default function Category() {
                 {path === `/learn/quizzes` && <AllQuizes />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage quizid={productId} quizName={subcategory2} />}
 
-                {/* {path === `/learn/flashcards/${enUrl(subcategory2)}?id=${productId}` && <FlashcardDetailPage />} */}
-
+                {path === `/checkbox` && <CheckboxComp />}
               </LayoutWithSidebar>
             }
           </>
