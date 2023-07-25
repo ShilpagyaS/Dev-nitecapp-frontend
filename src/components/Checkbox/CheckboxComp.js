@@ -4,83 +4,152 @@ import ChecklistDisplay from './checklistDisplay'
 
 
 function CheckboxComp() {
-    const [data, setdata] = useState([
-        {
-            user: 'Bartender',
-            checklistCategory: [
-                {
-                    title: 'Bartender Opening Checklist',
-                    tasks: [
-                        {
-                            task: 'Set out chairs',
-                            isChecked: false
-                        },
-                        {
-                            task: 'Take clean glassware from dishwasher and set out',
-                            isChecked: true
-                        },
-                        {
-                            task: 'Set out floor mats',
-                            isChecked: false
-                        },
-                        {
-                            task: 'Set out bar tools & Equipment',
-                            isChecked: false
-                        },
-                    ]
+    const [data, setdata] = useState(
+        [
+            {
+                user: 'Bartender',
+                checklistCategory: [
+                    {
+                        title: 'Bartender Opening Checklist',
+                        tasks: [
+                            {
+                                task: 'Set out chairs',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Take clean glassware from dishwasher and set out',
+                                isChecked: true
+                            },
+                            {
+                                task: 'Set out floor mats',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out bar tools & Equipment',
+                                isChecked: false
+                            },
+                        ]
 
-                },
-                {
-                    title: 'Bartender Closing Checklist',
-                    tasks: [
-                        {
-                            task: 'Set out chairs2',
-                            isChecked: false
-                        },
-                        {
-                            task: 'Take clean glassware from dishwasher and set out2',
-                            isChecked: false
-                        },
-                        {
-                            task: 'Set out floor mats2',
-                            isChecked: false
-                        },
-                        {
-                            task: 'Set out bar tools & Equipment2',
-                            isChecked: false
-                        },
-                    ]
+                    },
+                    {
+                        title: 'Bartender Closing Checklist',
+                        tasks: [
+                            {
+                                task: 'Set out chairs2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Take clean glassware from dishwasher and set out2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out floor mats2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out bar tools & Equipment2',
+                                isChecked: false
+                            },
+                        ]
 
-                },
-            ]
-        },
-        {
-            user: 'Housekeeper',
-            checklistCategory: [
-                {
-                    title: 'Housekeeper Opening Checklist',
-
-                },
-                {
-                    title: 'Housekeeper Closing Checklist',
-
-                },
-            ]
-        },
-        {
-            user: 'Manager',
-            checklistCategory: [
-                {
-                    title: 'Manager Opening Checklist',
-
-                },
-                {
-                    title: 'Manager Closing Checklist',
-
-                },
-            ]
-        },
-    ])
+                    },
+                ]
+            },
+            {
+                user: 'Housekeeper',
+                checklistCategory: [
+                    {
+                        title: 'Housekeeper Opening Checklist',
+                        tasks: [
+                            {
+                                task: 'Set out chairs2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Take clean glassware from dishwasher and set out2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out floor mats2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out bar tools & Equipment2',
+                                isChecked: false
+                            },
+                        ]
+                    },
+                    {
+                        title: 'Housekeeper Closing Checklist',
+                        tasks: [
+                            {
+                                task: 'Set out chairs2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Take clean glassware from dishwasher and set out2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out floor mats2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out bar tools & Equipment2',
+                                isChecked: false
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                user: 'Manager',
+                checklistCategory: [
+                    {
+                        title: 'Manager Opening Checklist',
+                        tasks: [
+                            {
+                                task: 'Set out chairs2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Take clean glassware from dishwasher and set out2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out floor mats2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out bar tools & Equipment2',
+                                isChecked: false
+                            },
+                        ]
+                    },
+                    {
+                        title: 'Manager Closing Checklist',
+                        tasks: [
+                            {
+                                task: 'Set out chairs2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Take clean glassware from dishwasher and set out2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out floor mats2',
+                                isChecked: false
+                            },
+                            {
+                                task: 'Set out bar tools & Equipment2',
+                                isChecked: false
+                            },
+                        ]
+                    },
+                ]
+            },
+        ])
     function checkboxClick(userindex, checklistCategoryindex, taskindex, ischeckedStatus) {
         let dummydata = []
         console.log(userindex, checklistCategoryindex, taskindex, ischeckedStatus);
