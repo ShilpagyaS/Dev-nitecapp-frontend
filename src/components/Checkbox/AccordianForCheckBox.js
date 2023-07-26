@@ -29,7 +29,7 @@ function AccordianForCheckBox({ title, content, type, item, isLearn, defaultvalu
                             <Image src={'/asset/learnCourseArrowButton.svg'} height={22} width={18} className='bg-transparent' />
                         </span>
 
-                        <h3 className='text-white bg-transparent capitalize ml-[8px]'>{title}</h3>
+                        <h3 className='text-white text-[18px] font-semibold bg-transparent capitalize ml-[8px]'>{title}</h3>
 
                     </div>
                 }

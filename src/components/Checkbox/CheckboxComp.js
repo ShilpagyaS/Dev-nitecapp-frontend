@@ -184,35 +184,72 @@ function CheckboxComp() {
         console.log(dummydata);
         setdata(dummydata)
     }
+    function onClearAllClick(userindex, checklistCategoryindex) {
+        let dummydata = []
+        dummydata = data.map((dataelement, i) => {
+            if (i == userindex)
+                return {
+                    ...dataelement,
+                    checklistCategory: dataelement.checklistCategory.map((checkboxelement, i2) => {
+                        if (i2 == checklistCategoryindex)
+                            return {
+                                ...checkboxelement,
+                                tasks: checkboxelement.tasks.map((tasks, i3) => {
+
+                                    return {
+                                        ...tasks,
+                                        isChecked: false
+                                    }
+
+                                })
+                            }
+                        else
+                            return { ...checkboxelement }
+                    })
+
+                }
+            else
+                return { ...dataelement }
+
+
+        })
+        console.log(dummydata);
+        setdata(dummydata)
+    }
     return (
         <div>
-            <div className="flex items-center mb-[33px] w-full justify-between">
+            <div className="flex items-center mb-[33px] w-full  justify-between">
 
                 <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
-                    {`Checkbox`}
+                    {`Checklist`}
                 </h5>
             </div>
-            {
-                data.map(
-                    (dataelement, i) =>
-                        <AccordianForCheckBox
-                            key={i}
-                            title={dataelement.user}
-                            type='user'
-                            content={dataelement.checklistCategory.map(
-                                (checklist, ci) =>
-                                    <AccordianForCheckBox
-                                        key={ci}
-                                        title={checklist.title}
-                                        type='checklist'
-                                        content={
-                                            <ChecklistDisplay tasks={checklist.tasks} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} />
-                                        }
-                                    />
-                            )}
-                        />
-                )
-            }
+            <div className='border border-[#404040] w-full'>
+
+                {
+                    data.map(
+                        (dataelement, i) =>
+                            <AccordianForCheckBox
+                                key={i}
+                                title={dataelement.user}
+                                type='user'
+                                content={dataelement.checklistCategory.map(
+                                    (checklist, ci) =>
+                                        <AccordianForCheckBox
+                                            key={ci}
+                                            title={checklist.title}
+                                            type='checklist'
+                                            content={
+                                                <ChecklistDisplay tasks={checklist.tasks} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
+                                            }
+                                        />
+                                )}
+                            />
+                    )
+                }
+
+            </div>
+
 
         </div>
     )

@@ -1,7 +1,7 @@
 import { CircularProgressForCheckbox } from '@/utils/CircularProgress'
 import React, { useEffect, useState } from 'react'
 
-function ChecklistDisplay({ tasks, onClickCheck }) {
+function ChecklistDisplay({ tasks, onClickCheck, onCompleted }) {
     const [progress, setProgress] = useState(0)
     useEffect(() => {
         if (tasks.length > 0) {
@@ -43,7 +43,16 @@ function ChecklistDisplay({ tasks, onClickCheck }) {
                 <h3 className='text-base not-italic font-[16px] font-Inter text-white'>
                     Completed
                 </h3>
-                <CircularProgressForCheckbox innerText={progress} percentage={progress} />
+                <div className='flex items-center'>
+                    {
+                        progress == 100 &&
+                        <h3 className='text-base not-italic text-[16px] font-Inter text-primary-base cursor-pointer font-semibold mr-[10px] ' onClick={() => { onCompleted() }}>
+                            All Done
+                        </h3>
+                    }
+
+                    <CircularProgressForCheckbox innerText={progress} percentage={progress} />
+                </div>
             </div>
             {
                 tasks.map((task, i) =>
