@@ -22,6 +22,9 @@ body {
 }
 
 :root {
+  --fc-small-font-size: 12px;
+  --fc-border-color: #3c3c3c;
+  --fc-highlight-color: transparent;
   /* --toastify-icon-color-success: #ee854d !important; */
   /* --toastify-color-progress-success: #ee854d !important; */
 }
@@ -284,4 +287,67 @@ body {
 .blogs tr td {
   padding: 10px;
   word-break: break-all;
+}
+
+.fc-toolbar-title {
+  color: white;
+}
+
+.fc-timegrid-slot-label-cushion {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.slot-grid {
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+.fc-event-main-frame {
+  border-radius: 4px;
+  background-color: transparent;
+  border: none;
+}
+
+.fc-event-main {
+  padding-left: 15px;
+  background-color: transparent;
+}
+
+.fc-event-main-frame div {
+  background-color: transparent;
+}
+
+.fc-event div a {
+  border: none;
+}
+
+.fc-event {
+  border: none;
+  border-left: 5px solid #f19b6c;
+  border-bottom: none;
+  border-right: none;
+  border-top: none;
+  background-color: rgba(241, 155, 108, 0.2);
+}
+.fc-event-title {
+  font-size: 12px;
+  padding-left: 5px;
+  background-color: transparent;
+}
+.fc-event-time {
+  background-color: transparent;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+.fc-event :hover {
+  background-color: none;
+}
+
+.fc-timegrid-event-harness {
+  background-color: transparent;
 }
