@@ -106,7 +106,7 @@ function LearnPage() {
                         </h5>
                         <Image src={'/asset/Vector 5.svg'} height={15} width={8} className={'ml-[20px]'} />
                     </div>
-                    <ChipWithLeftButton condition={true} label={'Add Course'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} />
+                    {/* <ChipWithLeftButton condition={true} label={'Add Course'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} /> */}
                 </div>
                 <LIberaryComponents allCourses={courses} isAdmin={true} />
                 <IndicatorSlider data={flashcards} name={`Flashcards`} onCardClick={(name, id) => { routeToFlashcard(name, id) }} />
