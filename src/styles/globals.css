@@ -168,7 +168,6 @@ body {
 }
 
 .blogs {
-  word-break: break-all;
   max-width: 99vw;
   padding: 0px 10px;
 }

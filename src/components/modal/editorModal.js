@@ -44,8 +44,8 @@ export function EditorModuleContent({ isModalOpen, onClickCancel, onSave, data, 
 
                     <button label="Editor View" className={`py-2 px-4 ${!isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => setEditormode(false)} >Editor View</button>
 
-                    <button label="Preview" className={`py-2 px-4 ${isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => { setEditormode(true); console.log(data); }} >Preview</button>
-                    <button label="Preview" className={`py-2 px-4 ${isMediaOpen ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => { setMediaOpen(true); console.log(data); }} >Upload Media </button>
+                    <button className={`py-2 px-4 ${isEditormode ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => { setEditormode(true); console.log(data); }} >Preview</button>
+                    <button className={`py-2 px-4 ${isMediaOpen ? `bg-primary-base` : ``} rounded-lg text-white border-2 border-primary-base`} condition={true} onClick={() => { setMediaOpen(true); console.log(data); }} >Upload Media </button>
                 </div>
                 <div className="cursor-pointer">
 
