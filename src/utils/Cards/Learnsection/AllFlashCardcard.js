@@ -34,7 +34,7 @@ function AllFlashCardcard({ data, onclickhandle, isAdmin, onEditCick, onDeleteCl
 
             </div>
             <div className=' relative h-[125px] w-[125px] rounded-[10px]'>
-                <Image src={data.image || '/asset/nodrinkinverted.webp'} fill className='rounded-[10px] object-cover' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.id}`) }} />
+                <Image src={data.image || '/asset/nodrinkinverted.webp'} fill className='rounded-[10px] object-cover' onClick={() => { router.push(`/learn/flashcards/${data.name}?id=${data.flashcard_category_id}`) }} />
                 {
                     isAdmin && isHover.hover &&
 
