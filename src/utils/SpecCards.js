@@ -87,7 +87,7 @@ export function TrendingCard({ image, title }) {
       <div className="h-[148px] lg:h-[137px] w-full relative mb-2">
         <Image
           className="object-cover rounded-[5.48718px]"
-          src={image}
+          src={image || '/asset/nodrinkinverted.webp'}
           alt="slider-image"
           fill
           priority
@@ -108,7 +108,7 @@ export function TrendingCardDash({ image, title }) {
       <div className="h-[160px] lg:h-[188px]  w-full md:w-[300px] relative mb-2">
         <Image
           className="object-cover rounded-[5.48718px]"
-          src={image}
+          src={image || '/asset/nodrinkinverted.webp'}
           alt="slider-image"
           fill
           priority
@@ -119,6 +119,27 @@ export function TrendingCardDash({ image, title }) {
           {title}
         </h2>
       </div>
+    </div>
+  );
+}
+export function CircularTrendingCardDash({ image, title }) {
+  return (
+    <div className="image-container w-full ">
+      <div className="mb-2 rounded-full">
+        <Image
+          className="object-cover rounded-full "
+          src={image || '/asset/nodrinkinverted.webp'}
+          alt="slider-image"
+          width={160}
+          height={188}
+          priority
+        />
+      </div>
+      {/* <div className="bg-transparent ">
+        <h2 className=" text-white text-[18px] text-center leading-[27px] font-semibold bg-transparent">
+          {title}
+        </h2>
+      </div> */}
     </div>
   );
 }
