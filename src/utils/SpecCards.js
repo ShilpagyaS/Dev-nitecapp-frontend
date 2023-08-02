@@ -172,7 +172,7 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
   const isTablet = useMediaQuery("(max-width: 786px)");
   return (
     <div
-      className={`flex items-center w-full rounded-[10px] border-[1px] border-[#3C3C3C]${circularImg ? " px-4 py-3 " : " px-4 py-4 "
+      className={`flex items-center w-full rounded-[10px] border-[1px] hover:-translate-y-1 transition-all shadow-[0px_5px_35px] hover:shadow-slate-700 shadow-black  border-[#3C3C3C] ${circularImg ? " px-4 py-3 " : " px-4 py-4 "
         }`}
     >
       <div
@@ -203,11 +203,11 @@ export function RectangularCard({ image, title, subtitle, circularImg }) {
 
       </div>
       <div className="text-container">
-        <h2 className="text-white text-[18px] leading-[24px] mb-2 font-semibold">
+        <h2 className="text-white text-[18px] leading-[24px] mb-2 font-medium">
           {title}
         </h2>
         {subtitle && (
-          <p className="text-white text-[16px] leading-[24px]">{subtitle}</p>
+          <p className="text-[14px] leading-[24px] text-slate-400">{subtitle}</p>
         )}
       </div>
     </div>

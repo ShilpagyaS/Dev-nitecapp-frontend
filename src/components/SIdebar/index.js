@@ -40,9 +40,9 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) 
                   </div>
                   {
                     ik == 0 &&
-                    <div className={`h-[24px] w-[24px] cursor-pointer flex justify-center items-center border border-primary-base rounded-full`} onClick={() => setCollapse(!Collapse)} >
-                      <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.70964 6.0965L7.45313 10.84L6.09784 12.1953L-0.00100178 6.0965L6.09784 -0.00223744L7.45313 1.35304L2.70964 6.0965Z" className="fill-primary-base" />
+                    <div className={`h-[26px] w-[26px] cursor-pointer border border-primary-base flex justify-center items-center rounded-full`} onClick={() => setCollapse(!Collapse)} >
+                      <svg width="13" height="13" className="fill-primary-base ml-[2px] mt-[-2px]" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.70964 6.0965L7.45313 10.84L6.09784 12.1953L-0.00100178 6.0965L6.09784 -0.00223744L7.45313 1.35304L2.70964 6.0965Z" />
                       </svg>
 
                     </div>

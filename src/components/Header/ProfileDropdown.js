@@ -5,11 +5,12 @@ import { CustomButton } from "@/utils/Buttons";
 import { logout } from "@/store/slices/Auth";
 import { useDispatch } from "react-redux";
 import { IoNotifications } from "react-icons/io5";
+import Link from "next/link";
 
 export default function ProfileDropdown(props) {
   const dispatch = useDispatch()
   return (
-    <div className=" w-fit h-fit">
+    <div className=" w-fit h-fit z-50">
       <Menu as="div" className="relative inline-block">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -29,16 +30,18 @@ export default function ProfileDropdown(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y  rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-2 py-2 border  border-gray-600 rounded-lg">
+          <Menu.Items className="absolute right-0 mt-4 w-56 origin-top-right divide-y  rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="px-2 py-2 border  border-gray-600 rounded-lg float-right min-w-[230px]">
+              <Menu.Item >
+                <Link className="cursor-pointer" href={"/user_profile"}>
+                  <div className="text-white mb-2 cursor-pointer p-2 hover:bg-primary-base rounded-md hover:text-black">My Profile</div>
+                </Link>
+              </Menu.Item>
               <Menu.Item onClick={() => { ; dispatch(logout()) }}>
 
-                <CustomButton
-
-                  label="Logout"
-                  background="#CBAF69"
-                />
+                <div className="text-white mb-2 cursor-pointer p-2 hover:bg-primary-base rounded-md hover:text-black">Logout</div>
               </Menu.Item>
+
             </div>
           </Menu.Items>
         </Transition>
@@ -70,9 +73,9 @@ export function NotificationDropdown(props) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y  rounded-md  shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-2 py-2 border border-gray-600 rounded-[10px]">
-              <Menu.Item onClick={() => { }}>
-                <h3 className='italic font-normal text-[14px] leading-6 text-primary-base font-Inter mb-[7px]'>
+            <div className="px-2 py-2 border border-gray-600 rounded-[10px] flex justify-center items-center">
+              <Menu.Item onClick={() => { }} className="flex justify-center items-center">
+                <h3 className='italic font-normal text-[14px]  text-center  h-full leading-6 text-primary-base font-Inter'>
                   {`No Notitfication Present`}
                 </h3>
 
