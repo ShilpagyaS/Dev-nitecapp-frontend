@@ -17,31 +17,31 @@ function DashboardLiberaryCard({ completionPercentageOuter, image, name, desc, i
     }, [])
 
     return (
-        <div className='max-w-[373px] w-full min-h-[293px] h-full border border-[#3C3C3C] rounded-[13px] px-[6px] py-[8px] cursor-pointer relative' onMouseEnter={() => { setishover(true) }} onMouseLeave={() => { setishover(false) }}>
+        <div className='max-w-[373px] w-full flex flex-col min-h-[293px] h-full border border-[#3C3C3C] rounded-[13px] px-[6px] py-[8px] cursor-pointer relative' onMouseEnter={() => { setishover(true) }} onMouseLeave={() => { setishover(false) }}>
             <div className='imagecontainer relative max-w-[360px] w-[100%] h-[152px]' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
                 <Image src={image} fill className='rounded-[8px] object-cover' />
                 <div className='absolute h-full w-full bg-[#00000087] flex items-center justify-center'>
 
-                    <p className='not-italic font-[500] text-[24px] capitalize font-Inter text-white bg-transparent w-[200px]'>{name} </p>
+                    <p className='not-italic font-[500] text-[24px] capitalize font-Inter text-white bg-transparent w-[200px] text-center'>{name} </p>
                 </div>
 
             </div>
-            <p className='not-italic font-normal text-[16px] font-Inter text-[#959595] mt-[15px]' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
+            <p className='not-italic flex-auto font-normal text-[16px] font-Inter text-[#959595] mt-[15px] px-3' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
                 {desc}
             </p>
             {
                 !isAdmin &&
-                <div className='flex items-center justify-end not-italic font-normal text-[14px] font-Inter text-[#959595] mx-[10px] ' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
-                    {`${completionPercentage > 0 ? parseFloat(completionPercentage).toFixed(1) : 0}% Complete`}
+                <div className='w-full h-[50px]'>
+                    <div className='flex items-center justify-end not-italic font-normal text-[14px] font-Inter text-[#959595] mx-[10px] ' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
+                        {`${completionPercentage > 0 ? parseFloat(completionPercentage).toFixed(1) : 0}% Complete`}
 
-                </div>
-            }
-            {
-                !isAdmin &&
-                <div className='w-full px-[10px]' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
+                    </div>
 
-                    <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
-                        <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${completionPercentage ? completionPercentage : 0}%` }}></div>
+                    <div className='w-full px-[10px] ' onClick={() => { router.push(`/learn/library/${enUrl(item.name)}?id=${item.id}`) }}>
+
+                        <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
+                            <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${completionPercentage ? completionPercentage : 0}%` }}></div>
+                        </div>
                     </div>
                 </div>
             }
