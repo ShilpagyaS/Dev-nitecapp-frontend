@@ -50,8 +50,8 @@ function LowABV() {
             //  filterData(e) 
           }} />}
         </div>
-        <div className="heading-container flex items-center justify-between lg:mb-4  mb-3">
-          <h2 className="text-white text-[24px] leading-9 font-bold ">
+        <div className="heading-container flex items-center justify-between lg:mb-4  mb-3 py-4">
+          <h2 className="text-white text-[1.5rem] leading-9 font-semibold ">
             Low / No ABV
           </h2>
           <Link href={`/specs/low_no_abv/brands`}>

@@ -51,8 +51,8 @@ function SpiritsCategory() {
                     }} />}
 
                 </div>
-                <div className="heading-container lg:mb-4  mb-3 flex justify-between">
-                    <h2 className="text-white text-[24px] leading-9 font-bold ">
+                <div className="heading-container lg:mb-4  mb-3 flex justify-between py-4">
+                    <h2 className="text-white text-[1.5rem] leading-9 font-semibold ">
                         {'Spirits (Category)'}
                     </h2>
                     <Link href={`/specs/spirit/brands`} >
