@@ -10,7 +10,6 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) 
   const [opensubmenu, setsubmenu] = useState(null)
   useEffect(() => {
     const activemenu = menuOptions.find((option) => option.id === category)
-    debugger
     if (activemenu)
       setsubmenu(activemenu)
     else setsubmenu(null)
