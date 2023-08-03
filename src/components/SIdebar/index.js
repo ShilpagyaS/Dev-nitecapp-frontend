@@ -2,9 +2,18 @@ import mockData from "../mock/MenuOptions.json";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { MenuIcon } from "./MenuIcons";
+import { useEffect, useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) {
   const router = useRouter();
+  const [opensubmenu, setsubmenu] = useState(null)
+  useEffect(() => {
+    const activemenu = menuOptions.find((option) => option.id === category)
+    if (activemenu)
+      setsubmenu(activemenu)
+    else setsubmenu(null)
+  }, [router.asPath])
 
   return (
     <>
@@ -16,40 +25,55 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) 
               <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" />
             </svg>
           </div>
-          // <div className={`w-full h-[24px] cursor-pointer flex justify-center py-[12px]`} onClick={() => setCollapse(!Collapse)} >
-          //   <svg class="gb_h" focusable="false" viewBox="0 0 24 24" fill="white" width="24" height="24">
-          //     <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z" />
-          //   </svg>
-          // </div>
+
         }
         {!Collapse && <>
           {menuOptions?.map((option, ik) => {
             return (
               <>
-                <div className="flex items-center justify-between py-[12px]" key={ik}>
-                  <div className="flex items-center">
-                    {MenuIcon(option.name, option.id === category)}
+                <div className="flex items-center justify-between py-[12px] " key={ik}>
+                  <div className="flex items-center w-full justify-between">
+                    <div className="flex">
+                      {MenuIcon(option.name, option.id === category)}
 
-                    <Link
-                      href={`/${option.id}/`}
-                      className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
-                        } text-[18px] leading-6 font-semibold `}
-                    >
-                      {option.name}
-                    </Link>
-                  </div>
-                  {
-                    ik == 0 &&
-                    <div className={`h-[26px] w-[26px] cursor-pointer border border-primary-base flex justify-center items-center rounded-full`} onClick={() => setCollapse(!Collapse)} >
-                      <svg width="13" height="13" className="fill-primary-base ml-[2px] mt-[-2px]" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.70964 6.0965L7.45313 10.84L6.09784 12.1953L-0.00100178 6.0965L6.09784 -0.00223744L7.45313 1.35304L2.70964 6.0965Z" />
-                      </svg>
-
+                      <Link
+                        href={`/${option.id}/`}
+                        className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
+                          } text-[18px] leading-6 font-semibold `}
+                      >
+                        {option.name}
+                      </Link>
                     </div>
-                  }
+                    <div className={`${opensubmenu?.id === option.id ? '' : 'rotate-90 '} mr-4 transition-all cursor-pointer`}
+                      onClick={() => {
+                        if (opensubmenu?.id === option.id) setsubmenu(null)
+                        else setsubmenu(option)
+                      }}
+                    >
+                      {option.subOptions?.length > 0 ? <>
+                        <ChevronDownIcon
+                          className=" h-5 w-5 text-[#959595] "
+                          aria-hidden="true"
+                        />
+                      </> : <>
+                      </>}
+                    </div>
+                    {
+                      ik == 0 &&
+                      <div className={`h-[26px] w-[26px] cursor-pointer border border-primary-base flex justify-center items-center rounded-full`} onClick={() => setCollapse(!Collapse)} >
+                        <svg width="13" height="13" className="fill-primary-base ml-[2px] mt-[-2px]" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.70964 6.0965L7.45313 10.84L6.09784 12.1953L-0.00100178 6.0965L6.09784 -0.00223744L7.45313 1.35304L2.70964 6.0965Z" />
+                        </svg>
+
+                      </div>
+                    }
+                  </div>
+
                 </div>
-                <div className="ml-[6px]">
+                <div className={`ml-[6px] ${opensubmenu?.id === option.id ? `h-auto` : `h-0 overflow-hidden`} transition-all duration-500 delay-150 ease-out `}>
+
                   {option.subOptions?.map((subOption, i) => {
+
                     return (
                       <div
                         className="w-[139px] mt- flex items-baseline py-[6px] relative"

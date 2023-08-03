@@ -10,16 +10,16 @@ function Slider({ skipTo }) {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const sliderData = [
     {
-      title: "Get Certified for Training",
-      img: "/asset/sliderImg-1.svg",
+      title: "Master Your Products",
+      img: "/asset/slideImg1.svg",
     },
     {
-      title: "Work From Beautiful Concepts",
-      img: "/asset/sliderImg-2.svg",
+      title: "Take Powerful Courses",
+      img: "/asset/slideImg2.svg",
     },
     {
-      title: "Claim Rewards for Your Progress",
-      img: "/asset/sliderImg-3.png",
+      title: "Level-up with Nitecapp",
+      img: "/asset/slideImg3.svg",
     },
   ];
   const [swipperInstance, setswipperInstance] = useState("");
@@ -60,7 +60,7 @@ function Slider({ skipTo }) {
                   alt="slider-image"
                   width={isMobile ? 350 : 397}
                   height={isMobile ? 351 : 221}
-                  
+
                 />
               </div>
             </SwiperSlide>
