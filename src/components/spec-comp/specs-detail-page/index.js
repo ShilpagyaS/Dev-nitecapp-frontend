@@ -48,17 +48,20 @@ const SpecsDetailPage = ({ id, subcategory }) => {
         </div>
         <div className="desc-container inline-block w-full  text-white mt-4 ">
           <div
-            className={`heading-container mb-8 flex justify-between font-[600] text-[24px] leading-[36px] items-center ${isMobile && "text-center"
+            className={`heading-container mb-2 flex justify-between font-[600] text-[24px] leading-[36px] ${isMobile && "text-center"
               }`}
           >
             <div
-              className={`w-full flex items-center  ${isMobile && "justify-around"
+              className={`w-full flex ${isMobile && "justify-around"
                 }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.[`${subcategory}_name`]}
               </h3>
-              <p className="status-text text-[18px] font-[400] leading-[27px]">{`${whatsthestrength(productDetails?.abv)}(${productDetails?.abv || ""}%)`}</p>
+              <div className="flex items-end h-full">
+
+                <p className="status-text text-[16px] opacity-75 font-normal text-base">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p>
+              </div>
             </div>
             {/* {!isMobile && <AiOutlineHeart size="25px" color="#fff" />} */}
           </div>

@@ -4,17 +4,24 @@ import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CircularTrendingCardDash, TrendingCard, TrendingCardDash } from "@/utils/SpecCards";
 import { Navigation, Pagination } from "swiper";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 
 
-function TrendingDash({ data, title, isBig }) {
+function TrendingDash({ data, title, isBig, isSeeAllUrl }) {
     const isTablet = useMediaQuery("(max-width: 786px)");
     const isPhone = useMediaQuery("(max-width: 414px)");
-
+    const router = useRouter()
 
     return (
         <div className=" mt-5 w-full">
-            <h3 className="text-white text-[20px] leading-8 mb-4">{title}</h3>
+            <div className="w-full flex items-center justify-between">
+                <h3 className="text-white text-[20px] leading-8 mb-4">{title}</h3>
+                {
+                    isSeeAllUrl &&
+                    <h3 className="text-primary-base text-[16px] leading-8 mb-4 font-semibold cursor-pointer" onClick={() => { router.push(isSeeAllUrl) }}>See All</h3>
+                }
+            </div>
             <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true} modules={[Pagination, Navigation]}>
                 {data?.map((slide, i) => {
                     return (
@@ -48,14 +55,20 @@ function TrendingDash({ data, title, isBig }) {
 }
 
 export default TrendingDash;
-export function CircularTrendingDash({ data, title, isBig }) {
+export function CircularTrendingDash({ data, title, isBig, isSeeAllUrl }) {
     const isTablet = useMediaQuery("(max-width: 786px)");
     const isPhone = useMediaQuery("(max-width: 414px)");
-
+    const router = useRouter()
 
     return (
         <div className=" mt-5 w-full">
-            <h3 className="text-white text-[20px] leading-8 mb-4">{title}</h3>
+            <div className="w-full flex items-center justify-between">
+                <h3 className="text-white text-[20px] leading-8 mb-4">{title}</h3>
+                {
+                    isSeeAllUrl &&
+                    <h3 className="text-primary-base text-[16px] leading-8 mb-4 font-semibold cursor-pointer" onClick={() => { router.push(isSeeAllUrl) }}>See All</h3>
+                }
+            </div>
             <Swiper slidesPerView={"auto"} spaceBetween={20} pagination={true} modules={[Pagination, Navigation]}>
                 {data?.map((slide, i) => {
                     return (

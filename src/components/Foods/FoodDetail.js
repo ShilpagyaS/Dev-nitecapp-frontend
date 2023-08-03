@@ -93,42 +93,10 @@ const FoodDetail = ({ id }) => {
                 <p className={`not-italic ${isRecipie ? 'text-primary-base ' : ''} font-semibold text-base font-Inter`}>Recipe</p>
               </div>
             </div> */}
-            <Customswitch first={isRecipie} setfirst={setRecipie} />
+          {/* custom switch button */}
+            {/* <Customswitch first={isRecipie} setfirst={setRecipie} /> */}
 
           </div>
-          {/* <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
-            {productDetails?.price &&
-              <li className="min-w-[100px]">
-                <div className="text-white w-full text-center pr-[10px]">
-                  {`Price: $ ${productDetails.price}`}
-                </div>
-              </li>
-            }
-            {productDetails?.gluten_free &&
-
-              <li className="min-w-[100px]">
-                <div className="text-white w-full text-center">
-                  GF
-                </div>
-              </li>
-            }
-            {productDetails?.vegan &&
-
-              <li className="min-w-[100px]">
-                <div className="text-white w-full text-center">
-                  V
-                </div>
-              </li>
-            }
-            {productDetails?.calories &&
-
-              <li className="min-w-[100px]">
-                <div className="text-white w-full text-center ">
-                  {`${productDetails?.calories} cal`}
-                </div>
-              </li>
-            }
-          </ul> */}
           <PriceGFVeganCAlContainer productDetails={productDetails} />
 
           <p
@@ -139,12 +107,14 @@ const FoodDetail = ({ id }) => {
           </p>
         </div>
       </div>
-      {isRecipie && <>
+
+      <>
         {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">
-          <div className="sub-heading-container  mb-[21px]">
-            <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
+          <div className="sub-heading-container flex gap-2 mb-[21px] items-center justify-between">
+            <h4 className="text-white text-[22px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
               Ingredients
             </h4>
+            <div className="w-[80%] border-b border-primary-base h-[1px] mt-1 opacity-50"></div>
           </div>
           <div className="ingridient-details-container">
             {productDetails?.ingredients.values.map((ingridient, i) => {
@@ -161,10 +131,11 @@ const FoodDetail = ({ id }) => {
         </div>}
         {(productDetails?.presentations?.values?.length > 0 && productDetails?.showPresentations) &&
           <div className="presentation-container  mb-[16px]">
-            <div className="sub-heading-container mb-[21px]">
-              <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
+            <div className="sub-heading-container flex gap-2 mb-[21px] items-center justify-between">
+              <h4 className="text-white text-[22px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
                 Presentation
               </h4>
+              <div className="w-[80%] border-b border-primary-base h-[1px] mt-1 opacity-50"></div>
             </div>
             <div className="presentation-details-container">
               {productDetails?.presentations?.values.map((presentation, i) => {
@@ -223,7 +194,8 @@ const FoodDetail = ({ id }) => {
             </div>
           </div>
         }
-      </>}
+      </>
+
       <Notes id={id} subcategory={'food'} />
     </div>
   );

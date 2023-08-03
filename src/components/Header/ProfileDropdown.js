@@ -76,7 +76,7 @@ export function NotificationDropdown(props) {
             <div className="px-2 py-2 border border-gray-600 rounded-[10px] flex justify-center items-center">
               <Menu.Item onClick={() => { }} className="flex justify-center items-center">
                 <h3 className='italic font-normal text-[14px]  text-center  h-full leading-6 text-primary-base font-Inter'>
-                  {`No Notitfication Present`}
+                  {`No Notitfications`}
                 </h3>
 
               </Menu.Item>

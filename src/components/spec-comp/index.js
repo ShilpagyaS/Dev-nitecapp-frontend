@@ -39,12 +39,14 @@ function SpecComp() {
         </Link> */}
       </div>
       <div className="sub-heading-container flex lg:justify-start md:justify-start justify-between items-center">
-        <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
-          Cocktails
-        </h3>
-        <Link href="/specs/cocktail">
-          <p className="text-primary-base cursor-pointer">See All</p>
-        </Link>
+        <div className="w-full flex items-center justify-between">
+          <h3 className="text-white text-[20px] leading-8 font-semibold mr-[48px]">
+            Cocktails
+          </h3>
+          <Link href="/specs/cocktail">
+            <p className="text-primary-base cursor-pointer">See All</p>
+          </Link>
+        </div>
 
       </div>
       <CoctailSlider data={productList?.length <= 10 ? filterbydate(productList) : filterbydate(productList)?.slice(0, 10)} />

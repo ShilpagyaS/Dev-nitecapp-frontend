@@ -18,7 +18,7 @@ function FoodListTry() {
   const [finaldata, setfinaldata] = useState([])
   const [categoryArray, setCategory] = useState([])
   const [maindata, setmaindata] = useState([])
-  const [selectedcategory, setSelectedcategory] = useState('');
+  const [selectedcategory, setSelectedcategory] = useState('all');
 
 
   useEffect(() => {

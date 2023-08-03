@@ -49,7 +49,7 @@ body {
 
 .swiper-pagination-bullet {
   background-color: #ffffff !important;
-  opacity: 100% !important;
+  opacity: 50% !important;
   bottom: 0 !important;
 }
 

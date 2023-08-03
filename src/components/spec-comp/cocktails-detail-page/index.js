@@ -73,17 +73,20 @@ const CocktailDetailPage = ({ id }) => {
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
-            className={`heading-container mb-8 flex justify-between items-center ${isMobile && "text-center"
+            className={`heading-container mb-2 flex justify-between items-center ${isMobile && "text-center"
               }`}
           >
             <div
-              className={`w-full flex items-center ${isMobile && "justify-around"
+              className={`w-full flex ${isMobile && "justify-around"
                 }`}
             >
               <h3 className="title text-[24px] font-bold mr-[16px]">
                 {productDetails?.cocktail_name}
               </h3>
-              <p className="status-text text-[18px]">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p>
+              <div className="flex items-end">
+
+                <p className="status-text text-[16px] opacity-75">{`${whatsthestrength(productDetails?.abv)} (${productDetails?.abv}%)`}</p>
+              </div>
             </div>
             {/* <HeartLogo filled={filledHeart} setfilled={setfilledHeart}/> */}
           </div>
@@ -131,11 +134,11 @@ const CocktailDetailPage = ({ id }) => {
         </div>
       </div>
       {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">
-        <div className="sub-heading-container flex gap-2 mb-[21px] justify-center items-center">
+        <div className="sub-heading-container flex gap-2 mb-[21px] items-center justify-between">
           <h4 className="text-white text-[22px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
             Ingredients
           </h4>
-          <div className="w-full border-b border-primary-base h-[1px] mt-1"></div>
+          <div className="w-[80%] border-b border-primary-base h-[1px] mt-1 opacity-50"></div>
         </div>
         <div className="ingridient-details-container">
           {productDetails?.ingredients.values.map((ingridient, i) => {
@@ -152,11 +155,11 @@ const CocktailDetailPage = ({ id }) => {
       </div>}
       {(productDetails?.presentations?.values?.length > 0 && productDetails?.showPresentations) &&
         <div className="presentation-container  mb-[16px]">
-          <div className="sub-heading-container mb-[21px] flex gap-2  justify-center items-center">
+          <div className="sub-heading-container mb-[21px] flex gap-2  justify-between items-center">
             <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
               Presentation
             </h4>
-            <div className="w-full border-b border-primary-base h-[1px] mt-1"></div>
+            <div className="w-[80%] border-b border-primary-base h-[1px] mt-1 opacity-50"></div>
           </div>
           <div className="presentation-details-container">
             {productDetails?.presentations?.values.map((presentation, i) => {

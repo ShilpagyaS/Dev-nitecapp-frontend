@@ -164,6 +164,7 @@ function OnboardingForm() {
             showerror
             disabled
             fullwidth
+            isDisabled={true}
           />
           <InputField
             placeholder=""
@@ -215,6 +216,7 @@ function OnboardingForm() {
             touched={formik.touched.role}
             showerror
             fullwidth
+            isDisabled={true}
           />
 
           <div className="col-span-1 md:col-span-2 w-full flex justify-center">
@@ -238,7 +240,7 @@ function OnboardingForm() {
           <div className="col-span-1 md:col-span-2 w-full flex justify-center">
             <TextAreaField
               placeholder=""
-              label="Description"
+              label="Bio"
               onChangeHandler={formik.handleChange}
               value={formik.values.description}
               name={"description"}
@@ -248,6 +250,7 @@ function OnboardingForm() {
               touched={formik.touched.description}
               showerror
               fullwidth
+              constantHeight={true}
             />
           </div>
 

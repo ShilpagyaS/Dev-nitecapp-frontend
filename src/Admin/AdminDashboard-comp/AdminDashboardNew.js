@@ -48,8 +48,8 @@ function AdminDashboardNew() {
                         Dashboard
                     </h1>
                 </div>
-                <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px]">
-                    <h5 className='text-white not-italic font-normal text-base font-Inter'>Welcome back, {user?.display_name || ""}! We are grateful to have you on {brand_display} team.</h5>
+                <div className="heading-text w-full lg:mb-0 md:mb-0 my-[20px]">
+                    <h5 className='text-white not-italic font-normal text-base font-Inter'>{`Welcome back, `}<span className='capitalize font-semibold text-primary-base'>{user?.display_name || ""}</span>{`! We are grateful to have you on the team.`}</h5>
                 </div>
             </div>
             <div className="explore-brands-banner-contaiiner mb-8">
@@ -59,17 +59,17 @@ function AdminDashboardNew() {
             <TrendingDash data={data1} title={"Specs"} isBig={false} />
             {
                 productList.length > 0 &&
-                <TrendingDash data={data3.slice(0, 10)} title={"Foods"} isBig={false} />
+                <TrendingDash data={data3.slice(0, 8)} title={"Foods"} isBig={false} isSeeAllUrl={'/food'} />
 
             }
             {
                 liberarycourse.length > 0 &&
-                <TrendingDash data={data4.slice(0, 10)} title={"Courses"} isBig={false} />
+                <TrendingDash data={data4.slice(0, 8)} title={"Courses"} isBig={false} isSeeAllUrl={'/learn/library'} />
 
             }
             {
                 guests.length > 0 &&
-                <CircularTrendingDash data={data5.slice(0, 10)} title={"Guests"} />
+                <CircularTrendingDash data={data5.slice(0, 10)} title={"Guests"} isSeeAllUrl={'/guests'} />
             }
             {
                 outlets.length > 0 &&

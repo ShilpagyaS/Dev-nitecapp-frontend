@@ -7,7 +7,7 @@ function CourseCardwithIndicators({ data, onCardClick }) {
             onClick={() => { onCardClick(data.name, data.id) }}
         >
             <div className='w-[118px] h-24 bg-gray-400 rounded-lg relative'>
-                <Image src={data?.image} fill priority />
+                <Image src={data?.image} fill priority className='object-cover' />
                 {
                     data.type == 'video' &&
                     <Image
@@ -34,9 +34,9 @@ function CourseCardwithIndicators({ data, onCardClick }) {
             <div className='w-24 h-10 not-italic font-bold text-sm text-white mt-[9px]'>
                 {data.name}
             </div>
-            <div className='flex flex-row justify-start items-center w-[109px] h-[4px] bg-white rounded-[18px] mt-[16px]'>
+            {/* <div className='flex flex-row justify-start items-center w-[109px] h-[4px] bg-white rounded-[18px] mt-[16px]'>
                 <div className='bg-primary-base h-full' style={{ width: `${data.completionPercentage * 109 / 100}px` }}></div>
-            </div>
+            </div> */}
 
         </div>)
 }

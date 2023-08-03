@@ -8,14 +8,14 @@ import { emptyAllOutlet, getBrandsImages, getOutlets } from '@/store/slices/outl
 import Link from 'next/link'
 import { enUrl } from '@/utils/encoderfunc'
 import { getProduct } from '@/store/slices/product'
-import { getCourses } from '@/store/slices/learnslice'
+import { getAllFlashCardCategorys, getAllQuizesCourses, getCourses } from '@/store/slices/learnslice'
 import { getGuests } from '@/store/slices/guests'
 
 function NewUserDashboard() {
     const { user, brand_display } = useSelector((state) => state.auth)
     const { outlets, brandsImages } = useSelector((state) => state.outlets)
     const { productList } = useSelector((state) => state.product);
-    const { liberarycourse } = useSelector((state) => state.learn)
+    const { liberarycourse, learnScreenQuizes, learnScreenFlashcards, } = useSelector((state) => state.learn)
     const { guests } = useSelector((state) => state.guests)
 
     const dispatch = useDispatch()
@@ -25,6 +25,8 @@ function NewUserDashboard() {
         dispatch(getProduct("food"));
         dispatch(getCourses())
         dispatch(getGuests())
+        dispatch(getAllFlashCardCategorys())
+        dispatch(getAllQuizesCourses())
         return () => dispatch(emptyAllOutlet())
     }, [])
 
@@ -40,6 +42,8 @@ function NewUserDashboard() {
     const data3 = productList?.map((i) => { return { title: i.food_name, image: i.image, link: `/food/${enUrl(i.food_name)}?id=${i.food_id}` } })
     const data4 = liberarycourse?.map((i) => { return { title: i.name, image: i.image, link: `/learn/library/${enUrl(i.name)}?id=${i.course_id}` } })
     const data5 = guests?.map((i) => { return { title: i.first_name, image: i.image, link: `/guests/${enUrl(i.first_name)}?id=${i.guest_id}` } })
+    const data6 = learnScreenFlashcards?.map((i) => { return { title: i.name, image: i.image, link: `/learn/flashcards/${enUrl(i.name)}?id=${i.flashcard_category_id}` } })
+    const data7 = learnScreenQuizes?.map((i) => { return { title: i.name, image: i.image, link: `/learn/quizzes/${enUrl(i.name)}?id=${i.quiz_id}` } })
     return (
         <>
             <div className="Header-container flex-col flex justify-between lg:items-center md:items-center mb-8 w-full ">
@@ -48,8 +52,8 @@ function NewUserDashboard() {
                         Dashboard
                     </h1>
                 </div>
-                <div className="heading-text w-full lg:mb-0 md:mb-0 mb-[20px]">
-                    <h5 className='text-white not-italic font-normal text-base font-Inter'>Welcome back, {user?.display_name || ""}! We are grateful to have you on the team.</h5>
+                <div className="heading-text w-full lg:mb-0 md:mb-0 my-[20px]">
+                    <h5 className='text-white not-italic font-normal text-base font-Inter'>{`Welcome back, `}<span className='capitalize font-semibold text-primary-base'>{user?.display_name || ""}</span>{`! We are grateful to have you on the team.`}</h5>
                 </div>
             </div>
             <div className="explore-brands-banner-contaiiner mb-8">
@@ -59,17 +63,27 @@ function NewUserDashboard() {
             <TrendingDash data={data1} title={"Specs"} isBig={false} />
             {
                 productList.length > 0 &&
-                <TrendingDash data={data3.slice(0, 10)} title={"Foods"} isBig={false} />
+                <TrendingDash data={data3.slice(0, 8)} title={"Foods"} isBig={false} isSeeAllUrl={'/food'} />
 
             }
             {
                 liberarycourse.length > 0 &&
-                <TrendingDash data={data4.slice(0, 10)} title={"Courses"} isBig={false} />
+                <TrendingDash data={data4.slice(0, 8)} title={"Courses"} isBig={false} isSeeAllUrl={'/learn/library'} />
+
+            }
+            {
+                learnScreenFlashcards.length > 0 &&
+                <TrendingDash data={data6.slice(0, 8)} title={"Flashcards"} isBig={false} isSeeAllUrl={'/learn/flashcards'} />
+
+            }
+            {
+                learnScreenQuizes.length > 0 &&
+                <TrendingDash data={data7.slice(0, 8)} title={"Quizzes"} isBig={false} isSeeAllUrl={'/learn/quizzes'} />
 
             }
             {
                 guests.length > 0 &&
-                <CircularTrendingDash data={data5.slice(0, 10)} title={"Guests"} />
+                <CircularTrendingDash data={data5.slice(0, 10)} title={"Guests"} isSeeAllUrl={'/guests'} />
             }
             {
                 outlets.length > 0 &&

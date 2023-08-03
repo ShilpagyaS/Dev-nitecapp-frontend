@@ -22,7 +22,7 @@ import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 const CoffeeDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
   const isTablet = useMediaQuery("(max-width: 786px)");
- 
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const dispatch = useDispatch()
@@ -68,7 +68,7 @@ const CoffeeDetailPage = ({ id }) => {
         </div>
         <div className="desc-container inline-block w-full  text-white">
           <div
-            className={`heading-container mb-8 flex justify-between items-center ${isMobile && "text-center"
+            className={`heading-container mb-2 flex justify-between items-center ${isMobile && "text-center"
               }`}
           >
             <div
@@ -126,10 +126,11 @@ const CoffeeDetailPage = ({ id }) => {
         </div>
       </div>
       {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">
-        <div className="sub-heading-container  mb-[21px]">
-          <h4 className="text-white text-[20px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
+        <div className="sub-heading-container flex gap-2 mb-[21px] items-center justify-between">
+          <h4 className="text-white text-[22px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
             Ingredients
           </h4>
+          <div className="w-[80%] border-b border-primary-base h-[1px] mt-1 opacity-50"></div>
         </div>
         <div className="ingridient-details-container">
           {productDetails?.ingredients.values.map((ingridient, i) => {
@@ -146,10 +147,11 @@ const CoffeeDetailPage = ({ id }) => {
       </div>}
       {(productDetails?.presentations?.values?.length > 0 && productDetails?.showPresentations) &&
         <div className="presentation-container  mb-[16px]">
-          <div className="sub-heading-container mb-[21px]">
-            <h4 className="text-white text-[20px] leading-[32px] font-semibold  mb-[14px] lg:mb-0">
+          <div className="sub-heading-container flex gap-2 mb-[21px] items-center justify-between">
+            <h4 className="text-white text-[22px] leading-[32px] font-semibold mb-[14px] lg:mb-0">
               Presentation
             </h4>
+            <div className="w-[80%] border-b border-primary-base h-[1px] mt-1 opacity-50"></div>
           </div>
           <div className="presentation-details-container">
             {productDetails?.presentations?.values.map((presentation, i) => {

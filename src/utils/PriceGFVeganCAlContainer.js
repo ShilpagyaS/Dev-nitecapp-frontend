@@ -3,7 +3,7 @@ import React from 'react'
 
 function PriceGFVeganCAlContainer({ productDetails }) {
     return (
-        <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
+        <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-2">
             {productDetails?.price &&
                 <li className="min-w-[100px]">
                     <div className="text-white w-full text-center pr-[10px]">

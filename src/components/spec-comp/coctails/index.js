@@ -61,7 +61,7 @@ function Coctails({ headerHidden }) {
 
         <div className="heading-container flex items-center justify-between lg:mb-4 mb-3 py-4 ">
           <h2 className="text-white text-[1.5rem] leading-9 font-semibold ">
-            Cocktail
+            Cocktails
           </h2>
           <Link href={`/specs/cocktail/ingredients`}>
             <OrangeButtons label="Ingredients" noPadding={true} />
