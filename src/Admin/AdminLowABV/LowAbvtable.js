@@ -64,7 +64,7 @@ function LowAbvtable() {
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/nodrinkinverted.webp'}
-                            alt="image"
+                                alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"
@@ -156,9 +156,11 @@ function LowAbvtable() {
                     label={'Low / No ABV'}
                     type={'low_no_abv'}
                     title={'Low / No ABV'}
-                    onSave={(data) => {
+                    onSave={(data, id) => {
                         // return dispatch(createProductAndUpdatingList('low_no_abv', data)) 
-                        return dispatch(createProductAndUpdatingListNew('low_no_abv', data))
+                        let body = {}
+                        body = { ...data, outlet_id: [id] }
+                        return dispatch(createProductAndUpdatingListNew('low_no_abv', body))
                     }}
                 />
             }

@@ -3,7 +3,7 @@ import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
 import NotificationCard from '@/utils/Cards/NotificationCard';
 import { _INITIAL } from '@/utils/Constants';
-import CustomSelect, { CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
+import CustomSelect, { CustomSelectForBrands, CustomSelectForBrandsfull, CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
 import SelectWithDebounce from '@/utils/DebounceSelect';
 import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
 import SearchCategoryDebounce from '@/utils/SearchCategory';
@@ -44,8 +44,22 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             backdropFilter: "blur(2.5px)",
         },
     };
+    const { outlets } = useSelector((state) => state.outlets)
     const [selectedItem, setSelectedItem] = useState({ label: '', value: '', image: '', body: {} })
+    const [outletArray, setOutletArray] = useState([])
+    const [outletIdSelected, setOutletIdSelected] = useState(1)
     const [isClear, SetClear] = useState(false)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getOutlets())
+    }, [])
+    useEffect(() => {
+        if (outlets.length > 0) {
+            let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
+            setOutletArray([...outletss])
+        }
+    }, [])
+
     function onItemSelect(data) {
         console.log(data);
         setSelectedItem({ value: data.value, label: data.label, image: data.image, body: data.body })
@@ -60,7 +74,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
     const handleSave = () => {
         let body = selectedItem
         console.log(body);
-        onSave(selectedItem.body).then((res) => {
+        onSave(selectedItem.body, outletIdSelected).then((res) => {
             console.log(res);
             res?.error ?
                 // errortoast({ message: res.message }) 
@@ -91,8 +105,19 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
                 <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add ${title}`}</h4>
             </div>
 
-            <div className='h-[200px] mb-[10px]'>
+            <div className='h-[300px] mb-[10px] notificationModal'>
+                <div className='w-full'>
+                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Select Outlet</h6>
 
+                    <CustomSelectForBrandsfull
+                        items={[...outletArray]}
+                        optionalFunction={(e) => {
+                            console.log(e);
+                            setOutletIdSelected(e.value)
+
+                        }} />
+
+                </div>
                 {!productId && <SearchProductDebounce
                     label={label}
                     type={type}
@@ -1529,7 +1554,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                             onClickCancel()
                         console.log('if');
 
- 
+
                     })
                 else console.log("cannot upload")
             })

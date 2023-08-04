@@ -156,10 +156,12 @@ function BeerTable() {
                     label={'Beers'}
                     type={'beer'}
                     title={'Beer'}
-                    onSave={(data) => {
-
+                    onSave={(data, id) => {
+                        // return dispatch(createProductAndUpdatingList('low_no_abv', data)) 
+                        let body = {}
+                        body = { ...data, outlet_id: [id] }
                         // return dispatch(createProductAndUpdatingList('beer', data))
-                        return dispatch(createProductAndUpdatingListNew('beer', data))
+                        return dispatch(createProductAndUpdatingListNew('beer', body))
                     }}
                 />
             }

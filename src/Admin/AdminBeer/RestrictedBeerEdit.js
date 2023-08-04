@@ -187,7 +187,8 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                             {
                                 ...productDetails,
                                 description: textAreaRef.current.value,
-                                image: imageurl
+                                image: imageurl,
+                                price: parseFloat(price)
                             }
                         )).then((res) => {
                             console.log(res);
@@ -205,6 +206,7 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                     {
                         ...productDetails,
                         description: textAreaRef.current.value,
+                        price: parseFloat(price)
                     }
                 )).then((res) => {
                     console.log(res);
@@ -324,12 +326,26 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                             </div>
                         </div>
                         <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">
-                            {productDetails?.price &&
-                                <li className="min-w-[100px]">
-                                    <div className="text-white w-full text-center pr-[10px]">
-                                        {`Price: $ ${productDetails.price}`}
+                            {isEdit ?
+                                <div className='flex items-center mr-[20px]'>
+
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mr-[7px]'>$</h3>
+                                    <div className='input-desc flex flex-col max-w-[150px]'>
+                                        <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none placeholder:text-[#959595] placeholder:italic'
+                                            value={price || ''} onChange={(e) => { setPrice(e.target.value) }}
+                                            placeholder={'Enter Price'} />
                                     </div>
-                                </li>
+                                </div>
+                                :
+                                <>
+                                    {productDetails?.price &&
+                                        <li className="min-w-[100px]">
+                                            <div className="text-white w-full text-center pr-[10px]">
+                                                {`Price: $ ${productDetails.price}`}
+                                            </div>
+                                        </li>
+                                    }
+                                </>
                             }
                             {productDetails?.gluten_free &&
 

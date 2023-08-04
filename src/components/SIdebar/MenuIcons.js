@@ -84,8 +84,8 @@ export function MenuIcon(menuOption, active) {
     ),
     'Manage Users': (
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22" viewBox="0 0 14 14"
+        width="20"
+        height="20" viewBox="0 0 96.000000 96.000000"
         preserveAspectRatio="xMidYMid meet"
         className={`mt-[5px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
 

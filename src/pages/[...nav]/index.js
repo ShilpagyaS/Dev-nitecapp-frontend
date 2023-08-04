@@ -289,7 +289,7 @@ export default function Category() {
                 {path === `/specs/beer/${enUrl(subcategory2)}?id=${productId}` && <RestrictedBeerEdit productId={productId} subcategory={'beer'} />}
 
                 {path === `/specs/beer/brands/newbrand` && <AddBrandDetailPage categorytype={'beer'} />}
-                {subcategory === "bestselling" && <BestSellingAdminCoctails />}
+                 {subcategory === "bestselling" && <BestSellingAdminCoctails />}
 
                 {path === `/specs/spirit` && <AdminSpirit />}
                 {path === `/specs/spirit/brands` && <BrandsList productType={'spirit'} />}

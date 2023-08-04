@@ -189,3 +189,66 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
     </div>
   );
 }
+export function CustomSelectForBrandsfull({ items, optionalFunction, defaultSelect, isclear }) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  useEffect(() => {
+    console.log(defaultSelect);
+    if (defaultSelect)
+      handleSelectItem(defaultSelect)
+  }, [])
+  useEffect(() => {
+    if (isclear == true)
+
+      setSelectedItem(null)
+  }, [isclear])
+
+  const handleToggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setIsDropdownOpen(false);
+    console.log('items', item);
+    optionalFunction(item)
+  };
+
+
+
+  return (
+    <div className="relative w-full h-[50px]">
+      <button
+        className="w-full py-[8px] pl-[28px] pr-[28px] text-white bg-trans border border-[#2C2C2C] rounded-md shadow-sm capitalize outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
+        onClick={handleToggleDropdown}
+      >
+        {selectedItem ? selectedItem.label : <span className='text-[#767676] bg-transparent'>
+          Select an option
+        </span>}
+        <Image
+          src={'/asset/DownArrow.svg'}
+          width={14}
+          height={25}
+          className="bg-[#2C2C2C]"
+        />
+      </button>
+      {isDropdownOpen && (
+        <ul className="brandModal w-full absolute z-10 bg-black border border-[#2C2C2C] rounded-md shadow-lg pb-[10px] max-h-[200px] overflow-y-scroll">
+          {items.map((item) => (
+            <li key={item.value}>
+              <button
+                className={`w-full capitalize not-italic font-normal border border-[#2C2C2C] text-base leading-6 text-[#767676] text-left p-[10px] pl-[19px] ${selectedItem?.value === item.value
+                  ? 'bg-black '
+                  : 'bg-black hover:bg-gray-100'
+                  }`}
+                onClick={() => handleSelectItem(item)}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}

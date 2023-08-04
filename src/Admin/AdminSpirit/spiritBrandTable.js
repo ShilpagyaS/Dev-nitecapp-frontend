@@ -9,13 +9,16 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { enUrl } from "@/utils/encoderfunc";
+import { getOutlets } from '@/store/slices/outlet';
 
 function SpiritBrandTable({ productId, subcategory }) {
     const router = useRouter();
     const { productsByCategory } = useSelector((state) => state.product)
+    const { outlets } = useSelector((state) => state.outlets)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
     const [AddModal, setAddModal] = useState(false)
+    const [outletIds, setOutletIds] = useState([])
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
@@ -24,11 +27,19 @@ function SpiritBrandTable({ productId, subcategory }) {
     useEffect(() => {
 
         dispatch(getProductByCategoryId('spirit', productId))
-
+        dispatch(getOutlets())
         return () => {
             dispatch(emptyProductList())
         }
     }, [])
+    useEffect(() => {
+        if (outlets.length > 0) {
+            let id = outlets.map((outlet) => { return outlet.outlet_id })
+            console.log([...id]);
+            setOutletIds([...id])
+        }
+    }, [outlets])
+
     console.log(productsByCategory);
     useEffect(() => {
         let dummy = productsByCategory?.map(
@@ -157,9 +168,9 @@ function SpiritBrandTable({ productId, subcategory }) {
                     type={'spirit'}
                     title={'Spirit'}
                     productId={productId}
-                    onSave={(data) => {
+                    onSave={(data, id) => {
                         let body = {}
-                        body = { ...data, category_id: productId, }
+                        body = { ...data, category_id: productId, outlet_id: [id] }
                         // return dispatch(createProductAndUpdatingList('spirit', body))
                         return dispatch(createProductAndUpdatingCAtegoryListNew('spirit', body, productId))
 
