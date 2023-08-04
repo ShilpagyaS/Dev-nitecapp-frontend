@@ -107,7 +107,7 @@ function FoodListTry() {
                 <p className="text-white text-[20px] font-semibold mb-5 capitalize">
                   {section.type || " "}
                 </p>
-                <div className="cards-container grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 mt-[10px]  ">
+                <div className="cards-container grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 mt-[10px]  ">
                   {section.data.sort((a, b) => {
                     const nameA = a.food_name.toLowerCase();
                     const nameB = b.food_name.toLowerCase();
