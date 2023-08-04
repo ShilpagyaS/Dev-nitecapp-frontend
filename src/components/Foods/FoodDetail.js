@@ -93,18 +93,20 @@ const FoodDetail = ({ id }) => {
                 <p className={`not-italic ${isRecipie ? 'text-primary-base ' : ''} font-semibold text-base font-Inter`}>Recipe</p>
               </div>
             </div> */}
-          {/* custom switch button */}
+            {/* custom switch button */}
             {/* <Customswitch first={isRecipie} setfirst={setRecipie} /> */}
 
           </div>
           <PriceGFVeganCAlContainer productDetails={productDetails} />
 
-          <p
-            className={`description text-[16px] leading-6 ${isMobile && "text-center"
-              }`}
-          >
-            {productDetails?.description}
-          </p>
+          <div className="notificationModal max-h-[600px] ">
+            <pre
+              className={`description text-[16px] leading-6 ${isMobile && "text-center"
+                }`}
+            >
+              {productDetails?.description}
+            </pre>
+          </div>
         </div>
       </div>
 

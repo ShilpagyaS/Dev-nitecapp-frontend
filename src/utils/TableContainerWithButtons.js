@@ -17,14 +17,13 @@ const items = [
 function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize, label, buttonFunction, deactivateadd }) {
     const isTablet = useMediaQuery("(max-width: 768px)");
     const router = useRouter();
-    // console.log(mockData, deactivateadd);
+
     const [ListData, setListData] = useState([])
     const [MainListData, setMainListData] = useState([])
     const [searchTerm, setSearch] = useState("")
     useEffect(() => {
         if (mockData != []) {
-            // console.log('mockkkkkkkk', mockData);
-            // setListData([...mockData])
+
             sortByDate('option2', [...mockData])
             setMainListData([...mockData])
         }
@@ -44,7 +43,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
         const end = start + pageSize;
         return ListData.slice(start, end)?.map((element, index) => (
             <tr key={index} className='md:h-[111px]'>
-                <td className='p-[25px] text-white'>{index + 1}</td>
+                <td className='p-[25px] text-white'>{element.indexnumber}</td>
 
                 <OuterRows element={element} />
 
@@ -89,23 +88,27 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
     };
     function sortByDate(value, dummyList) {
         let sortedItems;
+        let indexedSortedList
         console.log(value);
         if (value == 'option2') {
 
             sortedItems = [...dummyList].sort((b, a) => {
                 return new Date(a.createdDate) - new Date(b.createdDate)
             });
-            setListData(sortedItems)
+            indexedSortedList = sortedItems.map((data, i) => { return { ...data, indexnumber: i + 1 } })
+            setListData(indexedSortedList)
         }
         if (value == 'option3') {
 
             sortedItems = [...dummyList].sort((a, b) => {
                 return new Date(a.createdDate) - new Date(b.createdDate)
             });
-            setListData(sortedItems)
+            indexedSortedList = sortedItems.map((data, i) => { return { ...data, indexnumber: i + 1 } })
+            setListData(indexedSortedList)
         }
         if (value == 'option1') {
-            setListData(mockData)
+            indexedSortedList = mockData.map((data, i) => { return { ...data, indexnumber: i + 1 } })
+            setListData(indexedSortedList)
         }
         console.log(sortedItems);
     }
@@ -132,7 +135,7 @@ function TableContainerWithButtons({ OuterRows, HeaderArray, mockData, pageSize,
                             <div className='mr-[20px]'>
 
                                 <CustomSelect items={items} optionalFunction={(e) => { sortByDate(e.value, ListData) }} defaultSelect={items[0]} />
-               e             </div>
+                                e             </div>
 
                             <Search search={searchTerm} setSearch={(e) => { setSearch(e); filterData(e) }} />
                         </div>

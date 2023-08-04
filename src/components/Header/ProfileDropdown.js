@@ -10,13 +10,13 @@ import Link from "next/link";
 export default function ProfileDropdown(props) {
   const dispatch = useDispatch()
   return (
-    <div className=" w-fit h-fit z-50">
+    <div className=" w-fit h-fit">
       <Menu as="div" className="relative inline-block">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             {/* Options */}
             <ChevronDownIcon
-              className=" h-5 w-5 text-violet-200 hover:text-violet-100"
+              className=" h-5 w-5 text-violet-200 hover:text-violet-100 "
               aria-hidden="true"
             />
           </Menu.Button>

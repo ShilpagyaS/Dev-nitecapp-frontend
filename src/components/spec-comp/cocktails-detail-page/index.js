@@ -124,13 +124,14 @@ const CocktailDetailPage = ({ id }) => {
             }
           </ul> */}
           <PriceGFVeganCAlContainer productDetails={productDetails} />
-
-          <p
-            className={`description text-[16px] leading-6 ${isMobile && "text-center"
-              }`}
-          >
-            {productDetails?.description}
-          </p>
+          <div className="notificationModal max-h-[600px] ">
+            <pre
+              className={`description text-[16px] leading-6 ${isMobile && "text-center"
+                }`}
+            >
+              {productDetails?.description}
+            </pre>
+          </div>
         </div>
       </div>
       {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">

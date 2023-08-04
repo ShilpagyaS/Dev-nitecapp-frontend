@@ -95,7 +95,7 @@ function OnboardingForm() {
     validationSchema: Yup.object().shape({
       full_name: Yup.string().required('Full name is required'),
       phone: Yup.string(),
-      pronouns: Yup.string().required(),
+      //pronouns: Yup.string(),
       // role: Yup.string().required(),
     }),
   })

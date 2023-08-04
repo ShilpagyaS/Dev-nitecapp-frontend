@@ -100,12 +100,14 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           </ul> */}
           <PriceGFVeganCAlContainer productDetails={productDetails} />
 
-          <p
-            className={`description text-[16px] leading-6 ${isMobile && "text-center"
-              }`}
-          >
-            {productDetails?.description}
-          </p>
+          <div className="notificationModal max-h-[600px] ">
+            <pre
+              className={`description text-[16px] leading-6 ${isMobile && "text-center"
+                }`}
+            >
+              {productDetails?.description}
+            </pre>
+          </div>
         </div>
       </div>
       <div className="properties-container text-white mb-8">
