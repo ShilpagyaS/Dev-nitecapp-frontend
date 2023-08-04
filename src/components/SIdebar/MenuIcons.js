@@ -6,10 +6,10 @@ export function MenuIcon(menuOption, active) {
       <svg
         width="18"
         height="15"
-        viewBox="0 0 10 10"
+        viewBox="0 0 14 14"
         // fill={active ? "#F19B6C" : "#959595"}
         xmlns="http://www.w3.org/2000/svg"
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={`mt-[5px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
       >
         <path
           d="M0 0H5.28331V5.26827H0V0Z"
@@ -31,12 +31,12 @@ export function MenuIcon(menuOption, active) {
     ),
     Learn: (
       <svg
-        width="18"
-        height="15"
-        viewBox="0 0 10 10"
+        width="20"
+        height="20"
+        viewBox="0 0 14 14"
         // fill={active ? "bg-primary" : "#959595"}
         xmlns="http://www.w3.org/2000/svg"
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={`mt-[4px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
       >
         <path
           d="M1.00083 8.24551V9.19077C1.00083 9.19077 1.01848 9.20546 1.02439 9.19077C1.1716 8.84628 1.52498 8.71078 2.09341 8.71078L10.445 8.68426H10.5952V0H2.02575C1.45741 0 0.998047 0.444676 0.998047 0.992386"
@@ -55,7 +55,7 @@ export function MenuIcon(menuOption, active) {
         viewBox="0 0 14 15"
         // fill={active ? "#F19B6C" : "#959595"}
         xmlns="http://www.w3.org/2000/svg"
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={`mt-[5px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
       >
         <path
           d="M5.25886 10.8142V5.41128L9.75215 0.400391H0.199219L4.6925 5.41128V10.8142C3.33401 10.8753 2.27527 11.3702 2.27527 11.9718H7.67594C7.67594 11.3701 6.61703 10.8751 5.25871 10.8141L5.25886 10.8142Z"
@@ -66,11 +66,11 @@ export function MenuIcon(menuOption, active) {
     Brands: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="15"
-        viewBox="0 0 10 10"
+        width="22"
+        height="22"
+        viewBox="0 0 14 14"
         // fill={active ? "#F19B6C" : "#959595"}
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={`mt-[3px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
       >
         <path
           d="M6.76758 10.3301H9.75714C9.87076 10.3301 9.96371 10.2372 9.96371 10.1236V3.70414C9.96371 3.58844 9.87076 3.49756 9.75714 3.49756H6.76758V10.3301ZM7.43489 4.80349H9.29645C9.41007 4.80349 9.50303 4.89645 9.50303 5.01007C9.50303 5.12369 9.41007 5.21665 9.29645 5.21665H7.43489C7.32126 5.21665 7.22831 5.12369 7.22831 5.01007C7.22831 4.89645 7.32126 4.80349 7.43489 4.80349ZM7.43489 6.07203H9.29645C9.41007 6.07203 9.50303 6.16499 9.50303 6.27861C9.50303 6.39223 9.41007 6.48519 9.29645 6.48519H7.43489C7.32126 6.48519 7.22831 6.39223 7.22831 6.27861C7.22831 6.16499 7.32126 6.07203 7.43489 6.07203ZM7.43489 7.34066H9.29645C9.41007 7.34066 9.50303 7.43362 9.50303 7.54724C9.50303 7.66086 9.41007 7.75382 9.29645 7.75382H7.43489C7.32126 7.75382 7.22831 7.66086 7.22831 7.54724C7.22831 7.43362 7.32126 7.34066 7.43489 7.34066ZM7.43489 8.6092H9.29645C9.41007 8.6092 9.50303 8.70216 9.50303 8.81578C9.50303 8.92941 9.41007 9.02236 9.29645 9.02236H7.43489C7.32126 9.02236 7.22831 8.92941 7.22831 8.81578C7.22831 8.70216 7.32126 8.6092 7.43489 8.6092Z"
@@ -84,10 +84,10 @@ export function MenuIcon(menuOption, active) {
     ),
     'Manage Users': (
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20" viewBox="0 0 96.000000 96.000000"
+        width="22"
+        height="22" viewBox="0 0 14 14"
         preserveAspectRatio="xMidYMid meet"
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={`mt-[5px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
 
       >
 
@@ -115,7 +115,7 @@ export function MenuIcon(menuOption, active) {
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
         width="20" height="20" viewBox="0 0 500.000000 500.000000"
         preserveAspectRatio="xMidYMid meet"
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={` ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
 
       >
 
@@ -153,7 +153,7 @@ m395 -246 l0 -90 -160 0 -160 0 0 90 0 90 160 0 160 0 0 -90z"/>
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
         width="20" height="20" viewBox="0 0 500.000000 500.000000"
         preserveAspectRatio="xMidYMid meet"
-        className={`mr-2 ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
+        className={`mt-[2px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
 
       >
 
