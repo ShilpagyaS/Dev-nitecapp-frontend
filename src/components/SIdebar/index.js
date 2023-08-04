@@ -33,15 +33,15 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) 
               <>
                 <div className="flex items-center justify-between py-[12px] " key={ik}>
                   <div className="flex items-center w-full justify-between">
-                    <div className="flex">
-                      {MenuIcon(option.name, option.id === category)}
+                    <div className="flex  justify-center items-center">
+
 
                       <Link
                         href={`/${option.id}/`}
                         className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
-                          } text-[18px] leading-6 font-semibold `}
+                          } text-[18px]  font-semibold flex gap-2 `}
                       >
-                        {option.name}
+                        {MenuIcon(option.name, option.id === category)} {option.name}
                       </Link>
                     </div>
                     <div className={`${opensubmenu?.id === option.id ? '' : 'rotate-90 '} mr-4 transition-all cursor-pointer`}
