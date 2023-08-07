@@ -13,6 +13,7 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
         setIsSidebarVisible(!isSidebarVisible);
     };
     const [Collapse, setCollapse] = useState(false);
+    const [feedback, setFeedback] = useState(false);
     return (
         <div className="relative lg:max-w-[1440px] px-4 w-full h-screen overflow-hidden mx-auto">
             <Header handleDrawer={handleDrawer} user={user} />
@@ -27,7 +28,9 @@ function LayoutWithSidebarAdmin({ children, category, subcategory }) {
                 <div className={`lg:flex hidden h-[80vh]`}>
 
                     <SideBar category={category} subcategory={subcategory}
-                        menuOptions={menuOptions} setCollapse={setCollapse} Collapse={Collapse} />
+                        menuOptions={menuOptions} setCollapse={setCollapse} Collapse={Collapse}
+                        setFeedback={(() => { setFeedback(true) })}
+                    />
                 </div>
                 <div className=" mb-3 overflow-y-auto h-[80vh] pb-10 hidescrollbar ">
                     <Layout>{children}</Layout>

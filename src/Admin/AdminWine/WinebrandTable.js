@@ -159,7 +159,7 @@ function WinebrandTable({ productId, subcategory }) {
                     productId={productId}
                     onSave={(data, id) => {
                         let body = {}
-                        body = { ...data, category_id: productId, outlet_id: [id] }
+                        body = { ...data, category_id: productId, outlet_id: [...id]}
                         // return dispatch(createProductAndUpdatingList('wine', body))
                         return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body, productId))
                     }}

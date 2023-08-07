@@ -159,7 +159,7 @@ function LowAbvtable() {
                     onSave={(data, id) => {
                         // return dispatch(createProductAndUpdatingList('low_no_abv', data)) 
                         let body = {}
-                        body = { ...data, outlet_id: [id] }
+                        body = { ...data, outlet_id: [...id] }
                         return dispatch(createProductAndUpdatingListNew('low_no_abv', body))
                     }}
                 />

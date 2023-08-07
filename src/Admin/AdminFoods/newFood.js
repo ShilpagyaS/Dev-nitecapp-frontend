@@ -5,14 +5,15 @@ import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cockt
 import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
 import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
 import GenericCard from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/GenericCard';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProduct, getcategoriesbytype } from '@/store/slices/product';
 import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
-import { CustomSelectForBrands } from '@/utils/CustomSelect';
+import { CustomMultiselect, CustomSelectForBrands } from '@/utils/CustomSelect';
 import Image from 'next/image';
+import { getOutlets } from '@/store/slices/outlet';
 
 
 function AddFood({ subcategory }) {
@@ -45,6 +46,9 @@ function AddFood({ subcategory }) {
     const [price, setPrice] = useState(null)
     const [categoryArray, setcatarray] = useState([])
     const [category, setCategory] = useState({ category_id: '', category_name: '' })
+    const { outlets } = useSelector((state) => state.outlets)
+    const [outletArray, setOutletArray] = useState([])
+    const [outletIdSelected, setOutletIdSelected] = useState([])
 
     const dispatch = useDispatch()
 
@@ -58,6 +62,21 @@ function AddFood({ subcategory }) {
         console.log(newMockData);
 
     }, [newMockData])
+    useEffect(() => {
+        dispatch(getOutlets())
+    }, [])
+    useEffect(() => {
+        if (outlets.length > 0) {
+            let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
+            setOutletArray([...outletss])
+            // sedefaultvalue([outletss[0]])
+        }
+    }, [outlets])
+
+    useEffect(() => {
+        console.log('selected array', outletIdSelected);
+
+    }, [outletIdSelected])
     function addNewTitle(name) {
         setNewMockData(((prev) => {
             return {
@@ -69,6 +88,14 @@ function AddFood({ subcategory }) {
             }
         }))
 
+    }
+    function handleselected(outletId) {
+        if (outletIdSelected.includes(outletId)) {
+            setOutletIdSelected(outletIdSelected.filter((id) => id != outletId))
+        }
+        else {
+            setOutletIdSelected([...outletIdSelected, outletId])
+        }
     }
     function setType(title, type, desc, quantity) {
         let firstval = {}
@@ -316,6 +343,25 @@ function AddFood({ subcategory }) {
                                 <div className='input-desc flex flex-col ml-[25px]'>
                                     <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Food Category</h3>
                                     <CustomSelectForBrands items={[{ value: '', label: 'none' }, ...categoryArray]} optionalFunction={(e) => { console.log(e); setCategory({ category_id: e.value, category_name: e.label }) }} isclear={isSAve} />
+                                </div>
+                                <div className='flex flex-col justify-between w-[300px] ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px] mt-[3px]'>Select Outlet</h3>
+                                    <div>
+                                        <CustomMultiselect
+                                            // defaultSelect={[...defaultvalue]}
+                                            items={[...outletArray]}
+                                            optionalFunction={(isdefault, e) => {
+                                                console.log(e);
+                                                if (isdefault) {
+                                                    let ids = e.map((i) => i.value)
+                                                    setOutletIdSelected([...outletIdSelected, ...ids])
+                                                }
+                                                else
+                                                    handleselected(e.value)
+
+                                            }} />
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

@@ -6,13 +6,15 @@ import CocktailFileUpdate from './CocktailFileUpdate';
 import { AddGeneric, AddNewTitle } from '@/components/modal/adminmodal';
 import ChipWithLeftButton from '@/utils/ChipWithLeftButton';
 import GenericCard from './GenericCard';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '@/store/slices/product';
 import Breadcrumb from '@/components/Breadcrumb';
 import { uploadimage } from '@/store/slices/ui';
 import { successtoast, errortoast } from '@/components/tostify';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getOutlets } from '@/store/slices/outlet';
+import { CustomMultiselect, CustomSelectForBrandsfull } from '@/utils/CustomSelect';
 
 
 function EmptyUSerLayout() {
@@ -39,6 +41,10 @@ function EmptyUSerLayout() {
     });
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const { outlets } = useSelector((state) => state.outlets)
+    const [outletArray, setOutletArray] = useState([])
+    const [outletIdSelected, setOutletIdSelected] = useState([])
+    // const [defaultvalue, sedefaultvalue] = useState([])
     const textAreaRef = useRef(null);
     const [drinkName, setName] = useState('')
     const [abv, setabv] = useState('')
@@ -52,9 +58,33 @@ function EmptyUSerLayout() {
 
     // new generic approach
     useEffect(() => {
+        dispatch(getOutlets())
+    }, [])
+    useEffect(() => {
+        if (outlets.length > 0) {
+            let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
+            setOutletArray([...outletss])
+            // sedefaultvalue([outletss[0]])
+        }
+    }, [outlets])
+
+    useEffect(() => {
+        console.log('selected array',outletIdSelected);
+
+    }, [outletIdSelected])
+
+    useEffect(() => {
         console.log(newMockData);
 
     }, [newMockData])
+    function handleselected(outletId) {
+        if (outletIdSelected.includes(outletId)) {
+            setOutletIdSelected(outletIdSelected.filter((id) => id != outletId))
+        }
+        else {
+            setOutletIdSelected([...outletIdSelected, outletId])
+        }
+    }
     function addNewTitle(name) {
         setNewMockData(((prev) => {
             return {
@@ -307,6 +337,26 @@ function EmptyUSerLayout() {
                                     <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>Enter Alcohol percentage</h3>
                                     <input className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] rounded outline-none focus:outline-none pr-[5px]'
                                         value={abv || ''} onChange={(e) => { handleChange(e, setabv) }} />
+
+                                </div>
+                                <div className='flex flex-col justify-between w-[300px] ml-[25px]'>
+                                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px] mt-[3px]'>Select Outlet</h3>
+                                    <div>
+
+                                        <CustomMultiselect
+                                            // defaultSelect={[...defaultvalue]}
+                                            items={[...outletArray]}
+                                            optionalFunction={(isdefault, e) => {
+                                                console.log(e);
+                                                if (isdefault) {
+                                                    let ids = e.map((i) => i.value)
+                                                    setOutletIdSelected([...outletIdSelected, ...ids])
+                                                }
+                                                else
+                                                    handleselected(e.value)
+
+                                            }} />
+                                    </div>
 
                                 </div>
                             </div>

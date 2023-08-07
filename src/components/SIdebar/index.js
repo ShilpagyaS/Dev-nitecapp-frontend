@@ -5,7 +5,7 @@ import { MenuIcon } from "./MenuIcons";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) {
+function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse ,setFeedback }) {
   const router = useRouter();
   const [opensubmenu, setsubmenu] = useState(null)
   useEffect(() => {
@@ -110,6 +110,8 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse }) 
               </>
             );
           })}</>}
+
+        <h1 className="text-primary-base cursor-pointer font-semibold w-full ml-[28px]  " onClick={() => { }}> Feedback</h1>
       </div>
     </>
   );

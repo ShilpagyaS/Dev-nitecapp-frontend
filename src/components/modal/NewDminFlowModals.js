@@ -3,7 +3,7 @@ import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
 import NotificationCard from '@/utils/Cards/NotificationCard';
 import { _INITIAL } from '@/utils/Constants';
-import CustomSelect, { CustomSelectForBrands, CustomSelectForBrandsfull, CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
+import CustomSelect, { CustomMultiselect, CustomMultiselectBlack, CustomSelectForBrands, CustomSelectForBrandsfull, CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
 import SelectWithDebounce from '@/utils/DebounceSelect';
 import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
 import SearchCategoryDebounce from '@/utils/SearchCategory';
@@ -47,7 +47,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
     const { outlets } = useSelector((state) => state.outlets)
     const [selectedItem, setSelectedItem] = useState({ label: '', value: '', image: '', body: {} })
     const [outletArray, setOutletArray] = useState([])
-    const [outletIdSelected, setOutletIdSelected] = useState(1)
+    const [outletIdSelected, setOutletIdSelected] = useState([])
     const [isClear, SetClear] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -70,6 +70,14 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
 
 
     };
+    function handleselected(outletId) {
+        if (outletIdSelected.includes(outletId)) {
+            setOutletIdSelected(outletIdSelected.filter((id) => id != outletId))
+        }
+        else {
+            setOutletIdSelected([...outletIdSelected, outletId])
+        }
+    }
 
     const handleSave = () => {
         let body = selectedItem
@@ -90,6 +98,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
     function clearForm() {
         setSelectedItem({ label: '', value: '', image: '', body: {} })
         SetClear(true)
+        setOutletIdSelected([])
         setTimeout(() => {
             SetClear(false)
         }, 500);
@@ -106,16 +115,25 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             </div>
 
             <div className='h-[300px] mb-[10px] notificationModal'>
-                <div className='w-full'>
-                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Select Outlet</h6>
+                <div className='flex flex-col justify-between w-full'>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px] mt-[3px]'>Select Outlet</h3>
+                    <div>
 
-                    <CustomSelectForBrandsfull
-                        items={[...outletArray]}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            setOutletIdSelected(e.value)
+                        <CustomMultiselectBlack
+                            // defaultSelect={[...defaultvalue]}
+                            items={[...outletArray]}
+                            isclear={isClear}
+                            optionalFunction={(isdefault, e) => {
+                                console.log(e);
+                                if (isdefault) {
+                                    let ids = e.map((i) => i.value)
+                                    setOutletIdSelected([...outletIdSelected, ...ids])
+                                }
+                                else
+                                    handleselected(e.value)
 
-                        }} />
+                            }} />
+                    </div>
 
                 </div>
                 {!productId && <SearchProductDebounce
