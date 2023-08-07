@@ -58,7 +58,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
             setOutletArray([...outletss])
         }
-    }, [])
+    }, [outlets])
 
     function onItemSelect(data) {
         console.log(data);
