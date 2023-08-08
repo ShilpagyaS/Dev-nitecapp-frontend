@@ -202,6 +202,7 @@ function AddFood({ subcategory }) {
             vegan: vegan,
             calories: calories,
             category_id: category.category_id,
+            outlet_id: [...outletIdSelected]
 
 
         }
@@ -259,6 +260,7 @@ function AddFood({ subcategory }) {
         setgf(null)
         setVegan(null)
         setCal(null)
+        setOutletIdSelected([])
         setTimeout(() => {
 
             setSaved(false)
@@ -349,6 +351,7 @@ function AddFood({ subcategory }) {
                                     <div>
                                         <CustomMultiselect
                                             // defaultSelect={[...defaultvalue]}
+                                            isclear={isSAve}
                                             items={[...outletArray]}
                                             optionalFunction={(isdefault, e) => {
                                                 console.log(e);

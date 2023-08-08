@@ -194,7 +194,8 @@ function AddCoffee({ subcategory }) {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            outlet_id: [...outletIdSelected]
 
 
         }
@@ -264,6 +265,7 @@ function AddCoffee({ subcategory }) {
         setgf(null)
         setVegan(null)
         setCal(null)
+        setOutletIdSelected([])
         setTimeout(() => {
 
             setSaved(false)
@@ -345,6 +347,7 @@ function AddCoffee({ subcategory }) {
 
                                         <CustomMultiselect
                                             // defaultSelect={[...defaultvalue]}
+                                            isclear={isSAve}
                                             items={[...outletArray]}
                                             optionalFunction={(isdefault, e) => {
                                                 console.log(e);

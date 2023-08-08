@@ -404,7 +404,7 @@ export function CustomMultiselectBlack({ items, optionalFunction, defaultSelect,
   return (
     <div className="relative min-w-[201px] h-[50px]">
       <button
-        className="w-full py-[8px] pl-[28px] pr-[28px] h-[44px] truncate text-white bg-transparent border border-[#2C2C2C] rounded shadow-sm capitalize outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
+        className="w-full py-[8px] pl-[28px] pr-[28px] h-[44px] rounded-[10px] truncate text-white bg-transparent border border-[#2C2C2C] shadow-sm capitalize outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
         onClick={handleToggleDropdown}
       >
         {/* {selectedItem ? selectedItem.label : <span className='text-[#767676] bg-transparent'>

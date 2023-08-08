@@ -69,7 +69,7 @@ function EmptyUSerLayout() {
     }, [outlets])
 
     useEffect(() => {
-        console.log('selected array',outletIdSelected);
+        console.log('selected array', outletIdSelected);
 
     }, [outletIdSelected])
 
@@ -200,7 +200,8 @@ function EmptyUSerLayout() {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            outlet_id: [...outletIdSelected]
 
 
         }
@@ -258,6 +259,7 @@ function EmptyUSerLayout() {
         setVegan(null)
         setCal(null)
         setSaved(true)
+        setOutletIdSelected([])
         setTimeout(() => {
 
             setSaved(false)
@@ -345,6 +347,7 @@ function EmptyUSerLayout() {
 
                                         <CustomMultiselect
                                             // defaultSelect={[...defaultvalue]}
+                                            isclear={isSAve}
                                             items={[...outletArray]}
                                             optionalFunction={(isdefault, e) => {
                                                 console.log(e);
