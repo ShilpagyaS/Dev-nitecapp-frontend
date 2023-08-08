@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton, OrangeButtons } from "@/utils/Buttons";
 import { RectangularCard } from "@/utils/SpecCards";
@@ -14,12 +14,14 @@ import { whatsthestrength } from "@/utils/abvfinder";
 import { addNoteDetails, emptyNotesList, getNoteDetails, updateNoteDetails } from "@/store/slices/notes";
 import Notes from "../notesComp/notes";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
+import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
 
 const SpecsDetailPage = ({ id, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
 
 
   const dispatch = useDispatch()
+  const textAreaRef = useRef()
   useEffect(() => {
     dispatch(getProductById(subcategory, id))
     return () => {
@@ -100,14 +102,12 @@ const SpecsDetailPage = ({ id, subcategory }) => {
           </ul> */}
           <PriceGFVeganCAlContainer productDetails={productDetails} />
 
-          <div className="notificationModal max-h-[600px] ">
-            <pre
+          <p
               className={`description text-[16px] leading-6 ${isMobile && "text-center"
                 }`}
             >
-              {productDetails?.description}
-            </pre>
-          </div>
+              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={false} content={productDetails.description || ''} />
+            </p>
         </div>
       </div>
       <div className="properties-container text-white mb-8">
