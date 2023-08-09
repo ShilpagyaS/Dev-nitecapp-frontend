@@ -6,7 +6,7 @@ const initialState = {
     userList: [],
     adminsList: [],
     allUsers: [],
-    userDetails: {}
+    userDetails: {},
 };
 export const manageUsersSlice = createSlice({
     name: "manageUsers",
@@ -155,6 +155,22 @@ export const sendEmail = (data) => {
             method: "POST",
             data
         }).then((res) => {
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const sendFeedback = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/feedback/add_new_feedback`,
+            method: "POST",
+            data
+        }).then((res) => {
+            successtoast({ message: 'Feedback Sent' })
             return res
         }).catch((err) => {
             console.log(err)

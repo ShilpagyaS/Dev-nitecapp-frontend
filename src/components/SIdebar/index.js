@@ -110,8 +110,10 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse, se
               </>
             );
           })}</>}
-
-        <h1 className="text-primary-base cursor-pointer font-semibold w-full ml-[28px]  " onClick={() => { setFeedback() }}> Feedback</h1>
+        {!Collapse && <>
+          <h1 className="text-primary-base cursor-pointer font-semibold w-full ml-[28px] absolute left-2 bottom-5 " onClick={() => { setFeedback() }}> Feedback</h1>
+        </>
+        }
       </div>
     </>
   );

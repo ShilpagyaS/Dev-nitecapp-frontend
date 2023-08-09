@@ -1,4 +1,4 @@
-import { getAllusers, getRoles, getUserRoles, sendEmail } from '@/store/slices/manageusers';
+import { getAllusers, getRoles, getUserRoles, sendEmail, sendFeedback } from '@/store/slices/manageusers';
 import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
 import NotificationCard from '@/utils/Cards/NotificationCard';
@@ -1942,7 +1942,7 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
         </Modal >
     )
 }
-export function AddFeedbackModal({ isModalOpen, onClickCancel, onSave, id,  }) {
+export function AddFeedbackModal({ isModalOpen, onClickCancel, onSave, id, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -1956,17 +1956,18 @@ export function AddFeedbackModal({ isModalOpen, onClickCancel, onSave, id,  }) {
             padding: "24px",
             maxWidth: "480px",
             width: "90%",
-            
+
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
             backdropFilter: "blur(2.5px)",
-            zIndex:'2147483647'
+            zIndex: '2147483647'
         },
     };
     const [input1, setinput1] = useState("")
     const [input2, setinput2] = useState("")
     const [isfocused, setisFocused] = useState(false);
+    const dispatch = useDispatch()
     const handleCancel = () => {
         console.log('text cancel');
         onClickCancel();
@@ -1978,24 +1979,21 @@ export function AddFeedbackModal({ isModalOpen, onClickCancel, onSave, id,  }) {
 
         let body
         body = {
-            title: input1,
-            message: input2,
+            subject: input1,
+            description: input2,
             // userList: dummyArray,
         }
-        console.log(body);
-        onSave(body).then((res) => {
+        dispatch(sendFeedback(body)).then((res) => {
+            console.log(res);
+            console.log('else');
             res?.error ?
                 // errortoast({ message: res.message }) 
                 ''
-                : successtoast({ message: `Notification Sent` });
-            if (!res?.error) {
+                : onClickCancel()
 
-                onClickCancel();
-                closeMain()
-                setinput1("");
-                setinput2("");
-            }
         })
+
+        console.log(body);
 
     };
     return (
