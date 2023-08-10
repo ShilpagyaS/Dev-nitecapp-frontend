@@ -35,7 +35,7 @@ function InputField({
       >
         {label}
       </h5>
-      <div className={`flex relative items-center border border-solid border-[#3C3C3C] rounded-[9px]  px-2 ${fullwidth ? `w-full` : `min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px] focus:ring-offset-white focus:ring-1`}`}>
+      <div className={`flex relative ${isDisabled && 'bg-[#202020]'} items-center border border-solid border-[#3C3C3C] rounded-[9px]  px-2 ${fullwidth ? `w-full` : `min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px] focus:ring-offset-white focus:ring-1`}`}>
         <input
           className={`box-border ${isDisabled && 'bg-[#202020]'} py-[6px] pr-[13px] pl-[16px]  h-[50px]  w-full  text-white font-Inter not-italic font-normal text-[14px]  placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none 
         ${!touched && !error
