@@ -61,7 +61,7 @@ const HotelBrandDetail = ({ productType, productId }) => {
             {outletDetails?.floor_image &&
                 <div className="w-full flex justify-end">
                     <div className="relative w-full aspect-[16/9]">
-                        <Image src={outletDetails?.floor_image} fill className="object-cover rounded-[10px]" />
+                        <Image src={outletDetails?.floor_image} fill className="object-contain rounded-[10px]" />
                     </div>
                 </div>
             }

@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 function AdminSpecs() {
     const [AddModal, setAddModal] = useState(false)
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     return (
         <>
             {AddModal &&

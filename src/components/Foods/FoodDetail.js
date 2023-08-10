@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton, OrangeButtons } from "@/utils/Buttons";
 import { RectangularCard } from "@/utils/SpecCards";
@@ -18,6 +18,7 @@ import { whatsthestrength } from "@/utils/abvfinder";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 import IngredientSwitch from "@/utils/IngredientSwitch";
 import Customswitch from "@/utils/customswitch";
+import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
 
 const FoodDetail = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -25,6 +26,7 @@ const FoodDetail = ({ id }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isRecipie, setRecipie] = useState(false)
+  const textAreaRef = useRef()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProductById('food', id))
@@ -99,14 +101,12 @@ const FoodDetail = ({ id }) => {
           </div>
           <PriceGFVeganCAlContainer productDetails={productDetails} />
 
-          <div className="notificationModal max-h-[600px] ">
-            <pre
+          <p
               className={`description text-[16px] leading-6 ${isMobile && "text-center"
                 }`}
             >
-              {productDetails?.description}
-            </pre>
-          </div>
+              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={false} content={productDetails.description || ''} />
+            </p>
         </div>
       </div>
 

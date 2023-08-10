@@ -1,9 +1,9 @@
-import { getAllusers, getRoles, sendEmail } from '@/store/slices/manageusers';
+import { getAllusers, getRoles, getUserRoles, sendEmail, sendFeedback } from '@/store/slices/manageusers';
 import { emptyAllOutlet, getOutlets } from '@/store/slices/outlet';
 import { getUnitOFMeasure } from '@/store/slices/product';
 import NotificationCard from '@/utils/Cards/NotificationCard';
 import { _INITIAL } from '@/utils/Constants';
-import CustomSelect, { CustomSelectForBrands, CustomSelectForBrandsfull, CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
+import CustomSelect, { CustomMultiselect, CustomMultiselectBlack, CustomSelectForBrands, CustomSelectForBrandsfull, CustomSelectWithAllBlackTheme } from '@/utils/CustomSelect';
 import SelectWithDebounce from '@/utils/DebounceSelect';
 import InputFieldWirhAutoWidth from '@/utils/InputFieldWithAutoWidth';
 import SearchCategoryDebounce from '@/utils/SearchCategory';
@@ -47,7 +47,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
     const { outlets } = useSelector((state) => state.outlets)
     const [selectedItem, setSelectedItem] = useState({ label: '', value: '', image: '', body: {} })
     const [outletArray, setOutletArray] = useState([])
-    const [outletIdSelected, setOutletIdSelected] = useState(1)
+    const [outletIdSelected, setOutletIdSelected] = useState([])
     const [isClear, SetClear] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -58,7 +58,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
             setOutletArray([...outletss])
         }
-    }, [])
+    }, [outlets])
 
     function onItemSelect(data) {
         console.log(data);
@@ -70,6 +70,14 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
 
 
     };
+    function handleselected(outletId) {
+        if (outletIdSelected.includes(outletId)) {
+            setOutletIdSelected(outletIdSelected.filter((id) => id != outletId))
+        }
+        else {
+            setOutletIdSelected([...outletIdSelected, outletId])
+        }
+    }
 
     const handleSave = () => {
         let body = selectedItem
@@ -90,6 +98,7 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
     function clearForm() {
         setSelectedItem({ label: '', value: '', image: '', body: {} })
         SetClear(true)
+        setOutletIdSelected([])
         setTimeout(() => {
             SetClear(false)
         }, 500);
@@ -106,16 +115,25 @@ export function AddItemModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ti
             </div>
 
             <div className='h-[300px] mb-[10px] notificationModal'>
-                <div className='w-full'>
-                    <h6 className="text-sm text-[#929292] mt-4 mb-2">Select Outlet</h6>
+                <div className='flex flex-col justify-between w-full'>
+                    <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px] mt-[3px]'>Select Outlet</h3>
+                    <div>
 
-                    <CustomSelectForBrandsfull
-                        items={[...outletArray]}
-                        optionalFunction={(e) => {
-                            console.log(e);
-                            setOutletIdSelected(e.value)
+                        <CustomMultiselectBlack
+                            // defaultSelect={[...defaultvalue]}
+                            items={[...outletArray]}
+                            isclear={isClear}
+                            optionalFunction={(isdefault, e) => {
+                                console.log(e);
+                                if (isdefault) {
+                                    let ids = e.map((i) => i.value)
+                                    setOutletIdSelected([...outletIdSelected, ...ids])
+                                }
+                                else
+                                    handleselected(e.value)
 
-                        }} />
+                            }} />
+                    </div>
 
                 </div>
                 {!productId && <SearchProductDebounce
@@ -945,6 +963,8 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     const [input2, setinput2] = useState("")
     const [enableOption, setEnableOption] = useState(false);
     const [roles, setroles] = useState([])
+    const [userroles, setUserRoles] = useState([])
+    const [UserRolSelected, setUserRolSelected] = useState([])
     const [outletsList, setoutles] = useState([])
     const [outletdetails, setOutletDetail] = useState({})
     const [testvalue, settestvalue] = useState({ label: "", value: "" })
@@ -953,6 +973,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     useEffect(() => {
         dispatch(getOutlets())
         dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setroles(d) })
+        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
         return () => dispatch(emptyAllOutlet())
 
     }, [])
@@ -962,6 +983,9 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
         console.log(dummy);
         setoutles(dummy)
     }, [outlets])
+    useEffect(() => {
+        console.log('userrole selected', UserRolSelected);
+    }, [UserRolSelected])
 
 
     const [brandForm, setBrandForm] = useState(
@@ -985,7 +1009,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
 
     const handleSave = () => {
         let dummydata = brandForm
-        if (brandForm.role > 4)
+        if (brandForm.role > 4 && brandForm.role != 6)
             dummydata = {
                 full_name: brandForm.displayname,
                 email: brandForm.email,
@@ -996,15 +1020,38 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                 hotel_id: brandForm.hotel,
                 pronouns: brandForm.pronouns
             }
-        else
-            dummydata = {
-                full_name: brandForm.displayname,
-                email: brandForm.email,
-                phone: brandForm.phone,
-                password: brandForm.password,
-                role_id: brandForm.role,
-                pronouns: brandForm.pronouns
+        else {
+            if (brandForm.role == 6) {
+                console.log('inside 6');
+                dummydata = {
+                    full_name: brandForm.displayname,
+                    email: brandForm.email,
+                    phone: brandForm.phone,
+                    password: brandForm.password,
+                    role_id: brandForm.role,
+                    outlet_id: brandForm.outlet,
+                    hotel_id: brandForm.hotel,
+                    pronouns: brandForm.pronouns,
+                    user_role_list: UserRolSelected.length > 0 ? UserRolSelected.map((roleselected) => {
+                        return {
+                            user_role_id: roleselected.value,
+                            user_role_name: roleselected.label
+                        }
+                    })
+                        :
+                        []
+                }
             }
+            else
+                dummydata = {
+                    full_name: brandForm.displayname,
+                    email: brandForm.email,
+                    phone: brandForm.phone,
+                    password: brandForm.password,
+                    role_id: brandForm.role,
+                    pronouns: brandForm.pronouns
+                }
+        }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
             res?.error ?
@@ -1036,6 +1083,15 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                 [name]: value,
             };
         });
+    }
+    function handleselected(userRoleSelect) {
+        console.log('userrole', userRoleSelect);
+        if (UserRolSelected.some((obj) => obj.value === userRoleSelect.value)) {
+            setUserRolSelected(UserRolSelected.filter((id) => id.value != userRoleSelect.value))
+        }
+        else {
+            setUserRolSelected([...UserRolSelected, userRoleSelect])
+        }
     }
     return (
         <Modal
@@ -1097,6 +1153,9 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                         optionalFunction={(e) => {
                             console.log(e);
                             setBrandForm(prev => { return { ...prev, role: e.value } })
+                            if (e.value < 6) {
+                                setUserRolSelected([])
+                            }
                         }} />
                 </div>
                 {/* <InputFieldWirhAutoWidth
@@ -1127,6 +1186,32 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
                                     console.log(e);
                                     setBrandForm(prev => { return { ...prev, outlet: e.value, hotel: e.hotel_id } })
                                 }} />
+                        </div>
+                    </>
+                }
+                {
+                    parseInt(brandForm.role) == 6 &&
+                    <>
+                        <div className='flex flex-col justify-between w-full'>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px] mt-[3px]'>User Roles</h3>
+                            <div>
+
+                                <CustomMultiselectBlack
+                                    // defaultSelect={[...defaultvalue]}
+                                    items={[...userroles]}
+                                    // isclear={isClear}
+                                    optionalFunction={(isdefault, e) => {
+                                        console.log(e);
+                                        // if (isdefault) {
+
+                                        //     setOutletIdSelected([...outletIdSelected, ...ids])
+                                        // }
+                                        // else
+                                        handleselected(e)
+
+                                    }} />
+                            </div>
+
                         </div>
                     </>
                 }
@@ -1200,6 +1285,9 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
     const [enableOption, setEnableOption] = useState(false);
     const [roles, setroles] = useState([])
     const [outletsList, setoutles] = useState([])
+    const [defaultUserRoles, setDefaultUserRoles] = useState([])
+    const [userroles, setUserRoles] = useState([])
+    const [UserRolSelected, setUserRolSelected] = useState([])
     const [outletdetails, setOutletDetail] = useState({})
     const [testvalue, settestvalue] = useState({ label: "", value: "" })
     const { outlets } = useSelector((state) => state.outlets)
@@ -1208,6 +1296,18 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
         console.log(data);
         dispatch(getOutlets())
         dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); console.log(d); setroles(d) })
+        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+        console.log('d value data', data);
+        if (data?.user_roles && data?.user_roles.length > 0) {
+            let d = data?.user_roles.map((role) => {
+                return {
+                    value: role.user_role_id,
+                    label: role.user_role_name
+                }
+            })
+            console.log('d value', d);
+            setDefaultUserRoles([...d])
+        }
         return () => dispatch(emptyAllOutlet())
 
     }, [])
@@ -1239,7 +1339,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
 
     const handleSave = () => {
         let dummydata
-        if (brandForm.role > 4)
+        if (brandForm.role > 4 && brandForm.role != 6)
             dummydata = {
                 user_id: data?.id,
                 full_name: brandForm.displayname,
@@ -1250,13 +1350,33 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                 hotel_id: brandForm.hotel
             }
         else
-            dummydata = {
-                user_id: data?.id,
-                full_name: brandForm.displayname,
-                phone: brandForm.phone,
-                pronouns: brandForm.pronouns,
-                role: brandForm.role,
+            if (brandForm.role == 6) {
+                dummydata = {
+                    user_id: data?.id,
+                    full_name: brandForm.displayname,
+                    phone: brandForm.phone,
+                    pronouns: brandForm.pronouns,
+                    role: brandForm.role,
+                    outlet_id: brandForm.outlet,
+                    hotel_id: brandForm.hotel,
+                    user_role_list: UserRolSelected.length > 0 ? UserRolSelected.map((roleselected) => {
+                        return {
+                            user_role_id: roleselected.value,
+                            user_role_name: roleselected.label
+                        }
+                    })
+                        :
+                        []
+                }
             }
+            else
+                dummydata = {
+                    user_id: data?.id,
+                    full_name: brandForm.displayname,
+                    phone: brandForm.phone,
+                    pronouns: brandForm.pronouns,
+                    role: brandForm.role,
+                }
         console.log(dummydata);
         onSave(dummydata).then((res) => {
             res?.error ?
@@ -1272,6 +1392,15 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
     };
     function clearForm() {
 
+    }
+    function handleselected(userRoleSelect) {
+        console.log('userrole', userRoleSelect);
+        if (UserRolSelected.some((obj) => obj.value === userRoleSelect.value)) {
+            setUserRolSelected(UserRolSelected.filter((id) => id.value != userRoleSelect.value))
+        }
+        else {
+            setUserRolSelected([...UserRolSelected, userRoleSelect])
+        }
     }
     function handleChange(e) {
         const { name, value } = e.target;
@@ -1391,6 +1520,32 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
                                     }} />
                             </div>
                         } */}
+                    </>
+                }
+                {
+                    parseInt(brandForm.role) == 6 &&
+                    <>
+                        <div className='flex flex-col justify-between w-full'>
+                            <h3 className='not-italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px] mt-[3px]'>User Roles</h3>
+                            <div>
+
+                                <CustomMultiselectBlack
+                                    defaultSelect={[...defaultUserRoles]}
+                                    items={[...userroles]}
+                                    // isclear={isClear}
+                                    optionalFunction={(isdefault, e) => {
+                                        console.log(e);
+                                        if (isdefault) {
+
+                                            setUserRolSelected([...UserRolSelected, ...e])
+                                        }
+                                        else
+                                            handleselected(e)
+
+                                    }} />
+                            </div>
+
+                        </div>
                     </>
                 }
                 {/* <InputFieldWirhAutoWidth
@@ -1785,5 +1940,121 @@ export function AddGuest({ isModalOpen, onClickCancel, onSave, deleteBtn, title,
                 </div>
             </form>
         </Modal >
+    )
+}
+export function AddFeedbackModal({ isModalOpen, onClickCancel, onSave, id, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+            zIndex: '2147483647'
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [isfocused, setisFocused] = useState(false);
+    const dispatch = useDispatch()
+    const handleCancel = () => {
+        console.log('text cancel');
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    const handleSave = () => {
+
+        let body
+        body = {
+            subject: input1,
+            description: input2,
+            // userList: dummyArray,
+        }
+        dispatch(sendFeedback(body)).then((res) => {
+            console.log(res);
+            console.log('else');
+            res?.error ?
+                // errortoast({ message: res.message }) 
+                ''
+                : onClickCancel()
+
+        })
+
+        console.log(body);
+
+    };
+    return (
+        <>
+            <Modal
+                isOpen={isModalOpen}
+                contentLabel="Example Modal"
+                ariaHideApp={false}
+                style={customStyles}
+            >
+                <div className="text-white border-none outline-none w-full flex items-center justify-center ">
+                    <h4 className="text-[32px] not-italic font-normal font-Prata mb-[20px]">{`Feedback`}</h4>
+                </div>
+                <div className='max-h-[456px]' >
+                    {/* <NotificationCard /> */}
+                    {/* <div className='flex items-center justify-end w-full cursor-pointer' onClick={() => { setEdit(true) }}>
+                        <p className='italic font-semibold bg-transparent text-left text-[13px] text-primary-base '>You have added {selectedUsers?.length} users for notification click here to see all</p>
+
+                    </div> */}
+                    <InputFieldWirhAutoWidth
+                        placeholder=""
+                        label="Subject"
+                        onChangeHandler={(e) => { setinput1(e.target.value) }}
+                        value={input1}
+                        name={"title"}
+                        type={"text"}
+                        errorResponnse={_INITIAL}
+                    />
+                    <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                        <h5
+                            className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
+                                ? "text-[#959595]"
+                                : "text-white"
+
+                                }`}
+                        >
+                            Feedback
+                        </h5>
+
+                        <textarea className={`notificationModal h-[200px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
+                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
+                     appearance-none`}
+                            value={input2}
+                            onChange={(e) => { setinput2(e.target.value) }} style={{ resize: 'none' }}
+                            onFocus={(e) => {
+                                setisFocused(true);
+                            }}
+                            onBlur={(e) => {
+                                setisFocused(false);
+                            }}
+                        />
+                    </div>
+                    <div className='btncontainers flex items-center justify-between mt-[20px] '>
+                        <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                        <div className='ml-[24px]'>
+                            <ConditionalButton label={'Send'} condition={(input1 != "" && input2 != "") ? true : false} onClickHandler={handleSave} />
+                        </div>
+
+                    </div>
+                </div>
+            </Modal>
+        </>
     )
 }

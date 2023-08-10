@@ -49,7 +49,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     itemImage: element.image,
                     itemName: element.spirit_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -170,7 +170,7 @@ function SpiritBrandTable({ productId, subcategory }) {
                     productId={productId}
                     onSave={(data, id) => {
                         let body = {}
-                        body = { ...data, category_id: productId, outlet_id: [id] }
+                        body = { ...data, category_id: productId, outlet_id: [...id] }
                         // return dispatch(createProductAndUpdatingList('spirit', body))
                         return dispatch(createProductAndUpdatingCAtegoryListNew('spirit', body, productId))
 

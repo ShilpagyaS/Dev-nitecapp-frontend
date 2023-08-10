@@ -6,7 +6,7 @@ const initialState = {
     userList: [],
     adminsList: [],
     allUsers: [],
-    userDetails: {}
+    userDetails: {},
 };
 export const manageUsersSlice = createSlice({
     name: "manageUsers",
@@ -110,6 +110,26 @@ export const getRoles = () => {
         });
     };
 };
+export const getUserRoles = () => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        return await axiosInstance({
+            url: `/api/user_role/get_all_user_role`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in category,js 47", res);
+            const finaldata = res?.data?.data?.map((i) => {
+                return {
+                    value: i.id,
+                    label: i.name
+                }
+            })
+            return finaldata
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+};
 export const createUserAndUpdateList = (data) => {
     return async (dispatch) => {
 
@@ -135,6 +155,22 @@ export const sendEmail = (data) => {
             method: "POST",
             data
         }).then((res) => {
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+};
+export const sendFeedback = (data) => {
+    return async (dispatch) => {
+
+        return await axiosInstance({
+            url: `/api/feedback/add_new_feedback`,
+            method: "POST",
+            data
+        }).then((res) => {
+            successtoast({ message: 'Feedback Sent' })
             return res
         }).catch((err) => {
             console.log(err)

@@ -38,7 +38,7 @@ function LowAbvtable() {
                     itemImage: element.image,
                     itemName: element.low_no_abv_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -159,7 +159,7 @@ function LowAbvtable() {
                     onSave={(data, id) => {
                         // return dispatch(createProductAndUpdatingList('low_no_abv', data)) 
                         let body = {}
-                        body = { ...data, outlet_id: [id] }
+                        body = { ...data, outlet_id: [...id] }
                         return dispatch(createProductAndUpdatingListNew('low_no_abv', body))
                     }}
                 />

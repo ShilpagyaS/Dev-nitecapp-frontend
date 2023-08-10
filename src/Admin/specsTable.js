@@ -39,7 +39,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.cocktail_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'cocktail'
@@ -58,7 +58,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.beer_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'beer'
@@ -96,7 +96,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.wine_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet?.length > 1 ? `${element?.outlet?.length} Outlets` : element?.outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'wine'
@@ -115,7 +115,7 @@ function SpecsTable() {
                     itemImage: element.image,
                     itemName: element.low_no_abv_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                     type: 'low_no_abv'

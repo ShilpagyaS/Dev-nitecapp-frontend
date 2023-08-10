@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "@/Hooks/useMediaQuery";
 import { CustomButton, OrangeButtons } from "@/utils/Buttons";
 import { RectangularCard } from "@/utils/SpecCards";
@@ -18,6 +18,7 @@ import VideoModal from "@/components/modal/videoModal";
 import ReactPlayer from "react-player";
 import { whatsthestrength } from "@/utils/abvfinder";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
+import DescriptionTextArea from "@/utils/Cards/Text card/DescriptionTextArea";
 
 const CoffeeDetailPage = ({ id }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -26,6 +27,7 @@ const CoffeeDetailPage = ({ id }) => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const dispatch = useDispatch()
+  const textAreaRef = useRef()
   useEffect(() => {
     dispatch(getProductById('coffee', id))
     return () => {
@@ -117,14 +119,12 @@ const CoffeeDetailPage = ({ id }) => {
           </ul> */}
           <PriceGFVeganCAlContainer productDetails={productDetails} />
 
-          <div className="notificationModal max-h-[600px] ">
-            <pre
+          <p
               className={`description text-[16px] leading-6 ${isMobile && "text-center"
                 }`}
             >
-              {productDetails?.description}
-            </pre>
-          </div>
+              <DescriptionTextArea textAreaRef={textAreaRef} isEdit={false} content={productDetails.description || ''} />
+            </p>
         </div>
       </div>
       {(productDetails?.ingredients?.values?.length > 0 && productDetails?.showIngredients) && <div className="ingridients-container mb-[16px] ">

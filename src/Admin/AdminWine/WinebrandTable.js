@@ -38,7 +38,7 @@ function WinebrandTable({ productId, subcategory }) {
                     itemImage: element.image,
                     itemName: element.wine_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -159,7 +159,7 @@ function WinebrandTable({ productId, subcategory }) {
                     productId={productId}
                     onSave={(data, id) => {
                         let body = {}
-                        body = { ...data, category_id: productId, outlet_id: [id] }
+                        body = { ...data, category_id: productId, outlet_id: [...id]}
                         // return dispatch(createProductAndUpdatingList('wine', body))
                         return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body, productId))
                     }}
