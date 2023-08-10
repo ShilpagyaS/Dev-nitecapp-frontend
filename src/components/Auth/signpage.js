@@ -26,6 +26,7 @@ function Signin() {
   const router = useRouter();
   const { user } = useSelector((state) => state.auth)
   const [step, setstep] = useState(1);
+  const [viewpass, setviewpass] = useState(false);
   useEffect(() => {
     if (user?.first_time_login) {
       setstep(3)
@@ -96,7 +97,9 @@ function Signin() {
                   onChangeHandler={formik.handleChange}
                   value={formik.values.password}
                   name="password"
-                  type={"password"}
+                  type={viewpass ? "text" : "password"}
+                  onChangeView={() => setviewpass(!viewpass)}
+                  viewpass={viewpass}
                   touched={formik.touched.password}
                   error={formik.errors.password}
                   showerror

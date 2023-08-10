@@ -110,11 +110,13 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse, se
               </>
             );
           })}</>}
-        {!Collapse && isFeedbackShow && <>
-          <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic ml-[28px] mt-[1 0px] text-center" onClick={() => { setFeedback() }}> Feedback</h1>
-          {/* <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic ml-[28px] absolute left-2 bottom-5 " onClick={() => { setFeedback() }}> Feedback</h1> */}
-        </>
-        }
+        <div className="w-full flex mt-3  ">
+          {!Collapse && isFeedbackShow && <>
+            <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic mt-[1 0px] text-center" onClick={() => { setFeedback() }}> Feedback</h1>
+            {/* <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic ml-[28px] absolute left-2 bottom-5 " onClick={() => { setFeedback() }}> Feedback</h1> */}
+          </>
+          }
+        </div>
       </div>
     </>
   );

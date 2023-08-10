@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { _INITIAL, _PASS } from "./Constants";
+import { AiFillEye, AiTwotoneEyeInvisible } from "react-icons/ai";
 
 function InputField({
   isDisabled,
@@ -13,6 +14,8 @@ function InputField({
   touched,
   showerror,
   fullwidth,
+  onChangeView,
+  viewpass,
   ...rest
 }) {
   const [isfocused, setisFocused] = useState(false);
@@ -32,30 +35,32 @@ function InputField({
       >
         {label}
       </h5>
-
-      <input
-        className={`box-border ${isDisabled && 'bg-[#202020]'} mt-[4px] py-[8px] pr-[13px] pl-[16px] rounded-[9px] h-[50px] ${fullwidth ? `w-full` : `min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px]`}  border border-solid border-[#3C3C3C] text-white font-Inter not-italic font-normal text-[14px]  placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none 
+      <div className={`flex relative items-center border border-solid border-[#3C3C3C] rounded-[9px]  px-2 ${fullwidth ? `w-full` : `min-w-[328px] max-w-[328px] sm:min-w-[302px] sm:max-w-[302px] focus:ring-offset-white focus:ring-1`}`}>
+        <input
+          className={`box-border ${isDisabled && 'bg-[#202020]'} py-[6px] pr-[13px] pl-[16px]  h-[50px]  w-full  text-white font-Inter not-italic font-normal text-[14px]  placeholder-[#959595] placeholder:font-Inter placeholder:text-[14px] focus:outline-none 
         ${!touched && !error
-            ? "focus:border-[#959595]  focus:ring-offset-white focus:ring-1 "
-            : touched && !error ?
-              "focus:border-white  focus:ring-offset-white focus:ring-1 "
-              :
-              error && touched && "border-[#EB4949] ring-1 ring-[#EB4949]"
-          } block w-full  appearance-none`}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChangeHandler}
-        type={type}
-        onFocus={(e) => {
-          setisFocused(true);
-        }}
-        onBlur={(e) => {
-          setisFocused(false);
-        }}
-        {...rest}
-      />
+              ? "focus:border-[#959595]  focus:ring-offset-white focus:ring-1 "
+              : touched && !error ?
+                "focus:border-white  focus:ring-offset-white focus:ring-1 "
+                :
+                error && touched && "border-[#EB4949] ring-1 ring-[#EB4949]"
+            } block w-full  appearance-none`}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChangeHandler}
+          type={type}
+          onFocus={(e) => {
+            setisFocused(true);
+          }}
+          onBlur={(e) => {
+            setisFocused(false);
+          }}
+          {...rest}
+        />
 
+        {viewpass !== undefined ? viewpass ? <AiTwotoneEyeInvisible color="white" onClick={onChangeView} className="cursor-pointer" /> : <AiFillEye color="white" onClick={onChangeView} className="cursor-pointer" /> : <></>}
+      </div>
       {showerror && error && touched && <ul className='list-disc max-w-[302px]  pl-4 '>
 
         <li className={`text-[12px] font-Inter font-normal leading-tight tracking-[0.42px] 
@@ -74,6 +79,7 @@ function InputField({
 }
 
 export default InputField;
+
 export function InputField2({
   placeholder,
   label,

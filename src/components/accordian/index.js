@@ -6,7 +6,7 @@ import Image from "next/image";
 import { MenuIcon } from "../SIdebar/MenuIcons";
 import Link from "next/link";
 
-export default function Accordian({ category, subcategory, handleClose }) {
+export default function Accordian({ category, subcategory, handleClose, isFeedbackShow, setFeedback }) {
   const options = menuOptions.menuOptions;
 
   return (
@@ -86,6 +86,14 @@ export default function Accordian({ category, subcategory, handleClose }) {
             </>
           );
         })}
+      </div>
+
+      <div className="w-full flex mt-3 justify-center  ">
+        {isFeedbackShow && <>
+          <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic mt-[1 0px] text-center" onClick={() => { setFeedback() }}> Feedback</h1>
+          {/* <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic ml-[28px] absolute left-2 bottom-5 " onClick={() => { setFeedback() }}> Feedback</h1> */}
+        </>
+        }
       </div>
     </div>
   );

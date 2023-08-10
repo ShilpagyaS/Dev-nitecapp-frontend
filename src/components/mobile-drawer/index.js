@@ -8,11 +8,11 @@ import { logout } from "@/store/slices/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
-const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible }) => {
+const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible, setFeedback, isFeedbackShow, }) => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth)
   return (
-    <div className={`absolute overflow-hidden w-[80%] sm:w-[70%] md:w-[40%] h-screen bg:red-500 z-10 top-0 shadow-lg shadow-slate-500
+    <div className={`absolute overflow-hidden w-[80%] sm:w-[70%] md:w-[40%] h-screen bg:red-500 z-10 top-0 shadow-lg shadow-slate-500  hidescrollbar max-h-[100vh] overflow-y-auto 
 
     left-0 text-white px-6 py-4 pb-[18px] flex flex-col justify-between transition duration-500 ${isSidebarVisible ? 'translate-x-0' : `-translate-x-[5000px]`}`}>
 
@@ -43,7 +43,7 @@ const MobileDrawer = ({ category, subcategory, handleDrawer, isSidebarVisible })
             <h4 className="username ">Hi {user?.display_name}!</h4>
           </div>
         </Link>
-        <MobileSidebar category={category} subcategory={subcategory} handleClose={handleDrawer} />
+        <MobileSidebar category={category} setFeedback={setFeedback} isFeedbackShow={isFeedbackShow} subcategory={subcategory} handleClose={handleDrawer} />
       </div>
       <div className="button-container flex justify-between w-full">
         <CustomButton label="Sign out" color="#fff" onClickHandler={() => dispatch(logout())} />

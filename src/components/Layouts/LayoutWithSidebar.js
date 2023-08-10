@@ -33,6 +33,8 @@ function LayoutWithSidebar({ children, category, subcategory }) {
           subcategory={subcategory}
           handleDrawer={handleDrawer}
           isSidebarVisible={isSidebarVisible}
+          isFeedbackShow={true}
+          setFeedback={(() => { setFeedback(true) })}
         />
 
         <div className={`grid grid-cols-1 ${Collapse ? 'lg:grid-cols-[30px_auto]' : 'lg:grid-cols-[175px_auto]'}  w-full mt-[26px] transition-all `}>
