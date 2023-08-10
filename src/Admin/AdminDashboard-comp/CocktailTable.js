@@ -36,7 +36,7 @@ function CocktailTable() {
                     itemImage: element.image,
                     itemName: element.cocktail_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }
@@ -64,7 +64,7 @@ function CocktailTable() {
                     >
                         {!element.itemImage &&
                             <Image src={'/asset/nodrinkinverted.webp'}
-                            alt="image"
+                                alt="image"
                                 fill
                                 style={{ objectFit: 'contain' }}
                                 className="rounded-[10px]"

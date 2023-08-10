@@ -36,7 +36,7 @@ function FoodTable() {
                     itemImage: element.image,
                     itemName: element.food_name,
                     showHideStatus: element.showProduct,
-                    outlet: element.outlet_name,
+                    outlet: element?.outlet.length > 1 ? `${element?.outlet.length} Outlets` : element?.outlet[0].outlet_name,
                     data: element,
                     createdDate: element.createdAt,
                 }

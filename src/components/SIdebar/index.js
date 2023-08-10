@@ -18,7 +18,7 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse, se
   return (
     <>
 
-      <div className="sidebar-container w-full h-full hidescrollbar overflow-y-auto mr-[10px]">
+      <div className="sidebar-container w-full h-full hidescrollbar overflow-y-auto mr-[10px] relative">
         {Collapse &&
           <div className={`w-full h-[24px] cursor-pointer flex justify-center py-[12px]`} onClick={() => setCollapse(!Collapse)} >
             <svg class="gb_h" focusable="false" viewBox="0 0 24 24" fill="white" width="24" height="24">
@@ -111,7 +111,8 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse, se
             );
           })}</>}
         {!Collapse && <>
-          <h1 className="text-primary-base cursor-pointer font-semibold w-full ml-[28px] absolute left-2 bottom-5 " onClick={() => { setFeedback() }}> Feedback</h1>
+          <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic ml-[28px] mt-[1 0px] text-center" onClick={() => { setFeedback() }}> Feedback</h1>
+          {/* <h1 className="text-primary-base border rounded-lg border-primary-base py-[3px] px-[5px] cursor-pointer font-Inter not-italic ml-[28px] absolute left-2 bottom-5 " onClick={() => { setFeedback() }}> Feedback</h1> */}
         </>
         }
       </div>
