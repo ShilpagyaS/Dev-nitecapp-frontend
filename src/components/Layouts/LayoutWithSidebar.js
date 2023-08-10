@@ -37,7 +37,8 @@ function LayoutWithSidebar({ children, category, subcategory }) {
 
         <div className={`grid grid-cols-1 ${Collapse ? 'lg:grid-cols-[30px_auto]' : 'lg:grid-cols-[175px_auto]'}  w-full mt-[26px] transition-all `}>
           <div className={`lg:flex hidden h-[80vh] overflow-y-auto `}>
-            <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} Collapse={Collapse} setCollapse={setCollapse} setFeedback={(() => { setFeedback(true) })} />
+            <SideBar category={category} subcategory={subcategory} menuOptions={menuOptions} Collapse={Collapse} setCollapse={setCollapse} setFeedback={(() => { setFeedback(true) })}
+              isFeedbackShow={true} />
           </div>
           <div className=" mb-3  h-[80vh]  overflow-y-auto pb-10 hidescrollbar scroll-smooth">
             <Layout>{children}</Layout>
