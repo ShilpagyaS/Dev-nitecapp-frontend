@@ -14,7 +14,7 @@ function ChapterAccordian({ chapters }) {
     return (
 
         <div className='w-full mt-[25px] '>
-            <p className='text-[24px] font-Inter text-white font-semibold bg-transparent mb-[10px]'>
+            <p className='text-[20px] sm:text-[24px] font-Inter text-white font-semibold bg-transparent mb-[7px] sm:mb-[10px]'>
                 Course Content
             </p>
             <div className='w-full border border-[#404040] '>

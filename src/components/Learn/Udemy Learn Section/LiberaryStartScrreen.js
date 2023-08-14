@@ -8,10 +8,12 @@ import { RxCross1 } from 'react-icons/rx'
 import { SupriseQuizQuestion } from '@/components/modal/Quizmodal'
 import { useDispatch } from 'react-redux'
 import { CraetHistoryTracking } from '@/store/slices/learnslice'
+import useMediaQuery from '@/Hooks/useMediaQuery'
 
 function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, data }) {
 
     const [currentContent, setCurrentContent] = useState({ type: '', content: '' })
+    const isMobile = useMediaQuery("(max-width: 414px)");
     const [Counter, setCounter] = useState({
         index: 0, length: itemsArray?.length,
         modules: {
@@ -235,7 +237,7 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
         <div className='h-full w-full'>
             <Breadcrumb />
             <div className='w-full flex items-center mb-[10px] justify-between'>
-                <p className='text-[24px] font-Inter text-white font-semibold capitalize bg-transparent ml-[20px]'>
+                <p className='text-[18px] sm:text-[24px] font-Inter text-white font-semibold capitalize bg-transparent sm:ml-[20px]'>
                     {data?.name}
                 </p>
                 {
@@ -249,92 +251,185 @@ function LiberaryStartScrreen({ itemsArray, isPreview, onCancelClick, isLearn, d
             <div className='flex flex-row justify-start items-center w-full h-[4px] bg-[#2F2F2F] rounded-[18px] mt-[16px]'>
                 <div className='bg-primary-base h-full transition-all duration-300 ease-in-out ' style={{ width: `${data?.course_completed ? data?.course_completed : 0}%` }}></div>
             </div>
-            <div className='h-full min-h-[300px] w-full grid grid-cols-7 mt-[10px]'>
-                <div className='h-full rounded-[8px] bg-transparent border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
-                    <AccordianForPlayerSection isLearn={isLearn}
-                        ChapterArray={itemsArray[Counter.index]}
-                        onCounterChange={(a, b, c) => onModuleChnage(a, b, c)}
-                        counterindex={Counter}
-                        onItemClicked={(content, cindex) => {
-                            if (content.type == 'video' || content.type == 'quiz' || content.type == 'content' || content.type == 'recapquiz')
-                                currentContentFunction({ type: content.type, content: `${content.content}`, quizes: content.quizes }, cindex)
-                        }}
-                        onRightClick={onRightClick}
-                        onLeftClick={onLeftClick} />
-                </div>
-                <div className='h-full relative rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
-                    {currentContent.type == 'video' &&
-                        <>
-                            <div className=" w-full max-w-full  justify-center flex">
-                                <ReactPlayer
-                                    controls
+            {
+                !isMobile ? <>
 
-                                    className="rounded-lg "
-                                    url={currentContent.content} />
-                            </div>
-                        </>
-                    }
-                    <SupriseQuizQuestion isModalOpen={quizmodal}
-                        onClickCancel={() => { onNextclick(false); setquizmodal(false) }}
-                    >
+                    <div className='h-full min-h-[300px] w-full grid grid-cols-7 mt-[10px]'>
+                        <div className='h-full rounded-[8px] bg-transparent border border-[#2F2F2F] col-span-2 p-[1px] mr-[5px] bg-[#0F0F0F]'>
+                            <AccordianForPlayerSection isLearn={isLearn}
+                                ChapterArray={itemsArray[Counter.index]}
+                                onCounterChange={(a, b, c) => onModuleChnage(a, b, c)}
+                                counterindex={Counter}
+                                onItemClicked={(content, cindex) => {
+                                    if (content.type == 'video' || content.type == 'quiz' || content.type == 'content' || content.type == 'recapquiz')
+                                        currentContentFunction({ type: content.type, content: `${content.content}`, quizes: content.quizes }, cindex)
+                                }}
+                                onRightClick={onRightClick}
+                                onLeftClick={onLeftClick} />
+                        </div>
+                        <div className='h-full relative rounded-[8px] border border-[#2F2F2F] col-span-5 p-[1px] bg-[#383838] text-white flex items-center justify-center' >
+                            {currentContent.type == 'video' &&
+                                <>
+                                    <div className=" w-full max-w-full  justify-center flex">
+                                        <ReactPlayer
+                                            controls
+
+                                            className="rounded-lg "
+                                            url={currentContent.content} />
+                                    </div>
+                                </>
+                            }
+                            <SupriseQuizQuestion isModalOpen={quizmodal}
+                                onClickCancel={() => { onNextclick(false); setquizmodal(false) }}
+                            >
 
 
-                        <QuizesLiberary noEditScreen={true} name={'Quick Question'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} optionalFunction={() => { onNextclick(false); setquizmodal(false) }} />
+                                <QuizesLiberary noEditScreen={true} name={'Quick Question'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} optionalFunction={() => { onNextclick(false); setquizmodal(false) }} />
 
-                    </SupriseQuizQuestion>
+                            </SupriseQuizQuestion>
 
-                    {currentContent.type == 'none' && <></>
-                    }
-                    {currentContent.type == 'content' &&
+                            {currentContent.type == 'none' && <></>
+                            }
+                            {currentContent.type == 'content' &&
 
-                        <div className='h-full w-full flex flex-col'>
+                                <div className='h-full w-full flex flex-col'>
 
-                            {/* Content {currentContent.content} */}
-                            <div className="notificationModal w-full h-full max-h-[400px]">
+                                    {/* Content {currentContent.content} */}
+                                    <div className="notificationModal w-full h-full max-h-[400px]">
 
-                                <div className="text-white p-2 h-full editor w-full
+                                        <div className="text-white p-2 h-full editor w-full
                     ">
-                                    <div className="text-white blogs" dangerouslySetInnerHTML={{ __html: currentContent.content }}></div>
+                                            <div className="text-white blogs" dangerouslySetInnerHTML={{ __html: currentContent.content }}></div>
+                                        </div>
+
+
+                                    </div>
+
+
                                 </div>
 
+                            }
+                            {currentContent.type == 'quiz' &&
+                                <>
+                                    {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
+                                    <QuizesLiberary name={'Question'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
 
-                            </div>
+                                </>
+                            }
+                            {currentContent.type == 'recapquiz' &&
+                                <>
+                                    {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
+                                    <QuizesLiberary name={'Recap Questions'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
 
-
+                                </>
+                            }
                         </div>
 
-                    }
-                    {currentContent.type == 'quiz' &&
-                        <>
-                            {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
-                            <QuizesLiberary name={'Question'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
-
-                        </>
-                    }
-                    {currentContent.type == 'recapquiz' &&
-                        <>
-                            {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
-                            <QuizesLiberary name={'Recap Questions'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
-
-                        </>
-                    }
-                </div>
-
-            </div>
-            <div className='flex w-full items-center justify-end mt-[15px]'>
-                <div className='mr-[15px]'>
-                    {/* <ConditionalButton label={'Previous'} condition={true} onClickHandler={() => { onPrevclick() }} /> */}
-                    <button
-                        className={` bg-transparent
+                    </div>
+                    <div className='flex w-full items-center justify-end mt-[15px]'>
+                        <div className='mr-[15px]'>
+                            {/* <ConditionalButton label={'Previous'} condition={true} onClickHandler={() => { onPrevclick() }} /> */}
+                            <button
+                                className={` bg-transparent
                                 py-[7px] px-[24px] h-[41px] rounded-full text-primary-base border border-primary-base gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
-                        onClick={() => { onPrevclick() }}
+                                onClick={() => { onPrevclick() }}
 
-                    >
-                        {`Previous`}
-                    </button>
-                </div>
-                <ConditionalButton label={'Next'} condition={true} onClickHandler={() => { onNextclick(true) }} />
-            </div>
+                            >
+                                {`Previous`}
+                            </button>
+                        </div>
+                        <ConditionalButton label={'Next'} condition={true} onClickHandler={() => { onNextclick(true) }} />
+                    </div>
+                </>
+                    :
+                    <>
+                        <div className='h-full min-h-[300px] w-full flex flex-col mt-[10px]'>
+                            <div className='h-full relative rounded-[8px] border border-[#2F2F2F] p-[1px] bg-[#383838] text-white flex items-center justify-center' >
+                                {currentContent.type == 'video' &&
+                                    <>
+                                        <div className=" w-full max-w-full  justify-center flex">
+                                            <ReactPlayer
+                                                controls
+
+                                                className="rounded-lg "
+                                                url={currentContent.content} />
+                                        </div>
+                                    </>
+                                }
+                                <SupriseQuizQuestion isModalOpen={quizmodal}
+                                    onClickCancel={() => { onNextclick(false); setquizmodal(false) }}
+                                >
+
+
+                                    <QuizesLiberary noEditScreen={true} name={'Quick Question'} quizArray={currentContent?.quizes?.length > 0 ? currentContent.quizes : []} optionalFunction={() => { onNextclick(false); setquizmodal(false) }} />
+
+                                </SupriseQuizQuestion>
+
+                                {currentContent.type == 'none' && <></>
+                                }
+                                {currentContent.type == 'content' &&
+
+                                    <div className='h-full w-full flex flex-col'>
+
+                                        {/* Content {currentContent.content} */}
+                                        <div className="notificationModal w-full h-full max-h-[400px]">
+
+                                            <div className="text-white p-2 h-full editor w-full
+                    ">
+                                                <div className="text-white blogs" dangerouslySetInnerHTML={{ __html: currentContent.content }}></div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                }
+                                {currentContent.type == 'quiz' &&
+                                    <>
+                                        {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
+                                        <QuizesLiberary name={'Question'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
+
+                                    </>
+                                }
+                                {currentContent.type == 'recapquiz' &&
+                                    <>
+                                        {/* <QuizesLiberary name={'quizName'} quizArray={quiss.length ? quiss : []} /> */}
+                                        <QuizesLiberary name={'Recap Questions'} quizArray={currentContent.quizes.length > 0 ? currentContent.quizes : []} />
+
+                                    </>
+                                }
+                            </div>
+                            <div className='h-full rounded-[8px] bg-transparent border border-[#2F2F2F] p-[1px] mr-[5px] bg-[#0F0F0F]'>
+                                <AccordianForPlayerSection isLearn={isLearn}
+                                    ChapterArray={itemsArray[Counter.index]}
+                                    onCounterChange={(a, b, c) => onModuleChnage(a, b, c)}
+                                    counterindex={Counter}
+                                    onItemClicked={(content, cindex) => {
+                                        if (content.type == 'video' || content.type == 'quiz' || content.type == 'content' || content.type == 'recapquiz')
+                                            currentContentFunction({ type: content.type, content: `${content.content}`, quizes: content.quizes }, cindex)
+                                    }}
+                                    onRightClick={onRightClick}
+                                    onLeftClick={onLeftClick} />
+                            </div>
+                        </div>
+                        <div className='flex w-full items-center justify-end mt-[15px]'>
+                            <div className='mr-[15px]'>
+                                {/* <ConditionalButton label={'Previous'} condition={true} onClickHandler={() => { onPrevclick() }} /> */}
+                                <button
+                                    className={` bg-transparent
+                                py-[7px] px-[24px] h-[41px] rounded-full text-primary-base border border-primary-base gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                                    onClick={() => { onPrevclick() }}
+
+                                >
+                                    {`Previous`}
+                                </button>
+                            </div>
+                            <ConditionalButton label={'Next'} condition={true} onClickHandler={() => { onNextclick(true) }} />
+                        </div>
+                    </>
+            }
         </div>
     )
 }
