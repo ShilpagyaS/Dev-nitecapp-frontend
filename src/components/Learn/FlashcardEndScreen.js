@@ -1,7 +1,7 @@
 import Bigbutton, { Bigbutton2 } from '@/utils/Cards/Learnutils/Bigbutton';
 import Image from 'next/image'
 import { useRouter } from 'next/router';
-import React from 'react'
+import React from 'react' 
 
 function FlashcardEndScreen({ deckname, totalcards, readCards, learned, missed }) {
     const router = useRouter()
@@ -20,7 +20,7 @@ function FlashcardEndScreen({ deckname, totalcards, readCards, learned, missed }
                 <p className='not-italic text-xl font-Inter text-[#959595] mt-[54px]'>You have successfully Completed <span className='text-white capitalize font-bold
             '>{deckname} Flashcard</span>, here is the result</p>
 
-                <div className='flex items-center justify-evenly w-full mt-[30px]'>
+                <div className='sm:flex sm:items-center sm:justify-evenly grid grid-cols-2 gap-4 w-full mt-[30px]'>
                     <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
                flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Total</p>
@@ -47,9 +47,9 @@ function FlashcardEndScreen({ deckname, totalcards, readCards, learned, missed }
                     </div>
                 </div>
             </div>
-            <div className=' w-full p-[20px] flex items-center justify-center mt-[13px]'>
+            <div className=' w-full p-[20px] flex sm:flex-row flex-col items-center justify-center mt-[13px]'>
                 <Bigbutton text={'Go to Learn '} colorTrue={false} onClickHandle={() => { router.push('/learn') }} />
-                <div className='ml-[20px]'>
+                <div className='sm:ml-[20px] mt-[10px] sm:mt-0'>
 
                     <Bigbutton2 text={'Take me to Flashcards'} colorTrue={true} onClickHandle={() => { router.push('/learn/flashcards') }} />
                 </div>

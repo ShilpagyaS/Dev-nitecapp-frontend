@@ -59,7 +59,7 @@ function Header(props) {
                   alt="profile-avatar"
                   width={50}
                   height={50}
-                  className="rounded-[50%] mr-2 border border-gray-600  "
+                  className="rounded-[50%] mr-2 border border-gray-600 w-[50px] h-[50px]"
                 />
               </Link>
               <ProfileDropdown onClickHandler={handleLogout} />
