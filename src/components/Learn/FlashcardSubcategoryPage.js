@@ -39,7 +39,7 @@ function FlashcardSubcategoryPage({ categoryid, subcategory }) {
 
                 </div>
             }
-            <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4z'>
                 {course?.subCategoryList?.map((sub) =>
                     <UserSubcatFlashcard data={sub} onClickHandler={() => { route.push(`/learn/flashcards/${enUrl(subcategory)}/${enUrl(sub.name)}?id=${sub.flashcard_subcategory_id}&typeid=${categoryid}`) }} />
                 )

@@ -20,26 +20,26 @@ function EndQuizCardLiberary({ nextClick, name, score, hidebutton }) {
                 <p className='not-italic text-xl font-Inter text-[#959595] mt-[54px]'>You have successfully Completed <span className='text-white font-bold
     capitalize'>{`${name} Quiz`}</span>, here is the result</p>
 
-                <div className='flex items-center justify-evenly w-full mt-[30px]'>
-                    <div className='h-[70px] min-w-[130px]  border border-white bg-[#383838] rounded-[6px] p-[10px] 
+                <div className='grid grid-cols-2 gap-3 sm:flex sm:items-center sm:justify-evenly w-full mt-[30px]'>
+                    <div className='h-[70px] sm:min-w-[130px] w-full  border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Total</p>
                         <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score.total} / ${score.total} Questions`}</p>
 
                     </div>
-                    <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
+                    <div className='h-[70px] sm:min-w-[130px] w-full  border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Correct</p>
                         <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score.correct} Questions`}</p>
 
                     </div>
-                    <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
+                    <div className='h-[70px] sm:min-w-[130px] w-full  border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Incorrect</p>
                         <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${score.incorrect} ${score.total > 1 ? 'Questions' : 'Question'}`}</p>
 
                     </div>
-                    <div className='h-[70px] w-[130px] border border-white bg-[#383838] rounded-[6px] p-[10px] 
+                    <div className='h-[70px] sm:min-w-[130px] w-full  border border-white bg-[#383838] rounded-[6px] p-[10px] 
        flex flex-col items-center justify-center' >
                         <p className='not-italic font-semibold text-[15px] bg-transparent text-white text-left w-full'> Score</p>
                         <p className='not-italic font-semibold text-[14px] bg-transparent text-white w-full text-left'> {`${parseFloat((score.correct / score.total) * 100).toFixed(1)}%`} </p>

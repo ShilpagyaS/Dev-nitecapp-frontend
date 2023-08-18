@@ -98,7 +98,7 @@ function QuizesCard({ name, quizArray, quizId }) {
                     {
                         !show ?
 
-                            <div className='w-full min-h-[500px] h-full bg-[#383838] rounded-t-[12px] mt-[20px] relative overflow-hidden'>
+                            <div className='w-full min-h-[300px] sm:min-h-[500px] h-full bg-[#383838] rounded-t-[12px] mt-[20px] relative overflow-hidden'>
                                 <div className='w-full rounded-t-[12px] bg-transparent p-[15px] grid grid-cols-5 '>
                                     <div className='col-span-2 bg-transparent'>
                                         <RxCross1 size={25} color="#929292" className='bg-transparent cursor-pointer' onClick={() => { router.back() }} />
@@ -115,25 +115,25 @@ function QuizesCard({ name, quizArray, quizId }) {
                                 </div>
                                 <div className='flex flex-col justify-between bg-[#F4F4F4]'>
 
-                                    <div className={`flex items-center bg-transparent w-full min-h-[370px] h-full transition-all duration-500 ease-in-out`} style={{ transform: `translateX(-${counter * 100}%)` }}>
+                                    <div className={`flex items-center bg-transparent w-full sm:min-h-[370px] h-full transition-all duration-500 ease-in-out`} style={{ transform: `translateX(-${counter * 100}%)` }}>
                                         {/* {a.slice(0, counter).map((a1, i) => */}
                                         {quizArray.map((quiz, i) =>
-                                            <div className={`mt-[30px] w-full shrink-0 flex flex-col items-center  px-[10%] h-full bg-transparent transition-all duration-500 ease-in-out `}  >
+                                            <div className={`mt-[10px] sm:mt-[30px] w-full shrink-0 flex flex-col items-center px-[5%] sm:px-[10%] h-full bg-transparent transition-all duration-500 ease-in-out `}  >
 
                                                 <p className='font-[600] text-[14px] not-italic text-black bg-transparent capitalize'>{quiz.question}</p>
-                                                <div className='mt-[20px] w-[65%] bg-transparent'>
+                                                <div className='mt-[10px] sm:mt-[20px] w-full bg-transparent'>
 
-                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option1 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1); }}>
-                                                        <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option1}</p>
+                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option1 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[5px] sm:px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option1); }}>
+                                                        <p className='not-italic font-Inter font-normal bg-transparent text-center'>{quiz.option1}</p>
                                                     </div>
-                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option2 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2) }}>
-                                                        <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option2}</p>
+                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option2 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[5px] sm:px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option2) }}>
+                                                        <p className='not-italic font-Inter font-normal bg-transparent text-center'>{quiz.option2}</p>
                                                     </div>
-                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option3 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3) }}>
-                                                        <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option3}</p>
+                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option3 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[5px] sm:px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option3) }}>
+                                                        <p className='not-italic font-Inter font-normal bg-transparent text-center'>{quiz.option3}</p>
                                                     </div>
-                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option4 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4) }}>
-                                                        <p className='not-italic font-Inter font-normal bg-transparent'>{quiz.option4}</p>
+                                                    <div className={`rounded-full flex items-center ${selected[quiz.quiz_question_id] == quiz.option4 ? 'bg-black text-white ' : 'bg-transparent text-black'} text-black cursor-pointer justify-center px-[5px] sm:px-[15px] py-[2px] w-full mb-[10px] min-h-[35px]  border border-black break-words hover:text-white hover:bg-black`} onClick={() => { prepareQuizReport(quiz.quiz_question_id, quiz.answer, quiz.option4) }}>
+                                                        <p className='not-italic font-Inter font-normal bg-transparent text-center'>{quiz.option4}</p>
                                                     </div>
 
                                                 </div>

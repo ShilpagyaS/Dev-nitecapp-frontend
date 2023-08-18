@@ -620,12 +620,18 @@ function LearnSection({ courseId }) {
 
                 <>
                     <UdemyLiberaryBanner data={courseDetail} startLearncClick={() => { setStartLearning(true) }} />
+
+                    {courseDetail?.description != '' && <p className='text-[16px] mt-[10px] text-white font-thin bg-transparent sm:hidden  '>
+                        {courseDetail?.description}
+
+                    </p>
+                    }
                     <UdemyLiberaryCourseInfoSection content={courseDetail?.contents ? courseDetail.contents : []} />
                     <div className='courseIncludes w-full mt-[20px]'>
-                        <p className='text-[24px] font-Inter text-white font-semibold bg-transparent mb-[10px]'>
+                        <p className='text-[20px] sm:text-[24px] font-Inter text-white font-semibold bg-transparent mb-[5px] sm:mb-[10px]'>
                             This course Includes:
                         </p>
-                        <div className=' w-full grid grid-cols-3'>
+                        <div className=' w-full grid sm:grid-cols-3 grid-cols-1 p-[15px] sm:p-0'>
                             {courseDetail?.count?.chapter &&
                                 <div className='w-full flex '>
                                     <span>
