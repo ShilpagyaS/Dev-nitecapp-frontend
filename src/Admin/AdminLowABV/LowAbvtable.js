@@ -1,6 +1,6 @@
-import { DeleteProduct } from '@/components/modal/adminmodal';
+import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, delinkProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
+import { createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductByIdAccToOutlet, delinkProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -16,10 +16,16 @@ function LowAbvtable() {
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+
     const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
+    })
+    const [elementItemOutlet, setElementItemOutlet] = useState({
+        title: '',
+        outlets: [],
     })
     useEffect(() => {
 
@@ -117,10 +123,21 @@ function LowAbvtable() {
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
+                                if (element?.data?.outlet.length > 1) {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setDeleteModalOutlets(true)
+                                }
+                                else {
+
+                                    setElementItem({
+                                        title: element.itemName,
+                                        id: element.id
+                                    });
+                                    setDeleteModal(true)
+                                }
                             }} />
                         </div>
                     </div>
@@ -147,6 +164,25 @@ function LowAbvtable() {
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}
                     onSave={deleteProduct}
+                />
+            }
+            {DeleteModalOutlets &&
+                <DeleteProductFromOutlet
+                    isModalOpen={DeleteModalOutlets}
+                    onClickCancel={() => { setDeleteModalOutlets(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'low_no_abv'}
+                    type={2}
+                    onSave={(ids) => {
+                        console.log(ids);
+                        dispatch(deleteProductByIdAccToOutlet('low_no_abv',
+                            {
+                                isActive: false,
+                                ids: [...ids]
+                            }
+                        ))
+                    }}
                 />
             }
             {AddModal &&

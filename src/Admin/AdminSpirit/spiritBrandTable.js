@@ -1,6 +1,6 @@
-import { DeleteProduct } from '@/components/modal/adminmodal';
+import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, delinkProductByIdwithCAtegoryAccToOutlet, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import SwitchComp from '@/utils/SwitchComp';
 import TableContainerWithButtons from '@/utils/TableContainerWithButtons';
@@ -17,11 +17,17 @@ function SpiritBrandTable({ productId, subcategory }) {
     const { outlets } = useSelector((state) => state.outlets)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+
     const [AddModal, setAddModal] = useState(false)
     const [outletIds, setOutletIds] = useState([])
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
+    })
+    const [elementItemOutlet, setElementItemOutlet] = useState({
+        title: '',
+        outlets: [],
     })
     const dispatch = useDispatch()
     useEffect(() => {
@@ -128,10 +134,21 @@ function SpiritBrandTable({ productId, subcategory }) {
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
+                                if (element?.data?.outlet.length > 1) {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setDeleteModalOutlets(true)
+                                }
+                                else {
+
+                                    setElementItem({
+                                        title: element.itemName,
+                                        id: element.id
+                                    });
+                                    setDeleteModal(true)
+                                }
                             }} />
                         </div>
                     </div>
@@ -158,6 +175,26 @@ function SpiritBrandTable({ productId, subcategory }) {
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}
                     onSave={deleteProduct}
+                />
+            }
+            {DeleteModalOutlets &&
+                <DeleteProductFromOutlet
+                    isModalOpen={DeleteModalOutlets}
+                    onClickCancel={() => { setDeleteModalOutlets(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'spirit'}
+                    type={2}
+                    onSave={(ids) => {
+                        console.log(ids);
+                        dispatch(delinkProductByIdwithCAtegoryAccToOutlet('spirit',
+                            {
+                                isActive: false,
+                                ids: [...ids]
+                            }
+                            , productId
+                        ))
+                    }}
                 />
             }
             {AddModal &&

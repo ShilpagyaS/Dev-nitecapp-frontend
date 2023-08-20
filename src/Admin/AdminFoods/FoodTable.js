@@ -1,5 +1,5 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal'
+import { deleteProductById, deleteProductByIdAccToOutlet, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -15,9 +15,15 @@ function FoodTable() {
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
+    })
+    const [elementItemOutlet, setElementItemOutlet] = useState({
+        title: '',
+        outlets: [],
     })
     useEffect(() => {
 
@@ -117,10 +123,21 @@ function FoodTable() {
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
+                                if (element?.data?.outlet.length > 1) {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setDeleteModalOutlets(true)
+                                }
+                                else {
+
+                                    setElementItem({
+                                        title: element.itemName,
+                                        id: element.id
+                                    });
+                                    setDeleteModal(true)
+                                }
                             }} />
                         </div>
                     </div>
@@ -142,6 +159,25 @@ function FoodTable() {
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}
                     onSave={deleteProduct}
+                />
+            }
+            {DeleteModalOutlets &&
+                <DeleteProductFromOutlet
+                    isModalOpen={DeleteModalOutlets}
+                    onClickCancel={() => { setDeleteModalOutlets(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'food'}
+                    type={1}
+                    onSave={(ids) => {
+                        console.log(ids);
+                        dispatch(deleteProductByIdAccToOutlet('food',
+                            {
+                                isActive: false,
+                                ids: [...ids]
+                            }
+                        ))
+                    }}
                 />
             }
             <TableContainerWithButtons label={'ADD FOOD'} OuterRows={OuterRows} buttonFunction={() => { router.push("/food/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />

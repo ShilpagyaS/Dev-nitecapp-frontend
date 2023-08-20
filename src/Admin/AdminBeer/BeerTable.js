@@ -1,6 +1,6 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
+import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal'
 import { AddItemModal } from '@/components/modal/NewDminFlowModals'
-import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, delinkProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductByIdAccToOutlet, delinkProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -15,10 +15,16 @@ function BeerTable() {
     const { productList } = useSelector((state) => state.product)
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+
     const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
+    })
+    const [elementItemOutlet, setElementItemOutlet] = useState({
+        title: '',
+        outlets: [],
     })
     const dispatch = useDispatch()
     useEffect(() => {
@@ -119,10 +125,22 @@ function BeerTable() {
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
+                                if (element?.data?.outlet.length > 1) {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setDeleteModalOutlets(true)
+                                }
+                                else {
+
+                                    setElementItem({
+                                        title: element.itemName,
+                                        id: element.id
+                                    });
+                                    setDeleteModal(true)
+                                }
+
                             }} />
                         </div>
                     </div>
@@ -149,6 +167,25 @@ function BeerTable() {
                 title={elementItem.title}
                 onSave={deleteProduct}
             />}
+            {DeleteModalOutlets &&
+                <DeleteProductFromOutlet
+                    isModalOpen={DeleteModalOutlets}
+                    onClickCancel={() => { setDeleteModalOutlets(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'beer'}
+                    type={2}
+                    onSave={(ids) => {
+                        console.log(ids);
+                        dispatch(deleteProductByIdAccToOutlet('beer',
+                            {
+                                isActive: false,
+                                ids: [...ids]
+                            }
+                        ))
+                    }}
+                />
+            }
             {AddModal &&
                 <AddItemModal
                     isModalOpen={AddModal}
