@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import Modal from "react-modal";
 import { useDispatch } from 'react-redux';
 import ConditionalButton from '../spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
+import { successtoast } from '../tostify';
 
 export function AddIngredientModal({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
@@ -1547,6 +1548,266 @@ export function DeleteProduct({ isModalOpen, onClickCancel, onSave, deleteBtn, t
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
                 <div className='ml-[24px]'>
                     <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function DeleteProductFromOutlet({ isModalOpen, onClickCancel, onSave, outlets, title, itemtype, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [selectarray, setSelectedArray] = useState([])
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave(selectarray)
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+    function selectedClick(outletId) {
+        if (selectarray.includes(outletId)) {
+            setSelectedArray(selectarray.filter((id) => id != outletId))
+        }
+        else {
+            setSelectedArray([...selectarray, outletId])
+        }
+    }
+    function checkSelected(outletId) {
+        return selectarray.includes(outletId) ? true : false
+    }
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
+            </div>
+            <div className='w-full h-full max-h-[250px] notificationModal'>
+
+                <div className='w-full mb-[5px]'>
+                    <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                        {`Select the outlets listed below to delete ${title} from that outlet`}
+                    </h3>
+
+                </div>
+                <div className='w-full flex flex-wrap items-center'>
+                    {
+                        outlets.map((outlet) =>
+                            <div className={`h-full border border-[#959595] rounded-md p-2 m-2 cursor-pointer ${type == 1 ? checkSelected(outlet[`${itemtype}_id`]) ? 'border-primary-base' : 'border-[#959595]' : checkSelected(outlet[`${itemtype}_hotel_mapping_id`]) ? 'border-primary-base' : 'border-[#959595]'} `}
+                                onClick={() => {
+                                    if (type == 1) selectedClick(outlet[`${itemtype}_id`])
+                                    if (type == 2) selectedClick(outlet[`${itemtype}_hotel_mapping_id`])
+
+                                }}
+                            >
+                                <h3 className={`
+                                ${type == 1 ?
+                                        checkSelected(outlet[`${itemtype}_id`]) ? 'text-primary-base' : 'text-[#959595]'
+                                        :
+                                        checkSelected(outlet[`${itemtype}_hotel_mapping_id`]) ? 'text-primary-base' : 'text-[#959595]'
+
+                                    }
+                                `}>{outlet.outlet_name}</h3>
+                            </div>
+                        )
+                    }
+
+                </div>
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={
+                        selectarray.length > 0 ? true : false
+                    } onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function ShowHideIdsOnOutletBasis({ isModalOpen, onClickCancel, onSave, outlets, title, itemtype, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const [selectarray, setSelectedArray] = useState([])
+    const [deSelectedselectarray, setdeSelectedArray] = useState([])
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave(selectarray, deSelectedselectarray)
+        successtoast({ message: `Status Updated Successfully` })
+
+
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+    useEffect(() => {
+        if (type == 1) {
+            let dummy = []
+            let dummy2 = []
+            dummy = outlets.filter((element) => element.showProduct).map((e) => e[`${itemtype}_id`])
+            dummy2 = outlets.filter((element) => !dummy.includes(element[`${itemtype}_id`])).map((e) => e[`${itemtype}_id`])
+            setSelectedArray([...dummy])
+            setdeSelectedArray([...dummy2])
+        }
+        if (type == 2) {
+            let dummy = []
+            let dummy2 = []
+            dummy = outlets.filter((element) => element.showProduct).map((e) => e[`${itemtype}_hotel_mapping_id`])
+            dummy2 = outlets.filter((element) => !dummy.includes(element[`${itemtype}_hotel_mapping_id`])).map((e) => e[`${itemtype}_hotel_mapping_id`])
+            setSelectedArray([...dummy])
+            setdeSelectedArray([...dummy2])
+        }
+
+    }, [])
+
+    useEffect(() => {
+        if (type == 1) {
+            let dummy = []
+            dummy = outlets.filter((element) => !selectarray.includes(element[`${itemtype}_id`])).map((e) => e[`${itemtype}_id`])
+            setdeSelectedArray([...dummy])
+        }
+        if (type == 2) {
+            let dummy = []
+            dummy = outlets.filter((element) => !selectarray.includes(element[`${itemtype}_hotel_mapping_id`])).map((e) => e[`${itemtype}_hotel_mapping_id`])
+            setdeSelectedArray([...dummy])
+        }
+    }, [selectarray])
+    useEffect(() => {
+        console.log('deselected', deSelectedselectarray);
+        console.log('selected id', selectarray);
+    }, [deSelectedselectarray])
+    function selectedClick(outletId) {
+        if (selectarray.includes(outletId)) {
+            setSelectedArray(selectarray.filter((id) => id != outletId))
+        }
+        else {
+            setSelectedArray([...selectarray, outletId])
+        }
+    }
+    function checkSelected(outletId) {
+        return selectarray.includes(outletId) ? true : false
+    }
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4 capitalize">{`Show / Hide Status`}</h4>
+            </div>
+            <div className='w-full h-full max-h-[250px] notificationModal'>
+
+                <div className='w-full mb-[5px]'>
+                    <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
+                        {`Select the outlets listed below to set the show them or de-select to hide for ${title}`}
+                    </h3>
+
+                </div>
+                <div className='w-full flex flex-wrap items-center'>
+                    {
+                        outlets.map((outlet) =>
+                            <div className={`h-full border border-[#959595] rounded-md p-2 m-2 cursor-pointer ${type == 1 ? checkSelected(outlet[`${itemtype}_id`]) ? 'border-primary-base' : 'border-[#959595]' : checkSelected(outlet[`${itemtype}_hotel_mapping_id`]) ? 'border-primary-base' : 'border-[#959595]'} `}
+                                onClick={() => {
+                                    if (type == 1) selectedClick(outlet[`${itemtype}_id`])
+                                    if (type == 2) selectedClick(outlet[`${itemtype}_hotel_mapping_id`])
+
+                                }}
+                            >
+                                <h3 className={`
+                                ${type == 1 ?
+                                        checkSelected(outlet[`${itemtype}_id`]) ? 'text-primary-base' : 'text-[#959595]'
+                                        :
+                                        checkSelected(outlet[`${itemtype}_hotel_mapping_id`]) ? 'text-primary-base' : 'text-[#959595]'
+
+                                    }
+                                `}>{outlet.outlet_name}</h3>
+                            </div>
+                        )
+                    }
+
+                </div>
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={
+                        true
+                    } onClickHandler={handleSave} />
                 </div>
 
             </div>

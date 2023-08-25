@@ -1,6 +1,6 @@
-import { DeleteProduct } from '@/components/modal/adminmodal';
+import { DeleteProduct, DeleteProductFromOutlet, ShowHideIdsOnOutletBasis } from '@/components/modal/adminmodal';
 import { AddItemModal } from '@/components/modal/NewDminFlowModals';
-import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory } from '@/store/slices/product';
+import { createProductAndUpdatingCAtegoryListNew, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductbyIdWithCategory, delinkProductByIdwithCAtegory, delinkProductByIdwithCAtegoryAccToOutlet, emptyProductList, getCategoryList, getProduct, getProductByCategoryId, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProductForCategory, showhideproductProductByIdwithCAtegoryAccToOutlet } from '@/store/slices/product';
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton';
 import { enUrl } from '@/utils/encoderfunc';
 import SwitchComp from '@/utils/SwitchComp';
@@ -16,10 +16,17 @@ function WinebrandTable({ productId, subcategory }) {
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+    const [ShowHideModal, setShowHideModal] = useState(false)
+
     const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
+    })
+    const [elementItemOutlet, setElementItemOutlet] = useState({
+        title: '',
+        outlets: [],
     })
     useEffect(() => {
 
@@ -94,11 +101,24 @@ function WinebrandTable({ productId, subcategory }) {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
+                        {element?.data?.outlet.length > 1 ? <>
+                            <div className=' cursor-pointer p-[5px] rounded-[3px] text-primary-base text-[14px] border border-primary-base'
+                                onClick={() => {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setShowHideModal(true)
+                                }}
+                            >
+                                Manage Status
+                            </div>
+                        </> :
 
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            console.log(e);
-                            toggleSwitch(e, element)
-                        }} />
+                            <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                                toggleSwitch(e, element)
+                            }} />
+                        }
                     </div>
                 </td>
                 <td >
@@ -117,10 +137,21 @@ function WinebrandTable({ productId, subcategory }) {
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
+                                if (element?.data?.outlet.length > 1) {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setDeleteModalOutlets(true)
+                                }
+                                else {
+
+                                    setElementItem({
+                                        title: element.itemName,
+                                        id: element.id
+                                    });
+                                    setDeleteModal(true)
+                                }
                             }} />
                         </div>
                     </div>
@@ -149,6 +180,58 @@ function WinebrandTable({ productId, subcategory }) {
                     onSave={deleteProduct}
                 />
             }
+            {DeleteModalOutlets &&
+                <DeleteProductFromOutlet
+                    isModalOpen={DeleteModalOutlets}
+                    onClickCancel={() => { setDeleteModalOutlets(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'wine'}
+                    type={2}
+                    onSave={(ids) => {
+                        console.log(ids);
+                        dispatch(delinkProductByIdwithCAtegoryAccToOutlet('wine',
+                            {
+                                isActive: false,
+                                ids: [...ids]
+                            }
+                            , productId
+                        ))
+                    }}
+                />
+            }
+             {ShowHideModal &&
+                <ShowHideIdsOnOutletBasis
+                    isModalOpen={ShowHideModal}
+                    onClickCancel={() => { setShowHideModal(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'wine'}
+                    type={2}
+                    onSave={(ids, hideIds) => {
+                        console.log(ids);
+                        if (ids.length > 0) {
+
+                            dispatch(showhideproductProductByIdwithCAtegoryAccToOutlet('wine',
+                                {
+                                    showProduct: true,
+                                    ids: [...ids]
+                                }, productId
+                            ))
+                        }
+                        if (hideIds.length > 0) {
+
+                            dispatch(showhideproductProductByIdwithCAtegoryAccToOutlet('wine',
+                                {
+                                    showProduct: false,
+                                    ids: [...hideIds]
+                                }, productId
+                            ))
+                        }
+
+                    }}
+                />
+            }
             {AddModal &&
                 <AddItemModal
                     isModalOpen={AddModal}
@@ -159,7 +242,7 @@ function WinebrandTable({ productId, subcategory }) {
                     productId={productId}
                     onSave={(data, id) => {
                         let body = {}
-                        body = { ...data, category_id: productId, outlet_id: [...id]}
+                        body = { ...data, category_id: productId, outlet_id: [...id] }
                         // return dispatch(createProductAndUpdatingList('wine', body))
                         return dispatch(createProductAndUpdatingCAtegoryListNew('wine', body, productId))
                     }}

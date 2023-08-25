@@ -14,8 +14,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ButtonCombo from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo";
 import SplitCard from "@/utils/Cards/Text card/SplitCard";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyProductList, getAllDrinkBrands, getProductById, putProductById } from "@/store/slices/product";
-import { CustomSelectForBrands } from "@/utils/CustomSelect";
+import { emptyProductList, getAllDrinkBrands, getProductById, getProductByMappingIdId, putProductById, putProductByMappingId } from "@/store/slices/product";
+import { CustomSelectForBrands, CustomSelectForBrandsFullGray } from "@/utils/CustomSelect";
 import CocktailFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate";
 import { errortoast, successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
@@ -35,6 +35,10 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
     const [EditModal, setEditmodal] = useState(false)
     const [drinkBrand, setDrinkBrand] = useState({ brand_id: "", brand_name: "" })
     const [drinkBrandArray, setDrinkBrandArray] = useState([])
+    const [outletArray, setOutletArray] = useState([])
+    const [outletSelected, setOutletSelected] = useState({})
+    const [currentHotelMappingId, setCurrentHotelMappingId] = useState(null)
+
     const [upimage, setimage] = useState()
 
     const dispatch = useDispatch()
@@ -82,6 +86,23 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
         setgf(productDetails?.gluten_free)
         setCal(productDetails?.calories)
         setVegan(productDetails?.vegan)
+        if (productDetails?.outlet) {
+            let dummyData
+            let dummy = productDetails?.outlet.map(element => {
+                if (productDetails?.beer_hotel_mapping_id == element.beer_hotel_mapping_id) {
+                    dummyData = {
+                        value: element.outlet_id,
+                        label: element.outlet_name,
+                        body: element
+                    }
+                    console.log(dummyData);
+                }
+                return { value: element.outlet_id, label: element.outlet_name, body: element }
+            })
+            setOutletSelected({ ...dummyData })
+            setOutletArray([...dummy])
+        }
+        setCurrentHotelMappingId(productDetails?.beer_hotel_mapping_id)
     }, [productDetails])
 
 
@@ -183,12 +204,15 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
             if (upimage) {
                 dispatch(uploadimage(upimage)).then((imageurl) => {
                     if (imageurl && !imageurl?.error)
-                        dispatch(putProductById(subcategory, productId,
+                        dispatch(putProductByMappingId(subcategory, productId, currentHotelMappingId,
+                            // dispatch(putProductById(subcategory, productId,
                             {
                                 ...productDetails,
                                 description: textAreaRef.current.value,
                                 image: imageurl,
-                                price: parseFloat(price)
+                                price: parseFloat(price),
+                                beer_hotel_mapping_id: currentHotelMappingId,
+                                isActive: true
                             }
                         )).then((res) => {
                             console.log(res);
@@ -202,11 +226,14 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                 })
             }
             else
-                dispatch(putProductById(subcategory, productId,
+                // dispatch(putProductById(subcategory, productId,
+                dispatch(putProductByMappingId(subcategory, productId, currentHotelMappingId,
                     {
                         ...productDetails,
                         description: textAreaRef.current.value,
-                        price: parseFloat(price)
+                        price: parseFloat(price),
+                        beer_hotel_mapping_id: currentHotelMappingId,
+                        isActive: true
                     }
                 )).then((res) => {
                     console.log(res);
@@ -315,14 +342,20 @@ const RestrictedBeerEdit = ({ productId, subcategory }) => {
                                 <div className="status-text text-[18px]">
                                     <EditCard editContent={`${whatsthestrength(newMockData.abv)} (${newMockData.abv})%`} isEdit={false} />
                                 </div>
-                                <div className="status-text text-[18px]">
+                                {/* <div className="status-text text-[18px]">
                                     <EditCard editContent={``} isEdit={false} />
-                                </div>
-                                {/* {isEdit &&
+                                </div> */}
+                                {isEdit &&
                                     <div className='input-desc flex flex-col ml-[25px]'>
-                                        <CustomSelectForBrands items={drinkBrandArray} defaultSelect={drinkBrand.brand_id ? { label: drinkBrand.brand_name, value: drinkBrand.brand_id } : null} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} />
+                                        <CustomSelectForBrandsFullGray items={[...outletArray]} defaultSelect={outletSelected ? { ...outletSelected } : null}
+                                            optionalFunction={(e) => {
+                                                console.log(e);
+                                                // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                                                setCurrentHotelMappingId(e?.body?.beer_hotel_mapping_id)
+                                                dispatch(getProductByMappingIdId('beer', e?.body?.beer_hotel_mapping_id))
+                                            }} />
                                     </div>
-                                } */}
+                                }
                             </div>
                         </div>
                         <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">

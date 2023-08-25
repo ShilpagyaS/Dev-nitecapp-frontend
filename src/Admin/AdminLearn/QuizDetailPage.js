@@ -11,7 +11,7 @@ function QuizDetailPage() {
   const [localQuiz, setlocalQuiz] = useState([])
   const dispatch = useDispatch()
   const [deletetemp, setdeletetemp] = useState(null)
-  const { productId } = useNavDetails()
+  const { productId, subcategory2 } = useNavDetails()
   const { quiz } = useSelector((state) => state.quiz)
   const [deleteModal, setdeleteModal] = useState(false)
   useEffect(() => {
@@ -74,8 +74,8 @@ function QuizDetailPage() {
         onClickCancel={() => { setdeleteModal(false); setdeletetemp(null) }} />
       <Breadcrumb />
       <div className='bg-transparent col-span-3 flex items-center justify-between'>
-        <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
-          Quiz Name
+        <h5 className='not-italic font-semibold capitalize text-[32px] font-Inter leading-tight text-white mb-[2px]'>
+          {subcategory2}
         </h5>
 
         <ChipWithLeftButton condition={true} label={'Add Next Question'} srcPath={'/asset/PlusVector.svg'}

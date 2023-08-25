@@ -14,7 +14,7 @@ import CocktailFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cock
 import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
-import { CustomSelectForBrands } from "@/utils/CustomSelect";
+import { CustomSelectForBrands, CustomSelectForBrandsFullGray } from "@/utils/CustomSelect";
 import Image from "next/image";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
 
@@ -59,6 +59,9 @@ const FoodEdits = ({ productId, subcategory }) => {
   const [upimage, setimage] = useState()
   const [categoryArray, setcatarray] = useState([])
   const [category, setCategory] = useState({ category_id: '', category_name: '' })
+  const [outletArray, setOutletArray] = useState([])
+  const [outletSelected, setOutletSelected] = useState({})
+  const [currentHotelMappingId, setCurrentHotelMappingId] = useState(null)
 
 
 
@@ -108,6 +111,25 @@ const FoodEdits = ({ productId, subcategory }) => {
     setCal(productDetails?.calories)
     setVegan(productDetails?.vegan)
     setCategory({ category_id: productDetails?.category_id || '', category_name: productDetails?.category_name || '' })
+    if (productDetails?.outlet) {
+      let dummyData
+      console.log('dd');
+      let dummy = productDetails?.outlet.map(element => {
+        if (productDetails[`${subcategory}_id`] == element[`${subcategory}_id`]) {
+          dummyData = {
+            value: element.outlet_id,
+            label: element.outlet_name,
+            body: element
+          }
+          console.log('dd', dummyData);
+        }
+        return { value: element.outlet_id, label: element.outlet_name, body: element }
+      })
+      setOutletSelected({ ...dummyData })
+      setOutletArray([...dummy])
+    }
+    setCurrentHotelMappingId(productDetails?.[`${subcategory}_id`])
+
   }, [productDetails])
 
   function addNewTitle(name) {
@@ -231,7 +253,7 @@ const FoodEdits = ({ productId, subcategory }) => {
       if (upimage) {
         dispatch(uploadimage(upimage)).then((imageurl) => {
           if (imageurl && !imageurl?.error)
-            dispatch(putProductById(subcategory, productId,
+            dispatch(putProductById(subcategory, currentHotelMappingId,
               {
                 ...productDetails,
                 [`${subcategory}_name`]: nameref.current.innerText,
@@ -249,7 +271,8 @@ const FoodEdits = ({ productId, subcategory }) => {
                 vegan: vegan,
                 calories: calories,
                 category_id: category.category_id,
-                category_name: category.category_name
+                category_name: category.category_name,
+                isActive: true
 
 
 
@@ -265,7 +288,7 @@ const FoodEdits = ({ productId, subcategory }) => {
         })
       }
       else
-        dispatch(putProductById(subcategory, productId,
+        dispatch(putProductById(subcategory, currentHotelMappingId,
           {
             ...productDetails,
             [`${subcategory}_name`]: nameref.current.innerText,
@@ -282,7 +305,8 @@ const FoodEdits = ({ productId, subcategory }) => {
             vegan: vegan,
             calories: calories,
             category_id: category.category_id,
-            category_name: category.category_name
+            category_name: category.category_name,
+            isActive: true
 
           }
         )).then((res) => {
@@ -399,6 +423,17 @@ const FoodEdits = ({ productId, subcategory }) => {
                           })
                         }} />
                     </div>
+                  </div>
+                }
+                 {isEdit &&
+                  <div className='input-desc flex flex-col ml-[25px]'>
+                    <CustomSelectForBrandsFullGray items={[...outletArray]} defaultSelect={outletSelected ? { ...outletSelected } : null}
+                      optionalFunction={(e) => {
+                        console.log(e);
+                        // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                        setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
+                        dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
+                      }} />
                   </div>
                 }
               </div>

@@ -1,5 +1,5 @@
-import { DeleteProduct } from '@/components/modal/adminmodal'
-import { deleteProductById, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { DeleteProduct, DeleteProductFromOutlet, ShowHideIdsOnOutletBasis } from '@/components/modal/adminmodal'
+import { deleteProductById, deleteProductByIdAccToOutlet, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, showhideProductByIdAccToOutlet } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -15,9 +15,15 @@ function CocktailTable() {
     const [newList, setList] = useState([])
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
+    const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+    const [ShowHideModal, setShowHideModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
+    })
+    const [elementItemOutlet, setElementItemOutlet] = useState({
+        title: '',
+        outlets: [],
     })
     useEffect(() => {
 
@@ -93,10 +99,24 @@ function CocktailTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
-                        {console.log(element.showHideStatus)}
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            toggleSwitch(e, element)
-                        }} />
+                        {element?.data?.outlet.length > 1 ? <>
+                            <div className=' cursor-pointer p-[5px] rounded-[3px] text-primary-base text-[14px] border border-primary-base'
+                                onClick={() => {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setShowHideModal(true)
+                                }}
+                            >
+                                Manage Status
+                            </div>
+                        </> :
+
+                            <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                                toggleSwitch(e, element)
+                            }} />
+                        }
                     </div>
                 </td>
                 <td >
@@ -117,10 +137,22 @@ function CocktailTable() {
                         <div className='ml-[15px]'>
 
                             <DeleteCircularButton onClickHandler={() => {
-                                setElementItem({
-                                    title: element.itemName,
-                                    id: element.id
-                                }); setDeleteModal(true)
+                                if (element?.data?.outlet.length > 1) {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setDeleteModalOutlets(true)
+                                }
+                                else {
+
+                                    setElementItem({
+                                        title: element.itemName,
+                                        id: element.id
+                                    });
+                                    setDeleteModal(true)
+                                }
+
                             }} />
                         </div>
                     </div>
@@ -142,6 +174,57 @@ function CocktailTable() {
                     onClickCancel={() => { setDeleteModal(false) }}
                     title={elementItem.title}
                     onSave={deleteProduct}
+                />
+            }
+            {DeleteModalOutlets &&
+                <DeleteProductFromOutlet
+                    isModalOpen={DeleteModalOutlets}
+                    onClickCancel={() => { setDeleteModalOutlets(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'cocktail'}
+                    type={1}
+                    onSave={(ids) => {
+                        console.log(ids);
+                        dispatch(deleteProductByIdAccToOutlet('cocktail',
+                            {
+                                isActive: false,
+                                ids: [...ids]
+                            }
+                        ))
+                    }}
+                />
+            }
+            {ShowHideModal &&
+                <ShowHideIdsOnOutletBasis
+                    isModalOpen={ShowHideModal}
+                    onClickCancel={() => { setShowHideModal(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'cocktail'}
+                    type={1}
+                    onSave={(ids, hideIds) => {
+                        console.log(ids);
+                        if (ids.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('cocktail',
+                                {
+                                    showProduct: true,
+                                    ids: [...ids]
+                                }
+                            ))
+                        }
+                        if (hideIds.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('cocktail',
+                                {
+                                    showProduct: false,
+                                    ids: [...hideIds]
+                                }
+                            ))
+                        }
+
+                    }}
                 />
             }
             <TableContainerWithButtons label={'ADD COCKTAIL'} OuterRows={OuterRows} buttonFunction={() => { router.push("/specs/cocktail/new") }} mockData={newList} HeaderArray={HeaderArray} pageSize={5} />

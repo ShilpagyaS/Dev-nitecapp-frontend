@@ -23,6 +23,7 @@ import { successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import Link from "next/link";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
+import { CustomSelectForBrandsFullGray } from "@/utils/CustomSelect";
 
 const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -32,6 +33,9 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
   const method = DetailsMock.method;
   const lesson = DetailsMock.lesson;
   const notes = DetailsMock.notes;
+  const [outletArray, setOutletArray] = useState([])
+  const [outletSelected, setOutletSelected] = useState({})
+  const [currentHotelMappingId, setCurrentHotelMappingId] = useState(null)
   // let superData = {
   //   cocktail_name: 'SouthSide',
   //   description: " A pre-Prohibition classic cocktail made popular at the “21 Club” in New York. A refreshing combination of Tanqueray gin, citrus + a kiss of mint.",
@@ -124,6 +128,25 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
     setgf(productDetails?.gluten_free)
     setCal(productDetails?.calories)
     setVegan(productDetails?.vegan)
+    if (productDetails?.outlet) {
+      let dummyData
+      console.log('dd');
+      let dummy = productDetails?.outlet.map(element => {
+        if (productDetails[`${subcategory}_id`] == element[`${subcategory}_id`]) {
+          dummyData = {
+            value: element.outlet_id,
+            label: element.outlet_name,
+            body: element
+          }
+          console.log('dd', dummyData);
+        }
+        return { value: element.outlet_id, label: element.outlet_name, body: element }
+      })
+      setOutletSelected({ ...dummyData })
+      setOutletArray([...dummy])
+    }
+    setCurrentHotelMappingId(productDetails?.[`${subcategory}_id`])
+
 
   }, [productDetails])
 
@@ -251,7 +274,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
       if (upimage) {
         dispatch(uploadimage(upimage)).then((imageurl) => {
           if (imageurl && !imageurl?.error)
-            dispatch(putProductById(subcategory, productId,
+            dispatch(putProductById(subcategory, currentHotelMappingId,
               {
                 ...productDetails,
                 [`${subcategory}_name`]: nameref.current.innerText,
@@ -267,7 +290,8 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
                 price: price,
                 gluten_free: gf,
                 vegan: vegan,
-                calories: calories
+                calories: calories,
+                isActive: true
 
               }
             )).then((res) => {
@@ -281,7 +305,7 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
         })
       }
       else
-        dispatch(putProductById(subcategory, productId,
+        dispatch(putProductById(subcategory, currentHotelMappingId,
           {
             ...productDetails,
             [`${subcategory}_name`]: nameref.current.innerText,
@@ -296,7 +320,8 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            isActive: true
 
           }
         )).then((res) => {
@@ -416,6 +441,17 @@ const CocktailAdminDetailPage = ({ productId, subcategory }) => {
                 <div className="status-text text-[18px]">
                   <EditCard editContent={`${whatsthestrength(abv)} (${abv})%`} isEdit={false} />
                 </div>
+                {isEdit &&
+                  <div className='input-desc flex flex-col ml-[25px]'>
+                    <CustomSelectForBrandsFullGray items={[...outletArray]} defaultSelect={outletSelected ? { ...outletSelected } : null}
+                      optionalFunction={(e) => {
+                        console.log(e);
+                        // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                        setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
+                        dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
+                      }} />
+                  </div>
+                }
               </div>
             </div>
             {!isEdit &&

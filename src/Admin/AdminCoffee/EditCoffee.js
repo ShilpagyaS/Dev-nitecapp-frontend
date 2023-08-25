@@ -17,6 +17,7 @@ import Link from "next/link";
 import CoffeeFileUpdate from "@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CoffeeFileUpdate";
 import Image from "next/image";
 import PriceGFVeganCAlContainer from "@/utils/PriceGFVeganCAlContainer";
+import { CustomSelectForBrandsFullGray } from "@/utils/CustomSelect";
 
 const EditCoffee = ({ productId, subcategory }) => {
   const isMobile = useMediaQuery("(max-width: 414px)");
@@ -59,6 +60,10 @@ const EditCoffee = ({ productId, subcategory }) => {
   const [showPresentations, setShowPresentation] = useState(false)
   const [upimage, setimage] = useState()
   const [methodImage, setMethodImage] = useState()
+  const [outletArray, setOutletArray] = useState([])
+  const [outletSelected, setOutletSelected] = useState({})
+  const [currentHotelMappingId, setCurrentHotelMappingId] = useState(null)
+
 
 
 
@@ -102,6 +107,25 @@ const EditCoffee = ({ productId, subcategory }) => {
     setgf(productDetails?.gluten_free)
     setCal(productDetails?.calories)
     setVegan(productDetails?.vegan)
+    if (productDetails?.outlet) {
+      let dummyData
+      console.log('dd');
+      let dummy = productDetails?.outlet.map(element => {
+        if (productDetails[`${subcategory}_id`] == element[`${subcategory}_id`]) {
+          dummyData = {
+            value: element.outlet_id,
+            label: element.outlet_name,
+            body: element
+          }
+          console.log('dd', dummyData);
+        }
+        return { value: element.outlet_id, label: element.outlet_name, body: element }
+      })
+      setOutletSelected({ ...dummyData })
+      setOutletArray([...dummy])
+    }
+    setCurrentHotelMappingId(productDetails?.[`${subcategory}_id`])
+
 
   }, [productDetails])
 
@@ -232,8 +256,8 @@ const EditCoffee = ({ productId, subcategory }) => {
           coffeurl = dispatch(uploadimage(methodImage))
 
         Promise.all([imageUrl, coffeurl]).then(([imageUrlres, coffeurlres]) => {
-           
-          dispatch(putProductById(subcategory, productId,
+
+          dispatch(putProductById(subcategory, currentHotelMappingId,
             {
               ...productDetails,
               [`${subcategory}_name`]: nameref.current.innerText,
@@ -250,7 +274,8 @@ const EditCoffee = ({ productId, subcategory }) => {
               price: price,
               gluten_free: gf,
               vegan: vegan,
-              calories: calories
+              calories: calories,
+              isActive: true
 
             })).then((res) => {
               console.log(res);
@@ -262,7 +287,7 @@ const EditCoffee = ({ productId, subcategory }) => {
         })
       }
       else
-        dispatch(putProductById(subcategory, productId,
+        dispatch(putProductById(subcategory, currentHotelMappingId,
           {
             ...productDetails,
             [`${subcategory}_name`]: nameref.current.innerText,
@@ -277,7 +302,8 @@ const EditCoffee = ({ productId, subcategory }) => {
             price: price,
             gluten_free: gf,
             vegan: vegan,
-            calories: calories
+            calories: calories,
+            isActive: true
 
           }
         )).then((res) => {
@@ -381,6 +407,17 @@ const EditCoffee = ({ productId, subcategory }) => {
                 {/* <div className="status-text text-[18px]">
                   <EditCard editContent={`${whatsthestrength(abv)} (${abv})%`} isEdit={false} />
                 </div> */}
+                {isEdit &&
+                  <div className='input-desc flex flex-col ml-[25px]'>
+                    <CustomSelectForBrandsFullGray items={[...outletArray]} defaultSelect={outletSelected ? { ...outletSelected } : null}
+                      optionalFunction={(e) => {
+                        console.log(e);
+                        // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                        setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
+                        dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
+                      }} />
+                  </div>
+                }
               </div>
             </div>
             {!isEdit &&

@@ -132,7 +132,7 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
   useEffect(() => {
     console.log(defaultSelect);
     if (defaultSelect)
-      handleSelectItem(defaultSelect)
+      handleSelectItemDefault(defaultSelect)
   }, [])
   useEffect(() => {
     if (isclear == true)
@@ -149,6 +149,12 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
     setIsDropdownOpen(false);
     console.log('items', item);
     optionalFunction(item)
+  };
+  const handleSelectItemDefault = (item) => {
+    setSelectedItem(item);
+    setIsDropdownOpen(false);
+    console.log('items', item);
+    // optionalFunction(item)
   };
 
 
@@ -175,6 +181,75 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
             <li key={item.value}>
               <button
                 className={`w-[201px] capitalize not-italic font-normal text-base leading-6 text-[#767676] text-left p-[10px] pl-[19px] ${selectedItem?.value === item.value
+                  ? 'bg-[#2C2C2C] '
+                  : 'bg-[#2C2C2C] hover:bg-gray-100'
+                  }`}
+                onClick={() => handleSelectItem(item)}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+export function CustomSelectForBrandsFullGray({ items, optionalFunction, defaultSelect, isclear }) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  useEffect(() => {
+    console.log(defaultSelect);
+    if (defaultSelect)
+      handleSelectItemDefault(defaultSelect)
+  }, [])
+  useEffect(() => {
+    if (isclear == true)
+
+      setSelectedItem(null)
+  }, [isclear])
+
+  const handleToggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setIsDropdownOpen(false);
+    console.log('items', item);
+    optionalFunction(item)
+  };
+  const handleSelectItemDefault = (item) => {
+    setSelectedItem(item);
+    setIsDropdownOpen(false);
+    console.log('items', item);
+    // optionalFunction(item)
+  };
+
+
+
+  return (
+    <div className="relative min-w-[300px] w-full h-[50px]">
+      <button
+        className="w-full py-[8px] pl-[28px] pr-[28px] text-white bg-[#2C2C2C] border border-[#2C2C2C] rounded shadow-sm capitalize outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
+        onClick={handleToggleDropdown}
+      >
+        {selectedItem ? selectedItem.label : <span className='text-[#767676] bg-transparent'>
+          Select an option
+        </span>}
+        <Image
+          src={'/asset/DownArrow.svg'}
+          width={14}
+          height={25}
+          className="bg-[#2C2C2C]"
+        />
+      </button>
+      {isDropdownOpen && (
+        <ul className="brandModal w-full absolute z-10 bg-[#2C2C2C] rounded-md shadow-lg pb-[10px] max-h-[200px] overflow-y-scroll">
+          {items.map((item) => (
+            <li key={item.value}>
+              <button
+                className={`w-full capitalize not-italic font-normal text-base leading-6 text-[#767676] text-left p-[10px] pl-[19px] ${selectedItem?.value === item.value
                   ? 'bg-[#2C2C2C] '
                   : 'bg-[#2C2C2C] hover:bg-gray-100'
                   }`}
