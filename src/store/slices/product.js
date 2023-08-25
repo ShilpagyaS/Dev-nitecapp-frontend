@@ -417,7 +417,6 @@ export const showhideProductByIdAccToOutlet = (productType, data) => {
     }).then((res) => {
       // toastify
       dispatch(getProduct(productType))
-      successtoast({ message: `Deleted Successfully` })
       return res
     }).catch((err) => {
       console.log(err)
@@ -436,6 +435,23 @@ export const delinkProductById = (data) => {
       console.log(res);
       dispatch(getProduct(data.type))
       successtoast({ message: `Deleted Successfully` })
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const showhideproductProductByIdwithCAtegoryAccToOutlet = (type, data, categoryId) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/delete-and-show-product-by-id-and-type/${type}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // toastify
+      console.log(res);
+      dispatch(getProductByCategoryId(type, categoryId))
       return res
     }).catch((err) => {
       console.log(err)

@@ -1,6 +1,6 @@
-import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal'
+import { DeleteProduct, DeleteProductFromOutlet, ShowHideIdsOnOutletBasis } from '@/components/modal/adminmodal'
 import { AddItemModal } from '@/components/modal/NewDminFlowModals'
-import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductByIdAccToOutlet, delinkProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { createProduct, createProductAndUpdatingList, createProductAndUpdatingListNew, deleteProductById, deleteProductByIdAccToOutlet, delinkProductById, emptyProductList, getProduct, putProductById, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, showhideProductByIdAccToOutlet } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -16,6 +16,7 @@ function BeerTable() {
     const [newList, setList] = useState([])
     const [DeleteModal, setDeleteModal] = useState(false)
     const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+    const [ShowHideModal, setShowHideModal] = useState(false)
 
     const [AddModal, setAddModal] = useState(false)
     const [elementItem, setElementItem] = useState({
@@ -102,11 +103,24 @@ function BeerTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
+                        {element?.data?.outlet.length > 1 ? <>
+                            <div className=' cursor-pointer p-[5px] rounded-[3px] text-primary-base text-[14px] border border-primary-base'
+                                onClick={() => {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setShowHideModal(true)
+                                }}
+                            >
+                                Manage Status
+                            </div>
+                        </> :
 
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            console.log(e);
-                            toggleSwitch(e, element)
-                        }} />
+                            <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                                toggleSwitch(e, element)
+                            }} />
+                        }
                     </div>
                 </td>
                 <td >
@@ -183,6 +197,38 @@ function BeerTable() {
                                 ids: [...ids]
                             }
                         ))
+                    }}
+                />
+            }
+            {ShowHideModal &&
+                <ShowHideIdsOnOutletBasis
+                    isModalOpen={ShowHideModal}
+                    onClickCancel={() => { setShowHideModal(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'beer'}
+                    type={2}
+                    onSave={(ids, hideIds) => {
+                        console.log(ids);
+                        if (ids.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('beer',
+                                {
+                                    showProduct: true,
+                                    ids: [...ids]
+                                }
+                            ))
+                        }
+                        if (hideIds.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('beer',
+                                {
+                                    showProduct: false,
+                                    ids: [...hideIds]
+                                }
+                            ))
+                        }
+
                     }}
                 />
             }

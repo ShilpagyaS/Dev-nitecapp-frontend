@@ -1,5 +1,5 @@
-import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal'
-import { deleteProductById, deleteProductByIdAccToOutlet, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { DeleteProduct, DeleteProductFromOutlet, ShowHideIdsOnOutletBasis } from '@/components/modal/adminmodal'
+import { deleteProductById, deleteProductByIdAccToOutlet, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, showhideProductByIdAccToOutlet } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -16,6 +16,7 @@ function CoffeeTable() {
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
     const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+    const [ShowHideModal, setShowHideModal] = useState(false)
 
     const [elementItem, setElementItem] = useState({
         title: '',
@@ -99,10 +100,24 @@ function CoffeeTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
-                        {console.log(element.showHideStatus)}
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            toggleSwitch(e, element)
-                        }} />
+                        {element?.data?.outlet.length > 1 ? <>
+                            <div className=' cursor-pointer p-[5px] rounded-[3px] text-primary-base text-[14px] border border-primary-base'
+                                onClick={() => {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setShowHideModal(true)
+                                }}
+                            >
+                                Manage Status
+                            </div>
+                        </> :
+
+                            <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                                toggleSwitch(e, element)
+                            }} />
+                        }
                     </div>
                 </td>
                 <td >
@@ -161,7 +176,7 @@ function CoffeeTable() {
                     onSave={deleteProduct}
                 />
             }
-             {DeleteModalOutlets &&
+            {DeleteModalOutlets &&
                 <DeleteProductFromOutlet
                     isModalOpen={DeleteModalOutlets}
                     onClickCancel={() => { setDeleteModalOutlets(false) }}
@@ -177,6 +192,38 @@ function CoffeeTable() {
                                 ids: [...ids]
                             }
                         ))
+                    }}
+                />
+            }
+            {ShowHideModal &&
+                <ShowHideIdsOnOutletBasis
+                    isModalOpen={ShowHideModal}
+                    onClickCancel={() => { setShowHideModal(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'coffee'}
+                    type={1}
+                    onSave={(ids, hideIds) => {
+                        console.log(ids);
+                        if (ids.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('coffee',
+                                {
+                                    showProduct: true,
+                                    ids: [...ids]
+                                }
+                            ))
+                        }
+                        if (hideIds.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('coffee',
+                                {
+                                    showProduct: false,
+                                    ids: [...hideIds]
+                                }
+                            ))
+                        }
+
                     }}
                 />
             }

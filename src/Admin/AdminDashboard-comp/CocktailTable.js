@@ -99,10 +99,24 @@ function CocktailTable() {
                 </td>
                 <td >
                     <div className='flex flex-row items-center justify-center p-1'>
-                        {console.log(element.showHideStatus)}
-                        <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
-                            toggleSwitch(e, element)
-                        }} />
+                        {element?.data?.outlet.length > 1 ? <>
+                            <div className=' cursor-pointer p-[5px] rounded-[3px] text-primary-base text-[14px] border border-primary-base'
+                                onClick={() => {
+                                    setElementItemOutlet({
+                                        title: element.itemName,
+                                        outlets: [...element?.data?.outlet]
+                                    })
+                                    setShowHideModal(true)
+                                }}
+                            >
+                                Manage Status
+                            </div>
+                        </> :
+
+                            <SwitchComp showHideStatus={element.showHideStatus} onChangeHandler={(e) => {
+                                toggleSwitch(e, element)
+                            }} />
+                        }
                     </div>
                 </td>
                 <td >
@@ -191,19 +205,25 @@ function CocktailTable() {
                     type={1}
                     onSave={(ids, hideIds) => {
                         console.log(ids);
-                        dispatch(showhideProductByIdAccToOutlet('cocktail',
-                            {
-                                showProduct: true,
-                                ids: [...ids]
-                            }
-                        )).then(() => {
+                        if (ids.length > 0) {
+
+                            dispatch(showhideProductByIdAccToOutlet('cocktail',
+                                {
+                                    showProduct: true,
+                                    ids: [...ids]
+                                }
+                            ))
+                        }
+                        if (hideIds.length > 0) {
+
                             dispatch(showhideProductByIdAccToOutlet('cocktail',
                                 {
                                     showProduct: false,
                                     ids: [...hideIds]
                                 }
                             ))
-                        })
+                        }
+
                     }}
                 />
             }
