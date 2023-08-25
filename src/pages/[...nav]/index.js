@@ -361,9 +361,9 @@ export default function Category() {
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}
 
                 {/* {path === `/checklist` && <CheckList />} */}
-                {path === `/checklist` && <NewAdminChecklistHomePage />}
+                {/* {path === `/checklist` && <NewAdminChecklistHomePage />}
                 {path === `/checklist/logs` && <ChecklistLogs />}
-                {path === `/checklist/description` && <CheckListdescpage />}
+                {path === `/checklist/description` && <CheckListdescpage />} */}
 
               </LayoutWithSidebarAdmin>
             }
