@@ -13,6 +13,7 @@ import manageusers from './slices/manageusers';
 import guests from './slices/guests';
 import learn from './slices/learnslice';
 import quiz from './slices/quiz'
+import checklist from './slices/checklist'
 
 export const store = configureStore({
   reducer: {
@@ -28,7 +29,8 @@ export const store = configureStore({
     manageusers,
     guests,
     learn,
-    quiz
+    quiz,
+    checklist
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),

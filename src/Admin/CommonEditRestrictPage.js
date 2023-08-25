@@ -3,12 +3,12 @@ import { EditDualValue, EditKeyValue } from '@/components/modal/adminmodal';
 import ButtonCombo from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ButtonCombo';
 import ConditionalButton from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/ConditionalButton';
 import useMediaQuery from '@/Hooks/useMediaQuery';
-import { emptyProductList, getAllDrinkBrands, getProductById, putProductById } from '@/store/slices/product';
+import { emptyProductList, getAllDrinkBrands, getProductById, getProductByMappingIdId, putProductById, putProductByMappingId } from '@/store/slices/product';
 import DescriptionTextArea from '@/utils/Cards/Text card/DescriptionTextArea';
 import EditCard from '@/utils/Cards/Text card/EditCard';
 import SplitCard from '@/utils/Cards/Text card/SplitCard';
 import { CustomChipWithLeftButton } from '@/utils/ChipWithLeftButton';
-import { CustomSelectForBrands } from '@/utils/CustomSelect';
+import { CustomSelectForBrands, CustomSelectForBrandsFullGray } from '@/utils/CustomSelect';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import { errortoast, successtoast } from "@/components/tostify";
 import { uploadimage } from "@/store/slices/ui";
 import CocktailFileUpdate from '@/components/spec-comp/AdminSpecsComp/Admin-cocktails-detail-page/CocktailFileUpdate';
 import Link from 'next/link';
+
 function CommonEditRestrictPage({ productId, subcategory }) {
     const isMobile = useMediaQuery("(max-width: 414px)");
     const isTablet = useMediaQuery("(max-width: 786px)");
@@ -35,6 +36,9 @@ function CommonEditRestrictPage({ productId, subcategory }) {
     const [vegan, setVegan] = useState(null)
     const [calories, setCal] = useState(null)
     const [price, setPrice] = useState(null)
+    const [outletArray, setOutletArray] = useState([])
+    const [outletSelected, setOutletSelected] = useState({})
+    const [currentHotelMappingId, setCurrentHotelMappingId] = useState(null)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -74,6 +78,25 @@ function CommonEditRestrictPage({ productId, subcategory }) {
         setgf(productDetails?.gluten_free)
         setCal(productDetails?.calories)
         setVegan(productDetails?.vegan)
+        if (productDetails?.outlet) {
+            let dummyData
+            console.log('dd');
+            let dummy = productDetails?.outlet.map(element => {
+                if (productDetails[`${subcategory}_hotel_mapping_id`] == element[`${subcategory}_hotel_mapping_id`]) {
+                    dummyData = {
+                        value: element.outlet_id,
+                        label: element.outlet_name,
+                        body: element
+                    }
+                    console.log('dd', dummyData);
+                }
+                return { value: element.outlet_id, label: element.outlet_name, body: element }
+            })
+            setOutletSelected({ ...dummyData })
+            setOutletArray([...dummy])
+        }
+        setCurrentHotelMappingId(productDetails?.[`${subcategory}_hotel_mapping_id`])
+
     }, [productDetails])
 
 
@@ -175,12 +198,14 @@ function CommonEditRestrictPage({ productId, subcategory }) {
             if (upimage) {
                 dispatch(uploadimage(upimage)).then((imageurl) => {
                     if (imageurl && !imageurl?.error)
-                        dispatch(putProductById(subcategory, productId,
+                        dispatch(putProductByMappingId(subcategory, productId, currentHotelMappingId,
                             {
                                 ...productDetails,
                                 description: textAreaRef.current.value,
                                 price: parseFloat(price),
-                                image: imageurl
+                                image: imageurl,
+                                [`${subcategory}_hotel_mapping_id`]: currentHotelMappingId,
+                                isActive: true
                             }
                         )).then((res) => {
                             console.log(res);
@@ -194,11 +219,13 @@ function CommonEditRestrictPage({ productId, subcategory }) {
                 })
             }
             else
-                dispatch(putProductById(subcategory, productId,
+                dispatch(putProductByMappingId(subcategory, productId, currentHotelMappingId,
                     {
                         ...productDetails,
                         description: textAreaRef.current.value,
-                        price: parseFloat(price)
+                        price: parseFloat(price),
+                        [`${subcategory}_hotel_mapping_id`]: currentHotelMappingId,
+                        isActive: true
                     }
                 )).then((res) => {
                     console.log(res);
@@ -330,6 +357,17 @@ function CommonEditRestrictPage({ productId, subcategory }) {
                                         <CustomSelectForBrands items={drinkBrandArray} defaultSelect={drinkBrand.brand_id ? { label: drinkBrand.brand_name, value: drinkBrand.brand_id } : null} optionalFunction={(e) => { console.log(e); setDrinkBrand({ brand_id: e.value, brand_name: e.label }) }} />
                                     </div>
                                 } */}
+                                {isEdit &&
+                                    <div className='input-desc flex flex-col ml-[25px]'>
+                                        <CustomSelectForBrandsFullGray items={[...outletArray]} defaultSelect={outletSelected ? { ...outletSelected } : null}
+                                            optionalFunction={(e) => {
+                                                console.log(e);
+                                                // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                                                setCurrentHotelMappingId(e?.body[`${subcategory}_hotel_mapping_id`])
+                                                dispatch(getProductByMappingIdId(subcategory, e?.body[`${subcategory}_hotel_mapping_id`]))
+                                            }} />
+                                    </div>
+                                }
                             </div>
                         </div>
                         <ul className="sm:divide-x sm:divide-[#959595] sm:flex sm:flex-row flex-col mb-5">

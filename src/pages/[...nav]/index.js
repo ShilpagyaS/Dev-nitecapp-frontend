@@ -99,6 +99,10 @@ import StudyAllFlashcardDetailPage from "@/Admin/AdminLearn/StudyAllFlashcardDet
 import StyduAllFlashcardByCategoryid from "@/Admin/AdminLearn/StyduAllFlashcardByCategoryid";
 import Brands from "@/components/brands";
 import CheckboxComp from "@/components/Checkbox/CheckboxComp";
+import CheckList from "@/Admin/AdminCheckBox/CheckList";
+import CheckListdescpage from "@/Admin/AdminCheckBox/CheckListdescpage";
+import NewAdminChecklistHomePage from "@/Admin/AdminCheckBox/NewAdminChecklistHomePage";
+import ChecklistLogs from "@/Admin/AdminCheckBox/checklistLogs";
 
 
 
@@ -354,6 +358,10 @@ export default function Category() {
                 {path === `/learn/quizzes` && <QuizPage />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}
 
+                {/* {path === `/checklist` && <CheckList />} */}
+                {path === `/checklist` && <NewAdminChecklistHomePage />}
+                {path === `/checklist/logs` && <ChecklistLogs />}
+                {path === `/checklist/description` && <CheckListdescpage />}
 
               </LayoutWithSidebarAdmin>
             }

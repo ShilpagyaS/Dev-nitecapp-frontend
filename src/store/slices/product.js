@@ -58,6 +58,19 @@ export const getProductById = (productType, productId) => {
     });
   };
 };
+export const getProductByMappingIdId = (productType, productId) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/get-product-based-by-id-and-type/${productType}/${productId}`,
+      method: "GET",
+    }).then((res) => {
+      dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
 
 export const getProduct = (productType) => {
   return async (dispatch, getState) => {
@@ -150,6 +163,23 @@ export const putProductById = (productType, productId, data) => {
     }).then((res) => {
       // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
       dispatch(getProductById(productType, productId))
+      return res
+    }).catch((err) => {
+      console.log(err)
+      return { error: true, message: err }
+    });
+  };
+};
+export const putProductByMappingId = (productType, productId,currentHotelMappingId, data) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    return axiosInstance({
+      url: `/api/${productType}/${productId}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // dispatch(productSlice.actions.getProductInfo(res?.data?.data));
+      dispatch(getProductByMappingIdId(productType, currentHotelMappingId))
       return res
     }).catch((err) => {
       console.log(err)
@@ -361,6 +391,23 @@ export const deleteProductById = (productType, productId) => {
   };
 };
 export const deleteProductByIdAccToOutlet = (productType, data) => {
+  return async (dispatch) => {
+
+    return await axiosInstance({
+      url: `/api/delete-and-show-product-by-id-and-type/${productType}`,
+      method: "PUT",
+      data
+    }).then((res) => {
+      // toastify
+      dispatch(getProduct(productType))
+      successtoast({ message: `Deleted Successfully` })
+      return res
+    }).catch((err) => {
+      console.log(err)
+    });
+  };
+};
+export const showhideProductByIdAccToOutlet = (productType, data) => {
   return async (dispatch) => {
 
     return await axiosInstance({

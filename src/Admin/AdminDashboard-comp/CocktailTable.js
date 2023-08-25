@@ -1,5 +1,5 @@
-import { DeleteProduct, DeleteProductFromOutlet } from '@/components/modal/adminmodal'
-import { deleteProductById, deleteProductByIdAccToOutlet, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct } from '@/store/slices/product'
+import { DeleteProduct, DeleteProductFromOutlet, ShowHideIdsOnOutletBasis } from '@/components/modal/adminmodal'
+import { deleteProductById, deleteProductByIdAccToOutlet, emptyProductList, getProduct, putProductByIdThenUpdateList, putProductByIdThenUpdateListShowProduct, showhideProductByIdAccToOutlet } from '@/store/slices/product'
 import { DeleteCircularButton, EditCircularButton } from '@/utils/CircularButton'
 import { enUrl } from '@/utils/encoderfunc'
 import SwitchComp from '@/utils/SwitchComp'
@@ -16,6 +16,7 @@ function CocktailTable() {
     const dispatch = useDispatch()
     const [DeleteModal, setDeleteModal] = useState(false)
     const [DeleteModalOutlets, setDeleteModalOutlets] = useState(false)
+    const [ShowHideModal, setShowHideModal] = useState(false)
     const [elementItem, setElementItem] = useState({
         title: '',
         id: ''
@@ -177,6 +178,32 @@ function CocktailTable() {
                                 ids: [...ids]
                             }
                         ))
+                    }}
+                />
+            }
+            {ShowHideModal &&
+                <ShowHideIdsOnOutletBasis
+                    isModalOpen={ShowHideModal}
+                    onClickCancel={() => { setShowHideModal(false) }}
+                    title={elementItemOutlet.title}
+                    outlets={elementItemOutlet.outlets}
+                    itemtype={'cocktail'}
+                    type={1}
+                    onSave={(ids, hideIds) => {
+                        console.log(ids);
+                        dispatch(showhideProductByIdAccToOutlet('cocktail',
+                            {
+                                showProduct: true,
+                                ids: [...ids]
+                            }
+                        )).then(() => {
+                            dispatch(showhideProductByIdAccToOutlet('cocktail',
+                                {
+                                    showProduct: false,
+                                    ids: [...hideIds]
+                                }
+                            ))
+                        })
                     }}
                 />
             }
