@@ -82,9 +82,6 @@ function NewChecklistListComponent() {
                                                                 })
                                                             }}
                                                             progress={20}
-                                                            content={
-                                                                <div>{checklist.check_list_tasks.length}</div>
-                                                            }
                                                         // content={
                                                         //     <NewChecklistDisplay tasks={checklist.tasks} onflagged={(taskindex, ischeckedStatus) => { flagcheckbox(i, ci, taskindex, ischeckedStatus) }} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
                                                         // }
