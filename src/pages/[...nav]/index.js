@@ -245,9 +245,9 @@ export default function Category() {
                 {path === `/learn/quizzes` && <AllQuizes />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage quizid={productId} quizName={subcategory2} />}
 
-                {/* {path === `/checklist` && <CheckboxComp />} */}
-                {path === `/checklist` && <CheckList />}
-                {path === `/checklist/description` && <CheckListdescpage />}
+                {path === `/checklist` && <CheckboxComp />}
+                {/* {path === `/checklist` && <CheckList />}
+                {path === `/checklist/description` && <CheckListdescpage />} */}
               </LayoutWithSidebar>
             }
           </>
