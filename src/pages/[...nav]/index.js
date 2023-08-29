@@ -103,6 +103,7 @@ import CheckList from "@/components/Checkbox/CheckList";
 import CheckListdescpage from "@/components/Checkbox/CheckListdescpage";
 import NewAdminChecklistHomePage from "@/Admin/AdminCheckBox/NewAdminChecklistHomePage";
 import ChecklistLogs from "@/Admin/AdminCheckBox/checklistLogs";
+import NewAdminTaskDisplay from "@/Admin/AdminCheckBox/NewAdminTaskDisplay";
 
 
 
@@ -245,9 +246,9 @@ export default function Category() {
                 {path === `/learn/quizzes` && <AllQuizes />}
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage quizid={productId} quizName={subcategory2} />}
 
-                {path === `/checklist` && <CheckboxComp />}
-                {/* {path === `/checklist` && <CheckList />}
-                {path === `/checklist/description` && <CheckListdescpage />} */}
+                {/* {path === `/checklist` && <CheckboxComp />} */}
+                {path === `/checklist` && <CheckList />}
+                {path === `/checklist/description` && <CheckListdescpage />}
               </LayoutWithSidebar>
             }
           </>
@@ -361,10 +362,10 @@ export default function Category() {
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}
 
                 {/* {path === `/checklist` && <CheckList />} */}
-                {/* {path === `/checklist` && <NewAdminChecklistHomePage />}
+                {path === `/checklist` && <NewAdminChecklistHomePage />}
                 {path === `/checklist/logs` && <ChecklistLogs />}
-                {path === `/checklist/description` && <CheckListdescpage />} */}
-
+                {path === `/checklist/description?id=${productId}` && <NewAdminTaskDisplay id={productId} />}
+                           
               </LayoutWithSidebarAdmin>
             }
           </>

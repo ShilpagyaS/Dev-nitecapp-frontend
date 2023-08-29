@@ -195,7 +195,7 @@ export function CustomSelectForBrands({ items, optionalFunction, defaultSelect, 
     </div>
   );
 }
-export function CustomSelectForBrandsFullGray({ items, optionalFunction, defaultSelect, isclear }) {
+export function CustomSelectForBrandsFullGray({ items, optionalFunction, defaultSelect, isclear, text }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   useEffect(() => {
@@ -235,7 +235,7 @@ export function CustomSelectForBrandsFullGray({ items, optionalFunction, default
         onClick={handleToggleDropdown}
       >
         {selectedItem ? selectedItem.label : <span className='text-[#767676] bg-transparent'>
-          Select an option
+          {text ? text:' Select an option'}
         </span>}
         <Image
           src={'/asset/DownArrow.svg'}

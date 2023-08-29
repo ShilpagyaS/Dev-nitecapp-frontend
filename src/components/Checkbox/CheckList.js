@@ -1,9 +1,29 @@
 import ChecklistDisplay from '@/components/Checkbox/checklistDisplay';
+import { getUserRoles } from '@/store/slices/manageusers';
+import { getOutlets } from '@/store/slices/outlet';
 import NewCheckListAccordian from '@/utils/Accordian/New Cheklist Accordian/NewCheckListAccordian';
-import React, { useState } from 'react'
+import { CustomSelectForBrandsFullGray } from '@/utils/CustomSelect';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import NewChecklistDisplay from './NewChecklistDisplay';
 
 function CheckList() {
+    const { outlets } = useSelector((state) => state.outlets)
+    const [outletArray, setOutletArray] = useState([])
+    const dispatch = useDispatch()
+    const [userroles, setUserRoles] = useState([])
+    useEffect(() => {
+        dispatch(getOutlets())
+        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+
+    }, [])
+    useEffect(() => {
+        if (outlets.length > 0) {
+            let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
+            setOutletArray([...outletss])
+            // sedefaultvalue([outletss[0]])
+        }
+    }, [outlets])
     const [data, setdata] = useState(
         [
             {
@@ -277,6 +297,32 @@ function CheckList() {
                 <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
                     {`Checklist`}
                 </h5>
+                <div className='flex items-center'>
+
+                    <div className='input-desc flex flex-col ml-[25px]'>
+                        <CustomSelectForBrandsFullGray items={[...outletArray]}
+                            text={'Filter By Outlet'}
+                            // defaultSelect={outletSelected ? { ...outletSelected } : null}
+                            optionalFunction={(e) => {
+                                console.log(e);
+                                // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                                // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
+                                // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
+                            }} />
+                    </div>
+                    <div className='input-desc flex flex-col ml-[25px]'>
+                        <CustomSelectForBrandsFullGray items={[...userroles]}
+                            text={'Filter By Role'}
+                            // defaultSelect={outletSelected ? { ...outletSelected } : null}
+                            optionalFunction={(e) => {
+                                console.log(e);
+                                // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                                // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
+                                // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
+                            }} />
+                    </div>
+
+                </div>
             </div>
             <div className='border border-[#404040] w-full'>
 
@@ -296,9 +342,9 @@ function CheckList() {
                                             isprogressBar={true}
                                             tasks={checklist.tasks.length}
                                             progress={20}
-                                            // content={
-                                            //     <NewChecklistDisplay tasks={checklist.tasks} onflagged={(taskindex, ischeckedStatus) => { flagcheckbox(i, ci, taskindex, ischeckedStatus) }} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
-                                            // }
+                                        // content={
+                                        //     <NewChecklistDisplay tasks={checklist.tasks} onflagged={(taskindex, ischeckedStatus) => { flagcheckbox(i, ci, taskindex, ischeckedStatus) }} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
+                                        // }
                                         />
                                 )}
                             />

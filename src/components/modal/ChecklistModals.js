@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import { CustomSelectWithAllBlackTheme } from "@/utils/CustomSelect";
@@ -10,6 +10,8 @@ import { getUserRoles } from "@/store/slices/manageusers";
 import Image from "next/image";
 import { createChecklistByid, createChecklistGroup, createChecklistTask } from "@/store/slices/checklist";
 import { successtoast } from "../tostify";
+import { DescriptionTextAreaGrayWintBorder } from "@/utils/Cards/Text card/DescriptionTextArea";
+import ReviewCard from "@/utils/ReviewCard";
 
 export function AddChecklistCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
@@ -617,5 +619,430 @@ export function ReviewTask({ isModalOpen, onClickCancel, onSave, deleteBtn, titl
             </div>
 
         </Modal >
+    )
+}
+export function AddComment({ isModalOpen, onClickCancel, onSave, title, data, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const textAreaRef = useRef()
+
+
+    const dispatch = useDispatch()
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add Comment`}</h4>
+            </div>
+            <div className='min-h-[100px] h-full max-h-[250px] mb-[10px] p-2 notificationModal '>
+
+                <h3 className='text-primary-base text-[14px] font-[400] italic mb-[7px] '>Comments can be read by the Admins please review before adding or submitting</h3>
+                <div className='w-full pr-[15px]'>
+
+                    <DescriptionTextAreaGrayWintBorder placeholder={'Add Your Comment'} textAreaRef={textAreaRef} isEdit={true} content={data} infiniteHeight={true} />
+                </div>
+            </div>
+            <div className='btncontainers flex items-center justify-end '>
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, notes, completed, flagged, data, isAdmin }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            // maxWidth: "580px",
+            width: "70%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const dispatch = useDispatch()
+    const textAreaRef = useRef()
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        // dispatch(createChecklistTask({ ...data })).then((res) => {
+        //     console.log(res);
+        //     console.log('else');
+
+
+        //     onClickCancel()
+        //     onSave()
+
+        // })
+
+
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="flex justify-between mb-4">
+                <h2 className="text-white text-[25px] font-[600]">Review Tasks</h2>
+                <div className="cursor-pointer">
+                    <svg width="24" className="cursor-pointer"
+                        onClick={onClickCancel}
+                        height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div className='min-h-[170px] max-h-[350px] h-full w-full pr-[15px] notificationModal'>
+                <div className="w-full flex items-center justify-center my-[20px]">
+                    <div className=" mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                        <h3 className="text-[16px] text-white bg-transparent">Total Tasks</h3>
+                        <h3 className="text-primary-base text-[16px] bg-transparent">{data.length}</h3>
+                    </div>
+                    <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                        <h3 className="text-[16px] text-white bg-transparent">Completed</h3>
+                        <h3 className="text-primary-base text-[16px] bg-transparent">{completed}</h3>
+                    </div>
+                    <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                        <h3 className="text-[16px] text-white bg-transparent">Flagged</h3>
+                        <h3 className="text-primary-base text-[16px] bg-transparent">{flagged}</h3>
+                    </div>
+
+                </div>
+                <ReviewCard tasks={data} />
+                <h3 className='text-primary-base text-[18px] font-[600] not-italic mb-[7px] '>Notes</h3>
+                <div className='w-full px-[15px]'>
+
+                    <div className="text-white whitespace-pre-wrap	 border border-[#363636] rounded-[7px] bg-[#101010] w-full py-2 px-4 ">
+                        {notes}
+                    </div>
+                </div>
+
+            </div>
+            {!isAdmin &&
+                <div className='btncontainers flex items-center justify-between mt-[10px] '>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Edit </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    </div>
+
+                </div>
+            }
+
+        </Modal >
+    )
+}
+export function ResetModal({ isModalOpen, onClickCancel, onSave, deleteBtn, title, type, inputone, inputtwo, index }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [input1, setinput1] = useState("")
+    const [input2, setinput2] = useState("")
+    const handleCancel = () => {
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+
+    const handleSave = () => {
+        onSave()
+        onClickCancel();
+        setinput1("");
+        setinput2("");
+
+    };
+    // console.log(inputone, '-->', input1);
+    useEffect(() => {
+        setinput1(inputone)
+        setinput2(inputtwo)
+    }, [])
+
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="text-white border-none outline-none">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Reset Checklist`}</h4>
+            </div>
+            <div className='flex flex-col w-full mb-[26px]'>
+                <h3 className='italic font-normal text-[18px] leading-6 text-white font-Inter mb-[7px]'>
+                    {`Are you sure you want to reset this checklist ?`}
+                </h3>
+
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[18px] '>
+
+
+                <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>No </p>
+                <div className='ml-[24px]'>
+                    <ConditionalButton label={'Yes'} condition={true} onClickHandler={handleSave} />
+                </div>
+
+            </div>
+
+        </Modal>
+    )
+}
+export function EditChecklist({ isModalOpen, onClickCancel, courseId, data, title, desc, }) {
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: "24px",
+            maxWidth: "480px",
+            width: "90%",
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const [courseForm, setCourse] = useState(
+        {
+            name: "",
+            desc: "",
+        }
+    )
+    useEffect(() => {
+        setCourse({
+            name: data?.name || "",
+            desc: data?.description || "",
+        })
+    }, [data])
+    const [isfocused, setisFocused] = useState(false);
+    const [DeleteModal, setDeleteModal] = useState(false)
+    const [upimage, setimage] = useState(undefined);
+    const dispatch = useDispatch()
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setCourse((prev) => {
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    }
+
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+    const handleSave = () => {
+
+        // let dummydata = {
+        //     ...data,
+        //     name: courseForm.name,
+        //     description: courseForm.desc,
+        // }
+        // if (upimage) {
+        //     dispatch(uploadimage(upimage)).then((imageurl) => {
+        //         if (imageurl && !imageurl?.error)
+        //             dispatch(putChapter({ ...dummydata, image: imageurl }, data.courseChapter_id, courseId)).then((res) => {
+        //                 console.log(res);
+        //                 res?.error ?
+        //                     // errortoast({ message: res.message }) 
+        //                     ''
+        //                     :
+        //                     successtoast({ message: 'Updated successfully' });
+        //                 onClickCancel()
+        //                 console.log('if');
+
+
+        //             })
+        //         else console.log("cannot upload")
+        //     })
+        // }
+        // else {
+
+        //     console.log('else block');
+        //     dispatch(putChapter(dummydata, data.courseChapter_id, courseId)).then((res) => {
+        //         console.log(res);
+        //         console.log('else');
+        //         res?.error ?
+        //             // errortoast({ message: res.message }) 
+        //             ''
+        //             : successtoast({ message: 'Updated successfully' });
+
+        //         onClickCancel()
+
+        //     })
+
+
+
+        // }
+        console.log(data);
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+   
+            <div className="text-white border-none outline-none flex items-center justify-center">
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Edit ${title}`}</h4>
+            </div>
+            <div className='h-full mb-[10px] '>
+                {/* <h5
+                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
+                        ? "text-[#959595]"
+                        : "text-white"
+
+                        }`}
+                >
+                    Chapter Image
+                </h5>
+                <LearnFileUpload defaultImage={data.image || null} setimage={setimage} upimage={upimage} isEdit={true} /> */}
+                <InputFieldWirhAutoWidth
+                    placeholder=""
+                    label="Name"
+                    onChangeHandler={handleChange}
+                    value={courseForm.name}
+                    name={"name"}
+                    type={"text"}
+                    errorResponnse={_INITIAL}
+                />
+                {/* <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
+                    <h5
+                        className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
+                            ? "text-[#959595]"
+                            : "text-white"
+
+                            }`}
+                    >
+                        Description
+                    </h5>
+
+                    <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
+                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
+                     appearance-none`}
+                        value={courseForm.desc}
+                        name={'desc'}
+                        onChange={handleChange} style={{ resize: 'none' }}
+                        onFocus={(e) => {
+                            setisFocused(true);
+                        }}
+                        onBlur={(e) => {
+                            setisFocused(false);
+                        }}
+                    />
+                </div> */}
+            </div>
+            <div className='btncontainers flex items-center justify-between mt-[10px] '>
+                {/* <button
+                    className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
+                           
+                        
+                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                    onClick={() => { setDeleteModal(true) }}
+                >
+                    Delete
+                </button> */}
+                <div className="flex items-center justify-end w-full">
+
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Edit'} condition={true} onClickHandler={handleSave} />
+                    </div>
+                </div>
+
+            </div>
+
+        </Modal>
     )
 }

@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     checklist: [],
+    tasks: []
 
 };
 
@@ -15,12 +16,13 @@ export const checklistSlice = createSlice({
         getChecklistsArray: (state, action) => {
             state.checklist = action.payload
         },
-        getGuestDetail: (state, action) => {
-            state.guestDetails = action.payload
+        getTasks: (state, action) => {
+            state.tasks = action.payload
         },
 
         emptyAllChecklist: (state) => {
             state.checklist = []
+            state.tasks = []
         }
     },
 });
@@ -42,22 +44,23 @@ export const getChecklists = () => {
         });
     };
 }
-export const getGuestDetail = (id) => {
+export const getTasksBasedonIds = (id) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/guest/${id}`,
+            url: `/api/check_list/get_task_task_detail_by_category_id/${id}`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
-                checklistSlice.actions.getGuestDetail(res.data?.data)
+                checklistSlice.actions.getTasks(res.data?.data)
             );
         }).catch((err) => {
             console.log(err)
         });
     };
 }
+
 export const putGuestDetail = (data, id) => {
     return async (dispatch, getState) => {
         const state = getState();

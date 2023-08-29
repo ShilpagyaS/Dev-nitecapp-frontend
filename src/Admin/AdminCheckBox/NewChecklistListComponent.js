@@ -1,4 +1,4 @@
-import { AddChecklist, AddTasks } from '@/components/modal/ChecklistModals';
+import { AddChecklist, AddTasks, EditChecklist } from '@/components/modal/ChecklistModals';
 import { getChecklists } from '@/store/slices/checklist';
 import NewChecklistAccordianAdmin from '@/utils/Accordian/New Cheklist Accordian/NewChecklistAccordianAdmin'
 import React, { useEffect, useState } from 'react'
@@ -20,6 +20,7 @@ function NewChecklistListComponent() {
     }, [checklist])
     const [addChecklistClisk, setAddChecklist] = useState(false)
     const [addTasks, setAddTasks] = useState(false)
+    const [EditModal, setEditmodal] = useState(false)
     function AddchecklistFunction(e, id) {
         setGlobalData(id)
         e.stopPropagation();
@@ -51,6 +52,17 @@ function NewChecklistListComponent() {
                     data={globaldata}
                 />
             }
+            {EditModal &&
+                <EditChecklist
+                    isModalOpen={EditModal}
+                    onClickCancel={() => { setEditmodal(false) }}
+                    title={'Checklisr'}
+                    onSave={() => { }}
+                    // data={globalData}
+                    // courseId={courseId}
+
+                />
+            }
             <div>
                 {
                     checklistArray.length > 0 ? <>
@@ -64,6 +76,7 @@ function NewChecklistListComponent() {
                                         <NewChecklistAccordianAdmin
                                             key={i}
                                             title={dataelement.title}
+                                            onEditClick={(e) => { e.stopPropagation(); setEditmodal(true) }}
                                             type='user'
                                             onAddChecklistClick={(e) => { AddchecklistFunction(e, dataelement.checkList_id) }}
                                             content={dataelement.check_list_categories.map(
@@ -71,9 +84,11 @@ function NewChecklistListComponent() {
                                                     <div className='ml-[10px]'>
                                                         <NewChecklistAccordianAdmin
                                                             key={ci}
+                                                            onEditClick={(e) => { e.stopPropagation() }}
                                                             title={checklist.title}
                                                             type='checklist'
                                                             isprogressBar={true}
+                                                            categoryid={checklist.check_list_category_id}
                                                             tasks={checklist.check_list_tasks.length}
                                                             onAddTasksCLick={(e) => {
                                                                 AddtasksFunction(e, {
