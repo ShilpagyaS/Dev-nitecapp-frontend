@@ -248,7 +248,7 @@ export default function Category() {
 
                 {/* {path === `/checklist` && <CheckboxComp />} */}
                 {path === `/checklist` && <CheckList />}
-                {path === `/checklist/description` && <CheckListdescpage />}
+                {path === `/checklist/${enUrl(subcategory)}?id=${productId}` && <CheckListdescpage />}
               </LayoutWithSidebar>
             }
           </>

@@ -41,9 +41,7 @@
       "name": "Food",
       "id": "food",
       "menuIcon": "AiFillAppstore",
-      "subOptions": [
-   
-      ]
+      "subOptions": []
     },
     {
       "name": "Learn",
@@ -65,6 +63,14 @@
       ]
     },
     {
+      "name": "Checklist",
+      "id": "checklist",
+      "menuIcon": "AiFillAppstore",
+      "subOptions": [
+        
+      ]
+    },
+    {
       "name": "Brands",
       "id": "brands",
       "menuIcon": "AiFillAppstore",
@@ -83,4 +89,3 @@
     }
   ]
 }
-

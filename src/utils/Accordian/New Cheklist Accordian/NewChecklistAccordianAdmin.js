@@ -9,7 +9,7 @@ function NewChecklistAccordianAdmin({ title, content, type, categoryid, defaultv
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
         if (onOpenfuncObj) {
-            onOpenfuncObj.func()
+            onOpenfuncObj.func() 
         }
     };
 

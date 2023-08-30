@@ -683,11 +683,11 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, title, data, })
             style={customStyles}
         >
             <div className="text-white border-none outline-none flex items-center justify-center">
-                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Add Comment`}</h4>
+                <h4 className="text-[24px] leading-9 font-semibold mb-[5px]">{`Comment`}</h4>
             </div>
             <div className='min-h-[100px] h-full max-h-[250px] mb-[10px] p-2 notificationModal '>
 
-                <h3 className='text-primary-base text-[14px] font-[400] italic mb-[7px] '>Comments can be read by the Admins please review before adding or submitting</h3>
+                <h3 className='text-primary-base text-[14px] font-[400] italic mb-[20px] '>Comments can be read by the Admins please review before adding or submitting</h3>
                 <div className='w-full pr-[15px]'>
 
                     <DescriptionTextAreaGrayWintBorder placeholder={'Add Your Comment'} textAreaRef={textAreaRef} isEdit={true} content={data} infiniteHeight={true} />
@@ -696,7 +696,7 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, title, data, })
             <div className='btncontainers flex items-center justify-end '>
                 <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Cancel </p>
                 <div className='ml-[24px]'>
-                    <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                    <ConditionalButton label={'Submit'} condition={true} onClickHandler={handleSave} />
                 </div>
 
             </div>
@@ -786,7 +786,7 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, title, note
 
                 </div>
                 <ReviewCard tasks={data} />
-                <h3 className='text-primary-base text-[18px] font-[600] not-italic mb-[7px] '>Notes</h3>
+                <h3 className='text-primary-base text-[18px] font-[600] not-italic mb-[7px] px-[15px] '>Notes</h3>
                 <div className='w-full px-[15px]'>
 
                     <div className="text-white whitespace-pre-wrap	 border border-[#363636] rounded-[7px] bg-[#101010] w-full py-2 px-4 ">
@@ -799,7 +799,7 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, title, note
                 <div className='btncontainers flex items-center justify-between mt-[10px] '>
                     <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Edit </p>
                     <div className='ml-[24px]'>
-                        <ConditionalButton label={'Add'} condition={true} onClickHandler={handleSave} />
+                        <ConditionalButton label={'Submit'} condition={true} onClickHandler={handleSave} />
                     </div>
 
                 </div>

@@ -189,7 +189,7 @@ function TasksAndSubtask({ tasks }) {
                             }
                             {
                                 task?.subtasks?.length > 0 &&
-                                <div className='ml-[20px]'>
+                                <div className='ml-[40px]'>
                                     <TasksAndSubtask tasks={task?.subtasks} onClickCheck={() => { }} onCompleted={() => { }} />
                                 </div>
                             }

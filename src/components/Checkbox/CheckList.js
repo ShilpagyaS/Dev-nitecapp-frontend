@@ -324,7 +324,7 @@ function CheckList() {
 
                 </div>
             </div>
-            <div className='border border-[#404040] w-full'>
+            <div className='w-full'>
 
                 {
                     data.map(
@@ -335,17 +335,20 @@ function CheckList() {
                                 type='user'
                                 content={dataelement.checklistCategory.map(
                                     (checklist, ci) =>
-                                        <NewCheckListAccordian
-                                            key={ci}
-                                            title={checklist.title}
-                                            type='checklist'
-                                            isprogressBar={true}
-                                            tasks={checklist.tasks.length}
-                                            progress={20}
-                                        // content={
-                                        //     <NewChecklistDisplay tasks={checklist.tasks} onflagged={(taskindex, ischeckedStatus) => { flagcheckbox(i, ci, taskindex, ischeckedStatus) }} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
-                                        // }
-                                        />
+                                        <div className='ml-[20px]'>
+                                            <NewCheckListAccordian
+                                                key={ci}
+                                                title={checklist.title}
+                                                type='checklist'
+                                                categoryid={2}
+                                                isprogressBar={true}
+                                                tasks={checklist.tasks.length}
+                                                progress={20}
+                                            // content={
+                                            //     <NewChecklistDisplay tasks={checklist.tasks} onflagged={(taskindex, ischeckedStatus) => { flagcheckbox(i, ci, taskindex, ischeckedStatus) }} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
+                                            // }
+                                            />
+                                        </div>
                                 )}
                             />
                     )
