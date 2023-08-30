@@ -364,7 +364,7 @@ export default function Category() {
                 {/* {path === `/checklist` && <CheckList />} */}
                 {path === `/checklist` && <NewAdminChecklistHomePage />}
                 {path === `/checklist/logs` && <ChecklistLogs />}
-                {path === `/checklist/${enUrl(subcategory)}?id=${productId}` && <NewAdminTaskDisplay id={productId} />}
+                {path === `/checklist/${enUrl(subcategory)}?id=${productId}` && <NewAdminTaskDisplay id={productId} title={subcategory} />}
 
               </LayoutWithSidebarAdmin>
             }

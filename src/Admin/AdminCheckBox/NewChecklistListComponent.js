@@ -1,5 +1,5 @@
-import { AddChecklist, AddTasks, EditChecklist } from '@/components/modal/ChecklistModals';
-import { getChecklists } from '@/store/slices/checklist';
+import { AddChecklist, AddTasks, DeleteChecklist, EditChecklist } from '@/components/modal/ChecklistModals';
+import { emptyAllChecklist, getChecklists, MasterAPIForupdateAndDelete, setUserRolid } from '@/store/slices/checklist';
 import NewChecklistAccordianAdmin from '@/utils/Accordian/New Cheklist Accordian/NewChecklistAccordianAdmin'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,10 +8,17 @@ function NewChecklistListComponent() {
     const { checklist } = useSelector(state => state.checklist)
     const [checklistArray, setCheckList] = useState([])
     const [globaldata, setGlobalData] = useState(null)
+    const [DeleteModal, setDeleteModal] = useState(false)
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getChecklists())
+        return () => {
+            dispatch(emptyAllChecklist())
+        }
     }, [])
+
+
 
     useEffect(() => {
         if (checklist.length > 0) {
@@ -20,6 +27,7 @@ function NewChecklistListComponent() {
     }, [checklist])
     const [addChecklistClisk, setAddChecklist] = useState(false)
     const [addTasks, setAddTasks] = useState(false)
+    const [title, setTitle] = useState(false)
     const [EditModal, setEditmodal] = useState(false)
     function AddchecklistFunction(e, id) {
         setGlobalData(id)
@@ -31,6 +39,18 @@ function NewChecklistListComponent() {
         console.log(data);
         e.stopPropagation();
         setAddTasks(true)
+    }
+    function EditFunction(e, data) {
+        setGlobalData(data)
+        console.log(data);
+        e.stopPropagation();
+        setEditmodal(true)
+    }
+    function DeleteFunctionality(e, data) {
+        setGlobalData(data)
+        console.log(data);
+        e.stopPropagation();
+        setDeleteModal(true)
     }
     return (
         <>
@@ -49,6 +69,8 @@ function NewChecklistListComponent() {
                     onClickCancel={() => { setAddTasks(false) }}
                     title={'Tasks'}
                     onSave={() => { }}
+                    type={1}
+                    id={''}
                     data={globaldata}
                 />
             }
@@ -56,13 +78,24 @@ function NewChecklistListComponent() {
                 <EditChecklist
                     isModalOpen={EditModal}
                     onClickCancel={() => { setEditmodal(false) }}
-                    title={'Checklisr'}
+                    title={title}
                     onSave={() => { }}
-                    // data={globalData}
-                    // courseId={courseId}
+                    data={globaldata}
+                    type={1}
 
                 />
             }
+            {DeleteModal &&
+                <DeleteChecklist
+                    isModalOpen={DeleteModal}
+                    onClickCancel={() => { setDeleteModal(false) }}
+                    title={title}
+                    onSave={() => {
+
+                        dispatch(MasterAPIForupdateAndDelete(globaldata, 1, '', 'Deleted'))
+                    }
+                    }
+                />}
             <div>
                 {
                     checklistArray.length > 0 ? <>
@@ -74,26 +107,65 @@ function NewChecklistListComponent() {
 
 
                                         <NewChecklistAccordianAdmin
+                                            ondelete={
+                                                (e) => {
+                                                    setTitle('Group')
+                                                    DeleteFunctionality(e, {
+                                                        id: dataelement.checkList_id,
+                                                        type: 'checklist',
+                                                        isActive: false
+
+                                                    })
+                                                }
+                                            }
                                             key={i}
                                             title={dataelement.title}
-                                            onEditClick={(e) => { e.stopPropagation(); setEditmodal(true) }}
+                                            onEditClick={(e) => {
+                                                setTitle('Group')
+                                                EditFunction(e, {
+                                                    title: dataelement.title,
+                                                    id: dataelement.checkList_id,
+                                                    type: 'checklist'
+
+                                                })
+                                            }}
                                             type='user'
                                             onAddChecklistClick={(e) => { AddchecklistFunction(e, dataelement.checkList_id) }}
-                                            content={dataelement.check_list_categories.map(
+                                            content={dataelement?.checklist_categories?.map(
                                                 (checklist, ci) =>
                                                     <div className='ml-[10px]'>
                                                         <NewChecklistAccordianAdmin
+                                                            ondelete={
+                                                                (e) => {
+                                                                    setTitle('Checklist')
+                                                                    DeleteFunctionality(e, {
+                                                                        id: checklist.checklist_category_id,
+                                                                        type: 'checklist_category',
+                                                                        isActive: false
+
+                                                                    })
+                                                                }
+                                                            }
                                                             key={ci}
-                                                            onEditClick={(e) => { e.stopPropagation() }}
+                                                            onEditClick={(e) => {
+                                                                setTitle('Checklist')
+                                                                EditFunction(e, {
+                                                                    title: checklist.title,
+                                                                    id: checklist.checklist_category_id,
+                                                                    type: 'checklist_category'
+
+                                                                })
+                                                            }}
                                                             title={checklist.title}
                                                             type='checklist'
                                                             isprogressBar={true}
-                                                            categoryid={checklist.check_list_category_id}
-                                                            tasks={checklist.check_list_tasks.length}
+                                                            categoryid={checklist.checklist_category_id}
+                                                            tasks={checklist.taskCount}
                                                             onAddTasksCLick={(e) => {
+                                                                dispatch(setUserRolid(dataelement.user_role_id))
                                                                 AddtasksFunction(e, {
                                                                     user_role_id: dataelement.user_role_id,
-                                                                    check_list_category_id: checklist.check_list_category_id
+                                                                    checklist_category_id: checklist.checklist_category_id
                                                                 })
                                                             }}
                                                             progress={20}
