@@ -5,6 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     checklist: [],
+    tasks: [],
+    userRoleId: ''
 
 };
 
@@ -15,22 +17,42 @@ export const checklistSlice = createSlice({
         getChecklistsArray: (state, action) => {
             state.checklist = action.payload
         },
-        getGuestDetail: (state, action) => {
-            state.guestDetails = action.payload
+        getTasks: (state, action) => {
+            state.tasks = action.payload
+        },
+        setRole: (state, action) => {
+            state.userRoleId = action.payload
         },
 
         emptyAllChecklist: (state) => {
             state.checklist = []
+            state.tasks = []
+
+        },
+        emptyUserRole: (state) => {
+            state.userRoleId = ''
+
         }
     },
 });
 
 
+
+export const setUserRolid = (id) => {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        dispatch(
+            checklistSlice.actions.setRole(id)
+        );
+
+    };
+}
 export const getChecklists = () => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/check_list/get_check_list_based_on_login_user`,
+            url: `/api/checklist/get_checklist_based_on_login_user`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
@@ -42,33 +64,41 @@ export const getChecklists = () => {
         });
     };
 }
-export const getGuestDetail = (id) => {
+export const getTasksBasedonIds = (id) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/guest/${id}`,
+            url: `/api/checklist/get_detail_by_category_id/${id}/2023-08-29`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(
-                checklistSlice.actions.getGuestDetail(res.data?.data)
+                checklistSlice.actions.getTasks(res.data?.data)
             );
         }).catch((err) => {
             console.log(err)
         });
     };
 }
-export const putGuestDetail = (data, id) => {
+
+export const MasterAPIForupdateAndDelete = (data, type, id, Text) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/guest/update`,
-            method: "PUT",
+            url: `/api/checklist/checklist_master_update`,
+            method: "POST",
             data
         }).then((res) => {
             console.log("response in product,js 47", res);
-            dispatch(getGuestDetail(id));
-            successtoast({ message: 'Updated Successfully' })
+            if (type == 1) {
+
+                dispatch(getChecklists());
+            }
+            if (type == 2) {
+
+                dispatch(getTasksBasedonIds(id));
+            }
+            successtoast({ message: `${Text} Successfully` })
             return res
         }).catch((err) => {
             console.log(err)
@@ -80,7 +110,7 @@ export const createChecklistGroup = (data) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/check_list/add_new_check_list`,
+            url: `/api/checklist/add_new_checklist`,
             method: "POST",
             data
         }).then((res) => {
@@ -98,7 +128,7 @@ export const createChecklistByid = (data) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/check_list/add_new_check_list_category`,
+            url: `/api/checklist/add_new_checklist_category`,
             method: "POST",
             data
         }).then((res) => {
@@ -112,17 +142,42 @@ export const createChecklistByid = (data) => {
         });
     };
 }
-export const createChecklistTask = (data) => {
+export const createChecklistTask = (data, type, id) => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/check_list/add_new_task_in_check_list_category`,
+            url: `/api/checklist/add_new_task_in_checklist_category`,
             method: "POST",
             data
         }).then((res) => {
             console.log("response in product,js 47", res);
             successtoast({ message: 'Created Successfully' })
-            dispatch(getChecklists())
+            if (type == 1) {
+
+                dispatch(getChecklists());
+            }
+            if (type == 2) {
+
+                dispatch(getTasksBasedonIds(id));
+            }
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+}
+export const createSubtask = (data, id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosInstance({
+            url: `/api/checklist/add_new_sub_task`,
+            method: "POST",
+            data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            successtoast({ message: 'Created Successfully' })
+            dispatch(getTasksBasedonIds(id))
             return res
         }).catch((err) => {
             console.log(err)
@@ -135,6 +190,15 @@ export const emptyAllChecklist = () => {
 
         dispatch(
             checklistSlice.actions.emptyAllChecklist()
+        );
+
+    };
+}
+export const EmptyUserRoleID = () => {
+    return async (dispatch, getState) => {
+
+        dispatch(
+            checklistSlice.actions.emptyUserRole()
         );
 
     };

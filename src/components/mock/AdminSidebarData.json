@@ -48,20 +48,31 @@
             "id": "learn",
             "menuIcon": "AiFillAppstore",
             "subOptions": [
-              {
-                "name": "Library",
-                "id": "library"
-              },
-              {
-                "name": "Flashcards",
-                "id": "flashcards"
-              },
-              {
-                "name": "Quizzes",
-                "id": "quizzes"
-              }
+                {
+                    "name": "Library",
+                    "id": "library"
+                },
+                {
+                    "name": "Flashcards",
+                    "id": "flashcards"
+                },
+                {
+                    "name": "Quizzes",
+                    "id": "quizzes"
+                }
             ]
-          },
+        },
+        {
+            "name": "Checklist",
+            "id": "checklist",
+            "menuIcon": "AiFillAppstore",
+            "subOptions": [
+                {
+                    "name": "Submitted",
+                    "id": "logs"
+                }
+            ]
+        },
         {
             "name": "Brands",
             "id": "brands",
