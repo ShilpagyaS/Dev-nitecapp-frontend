@@ -20,39 +20,42 @@ function ChecklistLogs() {
                         title: 'Bartender Opening Checklist',
                         tasks: [
                             {
-                                task: 'Set out chairs',
-                                isChecked: false,
-                                isFlagged: true,
-                                subtasks: [
+                                title: 'Set out chairs',
+                                isCompleted: false,
+                                isFlag: true,
+                                checklist_sub_tasks: [
                                     {
-                                        task: 'Right Chair',
-                                        isChecked: true
+                                        title: 'Right Chair',
+                                        isCompleted: true,
+                                        isFlag: false
                                     },
                                     {
-                                        task: 'Left Chair',
-                                        isChecked: true
+                                        title: 'Left Chair',
+                                        isCompleted: true,
+                                        isFlag: false
                                     },
                                     {
-                                        task: 'Central Chair',
-                                        isChecked: true
+                                        title: 'Central Chair',
+                                        isCompleted: true,
+                                        isFlag: false
                                     },
 
                                 ]
                             },
                             {
-                                task: 'Take clean glassware from dishwasher and set out',
-                                isChecked: true,
-                                isFlagged: false
+                                title: 'Take clean glassware from dishwasher and set out',
+                                isCompleted: true,
+                                isFlag: false
                             },
                             {
-                                task: 'Set out floor mats',
-                                isChecked: true,
-                                isFlagged: false,
+                                title: 'Set out floor mats',
+                                isCompleted: true,
+                                isFlag: false,
                             },
                             {
-                                task: 'Set out bar tools & Equipment',
-                                isChecked: true,
-                                isFlagged: false,
+                                title: 'Set out bar tools & Equipment',
+                                isCompleted: true,
+                                isFlag: false,
                             },
                         ]
 
