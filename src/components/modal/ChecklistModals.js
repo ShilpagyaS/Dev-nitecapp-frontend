@@ -718,7 +718,7 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, id, data, }) {
         </Modal>
     )
 }
-export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, title, notes, completed, flagged, data, isAdmin }) {
+export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structuredata, title, notes, completed, flagged, data, isAdmin }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -748,17 +748,16 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, title, note
 
     const handleSave = () => {
 
-        // dispatch(createChecklistTask({ ...data })).then((res) => {
-        //     console.log(res);
-        //     console.log('else');
+        dispatch(createHistory(
+            {
+                ...structuredata
+            }, structuredata.type_id, structuredata.date)).then((res) => {
 
 
-        //     onClickCancel()
-        //     onSave()
-
-        // })
+                onClickCancel()
 
 
+            })
 
 
     };

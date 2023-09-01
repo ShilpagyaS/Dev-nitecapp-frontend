@@ -410,7 +410,14 @@ function CheckListdescpage({ id, title }) {
                     notes={textAreaRef.current.value}
                     isModalOpen={isreview}
                     onClickCancel={() => { setReview(false) }}
-
+                    structuredata={{
+                        type: 'checklist_category',
+                        type_id: id,
+                        title: title,
+                        date: moment().format("YYYY-MM-DD"),
+                        comment: textAreaRef.current.value,
+                        isCompleted: true
+                    }}
                     onSave={() => { onClickCancel() }}
                 />
             }
