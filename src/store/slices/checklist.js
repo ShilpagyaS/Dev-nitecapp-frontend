@@ -1,5 +1,5 @@
 
-import axiosInstance from "@/components/Auth/axios";
+import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
 import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -64,11 +64,27 @@ export const getChecklists = () => {
         });
     };
 }
-export const getTasksBasedonIds = (id) => {
+export const getTasksBasedonIds = (id, date = '') => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
-            url: `/api/checklist/get_detail_by_category_id/${id}/2023-08-29`,
+            url: `/api/checklist/get_detail_by_category_id/${id}/${date}`,
+            method: "GET",
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(
+                checklistSlice.actions.getTasks(res.data?.data)
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+}
+export const getTasksBasedonIdsWithoutLoading = (id,date = '') => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosDebounceInstance({
+            url: `/api/checklist/get_detail_by_category_id/${id}/${date}`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
@@ -178,6 +194,23 @@ export const createSubtask = (data, id) => {
             console.log("response in product,js 47", res);
             successtoast({ message: 'Created Successfully' })
             dispatch(getTasksBasedonIds(id))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+}
+export const createHistory = (data, id, date = '') => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosDebounceInstance({
+            url: `/api/create_history`,
+            method: "POST",
+            data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(getTasksBasedonIdsWithoutLoading(id, date))
             return res
         }).catch((err) => {
             console.log(err)

@@ -17,7 +17,6 @@ function NewAdminTaskDisplay({ title, id }) {
     const [addTasks, setAddTasks] = useState(false)
     const [addSubTasks, setAddSubTasks] = useState(false)
 
-
     useEffect(() => {
         dispatch(getTasksBasedonIds(id))
         return () => {

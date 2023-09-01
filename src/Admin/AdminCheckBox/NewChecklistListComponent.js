@@ -17,7 +17,7 @@ function NewChecklistListComponent() {
             dispatch(emptyAllChecklist())
         }
     }, [])
-
+ 
 
 
     useEffect(() => {
@@ -133,7 +133,7 @@ function NewChecklistListComponent() {
                                             onAddChecklistClick={(e) => { AddchecklistFunction(e, dataelement.checkList_id) }}
                                             content={dataelement?.checklist_categories?.map(
                                                 (checklist, ci) =>
-                                                    <div className='ml-[10px]'>
+                                                    <div className='ml-[20px]'>
                                                         <NewChecklistAccordianAdmin
                                                             ondelete={
                                                                 (e) => {
