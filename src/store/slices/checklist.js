@@ -64,7 +64,7 @@ export const getChecklists = () => {
         });
     };
 }
-export const getTasksBasedonIds = (id, date = '') => {
+export const getTasksBasedonIds = (id, date = '2023-09-01') => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosInstance({
@@ -80,7 +80,7 @@ export const getTasksBasedonIds = (id, date = '') => {
         });
     };
 }
-export const getTasksBasedonIdsWithoutLoading = (id,date = '') => {
+export const getTasksBasedonIdsWithoutLoading = (id,date = '2023-09-01') => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosDebounceInstance({
