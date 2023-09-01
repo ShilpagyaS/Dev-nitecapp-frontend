@@ -17,7 +17,7 @@ function NewChecklistListComponent() {
             dispatch(emptyAllChecklist())
         }
     }, [])
-
+ 
 
 
     useEffect(() => {

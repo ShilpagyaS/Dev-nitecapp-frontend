@@ -8,7 +8,7 @@ import ConditionalButton from "../spec-comp/AdminSpecsComp/Admin-cocktails-detai
 import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
 import { getUserRoles } from "@/store/slices/manageusers";
 import Image from "next/image";
-import { createChecklistByid, createChecklistGroup, createChecklistTask, createSubtask, MasterAPIForupdateAndDelete } from "@/store/slices/checklist";
+import { createChecklistByid, createChecklistGroup, createChecklistTask, createHistory, createSubtask, MasterAPIForupdateAndDelete } from "@/store/slices/checklist";
 import { successtoast } from "../tostify";
 import { DescriptionTextAreaGrayWintBorder } from "@/utils/Cards/Text card/DescriptionTextArea";
 import ReviewCard from "@/utils/ReviewCard";
@@ -630,7 +630,7 @@ export function ReviewTask({ isModalOpen, onClickCancel, onSave, type, title, da
         </Modal >
     )
 }
-export function AddComment({ isModalOpen, onClickCancel, onSave, title, data, }) {
+export function AddComment({ isModalOpen, onClickCancel, onSave, id, data, }) {
     const customStyles = {
         content: {
             top: "50%",
@@ -672,7 +672,21 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, title, data, })
     };
 
     const handleSave = () => {
-
+        console.log(
+            {
+                ...data,
+                comment: textAreaRef.current.value
+            }
+        );
+        dispatch(createHistory(
+            {
+                ...data,
+                comment: textAreaRef.current.value
+            }, id, data.date
+        ))
+        setTimeout(() => {
+            onClickCancel()
+        }, 100);
 
     };
     return (
@@ -690,7 +704,7 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, title, data, })
                 <h3 className='text-primary-base text-[14px] font-[400] italic mb-[20px] '>Comments can be read by the Admins please review before adding or submitting</h3>
                 <div className='w-full pr-[15px]'>
 
-                    <DescriptionTextAreaGrayWintBorder placeholder={'Add Your Comment'} textAreaRef={textAreaRef} isEdit={true} content={data} infiniteHeight={true} />
+                    <DescriptionTextAreaGrayWintBorder placeholder={'Add Your Comment'} textAreaRef={textAreaRef} isEdit={true} content={data.comment} infiniteHeight={true} />
                 </div>
             </div>
             <div className='btncontainers flex items-center justify-end '>
@@ -756,7 +770,7 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, title, note
             style={customStyles}
         >
             <div className="flex justify-between mb-4">
-                <h2 className="text-white text-[25px] font-[600]">Review Tasks 
+                <h2 className="text-white text-[25px] font-[600]">Review Tasks
                     {
                         isAdmin && <span className="font-[400] italic text-[#959595]">{`  (${title})`}</span>
                     }
@@ -862,7 +876,7 @@ export function ResetModal({ isModalOpen, onClickCancel, onSave, deleteBtn, titl
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
                 <h3 className='italic font-normal text-[18px] leading-6 text-white font-Inter mb-[7px]'>
-                    {`Are you sure you want to reset this checklist ?`}
+                    {`Are you sure you want to reset the checklist? All checked items and notes will be permanently deleted. This action cannot be undone.`}
                 </h3>
 
             </div>
