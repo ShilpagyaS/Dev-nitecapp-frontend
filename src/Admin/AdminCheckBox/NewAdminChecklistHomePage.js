@@ -21,7 +21,7 @@ function NewAdminChecklistHomePage() {
                     <div className="flex items-center mb-[10px] mt-[10px]">
 
                         <h5 className='not-italic font-semibold text-2xl font-Inter leading-tight text-white mb-[2px]'>
-                            {`Checklist`}
+                            {`Checklists`}
                         </h5>
 
                     </div>

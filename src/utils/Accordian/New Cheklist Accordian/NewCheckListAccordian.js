@@ -45,7 +45,7 @@ function NewCheckListAccordian({ title, content, type, item, isLearn, defaultval
 
                         <h3 className='text-white bg-transparent capitalize ml-[8px]'>{title}</h3>
                         <div className='flex items-center bg-transparent'>
-                            <h3 className='text-primary-hoverbase text-[16px] cursor-pointer font-semibold italic bg-transparent capitalize ml-[8px]' onClick={(e) => { e.stopPropagation(); router.push(`/checklist/${enUrl(title)}?id=${categoryid}`) }}>{`Tasks (${tasks})`}</h3>
+                            <h3 className='text-primary-hoverbase text-[16px] cursor-pointer font-semibold italic bg-transparent capitalize ml-[8px]' onClick={(e) => { e.stopPropagation(); router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>{`Tasks (${tasks})`}</h3>
 
                         </div>
 

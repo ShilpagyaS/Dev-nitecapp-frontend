@@ -6,11 +6,45 @@ import moment from 'moment/moment'
 import React, { useRef, useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Datepicker from "tailwind-datepicker-react"
+const options = {
+    // title: "Demo Title",
+    autoHide: true,
+    todayBtn: true,
+    clearBtn: false,
+    // maxDate: new Date("2030-01-01"),
+    // minDate: new Date("1950-01-01"),
+    theme: {
+        background: "bg-black text-white ",
+        todayBtn: "bg-primary-base text-white hover:bg-primary-base",
+        clearBtn: "",
+        icons: "bg-transparent hover:bg-primary-base text-primary-base hover:text-black",
+        text: "text-white rounded-[50px] hover:bg-primary-base",
+        disabledText: "text-[#959595]",
+        input: "",
+        inputIcon: "",
+        selected: "bg-primary-base",
+    },
+    icons: {
 
+        prev: () => <span className='bg-transparent'>{`<`}</span>,
+        next: () => <span className='bg-transparent'>{`>`}</span>,
+    },
+    datepickerClassNames: "bottom-0 bg-transparent",
+    defaultDate: new Date(),
+    language: "en",
+}
 function ChecklistLogs() {
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-    const [title, setTitle] = useState('')
+    const [show, setShow] = useState(false)
+    const [selectedDate, setSelectedDate] = useState('')
+    const handleChange = (selectedDate) => {
+        setSelectedDate(selectedDate)
+        console.log(selectedDate)
+    }
+    const handleClose = (state) => {
+        setShow(state)
+    }
     const [data, setdata] = useState(
         [
             {
@@ -184,8 +218,6 @@ function ChecklistLogs() {
     const [outletArray, setOutletArray] = useState([])
     const dispatch = useDispatch()
     const [userroles, setUserRoles] = useState([])
-    const [date, setDate] = useState('')
-
     useEffect(() => {
         dispatch(getOutlets())
         dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
@@ -226,23 +258,21 @@ function ChecklistLogs() {
                     </div>
                     {/* <ChipWithLeftButton condition={true} label={'Create Checklist Group'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} /> */}
                     <div className='flex items-center mb-[10px]'>
-                        <div className='calender '>
-                            {/* <label className='flex items-center cursor-pointer' for='dateInput' >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="#929292" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M15.6959 13.6992H15.7049M15.6959 16.6992H15.7049M11.9959 13.6992H12.0059M11.9959 16.6992H12.0059M8.29492 13.6992H8.30492M8.29492 16.6992H8.30492" stroke="#929292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <div className='font-Inter text-[14px] text-[#929292] font-normal not-italic ml-[10px]'>
-                                    {date == '' ? 'Select Date' : moment(date).format("MMM Do YYYY")}
-                                </div>
+                        <div className='calender shrink-0'>
                            
-                            </label> */}
-                            <input type='date' placeholder='Select Date' value={date} id='dateInput' forma
-
-                                onChange={(e) => { console.log(e.target.value); setDate(e.target.value) }}
-                                className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' />
-                            {/* <input type='date' value={date} id='dateInput'  onChange={(e) => { console.log(e.target.value); setDate(e.target.value) }} className='not-italic font-normal text-base leading-6 text-white font-Inter bg-[#2C2C2C] pl-[20px] h-[44px] pr-[5px] rounded outline-none focus:outline-none' /> */}
-
+                            <div className='relative'>
+                                <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose}>
+                                    <div className="flex items-center cursor-pointer " onClick={() => { setShow(prev => !prev) }}>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 2V5M16 2V5M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="#929292" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M15.6959 13.6992H15.7049M15.6959 16.6992H15.7049M11.9959 13.6992H12.0059M11.9959 16.6992H12.0059M8.29492 13.6992H8.30492M8.29492 16.6992H8.30492" stroke="#929292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        <div className='font-Inter text-[14px] text-[#929292] font-normal not-italic ml-[10px]'>
+                                            {selectedDate == '' ? 'Select Date' : moment(selectedDate).format("MMM Do YYYY")}
+                                        </div>
+                                    </div>
+                                </Datepicker>
+                            </div>
                         </div>
                         <div className='input-desc flex flex-col ml-[25px]'>
                             <CustomSelectForBrandsFullGray items={[...outletArray]}
@@ -341,7 +371,6 @@ function ChecklistLogs() {
                         </div>
                     )
                 }
-
             </div>
         </>
     )

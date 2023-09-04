@@ -190,7 +190,7 @@ m395 -246 l0 -90 -160 0 -160 0 0 90 0 90 160 0 160 0 0 -90z"/>
       </svg>
 
     ),
-    Checklist: (
+    Checklists: (
       <svg width="20" height="20" viewBox="0 0 79 76" xmlns="http://www.w3.org/2000/svg"
         className={`mt-[2px] ${active ? 'fill-primary-base' : 'fill-[#959595]'}`}
       >
