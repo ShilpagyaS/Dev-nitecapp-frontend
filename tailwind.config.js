@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -9,6 +10,7 @@ module.exports = {
     "./node_modules/tailwind-datepicker-react/dist/**/*.js"
   ],
   theme: {
+   
     extend: {
       fontFamily: {
         Prata: ["Prata", "serif"],

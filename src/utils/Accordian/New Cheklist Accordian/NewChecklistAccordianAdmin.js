@@ -114,7 +114,7 @@ function NewChecklistAccordianAdmin({ title, content, type, categoryid, defaultv
                                         </div>
                                         :
                                         <>
-                                            <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { e.stopPropagation; router.push(`/checklist/${enUrl(title)}?id=${categoryid}`) }}>
+                                            <div className='flex items-center cursor-pointer bg-transparent mr-[10px]' onClick={(e) => { e.stopPropagation; router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>
 
                                                 {/* <span className={`bg-transparent mr-[3px]`}>
                                                     <svg width="20" height="20" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" className='bg-transparent' >

@@ -247,8 +247,8 @@ export default function Category() {
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <UserQuizDetailpage quizid={productId} quizName={subcategory2} />}
 
                 {/* {path === `/checklist` && <CheckboxComp />} */}
-                {path === `/checklist` && <CheckList />}
-                {path === `/checklist/${enUrl(subcategory)}?id=${productId}` && <CheckListdescpage id={productId} title={subcategory} />}
+                {path === `/checklists` && <CheckList />}
+                {path === `/checklists/${enUrl(subcategory)}?id=${productId}` && <CheckListdescpage id={productId} title={subcategory} />}
               </LayoutWithSidebar>
             }
           </>
@@ -362,9 +362,9 @@ export default function Category() {
                 {path === `/learn/quizzes/${enUrl(subcategory2)}?id=${productId}` && <QuizDetailPage />}
 
                 {/* {path === `/checklist` && <CheckList />} */}
-                {path === `/checklist` && <NewAdminChecklistHomePage />}
-                {path === `/checklist/logs` && <ChecklistLogs />}
-                {path === `/checklist/${enUrl(subcategory)}?id=${productId}` && <NewAdminTaskDisplay id={productId} title={subcategory} />}
+                {path === `/checklists` && <NewAdminChecklistHomePage />}
+                {path === `/checklists/logs` && <ChecklistLogs />}
+                {path === `/checklists/${enUrl(subcategory)}?id=${productId}` && <NewAdminTaskDisplay id={productId} title={subcategory} />}
 
               </LayoutWithSidebarAdmin>
             }

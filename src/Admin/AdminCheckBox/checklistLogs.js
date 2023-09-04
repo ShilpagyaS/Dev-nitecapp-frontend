@@ -258,7 +258,7 @@ function ChecklistLogs() {
                     </div>
                     {/* <ChipWithLeftButton condition={true} label={'Create Checklist Group'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} /> */}
                     <div className='flex items-center mb-[10px]'>
-                        <div className='calender '>
+                        <div className='calender shrink-0'>
                            
                             <div className='relative'>
                                 <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose}>
