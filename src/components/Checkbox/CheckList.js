@@ -206,7 +206,7 @@ function CheckList() {
             <div className="flex items-center mb-[33px] w-full  justify-between">
 
                 <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
-                    {`Checklist`}
+                    {`Checklists`}
                 </h5>
                 <div className='flex items-center'>
 
