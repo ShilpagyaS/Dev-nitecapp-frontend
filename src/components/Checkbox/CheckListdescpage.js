@@ -1,5 +1,5 @@
 import Breadcrumb from '@/components/Breadcrumb'
-import { createHistory, emptyAllChecklist, getTasksBasedonIds } from '@/store/slices/checklist'
+import { createHistory, emptyAllChecklist, getTasksBasedonIds, resetApi } from '@/store/slices/checklist'
 import { DescriptionTextAreaGrayWintBorder } from '@/utils/Cards/Text card/DescriptionTextArea'
 import moment from 'moment/moment'
 import React, { useEffect, useRef, useState } from 'react'
@@ -384,6 +384,7 @@ function CheckListdescpage({ id, title }) {
             }
         })
         setTask([...dummy2])
+        dispatch(resetApi(id, moment().format("YYYY-MM-DD")))
         isReset(true)
         setTimeout(() => {
             isReset(false)

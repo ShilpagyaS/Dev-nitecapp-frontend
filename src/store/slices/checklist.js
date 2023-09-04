@@ -80,7 +80,7 @@ export const getTasksBasedonIds = (id, date = '2023-09-01') => {
         });
     };
 }
-export const getTasksBasedonIdsWithoutLoading = (id,date = '2023-09-01') => {
+export const getTasksBasedonIdsWithoutLoading = (id, date = '2023-09-01') => {
     return async (dispatch, getState) => {
         const state = getState();
         axiosDebounceInstance({
@@ -208,6 +208,22 @@ export const createHistory = (data, id, date = '') => {
             url: `/api/create_history`,
             method: "POST",
             data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            dispatch(getTasksBasedonIdsWithoutLoading(id, date))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+}
+export const resetApi = (id, date) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosDebounceInstance({
+            url: `/api/reset_checklist/${id}/${date}`,
+            method: "GET"
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(getTasksBasedonIdsWithoutLoading(id, date))
