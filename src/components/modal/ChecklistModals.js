@@ -73,7 +73,7 @@ export function AddChecklistCategory({ isModalOpen, onClickCancel, onSave, delet
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+        dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
         dispatch(getOutlets())
         return () => dispatch(emptyAllOutlet())
     }, [])
@@ -160,7 +160,7 @@ export function AddChecklistCategory({ isModalOpen, onClickCancel, onSave, delet
                 <div className='mb-[8px]'>
 
                     <CustomSelectWithAllBlackTheme
-                        items={[...userroles]}
+                        items={userroles}
                         optionalFunction={(e) => {
                             console.log(e);
                             setUserRolesSelected({ user_role_id: e.value, user_role_name: e.label })

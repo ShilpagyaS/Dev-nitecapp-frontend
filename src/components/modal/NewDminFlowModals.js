@@ -973,7 +973,7 @@ export function AddUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteBt
     useEffect(() => {
         dispatch(getOutlets())
         dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setroles(d) })
-        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+        dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
         return () => dispatch(emptyAllOutlet())
 
     }, [])
@@ -1296,7 +1296,7 @@ export function EditUsersAndAdmins({ isModalOpen, onClickCancel, onSave, deleteB
         console.log(data);
         dispatch(getOutlets())
         dispatch(getRoles()).then((res) => { let d = res.filter((e) => e.value != 1); console.log(d); setroles(d) })
-        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+        dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
         console.log('d value data', data);
         if (data?.user_roles && data?.user_roles.length > 0) {
             let d = data?.user_roles.map((role) => {
