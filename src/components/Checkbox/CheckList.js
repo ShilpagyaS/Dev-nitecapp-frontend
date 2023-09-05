@@ -13,11 +13,12 @@ function CheckList() {
     const { checklist } = useSelector(state => state.checklist)
     const [outletArray, setOutletArray] = useState([])
     const [checklistArray, setCheckList] = useState([])
+    const [iscompletedTrigger, setIscompletedTriiger] = useState(false)
     const dispatch = useDispatch()
     const [userroles, setUserRoles] = useState([])
     useEffect(() => {
         dispatch(getOutlets())
-        dispatch(getUserRoles()).then((res) => {  setUserRoles(res) })
+        dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
         dispatch(getChecklists())
         return () => {
             dispatch(emptyAllChecklist())
@@ -242,19 +243,27 @@ function CheckList() {
                     {
                         checklistArray.map(
                             (dataelement, i) =>
+
                                 <NewCheckListAccordian
                                     key={i}
                                     title={dataelement.title}
                                     type='user'
                                     content={dataelement?.checklist_categories?.map(
-                                        (checklist, ci) =>
-                                            <div className='ml-[20px]'>
+                                        (checklist, ci) => {
+                                            if (iscompletedTrigger == false) {
+                                                if (checklist.isCompleted == 'completed') {
+                                                    setIscompletedTriiger(true)
+                                                }
+                                            }
+                                            return <div className='ml-[20px]'>
                                                 <NewCheckListAccordian
                                                     key={ci}
                                                     title={checklist.title}
                                                     type='checklist'
                                                     categoryid={checklist.checklist_category_id}
                                                     isprogressBar={true}
+                                                    completed={checklist.isCompleted == 'completed' ? true : false}
+                                                    inProgress={checklist.isCompleted == 'in-progress' ? true : false}
                                                     tasks={checklist.taskCount}
                                                     progress={20}
                                                 // content={
@@ -262,11 +271,53 @@ function CheckList() {
                                                 // }
                                                 />
                                             </div>
+                                        }
                                     )}
                                 />
                         )
                     }
+                    {iscompletedTrigger &&
+                        <>
+                            <h5 className='not-italic font-semibold text-[30px] mt-[20px] font-Inter leading-tight text-white mb-[20px]'>
+                                {`Completed Checklists`}
+                            </h5>
+                            {
+                                checklistArray.map(
+                                    (dataelement, i) => {
 
+                                        let dummy = dataelement?.checklist_categories?.filter(checklistData => checklistData.isCompleted == 'completed')
+                                        if (dummy.length > 0)
+                                            return <NewCheckListAccordian
+                                                key={i}
+                                                title={dataelement.title}
+                                                type='user'
+                                                content={dataelement?.checklist_categories?.map(
+                                                    (checklist, ci) => {
+
+                                                        if (checklist.isCompleted == 'completed')
+                                                            return <div className='ml-[20px]'>
+                                                                <NewCheckListAccordian
+                                                                    key={ci}
+                                                                    title={checklist.title}
+                                                                    type='checklist'
+                                                                    completed={checklist.isCompleted == 'completed' ? true : false}
+                                                                    categoryid={checklist.checklist_category_id}
+                                                                    isprogressBar={true}
+                                                                    inProgress={checklist.isCompleted == 'in-progress' ? true : false}
+                                                                    tasks={checklist.taskCount}
+                                                                    progress={20}
+
+                                                                />
+                                                            </div>
+                                                    }
+                                                )}
+                                            />
+                                    }
+                                )
+                            }
+                        </>
+
+                    }
                 </div>
             </>
                 : <>

@@ -54,6 +54,7 @@ function CheckListdescpage({ id, title }) {
             {
                 type: 'checklist_task',
                 type_id: taskid,
+                category_id:id,
                 date: moment().format("YYYY-MM-DD"),
                 title: dummy2[taskindex].title,
                 isCompleted: ischeckedStatus
@@ -76,6 +77,7 @@ function CheckListdescpage({ id, title }) {
             {
                 type: 'checklist_task',
                 type_id: taskid,
+                category_id:id,
                 date: moment().format("YYYY-MM-DD"),
                 title: dummy2[taskindex].title,
                 isFlag: ischeckedStatus
@@ -120,6 +122,7 @@ function CheckListdescpage({ id, title }) {
             {
                 type: 'checklist_sub_task',
                 type_id: subtaskid,
+                category_id:id,
                 date: moment().format("YYYY-MM-DD"),
                 title: subtaskTitle,
                 isCompleted: ischeckedStatus
@@ -165,6 +168,7 @@ function CheckListdescpage({ id, title }) {
                 type_id: subtaskid,
                 date: moment().format("YYYY-MM-DD"),
                 title: subtaskTitle,
+                category_id:id,
                 isFlag: ischeckedStatus
             }, id, moment().format("YYYY-MM-DD")))
     }
@@ -220,6 +224,7 @@ function CheckListdescpage({ id, title }) {
                     structuredata={{
                         type: 'checklist_category',
                         type_id: id,
+                        category_id:id,
                         title: title,
                         date: moment().format("YYYY-MM-DD"),
                         comment: textAreaRef.current.value,
@@ -245,7 +250,7 @@ function CheckListdescpage({ id, title }) {
                 <div className="heading-container flex items-center justify-between lg:mb-8 mb-3">
                     <div className='flex items-center'>
 
-                        <h2 className="text-white text-[24px] leading-9 font-bold ">
+                        <h2 className="text-white lg:text-[24px] text-[16px] leading-9 font-bold ">
                             {title}
                         </h2>
                         <div className='ml-[15px] cursor-pointer flex items-center' onClick={() => {
@@ -257,13 +262,13 @@ function CheckListdescpage({ id, title }) {
                                     className='fill-primary-base'
                                 />
                             </svg>
-                            <h3 className='text-primary-base ml-[5px]'>Reset</h3>
+                            <h3 className='sm:inline hidden text-primary-base ml-[5px]'>Reset</h3>
                         </div>
                     </div>
 
-                    <div className='flex items-center pr-[15px]'>
+                    <div className='sm:flex hidden items-center pr-[15px]'>
                         <h3 className='text-primary-base'>Progress</h3>
-                        <div className='mx-[7px] flex flex-row  justify-start items-center w-[150px] shrink-0 h-[4px] bg-[#2F2F2F] rounded-full mt-[5px]'>
+                        <div className='mx-[7px] flex-row  justify-start items-center w-[150px] shrink-0 h-[4px] bg-[#2F2F2F] rounded-full mt-[5px]'>
                             <div className='bg-primary-base h-full rounded-full transition-all duration-300 ease-in-out ' style={{ width: `${progress ? progress : 0}%` }}></div>
                         </div>
                         <h3 className='text-white'>{`${checked}/${task.length}`}</h3>
@@ -276,7 +281,7 @@ function CheckListdescpage({ id, title }) {
                         flagSubTask={(subtaskIndex, tashindex, isCheckStatus, taskid, subtaskid, subtaskTitle) => { flagcsubtask(subtaskIndex, tashindex, isCheckStatus, taskid, subtaskid, subtaskTitle) }}
 
                         setFlagged={setflagged}
-                        onCommentClicked={(data) => { setGlobalData({ ...data, date: moment().format("YYYY-MM-DD") }); setAddComment(true) }}
+                        onCommentClicked={(data) => { setGlobalData({ ...data, date: moment().format("YYYY-MM-DD"),  category_id:id, }); setAddComment(true) }}
                         tasks={task}
                         onflagged={(taskindex, ischeckedStatus, taskid) => { flagcheckbox(0, 0, taskindex, ischeckedStatus, taskid) }}
                         onClickCheck={(taskindex, ischeckedStatus, taskid) => { checkboxClick(0, 0, taskindex, ischeckedStatus, taskid) }}

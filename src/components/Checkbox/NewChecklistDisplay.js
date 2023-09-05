@@ -27,12 +27,12 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, onCompleted, setP
                         <div className='rounded-[10px] flex justify-between w-full h-full my-[10px] px-[12px] bg-black cursor-pointer hover:-translate-y-[2px] duration-200 border border-[#363636] hover:border-white transition-all'
 
                             onClick={() => { if (task?.checklist_sub_tasks?.length < 1) { onClickCheck(i, true, task.checklist_task_id) } }}>
-                            <div className='flex items-center my-[12px]'>
+                            <div className='flex items-center sm:my-[12px] my-[8px]'>
 
-                                <div className='checkboxcircle shrink-0 h-[18px] w-[18px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
+                                <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px]  rounded-full border-[1px] border-primary-base bg-[#262323]'>
 
                                 </div>
-                                <h3 className='h-full w-full ml-[15px] bg-transparent'>
+                                <h3 className='h-full text-[14px] sm:text-[16px] w-full sm:ml-[15px] ml-[10px] bg-transparent'>
                                     {task.title}
                                 </h3>
                             </div>
@@ -94,12 +94,12 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, onCompleted, setP
                                 onClick={() => {
                                     //  onClickCheck(i, true)
                                 }}>
-                                <div className='flex items-center my-[12px] bg-transparent'>
+                                <div className='flex items-center sm:my-[12px] my-[8px] bg-transparent'>
 
-                                    <div className='checkboxcircle shrink-0 h-[18px] w-[18px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
+                                    <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
 
                                     </div>
-                                    <h3 className='h-full w-full ml-[15px] bg-transparent'>
+                                    <h3 className='h-full w-full text-[14px] sm:text-[16px] sm:ml-[15px] ml-[10px] bg-transparent'>
                                         {task.title}
                                     </h3>
                                 </div>
@@ -147,12 +147,12 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, onCompleted, setP
                             // <div className='rounded-[10px] flex items-center w-full h-full my-[10px] p-[12px] bg-[#191919]  border border-white  cursor-pointer'
                             <div className='rounded-[10px] flex justify-between w-full h-full my-[10px] px-[12px] bg-black  border border-white  cursor-pointer'
                                 onClick={() => { if (task?.checklist_sub_tasks?.length < 1) { onClickCheck(i, false, task.checklist_task_id) } }}>
-                                <div className='flex items-center my-[12px]'>
+                                <div className='flex items-center sm:my-[12px] my-[8px]'>
 
-                                    <div className='checkboxcircle h-[18px] w-[18px] rounded-full shrink-0 border-[1px] border-primary-base bg-primary-base'>
+                                    <div className='checkboxcircle sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full shrink-0 border-[1px] border-primary-base bg-primary-base'>
 
                                     </div>
-                                    <h3 className='h-full w-full ml-[15px] bg-transparent line-through italic text-white'>
+                                    <h3 className='h-full w-full text-[14px] sm:text-[16px] sm:ml-[15px] ml-[10px] bg-transparent line-through italic text-white'>
                                         {/* <h3 className='h-full w-full ml-[15px] bg-transparent line-through italic text-[#7B7B7B]'> */}
                                         {task.title}
                                     </h3>
@@ -196,7 +196,7 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, onCompleted, setP
                         }
                         {
                             task?.checklist_sub_tasks?.length > 0 &&
-                            <div className='ml-[40px]'>
+                            <div className='sm:ml-[40px] ml-[10px]'>
                                 <NewSubtaskList tasks={task?.checklist_sub_tasks}
                                     onClickCheck={(subtaskInex, status, subtaskid, title) => { checksubTask(subtaskInex, i, status, task.checklist_task_id, subtaskid, title) }}
                                     onflagged={(subtaskInex, status, subtaskid, title) => { flagSubTask(subtaskInex, i, status, task.checklist_task_id, subtaskid, title) }}
@@ -227,12 +227,12 @@ function NewSubtaskList({ tasks, onClickCheck, onCompleted, onCommentClicked, on
                         <div className='rounded-[10px] flex justify-between w-full h-full my-[10px] px-[12px] bg-black cursor-pointer hover:-translate-y-[2px] duration-200 border border-[#363636] hover:border-white transition-all'
 
                             onClick={() => { onClickCheck(i, true, task.checklist_sub_task_id, task.title) }}>
-                            <div className='flex items-center my-[12px]'>
+                            <div className='flex items-center sm:my-[12px] my-[8px]'>
 
-                                <div className='checkboxcircle shrink-0 h-[18px] w-[18px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
+                                <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
 
                                 </div>
-                                <h3 className='h-full w-full ml-[15px] bg-transparent text-white'>
+                                <h3 className='h-full w-full text-[14px] sm:text-[16px] sm:ml-[15px] ml-[10px] bg-transparent text-white'>
                                     {task.title}
                                 </h3>
                             </div>
@@ -273,12 +273,12 @@ function NewSubtaskList({ tasks, onClickCheck, onCompleted, onCommentClicked, on
                                 onClick={() => {
                                     //  onClickCheck(i, true)
                                 }}>
-                                <div className='flex items-center my-[12px] bg-transparent'>
+                                <div className='flex items-center sm:my-[12px] my-[8px] bg-transparent'>
 
-                                    <div className='checkboxcircle shrink-0 h-[18px] w-[18px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
+                                    <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
 
                                     </div>
-                                    <h3 className='h-full w-full ml-[15px] bg-transparent'>
+                                    <h3 className='h-full text-[14px] sm:text-[16px] w-full sm:ml-[15px] ml-[10px] bg-transparent'>
                                         {task.title}
                                     </h3>
                                 </div>
@@ -319,12 +319,12 @@ function NewSubtaskList({ tasks, onClickCheck, onCompleted, onCommentClicked, on
                             // <div className='rounded-[10px] flex items-center w-full h-full my-[10px] p-[12px] bg-[#191919]  border border-white  cursor-pointer'
                             <div className='rounded-[10px] flex justify-between w-full h-full my-[10px] px-[12px] bg-black  border border-white  cursor-pointer'
                                 onClick={() => { onClickCheck(i, false, task.checklist_sub_task_id, task.title) }}>
-                                <div className='flex items-center my-[12px]'>
+                                <div className='flex items-center sm:my-[12px] my-[8px] '>
 
-                                    <div className='checkboxcircle h-[18px] w-[18px] rounded-full shrink-0 border-[1px] border-primary-base bg-primary-base'>
+                                    <div className='checkboxcircle sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full shrink-0 border-[1px] border-primary-base bg-primary-base'>
 
                                     </div>
-                                    <h3 className='h-full w-full ml-[15px] bg-transparent line-through italic text-white'>
+                                    <h3 className='h-full w-full text-[14px] sm:text-[16px] sm:ml-[15px] ml-[10px] bg-transparent line-through italic text-white'>
                                         {/* <h3 className='h-full w-full ml-[15px] bg-transparent line-through italic text-[#7B7B7B]'> */}
                                         {task.title}
                                     </h3>

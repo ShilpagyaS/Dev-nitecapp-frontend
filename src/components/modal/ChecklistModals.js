@@ -12,6 +12,7 @@ import { createChecklistByid, createChecklistGroup, createChecklistTask, createH
 import { successtoast } from "../tostify";
 import { DescriptionTextAreaGrayWintBorder } from "@/utils/Cards/Text card/DescriptionTextArea";
 import ReviewCard from "@/utils/ReviewCard";
+import { useRouter } from "next/router";
 
 export function AddChecklistCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
@@ -701,7 +702,7 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, id, data, }) {
             </div>
             <div className='min-h-[100px] h-full max-h-[250px] mb-[10px] p-2 notificationModal '>
 
-                <h3 className='text-primary-base text-[14px] font-[400] italic mb-[20px] '>Comments can be read by the Admins please review before adding or submitting</h3>
+                <h3 className='text-primary-base text-[14px] font-[400] italic mb-[20px] '>Comments will be read by management, please review before submitting</h3>
                 <div className='w-full pr-[15px]'>
 
                     <DescriptionTextAreaGrayWintBorder placeholder={'Add Your Comment'} textAreaRef={textAreaRef} isEdit={true} content={data.comment} infiniteHeight={true} />
@@ -740,6 +741,7 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structureda
     };
     const dispatch = useDispatch()
     const textAreaRef = useRef()
+    const router = useRouter()
     const handleCancel = () => {
         onClickCancel();
 
@@ -755,7 +757,8 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structureda
 
 
                 onClickCancel()
-
+                successtoast({message:'Successfully Submitted'})
+                router.push('/checklists')
 
             })
 

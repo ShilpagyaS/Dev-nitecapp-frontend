@@ -2,6 +2,7 @@
 import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
 import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment/moment";
 
 const initialState = {
     checklist: [],
@@ -51,8 +52,9 @@ export const setUserRolid = (id) => {
 export const getChecklists = () => {
     return async (dispatch, getState) => {
         const state = getState();
+        let date = moment().format("YYYY-MM-DD")
         axiosInstance({
-            url: `/api/checklist/get_checklist_based_on_login_user`,
+            url: `/api/checklist/get_checklist_based_on_login_user/${date}`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
