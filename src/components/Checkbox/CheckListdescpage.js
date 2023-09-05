@@ -34,208 +34,11 @@ function CheckListdescpage({ id, title }) {
 
 
     }, [tasks])
-    const [data, setdata] = useState(
-        [
-            {
-                user: 'Bartender',
-                checklistCategory: [
-                    {
-                        title: 'Bartender Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs',
-                                isCompleted: false,
-                                isFlag: true,
-                                subtasks: [
-                                    {
-                                        task: 'Right Chair',
-                                        isCompleted: true
-                                    },
-                                    {
-                                        task: 'Left Chair',
-                                        isCompleted: true
-                                    },
-                                    {
-                                        task: 'Central Chair',
-                                        isCompleted: true
-                                    },
-
-                                ]
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out',
-                                isCompleted: true,
-                                isFlag: false
-                            },
-                            {
-                                task: 'Set out floor mats',
-                                isCompleted: false,
-                                isFlag: false,
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment',
-                                isCompleted: false,
-                                isFlag: false,
-                            },
-                        ]
-
-                    },
-                    {
-                        title: 'Bartender Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isCompleted: false
-                            },
-                        ]
-
-                    },
-                ]
-            },
-            {
-                user: 'Housekeeper',
-                checklistCategory: [
-                    {
-                        title: 'Housekeeper Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isCompleted: false
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Housekeeper Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isCompleted: false
-                            },
-                        ]
-                    },
-                ]
-            },
-            {
-                user: 'Manager',
-                checklistCategory: [
-                    {
-                        title: 'Manager Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isCompleted: false
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Manager Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isCompleted: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isCompleted: false
-                            },
-                        ]
-                    },
-                ]
-            },
-        ])
     const [progress, setprogress] = useState(0)
     const [checked, setChecked] = useState(0)
     const [flagged, setflagged] = useState(0)
     const [isreview, setReview] = useState(false)
     function checkboxClick(userindex, checklistCategoryindex, taskindex, ischeckedStatus, taskid) {
-        // let dummydata = []
-        // console.log(userindex, checklistCategoryindex, taskindex, ischeckedStatus);
-        // dummydata = data.map((dataelement, i) => {
-        //     if (i == userindex)
-        //         return {
-        //             ...dataelement,
-        //             checklistCategory: dataelement.checklistCategory.map((checkboxelement, i2) => {
-        //                 if (i2 == checklistCategoryindex)
-        //                     return {
-        //                         ...checkboxelement,
-        //                         tasks: checkboxelement.tasks.map((tasks, i3) => {
-        //                             if (i3 == taskindex)
-        //                                 return {
-        //                                     ...tasks,
-        //                                     isCompleted: ischeckedStatus
-        //                                 }
-        //                             else
-        //                                 return { ...tasks }
-        //                         })
-        //                     }
-        //                 else
-        //                     return { ...checkboxelement }
-        //             })
-
-        //         }
-        //     else
-        //         return { ...dataelement }
-
-
-        // })
-        // console.log(dummydata);
-        // setdata(dummydata)
         let dummy2 = []
         dummy2 = task.map((taskElement, i3) => {
             if (i3 == taskindex)
@@ -375,12 +178,15 @@ function CheckListdescpage({ id, title }) {
                         ...element,
                         isCompleted: false,
                         isFlag: false,
-                        comment: ''
+                        comment: '',
+                        user_id: 0
                     }
                 }),
                 isCompleted: false,
                 isFlag: false,
-                comment: ''
+                comment: '',
+                user_id: 0
+
             }
         })
         setTask([...dummy2])

@@ -267,7 +267,7 @@ export function AddChecklist({ isModalOpen, onClickCancel, onSave, title, data, 
             <div className='min-h-[100px] h-full max-h-[330px] mb-[10px] p-4'>
 
                 <InputFieldWirhAutoWidth
-                    placeholder=" (Ex: Bartender Openening Checklist)"
+                    placeholder=" (Ex: Bartender Opening Checklist)"
                     label="Title"
                     onChangeHandler={handleChange}
                     value={courseForm.name}
