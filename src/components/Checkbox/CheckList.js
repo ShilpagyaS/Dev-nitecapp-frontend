@@ -17,7 +17,7 @@ function CheckList() {
     const [userroles, setUserRoles] = useState([])
     useEffect(() => {
         dispatch(getOutlets())
-        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+        dispatch(getUserRoles()).then((res) => {  setUserRoles(res) })
         dispatch(getChecklists())
         return () => {
             dispatch(emptyAllChecklist())

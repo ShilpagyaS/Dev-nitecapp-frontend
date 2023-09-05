@@ -220,7 +220,7 @@ function ChecklistLogs() {
     const [userroles, setUserRoles] = useState([])
     useEffect(() => {
         dispatch(getOutlets())
-        dispatch(getUserRoles()).then((res) => { let d = res.filter((e) => e.value != 1); setUserRoles(d) })
+        dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
 
     }, [])
     useEffect(() => {
@@ -259,7 +259,7 @@ function ChecklistLogs() {
                     {/* <ChipWithLeftButton condition={true} label={'Create Checklist Group'} srcPath={'/asset/PlusVector.svg'} onClickHandler={() => { setAddCourse(true) }} /> */}
                     <div className='flex items-center mb-[10px]'>
                         <div className='calender shrink-0'>
-                           
+
                             <div className='relative'>
                                 <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose}>
                                     <div className="flex items-center cursor-pointer " onClick={() => { setShow(prev => !prev) }}>
