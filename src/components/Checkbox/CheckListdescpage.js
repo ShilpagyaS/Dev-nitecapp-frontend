@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import { createHistory, emptyAllChecklist, getTasksBasedonIds, resetApi } from '@/store/slices/checklist'
-import { DescriptionTextAreaGrayWintBorder } from '@/utils/Cards/Text card/DescriptionTextArea'
+import { DescriptionTextAreaGrayWintBorder, DescriptionTextAreaGrayWintBorderWithDebounce } from '@/utils/Cards/Text card/DescriptionTextArea'
 import moment from 'moment/moment'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -300,7 +300,21 @@ function CheckListdescpage({ id, title }) {
                 <h3 className='text-primary-base text-[18px] font-[600] not-italic mb-[7px] px-[15px] mt-[10px] '>Notes</h3>
                 <div className='w-full px-[15px]'>
 
-                    <DescriptionTextAreaGrayWintBorder textAreaRef={textAreaRef} isEdit={true} content={tasks.comment} infiniteHeight={true} isSAve={reset} />
+                    <DescriptionTextAreaGrayWintBorderWithDebounce textAreaRef={textAreaRef} isEdit={true} content={tasks.comment}
+                        debounceCall={(e) => {
+                            console.log("dd", e)
+                            dispatch(createHistory({
+                                type: 'checklist_category',
+                                type_id: id,
+                                category_id: id,
+                                title: title,
+                                date: moment().format("YYYY-MM-DD"),
+                                comment: e,
+                            }, id, moment().format("YYYY-MM-DD")
+
+                            ))
+                        }}
+                        infiniteHeight={true} isSAve={reset} />
                 </div>
 
                 <div className='w-full flex items-center justify-center mt-[20px]'>
