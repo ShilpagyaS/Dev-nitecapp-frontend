@@ -143,9 +143,11 @@ export function DescriptionTextAreaGrayWintBorderWithDebounce({ content, textAre
     , [content])
   useEffect(
     () => {
-      isSAve == true ?
-        setVal('') :
-        ''
+      if(isSAve == true) {
+        setVal(''); 
+      //  textAreaRef.current.setAttribute('value','')
+      }
+      
     }
     , [isSAve])
 
@@ -169,6 +171,7 @@ export function DescriptionTextAreaGrayWintBorderWithDebounce({ content, textAre
     <div className='bg-transparent'>
       <textarea ref={textAreaRef} className={`hidescrollbar placeholder:text-[#959595] choice-container border border-[#363636] rounded-[7px] bg-[#101010] w-full ${maxheight ? `max-h-[${maxheight}px]` : infiniteHeight ? '' : `max-h-[90px]`} py-2 px-4 flex justify-between text-white items-center text-left outline-none`}
         defaultValue={val}
+        value={isSAve ? val :textAreaRef?.current?.value}
         placeholder={placeholder || ''}
         onChange={onChange} rows={1} style={{ resize: 'none', overflowY: 'auto' }} disabled={disabled ? true : false} />
     </div>

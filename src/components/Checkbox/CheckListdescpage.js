@@ -39,6 +39,8 @@ function CheckListdescpage({ id, title }) {
     const [flagged, setflagged] = useState(0)
     const [isreview, setReview] = useState(false)
     function checkboxClick(userindex, checklistCategoryindex, taskindex, ischeckedStatus, taskid) {
+        if (tasks.isCompleted)
+            return
         let dummy2 = []
         dummy2 = task.map((taskElement, i3) => {
             if (i3 == taskindex)
@@ -62,6 +64,8 @@ function CheckListdescpage({ id, title }) {
 
     }
     function flagcheckbox(userindex, checklistCategoryindex, taskindex, ischeckedStatus, taskid) {
+        if (tasks.isCompleted)
+            return
         let dummy2 = []
         dummy2 = task.map((taskElement, i3) => {
             if (i3 == taskindex)
@@ -87,6 +91,8 @@ function CheckListdescpage({ id, title }) {
 
     }
     function checkboxSubtask(subtaskIndex, taskindex, ischeckedStatus, taskid, subtaskid, subtaskTitle) {
+        if (tasks.isCompleted)
+            return
         let dummy2 = []
         dummy2 = task.map((taskElement, i3) => {
             if (i3 == taskindex)
@@ -133,6 +139,8 @@ function CheckListdescpage({ id, title }) {
 
     }
     function flagcsubtask(subtaskIndex, taskindex, ischeckedStatus, taskid, subtaskid, subtaskTitle) {
+        if (tasks.isCompleted)
+            return
         let dummy2 = []
         dummy2 = task.map((taskElement, i3) => {
             if (i3 == taskindex)
@@ -301,8 +309,8 @@ function CheckListdescpage({ id, title }) {
                 <div className='w-full px-[15px]'>
 
                     <DescriptionTextAreaGrayWintBorderWithDebounce textAreaRef={textAreaRef} isEdit={true} content={tasks.comment}
+                        disabled={tasks.isCompleted}
                         debounceCall={(e) => {
-                            console.log("dd", e)
                             dispatch(createHistory({
                                 type: 'checklist_category',
                                 type_id: id,
