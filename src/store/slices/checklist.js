@@ -220,6 +220,26 @@ export const createHistory = (data, id, date = '') => {
         });
     };
 }
+export const FilterData = (data) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosDebounceInstance({
+            url: `/api/checklist/checklist_filter_based_on_outlet_role_and_date`,
+            method: "POST",
+            data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            // dispatch(getTasksBasedonIdsWithoutLoading(id, date))
+            dispatch(
+                checklistSlice.actions.getChecklistsArray(res.data?.data)
+            );
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+}
 export const resetApi = (id, date) => {
     return async (dispatch, getState) => {
         const state = getState();

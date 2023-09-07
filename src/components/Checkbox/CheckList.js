@@ -1,9 +1,10 @@
 import ChecklistDisplay from '@/components/Checkbox/checklistDisplay';
-import { emptyAllChecklist, getChecklists } from '@/store/slices/checklist';
+import { emptyAllChecklist, FilterData, getChecklists } from '@/store/slices/checklist';
 import { getUserRoles } from '@/store/slices/manageusers';
 import { getOutlets } from '@/store/slices/outlet';
 import NewCheckListAccordian from '@/utils/Accordian/New Cheklist Accordian/NewCheckListAccordian';
 import { CustomSelectForBrandsFullGray } from '@/utils/CustomSelect';
+import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import NewChecklistDisplay from './NewChecklistDisplay';
@@ -13,7 +14,7 @@ function CheckList() {
     const { checklist } = useSelector(state => state.checklist)
     const [outletArray, setOutletArray] = useState([])
     const [checklistArray, setCheckList] = useState([])
-    const [iscompletedTrigger, setIscompletedTriiger] = useState(false)
+    const [currentValue, setCurrentValues] = useState({ role: '', outlet_id: '' })
     const dispatch = useDispatch()
     const [userroles, setUserRoles] = useState([])
     useEffect(() => {
@@ -36,6 +37,7 @@ function CheckList() {
         if (checklist.length > 0) {
             setCheckList([...checklist])
         }
+        else setCheckList([])
     }, [checklist])
     const [data, setdata] = useState(
         [
@@ -202,6 +204,62 @@ function CheckList() {
                 ]
             },
         ])
+    function FilterFunction(type, dataValue, value) {
+        console.log(type, dataValue, value);
+        if (type == 'outlet_id') {
+            if ((dataValue.role == '' || dataValue.role == 'None') && value != '') {
+                dispatch(FilterData({
+                    outlet_id: value,
+                    date: moment().format("YYYY-MM-DD")
+                }))
+            }
+            if ((dataValue.role == '' || dataValue.role == 'None') && value == '') {
+                if (dataValue.role == 'None')
+                    dispatch(getChecklists())
+                if (dataValue.role == '' && dataValue.outlet_id != '')
+                    dispatch(getChecklists())
+            }
+            if ((dataValue.role != '' && dataValue.role != 'None') && value != '') {
+                dispatch(FilterData({
+                    userRole: [dataValue.role],
+                    outlet_id: value,
+                    date: moment().format("YYYY-MM-DD")
+                }))
+            }
+            if ((dataValue.role != '' && dataValue.role != 'None') && value == '') {
+                dispatch(FilterData({
+                    userRole: [dataValue.role],
+                    date: moment().format("YYYY-MM-DD")
+                }))
+            }
+        }
+        if (type == 'role') {
+            if (dataValue.outlet_id == '' && value != 'None') {
+                dispatch(FilterData({
+                    userRole: [value],
+                    date: moment().format("YYYY-MM-DD")
+                }))
+            }
+            if (dataValue.outlet_id != '' && value != 'None') {
+                dispatch(FilterData({
+                    userRole: [value],
+                    outlet_id: dataValue.outlet_id,
+                    date: moment().format("YYYY-MM-DD")
+                }))
+            }
+            if (dataValue.outlet_id != '' && value == 'None') {
+                dispatch(FilterData({
+                    outlet_id: dataValue.outlet_id,
+                    date: moment().format("YYYY-MM-DD")
+                }))
+            }
+            if (dataValue.outlet_id == '' && value == 'None') {
+                dispatch(getChecklists())
+            }
+
+        }
+        setCurrentValues(prev => { return { ...prev, [type]: value } })
+    }
     return (
         <div>
             <div className="flex items-center mb-[33px] w-full  justify-between">
@@ -212,22 +270,26 @@ function CheckList() {
                 <div className='flex items-center'>
 
                     <div className='input-desc flex flex-col ml-[25px]'>
-                        <CustomSelectForBrandsFullGray items={[...outletArray]}
+                        <CustomSelectForBrandsFullGray items={[...outletArray, { value: '', label: 'None' }]}
                             text={'Filter By Outlet'}
                             // defaultSelect={outletSelected ? { ...outletSelected } : null}
                             optionalFunction={(e) => {
                                 console.log(e);
-                                // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
+                                // setCurrentValues(prev => { return { ...prev, outlet_id: e.value } })
+                                FilterFunction('outlet_id', currentValue, e.value)
+                                // setDrinkBrand({brand_id: e.value, brand_name: e.label })
                                 // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
                                 // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
                             }} />
                     </div>
                     <div className='input-desc flex flex-col ml-[25px]'>
-                        <CustomSelectForBrandsFullGray items={[...userroles]}
+                        <CustomSelectForBrandsFullGray items={[...userroles, { value: '', label: 'None' }]}
                             text={'Filter By Role'}
                             // defaultSelect={outletSelected ? { ...outletSelected } : null}
                             optionalFunction={(e) => {
                                 console.log(e);
+                                // setCurrentValues(prev => { return { ...prev, role: e.label } })
+                                FilterFunction('role', currentValue, e.label)
                                 // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
                                 // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
                                 // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
@@ -250,11 +312,7 @@ function CheckList() {
                                     type='user'
                                     content={dataelement?.checklist_categories?.map(
                                         (checklist, ci) => {
-                                            if (iscompletedTrigger == false) {
-                                                if (checklist.isCompleted == 'completed') {
-                                                    setIscompletedTriiger(true)
-                                                }
-                                            }
+
                                             return <div className='ml-[20px]'>
                                                 <NewCheckListAccordian
                                                     key={ci}
@@ -275,48 +333,6 @@ function CheckList() {
                                     )}
                                 />
                         )
-                    }
-                    {iscompletedTrigger &&
-                        <>
-                            <h5 className='not-italic font-semibold text-[30px] mt-[20px] font-Inter leading-tight text-white mb-[20px]'>
-                                {`Completed Checklists`}
-                            </h5>
-                            {
-                                checklistArray.map(
-                                    (dataelement, i) => {
-
-                                        let dummy = dataelement?.checklist_categories?.filter(checklistData => checklistData.isCompleted == 'completed')
-                                        if (dummy.length > 0)
-                                            return <NewCheckListAccordian
-                                                key={i}
-                                                title={dataelement.title}
-                                                type='user'
-                                                content={dataelement?.checklist_categories?.map(
-                                                    (checklist, ci) => {
-
-                                                        if (checklist.isCompleted == 'completed')
-                                                            return <div className='ml-[20px]'>
-                                                                <NewCheckListAccordian
-                                                                    key={ci}
-                                                                    title={checklist.title}
-                                                                    type='checklist'
-                                                                    completed={checklist.isCompleted == 'completed' ? true : false}
-                                                                    categoryid={checklist.checklist_category_id}
-                                                                    isprogressBar={true}
-                                                                    inProgress={checklist.isCompleted == 'in-progress' ? true : false}
-                                                                    tasks={checklist.taskCount}
-                                                                    progress={20}
-
-                                                                />
-                                                            </div>
-                                                    }
-                                                )}
-                                            />
-                                    }
-                                )
-                            }
-                        </>
-
                     }
                 </div>
             </>

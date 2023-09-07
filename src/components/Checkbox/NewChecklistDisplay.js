@@ -184,8 +184,9 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, onCompleted, setP
                                     }
                                     {
                                         task?.checklist_sub_tasks?.length < 1 &&
-                                        <div className='flex items-center ml-[5px] bg-transparent' onClick={(e) => { e.stopPropagation(); }}>
+                                        <div className='flex items-center ml-[5px]' onClick={(e) => { e.stopPropagation(); onflagged(i, true, task.checklist_task_id) }}>
                                             <FlagIcon condition={task?.isFlag} />
+
 
 
                                         </div>
@@ -360,9 +361,8 @@ function NewSubtaskList({ tasks, onClickCheck, onCompleted, onCommentClicked, on
                                         }} />
 
                                     </div>
-                                    <div className='flex items-center ml-[5px] bg-transparent' onClick={(e) => { e.stopPropagation(); }}>
+                                    <div className='flex items-center ml-[5px]' onClick={(e) => { e.stopPropagation(); onflagged(i, true, task.checklist_sub_task_id, task.title) }}>
                                         <FlagIcon condition={task?.isFlag} />
-
                                     </div>
                                 </div>
 

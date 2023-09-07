@@ -140,7 +140,7 @@ function NewAdminTaskDisplay({ title, id }) {
                                     </h3>
                                 </div>
                                 <div className='flex items-center bg-transparent'>
-                                    <div className='flex items-center cursor-pointer' onClick={(e) => {
+                                    <div className='flex items-center cursor-pointer shrink-0' onClick={(e) => {
                                         Addsubtask(e, {
                                             checklist_task_id: taskinner.checklist_task_id
                                         })
