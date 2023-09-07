@@ -2,6 +2,7 @@
 import axiosInstance, { axiosDebounceInstance } from "@/components/Auth/axios";
 import { successtoast } from "@/components/tostify";
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment/moment";
 
 const initialState = {
     checklist: [],
@@ -51,8 +52,9 @@ export const setUserRolid = (id) => {
 export const getChecklists = () => {
     return async (dispatch, getState) => {
         const state = getState();
+        let date = moment().format("YYYY-MM-DD")
         axiosInstance({
-            url: `/api/checklist/get_checklist_based_on_login_user`,
+            url: `/api/checklist/get_checklist_based_on_login_user/${date}`,
             method: "GET",
         }).then((res) => {
             console.log("response in product,js 47", res);
@@ -211,6 +213,26 @@ export const createHistory = (data, id, date = '') => {
         }).then((res) => {
             console.log("response in product,js 47", res);
             dispatch(getTasksBasedonIdsWithoutLoading(id, date))
+            return res
+        }).catch((err) => {
+            console.log(err)
+            return { error: true, message: err }
+        });
+    };
+}
+export const FilterData = (data) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        axiosDebounceInstance({
+            url: `/api/checklist/checklist_filter_based_on_outlet_role_and_date`,
+            method: "POST",
+            data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            // dispatch(getTasksBasedonIdsWithoutLoading(id, date))
+            dispatch(
+                checklistSlice.actions.getChecklistsArray(res.data?.data)
+            );
             return res
         }).catch((err) => {
             console.log(err)

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
-function NewCheckListAccordian({ title, content, type, item, isLearn, defaultvalue, onOpenfuncObj, tasks, categoryid, isprogressBar, progress }) {
+function NewCheckListAccordian({ title, content, type, completed, inProgress, defaultvalue, onOpenfuncObj, tasks, categoryid, isprogressBar, progress }) {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter()
     const toggleAccordion = () => {
@@ -45,8 +45,13 @@ function NewCheckListAccordian({ title, content, type, item, isLearn, defaultval
 
                         <h3 className='text-white bg-transparent capitalize ml-[8px]'>{title}</h3>
                         <div className='flex items-center bg-transparent'>
+                            {inProgress &&
+                                <h3 className='text-[#FFC130] animate-pulse text-[16px] cursor-pointer font-thin italic bg-transparent capitalize mr-[8px]' >In Progress</h3>
+                            }
+                            {completed &&
+                                <h3 className='text-[#3EAF3F] text-[16px] cursor-pointer font-thin italic bg-transparent capitalize mr-[8px]' >Completed</h3>
+                            }
                             <h3 className='text-primary-hoverbase text-[16px] cursor-pointer font-semibold italic bg-transparent capitalize ml-[8px]' onClick={(e) => { e.stopPropagation(); router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>{`Tasks (${tasks})`}</h3>
-
                         </div>
 
                     </div>

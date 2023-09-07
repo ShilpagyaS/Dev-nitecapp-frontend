@@ -2,6 +2,7 @@ import { ViewComment } from '@/components/modal/ChecklistModals'
 import React, { useState } from 'react'
 import FlagIcon from './FlagIcon'
 import MessageIcon from './MessageIcon'
+import GetName from './Util Functions/GetName'
 
 function ReviewCard({ tasks }) {
     return (
@@ -47,6 +48,13 @@ function TasksAndSubtask({ tasks }) {
                                     </h3>
                                 </div>
                                 <div className='flex bg-transparent'>
+                                    {task?.user_id > 0 &&
+                                        < div className='h-full bg-transparent flex items-end pb-[5px] '>
+                                            <h3 className='capitalize italic text-[10px] text-[#959595] align-bottom bg-transparent'>
+                                                {GetName(task.user_name, task.updatedAt)}
+                                            </h3>
+                                        </div>
+                                    }
                                     {
                                         task?.checklist_sub_tasks?.length < 1 &&
                                         <div className='flex items-center mx-[2px] bg-transparent ' onClick={(e) => {
@@ -88,11 +96,13 @@ function TasksAndSubtask({ tasks }) {
                                         </h3>
                                     </div>
                                     <div className='flex bg-transparent'>
-                                        <div className='h-full bg-transparent flex items-end pb-[5px] '>
-                                            <h3 className='italic text-[10px] text-[#959595] align-bottom bg-transparent'>
-                                                Ritwik K. (08/10/23) 10:32pm
-                                            </h3>
-                                        </div>
+                                        {task?.user_id > 0 &&
+                                            < div className='h-full bg-transparent flex items-end pb-[5px] '>
+                                                <h3 className='capitalize italic text-[10px] text-[#959595] align-bottom bg-transparent'>
+                                                    {GetName(task.user_name, task.updatedAt)}
+                                                </h3>
+                                            </div>
+                                        }
                                         {
                                             (!task?.checklist_sub_tasks || task?.checklist_sub_tasks?.length < 1) &&
                                             <div className='flex items-center ml-[10px] bg-transparent' onClick={(e) => {
@@ -136,11 +146,13 @@ function TasksAndSubtask({ tasks }) {
                                         </h3>
                                     </div>
                                     <div className='flex bg-transparent'>
-                                        <div className='h-full bg-transparent flex items-end pb-[5px] '>
-                                            <h3 className='italic text-[10px] text-[#959595] align-bottom bg-transparent'>
-                                                Ritwik K. (08/10/23) 10:32pm
-                                            </h3>
-                                        </div>
+                                        {task?.user_id > 0 &&
+                                            < div className='h-full bg-transparent flex items-end pb-[5px] '>
+                                                <h3 className='capitalize italic text-[10px] text-[#959595] align-bottom bg-transparent'>
+                                                    {GetName(task.user_name, task.updatedAt)}
+                                                </h3>
+                                            </div>
+                                        }
                                         {
                                             (!task?.checklist_sub_tasks || task?.checklist_sub_tasks?.length < 1) &&
                                             <div className='flex items-center ml-[10px] bg-transparent' onClick={(e) => {
