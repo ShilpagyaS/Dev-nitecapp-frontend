@@ -4,7 +4,7 @@ import MessageIcon from '@/utils/MessageIcon';
 import GetName from '@/utils/Util Functions/GetName';
 import React, { useEffect, useState } from 'react'
 
-function NewChecklistDisplay({ tasks, onClickCheck, onflagged, onCompleted, setProgresspercentage, setFlagged, onCommentClicked, setchecked, checksubTask, flagSubTask }) {
+function NewChecklistDisplay({ tasks, onClickCheck, onflagged, isCompleted, setProgresspercentage, setFlagged, onCommentClicked, setchecked, checksubTask, flagSubTask }) {
     const [progress, setProgress] = useState(0)
     useEffect(() => {
         if (tasks.length > 0) {

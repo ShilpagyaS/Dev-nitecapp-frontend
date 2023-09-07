@@ -324,16 +324,25 @@ function CheckListdescpage({ id, title }) {
                         }}
                         infiniteHeight={true} isSAve={reset} />
                 </div>
+                {!tasks.isCompleted && <>
+                    <div className='w-full flex items-center justify-center mt-[20px]'>
+                        <ConditionalButton label={'Review & Submit'} condition={checked + flagged == task.length ? true : false} onClickHandler={() => { setReview(true) }} />
+                    </div>
+                    {
+                        checked + flagged != task.length &&
+                        < div className='mt-[10px] w-full flex items-center justify-center'>
 
-                <div className='w-full flex items-center justify-center mt-[20px]'>
-                    <ConditionalButton label={'Review & Submit'} condition={checked + flagged == task.length ? true : false} onClickHandler={() => { setReview(true) }} />
-                </div>
-                {
-                    checked + flagged != task.length &&
+                            <h3 className='text-primary-base text-[12px] font-[400] italic mb-[7px] px-[15px]  animate-pulse '>Please perform each task and sub task to submit</h3>
+                        </div>
+                    }
+                </>
+                }
+                {tasks.isCompleted &&
                     < div className='mt-[10px] w-full flex items-center justify-center'>
 
-                        <h3 className='text-primary-base text-[12px] font-[400] italic mb-[7px] px-[15px]  animate-pulse '>Please perform each task and sub task to submit</h3>
+                        <h3 className='text-primary-base text-[12px] font-[400] italic mb-[7px] px-[15px]  animate-pulse '>Checklist Already submitted</h3>
                     </div>
+
                 }
             </div>
         </>
