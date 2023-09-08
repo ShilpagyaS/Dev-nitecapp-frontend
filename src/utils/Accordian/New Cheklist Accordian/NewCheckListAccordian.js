@@ -39,19 +39,19 @@ function NewCheckListAccordian({ title, content, type, completed, inProgress, de
                     </div>
                 }
                 {type == 'checklist' &&
-                    <div className='flex shrink-0 items-center justify-between bg-transparent w-full'>
+                    <div className='flex shrink-0 items-center cursor-pointer justify-between bg-transparent w-full flex-wrap' onClick={(e) => { e.stopPropagation(); router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>
 
 
 
                         <h3 className='text-white bg-transparent capitalize ml-[8px]'>{title}</h3>
                         <div className='flex items-center bg-transparent'>
                             {inProgress &&
-                                <h3 className='text-[#FFC130] animate-pulse text-[16px] cursor-pointer font-thin italic bg-transparent capitalize mr-[8px]' >In Progress</h3>
+                                <h3 className='text-[#FFC130] ml-[8px] animate-pulse text-[16px] cursor-pointer font-thin italic bg-transparent capitalize mr-[8px]' >In Progress</h3>
                             }
                             {completed &&
                                 <h3 className='text-[#3EAF3F] text-[16px] cursor-pointer font-thin italic bg-transparent capitalize mr-[8px]' >Completed</h3>
                             }
-                            <h3 className='text-primary-hoverbase text-[16px] cursor-pointer font-semibold italic bg-transparent capitalize ml-[8px]' onClick={(e) => { e.stopPropagation(); router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>{`Tasks (${tasks})`}</h3>
+                            <h3 className='text-primary-hoverbase text-[16px] cursor-pointer font-semibold italic bg-transparent capitalize ml-[8px]' >{`Tasks (${tasks})`}</h3>
                         </div>
 
                     </div>
