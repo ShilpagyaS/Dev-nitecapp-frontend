@@ -13,6 +13,7 @@ import { successtoast } from "../tostify";
 import { DescriptionTextAreaGrayWintBorder } from "@/utils/Cards/Text card/DescriptionTextArea";
 import ReviewCard from "@/utils/ReviewCard";
 import { useRouter } from "next/router";
+import useMediaQuery from "@/Hooks/useMediaQuery";
 
 export function AddChecklistCategory({ isModalOpen, onClickCancel, onSave, deleteBtn, ingredientType, title, desc, }) {
     const customStyles = {
@@ -720,6 +721,7 @@ export function AddComment({ isModalOpen, onClickCancel, onSave, id, data, }) {
     )
 }
 export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structuredata, title, notes, completed, flagged, data, isAdmin }) {
+    const isMobile = useMediaQuery("(max-width: 414px)");
     const customStyles = {
         content: {
             top: "50%",
@@ -730,9 +732,9 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structureda
             borderRadius: "8px",
             border: "none",
             background: "black",
-            padding: "24px",
+            padding: `${isMobile ? '10px' : '24px'}`,
             // maxWidth: "580px",
-            width: "70%",
+            width: `${isMobile ? '90%' : '70%'}`,
         },
         overlay: {
             background: "rgba(255, 255, 255, 0.1)",
@@ -757,7 +759,7 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structureda
 
 
                 onClickCancel()
-                successtoast({message:'Successfully Submitted'})
+                successtoast({ message: 'Successfully Submitted' })
                 router.push('/checklists')
 
             })
@@ -785,22 +787,40 @@ export function ReviewTaskUser({ isModalOpen, onClickCancel, onSave, structureda
                 </div>
             </div>
 
-            <div className='min-h-[170px] max-h-[350px] h-full w-full pr-[15px] notificationModal'>
-                <div className="w-full flex items-center justify-center my-[20px]">
-                    <div className=" mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
-                        <h3 className="text-[16px] text-white bg-transparent">Total Tasks</h3>
-                        <h3 className="text-primary-base text-[16px] bg-transparent">{data.length}</h3>
-                    </div>
-                    <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
-                        <h3 className="text-[16px] text-white bg-transparent">Completed</h3>
-                        <h3 className="text-primary-base text-[16px] bg-transparent">{completed}</h3>
-                    </div>
-                    <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
-                        <h3 className="text-[16px] text-white bg-transparent">Flagged</h3>
-                        <h3 className="text-primary-base text-[16px] bg-transparent">{flagged}</h3>
-                    </div>
+            <div className='min-h-[170px] max-h-[350px] h-full w-full pr-[15px] notificationModal' >
+                {!isMobile ?
+                    <div className="w-full flex items-center justify-center my-[20px]">
+                        <div className=" mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Total Tasks</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent">{data.length}</h3>
+                        </div>
+                        <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Completed</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent">{completed}</h3>
+                        </div>
+                        <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Flagged</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent">{flagged}</h3>
+                        </div>
 
-                </div>
+                    </div>
+                    : <div className="w-full flex flex-col items-start justify-center my-[20px]">
+                        <div className=" m-[10px] mr-[15px] w-full flex items-center justify-center px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Total Tasks</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent ml-[10px]">{data.length}</h3>
+                        </div>
+                        <div className="flex items-center justify-between w-full">
+                            <div className=" m-[10px] w-full flex items-center px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                                <h3 className="text-[16px] text-white bg-transparent">Completed</h3>
+                                <h3 className="text-primary-base text-[16px] bg-transparent ml-[10px]">{completed}</h3>
+                            </div>
+                            <div className="ml-[10px] my-[10px] flex w-full items-center px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                                <h3 className="text-[16px] text-white bg-transparent">Flagged</h3>
+                                <h3 className="text-primary-base text-[16px] bg-transparent ml-[10px]">{flagged}</h3>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <ReviewCard tasks={data} />
                 <h3 className='text-primary-base text-[18px] font-[600] not-italic mb-[7px] px-[15px] '>Notes</h3>
                 <div className='w-full px-[15px]'>
@@ -878,7 +898,7 @@ export function ResetModal({ isModalOpen, onClickCancel, onSave, deleteBtn, titl
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
                 <h3 className='italic font-normal text-[18px] leading-6 text-white font-Inter mb-[7px]'>
-                    {`Are you sure you want to reset the checklist? All checked items and notes will be permanently deleted. This action cannot be undone.`}
+                    {`Are you sure you want to reset the checklist? All checked items and notes will be permanently deleted.This action cannot be undone.`}
                 </h3>
 
             </div>
@@ -986,11 +1006,12 @@ export function EditChecklist({ isModalOpen, onClickCancel, id, data, title, typ
             </div>
             <div className='h-full mb-[10px] '>
                 {/* <h5
-                    className={` w-full not-italic font-normal font-Inter text-[14px] flex mb-[5px] items-center leading-tight  ${isfocused == false
-                        ? "text-[#959595]"
-                        : "text-white"
+                    className={` w - full not - italic font - normal font - Inter text - [14px] flex mb - [5px] items - center leading - tight  ${
+        isfocused == false
+        ? "text-[#959595]"
+        : "text-white"
 
-                        }`}
+    } `}
                 >
                     Chapter Image
                 </h5>
@@ -1006,18 +1027,19 @@ export function EditChecklist({ isModalOpen, onClickCancel, id, data, title, typ
                 />
                 {/* <div className=" flex flex-col gap-[4px] items-start lg:mb-[11px] mb-[8px]">
                     <h5
-                        className={` w-full not-italic font-normal font-Inter text-[14px] flex items-center leading-tight  ${isfocused == false
-                            ? "text-[#959595]"
-                            : "text-white"
+                        className={` w - full not - italic font - normal font - Inter text - [14px] flex items - center leading - tight  ${
+        isfocused == false
+        ? "text-[#959595]"
+        : "text-white"
 
-                            }`}
+    } `}
                     >
                         Description
                     </h5>
 
-                    <textarea className={`notificationModal h-[150px] choice-container w-full py-2 px-4 rounded-[5px] flex justify-between text-white mb-[16px] items-center text-left outline-none 
-                     focus:outline-none  ${isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]'}
-                     appearance-none`}
+                    <textarea className={`notificationModal h - [150px] choice - container w - full py - 2 px - 4 rounded - [5px] flex justify - between text - white mb - [16px] items - center text - left outline - none
+    focus: outline - none  ${ isfocused == true ? 'border border-white' : 'border border-[#3C3C3C]' }
+    appearance - none`}
                         value={courseForm.desc}
                         name={'desc'}
                         onChange={handleChange} style={{ resize: 'none' }}
@@ -1032,10 +1054,10 @@ export function EditChecklist({ isModalOpen, onClickCancel, id, data, title, typ
             </div>
             <div className='btncontainers flex items-center justify-between mt-[10px] '>
                 {/* <button
-                    className={`bg-[#3E3E3E] py-[7px] px-[24px] h-[41px] rounded-full 
-                           
-                        
-                            text-black gap-1 font-semibold font-Inter tracking-[0.42px] text-[16px]`}
+                    className={`bg - [#3E3E3E] py - [7px] px - [24px] h - [41px] rounded - full
+
+
+    text - black gap - 1 font - semibold font - Inter tracking - [0.42px] text - [16px]`}
                     onClick={() => { setDeleteModal(true) }}
                 >
                     Delete
@@ -1184,14 +1206,14 @@ export function DeleteChecklist({ isModalOpen, onClickCancel, onSave, deleteBtn,
             style={customStyles}
         >
             <div className="text-white border-none outline-none">
-                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title}`}</h4>
+                <h4 className="text-[24px] leading-9 font-semibold mb-4">{`Delete ${title} `}</h4>
             </div>
             <div className='flex flex-col w-full mb-[26px]'>
                 <h3 className='italic font-normal text-base leading-6 text-[#959595] font-Inter mb-[7px]'>
-                    {`Deleting this will permanantly remove all the data of the selected item .Do You Want To Delete ${title} ?"`}
-                </h3>
+                    {`Deleting this will permanantly remove all the data of the selected item.Do You Want To Delete ${title} ?"`}
+                </h3 >
 
-            </div>
+            </div >
             <div className='btncontainers flex items-center justify-between mt-[18px] '>
 
 
@@ -1202,7 +1224,7 @@ export function DeleteChecklist({ isModalOpen, onClickCancel, onSave, deleteBtn,
 
             </div>
 
-        </Modal>
+        </Modal >
     )
 }
 export function AddSubtask({ isModalOpen, onClickCancel, onSave, id, title, data }) {
