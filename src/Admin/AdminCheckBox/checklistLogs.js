@@ -1,7 +1,9 @@
-import { ReviewTaskUser } from '@/components/modal/ChecklistModals'
+import { ReviewHsitoryTask, ReviewTaskUser } from '@/components/modal/ChecklistModals'
+import { gethistory } from '@/store/slices/checklist'
 import { getUserRoles } from '@/store/slices/manageusers'
 import { getOutlets } from '@/store/slices/outlet'
 import { CustomSelectForBrandsFullGray } from '@/utils/CustomSelect'
+import { GetNameOnly } from '@/utils/Util Functions/GetName'
 import moment from 'moment/moment'
 import React, { useRef, useState } from 'react'
 import { useEffect } from 'react'
@@ -38,6 +40,7 @@ function ChecklistLogs() {
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const [show, setShow] = useState(false)
     const [selectedDate, setSelectedDate] = useState('')
+    const [logsection, setLogs] = useState([])
     const handleChange = (selectedDate) => {
         setSelectedDate(selectedDate)
         console.log(selectedDate)
@@ -215,11 +218,14 @@ function ChecklistLogs() {
         ])
     const [isreview, setReview] = useState(false)
     const { outlets } = useSelector((state) => state.outlets)
+    const { historySection } = useSelector((state) => state.checklist)
     const [outletArray, setOutletArray] = useState([])
     const dispatch = useDispatch()
     const [userroles, setUserRoles] = useState([])
+    const [categoryDetail, setCategoryDetail] = useState(null)
     useEffect(() => {
         dispatch(getOutlets())
+        dispatch(gethistory())
         dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
 
     }, [])
@@ -230,18 +236,23 @@ function ChecklistLogs() {
             // sedefaultvalue([outletss[0]])
         }
     }, [outlets])
+    useEffect(() => {
+        setLogs([...historySection] || [])
+    }, [historySection])
 
     return (
         <>
             {isreview &&
-                <ReviewTaskUser
+                <ReviewHsitoryTask
                     data={data[0].checklistCategory[0].tasks}
+                    categoryId={categoryDetail.id}
+                    taskDate={categoryDetail.date}
                     flagged={3}
                     completed={1}
                     notes={'dummy Notes'}
                     isModalOpen={isreview}
                     onClickCancel={() => { setReview(false) }}
-                    title={'Bartender Opening List'}
+                    title={categoryDetail.title}
                     // title={title}
                     isAdmin={true}
                     onSave={() => { onClickCancel() }}
@@ -333,9 +344,15 @@ function ChecklistLogs() {
                     </div>
                 </div>
                 {
-                    list.map((x, i) =>
+                    logsection?.map((x, i) =>
                         <div className='grid grid-cols-12 bg-transparent border border-x-0 border-t-0 border-b-[#161616] rounded-lg p-2 mb-[10px] hover:bg-[#222222] hover:border-white hover:border cursor-pointer'
-                            onClick={() => { setReview(true) }}
+                            onClick={() => {
+                                setCategoryDetail({
+                                    id: x.checklist_category_id,
+                                    date: moment(x.updatedAt).format('YYYY-MM-DD'),
+                                    title: x.checklist_category_name
+                                }); setReview(true)
+                            }}
                         >
                             <div className='col-span-3 flex items-center justify-start bg-transparent pl-[10px]'>
                                 <div className='w-[16px] h-[16px] mr-[10px] text-white bg-transparent flex items-center justify-center'>
@@ -345,27 +362,27 @@ function ChecklistLogs() {
 
                                 </div> */}
                                 <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    Bartender Opening List (4/5)
+                                    {`${x.checklist_category_name} (${x.total_task})`}
                                 </h3>
                             </div>
                             <div className='col-span-2 flex items-center justify-center bg-transparent'>
                                 <h3 className='text-white font-semibold truncate rounded-[4px] not-italic text-[14px] bg-primary-base py-[2px] px-[8px] '>
-                                    The Delphi Cafe Coffee | Tea
+                                    {x.checklist_name}
                                 </h3>
                             </div>
                             <div className='col-span-2 flex items-center justify-center bg-transparent'>
                                 <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    Server
+                                    {x.role}
                                 </h3>
                             </div>
                             <div className='col-span-2 flex items-center justify-center bg-transparent'>
-                                <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    Shubham Namdev
+                                <h3 className='text-white capitalize font-normal not-italic text-[14px] bg-transparent'>
+                                    {GetNameOnly(x.submitted_by)}
                                 </h3>
                             </div>
                             <div className='col-span-3 flex items-center justify-center bg-transparent'>
                                 <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    08/12/2023 (10:24 AM)
+                                    {`${moment(x.updatedAt).format('L')} (${moment(x.updatedAt).format('LT')})`}
                                 </h3>
                             </div>
                         </div>
