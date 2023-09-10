@@ -1,4 +1,5 @@
 import { ReviewHsitoryTask, ReviewTaskUser } from '@/components/modal/ChecklistModals'
+import Pagination from '@/components/pagination'
 import { gethistory } from '@/store/slices/checklist'
 import { getUserRoles } from '@/store/slices/manageusers'
 import { getOutlets } from '@/store/slices/outlet'
@@ -38,9 +39,12 @@ const options = {
 }
 function ChecklistLogs() {
     const list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const pageSize = 6
+    const [currentPage, setcurrentPage] = useState(1)
+
     const [show, setShow] = useState(false)
     const [selectedDate, setSelectedDate] = useState('')
-    const [logsection, setLogs] = useState([])
+
     const handleChange = (selectedDate) => {
         setSelectedDate(selectedDate)
         console.log(selectedDate)
@@ -225,10 +229,16 @@ function ChecklistLogs() {
     const [categoryDetail, setCategoryDetail] = useState(null)
     useEffect(() => {
         dispatch(getOutlets())
-        dispatch(gethistory())
+
         dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
 
     }, [])
+
+    useEffect(() => {
+        dispatch(gethistory(currentPage, pageSize))
+    }, [currentPage])
+
+
     useEffect(() => {
         if (outlets.length > 0) {
             let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
@@ -236,29 +246,28 @@ function ChecklistLogs() {
             // sedefaultvalue([outletss[0]])
         }
     }, [outlets])
-    useEffect(() => {
-        setLogs([...historySection] || [])
-    }, [historySection])
 
     return (
-        <>
+        <div className='flex flex-col h-full '>
             {isreview &&
-                <ReviewHsitoryTask
-                    data={data[0].checklistCategory[0].tasks}
-                    categoryId={categoryDetail.id}
-                    taskDate={categoryDetail.date}
-                    flagged={3}
-                    completed={1}
-                    notes={'dummy Notes'}
-                    isModalOpen={isreview}
-                    onClickCancel={() => { setReview(false) }}
-                    title={categoryDetail.title}
-                    // title={title}
-                    isAdmin={true}
-                    onSave={() => { onClickCancel() }}
-                />
+                <div className='h-[10vh]'>
+                    <ReviewHsitoryTask
+                        data={data[0].checklistCategory[0].tasks}
+                        categoryId={categoryDetail.id}
+                        taskDate={categoryDetail.date}
+                        flagged={3}
+                        completed={1}
+                        notes={'dummy Notes'}
+                        isModalOpen={isreview}
+                        onClickCancel={() => { setReview(false) }}
+                        title={categoryDetail.title}
+                        // title={title}
+                        isAdmin={true}
+                        onSave={() => { onClickCancel() }}
+                    />
+                </div>
             }
-            <div>
+            <div className='flex-auto '>
                 <div className='flex items-center justify-between'>
                     <div className="flex items-center mb-[10px] mt-[10px]">
 
@@ -344,7 +353,7 @@ function ChecklistLogs() {
                     </div>
                 </div>
                 {
-                    logsection?.map((x, i) =>
+                    historySection?.data?.map((x, i) =>
                         <div className='grid grid-cols-12 bg-transparent border border-x-0 border-t-0 border-b-[#161616] rounded-lg p-2 mb-[10px] hover:bg-[#222222] hover:border-white hover:border cursor-pointer'
                             onClick={() => {
                                 setCategoryDetail({
@@ -389,7 +398,16 @@ function ChecklistLogs() {
                     )
                 }
             </div>
-        </>
+            <div className='w-full flex justify-center h-[60px]'>
+                <Pagination
+                    totalelements={historySection.count}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    setcurrentPage={setcurrentPage}
+                />
+            </div>
+
+        </div>
     )
 }
 

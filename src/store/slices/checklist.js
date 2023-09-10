@@ -8,7 +8,7 @@ const initialState = {
     checklist: [],
     tasks: [],
     userRoleId: '',
-    historySection: [],
+    historySection: { count: 0, data: [] },
     historyTasks: [],
 
 };
@@ -79,11 +79,11 @@ export const getChecklists = () => {
         });
     };
 }
-export const gethistory = () => {
+export const gethistory = (pageNo, limit) => {
     return async (dispatch, getState) => {
         let data = {
-            limit: 20,
-            offset: 0
+            limit: limit,
+            offset: (pageNo - 1) * limit
         }
         const state = getState();
         axiosInstance({
@@ -92,6 +92,7 @@ export const gethistory = () => {
             data
         }).then((res) => {
             console.log("response in product,js 47", res);
+            debugger
             dispatch(
                 checklistSlice.actions.getHistroy(res.data?.data)
             );

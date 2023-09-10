@@ -1,7 +1,7 @@
 import React from "react";
 
 function Layout({ children }) {
-  return <div className="w-full mt-2">
+  return <div className="w-full mt-2 h-full">
     {children}
     {
       (process.env.NEXT_PUBLIC_TESTING === "true") &&
