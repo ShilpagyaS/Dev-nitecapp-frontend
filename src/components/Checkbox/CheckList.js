@@ -97,27 +97,24 @@ function CheckList() {
     }
     return (
         <div>
-            <div className="flex items-center mb-[33px] w-full  justify-between">
+            <div className="flex items-start sm:items-center sm:flex-row flex-col mb-[33px] w-full  sm:justify-between">
 
                 <h5 className='not-italic font-semibold text-[32px] font-Inter leading-tight text-white mb-[2px]'>
                     {`Checklists`}
                 </h5>
-                <div className='flex items-center'>
+                <div className='flex items-center sm:flex-row flex-col'>
 
-                    <div className='input-desc flex flex-col ml-[25px]'>
+                    <div className='input-desc flex flex-col sm:ml-[25px]'>
                         <CustomSelectForBrandsFullGray items={[...outletArray, { value: '', label: 'None' }]}
                             text={'Filter By Outlet'}
                             // defaultSelect={outletSelected ? { ...outletSelected } : null}
                             optionalFunction={(e) => {
                                 console.log(e);
-                                // setCurrentValues(prev => { return { ...prev, outlet_id: e.value } })
                                 FilterFunction('outlet_id', currentValue, e.value)
-                                // setDrinkBrand({brand_id: e.value, brand_name: e.label })
-                                // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
-                                // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
+
                             }} />
                     </div>
-                    <div className='input-desc flex flex-col ml-[25px]'>
+                    <div className='input-desc flex flex-col sm:ml-[25px]'>
                         <CustomSelectForBrandsFullGray items={[...userroles, { value: '', label: 'None' }]}
                             text={'Filter By Role'}
                             // defaultSelect={outletSelected ? { ...outletSelected } : null}
