@@ -38,7 +38,6 @@ const options = {
     language: "en",
 }
 function ChecklistLogs() {
-    const list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const pageSize = 6
     const [currentPage, setcurrentPage] = useState(1)
 
@@ -52,174 +51,6 @@ function ChecklistLogs() {
     const handleClose = (state) => {
         setShow(state)
     }
-    const [data, setdata] = useState(
-        [
-            {
-                user: 'Bartender',
-                checklistCategory: [
-                    {
-                        title: 'Bartender Opening Checklist',
-                        tasks: [
-                            {
-                                title: 'Set out chairs',
-                                isCompleted: false,
-                                isFlag: true,
-                                checklist_sub_tasks: [
-                                    {
-                                        title: 'Right Chair',
-                                        isCompleted: true,
-                                        isFlag: false
-                                    },
-                                    {
-                                        title: 'Left Chair',
-                                        isCompleted: true,
-                                        isFlag: false
-                                    },
-                                    {
-                                        title: 'Central Chair',
-                                        isCompleted: true,
-                                        isFlag: false
-                                    },
-
-                                ]
-                            },
-                            {
-                                title: 'Take clean glassware from dishwasher and set out',
-                                isCompleted: true,
-                                isFlag: false
-                            },
-                            {
-                                title: 'Set out floor mats',
-                                isCompleted: true,
-                                isFlag: false,
-                            },
-                            {
-                                title: 'Set out bar tools & Equipment',
-                                isCompleted: true,
-                                isFlag: false,
-                            },
-                        ]
-
-                    },
-                    {
-                        title: 'Bartender Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-
-                    },
-                ]
-            },
-            {
-                user: 'Housekeeper',
-                checklistCategory: [
-                    {
-                        title: 'Housekeeper Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Housekeeper Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                ]
-            },
-            {
-                user: 'Manager',
-                checklistCategory: [
-                    {
-                        title: 'Manager Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Manager Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                ]
-            },
-        ])
     const [isreview, setReview] = useState(false)
     const { outlets } = useSelector((state) => state.outlets)
     const { historySection } = useSelector((state) => state.checklist)
@@ -243,6 +74,9 @@ function ChecklistLogs() {
     useEffect(() => {
         if (selectedDate || currentRole || currentOutlet)
             dispatch(gethistory({ currentPage: 1, pageSize, selectedDate, currentOutlet, currentRole }))
+        if (!selectedDate && !currentRole && !currentOutlet)
+            dispatch(gethistory({ currentPage: 1, pageSize, selectedDate, currentOutlet, currentRole }))
+
     }, [selectedDate, currentRole, currentOutlet])
 
     useEffect(() => {
@@ -258,7 +92,6 @@ function ChecklistLogs() {
             {isreview &&
                 <div className='h-[10vh]'>
                     <ReviewHsitoryTask
-                        data={data[0].checklistCategory[0].tasks}
                         categoryId={categoryDetail.id}
                         taskDate={categoryDetail.date}
                         flagged={3}
@@ -286,7 +119,7 @@ function ChecklistLogs() {
                     <div className='flex items-center mb-[10px]'>
                         <div className='calender shrink-0'>
 
-                            <div className='relative'>
+                            <div className='relative flex '>
                                 <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose}>
                                     <div className="flex items-center cursor-pointer " onClick={() => { setShow(prev => !prev) }}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -298,6 +131,14 @@ function ChecklistLogs() {
                                         </div>
                                     </div>
                                 </Datepicker>
+                                {selectedDate &&
+                                    <div className="cursor-pointer ml-[3px]">
+                                        <svg width="24" className="cursor-pointer"
+                                            onClick={() => { setSelectedDate('') }}
+                                            height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="#929292"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                                        </svg>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className='input-desc flex flex-col ml-[25px]'>
