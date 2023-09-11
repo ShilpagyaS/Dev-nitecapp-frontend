@@ -295,7 +295,7 @@ function ChecklistLogs() {
                             </div>
                         </div>
                         <div className='input-desc flex flex-col ml-[25px]'>
-                            <CustomSelectForBrandsFullGray items={[...outletArray]}
+                            <CustomSelectForBrandsFullGray items={[...outletArray, { value: '', label: 'None' }]}
                                 text={'Filter By Outlet'}
                                 // defaultSelect={outletSelected ? { ...outletSelected } : null}
                                 optionalFunction={(e) => {
@@ -306,7 +306,7 @@ function ChecklistLogs() {
                                 }} />
                         </div>
                         <div className='input-desc flex flex-col ml-[25px]'>
-                            <CustomSelectForBrandsFullGray items={[...userroles]}
+                            <CustomSelectForBrandsFullGray items={[...userroles, { value: '', label: 'None' }]}
                                 text={'Filter By Role'}
                                 // defaultSelect={outletSelected ? { ...outletSelected } : null}
                                 optionalFunction={(e) => {
