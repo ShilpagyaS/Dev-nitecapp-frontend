@@ -8,7 +8,7 @@ import ConditionalButton from "../spec-comp/AdminSpecsComp/Admin-cocktails-detai
 import { emptyAllOutlet, getOutlets } from "@/store/slices/outlet";
 import { getUserRoles } from "@/store/slices/manageusers";
 import Image from "next/image";
-import { createChecklistByid, createChecklistGroup, createChecklistTask, createHistory, createSubtask, MasterAPIForupdateAndDelete } from "@/store/slices/checklist";
+import { createChecklistByid, createChecklistGroup, createChecklistTask, createHistory, createSubtask, EmptyhistoryTask, getTasksBasedonIds, MasterAPIForupdateAndDelete } from "@/store/slices/checklist";
 import { successtoast } from "../tostify";
 import { DescriptionTextAreaGrayWintBorder } from "@/utils/Cards/Text card/DescriptionTextArea";
 import ReviewCard from "@/utils/ReviewCard";
@@ -1468,6 +1468,168 @@ export function ReviewSubtaskTask({ isModalOpen, onClickCancel, onSave, deleteBt
                 </div>
 
             </div>
+
+        </Modal >
+    )
+}
+export function ReviewHsitoryTask({ isModalOpen, onClickCancel, onSave, structuredata, title, notes, completed, flagged, data, isAdmin, categoryId, taskDate }) {
+    const isMobile = useMediaQuery("(max-width: 414px)");
+    const customStyles = {
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "8px",
+            border: "none",
+            background: "black",
+            padding: `${isMobile ? '10px' : '24px'}`,
+            // maxWidth: "580px",
+            width: `${isMobile ? '90%' : '70%'}`,
+        },
+        overlay: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(2.5px)",
+        },
+    };
+    const dispatch = useDispatch()
+    const textAreaRef = useRef()
+    const { tasks } = useSelector(state => state.checklist)
+    const [task, setTask] = useState([])
+    const [count, setCount] = useState({
+        checked: 0,
+        flagged: 0
+    })
+    useEffect(() => {
+        dispatch(getTasksBasedonIds(categoryId, taskDate))
+
+        return () => {
+            dispatch(EmptyhistoryTask())
+        }
+    }, [])
+    useEffect(() => {
+        if (tasks) {
+            console.log('task', tasks.checklist_tasks);
+            if (tasks?.checklist_tasks?.length > 0) {
+                console.log('checklist', tasks.checklist_tasks);
+                setTask([...tasks.checklist_tasks])
+            }
+        }
+    }, [tasks])
+    useEffect(() => {
+        let localcheck = 0
+        let localFlag = 0
+        task.forEach(element => {
+            if (element.isCompleted) { localcheck = localcheck + 1 }
+            if (element.isFlag) { localFlag = localFlag + 1 }
+        });
+        console.log(localcheck);
+        console.log(localFlag);
+        setCount({
+            checked: localcheck,
+            flagged: localFlag
+        })
+    }, [task])
+
+    const router = useRouter()
+    const handleCancel = () => {
+        onClickCancel();
+
+
+    };
+
+    const handleSave = () => {
+
+        dispatch(createHistory(
+            {
+                ...structuredata
+            }, structuredata.type_id, structuredata.date)).then((res) => {
+
+
+                onClickCancel()
+                successtoast({ message: 'Successfully Submitted' })
+                router.push('/checklists')
+
+            })
+
+
+    };
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+            style={customStyles}
+        >
+            <div className="flex justify-between mb-4">
+                <h2 className="text-white text-[25px] font-[600]">Review Tasks
+                    {
+                        isAdmin && <span className="font-[400] italic text-[#959595]">{`  (${title})`}</span>
+                    }
+                </h2>
+                <div className="cursor-pointer">
+                    <svg width="24" className="cursor-pointer"
+                        onClick={onClickCancel}
+                        height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div className='min-h-[170px] max-h-[350px] h-full w-full pr-[15px] notificationModal' >
+                {!isMobile ?
+                    <div className="w-full flex items-center justify-center my-[20px]">
+                        <div className=" mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Total Tasks</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent">{task.length}</h3>
+                        </div>
+                        <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Completed</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent">{count.checked}</h3>
+                        </div>
+                        <div className="mx-[25px] flex items-center flex-col px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Flagged</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent">{count.flagged}</h3>
+                        </div>
+
+                    </div>
+                    : <div className="w-full flex flex-col items-start justify-center my-[20px]">
+                        <div className=" m-[10px] mr-[15px] w-full flex items-center justify-center px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                            <h3 className="text-[16px] text-white bg-transparent">Total Tasks</h3>
+                            <h3 className="text-primary-base text-[16px] bg-transparent ml-[10px]">{task.length}</h3>
+                        </div>
+                        <div className="flex items-center justify-between w-full">
+                            <div className=" m-[10px] w-full flex items-center px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                                <h3 className="text-[16px] text-white bg-transparent">Completed</h3>
+                                <h3 className="text-primary-base text-[16px] bg-transparent ml-[10px]">{count.checked}</h3>
+                            </div>
+                            <div className="ml-[10px] my-[10px] flex w-full items-center px-[20px] py-[10px] rounded-[5px] bg-[#141414] border border-[#212121]">
+                                <h3 className="text-[16px] text-white bg-transparent">Flagged</h3>
+                                <h3 className="text-primary-base text-[16px] bg-transparent ml-[10px]">{count.flagged}</h3>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <ReviewCard tasks={task} />
+                <h3 className='text-primary-base text-[18px] font-[600] not-italic mb-[7px] px-[15px] '>Notes</h3>
+                <div className='w-full px-[15px]'>
+
+                    <div className="text-white whitespace-pre-wrap	 border border-[#363636] rounded-[7px] bg-[#101010] w-full py-2 px-4 ">
+                        {tasks.comment || 'No comments'}
+                    </div>
+                </div>
+
+            </div>
+            {!isAdmin &&
+                <div className='btncontainers flex items-center justify-between mt-[10px] '>
+                    <p className='not-italic font-medium text-base leading-6 font-Inter text-primary-base cursor-pointer' onClick={handleCancel}>Edit </p>
+                    <div className='ml-[24px]'>
+                        <ConditionalButton label={'Submit'} condition={true} onClickHandler={handleSave} />
+                    </div>
+
+                </div>
+            }
 
         </Modal >
     )

@@ -156,7 +156,7 @@ function NewChecklistListComponent() {
 
                                                                 })
                                                             }}
-                                                            title={checklist.title}
+                                                            title={checklist.title} 
                                                             type='checklist'
                                                             isprogressBar={true}
                                                             categoryid={checklist.checklist_category_id}

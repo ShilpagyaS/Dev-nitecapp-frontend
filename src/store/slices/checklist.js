@@ -7,7 +7,9 @@ import moment from "moment/moment";
 const initialState = {
     checklist: [],
     tasks: [],
-    userRoleId: ''
+    userRoleId: '',
+    historySection: { count: 0, data: [] },
+    historyTasks: [],
 
 };
 
@@ -24,14 +26,25 @@ export const checklistSlice = createSlice({
         setRole: (state, action) => {
             state.userRoleId = action.payload
         },
-
+        getHistroy: (state, action) => {
+            state.historySection = action.payload
+        },
+        getHistroyTask: (state, action) => {
+            state.historyTasks = action.payload
+        },
         emptyAllChecklist: (state) => {
             state.checklist = []
             state.tasks = []
+            state.historySection = []
 
         },
         emptyUserRole: (state) => {
             state.userRoleId = ''
+
+        },
+        emptyHistoryTask: (state) => {
+            state.tasks = []
+            state.historyTasks = []
 
         }
     },
@@ -66,6 +79,31 @@ export const getChecklists = () => {
         });
     };
 }
+export const gethistory = ({ currentPage, pageSize, selectedDate, currentOutlet, currentRole }) => {
+    return async (dispatch, getState) => {
+        let data = {
+            limit: pageSize,
+            offset: (currentPage - 1) * pageSize,
+            ...(selectedDate ? { date: moment(selectedDate).format("YYYY-MM-DD") } : {}),
+            ...(currentOutlet ? { outlet_id: currentOutlet } : {}),
+            ...(currentRole ? { user_role_id: currentRole } : {})
+        }
+        const state = getState();
+        axiosInstance({
+            url: `/api/checklist/get_admin_side_checklist_history`,
+            method: "POST",
+            data
+        }).then((res) => {
+            console.log("response in product,js 47", res);
+            debugger
+            dispatch(
+                checklistSlice.actions.getHistroy(res.data?.data)
+            );
+        }).catch((err) => {
+            console.log(err)
+        });
+    };
+}
 export const getTasksBasedonIds = (id, date = '2023-09-01') => {
     return async (dispatch, getState) => {
         const state = getState();
@@ -76,6 +114,9 @@ export const getTasksBasedonIds = (id, date = '2023-09-01') => {
             console.log("response in product,js 47", res);
             dispatch(
                 checklistSlice.actions.getTasks(res.data?.data)
+            );
+            dispatch(
+                checklistSlice.actions.getHistroyTask(res.data?.data)
             );
         }).catch((err) => {
             console.log(err)
@@ -270,6 +311,15 @@ export const EmptyUserRoleID = () => {
 
         dispatch(
             checklistSlice.actions.emptyUserRole()
+        );
+
+    };
+}
+export const EmptyhistoryTask = () => {
+    return async (dispatch, getState) => {
+
+        dispatch(
+            checklistSlice.actions.emptyHistoryTask()
         );
 
     };

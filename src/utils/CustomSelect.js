@@ -229,9 +229,9 @@ export function CustomSelectForBrandsFullGray({ items, optionalFunction, default
 
 
   return (
-    <div className="relative min-w-[300px] w-full h-[50px]">
+    <div className="relative min-w-[250px] lg:min-w-[300px] w-full h-[50px]">
       <button
-        className="w-full py-[8px] pl-[28px] pr-[28px] text-white bg-[#2C2C2C] border border-[#2C2C2C] rounded shadow-sm capitalize outline-none appearance-none not-italic font-normal text-base leading-6 font-Inter inline-flex items-center justify-between"
+        className="w-full py-[8px] px-[14px] sm:pl-[28px] sm:pr-[28px] text-white bg-[#2C2C2C] border border-[#2C2C2C] rounded shadow-sm capitalize outline-none appearance-none not-italic font-normal text-[13px] sm:text-base leading-6 font-Inter text-left inline-flex items-center justify-between"
         onClick={handleToggleDropdown}
       >
         {selectedItem ? selectedItem.label : <span className='text-[#767676] bg-transparent'>
@@ -249,7 +249,7 @@ export function CustomSelectForBrandsFullGray({ items, optionalFunction, default
           {items.map((item) => (
             <li key={item.value}>
               <button
-                className={`w-full capitalize not-italic font-normal text-base leading-6 text-[#767676] text-left p-[10px] pl-[19px] ${selectedItem?.value === item.value
+                className={`w-full capitalize not-italic font-normal text-[13px] sm:text-base leading-6 text-[#767676] text-left p-[10px] pl-[19px] ${selectedItem?.value === item.value
                   ? 'bg-[#2C2C2C] '
                   : 'bg-[#2C2C2C] hover:bg-gray-100'
                   }`}

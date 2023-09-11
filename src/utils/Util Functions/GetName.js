@@ -15,5 +15,17 @@ function GetName(userName, date) {
         `${NameString} (${FormatedDate}) ${FormatedTime}`
     )
 }
-
+export function GetNameOnly(userName) {
+    let NameArray = userName.split(' ')
+    let NameString
+    if (NameArray.length > 1) {
+        NameString = `${NameArray[0]} ${NameArray[1][0]}.`
+    }
+    else {
+        NameString = `${NameArray[0]}`
+    }
+    return (
+        `${NameString}`
+    )
+}
 export default GetName

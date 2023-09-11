@@ -1,7 +1,10 @@
-import { ReviewTaskUser } from '@/components/modal/ChecklistModals'
+import { ReviewHsitoryTask, ReviewTaskUser } from '@/components/modal/ChecklistModals'
+import Pagination from '@/components/pagination'
+import { gethistory } from '@/store/slices/checklist'
 import { getUserRoles } from '@/store/slices/manageusers'
 import { getOutlets } from '@/store/slices/outlet'
 import { CustomSelectForBrandsFullGray } from '@/utils/CustomSelect'
+import { GetNameOnly } from '@/utils/Util Functions/GetName'
 import moment from 'moment/moment'
 import React, { useRef, useState } from 'react'
 import { useEffect } from 'react'
@@ -35,9 +38,12 @@ const options = {
     language: "en",
 }
 function ChecklistLogs() {
-    const list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const pageSize = 10
+    const [currentPage, setcurrentPage] = useState(1)
+
     const [show, setShow] = useState(false)
     const [selectedDate, setSelectedDate] = useState('')
+    const [currentRole, setCurrentRole] = useState(null)
     const handleChange = (selectedDate) => {
         setSelectedDate(selectedDate)
         console.log(selectedDate)
@@ -45,184 +51,34 @@ function ChecklistLogs() {
     const handleClose = (state) => {
         setShow(state)
     }
-    const [data, setdata] = useState(
-        [
-            {
-                user: 'Bartender',
-                checklistCategory: [
-                    {
-                        title: 'Bartender Opening Checklist',
-                        tasks: [
-                            {
-                                title: 'Set out chairs',
-                                isCompleted: false,
-                                isFlag: true,
-                                checklist_sub_tasks: [
-                                    {
-                                        title: 'Right Chair',
-                                        isCompleted: true,
-                                        isFlag: false
-                                    },
-                                    {
-                                        title: 'Left Chair',
-                                        isCompleted: true,
-                                        isFlag: false
-                                    },
-                                    {
-                                        title: 'Central Chair',
-                                        isCompleted: true,
-                                        isFlag: false
-                                    },
-
-                                ]
-                            },
-                            {
-                                title: 'Take clean glassware from dishwasher and set out',
-                                isCompleted: true,
-                                isFlag: false
-                            },
-                            {
-                                title: 'Set out floor mats',
-                                isCompleted: true,
-                                isFlag: false,
-                            },
-                            {
-                                title: 'Set out bar tools & Equipment',
-                                isCompleted: true,
-                                isFlag: false,
-                            },
-                        ]
-
-                    },
-                    {
-                        title: 'Bartender Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-
-                    },
-                ]
-            },
-            {
-                user: 'Housekeeper',
-                checklistCategory: [
-                    {
-                        title: 'Housekeeper Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Housekeeper Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                ]
-            },
-            {
-                user: 'Manager',
-                checklistCategory: [
-                    {
-                        title: 'Manager Opening Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                    {
-                        title: 'Manager Closing Checklist',
-                        tasks: [
-                            {
-                                task: 'Set out chairs2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Take clean glassware from dishwasher and set out2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out floor mats2',
-                                isChecked: false
-                            },
-                            {
-                                task: 'Set out bar tools & Equipment2',
-                                isChecked: false
-                            },
-                        ]
-                    },
-                ]
-            },
-        ])
     const [isreview, setReview] = useState(false)
     const { outlets } = useSelector((state) => state.outlets)
+    const { historySection } = useSelector((state) => state.checklist)
     const [outletArray, setOutletArray] = useState([])
+    const [currentOutlet, setCurrentOutlet] = useState(null)
     const dispatch = useDispatch()
     const [userroles, setUserRoles] = useState([])
+    const [categoryDetail, setCategoryDetail] = useState(null)
     useEffect(() => {
         dispatch(getOutlets())
+
         dispatch(getUserRoles()).then((res) => { setUserRoles(res) })
 
     }, [])
+
+    useEffect(() => {
+
+        dispatch(gethistory({ currentPage, pageSize, selectedDate, currentOutlet, currentRole }))
+    }, [currentPage])
+
+    useEffect(() => {
+        if (selectedDate || currentRole || currentOutlet)
+            dispatch(gethistory({ currentPage: 1, pageSize, selectedDate, currentOutlet, currentRole }))
+        if (!selectedDate && !currentRole && !currentOutlet)
+            dispatch(gethistory({ currentPage: 1, pageSize, selectedDate, currentOutlet, currentRole }))
+
+    }, [selectedDate, currentRole, currentOutlet])
+
     useEffect(() => {
         if (outlets.length > 0) {
             let outletss = outlets.map((e) => { return { value: e.outlet_id, label: e.outlet_name } })
@@ -232,22 +88,25 @@ function ChecklistLogs() {
     }, [outlets])
 
     return (
-        <>
+        <div className='flex flex-col h-full '>
             {isreview &&
-                <ReviewTaskUser
-                    data={data[0].checklistCategory[0].tasks}
-                    flagged={3}
-                    completed={1}
-                    notes={'dummy Notes'}
-                    isModalOpen={isreview}
-                    onClickCancel={() => { setReview(false) }}
-                    title={'Bartender Opening List'}
-                    // title={title}
-                    isAdmin={true}
-                    onSave={() => { onClickCancel() }}
-                />
+                <div className='h-[10vh]'>
+                    <ReviewHsitoryTask
+                        categoryId={categoryDetail.id}
+                        taskDate={categoryDetail.date}
+                        flagged={3}
+                        completed={1}
+                        notes={'dummy Notes'}
+                        isModalOpen={isreview}
+                        onClickCancel={() => { setReview(false) }}
+                        title={categoryDetail.title}
+                        // title={title}
+                        isAdmin={true}
+                        onSave={() => { onClickCancel() }}
+                    />
+                </div>
             }
-            <div>
+            <div className='flex-auto '>
                 <div className='flex items-center justify-between'>
                     <div className="flex items-center mb-[10px] mt-[10px]">
 
@@ -260,7 +119,7 @@ function ChecklistLogs() {
                     <div className='flex items-center mb-[10px]'>
                         <div className='calender shrink-0'>
 
-                            <div className='relative'>
+                            <div className='relative flex '>
                                 <Datepicker options={options} onChange={handleChange} show={show} setShow={handleClose}>
                                     <div className="flex items-center cursor-pointer " onClick={() => { setShow(prev => !prev) }}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -272,25 +131,37 @@ function ChecklistLogs() {
                                         </div>
                                     </div>
                                 </Datepicker>
+                                {selectedDate &&
+                                    <div className="cursor-pointer ml-[3px]">
+                                        <svg width="24" className="cursor-pointer"
+                                            onClick={() => { setSelectedDate('') }}
+                                            height="24" viewBox="0 0 24 24" focusable="false" class=" NMm5M" fill="#929292"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                                        </svg>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className='input-desc flex flex-col ml-[25px]'>
-                            <CustomSelectForBrandsFullGray items={[...outletArray]}
+                            <CustomSelectForBrandsFullGray items={[...outletArray, { value: '', label: 'None' }]}
                                 text={'Filter By Outlet'}
                                 // defaultSelect={outletSelected ? { ...outletSelected } : null}
                                 optionalFunction={(e) => {
                                     console.log(e);
+                                    setCurrentOutlet(e.value)
                                     // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
                                     // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
                                     // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
                                 }} />
                         </div>
                         <div className='input-desc flex flex-col ml-[25px]'>
-                            <CustomSelectForBrandsFullGray items={[...userroles]}
+                            <CustomSelectForBrandsFullGray items={[...userroles, { value: '', label: 'None' }]}
                                 text={'Filter By Role'}
                                 // defaultSelect={outletSelected ? { ...outletSelected } : null}
                                 optionalFunction={(e) => {
                                     console.log(e);
+                                    setCurrentRole(e.value)
+
+
                                     // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
                                     // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
                                     // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
@@ -333,9 +204,15 @@ function ChecklistLogs() {
                     </div>
                 </div>
                 {
-                    list.map((x, i) =>
+                    historySection?.data?.map((x, i) =>
                         <div className='grid grid-cols-12 bg-transparent border border-x-0 border-t-0 border-b-[#161616] rounded-lg p-2 mb-[10px] hover:bg-[#222222] hover:border-white hover:border cursor-pointer'
-                            onClick={() => { setReview(true) }}
+                            onClick={() => {
+                                setCategoryDetail({
+                                    id: x.checklist_category_id,
+                                    date: moment(x.updatedAt).format('YYYY-MM-DD'),
+                                    title: x.checklist_category_name
+                                }); setReview(true)
+                            }}
                         >
                             <div className='col-span-3 flex items-center justify-start bg-transparent pl-[10px]'>
                                 <div className='w-[16px] h-[16px] mr-[10px] text-white bg-transparent flex items-center justify-center'>
@@ -345,34 +222,43 @@ function ChecklistLogs() {
 
                                 </div> */}
                                 <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    Bartender Opening List (4/5)
+                                    {`${x.checklist_category_name} (${x.total_task})`}
                                 </h3>
                             </div>
                             <div className='col-span-2 flex items-center justify-center bg-transparent'>
                                 <h3 className='text-white font-semibold truncate rounded-[4px] not-italic text-[14px] bg-primary-base py-[2px] px-[8px] '>
-                                    The Delphi Cafe Coffee | Tea
+                                    {x.checklist_name}
                                 </h3>
                             </div>
                             <div className='col-span-2 flex items-center justify-center bg-transparent'>
                                 <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    Server
+                                    {x.role}
                                 </h3>
                             </div>
                             <div className='col-span-2 flex items-center justify-center bg-transparent'>
-                                <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    Shubham Namdev
+                                <h3 className='text-white capitalize font-normal not-italic text-[14px] bg-transparent'>
+                                    {GetNameOnly(x.submitted_by)}
                                 </h3>
                             </div>
                             <div className='col-span-3 flex items-center justify-center bg-transparent'>
                                 <h3 className='text-white font-normal not-italic text-[14px] bg-transparent'>
-                                    08/12/2023 (10:24 AM)
+                                    {`${moment(x.updatedAt).format('L')} (${moment(x.updatedAt).format('LT')})`}
                                 </h3>
                             </div>
                         </div>
                     )
                 }
             </div>
-        </>
+            <div className='w-full flex justify-center h-[60px]'>
+                <Pagination
+                    totalelements={historySection.count}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    setcurrentPage={setcurrentPage}
+                />
+            </div>
+
+        </div>
     )
 }
 
