@@ -14,7 +14,7 @@ function CheckListdescpage({ id, title }) {
     const [globaldata, setGlobalData] = useState(null)
     const [reset, isReset] = useState(false)
     const [resetModal, setresetModal] = useState(false)
-    const { tasks } = useSelector(state => state.checklist)
+    const { tasks, userRoleId } = useSelector(state => state.checklist)
     const [task, setTask] = useState([])
     const dispatch = useDispatch()
     useEffect(() => {
@@ -57,6 +57,7 @@ function CheckListdescpage({ id, title }) {
                 type: 'checklist_task',
                 type_id: taskid,
                 category_id: id,
+                user_role_id: userRoleId,
                 date: moment().format("YYYY-MM-DD"),
                 title: dummy2[taskindex].title,
                 isCompleted: ischeckedStatus
@@ -83,6 +84,7 @@ function CheckListdescpage({ id, title }) {
                 type: 'checklist_task',
                 type_id: taskid,
                 category_id: id,
+                user_role_id: userRoleId,
                 date: moment().format("YYYY-MM-DD"),
                 title: dummy2[taskindex].title,
                 isFlag: ischeckedStatus,
@@ -133,6 +135,7 @@ function CheckListdescpage({ id, title }) {
                 category_id: id,
                 date: moment().format("YYYY-MM-DD"),
                 title: subtaskTitle,
+                user_role_id: userRoleId,
                 isCompleted: ischeckedStatus
             }, id, moment().format("YYYY-MM-DD")))
 
@@ -180,6 +183,7 @@ function CheckListdescpage({ id, title }) {
                 date: moment().format("YYYY-MM-DD"),
                 title: subtaskTitle,
                 category_id: id,
+                user_role_id: userRoleId,
                 isFlag: ischeckedStatus,
                 isCompleted: false
             }, id, moment().format("YYYY-MM-DD")))
@@ -237,6 +241,7 @@ function CheckListdescpage({ id, title }) {
                         type: 'checklist_category',
                         type_id: id,
                         category_id: id,
+                        user_role_id: userRoleId,
                         title: title,
                         date: moment().format("YYYY-MM-DD"),
                         comment: textAreaRef.current.value,
@@ -315,6 +320,7 @@ function CheckListdescpage({ id, title }) {
                                 type: 'checklist_category',
                                 type_id: id,
                                 category_id: id,
+                                user_role_id: userRoleId,
                                 title: title,
                                 date: moment().format("YYYY-MM-DD"),
                                 comment: e,

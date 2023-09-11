@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 
-function NewCheckListAccordian({ title, content, type, completed, inProgress, defaultvalue, onOpenfuncObj, tasks, categoryid, isprogressBar, progress }) {
+function NewCheckListAccordian({ title, content, onClickFunction, type, completed, inProgress, defaultvalue, onOpenfuncObj, tasks, categoryid, isprogressBar, progress }) {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter()
     const toggleAccordion = () => {
@@ -39,7 +39,7 @@ function NewCheckListAccordian({ title, content, type, completed, inProgress, de
                     </div>
                 }
                 {type == 'checklist' &&
-                    <div className='flex shrink-0 items-center cursor-pointer justify-between bg-transparent w-full flex-wrap' onClick={(e) => { e.stopPropagation(); router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>
+                    <div className='flex shrink-0 items-center cursor-pointer justify-between bg-transparent w-full flex-wrap' onClick={(e) => { e.stopPropagation(); onClickFunction(); router.push(`/checklists/${enUrl(title)}?id=${categoryid}`) }}>
 
 
 

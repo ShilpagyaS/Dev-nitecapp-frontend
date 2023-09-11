@@ -1,5 +1,5 @@
 import ChecklistDisplay from '@/components/Checkbox/checklistDisplay';
-import { emptyAllChecklist, FilterData, getChecklists } from '@/store/slices/checklist';
+import { emptyAllChecklist, FilterData, getChecklists, setUserRolid } from '@/store/slices/checklist';
 import { getUserRoles } from '@/store/slices/manageusers';
 import { getOutlets } from '@/store/slices/outlet';
 import NewCheckListAccordian from '@/utils/Accordian/New Cheklist Accordian/NewCheckListAccordian';
@@ -156,6 +156,10 @@ function CheckList() {
                                                     inProgress={checklist.isCompleted == 'in-progress' ? true : false}
                                                     tasks={checklist.taskCount}
                                                     progress={20}
+                                                    onClickFunction={() => {
+                                                        dispatch(setUserRolid(dataelement.user_role_id))
+
+                                                    }}
                                                 // content={
                                                 //     <NewChecklistDisplay tasks={checklist.tasks} onflagged={(taskindex, ischeckedStatus) => { flagcheckbox(i, ci, taskindex, ischeckedStatus) }} onClickCheck={(taskindex, ischeckedStatus) => { checkboxClick(i, ci, taskindex, ischeckedStatus) }} onCompleted={() => { onClearAllClick(i, ci) }} />
                                                 // }

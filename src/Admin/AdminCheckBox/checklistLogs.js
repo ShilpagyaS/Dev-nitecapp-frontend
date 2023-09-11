@@ -38,7 +38,7 @@ const options = {
     language: "en",
 }
 function ChecklistLogs() {
-    const pageSize = 6
+    const pageSize = 10
     const [currentPage, setcurrentPage] = useState(1)
 
     const [show, setShow] = useState(false)
