@@ -44,7 +44,7 @@ function ChecklistLogs() {
 
     const [show, setShow] = useState(false)
     const [selectedDate, setSelectedDate] = useState('')
-
+    const [currentRole, setCurrentRole] = useState(null)
     const handleChange = (selectedDate) => {
         setSelectedDate(selectedDate)
         console.log(selectedDate)
@@ -224,6 +224,7 @@ function ChecklistLogs() {
     const { outlets } = useSelector((state) => state.outlets)
     const { historySection } = useSelector((state) => state.checklist)
     const [outletArray, setOutletArray] = useState([])
+    const [currentOutlet, setCurrentOutlet] = useState(null)
     const dispatch = useDispatch()
     const [userroles, setUserRoles] = useState([])
     const [categoryDetail, setCategoryDetail] = useState(null)
@@ -235,9 +236,14 @@ function ChecklistLogs() {
     }, [])
 
     useEffect(() => {
-        dispatch(gethistory(currentPage, pageSize))
+
+        dispatch(gethistory({ currentPage, pageSize, selectedDate, currentOutlet, currentRole }))
     }, [currentPage])
 
+    useEffect(() => {
+        if (selectedDate || currentRole || currentOutlet)
+            dispatch(gethistory({ currentPage: 1, pageSize, selectedDate, currentOutlet, currentRole }))
+    }, [selectedDate, currentRole, currentOutlet])
 
     useEffect(() => {
         if (outlets.length > 0) {
@@ -300,6 +306,7 @@ function ChecklistLogs() {
                                 // defaultSelect={outletSelected ? { ...outletSelected } : null}
                                 optionalFunction={(e) => {
                                     console.log(e);
+                                    setCurrentOutlet(e.value)
                                     // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
                                     // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
                                     // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))
@@ -311,6 +318,9 @@ function ChecklistLogs() {
                                 // defaultSelect={outletSelected ? { ...outletSelected } : null}
                                 optionalFunction={(e) => {
                                     console.log(e);
+                                    setCurrentRole(e.value)
+
+
                                     // setDrinkBrand({ brand_id: e.value, brand_name: e.label })
                                     // setCurrentHotelMappingId(e?.body[`${subcategory}_id`])
                                     // dispatch(getProductById(subcategory, e?.body[`${subcategory}_id`]))

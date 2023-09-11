@@ -79,11 +79,14 @@ export const getChecklists = () => {
         });
     };
 }
-export const gethistory = (pageNo, limit) => {
+export const gethistory = ({ currentPage, pageSize, selectedDate, currentOutlet, currentRole }) => {
     return async (dispatch, getState) => {
         let data = {
-            limit: limit,
-            offset: (pageNo - 1) * limit
+            limit: pageSize,
+            offset: (currentPage - 1) * pageSize,
+            ...(selectedDate ? { date: moment(selectedDate).format("YYYY-MM-DD") } : {}),
+            ...(currentOutlet ? { outlet_id: currentOutlet } : {}),
+            ...(currentRole ? { user_role_id: currentRole } : {})
         }
         const state = getState();
         axiosInstance({
