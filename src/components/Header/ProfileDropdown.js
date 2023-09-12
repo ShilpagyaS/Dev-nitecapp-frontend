@@ -30,7 +30,7 @@ export default function ProfileDropdown(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-4 w-56 origin-top-right divide-y  rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="z-10 absolute right-0 mt-4 w-56 origin-top-right divide-y  rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-2 py-2 border  border-gray-600 rounded-lg float-right min-w-[230px]">
               <Menu.Item >
                 <Link className="cursor-pointer" href={"/user_profile"}>
