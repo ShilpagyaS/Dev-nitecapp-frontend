@@ -46,6 +46,7 @@ function CheckListdescpage({ id, title }) {
             if (i3 == taskindex)
                 return {
                     ...taskElement,
+                    isFlag: false,
                     isCompleted: ischeckedStatus
                 }
             else
@@ -60,7 +61,8 @@ function CheckListdescpage({ id, title }) {
                 user_role_id: userRoleId,
                 date: moment().format("YYYY-MM-DD"),
                 title: dummy2[taskindex].title,
-                isCompleted: ischeckedStatus
+                isCompleted: ischeckedStatus,
+                isFlag: false,
             }, id, moment().format("YYYY-MM-DD")))
 
     }
@@ -104,7 +106,8 @@ function CheckListdescpage({ id, title }) {
                         if (i4 == subtaskIndex) {
                             return {
                                 ...subtask,
-                                isCompleted: ischeckedStatus
+                                isCompleted: ischeckedStatus,
+                                isFlag: false,
                             }
                         }
                         else {
@@ -118,15 +121,15 @@ function CheckListdescpage({ id, title }) {
         })
         let dummy3 = dummy2[taskindex].checklist_sub_tasks.filter(ele => ele.isCompleted)
 
-        if (dummy3.length == dummy2[taskindex].checklist_sub_tasks.length && dummy2[taskindex].isFlag == false) {
-            dummy2[taskindex].isCompleted = true
-            checkboxClick(0, 0, taskindex, true, taskid)
-        }
-        if (dummy3.length !== dummy2[taskindex].checklist_sub_tasks.length && dummy2[taskindex].isCompleted == true && dummy2[taskindex].isFlag == false) {
-            dummy2[taskindex].isCompleted = false
-            checkboxClick(0, 0, taskindex, false, taskid)
-        }
-
+        // if (dummy3.length == dummy2[taskindex].checklist_sub_tasks.length && dummy2[taskindex].isFlag == false) {
+        //     dummy2[taskindex].isCompleted = true
+        //     checkboxClick(0, 0, taskindex, true, taskid)
+        // }
+        // if (dummy3.length !== dummy2[taskindex].checklist_sub_tasks.length && dummy2[taskindex].isCompleted == true && dummy2[taskindex].isFlag == false) {
+        //     dummy2[taskindex].isCompleted = false
+        //     checkboxClick(0, 0, taskindex, false, taskid)
+        // }
+        CommonFunction('check', dummy2[taskindex].checklist_sub_tasks, taskindex, taskid)
         setTask([...dummy2])
         dispatch(createHistory(
             {
@@ -136,7 +139,8 @@ function CheckListdescpage({ id, title }) {
                 date: moment().format("YYYY-MM-DD"),
                 title: subtaskTitle,
                 user_role_id: userRoleId,
-                isCompleted: ischeckedStatus
+                isCompleted: ischeckedStatus,
+                isFlag: false,
             }, id, moment().format("YYYY-MM-DD")))
 
 
@@ -166,15 +170,17 @@ function CheckListdescpage({ id, title }) {
             else
                 return { ...taskElement }
         })
-        let dummy3 = dummy2[taskindex].checklist_sub_tasks.filter(ele => ele.isFlag)
-        if (dummy3.length > 0) {
-            dummy2[taskindex].isFlag = true
-            flagcheckbox(0, 0, taskindex, true, taskid)
-        }
-        if (dummy3.length == 0 && dummy2[taskindex].isFlag) {
-            dummy2[taskindex].isFlag = false
-            flagcheckbox(0, 0, taskindex, false, taskid)
-        }
+        // let dummy3 = dummy2[taskindex].checklist_sub_tasks.filter(ele => ele.isFlag)
+        // if (dummy3.length > 0) {
+        //     dummy2[taskindex].isFlag = true
+        //     flagcheckbox(0, 0, taskindex, true, taskid)
+        // }
+        // if (dummy3.length == 0 && dummy2[taskindex].isFlag) {
+        //     dummy2[taskindex].isFlag = false
+        //     flagcheckbox(0, 0, taskindex, false, taskid)
+        // }
+        CommonFunction('flag', dummy2[taskindex].checklist_sub_tasks, taskindex, taskid)
+
         setTask([...dummy2])
         dispatch(createHistory(
             {
@@ -217,6 +223,58 @@ function CheckListdescpage({ id, title }) {
         }, 100);
 
     }
+    function CommonFunction(action, dummyArray, taskindex, taskid) {
+        let checkEdCount = 0
+        let FlaggedCount = 0
+
+        dummyArray.map((ele) => {
+            if (ele.isCompleted)
+                checkEdCount++
+            if (ele.isFlag)
+                FlaggedCount++
+        })
+        debugger
+        if (action == 'check') {
+            if (checkEdCount == dummyArray.length) {
+                checkboxClick(0, 0, taskindex, true, taskid)
+
+            }
+            else {
+                if (checkEdCount < dummyArray.length && checkEdCount + FlaggedCount == dummyArray.length) {
+                    flagcheckbox(0, 0, taskindex, true, taskid)
+
+                }
+                if (checkEdCount < dummyArray.length && checkEdCount + FlaggedCount < dummyArray.length) {
+                    checkboxClick(0, 0, taskindex, false, taskid)
+
+                }
+
+            }
+        }
+        if (action == 'flag') {
+            if (FlaggedCount == dummyArray.length) {
+                flagcheckbox(0, 0, taskindex, true, taskid)
+
+            }
+            else {
+                if (FlaggedCount < dummyArray.length && checkEdCount + FlaggedCount == dummyArray.length) {
+                    flagcheckbox(0, 0, taskindex, true, taskid)
+
+                }
+                if (FlaggedCount < dummyArray.length && checkEdCount + FlaggedCount < dummyArray.length) {
+                    flagcheckbox(0, 0, taskindex, false, taskid)
+
+                }
+
+            }
+        }
+    }
+
+
+
+
+
+
     return (
         <>
             {Addcomment &&
