@@ -158,9 +158,8 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, isCompleted, setP
                                 {!isMobile ?
                                     <div className='rounded-[10px] flex justify-between w-full h-full my-[10px] px-[12px] bg-[#191919] cursor-pointer duration-200 border border-white transition-all'
 
-                                        onClick={() => {
-                                            //  onClickCheck(i, true)
-                                        }}>
+                                        onClick={() => { if (task?.checklist_sub_tasks?.length < 1) { onClickCheck(i, true, task.checklist_task_id) } }}>
+
                                         <div className='flex items-center sm:my-[12px] my-[8px] bg-transparent'>
 
                                             <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
@@ -211,9 +210,8 @@ function NewChecklistDisplay({ tasks, onClickCheck, onflagged, isCompleted, setP
                                     :
                                     <div className='rounded-[10px] flex flex-col justify-between w-full h-full my-[10px] px-[12px] bg-[#191919] cursor-pointer duration-200 border border-white transition-all'
 
-                                        onClick={() => {
-                                            //  onClickCheck(i, true)
-                                        }}>
+                                        onClick={() => { if (task?.checklist_sub_tasks?.length < 1) { onClickCheck(i, true, task.checklist_task_id) } }}>
+
                                         <div className='flex items-center sm:my-[12px] my-[8px] bg-transparent'>
 
                                             <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
@@ -502,10 +500,8 @@ function NewSubtaskList({ tasks, onClickCheck, onCompleted, onCommentClicked, on
                             <>
                                 {!isMobile ?
                                     <div className='rounded-[10px] flex justify-between w-full h-full my-[10px] px-[12px] bg-[#191919] cursor-pointer duration-200 border border-white transition-all'
+                                        onClick={() => { onClickCheck(i, true, task.checklist_sub_task_id, task.title) }}>
 
-                                        onClick={() => {
-                                            //  onClickCheck(i, true)
-                                        }}>
                                         <div className='flex items-center sm:my-[12px] my-[8px] bg-transparent'>
 
                                             <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
@@ -547,10 +543,8 @@ function NewSubtaskList({ tasks, onClickCheck, onCompleted, onCommentClicked, on
 
                                     </div> :
                                     <div className='rounded-[10px] flex flex-col justify-between w-full h-full my-[10px] px-[12px] bg-[#191919] cursor-pointer duration-200 border border-white transition-all'
+                                        onClick={() => { onClickCheck(i, true, task.checklist_sub_task_id, task.title) }}>
 
-                                        onClick={() => {
-                                            //  onClickCheck(i, true)
-                                        }}>
                                         <div className='flex items-center sm:my-[12px] my-[8px] bg-transparent'>
 
                                             <div className='checkboxcircle shrink-0 sm:h-[18px] sm:w-[18px] h-[12px] w-[12px] rounded-full border-[1px] border-primary-base bg-[#262323]'>
