@@ -25,13 +25,15 @@ export default function Accordian({ category, subcategory, handleClose, isFeedba
                         className={`${option.id == category
                           ? "text-primary-base"
                           : "text-[#959595]"
-                          } text-[18px] leading-6 font-semibold `}
+                          } text-[18px] leading-6 font-semibold flex justify-center items-center `}
                       >
-                        <span className="flex items-baseline">
+                        <div className="mr-2"> {MenuIcon(option.name, category === option.id)}</div>
+                        <div className="flex items-baseline">
                           {" "}
-                          {MenuIcon(option.name, category === option.id)}
+
+
                           {option.name}
-                        </span>
+                        </div>
                       </Link>
                       {option.subOptions.length ? (
                         <ChevronUpIcon

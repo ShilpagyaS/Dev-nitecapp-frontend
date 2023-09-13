@@ -39,7 +39,7 @@ function SideBar({ category, subcategory, menuOptions, setCollapse, Collapse, se
                       <Link
                         href={`/${option.id}/`}
                         className={`${option.id == category ? "text-primary-base" : "text-[#959595]"
-                          } text-[18px]  font-semibold flex gap-2 `}
+                          } text-[18px]  font-semibold flex gap-2 items-center`}
                       >
                         {MenuIcon(option.name, option.id === category)} {option.name}
                       </Link>

@@ -390,7 +390,7 @@ export default function Category() {
 
 
       </AuthWrapper>
-      <ToastContainer />
+
     </>
   );
 }
