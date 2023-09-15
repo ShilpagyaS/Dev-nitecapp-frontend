@@ -3,7 +3,7 @@
 This is a starter project for a Next.js and Tailwind project. Next.js is a framework for building server-rendered React applications, and Tailwind is a utility-first CSS framework.
 
 ## Prerequisites-
-### Node.js
+### Node.js    
 ### npm or yarn
 
 ## Installation
